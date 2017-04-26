@@ -1,0 +1,74 @@
+.ui-component__notice {
+  line-height: 1.4;
+  display: table;
+  margin-bottom: 20px;
+
+  &__img {
+    font-size: 2.4rem;
+    display: table-cell;
+    width: 42px;
+    padding-right: 10px;
+
+    &:before {
+      display: block;
+      margin-top: -5px;
+      font-size: 1.5em;
+    }
+
+    &--exclamation {
+      color: $warning-color;
+      @include icon(warning);
+    }
+
+    &--error {
+      color: $error-color;
+      @include icon(warning);
+    }
+
+    /* Awaiting new DDL icons, temporary
+     * solution to flip warning exclamation mark
+     * to make it look like an information symbol
+    */
+    &--information {
+      transform: rotate(180deg);
+      transform-origin: 18px 20px;
+      -webkit-transform-origin: 18px 20px;
+      -webkit-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+      -ms-transform-origin: 18px 20px;
+
+      color: $button-blue;
+      @include icon(warning);
+    }
+
+    &--success {
+      color: $emerald-green;
+      @include icon(check_circle);
+    }
+
+    @media (max-width: $bp-mobile) {
+      display: none;
+    }
+  }
+
+  &__canvas {
+    display: block;
+    display: table-cell;
+    vertical-align: top;
+  }
+
+  &__heading, h2 {
+    margin-top: 4px;
+  }
+
+  &__para {
+    color: $midgrey5;
+    font-weight: 200;
+  }
+
+  &__error-text {
+    color: $error-color;
+    font-weight: normal;
+    margin: 0;
+  }
+}

@@ -1,0 +1,49 @@
+.ui-component__input-field {
+  display: inline-block;
+  color: $midgrey5;
+  font-size: 1.6em;
+  margin-top: 0px;
+  width: 100%;
+  background-color: $input-background;
+  border: 1px solid $input-border;
+  border-radius: 0px;
+  font-size: 1.6rem;
+  font-family: inherit;
+  letter-spacing: 0;
+  padding: 10px;
+  position: relative;
+  transition: box-shadow 0.3s;
+  width: 100%;
+  z-index: 2;
+  outline: none;
+  height: 48px;
+
+  @include placeholder {
+    color: $midgrey5;
+    font-style: italic;
+  }
+
+  &:focus {
+    border-color: $input-border2;
+    box-shadow: 0px 0px 0px 4px $input-box-shadow;
+    background-color: $white;
+
+    @include placeholder {
+      color: white;
+    }
+  }
+
+  &:disabled, &[readonly] {
+    color: #a9a9a9;
+    background: #f9f9f9;
+
+    &:focus {
+      border-color: $input-border;
+      box-shadow: none;
+    }
+  }
+
+  @media (min-width: $bp-mobile) {
+    height: 40px;
+  }
+}

@@ -1,0 +1,11 @@
+@import "./../../stylesheet";
+h1{
+  font-family: Tesco;
+  src: url("#{$assets-path}/fonts/tesco-webfont.eot");
+  src: url("#{$assets-path}/fonts/tesco-webfont.eot?#iefix") format("eot"),
+  url("#{$assets-path}/fonts/tesco-webfont.woff") format("woff"),
+  url("#{$assets-path}/fonts/tesco-webfont.ttf") format("truetype"),
+  url("#{$assets-path}/fonts/tesco-webfont.svg#tescolight") format("svg");
+  font-weight: 600;
+  font-style: normal;
+}

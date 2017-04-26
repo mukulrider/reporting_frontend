@@ -1,0 +1,69 @@
+.ui-component__link {
+  color: $link-blue;
+  font-weight: 200;
+  font-size: 1.6em;
+  text-decoration: none;
+  cursor: pointer;
+
+  span {
+    transition: border 0.3s;
+    border-bottom: 1px solid transparent;
+  }
+
+  &.ui-component__icon--chevron_right {
+    &:after {
+      font-size: 0.7em;
+      margin-left: 0.5em;
+    }
+  }
+
+  &.ui-component__icon--chevron_left {
+    &:before {
+      font-size: 0.7em;
+      margin-right: 0.5em;
+    }
+  }
+
+  &.ui-component__button {
+    color: $white;
+    text-align: center;
+    font-size: 1.8em;
+    font-weight: 600;
+    display: inline-block;
+
+    span {
+      line-height: 42px;
+    }
+
+    &:hover span {
+      border-bottom: 1px solid $white;
+      color: inherit;
+    }
+
+    @media (min-width: $bp-mobile) {
+      font-size: 1.6em;
+
+      span {
+        line-height: 36px;
+      }
+    }
+
+    &--secondary {
+      @extend .ui-component__button;
+      color: $button-blue;
+      background-color: $white;
+      border: 2px solid $button-blue;
+    }
+  }
+
+  &.ui-component__button--disabled {
+    color: $white;
+    background-color: $button-gray;
+    border: 2px solid $button-gray;
+  }
+
+  &:hover span {
+    border-bottom: 1px solid $link-blue-hover;
+    color: $link-blue-hover;
+  }
+}

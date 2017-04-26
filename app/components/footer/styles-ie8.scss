@@ -1,0 +1,34 @@
+.ui-component__footer {
+
+  &__links {
+    float: right;
+    margin-top: 6px;
+  }
+
+  &__link-item {
+    border: 0 none;
+    float: left;
+
+    &:last-child {
+      padding-right: 0;
+    }
+
+    .ui-component__link {
+      padding: 15px 0 15px 40px;
+    }
+
+    .ui-component__link:after {
+      background: none;
+    }
+  }
+
+  &--motto {
+    background-image: url("#{$assets-path}/images/footer-tagline.png");
+    background-position: left center;
+    margin: 0;
+  }
+
+  &--copyright {
+    text-align: left;
+  }
+}

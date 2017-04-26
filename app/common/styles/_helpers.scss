@@ -1,0 +1,90 @@
+/**
+ * Hide content off-screen without resorting to `display:none;`, also provide
+ * breakpoint specific hidden elements.
+ */
+@mixin accessibility {
+  border: 0 !important;
+  clip: rect(0 0 0 0) !important;
+  height: 1px !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+}
+
+.accessibility,
+.visuallyhidden {
+  @include accessibility;
+}
+
+.visibility-hidden {
+  visibility: hidden;
+}
+
+
+/**
+ * Add/remove margins
+ */
+.flush {
+  margin: 0 !important;
+}
+
+.flush--top {
+  margin-top: 0 !important;
+}
+
+.flush--right {
+  margin-right: 0 !important;
+}
+
+.flush--bottom {
+  margin-bottom: 0 !important;
+}
+
+.flush--left {
+  margin-left: 0 !important;
+}
+
+.flush--ends {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.flush--sides {
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+
+/**
+ * Add/remove paddings
+ */
+.hard {
+  padding: 0 !important;
+}
+
+.hard--top {
+  padding-top: 0 !important;
+}
+
+.hard--right {
+  padding-right: 0 !important;
+}
+
+.hard--bottom {
+  padding-bottom: 0 !important;
+}
+
+.hard--left {
+  padding-left: 0 !important;
+}
+
+.hard--ends {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.hard--sides {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}

@@ -1,0 +1,291 @@
+@font-face {
+  font-family: "tesco-icons";
+  src: url('#{$assets-path}/fonts/tesco-icons.eot');
+  src: url('#{$assets-path}/fonts/tesco-icons.eot?#iefix') format('eot'),
+       url('#{$assets-path}/fonts/tesco-icons.woff') format('woff'),
+       url('#{$assets-path}/fonts/tesco-icons.ttf') format('truetype'),
+       url('#{$assets-path}/fonts/tesco-icons.svg#tesco-icons') format('svg');
+}
+
+@mixin icon($name, $insert: before) {
+  $char: map-get((
+    arrow_left: "\e001",
+    arrow_right: "\e002",
+    checkmark: "\e003",
+    chevron_left: "\e004",
+    close_round: "\e005",
+    close_square: "\e006",
+    telephone: "\e007",
+    delivery_saver: "\e008",
+    chevron_down: "\e009",
+    download: "\e00a",
+    drinks: "\e00b",
+    facebook: "\e00c",
+    favourites: "\e00d",
+    email: "\e00e",
+    google_plus: "\e00f",
+    menu: "\e010",
+    help: "\e011",
+    home: "\e012",
+    map_marker: "\e013",
+    minus_square: "\e014",
+    mobile_phone: "\e015",
+    my_order: "\e016",
+    my_orders: "\e017",
+    pinterest: "\e018",
+    plus_square: "\e019",
+    recipes: "\e01a",
+    chevron_right: "\e01b",
+    basket_alt: "\e01c",
+    special_offers: "\e01d",
+    twitter: "\e01e",
+    user: "\e01f",
+    you_tube: "\e020",
+    basket: "\e021",
+    bin: "\e022",
+    calendar: "\e023",
+    external_link: "\e024",
+    lock: "\e025",
+    minus_round: "\e026",
+    offer_corner: "\e027",
+    ping: "\e028",
+    plus_round: "\e029",
+    pointer_chevron: "\e02a",
+    ribbon: "\e02b",
+    search: "\e02c",
+    share: "\e02d",
+    spinner: "\e02e",
+    favourite: "\e02f",
+    information: "\e030",
+    menu_alt: "\e031",
+    nutrition: "\e032",
+    switch_arrow: "\e033",
+    warning: "\e034",
+    check_circle: "\e035"
+  ), $name);
+
+  &:#{$insert} {
+    content: $char;
+    font-family: "tesco-icons";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    speak: none;
+    text-decoration: none;
+    text-transform: none;
+  }
+}
+
+.ui-component__icon--arrow_left {
+  @include icon(arrow_left);
+}
+
+.ui-component__icon--arrow_right {
+  @include icon(arrow_right, after);
+}
+
+.ui-component__icon--checkmark {
+  @include icon(checkmark);
+}
+
+.ui-component__icon--chevron_left {
+  @include icon(chevron_left);
+}
+
+.ui-component__icon--close_round {
+  @include icon(close_round);
+}
+
+.ui-component__icon--close_square {
+  @include icon(close_square);
+}
+
+.ui-component__icon--telephone {
+  @include icon(telephone);
+}
+
+.ui-component__icon--delivery-saver {
+  @include icon(delivery_saver);
+}
+
+.ui-component__icon--chevron_down {
+  @include icon(chevron_down);
+}
+
+.ui-component__icon--download {
+  @include icon(download);
+}
+
+.ui-component__icon--drinks {
+  @include icon(drinks);
+}
+
+.ui-component__icon--facebook {
+  @include icon(facebook);
+}
+
+.ui-component__icon--favourites {
+  @include icon(favourites);
+}
+
+.ui-component__icon--email {
+  @include icon(email);
+}
+
+.ui-component__icon--google_plus {
+  @include icon(google_plus);
+}
+
+.ui-component__icon--menu {
+  @include icon(menu);
+}
+
+.ui-component__icon--help {
+  @include icon(help);
+}
+
+.ui-component__icon--home {
+  @include icon(home);
+}
+
+.ui-component__icon--map_marker {
+  @include icon(map_marker);
+}
+
+.ui-component__icon--minus_square {
+  @include icon(minus_square);
+}
+
+.ui-component__icon--mobile_phone {
+  @include icon(mobile_phone);
+}
+
+.ui-component__icon--my_order {
+  @include icon(my_order);
+}
+
+.ui-component__icon--my_orders {
+  @include icon(my_orders);
+}
+
+.ui-component__icon--pinterest {
+  @include icon(pinterest);
+}
+
+.ui-component__icon--plus_square {
+  @include icon(plus_square);
+}
+
+.ui-component__icon--recipes {
+  @include icon(recipes);
+}
+
+.ui-component__icon--chevron_right {
+  @include icon(chevron_right, after);
+}
+
+.ui-component__icon--basket_alt {
+  @include icon(basket_alt);
+}
+
+.ui-component__icon--special_offers {
+  @include icon(special_offers);
+}
+
+.ui-component__icon--twitter {
+  @include icon(twitter);
+}
+
+.ui-component__icon--user {
+  @include icon(user);
+}
+
+.ui-component__icon--you_tube {
+  @include icon(you_tube);
+}
+
+.ui-component__icon--basket {
+  @include icon(basket);
+}
+
+.ui-component__icon--bin {
+  @include icon(bin);
+}
+
+.ui-component__icon--calendar {
+  @include icon(calendar);
+}
+
+.ui-component__icon--external_link {
+  @include icon(external_link);
+}
+
+.ui-component__icon--lock {
+  @include icon(lock);
+}
+
+.ui-component__icon--minus_round {
+  @include icon(minus_round);
+}
+
+.ui-component__icon--offer_corner {
+  @include icon(offer_corner);
+}
+
+.ui-component__icon--ping {
+  @include icon(ping);
+}
+
+.ui-component__icon--plus_round {
+  @include icon(plus_round);
+}
+
+.ui-component__icon--pointer_chevron {
+  @include icon(pointer_chevron);
+}
+
+.ui-component__icon--ribbon {
+  @include icon(ribbon);
+}
+
+.ui-component__icon--search {
+  @include icon(search);
+}
+
+.ui-component__icon--share {
+  @include icon(share);
+}
+
+.ui-component__icon--spinner {
+  @include icon(spinner);
+}
+
+.ui-component__icon--favourite {
+  @include icon(favourite);
+}
+
+.ui-component__icon--information {
+  @include icon(information);
+}
+
+.ui-component__icon--menu_alt {
+  @include icon(menu_alt);
+}
+
+.ui-component__icon--nutrition {
+  @include icon(nutrition);
+}
+
+.ui-component__icon--switch_arrow {
+  @include icon(switch_arrow);
+}
+
+.ui-component__icon--warning {
+  @include icon(warning);
+}
+
+.ui-component__icon--check_circle {
+  @include icon(check_circle);
+}

@@ -1,0 +1,6 @@
+.ui-component__logo {
+  background-image: url("#{$assets-path}/images/tesco.png");
+  img[src*=".svg"] {
+    display: none;
+  }
+}

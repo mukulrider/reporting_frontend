@@ -1,0 +1,43 @@
+.bar.total rect {
+  //fill: steelblue;
+  fill: #1265FF;
+}
+
+.bar.positive rect {
+  //fill: darkolivegreen;
+  fill: #2DA62B;
+}
+.bar.negative rect {
+  //fill: crimson;
+  fill: #F0361D;
+}
+
+.bar line.connector {
+  stroke: grey;
+  stroke-dasharray: 3;
+}
+
+.bar text {
+  fill: black;
+  font: 12px sans-serif;
+  text-anchor: middle;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar.total rect {
+  fill: steelblue;
+}
+
+.bar:hover rect{
+  fill:orange;
+}

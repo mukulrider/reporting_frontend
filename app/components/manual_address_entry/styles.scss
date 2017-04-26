@@ -1,0 +1,14 @@
+.ui-component__manual-address {
+  &--hidden {
+    height: 0;
+    overflow: hidden;
+  }
+
+  &--server-render {
+    height: auto;
+  }
+
+  &__field {
+    margin-bottom: 25px;
+  }
+}

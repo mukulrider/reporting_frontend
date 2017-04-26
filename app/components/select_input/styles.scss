@@ -1,0 +1,44 @@
+.ui-component__select {
+  position: relative;
+  display: block;
+  font-style: normal;
+  @include icon(chevron_down, after);
+
+  &:after {
+    color: $select-input-text;
+    background-color: $white;
+    font-size: 1.2rem;
+    line-height: 36px;
+    padding: 0 5px;
+    pointer-events: none;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    z-index: 2;
+    cursor: pointer;
+
+    @media (min-width: $bp-mobile) {
+      top: 3px;
+    }
+  }
+
+  .ui-component__select__input {
+    @extend .ui-component__input-field;
+    // vendor prefixes added for use in storybook, which does not autoprefix
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    font-style: italic;
+
+    &.selected {
+      font-style: normal;
+    }
+
+    &::-ms-expand {
+      display: none;
+    }
+    &:focus {
+      @extend .ui-component__input-field:focus;
+    }
+  }
+}

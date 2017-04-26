@@ -1,0 +1,29 @@
+.ui-component__header {
+  padding-top: 36px;
+  text-align: left;
+
+  &--content {
+    border-top: none;
+    border-bottom: 2px solid $footer-grey;
+
+    &__top-wrapper {
+      margin-left: -($container-width-xsmall / 2) - 15 ;
+    }
+  }
+}
+
+.ui-component__utility_bar {
+  display: block;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 36px;
+  background-color: $header-blue;
+  border-bottom: 4px solid $header-blue-border;
+}
+
+.ui-component__mobile-menu {
+  display: none;
+}
+

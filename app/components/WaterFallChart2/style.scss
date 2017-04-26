@@ -1,0 +1,59 @@
+.bar.total rect {
+  fill: #cc3333;
+}
+
+.bar.positive rect {
+  fill: #cc3333;
+}
+
+.bar.negative rect {
+  fill: #58ee81;
+}
+
+.bar line.connector {
+  stroke: grey;
+  stroke-dasharray: 3;
+}
+
+.bar text {
+  fill: white;
+  font: 12px sans-serif;
+  text-anchor: middle;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar.total rect {
+  fill: #cc3333;
+}
+
+.bar.total1 rect {
+  fill: #58ee81;
+}
+
+.bar:hover rect {
+  fill: orange;
+}
+
+
+.waterfallCalloutsPositive {
+  color: green;
+}
+
+
+.waterfallCalloutsNegative {
+  color: red;
+}
+
+.waterfallCalloutsNeutral {
+  color: red;
+}

@@ -1,0 +1,19 @@
+.ui-component__form-header {
+  margin-bottom: 37px;
+}
+
+.ui-component__form-header--title {
+  font-size: 2.4em;
+  margin-bottom: 0.35em;
+}
+
+.ui-component__form-header--description {
+  font-size: 1.6em;
+  color: $form-header-description;
+  font-weight: 200;
+  margin-bottom: 2em;
+
+  a {
+    font-size: inherit;
+  }
+}

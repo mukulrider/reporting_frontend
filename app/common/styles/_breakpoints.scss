@@ -1,0 +1,54 @@
+//
+// Functions
+//
+
+@function calculate-gutter($gutter-px, $bp, $row-padding) {
+  @return percentage($gutter-px / (($bp - $row-padding * 2) / 1px));
+}
+
+//
+// Breakpoint variables
+//
+
+// DDL
+
+$bp-mobile: 504px;
+$bp-tablet: 756px;
+$bp-desktop: 1008px;
+$bp-desktop-large: 1260px;
+$bp-desktop-xlarge: 1512px;
+
+// END DDL
+
+// Main content width
+$container-width-xsmall: 600px;
+$container-width-small: 784px;
+$container-width-medium: 960px;
+$container-width-large: 1280px;
+
+// Mobile portrait
+$bp1: 320px;
+$bp1-row-padding: 24px;
+$bp1-gutter: calculate-gutter(16, $bp1, $bp1-row-padding);
+
+// Mobile landscape
+$bp2: 480px;
+$bp2-row-padding: 24px;
+$bp2-gutter: calculate-gutter(16, $bp2, $bp2-row-padding);
+
+// Tablet portrait
+$bp3: 768px;
+$bp3-rows: 12;
+$bp3-row-padding: 24px;
+$bp3-gutter: calculate-gutter(12, $bp3, $bp3-row-padding);
+
+// Tablet landscape
+$bp4: 1004px;
+$bp4-rows: 12;
+$bp4-row-padding: 28px;
+$bp4-gutter: calculate-gutter(12, $bp4, $bp4-row-padding);
+
+// Custom breakpoints
+$custom-bp1: 684px;
+$custom-bp1-row-padding: 36px;
+$custom-bp1-gutter: calculate-gutter(12, $custom-bp1, $custom-bp1-row-padding);

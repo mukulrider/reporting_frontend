@@ -1,0 +1,46 @@
+$constraints-height: 135px;
+
+.constraints {
+  transition: height 600ms cubic-bezier(0.190, 0.890, 0.500, 0.935);
+  transition-delay: 0.25s;
+  overflow: hidden;
+  color: #666;
+  font-size: 1.6em;
+  display: block;
+
+  // The animation in the server-init class must remain so that the password constraints work correctly in all browsers
+  // in ie8, where we are not running react the password constraints are are rendered on the server with the server-init class
+  // This allows the constraints to be visible by default in ie8
+  // The animation exists as a workaround in all other browsers where React is running
+  // The delay in the animation allows the clientside react render enough time to add the .constraints--blurred class
+  // and hide the constraints list by default
+  // Without this animation there is a visible flicker where the password constraints are visible before the client has a
+  // chance to hide them
+  &--server-init {
+    @include server-render-animation(constraints-dropdown, 135px);
+  }
+
+  &--blurred {
+    height: 0px;
+  }
+
+  &--focused {
+    height: $constraints-height;
+  }
+
+  &__hint {
+    margin-top: 11px;
+    margin-bottom: 7px;
+
+    .ui-component__validated-field--invalid & {
+      color: $error-color;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    margin: 5px 0 5px 5px;
+    padding-left: 20px;
+    position: relative;
+  }
+}

@@ -1,0 +1,73 @@
+@import "./../../stylesheet";
+
+.ts-blk-proview-head {
+  text-align: center;
+  color: #ffffff !important;
+  width: 100%;
+  line-height: 28px;
+  font-size: 18px;
+  height: 28px;
+  background-color: #00539f;
+
+}
+
+.ts-blk-proview-subhead {
+  text-align: center;
+  width: 100%;
+  line-height: 28px;
+  font-size: 18px;
+  height: 28px;
+  background-color: #b3e0ff;
+}
+
+
+.tabsCustom {
+  margin-top: 24px;
+}
+
+
+//TABS
+.tabsCustomList {
+  //color: red;
+  //width: 30%;
+  //text-align: center;
+  //border-style: ridge;
+  //border-radius: 8px;
+  //margin-left: 35px;
+}
+
+.tabsCustomList {
+  display: inline-block;
+  margin: 0 8px 0 0;
+  border-bottom: none;
+}
+
+.tabsCustomList a{
+  background: #EDECEC;
+  fontFamily: 'Tesco' !important;
+  color: #00539f !important;
+  display: block !important;
+  padding: 15px 24px 16px 24px !important;
+  text-decoration: none;
+}
+.tabsCustomList a:hover {
+  text-decoration: underline !important;
+  color:#008dc8;
+}
+.tabsCustomList.active{
+  margin-bottom: -1px;
+}
+
+.tabsCustomList span.tab_label{
+  padding: 12px 8px;
+  color: #048EC3;
+  font-weight: 600;
+}
+
+
+.tabsCustomList.active span.tab_label{
+  border-bottom: #048EC3 solid 4px;
+}
+.content-wrap{
+  background: #fff;
+}
