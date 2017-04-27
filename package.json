@@ -229,6 +229,7 @@
     "react": "15.4.1",
     "react-addons-shallow-compare": "^15.4.2",
     "react-bootstrap": "^0.30.8",
+    "react-bootstrap-table": "^3.2.2",
     "react-dom": "15.4.1",
     "react-helmet": "3.2.2",
     "react-intl": "2.1.5",

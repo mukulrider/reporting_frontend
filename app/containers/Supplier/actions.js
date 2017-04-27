@@ -5,7 +5,7 @@
  */
 
 import {
-  DEFAULT_ACTION, KPI_CONSTANT,TABLE_CONSTANT,TOP_BOTTOM_CONSTANT, KPI_DATA_FETCH_SUCCESS, SUPPLIER_TABLE_DATA_FETCH_SUCCESS, SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS
+  DEFAULT_ACTION, KPI_CONSTANT,TABLE_CONSTANT,TOP_BOTTOM_CONSTANT, KPI_DATA_FETCH_SUCCESS, SUPPLIER_TABLE_DATA_FETCH_SUCCESS, SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS, WEEK_PARAM, KPI_PARAM, KPI_DATA_ASP_FETCH_SUCCESS, KPI_ASP_CONSTANT, TOP_BOTTOM_KPI, GENERATE_URL_PARAMS_STRING, FILTERS_DATA_SUCCESS
 } from './constants';
 
 
@@ -24,11 +24,27 @@ export function kpibox() {
   };
 }
 
+export function kpibox_asp() {
+  console.log("action.js");
+  return {
+    type: KPI_ASP_CONSTANT,
+
+  };
+}
+
 
 export function kpiboxDataFetchSucess(data) {
   console.log('data in action for ajax table', data);
   return {
     type: KPI_DATA_FETCH_SUCCESS,
+    data,
+  };
+}
+
+export function kpiboxDataFetchSucessAsp(data) {
+  console.log('data in action for ajax table ASP', data);
+  return {
+    type: KPI_DATA_ASP_FETCH_SUCCESS,
     data,
   };
 }
@@ -70,10 +86,53 @@ export function topBottomChartFetchSuccess(data) {
 }
 
 
-export function saveWeekParam(data) {
-  // console.log('Saving url params in action',data);
+
+// For saving the week param (triggered by time period buttons)
+
+export function SaveWeekParam(data)
+{
+  console.log('SaveWeekParam = actions', data);
   return {
-    type: SAVE_WEEK_PARAM ,
-    data
+    type: WEEK_PARAM,
+    data,
   };
 }
+
+// For saving the KPI param (triggered by KPI buttons)
+
+export function SaveKPIParam(data) {
+  console.log('SaveKPIParam = actions', data);
+  return {
+    type: KPI_PARAM,
+    data,
+  };
+}
+
+export function SaveTopBottomParam(data) {
+  console.log('SaveTopBottomParam = actions', data);
+  return {
+    type: TOP_BOTTOM_KPI,
+    data,
+  };
+}
+
+// FOR GETTING FILTERS DATA (FOR DOING AJAX CALL)
+
+export function GenerateUrlParamsString(data) {
+  console.log('filters');
+  return {
+    type: GENERATE_URL_PARAMS_STRING,
+    data,
+  };
+}
+
+// FOR SAVING FILTERS DATA GOT FROM AJAX CALL IN REDUCER/STATE
+
+export function generateSideFilterSuccess(data) {
+  console.log('filters = actions', data);
+  return {
+    type: FILTERS_DATA_SUCCESS,
+    data,
+  };
+}
+

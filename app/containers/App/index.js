@@ -58,9 +58,10 @@ export default class App extends React.PureComponent { // eslint-disable-line re
           {React.Children.toArray(this.props.children)}
         </div>
         <Footer footerLinks={[
-          {linkTitle: 'Pricing User Input', linkHref: '/pricing/'},
-          {linkTitle: 'Pricing Scenario Tracker', linkHref: '/pricing/scenario-tracker'},
-          {linkTitle: 'Pricing Scenario Forecast', linkHref: '/pricing/forecast'},
+          {linkTitle: 'Executive View', linkHref: '/sales/executive'},
+          {linkTitle: 'Competitor View', linkHref: '/sales/competitor'},
+          {linkTitle: 'Promo View', linkHref: '/sales/promo'},
+          {linkTitle: 'Supplier View', linkHref: '/sales/supplier'},
           ]}/>
       </div>
     );

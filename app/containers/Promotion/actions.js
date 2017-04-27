@@ -12,12 +12,28 @@ import {
   KPI_PARAM,
   SALES_CONSTANT,
   SALES_FETCH_SUCCESS,
-  PROMO_INFO_CONSTANT,
-  PROMO_INFO_FETCH_SUCCESS,
+  PROMO_GIVEAWAY_CONSTANT,
+  PROMO_GIVEAWAY_FETCH_SUCCESS,
+  PROMO_PROD_CONSTANT,
+  PROMO_PROD_FETCH_SUCCESS,
+  PROMO_PART_CONSTANT,
+  PROMO_PART_FETCH_SUCCESS,
   FILTER_CONSTANT,
   FILTER_FETCH_SUCCESS,
-  CHECKBOX_CHANGE
+  GENERATE_URL_PARAMS,
+  GENERATE_URL_PARAMS_STRING,
+  GENERATE_FILTER_PARAMS_STRING,
+  CHECKBOX_CHANGE, GENERATE_URL_PARAMS_DATA,
+  SALES_PARAM,
+  GIVEAWAY_PARAM,
+  PROMO_PROD_PARAM,
+  PROMO_PART_PARAM,
+  WEEK_FILTER_CONSTANT,
+  WEEK_FILTER_FETCH_SUCCESS,
+  WEEK_FILTER_PARAM
+
 } from './constants';
+
 
 export function defaultAction() {
   return {
@@ -61,24 +77,64 @@ export function PromoSalesDataFetchSuccess(data)
   };
 }
 
-// FOR FETCHING PROMO INFO
+// FOR FETCHING PROMO GIVEAWAY
 
-export function PromoInfoData()
+export function PromoGiveawayData()
 {
-  console.log('actions.js PromoInfoData PROMO_INFO_CONSTANT');
+  console.log('actions.js PromoGiveawayData PROMO_GIVEAWAY_CONSTANT');
   return {
-    type: PROMO_INFO_CONSTANT,
+    type: PROMO_GIVEAWAY_CONSTANT,
   };
 }
 
-export function PromoInfoDataFetchSuccess(data)
+export function PromoGiveawayDataFetchSuccess(data)
 {
-  console.log('PromoInfoDataFetchSuccess(data) PROMO_INFO_FETCH_SUCCESS actions',data)
+  console.log('PromoGiveawayDataFetchSuccess(data) PROMO_GIVEAWAY_FETCH_SUCCESS actions',data)
   return {
-    type: PROMO_INFO_FETCH_SUCCESS,
+    type: PROMO_GIVEAWAY_FETCH_SUCCESS,
     data,
   };
 }
+
+// FOR FETCHING PROMO PROD
+
+export function PromoProdData()
+{
+  console.log('actions.js PromoProdData PROMO_PROD_CONSTANT');
+  return {
+    type: PROMO_PROD_CONSTANT,
+  };
+}
+
+export function PromoProdDataFetchSuccess(data)
+{
+  console.log('PromoProdDataFetchSuccess(data) PROMO_PROD_FETCH_SUCCESS actions',data)
+  return {
+    type: PROMO_PROD_FETCH_SUCCESS,
+    data,
+  };
+}
+
+
+// FOR FETCHING PROMO PART
+
+export function PromoPartData()
+{
+  console.log('actions.js PromoPartData PROMO_PART_CONSTANT');
+  return {
+    type: PROMO_PART_CONSTANT,
+  };
+}
+
+export function PromoPartDataFetchSuccess(data)
+{
+  console.log('PromoPartDataFetchSuccess(data) PROMO_PART_FETCH_SUCCESS actions',data)
+  return {
+    type: PROMO_PART_FETCH_SUCCESS,
+    data,
+  };
+}
+
 
 //FOR SAVING WEEK PARAM (triggered by Week Buttons)
 
@@ -100,3 +156,97 @@ export function SaveKPIParam(data) {
     data,
   };
 }
+
+
+export function SaveSalesParam(data) {
+  console.log('SaveSalesParam = actions', data);
+  return {
+    type: SALES_PARAM,
+    data,
+  };
+}
+
+export function SaveGiveawayParam(data) {
+  console.log('SaveGiveawayParam = actions', data);
+  return {
+    type: GIVEAWAY_PARAM,
+    data,
+  };
+}
+
+export function SavePromoProdParam(data) {
+  console.log('SavePromoProdParam = actions', data);
+  return {
+    type: PROMO_PROD_PARAM,
+    data,
+  };
+}
+
+export function SavePromoPartParam(data) {
+  console.log('SavePromoPartParam = actions', data);
+  return {
+    type: PROMO_PART_PARAM,
+    data,
+  };
+}
+//--------------------- FILTER DATA -------------------------------
+
+
+export function getFilter()
+{
+  console.log('actions.js Get Filter',FILTER_CONSTANT);
+  return {
+    type: FILTER_CONSTANT,
+  };
+}
+
+
+export function FilterFetchSuccess(data)
+{
+  console.log('PromoFilterFetchSuccess = actions', data);
+  return {
+    type: FILTER_FETCH_SUCCESS,
+    data,
+  };
+}
+
+
+export function generateUrlParamsString(data)
+{
+  console.log('PromoFilterFetchSuccess = actions', data);
+  return {
+    type: GENERATE_FILTER_PARAMS_STRING,
+    data,
+  };
+}
+//Week Filter
+
+
+export function getWeekFilter()
+{
+  console.log('actions.js getWeekFilter',WEEK_FILTER_CONSTANT);
+  return {
+    type: WEEK_FILTER_CONSTANT,
+  };
+}
+
+export function WeekFilterFetchSuccess(data)
+{
+  console.log('WeekFilterFetchSuccess = actions', data);
+  return {
+    type: WEEK_FILTER_FETCH_SUCCESS,
+    data,
+  };
+}
+export function WeekFilterParam(data)
+{
+  console.log('WeekFilterParam = actions', data);
+  return {
+    type: WEEK_FILTER_PARAM,
+    data,
+  };
+}
+
+
+
+

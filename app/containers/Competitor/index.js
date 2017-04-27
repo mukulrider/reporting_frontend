@@ -127,7 +127,7 @@ export class Competitor extends React.PureComponent {
           </div>
 
 
-          <div className="col-xs-10">
+          <div className="col-xs-10" style={{left: '4%', top: '-25px'}}>
             <div>
 
               <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom">
@@ -141,8 +141,8 @@ export class Competitor extends React.PureComponent {
                   this.props.onCompetitorPriceRange();
                   this.props.onCompetitorOutperformance();
 
-                }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                  <b style={{textDecoration: 'none'}}>Current Week</b></NavItem>
+                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}>
+                  <b>Current Week</b></NavItem>
 
                 <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
                   this.setState({activeKey1: "2"});
@@ -153,8 +153,7 @@ export class Competitor extends React.PureComponent {
                   this.props.onCompetitorPriceRange();
                   this.props.onCompetitorOutperformance();
 
-                }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                  style={{textDecoration: 'none'}}>Last 4 weeks</b></NavItem>
+                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Last 4 weeks</b></NavItem>
 
                 <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
                   this.setState({activeKey1: "3"});
@@ -165,8 +164,7 @@ export class Competitor extends React.PureComponent {
                   this.props.onCompetitorPriceRange();
                   this.props.onCompetitorOutperformance();
 
-                }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                  style={{textDecoration: 'none'}}>Last 13 weeks</b></NavItem>
+                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Last 13 weeks</b></NavItem>
                 <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
                   this.setState({activeKey1: "4"});
                   dataWeekUrlParams = "week_flag=Latest 52 Weeks";
@@ -176,8 +174,7 @@ export class Competitor extends React.PureComponent {
                   this.props.onCompetitorPriceRange();
                   this.props.onCompetitorOutperformance();
 
-                }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                  style={{textDecoration: 'none'}}>Last 52 weeks</b></NavItem>
+                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Last 52 weeks</b></NavItem>
 
                 <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
                   this.setState({activeKey1: "5"});
@@ -189,8 +186,7 @@ export class Competitor extends React.PureComponent {
                   this.props.onCompetitorPriceRange();
                   this.props.onCompetitorOutperformance();
 
-                }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                  style={{textDecoration: 'none'}}>YTD</b></NavItem>
+                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>YTD</b></NavItem>
               </Nav>
               <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect}  className="tabsCustom">
                 <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
@@ -199,16 +195,14 @@ export class Competitor extends React.PureComponent {
                   this.props.onSaveKPIParam(kpiParmas);
                   this.props.onCompetitorPieChart();
                   this.props.onCompetitorOutperformance();
-                }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                  style={{textDecoration: 'none'}}>Value</b></NavItem>
+                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Value</b></NavItem>
                 <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
                   this.setState({activeKey2: "2"});
                   kpiParmas = "kpi_type=volume";
                   this.props.onSaveKPIParam(kpiParmas);
                   this.props.onCompetitorPieChart();
                   this.props.onCompetitorOutperformance();
-                }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                  style={{textDecoration: 'none'}}>Volume</b></NavItem>
+                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Volume</b></NavItem>
               </Nav>
 
             </div>
@@ -221,7 +215,7 @@ export class Competitor extends React.PureComponent {
             <div className="row">
 
               <div className="col-xs-4 panel-body">
-                <h4 className="ts-blk-proview-subhead"><b>Market Share</b></h4>
+                <h4 className="pageModuleMainTitle"><b>Market Share</b></h4>
 
                 {(() => {
 
@@ -245,7 +239,7 @@ export class Competitor extends React.PureComponent {
               </div>
 
               <div className="col-xs-8 panel-body">
-                <h4 className="ts-blk-proview-subhead"><b>Outperformance</b></h4>
+                <h4 className="pageModuleMainTitle"><b>Outperformance</b></h4>
                 {(() => {
 
                   if (this.props.competitor.outperformance_data) {
@@ -268,8 +262,7 @@ export class Competitor extends React.PureComponent {
                 dataPriceIndexParam = "waterfall_index_param=promo_price";
                 this.props.onSavePriceIndexParam(dataPriceIndexParam);
                 this.props.onCompWaterfall();
-              }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                style={{textDecoration: 'none'}}>Price/Promo</b></NavItem>
+              }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Price/Promo</b></NavItem>
               <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
                 this.setState({activeKey3: "2"});
                 console.log("Own label/Brand button pressed");
@@ -277,16 +270,14 @@ export class Competitor extends React.PureComponent {
                 dataPriceIndexParam = "waterfall_index_param=brand";
                 this.props.onSavePriceIndexParam(dataPriceIndexParam);
                 this.props.onCompWaterfall();
-              }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                style={{textDecoration: 'none'}}>Own Label/Brand</b></NavItem>
+              }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Own Label/Brand</b></NavItem>
               <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
                 this.setState({activeKey3: "3"});
                 console.log("Basket button pressed");
                 dataPriceIndexParam = "waterfall_index_param=basket";
                 this.props.onSavePriceIndexParam(dataPriceIndexParam);
                 this.props.onCompWaterfall();
-              }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                style={{textDecoration: 'none'}}>Basket</b></NavItem>
+              }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Basket</b></NavItem>
             </Nav>
 
 
@@ -320,7 +311,7 @@ export class Competitor extends React.PureComponent {
             <div className="row">
 
               <div className="col-xs-6 panel-body">
-                <h4 className="ts-blk-proview-subhead"><b>ASDA</b></h4>
+                <h4 className="pageModuleMainTitle"><b>ASDA</b></h4>
 
                 {(() => {
                   if (this.props.competitor.waterfall_data) {
@@ -339,7 +330,7 @@ export class Competitor extends React.PureComponent {
               </div>
 
               <div className="col-xs-6 panel-body">
-                <h4 className="ts-blk-proview-subhead"><b>JS</b></h4>
+                <h4 className="pageModuleMainTitle"><b>JS</b></h4>
                 {(() => {
 
                   if (this.props.competitor.waterfall_data) {
@@ -360,7 +351,7 @@ export class Competitor extends React.PureComponent {
 
             <div className="row">
               <div className="col-xs-6 panel-body">
-                <h4 className="ts-blk-proview-subhead"><b>Morrisons</b></h4>
+                <h4 className="pageModuleMainTitle"><b>Morrisons</b></h4>
                 {(() => {
 
                   if (this.props.competitor.waterfall_data) {
@@ -375,7 +366,7 @@ export class Competitor extends React.PureComponent {
               </div>
 
               <div className="col-xs-6 panel-body">
-                <h4 className="ts-blk-proview-subhead"><b>Aldi</b></h4>
+                <h4 className="pageModuleMainTitle"><b>Aldi</b></h4>
                 {(() => {
 
                   if (this.props.competitor.waterfall_data) {
