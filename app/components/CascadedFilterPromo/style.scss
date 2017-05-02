@@ -1,0 +1,112 @@
+
+
+
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+
+
+.style-7::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+  border-radius: 10px;
+}
+
+
+.style-7::-webkit-scrollbar
+{
+  width: 10px;
+  background-color: #F5F5F5;
+}
+
+.style-7::-webkit-scrollbar-thumb
+{
+  border-radius: 10px;
+  background-image: -webkit-gradient(linear,
+    left bottom,
+    left top,
+    color-stop(0.44, rgb(178, 174, 177))
+  )
+}
+
+
+#style-7::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+  border-radius: 10px;
+}
+
+#style-7::-webkit-scrollbar
+{
+  width: 10px;
+  background-color: #F5F5F5;
+}
+
+#style-7::-webkit-scrollbar-thumb
+{
+  border-radius: 10px;
+  background-image: -webkit-gradient(linear,
+    left bottom,
+    left top,
+    color-stop(0.44, rgb(127, 124, 126))
+  )
+}
+.ui-component__panel {
+  padding: 0px !important;
+  border:0px !important;
+}
+
+.panel-group,
+.panel,
+.panel-heading{
+  background: #fff !important;
+  border: 0px;
+}
+.panel-heading a{
+  text-decoration: none;
+  color: #00539f;
+  border-bottom: 1px solid transparent;
+  transition: border 0.3s;
+  font-weight: 600;
+}
+.panel-heading a:hover{
+  color: #00539f;
+  text-decoration: underline;
+}
+.panel-heading .accordion-toggle:after {
+  /* symbol for "opening" panels */
+  font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+  content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+  float: right;        /* adjust as needed */
+  color: #00539f;         /* adjust as needed */
+  stroke: #00539f;
+  border: 1px solid #00539f;
+  -webkit-border-radius:50%;
+  -moz-border-radius:50%;
+  border-radius:50%;
+  height: 24px;
+  width: 24px;
+  text-align: center;
+}
+.panel-heading .collapsed .accordion-toggle:after {
+  /* symbol for "collapsed" panels */
+  content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+}
+
+.panel-heading .accordion-toggle:hover{
+  border-radius:50%;
+  height: 24px;
+  width: 24px;
+  box-shadow: 0px 0px 0px 4px rgba(0, 83, 159, 0.4);
+}
