@@ -1,9 +1,9 @@
 // import { take, call, put, select } from 'redux-saga/effects';
 import {
-  KPI_CONSTANT, TABLE_CONSTANT, TOP_BOTTOM_CONSTANT, KPI_ASP_CONSTANT, GENERATE_URL_PARAMS_STRING,
+  KPI_CONSTANT, TABLE_CONSTANT, TOP_BOTTOM_CONSTANT, KPI_ASP_CONSTANT, GENERATE_URL_PARAMS_STRING,WEEK_FILTER_CONSTANT
 } from './constants';
 import {
-  kpiboxDataFetchSucess, SupplierTableDataFetchSuccess, topBottomChartFetchSuccess, kpiboxDataFetchSucessAsp, generateSideFilterSuccess
+  kpiboxDataFetchSucess, SupplierTableDataFetchSuccess, topBottomChartFetchSuccess, kpiboxDataFetchSucessAsp, generateSideFilterSuccess, WeekFilterFetchSuccess
 } from 'containers/Supplier/actions';
 import {take, call, put, select, cancel, takeLatest} from 'redux-saga/effects';
 import {LOCATION_CHANGE} from 'react-router-redux';
@@ -143,6 +143,54 @@ export function* doGenerateSideFilter() {
 }
 
 
+
+
+// FOR SUPPLIER WEEK FILTER DATA
+export function* generateWeekFilterFetch() {
+  try {
+    // todo: update url
+
+    console.log("Inside generateWeekFilterFetch")
+    let urlName=yield select(selectSupplierDomain());
+    let weekurlparams = urlName.get('weekurlParam');
+    console.log("AAA",weekurlparams);
+    console.log(host_url+'/api/reporting/promo_filter_data?');
+    console.log('/api/reporting/promo_filter_data?');
+
+    // if (urlParams==='')
+    // {urlParams='default'
+    // }
+    // let urlParamsString =urlName.get('urlParamsString')
+    // if(!urlParamsString){
+    //   urlParamsString=''
+    // }
+
+    const data = yield call(request, host_url+'/api/reporting/filter_data_week');
+
+    console.log(host_url+'/api/reporting/filter_data_week');
+
+    // const data = yield call(request, `http://10.1.161.82:8000/ranging/npd_view/filter_data?`);
+
+    console.log("Filter week data",data);
+    yield put(WeekFilterFetchSuccess(data));
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+
+
+export function* doWeekFilterFetch() {
+  console.log('sagas doFilterFetch ',WEEK_FILTER_CONSTANT);
+  const watcher = yield takeLatest(WEEK_FILTER_CONSTANT, generateWeekFilterFetch);
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+
+
+
+
+
 // All sagas to be loaded
 export default [
   defaultSaga,
@@ -150,4 +198,5 @@ export default [
   doSupplierTableFetch,
   doSupplierTopBotFetch,
   doGenerateSideFilter,
+  doWeekFilterFetch,
 ];

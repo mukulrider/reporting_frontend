@@ -28,7 +28,10 @@ import {
   SaveKPIParam,
   kpibox_asp,
   SaveTopBottomParam,
-  GenerateUrlParamsString
+  checkboxWeekChange,
+  SaveWeek,
+  GenerateUrlParamsString,
+  getWeekFilter,
 } from './actions';
 import styles from './style.scss';
 
@@ -36,6 +39,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
   componentDidMount = () => {
     this.props.onGenerateUrlParamsString();
+    this.props.onGetFilter();
     this.props.onKPIBox();
     this.props.onSupplierTable();
     this.props.ontopBottomChart();
@@ -81,10 +85,13 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                     // onDataUrlParams={this.props.DataUrlParams}
                     // onUrlParamsData={this.props.onUrlParamsData}
                                 onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}
+                                week_data = {this.props.supplier.week_filter_data}
                                 onKPIBox={ this.props.onKPIBox}
                                 onSupplierTable={  this.props.onSupplierTable}
                                 ontopBottomChart={  this.props.ontopBottomChart}
                                 onKPIBoxASP={  this.props.onKPIBoxASP}
+                                onSaveWeek={this.props.onSaveWeek}
+                                onCheckboxWeekChange = {this.props.onCheckboxWeekChange}
 
 
               // onGenerateFilterParamsString={this.props.onGenerateFilterParamsString}
@@ -600,6 +607,7 @@ function mapDispatchToProps(dispatch) {
     onKPIBox: (e) => {
       return dispatch(kpibox(e));
     },
+    onGetFilter: (e) => dispatch(getWeekFilter(e)),
     onSupplierTable: (e) => {
       return dispatch(supplierTable(e));
     },
@@ -618,6 +626,9 @@ function mapDispatchToProps(dispatch) {
     onSaveTopBottomKpi: (e) => {
       return dispatch(SaveTopBottomParam(e));
     },
+
+    onCheckboxWeekChange: (e) => dispatch(checkboxWeekChange(e)),
+    onSaveWeek: (e) => dispatch(SaveWeek(e)),
 
     //FOR GETTING FILTERS DATA
     onGenerateUrlParamsString: (e) => {

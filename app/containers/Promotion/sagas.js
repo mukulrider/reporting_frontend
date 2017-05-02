@@ -265,6 +265,7 @@ export function* generateWeekFilterFetch() {
     console.log("Inside generateWeekFilterFetch")
     let urlName=yield select(selectPromotionDomain());
     let weekurlparams = urlName.get('weekurlParam');
+    let weekurlparams1 = urlName.get('filter_week_selection');
     console.log(host_url+'/api/reporting/promo_filter_data?');
 
     // if (urlParams==='')
@@ -275,7 +276,7 @@ export function* generateWeekFilterFetch() {
     //   urlParamsString=''
     // }
 
-    const data = yield call(request, host_url+'/api/reporting/filter_data_week?' + weekurlparams);
+    const data = yield call(request, host_url+'/api/reporting/filter_data_week?' + weekurlparams1);
 
     console.log(host_url+'/api/reporting/filter_data_week?'+ weekurlparams);
 

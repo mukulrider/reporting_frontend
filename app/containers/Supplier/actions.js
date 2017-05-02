@@ -5,7 +5,8 @@
  */
 
 import {
-  DEFAULT_ACTION, KPI_CONSTANT,TABLE_CONSTANT,TOP_BOTTOM_CONSTANT, KPI_DATA_FETCH_SUCCESS, SUPPLIER_TABLE_DATA_FETCH_SUCCESS, SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS, WEEK_PARAM, KPI_PARAM, KPI_DATA_ASP_FETCH_SUCCESS, KPI_ASP_CONSTANT, TOP_BOTTOM_KPI, GENERATE_URL_PARAMS_STRING, FILTERS_DATA_SUCCESS
+  DEFAULT_ACTION, KPI_CONSTANT,TABLE_CONSTANT,TOP_BOTTOM_CONSTANT, KPI_DATA_FETCH_SUCCESS, SUPPLIER_TABLE_DATA_FETCH_SUCCESS, SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS, WEEK_PARAM, KPI_PARAM, KPI_DATA_ASP_FETCH_SUCCESS, KPI_ASP_CONSTANT, TOP_BOTTOM_KPI, GENERATE_URL_PARAMS_STRING, FILTERS_DATA_SUCCESS,
+  WEEK_FILTER_FETCH_SUCCESS, WEEK_FILTER_CONSTANT, CHECKBOX_WEEK_CHANGE, WEEK
 } from './constants';
 
 
@@ -136,3 +137,40 @@ export function generateSideFilterSuccess(data) {
   };
 }
 
+
+//FOR WEEK FILTER DATA
+
+export function WeekFilterFetchSuccess(data)
+{
+  console.log('WeekFilterFetchSuccess = actions', data);
+  return {
+    type: WEEK_FILTER_FETCH_SUCCESS,
+    data,
+  };
+}
+
+export function getWeekFilter()
+{
+  console.log('actions.js getWeekFilter',WEEK_FILTER_CONSTANT);
+  return {
+    type: WEEK_FILTER_CONSTANT,
+  };
+}
+
+
+export function checkboxWeekChange(data) {
+  console.log("checkboxWeekChange Selection in actions" + data);
+  return {
+    type: CHECKBOX_WEEK_CHANGE,
+    data
+  };
+}
+
+
+export function SaveWeek(data) {
+  console.log('SaveWeek = actions',+ data);
+  return {
+    type: WEEK,
+    data,
+  };
+}

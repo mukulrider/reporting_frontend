@@ -20,6 +20,7 @@ import {
   KPI_DATA_ASP_FETCH_SUCCESS,
   TOP_BOTTOM_KPI,
   GENERATE_URL_PARAMS_STRING,
+  WEEK_FILTER_FETCH_SUCCESS,
 } from './constants';
 
 const initialState = fromJS({
@@ -89,10 +90,14 @@ function supplierReducer(state = initialState, action) {
       console.log("reducer TOP_BOTTOM_KPI", action.data);
       return state.set('top_bottom_kpi', action.data);
 
-      //STORING FILTERS SELECTED BY USER
+    //STORING FILTERS SELECTED BY USER
     case GENERATE_URL_PARAMS_STRING:
       return state.set('urlParamsString', action.data);
 
+    //FOR WEEK FILTER DATA
+    case WEEK_FILTER_FETCH_SUCCESS:
+      console.log("reducer WEEK_FILTER_FETCH_SUCCESS", action.data);
+      return state.set('week_filter_data', action.data)
 
 
     default:

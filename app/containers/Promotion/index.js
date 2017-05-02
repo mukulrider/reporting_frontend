@@ -15,7 +15,7 @@ import makeSelectPromotion from './selectors';
 import messages from './messages';
 import './style.scss';
 import PieChart from 'components/PieChart';
-import NewSelector2 from 'components/NewSelector2';
+import CascadedFilterPromo from 'components/CascadedFilterPromo';
 import MultilinePromo from 'components/MultilinePromo';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import {
@@ -34,17 +34,22 @@ import {
   SavePromoProdParam,
   SavePromoPartParam,
   WeekFilterParam,
+  generateUrlParams,
+  sendUrlParams,
+  SaveWeek,
+  checkboxChange,
+  checkboxWeekChange,
 
 } from './actions';
 
 function triangleColumnFormatter(cell, row) {
   if (cell > 0) {
-    return '<i class="glyphicon glyphicon-chevron-up productTablePositive"></i>&nbsp;'+ cell;
+    return '<i class="glyphicon glyphicon-chevron-up productTablePositive"></i>&nbsp;' + cell;
   }
   else if (cell < 0) {
-    return '<i class="glyphicon glyphicon-chevron-down productTableNegative"></i>&nbsp;'+ cell;
+    return '<i class="glyphicon glyphicon-chevron-down productTableNegative"></i>&nbsp;' + cell;
   } else {
-    return '<i class="glyphicon glyphicon-minus-sign productTableNeutral"></i>&nbsp;'+ cell;
+    return '<i class="glyphicon glyphicon-minus-sign productTableNeutral"></i>&nbsp;' + cell;
   }
 }
 
@@ -66,6 +71,13 @@ export class Promotion extends React.PureComponent {
 
     // this.props.promotion.reducer1.sales;
   };
+
+
+  componentDidUpdate = () => {
+    this.props.onSendUrlParams(this.props.location.query);
+
+  };
+
 
   constructor(props) {
     super(props);
@@ -98,29 +110,36 @@ export class Promotion extends React.PureComponent {
           <div className="col-xs-2">
 
             {(() => {
-              if (this.props.promotion.filter_data) {
-                console.log("Calling Filter index.js", this.props.promotion.filter_data.filter_data);
+              if (this.props.promotion.week_filter_data) {
+                console.log("Calling Filter index.js", this.props.promotion.week_filter_data);
                 return (
-                  <NewSelector2 sideFilter={this.props.promotion.filter_data}
+                  <CascadedFilterPromo filter_data={this.props.promotion.filter_data}
                     // week_data={this.props.promotion.filter_data.week_data}
-                                location={this.props.location}
-                                generateSideFilter={this.props.onGetFilter}
-                                onFilterReset={this.props.onFilterReset}
-                                onDataUrlParams={this.props.DataUrlParams}
-                                onUrlParamsData={this.props.onUrlParamsData}
-                                onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}
-                                onGenerateFilterParamsString={this.props.onGenerateFilterParamsString}
-                                onGenerateUrlParamsData={this.props.onGenerateUrlParamsData}
-                                week_data = {this.props.promotion.week_filter_data}
-                                ongenerateWeekFilter = {this.props.onGetWeekFilter}
-                                onSaveWeekFilterParam = {this.props.onSaveWeekFilterParam}
-                                previous_week_selection = {this.props.weekurlParam}
-                                loadKpi={this.props.loadKpi}
-                                loadSales={this.props.loadSales}
-                                loadPromoGiveaway={this.props.loadPromoGiveaway}
-                                loadPromoProd={this.props.loadPromoProd}
-                                loadPromoPart={this.props.loadPromoPart}
+                                       week_data={this.props.promotion.week_filter_data}
+                                       location={this.props.location}
+                                       onGenerateSideFilter={this.props.onGetFilter}
+                                       onFilterReset={this.props.onFilterReset}
+                                       onDataUrlParams={this.props.DataUrlParams}
+                                       onUrlParamsData={this.props.onUrlParamsData}
+                                       onGenerateUrlParams={this.props.onGenerateUrlParams}
+                                       onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}
+                                       onGenerateFilterParamsString={this.props.onGenerateFilterParamsString}
+                                       onGenerateUrlParamsData={this.props.onGenerateUrlParamsData}
+                                       ongenerateWeekFilter={this.props.onGetWeekFilter}
+                                       onSaveWeekFilterParam={this.props.onSaveWeekFilterParam}
+                                       loadKpi={this.props.loadKpi}
+                                       loadSales={this.props.loadSales}
+                                       loadPromoGiveaway={this.props.loadPromoGiveaway}
+                                       loadPromoProd={this.props.loadPromoProd}
+                                       loadPromoPart={this.props.loadPromoPart}
+                                       onSendUrlParams={this.props.onSendUrlParams}
+                                       onSaveWeek={this.props.onSaveWeek}
 
+
+                                       previous_selection={this.props.promotion.filter_selection}
+                                       previous_week_selection={this.props.promotion.filter_week_selection}
+                                       onCheckboxChange={this.props.onCheckboxChange}
+                                       onCheckboxWeekChange = {this.props.onCheckboxWeekChange}
 
                   />
                 );
@@ -299,7 +318,7 @@ export class Promotion extends React.PureComponent {
                       <h4>  {this.props.promotion.kpi_data.nonpromo.nonpromo} </h4>
                     </div>
                     <div className="col-xs-6">
-                      <h4>  LFL &nbsp;    {this.props.promotion.kpi_data.nonpromo.nonpromo_lfl} </h4>
+                      <h4> LFL &nbsp;    {this.props.promotion.kpi_data.nonpromo.nonpromo_lfl} </h4>
                     </div>
                   </div>
                   <div className="row">
@@ -350,53 +369,54 @@ export class Promotion extends React.PureComponent {
                     <div className="col-xs-8">
                       <div className="row">
                         {/*Nav for Sales data*/}
-                      <Nav bsStyle="tabs" activeKey={this.state.activeKey4} onSelect={this.handleSelect}
-                           className="tabsCustom">
-                        <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+                        <Nav bsStyle="tabs" activeKey={this.state.activeKey4} onSelect={this.handleSelect}
+                             className="tabsCustom">
+                          <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
-                         let promoTypeParam = "";
-                          this.setState({activeKey4: "1"});
-                          this.props.onSaveSalesParam(promoTypeParam);
-                          this.props.loadSales();
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                          <b style={{textDecoration: 'none'}}>Default</b></NavItem>
+                            let promoTypeParam = "";
+                            this.setState({activeKey4: "1"});
+                            this.props.onSaveSalesParam(promoTypeParam);
+                            this.props.loadSales();
+                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
+                            <b style={{textDecoration: 'none'}}>Default</b></NavItem>
 
-                        <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                          <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
 
-                          let promoTypeParam = "promo_type=Price Cut";
-                          this.setState({activeKey4: "2"});
-                          this.props.onSaveSalesParam(promoTypeParam);
-                          this.props.loadSales();
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                          <b style={{textDecoration: 'none'}}>Price Cut</b></NavItem>
+                            let promoTypeParam = "promo_type=Price Cut";
+                            this.setState({activeKey4: "2"});
+                            this.props.onSaveSalesParam(promoTypeParam);
+                            this.props.loadSales();
+                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
+                            <b style={{textDecoration: 'none'}}>Price Cut</b></NavItem>
 
-                        <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
-                          this.setState({activeKey4: "3"});
-                         let promoTypeParam = "promo_type=Multibuy";
-                          this.props.onSaveSalesParam(promoTypeParam);
-                          this.props.loadSales();
+                          <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                            this.setState({activeKey4: "3"});
+                            let promoTypeParam = "promo_type=Multibuy";
+                            this.props.onSaveSalesParam(promoTypeParam);
+                            this.props.loadSales();
 
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                          style={{textDecoration: 'none'}}>Multibuy</b></NavItem>
+                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
+                            style={{textDecoration: 'none'}}>Multibuy</b></NavItem>
 
-                        <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
-                          this.setState({activeKey4: "4"});
-                         let promoTypeParam = "promo_type=Non Promo";
-                          this.props.onSaveSalesParam(promoTypeParam);
-                          this.props.loadSales();
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                          style={{textDecoration: 'none'}}>Non Promo</b></NavItem>
-                      </Nav>
+                          <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+                            this.setState({activeKey4: "4"});
+                            let promoTypeParam = "promo_type=Non Promo";
+                            this.props.onSaveSalesParam(promoTypeParam);
+                            this.props.loadSales();
+                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
+                            style={{textDecoration: 'none'}}>Non Promo</b></NavItem>
+                        </Nav>
                       </div>
                       <div className="row">
-                      {(() => {
-                        if (this.props.promotion.sales_data) {
-                          console.log("Promo Sales line chart data", this.props.promotion.sales_data.promo_sales.trend);
-                          return (
-                            <MultilinePromo data={this.props.promotion.sales_data.promo_sales.trend} id="linechart" label_ty="Sales TY" label_ly="Sales LY"/>
-                          );
-                        }
-                      })()}
+                        {(() => {
+                          if (this.props.promotion.sales_data) {
+                            console.log("Promo Sales line chart data", this.props.promotion.sales_data.promo_sales.trend);
+                            return (
+                              <MultilinePromo data={this.props.promotion.sales_data.promo_sales.trend} id="linechart"
+                                              label_ty="Sales TY" label_ly="Sales LY"/>
+                            );
+                          }
+                        })()}
                       </div>
                     </div>
                   </panel>
@@ -422,54 +442,55 @@ export class Promotion extends React.PureComponent {
                     <div className="col-xs-8">
                       {/*Nav for Giveaway*/}
                       <div className="row">
-                      <Nav bsStyle="tabs" activeKey={this.state.activeKey5} onSelect={this.handleSelect}
-                           className="tabsCustom">
-                        <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+                        <Nav bsStyle="tabs" activeKey={this.state.activeKey5} onSelect={this.handleSelect}
+                             className="tabsCustom">
+                          <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
-                          let promoTypeParam = "";
-                          this.setState({activeKey5: "1"});
-                          this.props.onSaveGiveawayParam(promoTypeParam);
-                          this.props.loadPromoGiveaway();
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                          <b style={{textDecoration: 'none'}}>Default</b></NavItem>
+                            let promoTypeParam = "";
+                            this.setState({activeKey5: "1"});
+                            this.props.onSaveGiveawayParam(promoTypeParam);
+                            this.props.loadPromoGiveaway();
+                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
+                            <b style={{textDecoration: 'none'}}>Default</b></NavItem>
 
-                        <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                          <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
 
-                          let promoTypeParam = "promo_type=Price Cut";
-                          this.setState({activeKey5: "2"});
-                          this.props.onSaveGiveawayParam(promoTypeParam);
-                          this.props.loadPromoGiveaway();
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                          <b style={{textDecoration: 'none'}}>Price Cut</b></NavItem>
+                            let promoTypeParam = "promo_type=Price Cut";
+                            this.setState({activeKey5: "2"});
+                            this.props.onSaveGiveawayParam(promoTypeParam);
+                            this.props.loadPromoGiveaway();
+                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
+                            <b style={{textDecoration: 'none'}}>Price Cut</b></NavItem>
 
-                        <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
-                          this.setState({activeKey5: "3"});
-                          let promoTypeParam = "promo_type=Multibuy";
-                          this.props.onSaveGiveawayParam(promoTypeParam);
-                          this.props.loadPromoGiveaway();
+                          <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                            this.setState({activeKey5: "3"});
+                            let promoTypeParam = "promo_type=Multibuy";
+                            this.props.onSaveGiveawayParam(promoTypeParam);
+                            this.props.loadPromoGiveaway();
 
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                          style={{textDecoration: 'none'}}>Multibuy</b></NavItem>
+                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
+                            style={{textDecoration: 'none'}}>Multibuy</b></NavItem>
 
-                        <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
-                          this.setState({activeKey5: "4"});
-                          let promoTypeParam = "promo_type=Non Promo";
-                          this.props.onSaveGiveawayParam(promoTypeParam);
-                          this.props.loadPromoGiveaway();
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                          style={{textDecoration: 'none'}}>Non Promo</b></NavItem>
-                      </Nav>
+                          <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+                            this.setState({activeKey5: "4"});
+                            let promoTypeParam = "promo_type=Non Promo";
+                            this.props.onSaveGiveawayParam(promoTypeParam);
+                            this.props.loadPromoGiveaway();
+                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
+                            style={{textDecoration: 'none'}}>Non Promo</b></NavItem>
+                        </Nav>
                       </div>
                       <div className="row">
-                      {(() => {
-                        if (this.props.promotion.promo_giveaway_data) {
-                          console.log("Promo Giveaway line chart data", this.props.promotion.promo_giveaway_data.trend);
-                          return (
-                            <MultilinePromo data={this.props.promotion.promo_giveaway_data.trend}
-                                            id="linechart2" label_ty="Promo Giveaway TY" label_ly="Promo Giveaway LY"/>
-                          );
-                        }
-                      })()}
+                        {(() => {
+                          if (this.props.promotion.promo_giveaway_data) {
+                            console.log("Promo Giveaway line chart data", this.props.promotion.promo_giveaway_data.trend);
+                            return (
+                              <MultilinePromo data={this.props.promotion.promo_giveaway_data.trend}
+                                              id="linechart2" label_ty="Promo Giveaway TY"
+                                              label_ly="Promo Giveaway LY"/>
+                            );
+                          }
+                        })()}
                       </div>
                     </div>
                   </panel>
@@ -496,53 +517,54 @@ export class Promotion extends React.PureComponent {
                     <div className="col-xs-8">
                       {/*Nav for Promo products*/}
                       <div className="row">
-                      <Nav bsStyle="tabs" activeKey={this.state.activeKey6} onSelect={this.handleSelect}
-                           className="tabsCustom">
-                        <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
-                          let promoTypeParam = "";
-                          this.setState({activeKey6: "1"});
-                          this.props.onSavePromoProdParam(promoTypeParam);
-                          this.props.loadPromoProd();
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                          <b style={{textDecoration: 'none'}}>Default</b></NavItem>
+                        <Nav bsStyle="tabs" activeKey={this.state.activeKey6} onSelect={this.handleSelect}
+                             className="tabsCustom">
+                          <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+                            let promoTypeParam = "";
+                            this.setState({activeKey6: "1"});
+                            this.props.onSavePromoProdParam(promoTypeParam);
+                            this.props.loadPromoProd();
+                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
+                            <b style={{textDecoration: 'none'}}>Default</b></NavItem>
 
 
-                        <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
-                          let promoTypeParam = "promo_type=Price Cut";
-                          this.setState({activeKey6: "2"});
-                          this.props.onSavePromoProdParam(promoTypeParam);
-                          this.props.loadPromoProd();
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                          <b style={{textDecoration: 'none'}}>Price Cut</b></NavItem>
+                          <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                            let promoTypeParam = "promo_type=Price Cut";
+                            this.setState({activeKey6: "2"});
+                            this.props.onSavePromoProdParam(promoTypeParam);
+                            this.props.loadPromoProd();
+                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
+                            <b style={{textDecoration: 'none'}}>Price Cut</b></NavItem>
 
-                        <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
-                          this.setState({activeKey6: "3"});
-                          let promoTypeParam = "promo_type=Multibuy";
-                          this.props.onSavePromoProdParam(promoTypeParam);
-                          this.props.loadPromoProd();
+                          <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                            this.setState({activeKey6: "3"});
+                            let promoTypeParam = "promo_type=Multibuy";
+                            this.props.onSavePromoProdParam(promoTypeParam);
+                            this.props.loadPromoProd();
 
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                          style={{textDecoration: 'none'}}>Multibuy</b></NavItem>
+                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
+                            style={{textDecoration: 'none'}}>Multibuy</b></NavItem>
 
-                        <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
-                          this.setState({activeKey6: "4"});
-                          let promoTypeParam = "promo_type=Non Promo";
-                          this.props.onSavePromoProdParam(promoTypeParam);
-                          this.props.loadPromoProd();
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                          style={{textDecoration: 'none'}}>Non Promo</b></NavItem>
-                      </Nav>
+                          <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+                            this.setState({activeKey6: "4"});
+                            let promoTypeParam = "promo_type=Non Promo";
+                            this.props.onSavePromoProdParam(promoTypeParam);
+                            this.props.loadPromoProd();
+                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
+                            style={{textDecoration: 'none'}}>Non Promo</b></NavItem>
+                        </Nav>
                       </div>
                       <div className="row">
-                      {(() => {
-                        if (this.props.promotion.promo_prod_data) {
-                          console.log("Promo Giveaway line chart data", this.props.promotion.promo_prod_data.trend);
-                          return (
-                            <MultilinePromo data={this.props.promotion.promo_prod_data.trend}
-                                            id="linechart3" label_ty="Products on Promo TY" label_ly="Products on Promo LY"/>
-                          );
-                        }
-                      })()}
+                        {(() => {
+                          if (this.props.promotion.promo_prod_data) {
+                            console.log("Promo Giveaway line chart data", this.props.promotion.promo_prod_data.trend);
+                            return (
+                              <MultilinePromo data={this.props.promotion.promo_prod_data.trend}
+                                              id="linechart3" label_ty="Products on Promo TY"
+                                              label_ly="Products on Promo LY"/>
+                            );
+                          }
+                        })()}
                       </div>
                     </div>
                   </panel>
@@ -569,55 +591,56 @@ export class Promotion extends React.PureComponent {
                     <div className="col-xs-8">
                       {/*Nav for Promo Participation*/}
                       <div className="row">
-                      <Nav bsStyle="tabs" activeKey={this.state.activeKey7} onSelect={this.handleSelect}
-                           className="tabsCustom">
+                        <Nav bsStyle="tabs" activeKey={this.state.activeKey7} onSelect={this.handleSelect}
+                             className="tabsCustom">
 
-                        <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+                          <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
-                          let promoTypeParam = "";
-                          this.setState({activeKey7: "1"});
-                          this.props.onSavePromoPartParam(promoTypeParam);
-                          this.props.loadPromoPart();
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                          <b style={{textDecoration: 'none'}}>Default</b></NavItem>
+                            let promoTypeParam = "";
+                            this.setState({activeKey7: "1"});
+                            this.props.onSavePromoPartParam(promoTypeParam);
+                            this.props.loadPromoPart();
+                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
+                            <b style={{textDecoration: 'none'}}>Default</b></NavItem>
 
-                        <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                          <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
 
-                          let promoTypeParam = "promo_type=Price Cut";
-                          this.setState({activeKey7: "2"});
-                          this.props.onSavePromoPartParam(promoTypeParam);
-                          this.props.loadPromoPart();
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                          <b style={{textDecoration: 'none'}}>Price Cut</b></NavItem>
+                            let promoTypeParam = "promo_type=Price Cut";
+                            this.setState({activeKey7: "2"});
+                            this.props.onSavePromoPartParam(promoTypeParam);
+                            this.props.loadPromoPart();
+                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
+                            <b style={{textDecoration: 'none'}}>Price Cut</b></NavItem>
 
-                        <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
-                          this.setState({activeKey7: "3"});
-                          let promoTypeParam = "promo_type=Multibuy";
-                          this.props.onSavePromoPartParam(promoTypeParam);
-                          this.props.loadPromoPart();
+                          <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                            this.setState({activeKey7: "3"});
+                            let promoTypeParam = "promo_type=Multibuy";
+                            this.props.onSavePromoPartParam(promoTypeParam);
+                            this.props.loadPromoPart();
 
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                          style={{textDecoration: 'none'}}>Multibuy</b></NavItem>
+                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
+                            style={{textDecoration: 'none'}}>Multibuy</b></NavItem>
 
-                        <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
-                          this.setState({activeKey7: "4"});
-                          let promoTypeParam = "promo_type=Non Promo";
-                          this.props.onSavePromoPartParam(promoTypeParam);
-                          this.props.loadPromoPart();
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                          style={{textDecoration: 'none'}}>Non Promo</b></NavItem>
-                      </Nav>
+                          <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+                            this.setState({activeKey7: "4"});
+                            let promoTypeParam = "promo_type=Non Promo";
+                            this.props.onSavePromoPartParam(promoTypeParam);
+                            this.props.loadPromoPart();
+                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
+                            style={{textDecoration: 'none'}}>Non Promo</b></NavItem>
+                        </Nav>
                       </div>
                       <div className="row">
-                      {(() => {
-                        if (this.props.promotion.promo_part_data) {
-                          console.log("Promo Participation line chart data", this.props.promotion.promo_part_data.trend);
-                          return (
-                            <MultilinePromo data={this.props.promotion.promo_part_data.trend}
-                                            id="linechart4" label_ty="Promo Participation TY" label_ly="Promo Participation LY"/>
-                          );
-                        }
-                      })()}
+                        {(() => {
+                          if (this.props.promotion.promo_part_data) {
+                            console.log("Promo Participation line chart data", this.props.promotion.promo_part_data.trend);
+                            return (
+                              <MultilinePromo data={this.props.promotion.promo_part_data.trend}
+                                              id="linechart4" label_ty="Promo Participation TY"
+                                              label_ly="Promo Participation LY"/>
+                            );
+                          }
+                        })()}
                       </div>
                     </div>
                   </panel>
@@ -627,29 +650,30 @@ export class Promotion extends React.PureComponent {
               </panel>
             </div>
             <div className="row">
-            <h2 className="pageModuleMainTitle">Promotion Participation</h2>
+              <h2 className="pageModuleMainTitle">Promotion Participation</h2>
               <panel>
-            {/*Promo top 25 table            */}
-            {(() => {
-              if (this.props.promotion.sales_data) {
-                return (
-                  <BootstrapTable
-                    data={this.props.promotion.sales_data.table_data.df}
-                    exportCSV={true}
-                    search={true}
-                    pagination>
-                    <TableHeaderColumn dataField='Product Description' isKey>Product Description</TableHeaderColumn>
-                    <TableHeaderColumn dataField='Promo Value TY' dataSort={true} >Promo Value TY</TableHeaderColumn>
-                    <TableHeaderColumn dataField='Promo Value LY'>Promo Value LY</TableHeaderColumn>
-                    <TableHeaderColumn dataField='lfl_var'  dataFormat={ triangleColumnFormatter }>LFL Variation</TableHeaderColumn>
-                  </BootstrapTable>
+                {/*Promo top 25 table            */}
+                {(() => {
+                  if (this.props.promotion.sales_data) {
+                    return (
+                      <BootstrapTable
+                        data={this.props.promotion.sales_data.table_data.df}
+                        exportCSV={true}
+                        search={true}
+                        pagination>
+                        <TableHeaderColumn dataField='Product Description' isKey>Product Description</TableHeaderColumn>
+                        <TableHeaderColumn dataField='Promo Value TY' dataSort={true}>Promo Value TY</TableHeaderColumn>
+                        <TableHeaderColumn dataField='Promo Value LY'>Promo Value LY</TableHeaderColumn>
+                        <TableHeaderColumn dataField='lfl_var' dataFormat={ triangleColumnFormatter }>LFL
+                          Variation</TableHeaderColumn>
+                      </BootstrapTable>
 
-                )
-              }else {
-                return (<div>Loading</div>)
-              }
+                    )
+                  } else {
+                    return (<div>Loading</div>)
+                  }
 
-            })()}
+                })()}
               </panel>
             </div>
           </div>
@@ -678,13 +702,18 @@ function mapDispatchToProps(dispatch) {
     onGenerateUrlParamsString: (e) => dispatch(generateUrlParamsString(e)),
     onGenerateUrlParamsData: (e) => dispatch(generateSideFilter(e)),
     onGetFilter: (e) => dispatch(getFilter(e)),
+    onGenerateSideFilter: (e) => dispatch(getFilter(e)),
     onSaveSalesParam: (e) => dispatch(SaveSalesParam(e)),
     onSaveGiveawayParam: (e) => dispatch(SaveGiveawayParam(e)),
     onSavePromoProdParam: (e) => dispatch(SavePromoProdParam(e)),
     onSavePromoPartParam: (e) => dispatch(SavePromoPartParam(e)),
     onGetWeekFilter: (e) => dispatch(getWeekFilter(e)),
     onSaveWeekFilterParam: (e) => dispatch(WeekFilterParam(e)),
-
+    onGenerateUrlParams: (e) => dispatch(generateUrlParams(e)),
+    onSendUrlParams: (e) => dispatch(sendUrlParams(e)),
+    onSaveWeek: (e) => dispatch(SaveWeek(e)),
+    onCheckboxChange: (e) => dispatch(checkboxChange(e)),
+    onCheckboxWeekChange: (e) => dispatch(checkboxWeekChange(e)),
     dispatch,
   };
 }

@@ -75,6 +75,105 @@ class NewSelector2 extends React.PureComponent { // eslint-disable-line react/pr
               overflowY: 'scroll' ,
               borderTop: '1px solid #ccc',
             }}>
+
+
+              <PanelGroup defaultActiveKey="0" accordion>
+                {(() => {
+                  if (this.props.week_data) {
+                    console.log("Cascading filter - week", this.props.week_data);
+                    var panelHeader = (
+
+                      <div className="panel-heading">Tesco Week
+                        <span style={{color: "red"}}>*</span>&nbsp;<span className="accordion-toggle" style={{float: 'right', marginRight: '-6%'}}></span></div>
+                    );
+                    return (
+
+                      <Panel header={panelHeader} eventKey="1">
+                        <div className="panel selector">
+                          <div className="panel-body style-7" style={{
+                            maxHeight: '250px',
+                            overflowX: 'hidden', fontSize: '9px'
+                          }}>
+                            {(() => {
+                              console.log("Cascading filter ----------")
+                              let finalCheckbox = [];
+                              console.log('Cascading filter - week inside panel div', this.props.week_data);
+
+                              {
+                                this.props.week_data[0].items.map(obj2 => {
+                                  console.log("Cascading Filter Inside map", obj2)
+                                  finalCheckbox.push(
+                                    <Checkbox id={obj2.name }
+                                              label={obj2.name}
+                                              style={{fontSize: '10px'}}
+                                              checked={(() => {
+                                                return obj2.selected;
+                                              })()}
+                                              onChange={() => {
+
+                                                let previous_week_selection = this.props.previous_week_selection;
+                                                let selection = "tesco_week=" + obj2.name;
+                                                //For enabling un checking
+                                                {
+                                                  console.log('Cascaded Filter previous_week_selection', previous_week_selection);
+                                                }
+                                                {
+                                                  console.log('Cascaded Filter selection', selection);
+                                                }
+                                                if (previous_week_selection == selection) {
+                                                  selection = '';
+                                                }
+
+
+                                                this.props.onCheckboxWeekChange(selection);
+                                                this.props.onSaveWeek(selection);
+                                                this.props.onGenerateSideFilter();
+                                              }}
+
+                                              isDisabled={obj2.disabled}
+                                              valid={true}
+                                              key={Date.now() + Math.random()}
+                                    />
+                                  )
+
+                                })
+                              }
+
+                              // for replacing enabled to top
+                              let finalled = [];
+                              finalCheckbox.map(obj => {
+                                {/*console.log(obj.props.checked);*/
+                                }
+                                if (!obj.props.isDisabled) {
+                                  finalled.push(obj)
+                                }
+                              });
+                              finalCheckbox.map(obj => {
+                                {/*console.log(obj.props.checked);*/
+                                }
+                                if (obj.props.isDisabled) {
+                                  finalled.push(obj)
+                                }
+                              });
+                              return finalled
+
+                            })()}
+                          </div>
+                        </div>
+                      </Panel>
+
+
+
+                    )
+                  }
+                })()}
+              </PanelGroup>
+              <hr style={{
+                marginTop: '0px',
+                marginBottom: '-6%',
+                border: '0',
+                borderTop: '1px solid #eee',
+              }}></hr>
               {/*<div id="style-7" style={{*/}
               {/*height: '52%',*/}
               {/*width: '19%',*/}

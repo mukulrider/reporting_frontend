@@ -30,7 +30,10 @@ import {
   PROMO_PART_PARAM,
   WEEK_FILTER_CONSTANT,
   WEEK_FILTER_FETCH_SUCCESS,
-  WEEK_FILTER_PARAM
+  WEEK_FILTER_PARAM,
+  SEND_URL_PARAMS,
+  WEEK,
+  CHECKBOX_WEEK_CHANGE,
 
 } from './constants';
 
@@ -211,6 +214,29 @@ export function FilterFetchSuccess(data)
 }
 
 
+//FOR FILTERS
+
+export function generateUrlParams(data) {
+  // //console.log(data);
+  return {
+    type: GENERATE_URL_PARAMS,
+    data
+  }
+}
+
+//--------------------- Storing the param in reducer -------------------------------
+
+export function sendUrlParams(data) {
+  // console.log('1.Send url param - action',data);
+
+  return {
+    type: SEND_URL_PARAMS ,
+    data
+  };
+}
+
+
+
 export function generateUrlParamsString(data)
 {
   console.log('PromoFilterFetchSuccess = actions', data);
@@ -248,5 +274,29 @@ export function WeekFilterParam(data)
 }
 
 
+export function SaveWeek(data) {
+  console.log('SaveWeek = actions',+ data);
+  return {
+    type: WEEK,
+    data,
+  };
+}
 
+
+export function checkboxChange(data) {
+  // console.log("Selection in reducer" + data);
+  return {
+
+    type: CHECKBOX_CHANGE,
+    data
+  };
+}
+
+export function checkboxWeekChange(data) {
+  console.log("checkboxWeekChange Selection in actions" + data);
+  return {
+    type: CHECKBOX_WEEK_CHANGE,
+    data
+  };
+}
 
