@@ -12,8 +12,10 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
 class MultilinePromo extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  createMultilinePromoChart = (data,chart_id,label_ty,label_ly) => {
+  createMultilinePromoChart = (data,chart_id,label_ty,label_ly,xaxis_title,yaxis_title) => {
     console.log("---insde the createMultilinePromoChart----",data);
+    console.log("========= XAxis ",xaxis_title);
+    console.log("========= YAxis",yaxis_title);
   // let data2 =   [
   //     {
   //       "tesco_week": "1-May-12",
@@ -149,14 +151,47 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
   //   console.log("---insde the createMultilinePromoChart mock_data",data2);
     // Add the valueline path.
     // set the dimensions and margins of the graph
-    let margin = {top: 20, right: 150, bottom: 30, left: 50},
+    let margin = {top: 20, right: 200, bottom: 60, left: 100},
       width = 800 - margin.left - margin.right,
       height = 250 - margin.top - margin.bottom;
 
     console.log("---insde the createMultilinePromoChart---- check2",margin);
 // set the ranges
-    let x = d3.scaleTime().range([0, width]);
+    let x = d3.scaleLinear().range([0, width]);
     let y = d3.scaleLinear().range([height, 0]);
+
+    // Scale the range of the data
+    x.domain(d3.extent(data, function(d) { return d.tesco_week; }));
+    y.domain([0, d3.max(data, function(d) {
+      return Math.max(+d.value_ty, +d.value_ly); })]);
+
+
+
+    //Titles
+    // let xaxis_title="Price buckets (£) ";
+    // let yaxis_title="# of SKUs";
+
+
+    let xAxis = d3.axisBottom(x)
+      .tickFormat(function(d) {
+        return (d);
+      });
+
+    let a = 0;
+
+    let yAxis = d3.axisLeft(y)
+      .tickFormat(function(d) {
+        if(d>1000) {
+          console.log("---------------------Y axis d",d);
+        a = d/ 1000;
+          a=a+'K';
+          console.log("---------------------Y axis a",a);
+        }
+        else
+          a = d;
+
+        return (a);
+      });
 
 // define the 1st line
     let valueline = d3.line()
@@ -191,10 +226,6 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
       d.value_ly = +d.value_ly;
     });
 
-    // Scale the range of the data
-    x.domain(d3.extent(data, function(d) { return d.tesco_week; }));
-    y.domain([0, d3.max(data, function(d) {
-      return Math.max(+d.value_ty, +d.value_ly); })]);
 
     // Add the valueline path.
     svg.append("path")
@@ -212,11 +243,33 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
     // Add the X Axis
     svg.append("g")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
+      .classed("axis xaxis", true)
+      .call(xAxis);
 
     // Add the Y Axis
     svg.append("g")
-      .call(d3.axisLeft(y));
+      .classed("axis yaxis", true)
+      .call(yAxis);
+
+    //X axis title
+    svg.append("text")
+      .attr("transform","translate(" + (width/2) + " ," +(height-10 + margin.top+(margin.bottom/2)) + ")")
+      .style("text-anchor", "middle")
+      .text(xaxis_title);
+
+    //Y axis title
+    svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - (margin.left)+20)
+      // .attr("y", 0 - (width / 2))
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text(yaxis_title);
+
+
+
+    //Legend
 
     let data_label = [{"label":label_ty},{"label":label_ly}]
 
@@ -236,7 +289,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
 
 
     legend.append("rect")
-      .attr("x", 810 )
+      .attr("x", 680 )
       .attr("width", 19)
       .attr("height", 19)
       .attr("fill", function (d, i) {
@@ -244,7 +297,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
       });
 
     legend.append("text")
-      .attr("x", 805)
+      .attr("x", 675)
       .attr("y", 9.5)
       .attr("dy", "0.32em")
       .text(function (d) {
@@ -260,13 +313,13 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
   }
 
   componentDidMount = () => {
-
-    this.createMultilinePromoChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly);
+    console.log("XXXXXXXXXXXXXXX",this.props.xaxis_title)
+    this.createMultilinePromoChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly,this.props.xaxis_title,this.props.yaxis_title);
   };
 
   componentDidUpdate = () => {
     // this.createOrdinalChart (this.props.data[0],this.props.data[1],this.props.data[2])
-    this.createMultilinePromoChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly);
+    this.createMultilinePromoChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly,this.props.xaxis_title,this.props.yaxis_title);
   };
 
 
