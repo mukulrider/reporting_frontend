@@ -32,7 +32,7 @@ import {
 } from 'containers/Promotion/selectors';
 
 
-let host_url="http://172.20.246.31:8000";
+let host_url="http://dvcmpapp00001uk.dev.global.tesco.org";
 // All sagas to be loaded
 
 
