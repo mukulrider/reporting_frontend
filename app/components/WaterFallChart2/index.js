@@ -338,7 +338,7 @@ class WaterFallChart2 extends React.PureComponent { // eslint-disable-line react
     // newRound1 = yAxisHandling(newRound1);
     // alert(newRound1);
 
-    y.domain([newRound1, max]);
+    y.domain([99, max]);
 
     let wrap = (text, width) => {
       text.each(function () {
@@ -386,7 +386,7 @@ class WaterFallChart2 extends React.PureComponent { // eslint-disable-line react
       .enter().append('g')
       .attr('class', (d) => `bar ${d.class}`)
       .attr('transform', (d) => `translate(${x(d.name) + margin.right - margin.right/2},0)`);
-
+//))
     bar.append('rect')
       .attr('y', (d) => y(Math.max(d.start, d.end)))
       .attr('height', (d) => Math.abs(y(d.start) - y(d.end) + 1))

@@ -10,15 +10,15 @@ import * as d3 from 'd3';
 
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
-
+import './style.scss';
 class PieChart extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   createChart = (data,id) =>
   { console.log("Piechart inside createChart check 1",data);
     // let data = [10, 20];
 
-    let margin = {top: 20, right: 20, bottom: 30, left: 10},
-      width = 300 - margin.left - margin.right,
-      height = 200 - margin.top - margin.bottom,
+    let margin = {top: 100, right: 20, bottom: 30, left: 50},
+      width = 340 - margin.left - margin.right,
+      height = 290 - margin.top - margin.bottom,
       radius = Math.min(width, height) / 2;
     console.log("Piechart inside createChart margin",margin);
 
@@ -32,6 +32,11 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
     console.log("Piechart inside createChart labelArc",labelArc);
     console.log("Piechart inside createChart check 2",data);
 
+    let total = 0;
+    data.forEach(function(d){total += d.value});
+
+
+
     let pie = d3.pie()
       .sort(null)
       .value(function(d) { return d.value; });
@@ -39,7 +44,6 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
       .range(["#f6eff7","#d0d1e6","#a6bddb","#67a9cf","#3690c0","#02818a","#016450"]);
     let color_hash = ["#f6eff7","#d0d1e6","#a6bddb","#67a9cf","#3690c0","#02818a","#016450"];
     let svg = d3.select(`#${id}`);
-
     svg.selectAll("*").remove();
     console.log("Inside pie chart check 3",data);
     svg = d3.select("#" + id).append("svg")
@@ -64,12 +68,14 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
       .attr("y", 55)
       .style("fill", function(d) { return color(d.value); });
 
+
+
     g.append("text")
       .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
       .attr("dy", ".35em")
       .text(function(d) {
 
-        return Math.round(d.value/1000)+'K'; });
+        return Math.round(d.value*100/total)+'%'; });
 
     let dataGroup = data;
 
@@ -124,7 +130,7 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
 
   render() {
     return (
-      <div id = {this.props.id}>
+      <div className="pieContainer" id = {this.props.id}>
       </div>
     );
   }

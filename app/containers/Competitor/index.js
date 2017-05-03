@@ -210,12 +210,12 @@ export class Competitor extends React.PureComponent {
 
             </div>
 
-            <h4 className="ts-blk-proview-head">Market Performance</h4>
+            <h4 className="pageModuleMainTitle">Market Performance</h4>
 
             <div className="row">
 
               <div className="col-xs-4 panel-body">
-                <h4 className="pageModuleMainTitle"><b>Market Share</b></h4>
+                <h4 className="pageModuleSubTitle"><b>Market Share</b></h4>
 
                 {(() => {
 
@@ -230,7 +230,21 @@ export class Competitor extends React.PureComponent {
 
                     <div className="panel-body">
                       <h4>  WOW </h4>
-                      {this.props.competitor.piechart_data.tesco_share_data}
+                      <span
+                        className={(() => {
+                          if (this.props.competitor.piechart_data.tesco_share_data > 0)
+                          {
+                            return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                          }
+                          else if (this.props.competitor.piechart_data.tesco_share_data < 0)
+                          {
+                            return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                          } else {
+                            return "glyphicon glyphicon-minus-sign glyphiconNeutral"
+                          } })()}>&nbsp;
+
+                        </span>
+                      {this.props.competitor.piechart_data.tesco_share_data}%
                     </div>
 
 
@@ -239,7 +253,7 @@ export class Competitor extends React.PureComponent {
               </div>
 
               <div className="col-xs-8 panel-body">
-                <h4 className="pageModuleMainTitle"><b>Outperformance</b></h4>
+                <h4 className="pageModuleSubTitle"><b>Outperformance</b></h4>
                 {(() => {
 
                   if (this.props.competitor.outperformance_data) {
@@ -253,7 +267,7 @@ export class Competitor extends React.PureComponent {
             </div>
 
 
-            <h4 className="ts-blk-proview-head">Price Index</h4>
+            <h4 className="pageModuleMainTitle">Price Index</h4>
 
             <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect}>
               <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
@@ -311,7 +325,7 @@ export class Competitor extends React.PureComponent {
             <div className="row">
 
               <div className="col-xs-6 panel-body">
-                <h4 className="pageModuleMainTitle"><b>ASDA</b></h4>
+                <h4 className="pageModuleSubTitle"><b>ASDA</b></h4>
 
                 {(() => {
                   if (this.props.competitor.waterfall_data) {
@@ -330,7 +344,7 @@ export class Competitor extends React.PureComponent {
               </div>
 
               <div className="col-xs-6 panel-body">
-                <h4 className="pageModuleMainTitle"><b>JS</b></h4>
+                <h4 className="pageModuleSubTitle"><b>JS</b></h4>
                 {(() => {
 
                   if (this.props.competitor.waterfall_data) {
@@ -351,7 +365,7 @@ export class Competitor extends React.PureComponent {
 
             <div className="row">
               <div className="col-xs-6 panel-body">
-                <h4 className="pageModuleMainTitle"><b>Morrisons</b></h4>
+                <h4 className="pageModuleSubTitle"><b>Morrisons</b></h4>
                 {(() => {
 
                   if (this.props.competitor.waterfall_data) {
@@ -366,7 +380,7 @@ export class Competitor extends React.PureComponent {
               </div>
 
               <div className="col-xs-6 panel-body">
-                <h4 className="pageModuleMainTitle"><b>Aldi</b></h4>
+                <h4 className="pageModuleSubTitle"><b>Aldi</b></h4>
                 {(() => {
 
                   if (this.props.competitor.waterfall_data) {
@@ -382,7 +396,7 @@ export class Competitor extends React.PureComponent {
               </div>
             </div>
 
-            <h4 className="ts-blk-proview-head">Price and Range Distribution</h4>
+            <h4 className="pageModuleMainTitle">Price and Range Distribution</h4>
             <div className="col-xs-12 panel-body">
               {(() => {
 
