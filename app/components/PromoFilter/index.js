@@ -1,8 +1,9 @@
 /**
- *
- * NewSelector2
- *
- */
+*
+* PromoFilter
+*
+*/
+
 
 import React from 'react';
 import {browserHistory} from 'react-router';
@@ -14,12 +15,12 @@ import Button from 'components/button';
 // import styled from 'styled-components';
 import styles from './style.scss';
 
-class NewSelector2 extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+class PromoFilter extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   updateUrl = (category) => {
     let queryString = '';
     [...this.refs.selector.querySelectorAll('input')].map(obj => {
       if (obj.checked == true) {
-        console.log(obj);
+        console.log("Objects",obj);
         let category = obj.id.split('__');
 
 
@@ -36,8 +37,10 @@ class NewSelector2 extends React.PureComponent { // eslint-disable-line react/pr
     queryString = queryString.substring(0, queryString.length - 1);
     // alert(queryString);
     // APPEND URL PARAMS
+    // this.props.onGenerateUrlParamsString(queryString);
+    // this.props.onGenerateUrlParamsData();
     this.props.onGenerateUrlParamsString(queryString);
-    // this.props.onGenerateFilterParamsString(queryString);
+    this.props.generateSideFilter();
     // this.props.onGenerateUrlParamsData();
     // this.updateNewState(newUrl + '?' + queryString);
     // browserHistory.push(newUrl + '?' + queryString);
@@ -49,8 +52,10 @@ class NewSelector2 extends React.PureComponent { // eslint-disable-line react/pr
     // this.props.onGenerateFilterParamsString(this.props.location.search.substring(1, this.props.location.search.length));
     // this.props.onGenerateTable();
   };
+
   componentDidUpdate = () => {
     console.log('NewSelector componentDidUpdate', this.props.location);
+
     // this.props.onGenerateTable();
   };
 
@@ -62,7 +67,6 @@ class NewSelector2 extends React.PureComponent { // eslint-disable-line react/pr
 
   render() {
     return (
-
       <div ref={'selector'}>
         {(() => {
           return (
@@ -84,7 +88,9 @@ class NewSelector2 extends React.PureComponent { // eslint-disable-line react/pr
                     var panelHeader = (
 
                       <div className="panel-heading">Tesco Week
-                        <span style={{color: "red"}}>*</span>&nbsp;<span className="accordion-toggle" style={{float: 'right', marginRight: '-6%'}}></span></div>
+                        <span style={{color: "red"}}>*</span>&nbsp;
+                        <span className="accordion-toggle" style={{float: 'right', marginRight: '-6%'}}></span>
+                      </div>
                     );
                     return (
 
@@ -125,9 +131,9 @@ class NewSelector2 extends React.PureComponent { // eslint-disable-line react/pr
                                                 }
 
 
-                                                this.props.onCheckboxWeekChange(selection);
-                                                this.props.onSaveWeek(selection);
-                                                this.props.onGenerateSideFilter();
+
+                                                this.props.onSaveWeekFilterParam(selection);
+                                                this.props.ongenerateWeekFilter();
                                               }}
 
                                               isDisabled={obj2.disabled}
@@ -186,14 +192,13 @@ class NewSelector2 extends React.PureComponent { // eslint-disable-line react/pr
 
               <PanelGroup defaultActiveKey="1" accordion>
                 {this.props.sideFilter.checkbox_list.map((item, key) => {
-                  var panelHeader = (
+                  let panelHeader = (
                     <div  className="text-capitalize">
                       {item.title.replace(/_/g, ' ')}&nbsp;{item.required ? <span style={{color: 'red'}}>*</span> : '' } &nbsp;
                       <span className="accordion-toggle" style={{float: 'right'}}></span>
                     </div>
                   );
                   return (
-
                     <Panel header={panelHeader} eventKey={++key}>
                       <div className="panel selector">
                         {/*<div className="panel-heading">*/}
@@ -286,39 +291,27 @@ class NewSelector2 extends React.PureComponent { // eslint-disable-line react/pr
               </PanelGroup>
               <div className="text-center">
                 <Button onClick={() => {
-                  console.log('apply');
-                  this.props.onKPIBox();
-                  this.props.onSupplierTable();
-                  this.props.ontopBottomChart();
-                  this.props.onKPIBoxASP();
 
-                  {/*let week_no = "time_period=13_weeks";*/}
-                  {/*this.props.onWeekClick(week_no);*/}
-                  {/*this.props.onwaterfallSpinner(0);*/}
-                  {/*this.props.onwaterfallProfitSpinner(0);*/}
-                  {/*this.props.onSupplierImpactTableSpinner(0);*/}
-                  {/*this.props.onDelistProductTableSpinner(0);*/}
-                  {/*this.props.onWaterfall();*/}
+                  this.props.loadKpi();
+                  this.props.loadSales();
+                  this.props.loadPromoGiveaway();
+                  this.props.loadPromoProd();
+                  this.props.loadPromoPart();
 
-
-                  {/*this.props.onApiFetch();*/}
-                  {/*this.props.ondelist();*/}
-                  {/*this.props.onApiFetch();*/}
-                  {/*this.props.ondelistTable();*/}
-                  {/*this.props.onWeekTabClick("Week: 13 weeks ");*/}
                 }}>Apply</Button></div>
               {/*<Button onClick={() => {*/}
-              {/*/!*this.props.onFilterReset();*!/*/}
+                {/*/!*this.props.onFilterReset();*!/*/}
               {/*}}>Reset Filters</Button>&nbsp;&nbsp;*/}
             </div>
           )
         })()}
       </div>
-
     );
   }
 }
 
-NewSelector2.propTypes = {};
+PromoFilter.propTypes = {
 
-export default NewSelector2;
+};
+
+export default PromoFilter;

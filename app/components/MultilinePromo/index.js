@@ -260,7 +260,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
     //Y axis title
     svg.append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 0 - (margin.left)+20)
+      .attr("y", 0 - (margin.left)+35)
       // .attr("y", 0 - (width / 2))
       .attr("x",0 - (height / 2))
       .attr("dy", "1em")
@@ -287,9 +287,8 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
 
     let color_hash = ["steelblue","red"];
 
-
     legend.append("rect")
-      .attr("x", 680 )
+      .attr("x", 650 )
       .attr("width", 19)
       .attr("height", 19)
       .attr("fill", function (d, i) {
@@ -297,17 +296,13 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
       });
 
     legend.append("text")
-      .attr("x", 675)
+      .attr("x", 645)
       .attr("y", 9.5)
       .attr("dy", "0.32em")
       .text(function (d) {
         console.log("Multiline text d.label",d.label)
         return d.label;
       });
-
-
-
-
 
 
   }

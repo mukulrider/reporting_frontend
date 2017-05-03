@@ -10,15 +10,15 @@ import * as d3 from 'd3';
 
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
-
+import './style.scss';
 class PieChart extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   createChart = (data,id) =>
   { console.log("Piechart inside createChart check 1",data);
     // let data = [10, 20];
 
-    let margin = {top: 20, right: 20, bottom: 30, left: 10},
-      width = 300 - margin.left - margin.right,
-      height = 200 - margin.top - margin.bottom,
+    let margin = {top: 100, right: 20, bottom: 30, left: 50},
+      width = 340 - margin.left - margin.right,
+      height = 290 - margin.top - margin.bottom,
       radius = Math.min(width, height) / 2;
     console.log("Piechart inside createChart margin",margin);
 
@@ -130,7 +130,7 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
 
   render() {
     return (
-      <div id = {this.props.id}>
+      <div className="pieContainer" id = {this.props.id}>
       </div>
     );
   }
