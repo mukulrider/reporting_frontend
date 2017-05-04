@@ -9,7 +9,7 @@ function renderLinks(props) {
   }
 
   return (
-    <ul className="ui-component__footer__links">
+    <ul className="ui-component__footer__links" style={{paddingRight:'25px'}}>
       {
         props.footerLinks.map((link, i) =>
           <li key={i} className="ui-component__footer__link-item">
@@ -30,11 +30,11 @@ export default function Footer(props) {
   );
 
   return (
-    <div className={classes}>
+    <div className={classes} style={{width:'78%',float:'right'}}>
       <Grid>
         <div className={props.contentClass}>
           {renderLinks(props)}
-          <div className="ui-component__footer--motto__wrapper">
+          <div className="ui-component__footer--motto__wrapper" style={{paddingRight:'25px'}}>
             <div className="ui-component__footer--motto" />
           </div>
         </div>

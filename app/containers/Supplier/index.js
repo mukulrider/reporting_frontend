@@ -20,6 +20,7 @@ import {Nav} from 'react-bootstrap';
 import {NavItem} from 'react-bootstrap';
 import InputField from 'components/input_field';
 import NewSelector2 from 'components/NewSelector2';
+import RadioButton from 'components/radio_button';
 import {
   kpibox,
   supplierTable,
@@ -32,6 +33,17 @@ import {
   SaveWeek,
   GenerateUrlParamsString,
   getWeekFilter,
+
+  generateTable,
+  fetchGraph,
+  SavePFilterParam,
+  SaveBubbleParam,
+  SaveBubbleParam2,
+  SavePageParam,
+  RadioChecked,
+  generateTextBoxQueryString,
+
+
 } from './actions';
 import styles from './style.scss';
 
@@ -66,17 +78,35 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
     let kpiParams = this.props.supplier.kpi_param;
     let TopBottomKpi = this.props.supplier.top_bottom_kpi;
 
-    console.log('this.props',this.props);
+    console.log('this.props', this.props);
     return (
       <div>
 
-        {/*<div className="flexcontainer">*/}
-        <div className="row">
+        <Helmet
+          title="Supplier View"
+          meta={[
+            {name: 'description', content: 'Description of Supplier View'},
+          ]}
+        />
 
-          {/*<div className="flexleft" style={{flexBasis: '300px'}}>*/}
-          <div className="col-xs-2">
+        {/*Page title*/}
+        <div className="pageTitle">SUPPLIER VIEW</div>
 
-            Filters will be here soon
+        <div className="row" style={{
+          marginLeft: '0px',
+          marginRight: '0px'
+        }}>
+
+          <div style={{
+            height: '100%',
+            position: 'fixed',
+            width: '20%',
+            /* padding-right: 5px; */
+            overflowX: 'hidden',
+            overflowY: 'scroll',
+            borderTop: '1px solid #ccc'
+          }}>
+
             {(() => {
               if (this.props.supplier.sideFilter) {
                 return (
@@ -85,16 +115,17 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                     // onDataUrlParams={this.props.DataUrlParams}
                     // onUrlParamsData={this.props.onUrlParamsData}
                                 onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}
-                                week_data = {this.props.supplier.week_filter_data}
+                                week_data={this.props.supplier.week_filter_data}
                                 onKPIBox={ this.props.onKPIBox}
                                 onSupplierTable={  this.props.onSupplierTable}
                                 ontopBottomChart={  this.props.ontopBottomChart}
                                 onKPIBoxASP={  this.props.onKPIBoxASP}
                                 onSaveWeek={this.props.onSaveWeek}
-                                onCheckboxWeekChange = {this.props.onCheckboxWeekChange}
+                                onCheckboxWeekChange={this.props.onCheckboxWeekChange}
+                                onGetFilter={this.props.onGetFilter}
 
 
-              // onGenerateFilterParamsString={this.props.onGenerateFilterParamsString}
+                    // onGenerateFilterParamsString={this.props.onGenerateFilterParamsString}
                     // onGenerateUrlParamsData={this.props.onGenerateUrlParamsData}
 
                   />
@@ -109,481 +140,486 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
           </div>
 
-          {/*<div className="flexright" style={{flexBasis: '300px', width:'100%'}}>*/}
+          <div style={{
+            width: '78%',
+            marginLeft: '22%'
+          }}>
+          <div className="row" style={{marginLeft: "0.5%", paddingTop: "-5px"}}>
 
-          <div className="col-xs-10" style={{left: '5.5%'}}>
+            <div className="col-md-12 content-wrap">
 
-            <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect}  className="tabsCustom">
-              <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
-                this.setState({activeKey1: "1"});
-                dataWeekUrlParams = "week_flag=1";
-                this.props.onSaveWeekParam(dataWeekUrlParams);
-                this.props.onKPIBox();
-                this.props.onSupplierTable();
-                this.props.ontopBottomChart();
-
-              }} style={{fontSize: '20px', fontFamily: 'Tesco'}}>
-                <b>Current Week</b></NavItem>
-
-              <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
-                this.setState({activeKey1: "2"});
-                dataWeekUrlParams = "week_flag=2";
-                this.props.onSaveWeekParam(dataWeekUrlParams);
-                this.props.onKPIBox();
-                this.props.onSupplierTable();
-                this.props.ontopBottomChart();
-
-              }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Last 4 weeks</b></NavItem>
-
-              <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
-                this.setState({activeKey1: "3"});
-                dataWeekUrlParams = "week_flag=3";
-                this.props.onSaveWeekParam(dataWeekUrlParams);
-                this.props.onKPIBox();
-                this.props.onSupplierTable();
-                this.props.ontopBottomChart();
-
-              }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Last 13 weeks</b></NavItem>
-              <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
-                this.setState({activeKey1: "4"});
-                dataWeekUrlParams = "week_flag=4";
-                this.props.onSaveWeekParam(dataWeekUrlParams);
-                this.props.onKPIBox();
-                this.props.onSupplierTable();
-                this.props.ontopBottomChart();
-
-              }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Last 52 weeks</b></NavItem>
-
-              <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
-                this.setState({activeKey1: "5"});
-                dataWeekUrlParams = "week_flag=5";
-                this.props.onSaveWeekParam(dataWeekUrlParams);
-                this.props.onKPIBox();
-                this.props.onSupplierTable();
-                this.props.ontopBottomChart();
-
-              }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>YTD</b></NavItem>
-            </Nav>
-
-            <div>
-              <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect} className="tabsCustom">
-                <NavItem eventKey="1" className="tabsCustomList" onClick={() => {
-                  this.setState({activeKey2: "1"});
-                  kpiParams = "kpi_type=Value";
-                  this.props.onSaveKPIParam(kpiParams);
+              <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom">
+                <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+                  this.setState({activeKey1: "1"});
+                  dataWeekUrlParams = "week_flag=1";
+                  this.props.onSaveWeekParam(dataWeekUrlParams);
                   this.props.onKPIBox();
+                  this.props.onSupplierTable();
                   this.props.ontopBottomChart();
+
                 }} style={{fontSize: '20px', fontFamily: 'Tesco'}}>
-                  <b>Value</b></NavItem>
+                  <b>Current Week</b></NavItem>
 
-                <NavItem eventKey="2" className="tabsCustomList" onClick={() => {
-                  this.setState({activeKey2: "2"});
-                  kpiParams = "kpi_type=Volume";
-                  this.props.onSaveKPIParam(kpiParams);
+                <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                  this.setState({activeKey1: "2"});
+                  dataWeekUrlParams = "week_flag=2";
+                  this.props.onSaveWeekParam(dataWeekUrlParams);
                   this.props.onKPIBox();
+                  this.props.onSupplierTable();
                   this.props.ontopBottomChart();
-                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Volume</b></NavItem>
 
-                <NavItem eventKey="3" className="tabsCustomList" onClick={() => {
-                  this.setState({activeKey2: "3"});
-                  kpiParams = "kpi_type=COGS";
-                  this.props.onSaveKPIParam(kpiParams);
+                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Last 4 weeks</b></NavItem>
+
+                <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                  this.setState({activeKey1: "3"});
+                  dataWeekUrlParams = "week_flag=3";
+                  this.props.onSaveWeekParam(dataWeekUrlParams);
                   this.props.onKPIBox();
+                  this.props.onSupplierTable();
                   this.props.ontopBottomChart();
-                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>COGS</b></NavItem>
-                <NavItem eventKey="4" className="tabsCustomList" onClick={() => {
-                  this.setState({activeKey2: "4"});
-                  kpiParams = "kpi_type=CGM";
-                  this.props.onSaveKPIParam(kpiParams);
-                  this.props.onKPIBox()
-                  this.props.ontopBottomChart();
-                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>CGM</b></NavItem>
 
-                <NavItem eventKey="5" className="tabsCustomList" onClick={() => {
-                  this.setState({activeKey2: "5"});
-                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>ASP</b></NavItem>
-
-                <NavItem eventKey="6" className="tabsCustomList" onClick={() => {
-                  this.setState({activeKey2: "6"});
-                  kpiParams = "kpi_type=Supp_Fund";
-                  this.props.onSaveKPIParam(kpiParams);
+                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Last 13 weeks</b></NavItem>
+                <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+                  this.setState({activeKey1: "4"});
+                  dataWeekUrlParams = "week_flag=4";
+                  this.props.onSaveWeekParam(dataWeekUrlParams);
                   this.props.onKPIBox();
+                  this.props.onSupplierTable();
                   this.props.ontopBottomChart();
-                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Supplier Funding(exc VAT)</b></NavItem>
 
-                <NavItem eventKey="7" className="tabsCustomList" onClick={() => {
-                  this.setState({activeKey2: "7"});
-                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>SKUs</b></NavItem>
+                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Last 52 weeks</b></NavItem>
 
+                <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
+                  this.setState({activeKey1: "5"});
+                  dataWeekUrlParams = "week_flag=5";
+                  this.props.onSaveWeekParam(dataWeekUrlParams);
+                  this.props.onKPIBox();
+                  this.props.onSupplierTable();
+                  this.props.ontopBottomChart();
+
+                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>YTD</b></NavItem>
               </Nav>
-
-            </div>
-
-            <div className="row" style={{textAlign: 'center'}}>
-              <div className="col-xs-6" style={{backgroundColor: "white"}}>
-                <Panel>
-                  <h4 className="pageModuleMainTitle"> Total Sales </h4>
-                  <div className="col-xs-6" style={{backgroundColor: "grey"}}>
-
-                    <h4>  {this.props.supplier.reducer1.sales} </h4>
-                  </div>
-                  <div className="col-xs-6" style={{backgroundColor: "grey"}}>
-                    <h4> LFL: {this.props.supplier.reducer1.sales_lfl} </h4>
-                  </div>
-                  <div className="row">
-                    <div className="panel-body">
-                      <div className="col-xs-4">
-                        {/*<div className="panel-body">*/}
-                        <h5> {this.props.supplier.reducer1.sales_var_week} </h5>
-                        <h4> WoW </h4>
-
-                        {/*</div>*/}
-                      </div>
-                      <div className="col-xs-4">
-                        {/*<div className="panel-body">*/}
-                        <h5> {this.props.supplier.reducer1.sales_var_year} </h5>
-                        <h4> LFL </h4>
-
-                        {/*</div>*/}
-                      </div>
-                      <div className="col-xs-4">
-                        {/*<div className="panel-body">*/}
-                        <h5>  {this.props.supplier.reducer1.sales_var_year_lfl} </h5>
-                        <h4> YOY LFL </h4>
-                        {/*</div>*/}
-                      </div>
-                    </div>
-                  </div>
-                </Panel>
-              </div>
-              <div className="col-xs-6 panel-body" style={{backgroundColor: "white"}}>
-                <Panel>
-                  <h4 className="pageModuleMainTitle"> Contribution to Growth </h4>
-
-                  <div className="row">
-                    <div className="col-xs-6">
-                    </div>
-                    <div className="col-xs-6">
-                    </div>
-                  </div>
-                  <div className="row">
-                    {/*<div className="panel-body">*/}
-                    <div className="col-xs-4">
-                      {/*<div className="panel-body">*/}
-                      <div>
-
-                      </div>
-                      <h5> {this.props.supplier.reducer1.sales_growth_wow_1}
-                        of {this.props.supplier.reducer1.sales_growth_wow_2} </h5>
-                      <h4>WoW</h4>
-                      {/*</div>*/}
-                    </div>
-                    <div className="col-xs-4">
-                      {/*<div className="panel-body">*/}
-
-                      <h5> {this.props.supplier.reducer1.sales_growth_yoy_1}
-                        of {this.props.supplier.reducer1.sales_growth_yoy_2} </h5>
-                      <h4>YoY</h4>
-                      {/*</div>*/}
-                    </div>
-                    <div className="col-xs-4">
-                      {/*<div className="panel-body">*/}
-
-                      <h5> {this.props.supplier.reducer1.sales_growth_yoy_lfl_1}
-                        of {this.props.supplier.reducer1.sales_growth_yoy_lfl_2} </h5>
-                      <h4>YoY LFL</h4>
-                      {/*</div>*/}
-                    </div>
-                    {/*</div>*/}
-                  </div>
-                </Panel>
-              </div>
-
-            </div>
-
-            <div className="row">
-              <panel>
-                <div className="col-xs-6 panel-body">
-                  <h4 className="pageModuleMainTitle"> Supplier Importance to category</h4>
-                  {(() => {
-                    if (this.props.supplier.reducer1.supp_imp_cat_sales) {
-
-                      return (
-                        <GaugeChart2 data={[this.props.supplier.reducer1.supp_imp_cat_sales]} id="gauge1"/>
-                      )
-                    }
-                  })()}
-
-                </div>
-                <div className="col-xs-6 panel-body">
-                  <h4 className="pageModuleMainTitle"> Category Importance to Supplier </h4>
-                  {(() => {
-                    if (this.props.supplier.reducer1.cat_imp_supp_sales) {
-
-                      return (
-                        <GaugeChart2 data={[this.props.supplier.reducer1.cat_imp_supp_sales]} id="gauge2"/>
-                      )
-                    }
-                  })()}
-                  {/*<SampleBarChart/>*/}
-                </div>
-              </panel>
-            </div>
-
-            <div className="row">
-              <div className="col-xs-12">
-                <Panel>
-                  <div className="row">
-                    <h3 className="text-center">Negotiation Opportunity</h3>
-                    <Button onClick={() => {
-                      let resetUrlParams = "reset_clicked";
-                      {/*this.props.onResetClickParam(resetUrlParams);*/
-                      }
-                      {/*this.props.onFetchGraph();*/
-                      }
-                      {/*this.props.onGenerateTable();*/
-                      }
-
-                    }}>Reset Chart</Button>
-                  </div>
-
-                  <div className="row">
-                    <div className="col-md-8">
-                      {(() => {
-                        if (this.props.supplier.tableData) {
-
-                          return (
-                            <BubbleChart2 data={[this.props.supplier.tableData.bubble_data]}/>
-                          )
-                        }
-                      })()}
-
-                      {/*path={this.props.location}*/}
-                      {/*onSaveBubbleParam={this.props.onSaveBubbleParam}*/}
-                      {/*onFetchGraph={this.props.onFetchGraph}*/}
-                      {/*onGenerateTable={this.props.onGenerateTable}*/}
-
-                    </div>
-
-                    <div className="col-md-4">
-                      <h4>
-                        Please select a negotiation strategy below to filter
-                        'Negotiation
-                        Opportunity' chart and table
-                      </h4>
-
-                      <div className="panel panel-danger">
-                        <div className="panel-heading">
-                          <h5 className="panel-title" onClick={() => {
-                            dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";
-                            {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
-                            }
-                            {/*this.props.onFetchGraph();*/
-                            }
-                            {/*this.props.onGenerateTable();*/
-                            }
-
-                          }}>Low CPS/Low Profit</h5>
-                        </div>
-                        <div className="panel-body">
-                          Delist Products
-                        </div>
-                      </div>
-
-                      <div className="panel panel-default">
-                        <div className="panel-heading">
-                          <h5 className="panel-title" onClick={() => {
-                            dataPerformanceUrlParams = "performance_quartile=Low CPS/High Profit";
-                            {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
-                            }
-                            {/*this.props.onFetchGraph();*/
-                            }
-                          }}>Low CPS/High Profit</h5>
-                        </div>
-                        <div className="panel-body">
-                          Hard
-                          Bargaining’
-                          for stronger
-                          profits – Low importance to customers
-                        </div>
-                      </div>
-                      <div className="panel panel-warning">
-                        <div className="panel-heading">
-                          <h5 className="panel-title" onClick={() => {
-                            dataPerformanceUrlParams = "performance_quartile=Med CPS/Med Profit"
-                            {/*this.props.onFetchGraph();*/
-                            }
-
-                            {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
-                            }
-                            {/*this.props.onGenerateTable();*/
-                            }
-                          }}>Med CPS/Med Profit</h5>
-                        </div>
-                        <div className="panel-body">Area of
-                          opportunity. Concession
-                          trading – Subs/Ranging/Price. Reduce range to drive
-                          volume
-                        </div>
-                      </div>
-
-                      <div className="panel panel-success">
-                        <div className="panel-heading">
-                          <h5 className="panel-title" onClick={() => {
-                            dataPerformanceUrlParams = "performance_quartile=High CPS/High Profit"
-                            {/*this.props.onFetchGraph();*/
-                            }
-                            {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
-                            }
-                            {/*this.props.onGenerateTable();*/
-                            }
-                          }}>High CPS/High Profit</h5>
-                        </div>
-                        <div className="panel-body">Build
-                          Win-Win
-                          relationship with
-                          supplier to share further profit gains
-                        </div>
-                      </div>
-                      <div className="panel panel-info">
-                        <div className="panel-heading">
-                          <h5 className="panel-title" onClick={() => {
-                            dataPerformanceUrlParams = "performance_quartile=High CPS/Low Profit"
-                            {/*this.props.onFetchGraph();*/
-                            }
-                            {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
-                            }
-                            {/*this.props.onGenerateTable();*/
-                            }
-                          }}>High CPS/Low Profit</h5>
-                        </div>
-                        <div className="panel-body">Work
-                          collaboratively to jointly
-                          solve low profitability
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </Panel>
-              </div>
-            </div>
-
-
-            <Panel>
-              <div>
-                <table className="table table-hover">
-                  <div className="col-xs-12 col-xs-5">
-
-                  </div>
-                  <thead style={{fontWeight: '700', textAlign: 'center'}}>
-
-                  <th>Product</th>
-                  <th>Parent Supplier</th>
-                  <th>CPS Score</th>
-                  <th>PPS</th>
-                  <th>Sales TY</th>
-                  <th>Volume TY</th>
-                  <th>CGM TY</th>
-                  <th>Rate Of Sale</th>
-
-                  </thead>
-                  <tbody>
-                  {
-                    (() => {
-                      if (this.props.supplier.tableData) {
-
-
-                        let a = this.props.supplier.tableData.table_data;
-                        return a.map(obj => {
-                          return (
-                            <tr>
-                              <td>{obj.product_id}</td>
-                              <td>{obj.parent_supplier}</td>
-                              <td>{obj.cps_score}</td>
-                              <td>{obj.pps}</td>
-                              <td>{obj.sales_ty}</td>
-                              <td>{obj.volume_ty}</td>
-                              <td>{obj.cgm_ty}</td>
-                              <td>{obj.rate_of_sale}</td>
-                            </tr>
-                          )
-                        })
-                      }
-                    })()
-                  }
-
-
-                  </tbody>
-                </table>
-
-                {/*pagination*/}
-                <nav aria-label="Page navigation example">
-                  <ul className="pagination pagination-lg">
-
-                  </ul>
-                </nav>
-              </div>
-
-            </Panel>
-
-            <div className="row">
-              <div>
-                <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect}>
-                  <NavItem eventKey="1" onClick={() => {
-                    this.setState({activeKey3: "1"});
-                    TopBottomKpi = "top_bottom_kpi=part_by_val";
-                    this.props.onSaveTopBottomKpi(TopBottomKpi);
+              <div style={{height: '0px', width: '100%'}}>&nbsp;
+                <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect}
+                     className="tabsCustom">
+                  <NavItem eventKey="1" className="tabsCustomList" onClick={() => {
+                    this.setState({activeKey2: "1"});
+                    kpiParams = "kpi_type=Value";
+                    this.props.onSaveKPIParam(kpiParams);
+                    this.props.onKPIBox();
                     this.props.ontopBottomChart();
                   }} style={{fontSize: '20px', fontFamily: 'Tesco'}}>
-                    <b>Participation by value</b></NavItem>
+                    <b>Value</b></NavItem>
 
-                  <NavItem eventKey="2" onClick={() => {
-                    this.setState({activeKey3: "2"});
-                    TopBottomKpi = "top_bottom_kpi=value_growth";
-                    this.props.onSaveTopBottomKpi(TopBottomKpi);
+                  <NavItem eventKey="2" className="tabsCustomList" onClick={() => {
+                    this.setState({activeKey2: "2"});
+                    kpiParams = "kpi_type=Volume";
+                    this.props.onSaveKPIParam(kpiParams);
+                    this.props.onKPIBox();
                     this.props.ontopBottomChart();
-                  }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Value Growth</b></NavItem>
+                  }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Volume</b></NavItem>
 
-                  <NavItem eventKey="3" onClick={() => {
-                    this.setState({activeKey3: "3"});
-                    TopBottomKpi = "top_bottom_kpi=value_contribution";
-                    this.props.onSaveTopBottomKpi(TopBottomKpi);
+                  <NavItem eventKey="3" className="tabsCustomList" onClick={() => {
+                    this.setState({activeKey2: "3"});
+                    kpiParams = "kpi_type=COGS";
+                    this.props.onSaveKPIParam(kpiParams);
+                    this.props.onKPIBox();
                     this.props.ontopBottomChart();
-                  }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Contribution to Growth</b></NavItem>
+                  }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>COGS</b></NavItem>
+                  <NavItem eventKey="4" className="tabsCustomList" onClick={() => {
+                    this.setState({activeKey2: "4"});
+                    kpiParams = "kpi_type=CGM";
+                    this.props.onSaveKPIParam(kpiParams);
+                    this.props.onKPIBox()
+                    this.props.ontopBottomChart();
+                  }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>CGM</b></NavItem>
+
+                  <NavItem eventKey="5" className="tabsCustomList" onClick={() => {
+                    this.setState({activeKey2: "5"});
+                  }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>ASP</b></NavItem>
+
+                  <NavItem eventKey="6" className="tabsCustomList" onClick={() => {
+                    this.setState({activeKey2: "6"});
+                    kpiParams = "kpi_type=Supp_Fund";
+                    this.props.onSaveKPIParam(kpiParams);
+                    this.props.onKPIBox();
+                    this.props.ontopBottomChart();
+                  }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Supplier Funding(exc VAT)</b></NavItem>
+
+                  <NavItem eventKey="7" className="tabsCustomList" onClick={() => {
+                    this.setState({activeKey2: "7"});
+                  }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>SKUs</b></NavItem>
+
                 </Nav>
               </div>
-              <panel>
-                <div className="col-xs-6 panel-body">
-                  <h4 className="pageModuleMainTitle"> Top Suppliers</h4>
-                  {(() => {
-                    if (this.props.supplier.topBotData) {
 
+              <div className="row" style={{textAlign: 'center'}}>
+                <div className="col-xs-6" style={{backgroundColor: "white"}}>
+                  <Panel>
+                    <h4 className="pageModuleMainTitle"> Total Sales </h4>
+                    <div className="col-xs-6" style={{backgroundColor: "grey"}}>
 
-                      return (
-                        <SampleBarChart data={[this.props.supplier.topBotData.top_chart]} id="suppliertopchart"/>
-                      )
-                    }
-                  })()}
+                      <h4>  {this.props.supplier.reducer1.sales} </h4>
+                    </div>
+                    <div className="col-xs-6" style={{backgroundColor: "grey"}}>
+                      <h4> LFL: {this.props.supplier.reducer1.sales_lfl} </h4>
+                    </div>
+                    <div className="row">
+                      <div className="panel-body">
+                        <div className="col-xs-4">
+                          {/*<div className="panel-body">*/}
+                          <h5> {this.props.supplier.reducer1.sales_var_week} </h5>
+                          <h4> WoW </h4>
 
+                          {/*</div>*/}
+                        </div>
+                        <div className="col-xs-4">
+                          {/*<div className="panel-body">*/}
+                          <h5> {this.props.supplier.reducer1.sales_var_year} </h5>
+                          <h4> LFL </h4>
+
+                          {/*</div>*/}
+                        </div>
+                        <div className="col-xs-4">
+                          {/*<div className="panel-body">*/}
+                          <h5>  {this.props.supplier.reducer1.sales_var_year_lfl} </h5>
+                          <h4> YOY LFL </h4>
+                          {/*</div>*/}
+                        </div>
+                      </div>
+                    </div>
+                  </Panel>
                 </div>
-                <div className="col-xs-6 panel-body">
-                  <h4 className="pageModuleMainTitle"> Bottom Suppliers </h4>
-                  {(() => {
-                    if (this.props.supplier.topBotData) {
+                <div className="col-xs-6 panel-body" style={{backgroundColor: "white"}}>
+                  <Panel>
+                    <h4 className="pageModuleMainTitle"> Contribution to Growth </h4>
 
-                      return (
-                        <SampleBarChart data={[this.props.supplier.topBotData.bottom_chart]} id="supplierbotchart"/>
-                      )
-                    }
-                  })()}
-                  {/*<SampleBarChart/>*/}
+                    <div className="row">
+                      <div className="col-xs-6">
+                      </div>
+                      <div className="col-xs-6">
+                      </div>
+                    </div>
+                    <div className="row">
+                      {/*<div className="panel-body">*/}
+                      <div className="col-xs-4">
+                        {/*<div className="panel-body">*/}
+                        <div>
+
+                        </div>
+                        <h5> {this.props.supplier.reducer1.sales_growth_wow_1}
+                          of {this.props.supplier.reducer1.sales_growth_wow_2} </h5>
+                        <h4>WoW</h4>
+                        {/*</div>*/}
+                      </div>
+                      <div className="col-xs-4">
+                        {/*<div className="panel-body">*/}
+
+                        <h5> {this.props.supplier.reducer1.sales_growth_yoy_1}
+                          of {this.props.supplier.reducer1.sales_growth_yoy_2} </h5>
+                        <h4>YoY</h4>
+                        {/*</div>*/}
+                      </div>
+                      <div className="col-xs-4">
+                        {/*<div className="panel-body">*/}
+
+                        <h5> {this.props.supplier.reducer1.sales_growth_yoy_lfl_1}
+                          of {this.props.supplier.reducer1.sales_growth_yoy_lfl_2} </h5>
+                        <h4>YoY LFL</h4>
+                        {/*</div>*/}
+                      </div>
+                      {/*</div>*/}
+                    </div>
+                  </Panel>
                 </div>
-              </panel>
+
+              </div>
+
+              <div className="row">
+                <panel>
+                  <div className="col-xs-6 panel-body">
+                    <h4 className="pageModuleMainTitle"> Supplier Importance to category</h4>
+                    {(() => {
+                      if (this.props.supplier.reducer1.supp_imp_cat_sales) {
+
+                        return (
+                          <GaugeChart2 data={[this.props.supplier.reducer1.supp_imp_cat_sales]} id="gauge1"/>
+                        )
+                      }
+                    })()}
+
+                  </div>
+                  <div className="col-xs-6 panel-body">
+                    <h4 className="pageModuleMainTitle"> Category Importance to Supplier </h4>
+                    {(() => {
+                      if (this.props.supplier.reducer1.cat_imp_supp_sales) {
+
+                        return (
+                          <GaugeChart2 data={[this.props.supplier.reducer1.cat_imp_supp_sales]} id="gauge2"/>
+                        )
+                      }
+                    })()}
+                    {/*<SampleBarChart/>*/}
+                  </div>
+                </panel>
+              </div>
+
+              <div className="row">
+                <div className="col-xs-12">
+                  <Panel>
+                    <div className="row">
+                      <h3 className="text-center">Negotiation Opportunity</h3>
+                      <Button onClick={() => {
+                        let resetUrlParams = "reset_clicked";
+                        {/*this.props.onResetClickParam(resetUrlParams);*/
+                        }
+                        {/*this.props.onFetchGraph();*/
+                        }
+                        {/*this.props.onGenerateTable();*/
+                        }
+
+                      }}>Reset Chart</Button>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-md-8">
+                        {(() => {
+                          if (this.props.supplier.tableData) {
+
+                            return (
+                              <BubbleChart2 data={[this.props.supplier.tableData.bubble_data]}/>
+                            )
+                          }
+                        })()}
+
+                        {/*path={this.props.location}*/}
+                        {/*onSaveBubbleParam={this.props.onSaveBubbleParam}*/}
+                        {/*onFetchGraph={this.props.onFetchGraph}*/}
+                        {/*onGenerateTable={this.props.onGenerateTable}*/}
+
+                      </div>
+
+                      <div className="col-md-4">
+                        <h4>
+                          Please select a negotiation strategy below to filter
+                          'Negotiation
+                          Opportunity' chart and table
+                        </h4>
+
+                        <div className="panel panel-danger">
+                          <div className="panel-heading">
+                            <h5 className="panel-title" onClick={() => {
+                              dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";
+                              {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
+                              }
+                              {/*this.props.onFetchGraph();*/
+                              }
+                              {/*this.props.onGenerateTable();*/
+                              }
+
+                            }}>Low CPS/Low Profit</h5>
+                          </div>
+                          <div className="panel-body">
+                            Delist Products
+                          </div>
+                        </div>
+
+                        <div className="panel panel-default">
+                          <div className="panel-heading">
+                            <h5 className="panel-title" onClick={() => {
+                              dataPerformanceUrlParams = "performance_quartile=Low CPS/High Profit";
+                              {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
+                              }
+                              {/*this.props.onFetchGraph();*/
+                              }
+                            }}>Low CPS/High Profit</h5>
+                          </div>
+                          <div className="panel-body">
+                            Hard
+                            Bargaining’
+                            for stronger
+                            profits – Low importance to customers
+                          </div>
+                        </div>
+                        <div className="panel panel-warning">
+                          <div className="panel-heading">
+                            <h5 className="panel-title" onClick={() => {
+                              dataPerformanceUrlParams = "performance_quartile=Med CPS/Med Profit"
+                              {/*this.props.onFetchGraph();*/
+                              }
+
+                              {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
+                              }
+                              {/*this.props.onGenerateTable();*/
+                              }
+                            }}>Med CPS/Med Profit</h5>
+                          </div>
+                          <div className="panel-body">Area of
+                            opportunity. Concession
+                            trading – Subs/Ranging/Price. Reduce range to drive
+                            volume
+                          </div>
+                        </div>
+
+                        <div className="panel panel-success">
+                          <div className="panel-heading">
+                            <h5 className="panel-title" onClick={() => {
+                              dataPerformanceUrlParams = "performance_quartile=High CPS/High Profit"
+                              {/*this.props.onFetchGraph();*/
+                              }
+                              {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
+                              }
+                              {/*this.props.onGenerateTable();*/
+                              }
+                            }}>High CPS/High Profit</h5>
+                          </div>
+                          <div className="panel-body">Build
+                            Win-Win
+                            relationship with
+                            supplier to share further profit gains
+                          </div>
+                        </div>
+                        <div className="panel panel-info">
+                          <div className="panel-heading">
+                            <h5 className="panel-title" onClick={() => {
+                              dataPerformanceUrlParams = "performance_quartile=High CPS/Low Profit"
+                              {/*this.props.onFetchGraph();*/
+                              }
+                              {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
+                              }
+                              {/*this.props.onGenerateTable();*/
+                              }
+                            }}>High CPS/Low Profit</h5>
+                          </div>
+                          <div className="panel-body">Work
+                            collaboratively to jointly
+                            solve low profitability
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </Panel>
+                </div>
+              </div>
+
+
+              <Panel>
+                <div>
+                  <table className="table table-hover">
+                    <div className="col-xs-12 col-xs-5">
+
+                    </div>
+                    <thead style={{fontWeight: '700', textAlign: 'center'}}>
+
+                    <th>Product</th>
+                    <th>Parent Supplier</th>
+                    <th>CPS Score</th>
+                    <th>PPS</th>
+                    <th>Sales TY</th>
+                    <th>Volume TY</th>
+                    <th>CGM TY</th>
+                    <th>Rate Of Sale</th>
+
+                    </thead>
+                    <tbody>
+                    {
+                      (() => {
+                        if (this.props.supplier.tableData) {
+
+
+                          let a = this.props.supplier.tableData.table_data;
+                          return a.map(obj => {
+                            return (
+                              <tr>
+                                <td>{obj.product_id}</td>
+                                <td>{obj.parent_supplier}</td>
+                                <td>{obj.cps_score}</td>
+                                <td>{obj.pps}</td>
+                                <td>{obj.sales_ty}</td>
+                                <td>{obj.volume_ty}</td>
+                                <td>{obj.cgm_ty}</td>
+                                <td>{obj.rate_of_sale}</td>
+                              </tr>
+                            )
+                          })
+                        }
+                      })()
+                    }
+
+
+                    </tbody>
+                  </table>
+
+                  {/*pagination*/}
+                  <nav aria-label="Page navigation example">
+                    <ul className="pagination pagination-lg">
+
+                    </ul>
+                  </nav>
+                </div>
+
+              </Panel>
+
+              <div className="row">
+                <div>
+                  <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect}>
+                    <NavItem eventKey="1" onClick={() => {
+                      this.setState({activeKey3: "1"});
+                      TopBottomKpi = "top_bottom_kpi=part_by_val";
+                      this.props.onSaveTopBottomKpi(TopBottomKpi);
+                      this.props.ontopBottomChart();
+                    }} style={{fontSize: '20px', fontFamily: 'Tesco'}}>
+                      <b>Participation by value</b></NavItem>
+
+                    <NavItem eventKey="2" onClick={() => {
+                      this.setState({activeKey3: "2"});
+                      TopBottomKpi = "top_bottom_kpi=value_growth";
+                      this.props.onSaveTopBottomKpi(TopBottomKpi);
+                      this.props.ontopBottomChart();
+                    }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Value Growth</b></NavItem>
+
+                    <NavItem eventKey="3" onClick={() => {
+                      this.setState({activeKey3: "3"});
+                      TopBottomKpi = "top_bottom_kpi=value_contribution";
+                      this.props.onSaveTopBottomKpi(TopBottomKpi);
+                      this.props.ontopBottomChart();
+                    }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Contribution to Growth</b></NavItem>
+                  </Nav>
+                </div>
+                <panel>
+                  <div className="col-xs-6 panel-body">
+                    <h4 className="pageModuleMainTitle"> Top Suppliers</h4>
+                    {(() => {
+                      if (this.props.supplier.topBotData) {
+
+
+                        return (
+                          <SampleBarChart data={[this.props.supplier.topBotData.top_chart]} id="suppliertopchart"/>
+                        )
+                      }
+                    })()}
+
+                  </div>
+                  <div className="col-xs-6 panel-body">
+                    <h4 className="pageModuleMainTitle"> Bottom Suppliers </h4>
+                    {(() => {
+                      if (this.props.supplier.topBotData) {
+
+                        return (
+                          <SampleBarChart data={[this.props.supplier.topBotData.bottom_chart]} id="supplierbotchart"/>
+                        )
+                      }
+                    })()}
+                    {/*<SampleBarChart/>*/}
+                  </div>
+                </panel>
+              </div>
+
             </div>
 
           </div>
-
+          </div>
         </div>
       </div>
 
@@ -604,6 +640,16 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+
+    onGenerateTable: (e) => dispatch(generateTable(e)),
+    onFetchGraph: (e) => dispatch(fetchGraph(e)),
+    onSavePFilterParam: (e) => dispatch(SavePFilterParam(e)),
+    onSaveBubbleParam: (e) => dispatch(SaveBubbleParam(e)),
+    onSaveBubbleParam2: (e) => dispatch(SaveBubbleParam2(e)),
+    onSavePageParam: (e) => dispatch(SavePageParam(e)),
+    onRadioChecked: (e) => dispatch(RadioChecked(e)),
+    onGenerateTextBoxQueryString: (e) => dispatch(generateTextBoxQueryString(e.target.value)),
+
     onKPIBox: (e) => {
       return dispatch(kpibox(e));
     },

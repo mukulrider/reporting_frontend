@@ -21,6 +21,14 @@ import {
   TOP_BOTTOM_KPI,
   GENERATE_URL_PARAMS_STRING,
   WEEK_FILTER_FETCH_SUCCESS,
+  CHECKBOX_WEEK_CHANGE,
+  WEEK,
+  GRAPH_FETCH_SUCCESS,
+  SAVE_BUBBLE_PARAM,
+  SAVE_BUBBLE_PARAM2,
+  RADIO_CHECK_PARAM,
+  GENERATE_TABLE_SUCCESS,
+  SAVE_PERF_PARAM
 } from './constants';
 
 const initialState = fromJS({
@@ -37,7 +45,43 @@ const initialState = fromJS({
   reducer1: {'sales_growth_yoy_lfl_2': '---'},
   week_param: '',
   kpi_param: '',
-  top_bottom_kpi: ''
+  top_bottom_kpi: '',
+  prodArrayTable: '[]',
+  prodArrayOpacity: '[]',
+  radioChecked: '',
+  dataPerformanceUrlParams: '',
+  chartData: [
+    {
+      x: 200,
+      y: 100,
+      ros: 20
+    },
+    {
+      x: 160,
+      y: 200,
+      ros: 10
+    },
+    {
+      x: 240,
+      y: 250,
+      ros: 20
+    },
+    {
+      x: 320,
+      y: 50,
+      ros: 10
+    },
+    {
+      x: 400,
+      y: 70,
+      ros: 10
+    },
+    {
+      x: 430,
+      y: 70,
+      ros: 10
+    }]
+
 
 });
 
@@ -60,6 +104,10 @@ function supplierReducer(state = initialState, action) {
       console.log("reducer.js", action.data);
       return state.set('topBotVar', action.data);
 
+    case SAVE_BUBBLE_PARAM2:
+      console.log("Bubble array in reducer2", action.data);
+      return state.set('prodArrayOpacity', action.data);
+
     case KPI_DATA_FETCH_SUCCESS:
       console.log("reducer.js KPI data", action.data);
       return state.set('reducer1', action.data);
@@ -75,6 +123,12 @@ function supplierReducer(state = initialState, action) {
     case FILTERS_DATA_SUCCESS:
       console.log("filter data in reducer");
       return state.set('sideFilter', action.data);
+
+    case GRAPH_FETCH_SUCCESS:
+      return state.set('chartData', action.data);
+
+    case SAVE_PERF_PARAM:
+      return state.set('dataPerformanceUrlParams', action.data);
 
 
     case SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS:
@@ -94,10 +148,30 @@ function supplierReducer(state = initialState, action) {
     case GENERATE_URL_PARAMS_STRING:
       return state.set('urlParamsString', action.data);
 
+    case SAVE_BUBBLE_PARAM:
+      console.log("Bubble array in reducer", action.data);
+      return state.set('prodArrayTable', action.data);
+
     //FOR WEEK FILTER DATA
     case WEEK_FILTER_FETCH_SUCCESS:
       console.log("reducer WEEK_FILTER_FETCH_SUCCESS", action.data);
       return state.set('week_filter_data', action.data)
+
+    case CHECKBOX_WEEK_CHANGE:
+      console.log('CHECKBOX_WEEK_CHANGE reducer', action.data);
+      return state.set('filter_week_selection', action.data);
+
+    //For table
+    case GENERATE_TABLE_SUCCESS:
+      return state.set('data', action.data);
+
+    case RADIO_CHECK_PARAM:
+      console.log("RADIO_CHECK_PARAM", action.data);
+      return state.set('radioChecked', action.data);
+
+    case WEEK:
+      console.log("reducer WEEK", action.data);
+      return state.set('week', action.data)
 
 
     default:

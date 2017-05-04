@@ -30,13 +30,16 @@ class NewSelector2 extends React.PureComponent { // eslint-disable-line react/pr
         //   // this.props.onGenerateBuyingController(category[category.length - 1])
         //   this.props.onGenerateCategoryDirector(category[category.length - 2])
         // }
+        console.log('queryString', queryString);
         queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
       }
     });
     queryString = queryString.substring(0, queryString.length - 1);
     // alert(queryString);
     // APPEND URL PARAMS
+
     this.props.onGenerateUrlParamsString(queryString);
+    console.log('this.props.onGenerateUrlParamsString(queryString)', this.props.onGenerateUrlParamsString(queryString));
     // this.props.onGenerateFilterParamsString(queryString);
     // this.props.onGenerateUrlParamsData();
     // this.updateNewState(newUrl + '?' + queryString);
@@ -66,15 +69,7 @@ class NewSelector2 extends React.PureComponent { // eslint-disable-line react/pr
       <div ref={'selector'}>
         {(() => {
           return (
-            <div id="style-7" style={{
-              height: '90%',
-              width: '21%',
-              position: 'fixed',
-              /* padding-right: 5px; */
-              overflowX: 'hidden',
-              overflowY: 'scroll' ,
-              borderTop: '1px solid #ccc',
-            }}>
+            <div id="style-7">
 
 
               <PanelGroup defaultActiveKey="0" accordion>
@@ -127,7 +122,8 @@ class NewSelector2 extends React.PureComponent { // eslint-disable-line react/pr
 
                                                 this.props.onCheckboxWeekChange(selection);
                                                 this.props.onSaveWeek(selection);
-                                                this.props.onGenerateSideFilter();
+                                                this.props.onGetFilter();
+                                                {/*this.props.onGenerateSideFilter();*/}
                                               }}
 
                                               isDisabled={obj2.disabled}

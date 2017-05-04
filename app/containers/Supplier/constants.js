@@ -37,5 +37,19 @@ export const WEEK_FILTER_FETCH_SUCCESS = 'app/Supplier/WEEK_FILTER_FETCH_SUCCESS
 export const CHECKBOX_WEEK_CHANGE = 'app/Supplier/CHECKBOX_WEEK_CHANGE';
 export const WEEK = 'app/Supplier/WEEK';
 
+//For Bubble chart
+export const GENERATE_TABLE = 'app/Supplier/GENERATE_TABLE';
+export const GENERATE_TABLE_SUCCESS = 'app/Supplier/GENERATE_TABLE_SUCCESS';
 
+export const GRAPH_FETCH = 'app/Supplier/GRAPH_FETCH';
+export const GRAPH_FETCH_SUCCESS = 'app/Supplier/GRAPH_FETCH_SUCCESS';
 
+export const SAVE_PERF_PARAM = 'app/Supplier/SAVE_PERF_PARAM';
+
+export const SAVE_BUBBLE_PARAM2 = 'app/Supplier/SAVE_BUBBLE_PARAM2';
+export const SAVE_BUBBLE_PARAM = 'app/Supplier/SAVE_BUBBLE_PARAM';
+
+export const SAVE_PAGE_PARAM = 'app/Supplier/SAVE_PAGE_PARAM';
+export const RADIO_CHECK_PARAM = 'app/Supplier/RADIO_CHECK_PARAM';
+
+export const GENERATE_TEXTBOX_QUERY_STRING = 'app/Supplier/GENERATE_TEXTBOX_QUERY_STRING';

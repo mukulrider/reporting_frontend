@@ -5,8 +5,34 @@
  */
 
 import {
-  DEFAULT_ACTION, KPI_CONSTANT,TABLE_CONSTANT,TOP_BOTTOM_CONSTANT, KPI_DATA_FETCH_SUCCESS, SUPPLIER_TABLE_DATA_FETCH_SUCCESS, SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS, WEEK_PARAM, KPI_PARAM, KPI_DATA_ASP_FETCH_SUCCESS, KPI_ASP_CONSTANT, TOP_BOTTOM_KPI, GENERATE_URL_PARAMS_STRING, FILTERS_DATA_SUCCESS,
-  WEEK_FILTER_FETCH_SUCCESS, WEEK_FILTER_CONSTANT, CHECKBOX_WEEK_CHANGE, WEEK
+  DEFAULT_ACTION,
+  KPI_CONSTANT,
+  TABLE_CONSTANT,
+  TOP_BOTTOM_CONSTANT,
+  KPI_DATA_FETCH_SUCCESS,
+  SUPPLIER_TABLE_DATA_FETCH_SUCCESS,
+  SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS,
+  WEEK_PARAM,
+  KPI_PARAM,
+  KPI_DATA_ASP_FETCH_SUCCESS,
+  KPI_ASP_CONSTANT,
+  TOP_BOTTOM_KPI,
+  GENERATE_URL_PARAMS_STRING,
+  FILTERS_DATA_SUCCESS,
+  WEEK_FILTER_FETCH_SUCCESS,
+  WEEK_FILTER_CONSTANT,
+  CHECKBOX_WEEK_CHANGE,
+  WEEK,
+  GENERATE_TABLE,
+  GENERATE_TABLE_SUCCESS,
+  GRAPH_FETCH,
+  GRAPH_FETCH_SUCCESS,
+  SAVE_PERF_PARAM,
+  SAVE_BUBBLE_PARAM2,
+  SAVE_BUBBLE_PARAM,
+  SAVE_PAGE_PARAM,
+  RADIO_CHECK_PARAM,
+  GENERATE_TEXTBOX_QUERY_STRING
 } from './constants';
 
 
@@ -59,6 +85,80 @@ export function supplierTable() {
 }
 
 
+export function generateTableSuccess(data) {
+// console.log('generateTableSuccess', data);
+  return {
+    type: GENERATE_TABLE_SUCCESS,
+    data
+  }
+}
+
+export function fetchGraphSuccess(data) {
+// console.log(data);
+  return {
+    type: GRAPH_FETCH_SUCCESS,
+    data
+  }
+}
+
+export function generateTable() {
+  return {
+    type: GENERATE_TABLE
+  }
+}
+
+export function fetchGraph() {
+// console.log('fetchGraph');
+  return {
+    type: GRAPH_FETCH
+  }
+}
+
+export function SavePFilterParam(data) {
+  return {
+    type: SAVE_PERF_PARAM,
+    data
+  };
+}
+
+export function SaveBubbleParam(data) {
+  console.log("bubble data in action", data);
+  return {
+    type: SAVE_BUBBLE_PARAM,
+    data
+  };
+}
+
+export function SaveBubbleParam2(data) {
+  console.log("bubble array for opacity-tab", data);
+  return {
+    type: SAVE_BUBBLE_PARAM2,
+    data
+  };
+}
+
+export function RadioChecked(data) {
+  return {
+    type: RADIO_CHECK_PARAM,
+    data
+  };
+}
+export function SavePageParam(data) {
+// console.log("bubble data in action",data);
+  return {
+    type: SAVE_PAGE_PARAM,
+    data
+  };
+}
+
+export function generateTextBoxQueryString(data) {
+// console.log("Search in action for "+data);
+  return {
+    type: GENERATE_TEXTBOX_QUERY_STRING,
+    data
+  }
+}
+
 
 export function SupplierTableDataFetchSuccess(data) {
   console.log('SUPPLIER_TABLE_DATA_FETCH_SUCCESS - actions', data);
@@ -77,7 +177,6 @@ export function topBottomChart() {
 }
 
 
-
 export function topBottomChartFetchSuccess(data) {
   console.log('SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS - actions', data);
   return {
@@ -87,11 +186,9 @@ export function topBottomChartFetchSuccess(data) {
 }
 
 
-
 // For saving the week param (triggered by time period buttons)
 
-export function SaveWeekParam(data)
-{
+export function SaveWeekParam(data) {
   console.log('SaveWeekParam = actions', data);
   return {
     type: WEEK_PARAM,
@@ -140,8 +237,7 @@ export function generateSideFilterSuccess(data) {
 
 //FOR WEEK FILTER DATA
 
-export function WeekFilterFetchSuccess(data)
-{
+export function WeekFilterFetchSuccess(data) {
   console.log('WeekFilterFetchSuccess = actions', data);
   return {
     type: WEEK_FILTER_FETCH_SUCCESS,
@@ -149,9 +245,8 @@ export function WeekFilterFetchSuccess(data)
   };
 }
 
-export function getWeekFilter()
-{
-  console.log('actions.js getWeekFilter',WEEK_FILTER_CONSTANT);
+export function getWeekFilter() {
+  console.log('actions.js getWeekFilter', WEEK_FILTER_CONSTANT);
   return {
     type: WEEK_FILTER_CONSTANT,
   };
@@ -168,7 +263,7 @@ export function checkboxWeekChange(data) {
 
 
 export function SaveWeek(data) {
-  console.log('SaveWeek = actions',+ data);
+  console.log('SaveWeek = actions', +data);
   return {
     type: WEEK,
     data,
