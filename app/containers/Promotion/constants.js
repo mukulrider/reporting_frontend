@@ -59,9 +59,3 @@ export const GENERATE_URL_PARAMS = 'app/Promotion/GENERATE_URL_PARAMS';
 export const GENERATE_URL_PARAMS_STRING = 'app/Promotion/GENERATE_URL_PARAMS_STRING';
 export const GENERATE_FILTER_PARAMS_STRING = 'app/Promotion/GENERATE_FILTER_PARAMS_STRING';
 export const GENERATE_URL_PARAMS_DATA = 'app/Promotion/GENERATE_URL_PARAMS_DATA';
-
-export const CHECKBOX_WEEK_CHANGE = 'app/Promotion/CHECKBOX_WEEK_CHANGE';
-
-//Constant to store Tesco Week in
-export const WEEK = 'app/Competitor/WEEK';
-

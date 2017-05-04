@@ -32,7 +32,7 @@ import {
 } from 'containers/Promotion/selectors';
 
 
-let host_url="http://172.20.244.254:8000";
+let host_url="http://dvcmpapp00001uk.dev.global.tesco.org";
 // All sagas to be loaded
 
 
@@ -83,10 +83,10 @@ export function* generatePromoSalesDataFetch() {
   const kpiparam = urlName.get('kpi_param');
   console.log("sagas Week parameter", weekurlparam);
 //  console.log("Filter parameter", filterurlparam);
-  console.log("sagas kpiparam ", kpiparam);
-  console.log("sagas kpiparam url",host_url+`/api/reporting/promo_sales?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam+'&'+salesparam+ '&' + weekselection)
+  console.log("sagas promo_sales ", kpiparam);
+  console.log("sagas promo_sales url",host_url+`/api/reporting/promo_sales?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam+'&'+salesparam+ '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/promo_sales?` + weekurlparam + '&' + urlParamsString + '&' + kpiparam+'&'+salesparam+ '&' + weekselection);
+    host_url+`/api/reporting/promo_sales?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam+'&'+salesparam+ '&' + weekselection);
   console.log("Heres the promo sales data",data);
   yield put(PromoSalesDataFetchSuccess(data));
 
@@ -265,7 +265,6 @@ export function* generateWeekFilterFetch() {
     console.log("Inside generateWeekFilterFetch")
     let urlName=yield select(selectPromotionDomain());
     let weekurlparams = urlName.get('weekurlParam');
-    let weekurlparams1 = urlName.get('filter_week_selection');
     console.log(host_url+'/api/reporting/promo_filter_data?');
 
     // if (urlParams==='')
@@ -276,7 +275,7 @@ export function* generateWeekFilterFetch() {
     //   urlParamsString=''
     // }
 
-    const data = yield call(request, host_url+'/api/reporting/filter_data_week?' + weekurlparams1);
+    const data = yield call(request, host_url+'/api/reporting/filter_data_week?' + weekurlparams);
 
     console.log(host_url+'/api/reporting/filter_data_week?'+ weekurlparams);
 
