@@ -25,6 +25,7 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
     let arc = d3.arc()
       .outerRadius(radius - 10)
       .innerRadius(0);
+
     console.log("Piechart inside createChart arc",arc);
     let labelArc = d3.arc()
       .outerRadius(radius - 40)
@@ -91,7 +92,7 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
       .enter().append("g")
       .attr("transform", function (d, i) {
         console.log("PieChart ---- d.label",d.label)
-        return "translate(0," + i * 25 + ")";
+        return "translate(5," + (i * 15 - 55) + ")";
       });
 
     // let color_hash = ["#f6eff7","#d0d1e6","#a6bddb","#67a9cf","#3690c0","#02818a","#016450"];
@@ -107,7 +108,7 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
 
     legend.append("text")
       .attr("x", 135)
-      .attr("y", 9.5)
+      .attr("y", 0)
       .attr("dy", "0.32em")
       .text(function (d) {
         console.log("PieChart text d.key",d.label)
@@ -130,7 +131,7 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
 
   render() {
     return (
-      <div className="pieContainer" id = {this.props.id}>
+      <div className="pieContainer" id = {this.props.id} style={{paddingTop:'25%'}}>
       </div>
     );
   }

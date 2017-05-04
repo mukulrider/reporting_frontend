@@ -15,162 +15,6 @@ import messages from './messages';
 
 class WaterFallChart2 extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   createChart = (data, id, yAxisName, formatter, positive_text, negative_text, total_text,xAxisName) => {
-    // var margin = {top: 20, right: 30, bottom: 30, left: 40},
-    //   width = 560 - margin.left - margin.right ,
-    //   height = 300 - margin.top - margin.bottom,
-    //   padding = 0.3;
-
-    // var x = d3.scaleOrdinal()
-    //   // .rangeRoundBands([0, width], padding);
-    //       .rangeRound([0, width], padding);
-
-    // var x = d3.scale.ordinal()
-    //   .rangeRoundBands([0, width], .1);
-
-    // var x = d3.scaleBand()
-    //   .rangeRound([0, width])
-    //   // .padding(0.3);
-    //
-    // var y = d3.scaleLinear()
-    //   .range([height, 0]);
-    //
-    // // var xAxis = d3.svg.axis()
-    // //   .scale(x)
-    // //   .orient("bottom");
-    //
-    // var xAxis = d3.axisBottom(x)
-    //
-    // // var yAxis = d3.svg.axis()
-    // //   .scale(y)
-    // //   .orient("left")
-    // //   .tickFormat(function(d) { return dollarFormatter(d); });
-    //
-    //
-    // var yAxis = d3.axisLeft(y)
-    //
-    //   .tickFormat(function (d) {
-    //     return dollarFormatter(d);
-    //   });
-    //
-    // var chart = d3.select('#'+ id)
-    //   .attr("width", width + margin.left + margin.right)
-    //   .attr("height", height + margin.top + margin.bottom)
-    //   .append("g")
-    //   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    //
-    // // d3.csv("https://gist.githubusercontent.com/chucklam/f3c7b3e3709a0afd5d57/raw/6ef027d73223efe5e82a875e1c3c572258a1b08f/data.csv", type, function (error, data) {
-    //
-    // // var data = [
-    // //   {"name": "Product Revenue", "value": 420000},
-    // //   {"name": "Services Revenue", "value": 210000},
-    // //   {"name": "Employee Revenue", "value": 190000},
-    // //   {"name": "Fixed Costs", "value": -170000},
-    // //   {"name": "Variable Costs", "value": -140000}
-    // //
-    // // ];
-    //
-    //   console.log(data);
-    //   let keys = Object.keys(data[0])
-    //   keys.shift()
-    //   console.log(keys);
-    //
-    //   // Transform data (i.e., finding cumulative values and total) for easier charting
-    //   var cumulative = 0;
-    //   for (var i = 0; i < data.length; i++) {
-    //     data[i].start = cumulative;
-    //     cumulative += data[i].value;
-    //     data[i].end = cumulative;
-    //
-    //     data[i].class = ( data[i].value >= 0 ) ? 'positive' : 'negative'
-    //   }
-    //   data.push({
-    //     name: 'Total',
-    //     end: cumulative,
-    //     start: 0,
-    //     class: 'total'
-    //   });
-    //
-    //   x.domain(data.map(function (d) {
-    //     return d.name;
-    //   }));
-    //   y.domain([0, d3.max(data, function (d) {
-    //     return d.end;
-    //   })]);
-    //
-    //   chart.append("g")
-    //     .attr("class", "x axis")
-    //     .attr("transform", "translate(0," + height + ")")
-    //     .call(xAxis);
-    //
-    //   chart.append("g")
-    //     .attr("class", "y axis")
-    //     .call(yAxis);
-    //
-    //   var bar = chart.selectAll(".bar")
-    //     .data(data)
-    //     .enter().append("g")
-    //     .attr("class", function (d) {
-    //       return "bar " + d.class
-    //     })
-    //     .attr("transform", function (d) {
-    //       return "translate(" + x(d.name) + ",0)";
-    //     });
-    //
-    //   bar.append("rect")
-    //     .attr("y", function (d) {
-    //       return y(Math.max(d.start, d.end));
-    //     })
-    //     .attr("height", function (d) {
-    //       return Math.abs(y(d.start) - y(d.end));
-    //     })
-    //     // .attr("width", x.rangeBand());
-    //     .attr("width", x.bandwidth());
-    //
-    //   bar.append("text")
-    //     .attr("x", x.bandwidth() / 2)
-    //     .attr("y", function (d) {
-    //       return y(d.end) + 5;
-    //     })
-    //     .attr("dy", function (d) {
-    //       return ((d.class == 'negative') ? '-' : '') + ".75em"
-    //     })
-    //     .text(function (d) {
-    //       return dollarFormatter(d.end - d.start);
-    //     });
-    //
-    //   bar.filter(function (d) {
-    //     return d.class != "total"
-    //   }).append("line")
-    //     .attr("class", "connector")
-    //     .attr("x1", x.bandwidth() + 5)
-    //     .attr("y1", function (d) {
-    //       return y(d.end)
-    //     })
-    //     .attr("x2", x.bandwidth() / ( 1 - padding) - 5)
-    //     .attr("y2", function (d) {
-    //       return y(d.end)
-    //     })
-    // // });
-    //
-    // function type(d) {
-    //   d.value = +d.value;
-    //   return d;
-    // }
-    //
-    // function dollarFormatter(n) {
-    //   n = Math.round(n);
-    //   var result = n;
-    //   if (Math.abs(n) > 1000) {
-    //     result = Math.round(n / 1000) + 'K';
-    //   }
-    //   return '$' + result;
-    // }
-
-    // var margin = {top: 20, right: 30, bottom: 30, left: 40},
-    //   width = 960 - margin.left - margin.right,
-    //   height = 500 - margin.top - margin.bottom,
-    //   padding = 0.3;
-
     let margin = {top: 20, right: 80, bottom: 40, left: 25},
       width = 550 - margin.left - margin.right,
       height = 300 - margin.top - margin.bottom,
@@ -237,10 +81,6 @@ class WaterFallChart2 extends React.PureComponent { // eslint-disable-line react
       .tickFormat((d) => (formatSales(d, id)))
     //   .tickFormat((d) => (d))
 
-// var tooltip = d3.select("body").append("div")
-//   .attr("class", "tooltip")
-//   .style("opacity", 0)
-//   .attr("align", "middle");
 
     let chart = d3.select(`#${id}`);
 
@@ -280,8 +120,6 @@ class WaterFallChart2 extends React.PureComponent { // eslint-disable-line react
 // ];
 
     const keys = Object.keys(data[0]);
-//   keys.shift()
-//   console.log(keys);
 
 // Transform data (i.e., finding cumulative values and total) for easier charting
     let cumulative = 0;
@@ -394,58 +232,14 @@ class WaterFallChart2 extends React.PureComponent { // eslint-disable-line react
 
       .attr('width', (x.bandwidth()/2));
       // .attr('width', (x.bandwidth() - 5));
-//   .on("mouseover", function (d) {
-//   // to find the parent node,to calculate the x position
-//   var parentG = d3.select(this.parentNode);
-//   var barPos = parseFloat(parentG.attr('transform').split("(")[1]);
-//   var xPosition = barPos + x.bandwidth() / 2;
-//   //to find the y position
-//   var yPosition = parseFloat(d3.select(this).attr("y")) + Math.abs(y(d.start) - y(d.end)) / 2;
-//   tooltip.transition()
-//     .duration(200)
-//     .style("opacity", .9);
-//   tooltip.html(d.name + "<br/>" + (d.value))
-//     .style("left", xPosition + "px")
-//     .style("top", yPosition + "px");
-// }).on("mouseout", function (d) {
-//   tooltip.transition()
-//     .duration(500)
-//     .style("opacity", 0);
-// });
 
-    // bar.append('text')
-    //   .attr('x', (x.bandwidth() +  margin.right))
-    //   // .attr('y', (d) =>  (Math.abs( y(d.start) - y(d.end))/2))
-    //   // .attr('y', (d) => (d.end))
-    //   // .attr('y', (d) => y(d.end) + 5)
-    //   .attr('y', (d) => y((d.end + d.start) / 2))
-    //   // .attr('dy', (d) => `${(d.class == 'negative') ? '-' : ''}.75em`)
-    //   // .text((d) => ((d.end - d.start)/1000));
-    //   .text((d) => ((formatSales((d.end - d.start), id))))
-    //   .style("font-size", "10px")
-    //   .style('fill', 'black');
 
     bar.append('text')
       .attr('x', (x.bandwidth()/2 -  margin.right/4))
-      // .attr('y', (d) =>  (Math.abs( y(d.start) - y(d.end))/2))
-      // .attr('y', (d) => (d.end))
-      // .attr('y', 100)
-      // .attr('y', 100)
-      // .attr('y', (d) => y(d.end) + 5)
       .attr('y', (d) => y((d.end + d.start)/2))
-      // .attr('dy', (d) => `${(d.class == 'negative') ? '-' : ''}.75em`)
-      // .text((d) => ((d.end - d.start)/1000));
       .text((d) => ((formatSales((d.end - d.start), id))))
       .style("font-size", "10px")
       .style('fill', 'black');
-
-    // bar.filter((d) => d.class != 'total').append('line')
-    // bar.filter((d) => d.class != total_text).append('line')
-    //   .attr('class', 'connector')
-    //   .attr('x1', x.bandwidth()/2)
-    //   .attr('y1', (d) => y(d.end))
-    //   .attr('x2', x.bandwidth() / (1 - padding) - 5)
-    //   .attr('y2', (d) => y(d.end));
 
     function type(d) {
       d.value = +d.value;
