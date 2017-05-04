@@ -15,7 +15,7 @@ import {
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-let host_url = "http://dvcmpapp00001uk.dev.global.tesco.org"
+let host_url = "http://172.20.242.177:8000"
 // FOR SUPPLIER POPUP TABLE
 export function* generateDataFetch() {
   const urlName = yield select(selectSupplierDomain());
