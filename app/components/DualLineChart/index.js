@@ -20,11 +20,12 @@ class DualLineChart extends React.PureComponent { // eslint-disable-line react/p
     console.log(data1);
     console.log(ty_text);
     console.log(ly_text);
-    console.log(y_axis_text);
-    let margin = { top: 20, right: 20, bottom: 50, left: 70 },
-      width = 900 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
 
+    let margin = { top: 30, right: 30, bottom: 80, left: 80 },
+      width = 850 - margin.left - margin.right,
+      height = 600 - margin.top - margin.bottom;
+
+    console.log(height+10);
 // parse the date / time
     const parseTime = d3.timeParse('%Y%W');
 
@@ -138,8 +139,8 @@ class DualLineChart extends React.PureComponent { // eslint-disable-line react/p
 
     svg.append('text')
       .attr('transform', 'rotate(-90)')
-      .attr('y', 0 - (margin.left)-5)
-      .attr('x', 0 - (height / 2))
+      .attr('y', 0 - (margin.left))
+      .attr('x', 0 - (height / 2)-15)
       .attr('dy', '1em')
       .style('text-anchor', 'middle')
       .style('font', '20px sans-serif')
@@ -154,14 +155,14 @@ class DualLineChart extends React.PureComponent { // eslint-disable-line react/p
 
     legend.append('rect')
       .attr('x', width / 2 + 2 * (margin.left))
-      .attr('y', height + margin.top)
+      .attr('y', height - margin.top)
       .attr('width', 25)
       .attr('height', 2.5)
       .attr('fill', z);
 
     legend.append('text')
-      .attr('x', width / 2 + +4 * (margin.left))
-      .attr('y', height + margin.top)
+      .attr('x', width / 2 + +3 * (margin.left))
+      .attr('y', height - margin.top)
       .attr('dy', '.35em')
       .attr('text-anchor', 'middle')
       .text((d) => {

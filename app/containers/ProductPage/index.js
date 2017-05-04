@@ -118,6 +118,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
 
 
     return (
+      <Panel>
       <div className="row">
           <div style={{ float: 'left', borderRadius: 4, borderWidth: 0.5, borderColor: '#d6d7da', color: 'red' }}>
             <div className="flexleft" style={{ marginTop:"24px"}}>
@@ -158,11 +159,11 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
 
             </div>
           </div>
-          <div className="col-xs-10" style={{ float: 'right', paddingLeft: '15px' }}>
+          <div className="col-xs-10" style={{ float: 'right' }}>
             <div className="col-xs-12">
-              <Nav bsStyle="tabs"  activeKey={this.state.activeKey} >
+              <Nav bsStyle="tabs" className="tabsCustom" Key={this.state.activeKey} >
                 <NavItem
-                  className=" tabsCustomList col-xs-2" eventKey="1" onClick={() => {
+                  className=" tabsCustomList" eventKey="1" onClick={() => {
                   this.setState({activeKey: "1"});
                   let dataWeekParams="week_flag=Latest Week";
                   this.props.onSaveWeekParam(dataWeekParams);
@@ -173,10 +174,10 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   this.props.onApiFetch();
                   this.props.ondelistTable();
             this.props.onWeekTabClick("Week: 13 weeks ")*/
-                  }} style={{ fontSize: '14px',width:'15%',paddingLeft:'0%',paddingRight:'0%' }}
+                  }}style={{ fontSize: '14px' ,width:'16%',textAlign:'center'}}
                 ><b>Selected Week</b></NavItem>
                 <NavItem
-                  className="tabsCustomList col-xs-2" eventKey="2" onClick={() => {
+                  className="tabsCustomList" eventKey="2" onClick={() => {
                   this.setState({activeKey: "2"});
                   let dataWeekParams="week_flag=4";
                   this.props.onSaveWeekParam(dataWeekParams);
@@ -187,10 +188,10 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   this.props.onApiFetch();
                   this.props.ondelistTable();
             this.props.onWeekTabClick("Week: 26 weeks ")*/
-                  }} style={{ fontSize: '14px',width:'15%',paddingLeft:'0%',paddingRight:'0%' }}
+                  }}style={{ fontSize: '14px' ,width:'16%',textAlign:'center'}}
                 ><b>Last 4 Weeks</b></NavItem>
                 <NavItem
-                  className="tabsCustomList col-xs-2" eventKey="3" onClick={() => {
+                  className="tabsCustomList" eventKey="3" onClick={() => {
                   this.setState({activeKey: "3"});
                   let dataWeekParams="week_flag=13";
                   this.props.onSaveWeekParam(dataWeekParams);
@@ -202,10 +203,10 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   this.props.onApiFetch();
                   this.props.ondelistTable();
             this.props.onWeekTabClick("Week: 52 weeks ")*/
-                  }} style={{ fontSize: '14px',width:'15%',paddingLeft:'0%',paddingRight:'0%' }}
+                  }}style={{ fontSize: '14px' ,width:'16%',textAlign:'center'}}
                 ><b>Last 13 Weeks</b></NavItem>
                 <NavItem
-                  className="tabsCustomList col-xs-2" eventKey="4" onClick={() => {
+                  className="tabsCustomList" eventKey="4" onClick={() => {
                   this.setState({activeKey: "4"});
                   let dataWeekParams="week_flag=52";
                   this.props.onSaveWeekParam(dataWeekParams);
@@ -216,10 +217,10 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   this.props.onApiFetch();
                   this.props.ondelistTable();
                   this.props.onWeekTabClick("Week: 52 weeks ")*/
-                  }} style={{ fontSize: '14px',width:'15%',paddingLeft:'0%',paddingRight:'0%' }}
+                  }}style={{ fontSize: '14px' ,width:'16%',textAlign:'center'}}
                 ><b>Last 52 Weeks</b></NavItem>
                 <NavItem
-                  className="tabsCustomList col-xs-2" eventKey="5" onClick={() => {
+                  className="tabsCustomList" eventKey="5" onClick={() => {
                   this.setState({activeKey: "5"});
                   let dataWeekParams="week_flag=YTD";
                   this.props.onSaveWeekParam(dataWeekParams);
@@ -230,10 +231,10 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   this.props.onApiFetch();
                   this.props.ondelistTable();
                   this.props.onWeekTabClick("Week: 52 weeks ")*/
-                  }} style={{ fontSize: '14px',width:'15%',paddingLeft:'0%',paddingRight:'0%' }}
+                  }}style={{ fontSize: '14px' ,width:'16%',textAlign:'center'}}
                 ><b>YTD</b></NavItem>
                 <NavItem
-                  className="tabsCustomList col-xs-2" eventKey="6" onClick={() => {
+                  className="tabsCustomList" eventKey="6" onClick={() => {
                   this.setState({activeKey: "6"});
                   let dataWeekParams="week_flag=PTD";
                   this.props.onSaveWeekParam(dataWeekParams);
@@ -244,7 +245,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   this.props.onApiFetch();
                   this.props.ondelistTable();
                   this.props.onWeekTabClick("Week: 52 weeks ")*/
-                  }} style={{ fontSize: '14px',width:'15%',paddingLeft:'0%',paddingRight:'0%' }}
+                  }}style={{ fontSize: '14px' ,width:'16%',textAlign:'center'}}
                 ><b>PTD</b></NavItem>
               </Nav>
             </div>
@@ -354,7 +355,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
             </div>
             <div >
               <div className="col-xs-12">
-              <p style={{backgroundColor:'#00539F',color:'#FFFFFF',justifyContent: 'center',alignItems: 'center',textAlign: 'center' }}><b>How Am I positioned against the market?</b></p>
+              <h2 className="pageModuleMainTitle">How Am I positioned against the market?</h2>
               </div>
               <div className="col-xs-12">
                 <div className="col-xs-3" style={{marginTop: '8%'}}>
@@ -367,7 +368,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                                 <table className="table table-hover table-striped table-bordered table_cust">
                                 <thead style={{ verticalAlign: 'middle',color:'#FFFFFF'}}>
                                 <tr>
-                                  <th colSpan="12" style={{ verticalAlign: 'middle', fontSize: '14px',backgroundColor:'#00539F',textAlign: 'center' }}><b>{obj.metric_title}</b></th>
+                                  <th colSpan="12" className="pageModuleSubTitle"><b>{obj.metric_title}</b></th>
                                 </tr>
                                 <tr>
                                 <th colSpan="6" style={{ verticalAlign: 'middle', fontSize: '14px',backgroundColor:'#1782CA',textAlign: 'center'}}>{'£ ' + (obj.metric_all / 1000).toFixed(0) + 'K'}</th>
@@ -378,28 +379,28 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                                 <tr style={{ verticalAlign: 'middle',color:'#000000',backgroundColor:'#FFFFFF' }}>
                                   <td colSpan="4" ><span className={(() => {
                                     if (obj.wow_change > 0) {
-                                      return "glyphicon glyphicon-arrow-up productTablePositive"
+                                      return "glyphicon glyphicon-chevron-up productTablePositive"
                                     } else {
-                                      return "glyphicon glyphicon-arrow-down productTableNegative"
+                                      return "glyphicon glyphicon-chevron-down productTableNegative"
                                     }
                                   })()}>&nbsp;</span>{(obj.wow_change)+'%'}
-                                    <br/><br/><p style={{color:'#1782CA'}}>WOW</p></td>
+                                    <br/><br/><h4 style={{color:'#00539f'}}>WOW</h4></td>
                                   <td colSpan="4" ><span className={(() => {
                                     if (obj.yoy_change > 0) {
-                                      return "glyphicon glyphicon-arrow-up productTablePositive"
+                                      return "glyphicon glyphicon-chevron-up productTablePositive"
                                     } else {
-                                      return "glyphicon glyphicon-arrow-down productTableNegative"
+                                      return "glyphicon glyphicon-chevron-down productTableNegative"
                                     }
                                   })()}>&nbsp;</span>{(obj.yoy_change)+'%'}
-                                    <br/><br/><p style={{color:'#1782CA'}}>YOY</p></td>
+                                    <br/><br/><h4 style={{color:'#00539f'}}>YOY</h4></td>
                                   <td colSpan="4" ><span className={(() => {
                                     if (obj.lfl_change > 0) {
-                                      return "glyphicon glyphicon-arrow-up productTablePositive"
+                                      return "glyphicon glyphicon-chevron-up productTablePositive"
                                     } else {
-                                      return "glyphicon glyphicon-arrow-down productTableNegative"
+                                      return "glyphicon glyphicon-chevron-down productTableNegative"
                                     }
                                   })()}>&nbsp;</span>{(obj.lfl_change)+'%'}
-                                    <br/><br/><p style={{color:'#1782CA'}}>LFL</p></td>
+                                    <br/><br/><h4 style={{color:'#00539f'}}>LFL</h4></td>
                               </tr>
 
                               </tbody>
@@ -419,7 +420,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
 
                 </div>
 
-                <div className="col-xs-8" style={{float:'right',border: '1px solid',backgroundColor:'#FFFFFF'}}>
+                <div className="col-xs-8" style={{float:'right'}}>
                   {(() => {
                     if (this.props.ProductPage.data && this.props.ProductPage.data.d3_output) {
 
@@ -446,9 +447,9 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
 
             </div>
               <div className="col-xs-12">
-                <h1 className="ts-blk-proview-subhead ts-blk-proview col-xs-12" style={{ fontSize: '26px', verticalAlign: 'middle', textAlign: 'center',backgroundColor:'#00539F',color:'#FFFFFF' }}>
+                <h2 className="pageModuleMainTitle col-xs-12" >
                   <b>TOP 25 SKUs </b>
-                </h1>
+                </h2>
                 <div>
                 {
                   (() => {
@@ -503,7 +504,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
               </br>
 
               <div className="col-xs-12">
-                <h1 className="ts-blk-proview-subhead ts-blk-proview col-xs-12" style={{ fontSize: '26px', verticalAlign: 'middle', textAlign: 'center',backgroundColor:'#00539F',color:'#FFFFFF' }}>
+                <h1 className="pageModuleMainTitle">
                 <b>BOTTOM 25 SKUs </b>
                 </h1>
                 <div>
@@ -558,7 +559,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
             </div>
           </div>
       </div>
-
+    </Panel>
     );
   }
 }
