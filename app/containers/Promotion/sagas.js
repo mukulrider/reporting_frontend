@@ -265,7 +265,7 @@ export function* generateWeekFilterFetch() {
     console.log("Inside generateWeekFilterFetch")
     let urlName=yield select(selectPromotionDomain());
     let weekurlparams = urlName.get('weekurlParam');
-    console.log(host_url+'/api/reporting/promo_filter_data?');
+
 
     // if (urlParams==='')
     // {urlParams='default'
@@ -275,9 +275,9 @@ export function* generateWeekFilterFetch() {
     //   urlParamsString=''
     // }
 
-    const data = yield call(request, host_url+'/api/reporting/filter_data_week?' + weekurlparams);
+    const data = yield call(request, host_url+'/api/reporting/promo_filter_data_week?' + weekurlparams);
 
-    console.log(host_url+'/api/reporting/filter_data_week?'+ weekurlparams);
+    console.log(host_url+'/api/reporting/promo_filter_data_week?'+ weekurlparams);
 
     // const data = yield call(request, `http://10.1.161.82:8000/ranging/npd_view/filter_data?`);
 
