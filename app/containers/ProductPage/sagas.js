@@ -82,20 +82,20 @@ export function* generateWeekFilter() {
     urlParamsWeekFilter = "";
   }
   console.log("Tesco Week Filter Selected:",urlParamsWeekFilter);
+  console.log(urlParams);
 
-  let urlparamsHierarchyFilter = '';
-/*  urlparamsHierarchyFilter = urlName.get('urlParamsString');
-  if (!(urlName.get('urlParamsString') == '')) {
-    urlparamsHierarchyFilter = urlName.get('urlParamsString');
-    console.log('urlparamsHierarchyFilter:', urlparamsHierarchyFilter);
-  }*/
-
-  if (!(typeof (urlparamsHierarchyFilter) === 'undefined') && !(urlparamsHierarchyFilter == '')) {
-    urlparamsHierarchyFilter = urlName.get('urlParamsString');
-    urlParams = `${urlParams}&${urlparamsHierarchyFilter}`;
+  let urlparamsHierarchyFilter = urlName.get('urlParamsString');
+  if (typeof(urlparamsHierarchyFilter) == "undefined") {
+    urlparamsHierarchyFilter = "";
   } else {
-    urlparamsHierarchyFilter= "";
+    let urlParamsStringCheck = urlparamsHierarchyFilter.substring(0, 2);
+
+    if (urlParamsStringCheck == 20) {
+      urlparamsHierarchyFilter = urlparamsHierarchyFilter.substring(14, urlparamsHierarchyFilter.length);
+    }
   }
+
+  urlParams = `${urlParams}&${urlparamsHierarchyFilter}`;
   console.log('urlParams for Week Flag,Metric Flag,Week Filter, Hierarchy Fliter', urlParamsWeekFlag, urlParamsMetricFlag,urlParamsWeekFilter, urlparamsHierarchyFilter);
   console.log('Complete urlParams', urlParams);
 /*  let paramString = '';
