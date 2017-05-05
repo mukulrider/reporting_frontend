@@ -20,6 +20,10 @@
   background-color: #b3e0ff;
 }
 
+.promoTable{
+  margin-left: 1%;
+  width: 98%;
+}
 
 .tabsCustom {
   margin-top: 24px;
@@ -40,7 +44,9 @@
   display: inline-block;
   margin: 0 8px 0 0;
   border-bottom: none;
+  font-size: 16px !important;
 }
+
 
 .tabsCustomList a{
   background: #EDECEC;
@@ -68,18 +74,25 @@
 .tabsCustomList.active span.tab_label{
   border-bottom: #048EC3 solid 4px;
 }
+
+.secondaryTabs{
+  font-size: 18px !important;
+}
+
 .content-wrap{
   background: #fff;
 }
 
 .pageModuleMainTitle{
-  width: 100%;
+  width: 98%;
   line-height: 28px;
   font-size: 18px;
   height: 28px;
   color: #00539f !important;
   background-color:#e5e8ea !important;
+  margin-left: 1%;
   font-weight: bold;
+
   //font-weight: 500;
   //color: #666666 !important;
   text-align: center;
@@ -98,6 +111,11 @@
   vertical-align: middle;
   padding-left: 3%;
   //padding-top: 3%;
+
+}
+
+.kpiSubTitle{
+  color: #00539f !important;
 }
 
 .infoButtonModuleMainTitle{
@@ -107,7 +125,8 @@
   color:#00539f;
   right:10px;
   vertical-align: middle;
-//background-color:#e5e8ea !important;
+
+  //background-color:#e5e8ea !important;
 }
 
 .glyphiconPositive { color: green; }
@@ -115,3 +134,9 @@
 .glyphiconNegative { color: red; }
 
 .glyphiconNeutral { color: #FFA626; }
+
+
+//For the small wow,yoy,lfl boxes in the kpi boxes
+.kpiSmall{
+  padding: 0;
+}

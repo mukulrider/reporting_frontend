@@ -1,9 +1,8 @@
 /**
-*
-* PromoFilter
-*
-*/
-
+ *
+ * NewSelector2
+ *
+ */
 
 import React from 'react';
 import {browserHistory} from 'react-router';
@@ -15,12 +14,12 @@ import Button from 'components/button';
 // import styled from 'styled-components';
 import styles from './style.scss';
 
-class PromoFilter extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+class FiltersProduct extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   updateUrl = (category) => {
     let queryString = '';
     [...this.refs.selector.querySelectorAll('input')].map(obj => {
       if (obj.checked == true) {
-        console.log("Objects",obj);
+        console.log("Filter Obj:",obj);
         let category = obj.id.split('__');
 
 
@@ -31,16 +30,17 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
         //   // this.props.onGenerateBuyingController(category[category.length - 1])
         //   this.props.onGenerateCategoryDirector(category[category.length - 2])
         // }
+        console.log('queryString', queryString);
         queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
       }
     });
     queryString = queryString.substring(0, queryString.length - 1);
     // alert(queryString);
     // APPEND URL PARAMS
-    // this.props.onGenerateUrlParamsString(queryString);
-    // this.props.onGenerateUrlParamsData();
+
     this.props.onGenerateUrlParamsString(queryString);
-    this.props.generateSideFilter();
+    console.log('this.props.onGenerateUrlParamsString(queryString)', this.props.onGenerateUrlParamsString(queryString));
+    // this.props.onGenerateFilterParamsString(queryString);
     // this.props.onGenerateUrlParamsData();
     // this.updateNewState(newUrl + '?' + queryString);
     // browserHistory.push(newUrl + '?' + queryString);
@@ -52,10 +52,8 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
     // this.props.onGenerateFilterParamsString(this.props.location.search.substring(1, this.props.location.search.length));
     // this.props.onGenerateTable();
   };
-
   componentDidUpdate = () => {
     console.log('NewSelector componentDidUpdate', this.props.location);
-
     // this.props.onGenerateTable();
   };
 
@@ -67,6 +65,7 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
 
   render() {
     return (
+
       <div ref={'selector'}>
         {(() => {
           return (
@@ -80,9 +79,7 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
                     var panelHeader = (
 
                       <div className="panel-heading">Tesco Week
-                        <span style={{color: "red"}}>*</span>&nbsp;
-                        <span className="accordion-toggle" style={{float: 'right', marginRight: '-6%'}}></span>
-                      </div>
+                        <span style={{color: "red"}}>*</span>&nbsp;<span className="accordion-toggle" style={{float: 'right', marginRight: '-6%'}}></span></div>
                     );
                     return (
 
@@ -123,9 +120,10 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
                                                 }
 
 
-
-                                                this.props.onSaveWeekFilterParam(selection);
-                                                this.props.ongenerateWeekFilter();
+                                                this.props.onCheckboxWeekChange(selection);
+                                                this.props.onSaveWeek(selection);
+                                                this.props.onGetFilter();
+                                                {/*this.props.onGenerateSideFilter();*/}
                                               }}
 
                                               isDisabled={obj2.disabled}
@@ -184,13 +182,14 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
 
               <PanelGroup defaultActiveKey="1" accordion>
                 {this.props.sideFilter.checkbox_list.map((item, key) => {
-                  let panelHeader = (
+                  var panelHeader = (
                     <div  className="text-capitalize">
                       {item.title.replace(/_/g, ' ')}&nbsp;{item.required ? <span style={{color: 'red'}}>*</span> : '' } &nbsp;
                       <span className="accordion-toggle" style={{float: 'right'}}></span>
                     </div>
                   );
                   return (
+
                     <Panel header={panelHeader} eventKey={++key}>
                       <div className="panel selector">
                         {/*<div className="panel-heading">*/}
@@ -283,51 +282,36 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
               </PanelGroup>
               <div className="text-center">
                 <Button onClick={() => {
+                  console.log('apply');
+                  this.props.onProductPage();
 
-                  this.props.loadKpi();
-                  this.props.loadSales();
-                  this.props.loadPromoGiveaway();
-                  this.props.loadPromoProd();
-                  this.props.loadPromoPart();
+                  {/*let week_no = "time_period=13_weeks";*/}
+                  {/*this.props.onWeekClick(week_no);*/}
+                  {/*this.props.onwaterfallSpinner(0);*/}
+                  {/*this.props.onwaterfallProfitSpinner(0);*/}
+                  {/*this.props.onSupplierImpactTableSpinner(0);*/}
+                  {/*this.props.onDelistProductTableSpinner(0);*/}
+                  {/*this.props.onWaterfall();*/}
 
-                }}>Apply</Button>
-                <div style={{height: '1%', width: '100%'}}>&nbsp;</div>
-              <Button onClick={() => {
-               let  selection = '';
-                this.props.onSaveWeekFilterParam(selection);
-                this.props.ongenerateWeekFilter();
-                let queryString='';
-                this.props.onGenerateUrlParamsString(queryString);
-                this.props.generateSideFilter();
 
-              }}>Reset</Button>
-                <div style={{height: '1%', width: '100%'}}>&nbsp;</div>
-                <Button onClick={() => {
-                  let  selection = '';
-                  this.props.onSaveWeekFilterParam(selection);
-                  this.props.ongenerateWeekFilter();
-                  let queryString='';
-                  this.props.onGenerateUrlParamsString(queryString);
-                  this.props.generateSideFilter();
-                  this.props.loadKpi();
-                  this.props.loadSales();
-                  this.props.loadPromoGiveaway();
-                  this.props.loadPromoProd();
-                  this.props.loadPromoPart();
-                }}>Load default</Button></div>
+                  {/*this.props.onApiFetch();*/}
+                  {/*this.props.ondelist();*/}
+                  {/*this.props.onApiFetch();*/}
+                  {/*this.props.ondelistTable();*/}
+                  {/*this.props.onWeekTabClick("Week: 13 weeks ");*/}
+                }}>Apply</Button></div>
               {/*<Button onClick={() => {*/}
-                {/*/!*this.props.onFilterReset();*!/*/}
+              {/*/!*this.props.onFilterReset();*!/*/}
               {/*}}>Reset Filters</Button>&nbsp;&nbsp;*/}
             </div>
           )
         })()}
       </div>
+
     );
   }
 }
 
-PromoFilter.propTypes = {
+FiltersProduct.propTypes = {};
 
-};
-
-export default PromoFilter;
+export default FiltersProduct;

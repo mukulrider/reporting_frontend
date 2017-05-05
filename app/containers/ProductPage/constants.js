@@ -17,4 +17,8 @@ export const GENERATE_URL_PARAMS_STRING = 'app/ProductPage/GENERATE_URL_PARAMS_S
 export const GENERATE_SIDE_FILTER = 'app/ProductPage/GENERATE_SIDE_FILTER';
 export const GENERATE_SIDE_FILTER_SUCCESS = 'app/ProductPage/GENERATE_SIDE_FILTER_SUCCESS';
 export const FETCH_FILTERED_PRODUCT_DATA = 'app/ProductPage/FETCH_FILTERED_PRODUCT_DATA';
+export const WEEK_FILTER_CONSTANT = 'app/Supplier/WEEK_FILTER_CONSTANT';
+export const WEEK_FILTER_FETCH_SUCCESS = 'app/Supplier/WEEK_FILTER_FETCH_SUCCESS';
+export const CHECKBOX_WEEK_CHANGE = 'app/Supplier/CHECKBOX_WEEK_CHANGE';
+export const WEEK = 'app/Supplier/WEEK';
 

@@ -12,7 +12,7 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
 class MultilinePromo extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  createMultilinePromoChart = (data,chart_id,label_ty,label_ly,xaxis_title,yaxis_title) => {
+  createMultilinePromoChart = (data,chart_id,label_ty,label_ly,xaxis_title,yaxis_title,no_pref,no_suffix) => {
     console.log("---insde the createMultilinePromoChart----",data);
     console.log("========= XAxis ",xaxis_title);
     console.log("========= YAxis",yaxis_title);
@@ -189,7 +189,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
         }
         else
           a = d;
-
+        a = no_pref + a + no_suffix;
         return (a);
       });
 
@@ -260,7 +260,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
     //Y axis title
     svg.append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 0 - (margin.left)+35)
+      .attr("y", 0 - (margin.left)+30)
       // .attr("y", 0 - (width / 2))
       .attr("x",0 - (height / 2))
       .attr("dy", "1em")
@@ -309,12 +309,12 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
 
   componentDidMount = () => {
     console.log("XXXXXXXXXXXXXXX",this.props.xaxis_title)
-    this.createMultilinePromoChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly,this.props.xaxis_title,this.props.yaxis_title);
+    this.createMultilinePromoChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly,this.props.xaxis_title,this.props.yaxis_title,this.props.no_pref,this.props.no_suffix);
   };
 
   componentDidUpdate = () => {
     // this.createOrdinalChart (this.props.data[0],this.props.data[1],this.props.data[2])
-    this.createMultilinePromoChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly,this.props.xaxis_title,this.props.yaxis_title);
+    this.createMultilinePromoChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly,this.props.xaxis_title,this.props.yaxis_title,this.props.no_pref,this.props.no_suffix);
   };
 
 

@@ -7,7 +7,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
-import {Nav, NavItem} from 'react-bootstrap';
+import {Modal,Nav, NavItem} from 'react-bootstrap';
 import Panel from 'components/panel';
 import {FormattedMessage} from 'react-intl';
 import {createStructuredSelector} from 'reselect';
@@ -40,19 +40,19 @@ import {
 
 function triangleColumnFormatter(cell, row) {
   if (cell > 0) {
-    return '<i class="glyphicon glyphicon-chevron-up glyphiconPositive"></i>&nbsp;'+ cell;
+    return '<i class="glyphicon glyphicon-chevron-up glyphiconPositive"></i>&nbsp;'+ cell+'%';
   }
   else if (cell < 0) {
-    return '<i class="glyphicon glyphicon-chevron-down glyphiconNegative"></i>&nbsp;'+ cell;
+    return '<i class="glyphicon glyphicon-chevron-down glyphiconNegative"></i>&nbsp;'+ cell+'%';
   } else {
-    return '<i class="glyphicon glyphicon-minus-sign glyphiconNeutral"></i>&nbsp;'+ cell;
+    return '<i class="glyphicon glyphicon-minus-sign glyphiconNeutral"></i>&nbsp;'+ cell+'%';
   }
 }
 
 export class Promotion extends React.PureComponent {
   componentDidMount = () => {
 
-    let dataWeekParam = 'week_flag=None';
+    let dataWeekParam = '';
     let kpiParam = 'kpi_type=value';
     this.props.onSaveKPIParam(kpiParam);
     this.props.onSaveWeekParam(dataWeekParam);
@@ -95,8 +95,19 @@ export class Promotion extends React.PureComponent {
         />
         {/*<FormattedMessage {...messages.header} />*/}
 
-        <div className="row">
-          <div className="col-xs-2">
+        <div className="row" style={{
+          marginLeft: '0px',
+          marginRight: '0px'
+        }}>
+          <div style={{
+            height: '100%',
+            position: 'fixed',
+            width: '20%',
+            /* padding-right: 5px; */
+            overflowX: 'hidden',
+            overflowY: 'scroll',
+            borderTop: '1px solid #ccc'
+          }}>
 
             {(() => {
               if (this.props.promotion.filter_data) {
@@ -130,8 +141,14 @@ export class Promotion extends React.PureComponent {
               }
             })()}
           </div>
-          <div className="col-xs-10" style={{left: '7%'}}>
-            <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom">
+          <div style={{
+            width: '78%',
+            marginLeft: '22%'
+          }}>
+            <div className="row" style={{marginLeft: "0.5%", paddingTop: "-5px"}}>
+          <div className="col-md-12 content-wrap">
+            <h3> Promotions View - Week &nbsp; {this.props.promotion.kpi_data.selected_week} </h3>
+              <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom">
               <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
                 dataWeekParam = "week_flag=Current Week";
@@ -170,7 +187,7 @@ export class Promotion extends React.PureComponent {
                 style={{textDecoration: 'none'}}>Last 13 weeks</b></NavItem>
               <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
                 this.setState({activeKey1: "4"});
-                dataWeekParam = "week_flag=Latest 52 Weeks";
+                dataWeekParam = "week_flag=Latest 26 Weeks";
                 this.props.onSaveWeekParam(dataWeekParam);
                 this.props.loadKpi();
                 this.props.loadSales();
@@ -178,7 +195,7 @@ export class Promotion extends React.PureComponent {
                 this.props.loadPromoProd();
                 this.props.loadPromoPart();
               }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                style={{textDecoration: 'none'}}>Last 52 weeks</b></NavItem>
+                style={{textDecoration: 'none'}}>Last 26 weeks</b></NavItem>
 
               <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
                 this.setState({activeKey1: "5"});
@@ -212,28 +229,37 @@ export class Promotion extends React.PureComponent {
 
               }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
                 style={{textDecoration: 'none'}}>Volume</b></NavItem>
+              <span className="glyphicon glyphicon-info-sign pull-right"
+                    style={{right: '4px', fontSize: '15px', top: '8px',  color: "#00539f", fontWeight: "bold"}}
+                    onClick={() => {
+                      this.setState({promoKPIInfo: true});
+                    }}>
+
+            </span>
             </Nav>
             {/* Promo KPI Boxes */}
 
-            <div className="row" style={{textAlign: 'center'}}>
+            <div className="row" style={{textAlign: 'center',backgroundColor: "white",margin: "0%",borderLeft: "1px solid #e5e8ea",borderRight: "1px solid #e5e8ea",borderBottom: "1px solid #e5e8ea"}}>
 
-              <div className="col-xs-4" style={{backgroundColor: "white"}}>
+
+              <div className="col-xs-4" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
                 <Panel>
-                  <h4 className="pageModuleSubTitle"> Total Sales </h4>
+                  <h3 className="pageModuleSubTitle"> Total {this.props.promotion.kpi_data.kpi_name} </h3>
                   <div className="row">
                     <div className="col-xs-6">
 
-                      <h4>{this.props.promotion.kpi_data.total.total}</h4>
+                      <h3>{this.props.promotion.kpi_data.total.total}</h3>
                     </div>
                     <div className="col-xs-6">
-                      <h4>LFL &nbsp; {this.props.promotion.kpi_data.total.total_lfl} </h4>
+                      <h3>LFL &nbsp; {this.props.promotion.kpi_data.total.total_lfl} </h3>
                     </div>
                   </div>
                   <div className="row">
                     <div className="panel-body">
-                      <div className="col-xs-4">
-                        <div className="panel-body">
-                          <h4> WoW </h4>
+                      <div className="col-xs-4 kpiSmall">
+
+
+                        <h3>
                           <span
                             className={(() => {
                               if (this.props.promotion.kpi_data.total.var_total_wow > 0)
@@ -249,11 +275,13 @@ export class Promotion extends React.PureComponent {
 
                         </span>
                           {this.props.promotion.kpi_data.total.var_total_wow}%
-                        </div>
+                        </h3>
+                          <h4 className="kpiSubTitle">WoW</h4>
+
                       </div>
-                      <div className="col-xs-4">
-                        <div className="panel-body">
-                          <h4> YoY </h4>
+                      <div className="col-xs-4 kpiSmall">
+
+                        <h3>
                           <span
                             className={(() => {
                               if (this.props.promotion.kpi_data.total.var_total_yoy > 0)
@@ -269,11 +297,13 @@ export class Promotion extends React.PureComponent {
 
                         </span>
                           {this.props.promotion.kpi_data.total.var_total_yoy}%
-                        </div>
+                        </h3>
+                        <h4 className="kpiSubTitle">YoY</h4>
+
                       </div>
-                      <div className="col-xs-4">
-                        <div className="panel-body">
-                          <h4> LFL </h4>
+                      <div className="col-xs-4 kpiSmall">
+
+                        <h3>
                           <span
                             className={(() => {
                               if (this.props.promotion.kpi_data.total.var_total_lfl > 0)
@@ -289,30 +319,33 @@ export class Promotion extends React.PureComponent {
 
                         </span>
                           {this.props.promotion.kpi_data.total.var_total_lfl}%
-                        </div>
+                        </h3>
+                        <h4 className="kpiSubTitle">LFL</h4>
+
                       </div>
                     </div>
                   </div>
                 </Panel>
               </div>
 
-              <div className="col-xs-4" style={{backgroundColor: "white"}}>
+              <div className="col-xs-4" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
                 <Panel>
-                  <h4 className="pageModuleSubTitle"> Promo Sales </h4>
+                  <h4 className="pageModuleSubTitle"> Promo {this.props.promotion.kpi_data.kpi_name} </h4>
                   <div className="row">
                     <div className="col-xs-6">
 
-                      <h4>  {this.props.promotion.kpi_data.promo.promo} </h4>
+                      <h3>  {this.props.promotion.kpi_data.promo.promo} </h3>
                     </div>
                     <div className="col-xs-6">
-                      <h4> LFL &nbsp;     {this.props.promotion.kpi_data.promo.promo_lfl} </h4>
+                      <h3>LFL &nbsp;{this.props.promotion.kpi_data.promo.promo_lfl} </h3>
                     </div>
                   </div>
                   <div className="row">
                     <div className="panel-body">
-                      <div className="col-xs-4">
-                        <div className="panel-body">
-                          <h4> Wow </h4>
+                      <div className="col-xs-4 kpiSmall">
+
+
+                        <h3>
                           <span
                             className={(() => {
                               if (this.props.promotion.kpi_data.promo.var_promo_wow > 0)
@@ -328,11 +361,12 @@ export class Promotion extends React.PureComponent {
 
                         </span>
                           {this.props.promotion.kpi_data.promo.var_promo_wow}%
-                        </div>
+                        </h3>
+                        <h4 className="kpiSubTitle">WoW</h4>
+
                       </div>
-                      <div className="col-xs-4">
-                        <div className="panel-body">
-                          <h4> YoY </h4>
+                      <div className="col-xs-4 kpiSmall">
+                        <h3>
                           <span
                             className={(() => {
                               if (this.props.promotion.kpi_data.promo.var_promo_yoy > 0)
@@ -347,11 +381,12 @@ export class Promotion extends React.PureComponent {
                               } })()}>&nbsp;
                         </span>
                           {this.props.promotion.kpi_data.promo.var_promo_yoy}%
-                        </div>
+                        </h3>
+                        <h4 className="kpiSubTitle">YoY</h4>
+
                       </div>
-                      <div className="col-xs-4">
-                        <div className="panel-body">
-                          <h4> LFL </h4>
+                      <div className="col-xs-4 kpiSmall">
+                        <h3>
                           <span
                             className={(() => {
                               if (this.props.promotion.kpi_data.promo.var_promo_lfl > 0)
@@ -367,30 +402,31 @@ export class Promotion extends React.PureComponent {
 
                         </span>
                           {this.props.promotion.kpi_data.promo.var_promo_lfl}%
-                        </div>
+                        </h3>
+                        <h4 className="kpiSubTitle">LFL</h4>
+
                       </div>
                     </div>
                   </div>
                 </Panel>
               </div>
 
-              <div className="col-xs-4" style={{backgroundColor: "white"}}>
+              <div className="col-xs-4" style={{backgroundColor: "#eee #eee #ddd"}}>
                 <Panel>
-                  <h4 className="pageModuleSubTitle"> Non Promo Sales </h4>
+                  <h4 className="pageModuleSubTitle"> Non Promo {this.props.promotion.kpi_data.kpi_name} </h4>
                   <div className="row">
                     <div className="col-xs-6">
 
-                      <h4>  {this.props.promotion.kpi_data.nonpromo.nonpromo} </h4>
+                      <h3>  {this.props.promotion.kpi_data.nonpromo.nonpromo} </h3>
                     </div>
                     <div className="col-xs-6">
-                      <h4>  LFL &nbsp;    {this.props.promotion.kpi_data.nonpromo.nonpromo_lfl} </h4>
+                      <h3>LFL &nbsp;    {this.props.promotion.kpi_data.nonpromo.nonpromo_lfl} </h3>
                     </div>
                   </div>
                   <div className="row">
                     <div className="panel-body">
-                      <div className="col-xs-4">
-                        <div className="panel-body">
-                          <h4> WoW </h4>
+                      <div className="col-xs-4 kpiSmall">
+                        <h3>
                           <span
                             className={(() => {
                               if (this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow > 0)
@@ -406,11 +442,12 @@ export class Promotion extends React.PureComponent {
 
                         </span>
                           {this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow}%
-                        </div>
+                        </h3>
+                        <h4 className="kpiSubTitle">WoW</h4>
+
                       </div>
-                      <div className="col-xs-4">
-                        <div className="panel-body">
-                          <h4> YoY </h4>
+                      <div className="col-xs-4 kpiSmall">
+                        <h3>
                           <span
                             className={(() => {
                               if (this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy > 0)
@@ -426,11 +463,12 @@ export class Promotion extends React.PureComponent {
 
                         </span>
                           {this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy}%
-                        </div>
+                        </h3>
+                        <h4 className="kpiSubTitle">YoY</h4>
+
                       </div>
-                      <div className="col-xs-4">
-                        <div className="panel-body">
-                          <h4> LFL </h4>
+                      <div className="col-xs-4 kpiSmall">
+                          <h3>
                           <span
                             className={(() => {
                               if (this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl > 0)
@@ -446,7 +484,9 @@ export class Promotion extends React.PureComponent {
 
                         </span>
                           {this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl}%
-                        </div>
+                        </h3>
+                        <h4 className="kpiSubTitle">LFL</h4>
+
                       </div>
                     </div>
                   </div>
@@ -459,7 +499,13 @@ export class Promotion extends React.PureComponent {
               <panel>
                 {/*Row for sales */}
                 <div className="row">
-                  <h2 className="pageModuleMainTitle">Promotion Sales</h2>
+                  <h2 className="pageModuleMainTitle">Total &nbsp; {this.props.promotion.kpi_data.kpi_name} &nbsp; Split by Promo Type       <span className="glyphicon glyphicon-info-sign pull-right"
+                                                                                                  style={{right: '4px', fontSize: '15px', top: '8px'}}
+                                                                                                  onClick={() => {
+                                                                                                    this.setState({promoSalesInfo: true});
+                                                                                                  }}>
+
+            </span></h2>
                   <panel>
                     <div className="col-xs-4">
 
@@ -477,7 +523,7 @@ export class Promotion extends React.PureComponent {
                       <div className="row">
                         {/*Nav for Sales data*/}
                       <Nav bsStyle="tabs" activeKey={this.state.activeKey4} onSelect={this.handleSelect}
-                           className="tabsCustom">
+                           className="tabsCustom secondaryTabs">
                         <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
                          let promoTypeParam = "";
@@ -485,7 +531,7 @@ export class Promotion extends React.PureComponent {
                           this.props.onSaveSalesParam(promoTypeParam);
                           this.props.loadSales();
                         }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                          <b style={{textDecoration: 'none'}}>Default</b></NavItem>
+                          <b style={{textDecoration: 'none'}}>Total Sales</b></NavItem>
 
                         <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
 
@@ -507,6 +553,15 @@ export class Promotion extends React.PureComponent {
 
                         <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
                           this.setState({activeKey4: "4"});
+                          let promoTypeParam = "promo_type=Linksave";
+                          this.props.onSaveSalesParam(promoTypeParam);
+                          this.props.loadSales();
+
+                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
+                          style={{textDecoration: 'none'}}>Linksave</b></NavItem>
+
+                        <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
+                          this.setState({activeKey4: "5"});
                          let promoTypeParam = "promo_type=Non Promo";
                           this.props.onSaveSalesParam(promoTypeParam);
                           this.props.loadSales();
@@ -519,7 +574,7 @@ export class Promotion extends React.PureComponent {
                         if (this.props.promotion.sales_data) {
                           console.log("Promo Sales line chart data", this.props.promotion.sales_data.promo_sales.trend);
                           return (
-                            <MultilinePromo data={this.props.promotion.sales_data.promo_sales.trend} id="linechart" label_ty="Sales TY" label_ly="Sales LY" xaxis_title="Tesco Week" yaxis_title={this.props.promotion.sales_data.yaxis_title}/>
+                            <MultilinePromo data={this.props.promotion.sales_data.promo_sales.trend} id="linechart" label_ty="Sales TY" label_ly="Sales LY" xaxis_title="Tesco Week" no_pref={this.props.promotion.sales_data.no_pref} no_suffix='' yaxis_title={this.props.promotion.sales_data.yaxis_title}/>
                           );
                         }
                       })()}
@@ -529,7 +584,11 @@ export class Promotion extends React.PureComponent {
                 </div>
                 {/*Row for giveaway*/}
                 <div className="row">
-                  <h2 className="pageModuleMainTitle">Promotion Giveaway</h2>
+                  <h2 className="pageModuleMainTitle">Promotion Giveaway Split By Promo Type <span className="glyphicon glyphicon-info-sign pull-right"
+                                                                                                   style={{right: '4px', fontSize: '15px', top: '8px'}}
+                                                                                                   onClick={() => {
+                                                                                                     this.setState({promoGiveawayInfo: true});
+                                                                                                   }}></span></h2>
                   <panel>
                     <div className="col-xs-4">
 
@@ -549,7 +608,7 @@ export class Promotion extends React.PureComponent {
                       {/*Nav for Giveaway*/}
                       <div className="row">
                       <Nav bsStyle="tabs" activeKey={this.state.activeKey5} onSelect={this.handleSelect}
-                           className="tabsCustom">
+                           className="tabsCustom secondaryTabs">
                         <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
                           let promoTypeParam = "";
@@ -557,7 +616,7 @@ export class Promotion extends React.PureComponent {
                           this.props.onSaveGiveawayParam(promoTypeParam);
                           this.props.loadPromoGiveaway();
                         }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                          <b style={{textDecoration: 'none'}}>Default</b></NavItem>
+                          <b style={{textDecoration: 'none'}}>Total Giveaway</b></NavItem>
 
                         <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
 
@@ -577,6 +636,16 @@ export class Promotion extends React.PureComponent {
                         }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
                           style={{textDecoration: 'none'}}>Multibuy</b></NavItem>
 
+                        <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+                          this.setState({activeKey5: "4"});
+                          let promoTypeParam = "promo_type=Linksave";
+                          this.props.onSaveSalesParam(promoTypeParam);
+                          this.props.loadSales();
+
+                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
+                          style={{textDecoration: 'none'}}>Linksave</b></NavItem>
+
+
 
                       </Nav>
                       </div>
@@ -586,7 +655,7 @@ export class Promotion extends React.PureComponent {
                           console.log("Promo Giveaway line chart data", this.props.promotion.promo_giveaway_data.trend);
                           return (
                             <MultilinePromo data={this.props.promotion.promo_giveaway_data.trend}
-                                            id="linechart2" label_ty="Promo Giveaway TY" label_ly="Promo Giveaway LY" xaxis_title="Tesco Week" yaxis_title="Promo Giveaway" />
+                                            id="linechart2" label_ty="Promo Giveaway TY" label_ly="Promo Giveaway LY" xaxis_title="Tesco Week" yaxis_title="Promo Giveaway" no_pref='£' no_suffix=''/>
                           );
                         }
                       })()}
@@ -597,7 +666,15 @@ export class Promotion extends React.PureComponent {
 
                 {/*Row for Promo Products*/}
                 <div className="row">
-                  <h2 className="pageModuleMainTitle">Products On Promotion</h2>
+                  <h2 className="pageModuleMainTitle">Products Count Split By Promo Type
+                    <span className="glyphicon glyphicon-info-sign pull-right"
+                          style={{right: '4px', fontSize: '15px', top: '8px'}}
+                          onClick={() => {
+                            this.setState({promoProdInfo: true});
+                          }}>
+
+                    </span>
+                  </h2>
                   <panel>
                     <div className="col-xs-4">
 
@@ -617,14 +694,14 @@ export class Promotion extends React.PureComponent {
                       {/*Nav for Promo products*/}
                       <div className="row">
                       <Nav bsStyle="tabs" activeKey={this.state.activeKey6} onSelect={this.handleSelect}
-                           className="tabsCustom">
+                           className="tabsCustom secondaryTabs">
                         <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
                           let promoTypeParam = "";
                           this.setState({activeKey6: "1"});
                           this.props.onSavePromoProdParam(promoTypeParam);
                           this.props.loadPromoProd();
                         }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                          <b style={{textDecoration: 'none'}}>Default</b></NavItem>
+                          <b style={{textDecoration: 'none'}}>Total Product Count</b></NavItem>
 
 
                         <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
@@ -646,6 +723,18 @@ export class Promotion extends React.PureComponent {
 
                         <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
                           this.setState({activeKey6: "4"});
+                          let promoTypeParam = "promo_type=Linksave";
+                          this.props.onSaveSalesParam(promoTypeParam);
+                          this.props.loadSales();
+
+                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
+                          style={{textDecoration: 'none'}}>Linksave</b></NavItem>
+
+
+
+
+                        <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
+                          this.setState({activeKey6: "5"});
                           let promoTypeParam = "promo_type=Non Promo";
                           this.props.onSavePromoProdParam(promoTypeParam);
                           this.props.loadPromoProd();
@@ -659,7 +748,7 @@ export class Promotion extends React.PureComponent {
                           console.log("Promo Giveaway line chart data", this.props.promotion.promo_prod_data.trend);
                           return (
                             <MultilinePromo data={this.props.promotion.promo_prod_data.trend}
-                                            id="linechart3" label_ty="Products on Promo TY" label_ly="Products on Promo LY"  xaxis_title="Tesco Week" yaxis_title="Products on Promo"/>
+                                            id="linechart3" label_ty="Products on Promo TY" label_ly="Products on Promo LY"  xaxis_title="Tesco Week" yaxis_title="Products on Promo" no_pref='' no_suffix=''/>
                           );
                         }
                       })()}
@@ -670,7 +759,15 @@ export class Promotion extends React.PureComponent {
 
                 {/*Row for products on participation*/}
                 <div className="row">
-                  <h2 className="pageModuleMainTitle">Promotion Participation</h2>
+                  <h2 className="pageModuleMainTitle">Promotion Participation Split By Promo Type
+                    <span className="glyphicon glyphicon-info-sign pull-right"
+                          style={{right: '4px', fontSize: '15px', top: '8px'}}
+                          onClick={() => {
+                            this.setState({promoPartInfo: true});
+                          }}>
+
+                    </span>
+                  </h2>
                   <panel>
                     <div className="col-xs-4">
 
@@ -690,7 +787,7 @@ export class Promotion extends React.PureComponent {
                       {/*Nav for Promo Participation*/}
                       <div className="row">
                       <Nav bsStyle="tabs" activeKey={this.state.activeKey7} onSelect={this.handleSelect}
-                           className="tabsCustom">
+                           className="tabsCustom secondaryTabs">
 
                         <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
@@ -699,7 +796,7 @@ export class Promotion extends React.PureComponent {
                           this.props.onSavePromoPartParam(promoTypeParam);
                           this.props.loadPromoPart();
                         }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                          <b style={{textDecoration: 'none'}}>Default</b></NavItem>
+                          <b style={{textDecoration: 'none'}}>Total Promo Participation</b></NavItem>
 
                         <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
 
@@ -718,6 +815,15 @@ export class Promotion extends React.PureComponent {
 
                         }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
                           style={{textDecoration: 'none'}}>Multibuy</b></NavItem>
+                        <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+                          this.setState({activeKey7: "4"});
+                          let promoTypeParam = "promo_type=Linksave";
+                          this.props.onSaveSalesParam(promoTypeParam);
+                          this.props.loadSales();
+
+                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
+                          style={{textDecoration: 'none'}}>Linksave</b></NavItem>
+
                       </Nav>
                       </div>
                       <div className="row">
@@ -726,7 +832,7 @@ export class Promotion extends React.PureComponent {
                           console.log("Promo Participation line chart data", this.props.promotion.promo_part_data.trend);
                           return (
                             <MultilinePromo data={this.props.promotion.promo_part_data.trend}
-                                            id="linechart4" label_ty="Promo Participation TY" label_ly="Promo Participation LY" xaxis_title="Tesco Week" yaxis_title="Promo Participation"/>
+                                            id="linechart4" label_ty="Promo Participation TY" label_ly="Promo Participation LY" xaxis_title="Tesco Week" yaxis_title="Promo Participation" no_pref='' no_suffix='%'/>
                           );
                         }
                       })()}
@@ -739,24 +845,33 @@ export class Promotion extends React.PureComponent {
               </panel>
             </div>
             <div className="row">
-            <h2 className="pageModuleMainTitle">Top 25 Products On Promotion</h2>
+            <h2 className="pageModuleMainTitle">Top 25 Products On Promotion
+              <span className="glyphicon glyphicon-info-sign pull-right"
+                    style={{right: '4px', fontSize: '15px', top: '8px'}}
+                    onClick={() => {
+                      this.setState({promoTabInfo: true});
+                    }}>
+
+                    </span>
+            </h2>
               <panel>
             {/*Promo top 25 table            */}
             {(() => {
               if (this.props.promotion.sales_data) {
                 return (
-                  <BootstrapTable
+                  <div className="promoTable">
+                  <BootstrapTable className="promoTable"
                     data={this.props.promotion.sales_data.table_data.df}
                     exportCSV={true}
                     search={true}
                     pagination>
-                    <TableHeaderColumn dataField='Product Description' isKey>Product Description</TableHeaderColumn>
-                    <TableHeaderColumn dataField='Promo TY' dataSort={true} >Promo {this.props.promotion.sales_data.table_data.col_name} TY</TableHeaderColumn>
-                    <TableHeaderColumn dataField='Promo LY' >Promo {this.props.promotion.sales_data.table_data.col_name} LY</TableHeaderColumn>
-                    <TableHeaderColumn dataField='lfl_var'  dataFormat={ triangleColumnFormatter }>LFL Variation</TableHeaderColumn>
-                    <TableHeaderColumn dataField='promoted_ly_ind'>Promoted Last Year?</TableHeaderColumn>
+                    <TableHeaderColumn  dataAlign={"left"} dataField='Product Description' isKey>Product Description</TableHeaderColumn>
+                    <TableHeaderColumn  dataAlign={"right"} dataField='Promo TY' dataSort={true} >Promo {this.props.promotion.sales_data.table_data.col_name} TY</TableHeaderColumn>
+                    <TableHeaderColumn  dataAlign={"right"} dataField='Promo LY' >Promo {this.props.promotion.sales_data.table_data.col_name} LY</TableHeaderColumn>
+                    <TableHeaderColumn  dataAlign={"right"} dataField='lfl_var'  dataFormat={ triangleColumnFormatter }><h6>LFL</h6> Variation</TableHeaderColumn>
+                    <TableHeaderColumn  dataAlign={"left"} dataField='promoted_ly_ind'>Promoted Last Year?</TableHeaderColumn>
                   </BootstrapTable>
-
+                  </div>
                 )
               }else {
                 return (<div>Loading</div>)
@@ -766,8 +881,200 @@ export class Promotion extends React.PureComponent {
               </panel>
             </div>
           </div>
-
+            </div>
+          </div>
         </div>
+
+
+        {/*MODAL FOR Promo KPI boxes */}
+
+        <Modal show={this.state.promoKPIInfo} bsSize="lg"
+               aria-labelledby="contained-modal-title-lg"
+        >
+          <Modal.Header>
+
+            <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
+              style={{textAlign: 'center', fontSize: '14px'}}><b>Value</b><span
+              style={{textAlign: 'right', float: 'right'}}
+              onClick={() => this.setState({promoKPIInfo: false})}><b>X</b></span></span>
+              <div style={{textAlign: 'center'}}>
+                <div style={{textAlign: 'right'}}>
+                </div>
+              </div>
+            </Modal.Title>
+
+          </Modal.Header>
+          <Modal.Body style={{fontSize: '14px'}}>
+            <list>
+              <ul>   Promo Sales: The total sales value for all the products on promotion</ul>
+              <ul>  Non Promo Sales: The total sales value for all the products off promotion</ul>
+              <ul>              Promo Volume: The total volume for all the products on promotion </ul>
+              <ul>    Non Promo Volume: The total volume for all the products off promotion </ul>
+              <ul>              Promo sales variation YoY: The variation of a given measure of promo sales for a set time period this year versus the equivalent time period last year (week).</ul>
+              <ul>              Non Promo sales variation YoY: The variation of a given measure of non promo sales for a set time period this year versus the equivalent time period last year (week).</ul>
+              <ul>              Promo volume variation YoY: The variation of a given measure of promo volume for a set time period this year versus the equivalent time period last year (week).</ul>
+              <ul>              Non Promo volume variation YoY: The variation of a given measure of non promo volume for a set time period this year versus the equivalent time period last year (week).</ul>
+              <ul>              Promo sales variation LFL: The variation of a given measure of promo LFL sales for a set time period this year versus the equivalent time period last year (week).</ul>
+              <ul>              Non Promo sales variation LFL: The variation of a given measure of non promo LFL sales for a set time period this year versus the equivalent time period last year (week).</ul>
+              <ul>             Promo volume variation LFL: The variation of a given measure of promo LFL volume for a set time period this year versus the equivalent time period last year (week).</ul>
+              <ul>              Non Promo volume variation LFL: The variation of a given measure of non promo LFL volume for a set time period this year versus the equivalent time period last year (week).</ul>
+              <ul>              Number of products on promotion: Count of products flagged as promotion</ul>
+
+            </list>
+
+          </Modal.Body>
+        </Modal>
+
+        {/*MODAL FOR Sales Charts */}
+
+        <Modal show={this.state.promoSalesInfo} bsSize="lg"
+               aria-labelledby="contained-modal-title-lg"
+        >
+          <Modal.Header>
+
+            <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
+              style={{textAlign: 'center', fontSize: '14px'}}><b>Value</b><span
+              style={{textAlign: 'right', float: 'right'}}
+              onClick={() => this.setState({promoSalesInfo: false})}><b>X</b></span></span>
+              <div style={{textAlign: 'center'}}>
+                <div style={{textAlign: 'right'}}>
+                </div>
+              </div>
+            </Modal.Title>
+
+          </Modal.Header>
+          <Modal.Body style={{fontSize: '14px'}}>
+            <list>
+              <ul>   Promo Sales: The total sales value for all the products on promotion</ul>
+              <ul>  Non Promo Sales: The total sales value for all the products off promotion</ul>
+              <ul>              Promo Volume: The total volume for all the products on promotion </ul>
+              <ul>    Non Promo Volume: The total volume for all the products off promotion </ul>
+
+            </list>
+
+          </Modal.Body>
+        </Modal>
+
+        {/*MODAL FOR Giveaway Charts */}
+
+        <Modal show={this.state.promoGiveawayInfo} bsSize="lg"
+               aria-labelledby="contained-modal-title-lg"
+        >
+          <Modal.Header>
+
+            <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
+              style={{textAlign: 'center', fontSize: '14px'}}><b>Value</b><span
+              style={{textAlign: 'right', float: 'right'}}
+              onClick={() => this.setState({promoGiveawayInfo: false})}><b>X</b></span></span>
+              <div style={{textAlign: 'center'}}>
+                <div style={{textAlign: 'right'}}>
+                </div>
+              </div>
+            </Modal.Title>
+
+          </Modal.Header>
+          <Modal.Body style={{fontSize: '14px'}}>
+            <list>
+              <ul>   Promo giveaway: The total discount (giveaway) for all products sold on promotion</ul>
+            </list>
+
+          </Modal.Body>
+        </Modal>
+
+        {/*MODAL FOR Promo products Charts */}
+
+        <Modal show={this.state.promoProdInfo} bsSize="lg"
+               aria-labelledby="contained-modal-title-lg"
+        >
+          <Modal.Header>
+
+            <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
+              style={{textAlign: 'center', fontSize: '14px'}}><b>Value</b><span
+              style={{textAlign: 'right', float: 'right'}}
+              onClick={() => this.setState({promoProdInfo: false})}><b>X</b></span></span>
+              <div style={{textAlign: 'center'}}>
+                <div style={{textAlign: 'right'}}>
+                </div>
+              </div>
+            </Modal.Title>
+
+          </Modal.Header>
+          <Modal.Body style={{fontSize: '14px'}}>
+            <list>
+              <ul>   Promo Sales: The total sales value for all the products on promotion</ul>
+              <ul>  Non Promo Sales: The total sales value for all the products off promotion</ul>
+              <ul>              Promo Volume: The total volume for all the products on promotion </ul>
+              <ul>    Non Promo Volume: The total volume for all the products off promotion </ul>
+              <ul>              Promo sales variation YoY: The variation of a given measure of promo sales for a set time period this year versus the equivalent time period last year (week).</ul>
+              <ul>              Non Promo sales variation YoY: The variation of a given measure of non promo sales for a set time period this year versus the equivalent time period last year (week).</ul>
+              <ul>              Promo volume variation YoY: The variation of a given measure of promo volume for a set time period this year versus the equivalent time period last year (week).</ul>
+              <ul>              Non Promo volume variation YoY: The variation of a given measure of non promo volume for a set time period this year versus the equivalent time period last year (week).</ul>
+              <ul>              Promo sales variation LFL: The variation of a given measure of promo LFL sales for a set time period this year versus the equivalent time period last year (week).</ul>
+              <ul>              Non Promo sales variation LFL: The variation of a given measure of non promo LFL sales for a set time period this year versus the equivalent time period last year (week).</ul>
+              <ul>             Promo volume variation LFL: The variation of a given measure of promo LFL volume for a set time period this year versus the equivalent time period last year (week).</ul>
+              <ul>              Non Promo volume variation LFL: The variation of a given measure of non promo LFL volume for a set time period this year versus the equivalent time period last year (week).</ul>
+              <ul>              Number of products on promotion: Count of products flagged as promotion</ul>
+
+            </list>
+
+          </Modal.Body>
+        </Modal>
+
+        {/*MODAL FOR Participation Charts */}
+
+        <Modal show={this.state.promoPartInfo} bsSize="lg"
+               aria-labelledby="contained-modal-title-lg"
+        >
+          <Modal.Header>
+
+            <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
+              style={{textAlign: 'center', fontSize: '14px'}}><b>Value</b><span
+              style={{textAlign: 'right', float: 'right'}}
+              onClick={() => this.setState({promoPartInfo: false})}><b>X</b></span></span>
+              <div style={{textAlign: 'center'}}>
+                <div style={{textAlign: 'right'}}>
+                </div>
+              </div>
+            </Modal.Title>
+
+          </Modal.Header>
+          <Modal.Body style={{fontSize: '14px'}}>
+            <list>
+              <ul>   Promo participation: The proportion of volume that was sold due to promotions</ul>
+            </list>
+
+          </Modal.Body>
+        </Modal>
+
+        {/*MODAL FOR Promo Table */}
+
+        <Modal show={this.state.promoTabInfo} bsSize="lg"
+               aria-labelledby="contained-modal-title-lg"
+        >
+          <Modal.Header>
+
+            <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
+              style={{textAlign: 'center', fontSize: '14px'}}><b>Value</b><span
+              style={{textAlign: 'right', float: 'right'}}
+              onClick={() => this.setState({promoTabInfo: false})}><b>X</b></span></span>
+              <div style={{textAlign: 'center'}}>
+                <div style={{textAlign: 'right'}}>
+                </div>
+              </div>
+            </Modal.Title>
+
+          </Modal.Header>
+          <Modal.Body style={{fontSize: '14px'}}>
+            <list>
+              <ul>  This table helps you to identify the top selling products on promotion </ul>
+
+            </list>
+
+          </Modal.Body>
+        </Modal>
+
+
+
       </div>
     );
   }
