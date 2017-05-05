@@ -17,13 +17,13 @@ import SampleBarChart from 'components/SampleBarChart';
 import BubbleChart2 from 'components/BubbleChart2';
 import GaugeChart2 from 'components/GaugeChart2';
 import {Nav} from 'react-bootstrap';
-import {NavItem} from 'react-bootstrap';
+import {NavItem, Pagination} from 'react-bootstrap';
 import InputField from 'components/input_field';
-import NewSelector2 from 'components/NewSelector2';
+import FiltersSupplier from 'components/FiltersSupplier';
 import RadioButton from 'components/radio_button';
+import Checkbox from 'components/checkbox';
 import {
   kpibox,
-  supplierTable,
   topBottomChart,
   SaveWeekParam,
   SaveKPIParam,
@@ -42,7 +42,7 @@ import {
   SavePageParam,
   RadioChecked,
   generateTextBoxQueryString,
-
+  generateCheckedList,
 
 } from './actions';
 import styles from './style.scss';
@@ -53,11 +53,14 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
     this.props.onGenerateUrlParamsString();
     this.props.onGetFilter();
     this.props.onKPIBox();
-    this.props.onSupplierTable();
     this.props.ontopBottomChart();
     this.props.onKPIBoxASP();
     this.props.onSaveTopBottomKpi();
 
+    //For table
+    this.props.onGenerateTable();
+    //For Bubble Graph
+    this.props.onFetchGraph();
     // this.props.supplier.reducer1.sales;
   };
 
@@ -65,20 +68,65 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
   constructor(props) {
     super(props);
     this.state = {
-
+      smShow: false,
+      lgShow: false,
+      supplierImpactInfo: false,
+      salesImpactVolumeInfo: false,
+      profitImpactInfo: false,
+      profitImpactCtsInfo: false,
+      spplierImpactTableInfo: false,
+      delistImpactTableInfo: false,
       activeKey1: "1",
       activeKey2: "1",
-      activeKey3: "1"
+      activeKey3: "1",
+      storeactiveKey: "1",
     };
   }
 
+  inputUpdate = (checked, base_product_number) => {
+    console.log('inputupdate', base_product_number);
+    this.props.onGenerateCheckedList(checked, base_product_number)
+  };
+
+  tableProductUpdate = (checked, base_product_number) => {
+    console.log("printing the product selected", base_product_number);
+    let deselectBub = [];
+    let deselectBubFlag = 0;
+
+    //This will be used to change the opacity in bubble chart
+    let tableArrray = this.props.supplier.prodArrayOpacity;
+    tableArrray = JSON.parse(tableArrray);
+
+    for (let i = 0; i < tableArrray.length; i++) {
+      if (tableArrray[i] !== base_product_number) {
+        deselectBub.push(tableArrray[i]);
+      }
+      else {
+        deselectBubFlag = 1;
+      }
+    }
+
+    if (deselectBubFlag === 0) {
+      deselectBub.push(base_product_number);
+    }
+
+    let tableJSON = JSON.stringify(deselectBub);
+    this.props.onSaveBubbleParam2(tableJSON);
+    this.props.onGenerateCheckedList(checked, base_product_number)
+  };
+
   render() {
 
+    {
+      console.log('this.propss', this.props)
+    }
     let dataWeekUrlParams = this.props.supplier.week_param;
     let kpiParams = this.props.supplier.kpi_param;
     let TopBottomKpi = this.props.supplier.top_bottom_kpi;
+    let dataPerformanceUrlParams = this.props.supplier.dataPerformanceUrlParams;
+    let dataStoreUrlParams = this.props.supplier.dataStoreUrlParams;
 
-    console.log('this.props', this.props);
+
     return (
       <div>
 
@@ -90,7 +138,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
         />
 
         {/*Page title*/}
-        <div className="pageTitle">SUPPLIER VIEW</div>
+        <div className="pageTitle" style={{width: '78%', float: 'right'}}>SUPPLIER VIEW</div>
 
         <div className="row" style={{
           marginLeft: '0px',
@@ -110,22 +158,24 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
             {(() => {
               if (this.props.supplier.sideFilter) {
                 return (
-                  <NewSelector2 sideFilter={this.props.supplier.sideFilter}
-                                location={this.props.location}
+                  <FiltersSupplier sideFilter={this.props.supplier.sideFilter}
+                                   location={this.props.location}
                     // onDataUrlParams={this.props.DataUrlParams}
                     // onUrlParamsData={this.props.onUrlParamsData}
-                                onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}
-                                week_data={this.props.supplier.week_filter_data}
-                                onKPIBox={ this.props.onKPIBox}
-                                onSupplierTable={  this.props.onSupplierTable}
-                                ontopBottomChart={  this.props.ontopBottomChart}
-                                onKPIBoxASP={  this.props.onKPIBoxASP}
-                                onSaveWeek={this.props.onSaveWeek}
-                                onCheckboxWeekChange={this.props.onCheckboxWeekChange}
-                                onGetFilter={this.props.onGetFilter}
+                                   onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}
+                                   week_data={this.props.supplier.week_filter_data}
+                                   onKPIBox={ this.props.onKPIBox}
+                                   ontopBottomChart={  this.props.ontopBottomChart}
+                                   onKPIBoxASP={  this.props.onKPIBoxASP}
+                                   onSaveWeek={this.props.onSaveWeek}
+                                   onCheckboxWeekChange={this.props.onCheckboxWeekChange}
+                                   onGetFilter={this.props.onGetFilter}
+                                   onGenerateTable={this.props.onGenerateTable}
+                                   onFetchGraph={this.props.onFetchGraph}
 
 
-                    // onGenerateFilterParamsString={this.props.onGenerateFilterParamsString}
+
+              // onGenerateFilterParamsString={this.props.onGenerateFilterParamsString}
                     // onGenerateUrlParamsData={this.props.onGenerateUrlParamsData}
 
                   />
@@ -144,481 +194,676 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
             width: '78%',
             marginLeft: '22%'
           }}>
-          <div className="row" style={{marginLeft: "0.5%", paddingTop: "-5px"}}>
+            <div className="row" style={{marginLeft: "0.5%", paddingTop: "-5px"}}>
 
-            <div className="col-md-12 content-wrap">
+              <div className="col-md-12 content-wrap">
 
-              <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom">
-                <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
-                  this.setState({activeKey1: "1"});
-                  dataWeekUrlParams = "week_flag=1";
-                  this.props.onSaveWeekParam(dataWeekUrlParams);
-                  this.props.onKPIBox();
-                  this.props.onSupplierTable();
-                  this.props.ontopBottomChart();
-
-                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}>
-                  <b>Selected Week</b></NavItem>
-
-                <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
-                  this.setState({activeKey1: "2"});
-                  dataWeekUrlParams = "week_flag=2";
-                  this.props.onSaveWeekParam(dataWeekUrlParams);
-                  this.props.onKPIBox();
-                  this.props.onSupplierTable();
-                  this.props.ontopBottomChart();
-
-                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Last 4 weeks</b></NavItem>
-
-                <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
-                  this.setState({activeKey1: "3"});
-                  dataWeekUrlParams = "week_flag=3";
-                  this.props.onSaveWeekParam(dataWeekUrlParams);
-                  this.props.onKPIBox();
-                  this.props.onSupplierTable();
-                  this.props.ontopBottomChart();
-
-                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Last 13 weeks</b></NavItem>
-                <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
-                  this.setState({activeKey1: "4"});
-                  dataWeekUrlParams = "week_flag=4";
-                  this.props.onSaveWeekParam(dataWeekUrlParams);
-                  this.props.onKPIBox();
-                  this.props.onSupplierTable();
-                  this.props.ontopBottomChart();
-
-                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Last 52 weeks</b></NavItem>
-
-                <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
-                  this.setState({activeKey1: "5"});
-                  dataWeekUrlParams = "week_flag=5";
-                  this.props.onSaveWeekParam(dataWeekUrlParams);
-                  this.props.onKPIBox();
-                  this.props.onSupplierTable();
-                  this.props.ontopBottomChart();
-
-                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>YTD</b></NavItem>
-              </Nav>
-              <div style={{height: '0px', width: '100%'}}>&nbsp;
-                <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect}
+                <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect}
                      className="tabsCustom">
-                  <NavItem eventKey="1" className="tabsCustomList" onClick={() => {
-                    this.setState({activeKey2: "1"});
-                    kpiParams = "kpi_type=Value";
-                    this.props.onSaveKPIParam(kpiParams);
+                  <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+                    this.setState({activeKey1: "1"});
+                    dataWeekUrlParams = "week_flag=1";
+                    this.props.onSaveWeekParam(dataWeekUrlParams);
                     this.props.onKPIBox();
+                    {/*this.props.onSupplierTable();*/
+                    }
+                    this.props.onFetchGraph();
+                    this.props.onGenerateTable();
                     this.props.ontopBottomChart();
-                  }} style={{fontSize: '20px', fontFamily: 'Tesco'}}>
-                    <b>Value</b></NavItem>
 
-                  <NavItem eventKey="2" className="tabsCustomList" onClick={() => {
-                    this.setState({activeKey2: "2"});
-                    kpiParams = "kpi_type=Volume";
-                    this.props.onSaveKPIParam(kpiParams);
+                  }}>
+                    <span className="tab_label">Current Week</span></NavItem>
+
+                  <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                    this.setState({activeKey1: "2"});
+                    dataWeekUrlParams = "week_flag=2";
+                    this.props.onSaveWeekParam(dataWeekUrlParams);
                     this.props.onKPIBox();
+                    {/*this.props.onSupplierTable();*/
+                    }
+                    this.props.onFetchGraph();
+                    this.props.onGenerateTable();
                     this.props.ontopBottomChart();
-                  }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Volume</b></NavItem>
 
-                  <NavItem eventKey="3" className="tabsCustomList" onClick={() => {
-                    this.setState({activeKey2: "3"});
-                    kpiParams = "kpi_type=COGS";
-                    this.props.onSaveKPIParam(kpiParams);
+                  }}><span className="tab_label">Last 4 Week</span></NavItem>
+
+                  <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                    this.setState({activeKey1: "3"});
+                    dataWeekUrlParams = "week_flag=3";
+                    this.props.onSaveWeekParam(dataWeekUrlParams);
                     this.props.onKPIBox();
+                    {/*this.props.onSupplierTable();*/
+                    }
+                    this.props.onFetchGraph();
+                    this.props.onGenerateTable();
                     this.props.ontopBottomChart();
-                  }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>COGS</b></NavItem>
-                  <NavItem eventKey="4" className="tabsCustomList" onClick={() => {
-                    this.setState({activeKey2: "4"});
-                    kpiParams = "kpi_type=CGM";
-                    this.props.onSaveKPIParam(kpiParams);
-                    this.props.onKPIBox()
-                    this.props.ontopBottomChart();
-                  }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>CGM</b></NavItem>
 
-                  <NavItem eventKey="5" className="tabsCustomList" onClick={() => {
-                    this.setState({activeKey2: "5"});
-                  }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>ASP</b></NavItem>
-
-                  <NavItem eventKey="6" className="tabsCustomList" onClick={() => {
-                    this.setState({activeKey2: "6"});
-                    kpiParams = "kpi_type=Supp_Fund";
-                    this.props.onSaveKPIParam(kpiParams);
+                  }}><span className="tab_label">Last 13 weeks</span></NavItem>
+                  <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+                    this.setState({activeKey1: "4"});
+                    dataWeekUrlParams = "week_flag=4";
+                    this.props.onSaveWeekParam(dataWeekUrlParams);
                     this.props.onKPIBox();
+                    {/*this.props.onSupplierTable();*/
+                    }
+                    this.props.onFetchGraph();
+                    this.props.onGenerateTable();
                     this.props.ontopBottomChart();
-                  }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Supplier Funding(exc VAT)</b></NavItem>
 
-                  <NavItem eventKey="7" className="tabsCustomList" onClick={() => {
-                    this.setState({activeKey2: "7"});
-                  }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>SKUs</b></NavItem>
+                  }}><span className="tab_label">Lasst 52 weeks</span></NavItem>
 
+                  <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
+                    this.setState({activeKey1: "5"});
+                    dataWeekUrlParams = "week_flag=5";
+                    this.props.onSaveWeekParam(dataWeekUrlParams);
+                    this.props.onKPIBox();
+                    {/*this.props.onSupplierTable();*/
+                    }
+                    this.props.onFetchGraph();
+                    this.props.onGenerateTable();
+                    this.props.ontopBottomChart();
+
+                  }}><span className="tab_label">YTD</span></NavItem>
                 </Nav>
-              </div>
 
-              <div className="row" style={{textAlign: 'center'}}>
-                <div className="col-xs-6" style={{backgroundColor: "white"}}>
-                  <Panel>
-                    <h4 className="pageModuleMainTitle"> Total Sales </h4>
-                    <div className="col-xs-6" style={{backgroundColor: "grey"}}>
+                <div style={{height: '0px', width: '100%'}}>&nbsp;
+                  <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect}
+                       className="tabsCustom">
+                    <NavItem eventKey="1" className="tabsCustomList" onClick={() => {
+                      this.setState({activeKey2: "1"});
+                      kpiParams = "kpi_type=Value";
+                      this.props.onSaveKPIParam(kpiParams);
+                      this.props.onKPIBox();
+                      this.props.onFetchGraph();
+                      this.props.onGenerateTable();
+                      this.props.ontopBottomChart();
+                    }}><span className="tab_label">Value</span>
+                    </NavItem>
 
-                      <h4>  {this.props.supplier.reducer1.sales} </h4>
-                    </div>
-                    <div className="col-xs-6" style={{backgroundColor: "grey"}}>
-                      <h4> LFL: {this.props.supplier.reducer1.sales_lfl} </h4>
-                    </div>
-                    <div className="row">
-                      <div className="panel-body">
-                        <div className="col-xs-4">
-                          {/*<div className="panel-body">*/}
-                          <h5> {this.props.supplier.reducer1.sales_var_week} </h5>
-                          <h4> WoW </h4>
+                    <NavItem eventKey="2" className="tabsCustomList" onClick={() => {
+                      this.setState({activeKey2: "2"});
+                      kpiParams = "kpi_type=Volume";
+                      this.props.onSaveKPIParam(kpiParams);
+                      this.props.onKPIBox();
+                      this.props.onFetchGraph();
+                      this.props.onGenerateTable();
+                      this.props.ontopBottomChart();
+                    }}><span className="tab_label">Volume</span></NavItem>
 
-                          {/*</div>*/}
-                        </div>
-                        <div className="col-xs-4">
-                          {/*<div className="panel-body">*/}
-                          <h5> {this.props.supplier.reducer1.sales_var_year} </h5>
-                          <h4> LFL </h4>
+                    <NavItem eventKey="3" className="tabsCustomList" onClick={() => {
+                      this.setState({activeKey2: "3"});
+                      kpiParams = "kpi_type=COGS";
+                      this.props.onSaveKPIParam(kpiParams);
+                      this.props.onKPIBox();
+                      this.props.onFetchGraph();
+                      this.props.onGenerateTable();
+                      this.props.ontopBottomChart();
+                    }}><span className="tab_label">COGS</span></NavItem>
 
-                          {/*</div>*/}
-                        </div>
-                        <div className="col-xs-4">
-                          {/*<div className="panel-body">*/}
-                          <h5>  {this.props.supplier.reducer1.sales_var_year_lfl} </h5>
-                          <h4> YOY LFL </h4>
-                          {/*</div>*/}
-                        </div>
-                      </div>
-                    </div>
-                  </Panel>
-                </div>
-                <div className="col-xs-6 panel-body" style={{backgroundColor: "white"}}>
-                  <Panel>
-                    <h4 className="pageModuleMainTitle"> Contribution to Growth </h4>
+                    <NavItem eventKey="4" className="tabsCustomList" onClick={() => {
+                      this.setState({activeKey2: "4"});
+                      kpiParams = "kpi_type=CGM";
+                      this.props.onSaveKPIParam(kpiParams);
+                      this.props.onKPIBox();
+                      this.props.onFetchGraph();
+                      this.props.onGenerateTable();
+                      this.props.ontopBottomChart();
+                    }}><span className="tab_label">CGM</span></NavItem>
 
-                    <div className="row">
-                      <div className="col-xs-6">
-                      </div>
-                      <div className="col-xs-6">
-                      </div>
-                    </div>
-                    <div className="row">
-                      {/*<div className="panel-body">*/}
-                      <div className="col-xs-4">
-                        {/*<div className="panel-body">*/}
-                        <div>
+                    <NavItem eventKey="5" className="tabsCustomList" onClick={() => {
+                      this.setState({activeKey2: "5"});
+                      kpiParams = "kpi_type=ASP";
+                      this.props.onSaveKPIParam(kpiParams);
+                      this.props.onKPIBox();
+                      this.props.onFetchGraph();
+                      this.props.onGenerateTable();
+                      this.props.ontopBottomChart();
+                    }}><span className="tab_label">ASP</span></NavItem>
 
-                        </div>
-                        <h5> {this.props.supplier.reducer1.sales_growth_wow_1}
-                          of {this.props.supplier.reducer1.sales_growth_wow_2} </h5>
-                        <h4>WoW</h4>
-                        {/*</div>*/}
-                      </div>
-                      <div className="col-xs-4">
-                        {/*<div className="panel-body">*/}
+                    <NavItem eventKey="6" className="tabsCustomList" onClick={() => {
+                      this.setState({activeKey2: "6"});
+                      kpiParams = "kpi_type=Supp_Fund";
+                      this.props.onSaveKPIParam(kpiParams);
+                      this.props.onKPIBox();
+                      this.props.onFetchGraph();
+                      this.props.onGenerateTable();
+                      this.props.ontopBottomChart();
+                    }}><span className="tab_label">Supplier Funding(exc VAT)</span></NavItem>
 
-                        <h5> {this.props.supplier.reducer1.sales_growth_yoy_1}
-                          of {this.props.supplier.reducer1.sales_growth_yoy_2} </h5>
-                        <h4>YoY</h4>
-                        {/*</div>*/}
-                      </div>
-                      <div className="col-xs-4">
-                        {/*<div className="panel-body">*/}
+                    <NavItem eventKey="7" className="tabsCustomList" onClick={() => {
+                      this.setState({activeKey2: "7"});
+                      kpiParams = "kpi_type=SKU";
+                      this.props.onSaveKPIParam(kpiParams);
+                      this.props.onKPIBox();
+                      this.props.onFetchGraph();
+                      this.props.onGenerateTable();
+                      this.props.ontopBottomChart();
+                    }}><span className="tab_label">SKUs</span></NavItem>
 
-                        <h5> {this.props.supplier.reducer1.sales_growth_yoy_lfl_1}
-                          of {this.props.supplier.reducer1.sales_growth_yoy_lfl_2} </h5>
-                        <h4>YoY LFL</h4>
-                        {/*</div>*/}
-                      </div>
-                      {/*</div>*/}
-                    </div>
-                  </Panel>
+                  </Nav>
                 </div>
 
-              </div>
+                <div className="row" style={{textAlign: 'center'}}>
+                  <div className="col-xs-6" style={{textAlign: 'center',backgroundColor: "white",margin: "0%", width: '41.7%',
+                    marginBottom: '4%', marginTop: '3%', borderLeft: "1px solid #e5e8ea", borderTop: "1px solid #e5e8ea",borderRight: "1px solid #e5e8ea",borderBottom: "1px solid #e5e8ea"}}>
+                    <Panel>
+                      <h4 className="pageModuleMainTitle"> Total Sales </h4>
 
-              <div className="row">
-                <panel>
-                  <div className="col-xs-6 panel-body">
-                    <h4 className="pageModuleMainTitle"> Supplier Importance to category</h4>
-                    {(() => {
-                      if (this.props.supplier.reducer1.supp_imp_cat_sales) {
+                      <div className="col-xs-6" style={{backgroundColor: "grey"}}>
 
-                        return (
-                          <GaugeChart2 data={[this.props.supplier.reducer1.supp_imp_cat_sales]} id="gauge1"/>
-                        )
-                      }
-                    })()}
+                        <h4>  {this.props.supplier.reducer1.sales} </h4>
+                      </div>
+                      <div className="col-xs-6" style={{backgroundColor: "grey"}}>
+                        <h4> LFL: {this.props.supplier.reducer1.sales_lfl} </h4>
+                      </div>
+                      <div className="row">
+                        <div className="panel-body">
+                          <div className="col-xs-4">
+                            {/*<div className="panel-body">*/}
+                            <h4> {this.props.supplier.reducer1.sales_var_week} % </h4>
+                            <h4> WoW </h4>
 
+                            {/*</div>*/}
+                          </div>
+                          <div className="col-xs-4">
+                            {/*<div className="panel-body">*/}
+                            <h4> {this.props.supplier.reducer1.sales_var_year} % </h4>
+                            <h4> LFL </h4>
+
+                            {/*</div>*/}
+                          </div>
+                          <div className="col-xs-4">
+                            {/*<div className="panel-body">*/}
+                            <h4>  {this.props.supplier.reducer1.sales_var_year_lfl} % </h4>
+                            <h4> YOY LFL </h4>
+                            {/*</div>*/}
+                          </div>
+                        </div>
+                      </div>
+
+                    </Panel>
                   </div>
-                  <div className="col-xs-6 panel-body">
-                    <h4 className="pageModuleMainTitle"> Category Importance to Supplier </h4>
-                    {(() => {
-                      if (this.props.supplier.reducer1.cat_imp_supp_sales) {
+                  <div className="col-xs-6 panel-body" style={{textAlign: 'center',  borderTop: "1px solid #e5e8ea", marginTop: '3%', float: 'right',backgroundColor: "white",margin: "0%",borderLeft: "1px solid #e5e8ea",borderRight: "1px solid #e5e8ea",borderBottom: "1px solid #e5e8ea"}}>
+                    <Panel>
+                      <h4 className="pageModuleMainTitle"> Contribution to Growth </h4>
 
-                        return (
-                          <GaugeChart2 data={[this.props.supplier.reducer1.cat_imp_supp_sales]} id="gauge2"/>
-                        )
-                      }
-                    })()}
-                    {/*<SampleBarChart/>*/}
+                      <div className="row">
+                        <div className="col-xs-6">
+                        </div>
+                        <div className="col-xs-6">
+                        </div>
+                      </div>
+                      <div className="row">
+                        {/*<div className="panel-body">*/}
+                        <div className="col-xs-4">
+                          {/*<div className="panel-body">*/}
+                          <div>
+
+                          </div>
+                          <h4> {this.props.supplier.reducer1.sales_growth_wow_1} %
+                            of {this.props.supplier.reducer1.sales_growth_wow_2} % </h4>
+                          <h4>WoW</h4>
+                          {/*</div>*/}
+                        </div>
+                        <div className="col-xs-4">
+                          {/*<div className="panel-body">*/}
+
+                          <h4> {this.props.supplier.reducer1.sales_growth_yoy_1} %
+                            of {this.props.supplier.reducer1.sales_growth_yoy_2} % </h4>
+                          <h4>YoY</h4>
+                          {/*</div>*/}
+                        </div>
+                        <div className="col-xs-4">
+                          {/*<div className="panel-body">*/}
+
+                          <h4> {this.props.supplier.reducer1.sales_growth_yoy_lfl_1} %
+                            of {this.props.supplier.reducer1.sales_growth_yoy_lfl_2} % </h4>
+                          <h4>YoY LFL</h4>
+                          {/*</div>*/}
+                        </div>
+                        {/*</div>*/}
+                      </div>
+                    </Panel>
                   </div>
-                </panel>
-              </div>
 
-              <div className="row">
-                <div className="col-xs-12">
-                  <Panel>
-                    <div className="row">
-                      <h3 className="text-center">Negotiation Opportunity</h3>
-                      <Button onClick={() => {
-                        let resetUrlParams = "reset_clicked";
-                        {/*this.props.onResetClickParam(resetUrlParams);*/
-                        }
-                        {/*this.props.onFetchGraph();*/
-                        }
-                        {/*this.props.onGenerateTable();*/
-                        }
+                </div>
 
-                      }}>Reset Chart</Button>
+                <div className="row">
+                  <panel>
+                    <div className="col-xs-5 panel-body" style={{textAlign: 'center',  borderTop: "1px solid #e5e8ea", backgroundColor: "white",margin: "0%",borderLeft: "1px solid #e5e8ea",borderRight: "1px solid #e5e8ea",borderBottom: "1px solid #e5e8ea"}}>
+                      <h4 className="pageModuleMainTitle"> Supplier Importance to category</h4>
+                      {(() => {
+                        if (this.props.supplier.reducer1.supp_imp_cat_sales) {
+
+                          return (
+                            <GaugeChart2 data={[this.props.supplier.reducer1.supp_imp_cat_sales]} id="gauge1"/>
+                          )
+                        }
+                      })()}
+
+                    </div>
+                    <div className="col-xs-5 panel-body" style={{textAlign: 'center',  borderTop: "1px solid #e5e8ea", left: '-8%', float: 'right', backgroundColor: "white",margin: "0%",borderLeft: "1px solid #e5e8ea",borderRight: "1px solid #e5e8ea",borderBottom: "1px solid #e5e8ea"}}>
+                      <h4 className="pageModuleMainTitle"> Category Importance to Supplier </h4>
+                      {(() => {
+                        if (this.props.supplier.reducer1.cat_imp_supp_sales) {
+
+                          return (
+                            <GaugeChart2 data={[this.props.supplier.reducer1.cat_imp_supp_sales]} id="gauge2"/>
+                          )
+                        }
+                      })()}
+                      {/*<SampleBarChart/>*/}
+                    </div>
+                  </panel>
+                </div>
+
+                <div className="row" style={{marginLeft: "0px", marginRight: "0px"}}>
+                  <div className="col-md-12 content-wrap">
+                    <Nav bsStyle="tabs" className="tabsCustom" activeKey={this.state.activeKey2}
+                         onSelect={this.handleSelect}>
+                      <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+                        this.setState({storeactiveKey: "1"});
+                        dataStoreUrlParams = "store_type=Main Estate"
+                        this.props.onSaveStoreParam(dataStoreUrlParams);
+                        this.props.onKPIBox();
+                        this.props.onFetchGraph();
+                        this.props.onGenerateTable();
+                        this.props.ontopBottomChart();
+                      }}><span className="tab_label">Main Estate</span></NavItem>
+                      <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
+                        this.setState({storeactiveKey: "2"});
+                        dataStoreUrlParams = "store_type=Express"
+                        this.props.onSaveStoreParam(dataStoreUrlParams);
+                        this.props.onKPIBox();
+                        this.props.onFetchGraph();
+                        this.props.onGenerateTable();
+                        this.props.ontopBottomChart();
+                        // browserHistory.push(this.props.location.pathname + "?store_type=Express")
+                      }}><span className="tab_label">Express</span></NavItem>
+
+
+                    </Nav>
+                  </div>
+                  <div className="row">
+                    <div className="col-xs-12 col-md-8" style={{marginTop: '2%'}}>
+                      <BubbleChart2 data={this.props.supplier.chartData}
+
+                        //Passing array which updates table
+                                    selectedBubbleTable={this.props.supplier.prodArrayTable}
+                        //Passing array which updates opacity
+                                    selectedBubbleOpacity={this.props.supplier.prodArrayOpacity}
+
+                        //Ajax calls to save prodArrayTable in state
+                                    onSaveBubbleParam={this.props.onSaveBubbleParam}
+
+                        //Ajax calls to save prodArrayOpacity in state
+                                    onSaveBubbleParam2={this.props.onSaveBubbleParam2}
+
+                        //To update graph and table
+                                    onFetchGraph={this.props.onFetchGraph}
+                                    onGenerateTable={this.props.onGenerateTable}
+                      />
+
+                      <i style={{fontSize: '12px'}}>*Size of the bubble corresponds to Rate of Sales</i>
+
+                      <div className="resetButton" onClick={() => {
+                        dataPerformanceUrlParams = '';
+                        this.props.onSavePageParam("page=1");
+                        this.props.onSavePFilterParam(dataPerformanceUrlParams);
+                        this.props.onFetchGraph();
+                        this.props.onGenerateTable();
+                        this.props.onRadioChecked('6');
+                      }}><p>View Selections</p></div>
                     </div>
 
-                    <div className="row">
-                      <div className="col-md-8">
+                    <div className="col-xs-12 col-md-4" style={{marginTop: '2%', fontSize: '14px'}}>
+
+                      <h4>
+                        Please select a negotiation strategy below to filter
+                        'Negotiation
+                        Opportunity' chart and table
+                      </h4>
+
+                      <div className="panel">
+                        <div className="lowProfit" style={{height: '35px', backgroundColor: '#c74a52', opacity: '0.8'}}>
+                          <RadioButton id={'1'}
+                                       checked={(() => {
+                                         if (this.props.supplier.radioChecked === '1') {
+                                           return true
+                                         }
+                                         else {
+                                           return false
+                                         }
+                                       })()}
+                                       label={'Low CPS/Low Profit'}
+                                       valid={true}
+                                       onChange={() => {
+                                         dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";
+                                         this.props.onSavePFilterParam(dataPerformanceUrlParams);
+                                         this.props.onFetchGraph();
+                                         this.props.onGenerateTable();
+                                         this.props.onRadioChecked('1');
+                                       }}
+                                       name="x"
+                          />
+                        </div>
+                        <div className="panel-body" style={{marginTop: '2%'}}>
+                          Delist Products
+                        </div>
+                      </div>
+                      <div className="panel panel-default">
+                        <div className="default"
+                             style={{height: '35px', backgroundColor: '#6e6767', opacity: '0.8', fontColor: 'white'}}>
+                          <RadioButton id={'2'}
+                                       checked={(() => {
+                                         if (this.props.supplier.radioChecked == '2') {
+                                           return true
+                                         }
+                                         else {
+                                           return false
+                                         }
+                                       })()}
+
+                                       label={'Low CPS/High Profit'}
+                                       valid={true}
+                                       onChange={() => {
+                                         dataPerformanceUrlParams = "performance_quartile=Low CPS/High Profit";
+                                         this.props.onSavePFilterParam(dataPerformanceUrlParams);
+                                         this.props.onFetchGraph();
+                                         this.props.onGenerateTable();
+                                         this.props.onRadioChecked('2');
+
+                                       }}
+                                       name="x"
+                          />
+                        </div>
+                        <div className="panel-body" style={{height: '65px', marginTop: '3%'}}>
+                          Hard
+                          Bargaining’
+                          for stronger
+                          profits – Low importance to customers
+                        </div>
+                      </div>
+
+
+                      <div className="panel panel-warning">
+                        <div className="medProfit"
+                             style={{height: '35px', backgroundColor: '#ffa626', opacity: '0.8', fontColor: 'white'}}>
+                          <RadioButton id={'3'}
+                                       label={'Med CPS/Med Profit'}
+                                       valid={true}
+                                       checked={(() => {
+                                         if (this.props.supplier.radioChecked == '3') {
+                                           return true
+                                         }
+                                         else {
+                                           return false
+                                         }
+                                       })()}
+                                       onChange={() => {
+                                         dataPerformanceUrlParams = "performance_quartile=Med CPS/Med Profit";
+                                         this.props.onSavePFilterParam(dataPerformanceUrlParams);
+                                         this.props.onFetchGraph();
+                                         this.props.onGenerateTable();
+                                         this.props.onRadioChecked('3');
+
+                                       }}
+                                       name="x"
+                          />
+                        </div>
+                        <div className="panel-body" style={{height: '60px', marginTop: '3%'}}>Area of
+                          opportunity. Concession
+                          trading – Subs/Ranging/Price. Reduce range to drive
+                          volume
+                        </div>
+                      </div>
+
+                      <div className="panel panel-success">
+                        <div className="highProfit"
+                             style={{height: '35px', backgroundColor: '#69b24a', opacity: '0.8', fontColor: 'white'}}>
+                          <RadioButton id={'4'}
+                                       label={'High CPS/High Profit'}
+                                       valid={true}
+                                       checked={(() => {
+                                         if (this.props.supplier.radioChecked == '4') {
+                                           return true
+                                         }
+                                         else {
+                                           return false
+                                         }
+                                       })()}
+                                       onChange={() => {
+                                         dataPerformanceUrlParams = "performance_quartile=High CPS/High Profit"
+                                         this.props.onSavePFilterParam(dataPerformanceUrlParams);
+                                         this.props.onFetchGraph();
+                                         this.props.onGenerateTable();
+                                         this.props.onRadioChecked('4');
+
+                                       }}
+                                       name="x"
+                          />
+                        </div>
+                        <div className="panel-body" style={{height: '50px', marginTop: '3%'}}>Build
+                          Win-Win
+                          relationship with
+                          supplier to share further profit gains
+                        </div>
+                      </div>
+                      <div className="panel">
+                        <div className="highCps" style={{height: '35px', backgroundColor: '#99d9e5'}}>
+                          <RadioButton id={'5'}
+                                       label={'High CPS/Low Profit'}
+                                       valid={true}
+                                       checked={(() => {
+                                         if (this.props.supplier.radioChecked == '5') {
+                                           return true
+                                         }
+                                         else {
+                                           return false
+                                         }
+                                       })()}
+                                       onChange={() => {
+                                         dataPerformanceUrlParams = "performance_quartile=High CPS/Low Profit"
+                                         this.props.onSavePFilterParam(dataPerformanceUrlParams);
+                                         this.props.onFetchGraph();
+                                         this.props.onGenerateTable();
+                                         this.props.onRadioChecked('5');
+
+                                       }}
+                                       name="x"
+                          />
+                        </div>
+                        <div className="panel-body" style={{marginTop: '5%'}}>Work
+                          collaboratively to jointly
+                          solve low profitability
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <Panel>
+                    <div>
+                      <div className="col-xs-12 col-xs-5" style={{marginBottom: "10px", marginLeft: "-14px"}}>
+
+                        <InputField type={'string'}
+                                    placeholder="Search for Product Description ..."
+                                    dataPageUrlParams="page=1"
+                                    value={this.props.textBoxQueryString}
+                                    onChange={(e) => {
+                                      this.props.onGenerateTextBoxQueryString(e);
+                                      this.props.onGenerateTable();
+                                      this.props.onSavePageParam(dataPageUrlParams);
+                                    }}
+                        />
+                      </div>
+
+                      <table className="table table-hover table-bordered" width="100%">
+
+                        <thead style={{fontWeight: '700', fontSize: '12px', textAlign: 'center'}}>
+                        <tr className="table-header-format">
+                          <th style={{textAlign: 'center'}}>Select</th>
+                          <th style={{textAlign: 'center'}}>Product ID</th>
+                          <th style={{textAlign: 'center'}}>Parent Supplier</th>
+                          <th style={{textAlign: 'center'}}>Sales TY</th>
+                          <th style={{textAlign: 'center'}}>Volume TY</th>
+                          <th style={{textAlign: 'center'}}>CGM TY</th>
+                          <th style={{textAlign: 'center'}}>PPS</th>
+                          <th style={{textAlign: 'center'}}>CPS</th>
+                          <th style={{textAlign: 'center'}}>Rate of Sale</th>
+                        </tr>
+                        </thead>
+                        <tbody className="table-body-format">
+
                         {(() => {
-                          if (this.props.supplier.tableData) {
+
+                          if (this.props.supplier.data) {
+                            console.log('this.props.supplier.data.table_data', this.props.supplier.data.table_data);
+                            return this.props.supplier.data.table_data.map(obj => {
+                              return (
+                                <tr key={Math.random() + Date.now()}>
+                                  {/**/}
+                                  <td style={{textAlign: "center"}}>
+                                    <Checkbox isDisabled={false} id={Math.random() + Date.now()}
+                                              onChange={(e) => {
+                                                this.inputUpdate(e.target.checked, obj.base_product_number)
+                                                this.tableProductUpdate(e.target.checked, obj.base_product_number);
+
+                                              }}
+                                              checked={(() => {
+                                                let checked = false;
+                                                console.log('obj.base_product_number.toString()', obj.base_product_number.toString());
+                                                let base_product_number = obj.base_product_number.toString();
+                                                console.log('base_product_number', base_product_number);
+                                                console.log('this.props.supplier.checkedList', this.props.supplier.checkedList);
+                                                this.props.supplier.checkedList.map(obj2 => {
+                                                  if (obj2.checked) {
+                                                    if (obj2.productId == base_product_number) {
+                                                      checked = true
+                                                    }
+                                                  }
+                                                });
+                                                return checked
+                                              })()}
+                                              valid={true}/>
+                                  </td>
+                                  <td style={{
+                                    textAlign: 'center',
+                                    verticalAlign: 'center'
+                                  }}>{obj.base_product_number}</td>
+                                  <td
+                                    style={{textAlign: 'center', verticalAlign: 'center'}}>{obj.parent_supplier}</td>
+                                  <td style={{textAlign: 'center', verticalAlign: 'center'}}>{obj.sales_ty}</td>
+                                  <td style={{textAlign: 'center', verticalAlign: 'center'}}>{obj.volume_ty}</td>
+                                  <td style={{textAlign: 'center', verticalAlign: 'center'}}>{obj.cgm_ty}</td>
+                                  <td style={{textAlign: 'center', verticalAlign: 'center'}}>{obj.pps}</td>
+                                  <td style={{textAlign: 'center', verticalAlign: 'center'}}>{obj.cps}</td>
+                                  <td style={{textAlign: 'center', verticalAlign: 'center'}}>{obj.rate_of_sale}</td>
+                                </tr>
+                              )
+                            })
+                          }
+
+                        })()}
+
+                        </tbody>
+                      </table>
+
+                      {/*pagination*/}
+
+                      {(() => {
+                        if (this.props.supplier.data && this.props.supplier.data.count) {
+
+                          return <Pagination
+                            prev
+                            next
+                            first
+                            last
+                            ellipsis
+                            boundaryLinks
+                            items={this.props.supplier.data.num_pages}
+                            maxButtons={5}
+                            activePage={this.state.activePage}
+                            onSelect={(e) => {
+
+                              this.setState({activePage: e})
+
+                              let dataPageUrlParams = "page=" + e;
+                              {/*console.log("dataPageUrlParams",dataPageUrlParams)*/
+                              }
+                              this.props.onSavePageParam(dataPageUrlParams);
+                              this.props.onGenerateTable();
+
+                            }}
+                          />
+
+                        }
+                      })()}
+
+                    </div>
+
+                  </Panel>
+
+                  <div className="row">
+                    <div>
+                      <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect}>
+                        <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+                          this.setState({activeKey3: "1"});
+                          TopBottomKpi = "top_bottom_kpi=part_by_val";
+                          this.props.onSaveTopBottomKpi(TopBottomKpi);
+                          this.props.ontopBottomChart();
+                        }}><span className="tab_label">Participation by value</span>
+                        </NavItem>
+
+                        <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                          this.setState({activeKey3: "2"});
+                          TopBottomKpi = "top_bottom_kpi=value_growth";
+                          this.props.onSaveTopBottomKpi(TopBottomKpi);
+                          this.props.ontopBottomChart();
+                        }}><span className="tab_label">Value Growth</span></NavItem>
+
+                        <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                          this.setState({activeKey3: "3"});
+                          TopBottomKpi = "top_bottom_kpi=value_contribution";
+                          this.props.onSaveTopBottomKpi(TopBottomKpi);
+                          this.props.ontopBottomChart();
+                        }}><span className="tab_label">Contribution to Growth</span></NavItem>
+                      </Nav>
+                    </div>
+                    <panel>
+                      <div className="col-xs-6 panel-body">
+                        <h4 className="pageModuleMainTitle"> Top Suppliers</h4>
+                        {(() => {
+                          if (this.props.supplier.topBotData) {
 
                             return (
-                              <BubbleChart2 data={[this.props.supplier.tableData.bubble_data]}/>
+                              <SampleBarChart data={[this.props.supplier.topBotData.top_chart]} id="suppliertopchart"/>
                             )
                           }
                         })()}
 
-                        {/*path={this.props.location}*/}
-                        {/*onSaveBubbleParam={this.props.onSaveBubbleParam}*/}
-                        {/*onFetchGraph={this.props.onFetchGraph}*/}
-                        {/*onGenerateTable={this.props.onGenerateTable}*/}
-
                       </div>
+                      <div className="col-xs-6 panel-body">
+                        <h4 className="pageModuleMainTitle"> Bottom Suppliers </h4>
+                        {(() => {
+                          if (this.props.supplier.topBotData) {
 
-                      <div className="col-md-4">
-                        <h4>
-                          Please select a negotiation strategy below to filter
-                          'Negotiation
-                          Opportunity' chart and table
-                        </h4>
-
-                        <div className="panel panel-danger">
-                          <div className="panel-heading">
-                            <h5 className="panel-title" onClick={() => {
-                              dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";
-                              {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
-                              }
-                              {/*this.props.onFetchGraph();*/
-                              }
-                              {/*this.props.onGenerateTable();*/
-                              }
-
-                            }}>Low CPS/Low Profit</h5>
-                          </div>
-                          <div className="panel-body">
-                            Delist Products
-                          </div>
-                        </div>
-
-                        <div className="panel panel-default">
-                          <div className="panel-heading">
-                            <h5 className="panel-title" onClick={() => {
-                              dataPerformanceUrlParams = "performance_quartile=Low CPS/High Profit";
-                              {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
-                              }
-                              {/*this.props.onFetchGraph();*/
-                              }
-                            }}>Low CPS/High Profit</h5>
-                          </div>
-                          <div className="panel-body">
-                            Hard
-                            Bargaining’
-                            for stronger
-                            profits – Low importance to customers
-                          </div>
-                        </div>
-                        <div className="panel panel-warning">
-                          <div className="panel-heading">
-                            <h5 className="panel-title" onClick={() => {
-                              dataPerformanceUrlParams = "performance_quartile=Med CPS/Med Profit"
-                              {/*this.props.onFetchGraph();*/
-                              }
-
-                              {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
-                              }
-                              {/*this.props.onGenerateTable();*/
-                              }
-                            }}>Med CPS/Med Profit</h5>
-                          </div>
-                          <div className="panel-body">Area of
-                            opportunity. Concession
-                            trading – Subs/Ranging/Price. Reduce range to drive
-                            volume
-                          </div>
-                        </div>
-
-                        <div className="panel panel-success">
-                          <div className="panel-heading">
-                            <h5 className="panel-title" onClick={() => {
-                              dataPerformanceUrlParams = "performance_quartile=High CPS/High Profit"
-                              {/*this.props.onFetchGraph();*/
-                              }
-                              {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
-                              }
-                              {/*this.props.onGenerateTable();*/
-                              }
-                            }}>High CPS/High Profit</h5>
-                          </div>
-                          <div className="panel-body">Build
-                            Win-Win
-                            relationship with
-                            supplier to share further profit gains
-                          </div>
-                        </div>
-                        <div className="panel panel-info">
-                          <div className="panel-heading">
-                            <h5 className="panel-title" onClick={() => {
-                              dataPerformanceUrlParams = "performance_quartile=High CPS/Low Profit"
-                              {/*this.props.onFetchGraph();*/
-                              }
-                              {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
-                              }
-                              {/*this.props.onGenerateTable();*/
-                              }
-                            }}>High CPS/Low Profit</h5>
-                          </div>
-                          <div className="panel-body">Work
-                            collaboratively to jointly
-                            solve low profitability
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  </Panel>
-                </div>
-              </div>
-
-
-              <Panel>
-                <div>
-                  <table className="table table-hover">
-                    <div className="col-xs-12 col-xs-5">
-
-                    </div>
-                    <thead style={{fontWeight: '700', textAlign: 'center'}}>
-
-                    <th>Product</th>
-                    <th>Parent Supplier</th>
-                    <th>CPS Score</th>
-                    <th>PPS</th>
-                    <th>Sales TY</th>
-                    <th>Volume TY</th>
-                    <th>CGM TY</th>
-                    <th>Rate Of Sale</th>
-
-                    </thead>
-                    <tbody>
-                    {
-                      (() => {
-                        if (this.props.supplier.tableData) {
-
-
-                          let a = this.props.supplier.tableData.table_data;
-                          return a.map(obj => {
                             return (
-                              <tr>
-                                <td>{obj.product_id}</td>
-                                <td>{obj.parent_supplier}</td>
-                                <td>{obj.cps_score}</td>
-                                <td>{obj.pps}</td>
-                                <td>{obj.sales_ty}</td>
-                                <td>{obj.volume_ty}</td>
-                                <td>{obj.cgm_ty}</td>
-                                <td>{obj.rate_of_sale}</td>
-                              </tr>
+                              <SampleBarChart data={[this.props.supplier.topBotData.bottom_chart]}
+                                              id="supplierbotchart"/>
                             )
-                          })
-                        }
-                      })()
-                    }
+                          }
+                        })()}
+                        {/*<SampleBarChart/>*/}
+                      </div>
+                    </panel>
+                  </div>
 
-
-                    </tbody>
-                  </table>
-
-                  {/*pagination*/}
-                  <nav aria-label="Page navigation example">
-                    <ul className="pagination pagination-lg">
-
-                    </ul>
-                  </nav>
                 </div>
 
-              </Panel>
-
-              <div className="row">
-                <div>
-                  <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect}>
-                    <NavItem eventKey="1" onClick={() => {
-                      this.setState({activeKey3: "1"});
-                      TopBottomKpi = "top_bottom_kpi=part_by_val";
-                      this.props.onSaveTopBottomKpi(TopBottomKpi);
-                      this.props.ontopBottomChart();
-                    }} style={{fontSize: '20px', fontFamily: 'Tesco'}}>
-                      <b>Participation by value</b></NavItem>
-
-                    <NavItem eventKey="2" onClick={() => {
-                      this.setState({activeKey3: "2"});
-                      TopBottomKpi = "top_bottom_kpi=value_growth";
-                      this.props.onSaveTopBottomKpi(TopBottomKpi);
-                      this.props.ontopBottomChart();
-                    }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Value Growth</b></NavItem>
-
-                    <NavItem eventKey="3" onClick={() => {
-                      this.setState({activeKey3: "3"});
-                      TopBottomKpi = "top_bottom_kpi=value_contribution";
-                      this.props.onSaveTopBottomKpi(TopBottomKpi);
-                      this.props.ontopBottomChart();
-                    }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Contribution to Growth</b></NavItem>
-                  </Nav>
-                </div>
-                <panel>
-                  <div className="col-xs-6 panel-body">
-                    <h4 className="pageModuleMainTitle"> Top Suppliers</h4>
-                    {(() => {
-                      if (this.props.supplier.topBotData) {
-
-
-                        return (
-                          <SampleBarChart data={[this.props.supplier.topBotData.top_chart]} id="suppliertopchart"/>
-                        )
-                      }
-                    })()}
-
-                  </div>
-                  <div className="col-xs-6 panel-body">
-                    <h4 className="pageModuleMainTitle"> Bottom Suppliers </h4>
-                    {(() => {
-                      if (this.props.supplier.topBotData) {
-
-                        return (
-                          <SampleBarChart data={[this.props.supplier.topBotData.bottom_chart]} id="supplierbotchart"/>
-                        )
-                      }
-                    })()}
-                    {/*<SampleBarChart/>*/}
-                  </div>
-                </panel>
               </div>
-
             </div>
-
-          </div>
           </div>
         </div>
       </div>
@@ -627,6 +872,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
     );
   }
 }
+
 
 Supplier.propTypes = {
   dispatch: PropTypes.func.isRequired,
@@ -654,9 +900,6 @@ function mapDispatchToProps(dispatch) {
       return dispatch(kpibox(e));
     },
     onGetFilter: (e) => dispatch(getWeekFilter(e)),
-    onSupplierTable: (e) => {
-      return dispatch(supplierTable(e));
-    },
     ontopBottomChart: (e) => {
       return dispatch(topBottomChart(e));
     },
@@ -679,7 +922,8 @@ function mapDispatchToProps(dispatch) {
     //FOR GETTING FILTERS DATA
     onGenerateUrlParamsString: (e) => {
       return dispatch(GenerateUrlParamsString(e));
-    }
+    },
+    onGenerateCheckedList: (a, b) => dispatch(generateCheckedList(a, b)),
   }
 }
 

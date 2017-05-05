@@ -7,29 +7,28 @@
 export const FETCH_SCENARIO_DATA_SUCCESS = 'app/Supplier/DEFAULT_ACTION';
 export const DEFAULT_ACTION = 'app/Supplier/DEFAULT_ACTION';
 export const KPI_CONSTANT = 'app/Supplier/MY_CONSTANT';
-export const KPI_ASP_CONSTANT = 'app/Supplier/MY_CONSTANT';
-export const TABLE_CONSTANT = 'app/Supplier/TABLE_CONSTANT';
+export const KPI_ASP_CONSTANT = 'app/Supplier/KPI_ASP_CONSTANT';
 export const KPI_DATA_FETCH_SUCCESS = 'app/Supplier/KPI_DATA_FETCH_SUCCESS';
-export const KPI_DATA_ASP_FETCH_SUCCESS = 'app/Supplier/KPI_DATA_FETCH_SUCCESS';
+export const KPI_DATA_ASP_FETCH_SUCCESS = 'app/Supplier/KPI_DATA_ASP_FETCH_SUCCESS';
 export const SUPPLIER_TABLE_DATA_FETCH_SUCCESS = 'app/Supplier/SUPPLIER_TABLE_DATA_FETCH_SUCCESS';
 export const TOP_BOTTOM_CONSTANT = 'app/Supplier/TOP_BOTTOM_CONSTANT';
 export const SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS = 'app/Supplier/SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS';
 export const SAVE_WEEK_PARAM = 'app/Supplier/SAVE_WEEK_PARAM';
 
 //Constant to store the week parameter
-export const WEEK_PARAM = 'app/Competitor/WEEK_PARAM';
+export const WEEK_PARAM = 'app/Supplier/WEEK_PARAM';
 
 //Constant to store the kpi parameter
-export const KPI_PARAM = 'app/Competitor/KPI_PARAM';
+export const KPI_PARAM = 'app/Supplier/KPI_PARAM';
 
 //Constant to store top bottom parameters
-export const TOP_BOTTOM_KPI = 'app/Competitor/TOP_BOTTOM_KPI';
+export const TOP_BOTTOM_KPI = 'app/Supplier/TOP_BOTTOM_KPI';
 
 //FILTERS DATA (FOR DOING AJAX CALL)
-export const GENERATE_URL_PARAMS_STRING = 'app/Competitor/GENERATE_URL_PARAMS_STRING';
+export const GENERATE_URL_PARAMS_STRING = 'app/Supplier/GENERATE_URL_PARAMS_STRING';
 
 //FILTERS DATA (FOR SAVING FILTER DATA IN REDUCER/STATE)
-export const FILTERS_DATA_SUCCESS = 'app/Competitor/FILTERS_DATA_SUCCESS';
+export const FILTERS_DATA_SUCCESS = 'app/Supplier/FILTERS_DATA_SUCCESS';
 
 //FOR WEEK FILTERS
 export const WEEK_FILTER_CONSTANT = 'app/Supplier/WEEK_FILTER_CONSTANT';
@@ -53,3 +52,5 @@ export const SAVE_PAGE_PARAM = 'app/Supplier/SAVE_PAGE_PARAM';
 export const RADIO_CHECK_PARAM = 'app/Supplier/RADIO_CHECK_PARAM';
 
 export const GENERATE_TEXTBOX_QUERY_STRING = 'app/Supplier/GENERATE_TEXTBOX_QUERY_STRING';
+export const GENERATE_CHECKED_LIST = 'app/Supplier/GENERATE_CHECKED_LIST';
+export const SAVE_STORE_PARAM = 'app/Supplier/SAVE_STORE_PARAM';

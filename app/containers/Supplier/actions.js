@@ -7,7 +7,6 @@
 import {
   DEFAULT_ACTION,
   KPI_CONSTANT,
-  TABLE_CONSTANT,
   TOP_BOTTOM_CONSTANT,
   KPI_DATA_FETCH_SUCCESS,
   SUPPLIER_TABLE_DATA_FETCH_SUCCESS,
@@ -32,7 +31,8 @@ import {
   SAVE_BUBBLE_PARAM,
   SAVE_PAGE_PARAM,
   RADIO_CHECK_PARAM,
-  GENERATE_TEXTBOX_QUERY_STRING
+  GENERATE_TEXTBOX_QUERY_STRING,
+  SAVE_STORE_PARAM,
 } from './constants';
 
 
@@ -68,7 +68,7 @@ export function kpiboxDataFetchSucess(data) {
   };
 }
 
-export function kpiboxDataFetchSucessAsp(data) {
+export function kpiboxAspDataFetchSucess(data) {
   console.log('data in action for ajax table ASP', data);
   return {
     type: KPI_DATA_ASP_FETCH_SUCCESS,
@@ -76,17 +76,8 @@ export function kpiboxDataFetchSucessAsp(data) {
   };
 }
 
-export function supplierTable() {
-  console.log("action.js supplierTable");
-  return {
-    type: TABLE_CONSTANT,
-
-  };
-}
-
-
 export function generateTableSuccess(data) {
-// console.log('generateTableSuccess', data);
+console.log('ssss', data);
   return {
     type: GENERATE_TABLE_SUCCESS,
     data
@@ -101,16 +92,18 @@ export function fetchGraphSuccess(data) {
   }
 }
 
-export function generateTable() {
+export function fetchGraph() {
+// console.log('fetchGraph');
+
   return {
-    type: GENERATE_TABLE
+    type: GRAPH_FETCH
   }
 }
 
-export function fetchGraph() {
-// console.log('fetchGraph');
+export function generateTable() {
+  console.log('gt');
   return {
-    type: GRAPH_FETCH
+    type: GENERATE_TABLE
   }
 }
 
@@ -182,6 +175,14 @@ export function topBottomChartFetchSuccess(data) {
   return {
     type: SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS,
     data,
+  };
+}
+
+export function SaveStoreParam(data) {
+
+  return {
+    type: SAVE_STORE_PARAM ,
+    data
   };
 }
 
@@ -269,3 +270,14 @@ export function SaveWeek(data) {
     data,
   };
 }
+
+//generate checked list
+export function generateCheckedList(checked ,base_product_number) {
+  console.log('checked', checked);
+  console.log('base_product_number', base_product_number);
+  return {
+    type: GENERATE_CHECKED_LIST,
+    checked ,base_product_number
+  }
+}
+
