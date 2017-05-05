@@ -74,15 +74,7 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
       <div className="row" ref={'selector'}>
         {(() => {
           return (
-            <div id="style-7" style={{
-              height: '90%',
-              width: '21%',
-              position: 'fixed',
-              /* padding-right: 5px; */
-              overflowX: 'hidden',
-              overflowY: 'scroll',
-              borderTop: '1px solid #ccc',
-            }}>
+            <div id="style-7">
               <PanelGroup defaultActiveKey="0" accordion>
                 {(() => {
                   if (this.props.week_data) {
@@ -269,14 +261,14 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
               </PanelGroup>
 
 
-              <Button style={{marginTop: "5px", width: "10px", "min-width": "170px", fontSize: "13px"}}
+              <Button style={{marginTop: "5px",marginLeft: "48px", width: "10px", "min-width": "170px", fontSize: "13px"}}
                       onClick={() => {
 
                         this.applyButtonFunctionality();
 
                       }}>Apply Filters</Button>
 
-              <Button style={{marginTop: "5px", width: "10px", "min-width": "170px", fontSize: "13px"}}
+              <Button style={{marginTop: "5px",marginLeft: "48px", width: "10px", "min-width": "170px", fontSize: "13px"}}
                       onClick={() => {
                         //To un check all the buttons
                         let selection = '';
@@ -288,7 +280,7 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
 
                       }}>Clear Filter Selections</Button>
 
-              <Button style={{marginTop: "5px", width: "10px", "min-width": "170px", fontSize: "13px"}}
+              <Button style={{marginTop: "5px", marginLeft: "48px", width: "10px", "min-width": "170px", fontSize: "13px"}}
                       onClick={() => {
                         //To un check all the buttons
                         {/*let selection='';*/

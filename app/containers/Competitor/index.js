@@ -15,9 +15,10 @@ import './style.scss';
 import Pichart from 'components/Pichart';
 import BarLineChart from 'components/BarLineChart';
 import CascadedFilterNpd from 'components/CascadedFilterNpd';
-import {Nav} from 'react-bootstrap';
+import {Modal, Nav} from 'react-bootstrap';
 import {NavItem} from 'react-bootstrap';
 import WaterFallChart2 from 'components/WaterFallChart2';
+import Panel from 'components/panel';
 import {
   CompetitorWaterfall,
   CompetitorPieChart,
@@ -64,7 +65,10 @@ export class Competitor extends React.PureComponent {
 
       activeKey1: "1",
       activeKey2: "1",
-      activeKey3: "1"
+      activeKey3: "1",
+      compMarketPerfInfo : false,
+      compPriceIndexInfo: false,
+      compPriceRaneInfo : false
     };
   }
 
@@ -79,6 +83,7 @@ export class Competitor extends React.PureComponent {
     let dataPriceIndexParam = this.props.competitor.dataPriceIndexParam;
 
     return (
+      <Panel>
       <div>
         <Helmet
           title="Competitor"
@@ -86,11 +91,26 @@ export class Competitor extends React.PureComponent {
             {name: 'description', content: 'Description of Competitor'},
           ]}
         />
-        <div className="row">
+
+        {/*Page title*/}
+        <div className="pageTitle">Competitor View</div>
+
+        <div className="row" style={{
+          marginLeft: '0px',
+          marginRight: '0px'
+        }}>
 
 
           {/*Filter*/}
-          <div className="col-xs-2">
+          <div style={{
+            height: '100%',
+            position: 'fixed',
+            width: '20%',
+            /* padding-right: 5px; */
+            overflowX: 'hidden',
+            overflowY: 'scroll',
+            borderTop: '1px solid #ccc'
+          }}>
 
 
             {(() => {
@@ -126,9 +146,13 @@ export class Competitor extends React.PureComponent {
 
           </div>
 
+          <div style={{
+            width: '78%',
+            marginLeft: '22%'
+          }}>
 
-          <div className="col-xs-10" style={{left: '4%', top: '-25px'}}>
-            <div>
+            <div className="row fixingPosition" style={{marginLeft: "0.5%", paddingTop: "-5px", marginRightt: "0px"}}>
+              <div className="col-md-12 content-wrap">
 
               <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom">
                 <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
@@ -141,8 +165,7 @@ export class Competitor extends React.PureComponent {
                   this.props.onCompetitorPriceRange();
                   this.props.onCompetitorOutperformance();
 
-                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}>
-                  <b>Current Week</b></NavItem>
+                }}><span className="tab_label" >Current Week</span></NavItem>
 
                 <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
                   this.setState({activeKey1: "2"});
@@ -153,7 +176,7 @@ export class Competitor extends React.PureComponent {
                   this.props.onCompetitorPriceRange();
                   this.props.onCompetitorOutperformance();
 
-                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Last 4 weeks</b></NavItem>
+                }}><span className="tab_label" >Last 4 weeks</span></NavItem>
 
                 <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
                   this.setState({activeKey1: "3"});
@@ -164,7 +187,7 @@ export class Competitor extends React.PureComponent {
                   this.props.onCompetitorPriceRange();
                   this.props.onCompetitorOutperformance();
 
-                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Last 13 weeks</b></NavItem>
+                }}><span className="tab_label" >Last 13 weeks</span></NavItem>
                 <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
                   this.setState({activeKey1: "4"});
                   dataWeekUrlParams = "week_flag=Latest 52 Weeks";
@@ -174,7 +197,7 @@ export class Competitor extends React.PureComponent {
                   this.props.onCompetitorPriceRange();
                   this.props.onCompetitorOutperformance();
 
-                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Last 52 weeks</b></NavItem>
+                }}><span className="tab_label" >Last 52 weeks</span></NavItem>
 
                 <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
                   this.setState({activeKey1: "5"});
@@ -186,7 +209,7 @@ export class Competitor extends React.PureComponent {
                   this.props.onCompetitorPriceRange();
                   this.props.onCompetitorOutperformance();
 
-                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>YTD</b></NavItem>
+                }}><span className="tab_label" >YTD</span></NavItem>
               </Nav>
               <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect}  className="tabsCustom">
                 <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
@@ -195,26 +218,52 @@ export class Competitor extends React.PureComponent {
                   this.props.onSaveKPIParam(kpiParmas);
                   this.props.onCompetitorPieChart();
                   this.props.onCompetitorOutperformance();
-                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Value</b></NavItem>
+                }}><span className="tab_label" >Value</span></NavItem>
                 <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
                   this.setState({activeKey2: "2"});
                   kpiParmas = "kpi_type=volume";
                   this.props.onSaveKPIParam(kpiParmas);
                   this.props.onCompetitorPieChart();
                   this.props.onCompetitorOutperformance();
-                }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Volume</b></NavItem>
+                }}><span className="tab_label" >Volume</span></NavItem>
               </Nav>
 
             </div>
-            <div className="row">
+            <div className="row" style={{marginLeft: "0px", marginRightt: "0px"}}>
 
             </div>
+            <Modal show={this.state.compMarketPerfInfo} bsSize="lg"
+                   aria-labelledby="contained-modal-title-lg"
+            >
+              <Modal.Header>
+                <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
+                  style={{textAlign: 'center', fontSize: '14px'}}><b>Value</b><span
+                  style={{textAlign: 'right', float: 'right'}}
+                  onClick={() => this.setState({compMarketPerfInfo: false})}><b>X</b></span></span>
+                  <div style={{textAlign: 'center'}}>
+                    <div style={{textAlign: 'right'}}>
+                    </div>
+                  </div>
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body style={{fontSize: '14px'}}>
+                <list>
+                  <ul>        Tesco vs competitor market share </ul>
+                  <ul>        Tesco vs competitor outperformance and growth </ul>
+                </list>
+              </Modal.Body>
+            </Modal>
 
-            <h4 className="pageModuleMainTitle">Market Performance</h4>
+            <h4 className="pageModuleMainTitle">Market Performance<span className="glyphicon glyphicon-info-sign pull-right"
+                                                                        style={{right: '4px', fontSize: '15px', top: '8px'}}
+                                                                        onClick={() => {
+                                                                          this.setState({compMarketPerfInfo: true});
+                                                                        }}>
+
+            </span> </h4>
 
             <div className="row">
-
-              <div className="col-xs-4 panel-body">
+              <div className="col-xs-4 panel-body ts-blk-proview">
                 <h4 className="pageModuleSubTitle"><b>Market Share</b></h4>
 
                 {(() => {
@@ -228,8 +277,8 @@ export class Competitor extends React.PureComponent {
                 })()}
                 <div>
 
-                    <div className="panel-body">
-                      <h4>  WOW </h4>
+                    <div className="panel-body wowformatting">
+                      <h4>  WoW </h4>
                       <span
                         className={(() => {
                           if (this.props.competitor.piechart_data.tesco_share_data > 0)
@@ -252,7 +301,7 @@ export class Competitor extends React.PureComponent {
                 </div>
               </div>
 
-              <div className="col-xs-8 panel-body">
+              <div className="col-xs-8 panel-body ts-blk-proview">
                 <h4 className="pageModuleSubTitle"><b>Outperformance</b></h4>
                 {(() => {
 
@@ -266,17 +315,49 @@ export class Competitor extends React.PureComponent {
               </div>
             </div>
 
+            <Modal show={this.state.compPriceIndexInfo} bsSize="lg"
+                   aria-labelledby="contained-modal-title-lg"
+            >
+              <Modal.Header>
 
-            <h4 className="pageModuleMainTitle">Price Index</h4>
+                <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
+                  style={{textAlign: 'center', fontSize: '14px'}}><b>Value</b><span
+                  style={{textAlign: 'right', float: 'right'}}
+                  onClick={() => this.setState({compPriceIndexInfo: false})}><b>X</b></span></span>
+                  <div style={{textAlign: 'center'}}>
+                    <div style={{textAlign: 'right'}}>
+                    </div>
+                  </div>
+                </Modal.Title>
 
-            <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect}>
+              </Modal.Header>
+              <Modal.Body style={{fontSize: '14px'}}>
+                <list>
+                  <ul>	Price index split by price and promotions run </ul>
+                  <ul>	Price index split by own label and brand </ul>
+                  <ul>	Price index split by basket, ie. LMM (Lines that matter most) and Rest of Range </ul>
+                </list>
+
+
+              </Modal.Body>
+            </Modal>
+
+            <h4 className="pageModuleMainTitle">Price Index <span className="glyphicon glyphicon-info-sign pull-right"
+                                                                  style={{right: '4px', fontSize: '15px', top: '8px'}}
+                                                                  onClick={() => {
+                                                                    this.setState({compPriceIndexInfo: true});
+                                                                  }}>
+
+            </span> </h4>
+
+            <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect} className="tabsCustom">
               <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
                 console.log("Price/Promo button pressed");
 
                 dataPriceIndexParam = "waterfall_index_param=promo_price";
                 this.props.onSavePriceIndexParam(dataPriceIndexParam);
                 this.props.onCompWaterfall();
-              }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Price/Promo</b></NavItem>
+              }}><span className="tab_label" >Price/Promo</span></NavItem>
               <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
                 this.setState({activeKey3: "2"});
                 console.log("Own label/Brand button pressed");
@@ -284,14 +365,14 @@ export class Competitor extends React.PureComponent {
                 dataPriceIndexParam = "waterfall_index_param=brand";
                 this.props.onSavePriceIndexParam(dataPriceIndexParam);
                 this.props.onCompWaterfall();
-              }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Own Label/Brand</b></NavItem>
+              }}><span className="tab_label" >Own Label/Brand</span></NavItem>
               <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
                 this.setState({activeKey3: "3"});
                 console.log("Basket button pressed");
                 dataPriceIndexParam = "waterfall_index_param=basket";
                 this.props.onSavePriceIndexParam(dataPriceIndexParam);
                 this.props.onCompWaterfall();
-              }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Basket</b></NavItem>
+              }}><span className="tab_label" >Basket</span></NavItem>
             </Nav>
 
 
@@ -323,9 +404,8 @@ export class Competitor extends React.PureComponent {
 
 
             <div className="row">
-
-              <div className="col-xs-6 panel-body">
-                <h4 className="pageModuleSubTitle"><b>ASDA</b></h4>
+              <div className="col-xs-6 panel-body ts-blk-proview">
+                <h4 className="pageModuleSubTitle"><b>Asda</b></h4>
 
                 {(() => {
                   if (this.props.competitor.waterfall_data) {
@@ -335,7 +415,7 @@ export class Competitor extends React.PureComponent {
                     return (
                       <WaterFallChart2
 
-                        id="waterfallChart_1" yAxisName="Value" formatter="formatSales"
+                        id="waterfallChart_1" yAxisName="Price Index" formatter="formatSales"
                         positive_text='positive' negative_text='negative' total_text='total'
                         data={ this.props.competitor.waterfall_data.asda }/>
                     )
@@ -343,7 +423,7 @@ export class Competitor extends React.PureComponent {
                 })()}
               </div>
 
-              <div className="col-xs-6 panel-body">
+              <div className="col-xs-6 panel-body ts-blk-proview">
                 <h4 className="pageModuleSubTitle"><b>JS</b></h4>
                 {(() => {
 
@@ -352,7 +432,7 @@ export class Competitor extends React.PureComponent {
                     return (
                       <WaterFallChart2
 
-                        id="waterfallChart_2" yAxisName="Value" formatter="formatSales"
+                        id="waterfallChart_2" yAxisName="Price Index" formatter="formatSales"
                         positive_text='positive' negative_text='negative' total_text='total'
                         data={ this.props.competitor.waterfall_data.js }
 
@@ -371,7 +451,7 @@ export class Competitor extends React.PureComponent {
                   if (this.props.competitor.waterfall_data) {
                     console.log("------------------------------", this.props.competitor.waterfall_data);
                     return (
-                      <WaterFallChart2 id="waterfallChart_3" yAxisName="Value" formatter="formatSales"
+                      <WaterFallChart2 id="waterfallChart_3" yAxisName="Price Index" formatter="formatSales"
                                        positive_text='positive' negative_text='negative' total_text='total'
                                        data={ this.props.competitor.waterfall_data.morr}/>
                     )
@@ -387,7 +467,7 @@ export class Competitor extends React.PureComponent {
                     console.log("------------------------------", this.props.competitor.waterfall_data);
                     return (
                       <WaterFallChart2
-                        id="waterfallChart_4" yAxisName="Value" formatter="formatSales"
+                        id="waterfallChart_4" yAxisName="Price Index" formatter="formatSales"
                         positive_text='positive' negative_text='negative' total_text='total'
                         data={ this.props.competitor.waterfall_data.aldi}/>
                     )
@@ -396,7 +476,36 @@ export class Competitor extends React.PureComponent {
               </div>
             </div>
 
-            <h4 className="pageModuleMainTitle">Price and Range Distribution</h4>
+            <Modal show={this.state.compPriceRaneInfo} bsSize="lg"
+                   aria-labelledby="contained-modal-title-lg"
+            >
+              <Modal.Header>
+
+                <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
+                  style={{textAlign: 'center', fontSize: '14px'}}><b>Value</b><span
+                  style={{textAlign: 'right', float: 'right'}}
+                  onClick={() => this.setState({compPriceRaneInfo: false})}><b>X</b></span></span>
+                  <div style={{textAlign: 'center'}}>
+                    <div style={{textAlign: 'right'}}>
+                    </div>
+                  </div>
+                </Modal.Title>
+
+              </Modal.Header>
+              <Modal.Body style={{fontSize: '14px'}}>
+                This graph compares direct sales lost from the delisted products vs the final loss/gain in sales due to
+                demand transfer to substitute products.
+                Value: Sales of a supplier in £
+              </Modal.Body>
+            </Modal>
+
+            <h4 className="pageModuleMainTitle">Price and Range Distribution <span className="glyphicon glyphicon-info-sign pull-right"
+                                                                                   style={{right: '4px', fontSize: '15px', top: '8px'}}
+                                                                                   onClick={() => {
+                                                                                     this.setState({compPriceRaneInfo: true});
+                                                                                   }}>
+
+            </span> </h4>
             <div className="col-xs-12 panel-body">
               {(() => {
 
@@ -416,9 +525,12 @@ export class Competitor extends React.PureComponent {
               })()}
             </div>
           </div>
+
+          </div>
+
         </div>
       </div>
-
+      </Panel>
     );
   }
 }

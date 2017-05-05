@@ -16,7 +16,7 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
   { console.log("Piechart inside createChart check 1",data);
     // let data = [10, 20];
 
-    let margin = {top: 100, right: 20, bottom: 30, left: 50},
+    let margin = {top: 120, right: 20, bottom: 30, left: 50},
       width = 340 - margin.left - margin.right,
       height = 290 - margin.top - margin.bottom,
       radius = Math.min(width, height) / 2;
@@ -91,7 +91,8 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
       .enter().append("g")
       .attr("transform", function (d, i) {
         console.log("PieChart ---- d.label",d.label)
-        return "translate(0," + i * 25 + ")";
+        return "translate(5," + (i * 15 - 55) + ")";
+        // return "translate(-200,100)";
       });
 
     // let color_hash = ["#f6eff7","#d0d1e6","#a6bddb","#67a9cf","#3690c0","#02818a","#016450"];
@@ -99,6 +100,7 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
 
     legend.append("rect")
       .attr("x", 140 )
+      .attr("y", -2.5 )
       .attr("width", 19)
       .attr("height", 19)
       .attr("fill", function (d, i) {

@@ -25,6 +25,45 @@ const initialState = fromJS({
   dataPriceIndexParam: '',
   chat_data: '',
   filter_week_selection:'',
+  dataPerformanceUrlParams:'',
+  dataBubbleUrlParams: '',
+  dataPageUrlParams:'page=1',
+  checkedList: [],
+  radioChecked: '',
+  chartData: [
+    {
+      x: 200,
+      y: 100,
+      ros: 20
+    },
+    {
+      x: 160,
+      y: 200,
+      ros: 10
+    },
+    {
+      x: 240,
+      y: 250,
+      ros: 20
+    },
+    {
+      x: 320,
+      y: 50,
+      ros: 10
+    },
+    {
+      x: 400,
+      y: 70,
+      ros: 10
+    },
+    {
+      x: 430,
+      y: 70,
+      ros: 10
+    }],
+  prodArrayTable: '[]',
+  prodArrayOpacity: '[]',
+
 
 });
 

@@ -17,7 +17,7 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
     // let data = [10, 20];
     let margin = {top: 20, right: 20, bottom: 30, left: 10},
       width = 300 - margin.left - margin.right,
-      height = 200 - margin.top - margin.bottom,
+      height = 220 - margin.top - margin.bottom,
       radius = Math.min(width, height) / 2;
 
     let color = d3.scaleOrdinal()
@@ -46,7 +46,7 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
        .attr("height", height + margin.top + margin.bottom)
       .append("g")
      //  .attr("transform", "translate(" + margin.left+ "," + margin.top + ")");
-      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+      .attr("transform", "translate(200,75)");
 
     let g = svg.selectAll(".arc")
       .data(pie(data))
@@ -63,7 +63,7 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
 
     g.append("text")
       .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
-      .attr("dy", ".35em")
+      .attr("dy", ".45em")
       .text(function(d) { return d.data; });
 
 
@@ -88,16 +88,17 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
 
 
     legend.append("rect")
-      .attr("x", 140 )
+      .attr("x", 85 )
       .attr("width", 19)
       .attr("height", 19)
+      .attr("y", 75)
       .attr("fill", function (d, i) {
         return color_hash[i];
       });
 
     legend.append("text")
-      .attr("x", 135)
-      .attr("y", 9.5)
+      .attr("x", 80)
+      .attr("y", 85)
       .attr("dy", "0.32em")
       .text(function (d) {
         console.log("PieChart text d.key",d.key)
