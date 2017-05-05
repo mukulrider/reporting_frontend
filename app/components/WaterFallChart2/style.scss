@@ -6,6 +6,10 @@
   fill: #cc3333;
 }
 
+.bar.blueClass rect {
+  fill: #1d1ccc;
+}
+
 .bar.negative rect {
   fill: #58ee81;
 }
@@ -37,7 +41,7 @@
 }
 
 .bar.total1 rect {
-  fill: #58ee81;
+  fill: #1b33ee;
 }
 
 .bar:hover rect {

@@ -323,7 +323,13 @@ class WaterFallChart2 extends React.PureComponent { // eslint-disable-line react
       let positive_text1 = 'positive';
       let negative_text1 = 'negative';
 
-      data[i].class = (data[i].value >= 0) ? positive_text : negative_text;
+      let blueClass = 'blueClass';
+
+
+      // data[i].class = (data[i].value >= 0) ? positive_text : negative_text;
+
+      data[i].class = (i == 0) ? blueClass : ((data[i].value >= 0) ? positive_text : negative_text);
+
       console.log("data[i].class", data[i].class)
     }
     data.push({

@@ -416,7 +416,7 @@ export class Competitor extends React.PureComponent {
                       <WaterFallChart2
 
                         id="waterfallChart_1" yAxisName="Price Index" formatter="formatSales"
-                        positive_text='positive' negative_text='negative' total_text='total'
+                        positive_text='negative' negative_text='positive' total_text='total1'
                         data={ this.props.competitor.waterfall_data.asda }/>
                     )
                   }
@@ -433,7 +433,7 @@ export class Competitor extends React.PureComponent {
                       <WaterFallChart2
 
                         id="waterfallChart_2" yAxisName="Price Index" formatter="formatSales"
-                        positive_text='positive' negative_text='negative' total_text='total'
+                        positive_text='negative' negative_text='positive' total_text='total1'
                         data={ this.props.competitor.waterfall_data.js }
 
                       />
@@ -452,7 +452,7 @@ export class Competitor extends React.PureComponent {
                     console.log("------------------------------", this.props.competitor.waterfall_data);
                     return (
                       <WaterFallChart2 id="waterfallChart_3" yAxisName="Price Index" formatter="formatSales"
-                                       positive_text='positive' negative_text='negative' total_text='total'
+                                       positive_text='negative' negative_text='positive' total_text='total1'
                                        data={ this.props.competitor.waterfall_data.morr}/>
                     )
                   }
@@ -468,7 +468,7 @@ export class Competitor extends React.PureComponent {
                     return (
                       <WaterFallChart2
                         id="waterfallChart_4" yAxisName="Price Index" formatter="formatSales"
-                        positive_text='positive' negative_text='negative' total_text='total'
+                        positive_text='negative' negative_text='positive' total_text='total1'
                         data={ this.props.competitor.waterfall_data.aldi}/>
                     )
                   }
