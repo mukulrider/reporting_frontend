@@ -165,7 +165,7 @@ export class Competitor extends React.PureComponent {
                   this.props.onCompetitorPriceRange();
                   this.props.onCompetitorOutperformance();
 
-                }}><span className="tab_label" >Current Week</span></NavItem>
+                }}><span className="tab_label" >Selected Week</span></NavItem>
 
                 <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
                   this.setState({activeKey1: "2"});

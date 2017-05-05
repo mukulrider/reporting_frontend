@@ -158,7 +158,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                   this.props.ontopBottomChart();
 
                 }} style={{fontSize: '20px', fontFamily: 'Tesco'}}>
-                  <b>Current Week</b></NavItem>
+                  <b>Selected Week</b></NavItem>
 
                 <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
                   this.setState({activeKey1: "2"});
