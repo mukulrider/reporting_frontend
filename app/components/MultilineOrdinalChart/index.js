@@ -165,7 +165,7 @@ class MultilineOrdinalChart extends React.PureComponent { // eslint-disable-line
 
       //Configurations
         let margin = {top: 20, right: 5, bottom: 60, left:50},
-          width = 900 - margin.left - margin.right,
+          width = 1100 - margin.left - margin.right,
           height = 330 - margin.top - margin.bottom;
 
         let spaceForLegends=65;
@@ -305,7 +305,7 @@ class MultilineOrdinalChart extends React.PureComponent { // eslint-disable-line
       return (
       <div>
         <div>
-          <svg id={this.props.data[1]} width="900" height="320" fontFamily="sans-serif" fontSize="10"> </svg>
+          <svg id={this.props.data[1]} width="1100" height="320" fontFamily="sans-serif" fontSize="10"> </svg>
         </div>
       </div>
     );

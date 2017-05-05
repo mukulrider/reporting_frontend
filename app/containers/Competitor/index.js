@@ -81,6 +81,7 @@ export class Competitor extends React.PureComponent {
     let dataFilterUrlParams = this.props.competitor.urlParamsString;
 
     let dataPriceIndexParam = this.props.competitor.dataPriceIndexParam;
+    console.log('this.props',this.props);
 
     return (
       <Panel>
@@ -93,7 +94,19 @@ export class Competitor extends React.PureComponent {
         />
 
         {/*Page title*/}
-        <div className="pageTitle">Competitor View</div>
+        <div className="pageTitle">
+          {(() => {
+            if (this.props.competitor.filter_week_selection) {
+               return (
+                <span>Competitor View - {(this.props.competitor.filter_week_selection).substring(11,17)}</span>
+              )
+            } else {
+              return (
+                <span>Competitor View - 201652  </span>
+              )
+            }
+          })()}
+        </div>
 
         <div className="row" style={{
           marginLeft: '0px',
@@ -106,7 +119,7 @@ export class Competitor extends React.PureComponent {
             height: '100%',
             position: 'fixed',
             width: '20%',
-            /* padding-right: 5px; */
+            paddingRight: '1%',
             overflowX: 'hidden',
             overflowY: 'scroll',
             borderTop: '1px solid #ccc'
