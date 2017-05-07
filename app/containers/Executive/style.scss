@@ -1,0 +1,142 @@
+@import "./../../stylesheet";
+
+.ts-blk-proview-head {
+  text-align: center;
+  color: #ffffff !important;
+  width: 100%;
+  line-height: 28px;
+  font-size: 18px;
+  height: 28px;
+  background-color: #00539f;
+
+}
+
+.ts-blk-proview-subhead {
+  text-align: center;
+  width: 100%;
+  line-height: 28px;
+  font-size: 18px;
+  height: 28px;
+  background-color: #b3e0ff;
+}
+
+.promoTable{
+  margin-left: 1%;
+  width: 98%;
+}
+
+.tabsCustom {
+  margin-top: 24px;
+}
+
+
+//TABS
+.tabsCustomList {
+  //color: red;
+  //width: 30%;
+  //text-align: center;
+  //border-style: ridge;
+  //border-radius: 8px;
+  //margin-left: 35px;
+}
+
+.tabsCustomList {
+  display: inline-block;
+  margin: 0 8px 0 0;
+  border-bottom: none;
+  font-size: 16px !important;
+}
+
+
+.tabsCustomList a{
+  background: #EDECEC;
+  fontFamily: 'Tesco' !important;
+  color: #00539f !important;
+  display: block !important;
+  padding: 15px 24px 16px 24px !important;
+  text-decoration: none;
+}
+.tabsCustomList a:hover {
+  text-decoration: underline !important;
+  color:#008dc8;
+}
+.tabsCustomList.active{
+  margin-bottom: -1px;
+}
+
+.tabsCustomList span.tab_label{
+  padding: 12px 8px;
+  color: #048EC3;
+  font-weight: 600;
+}
+
+
+.tabsCustomList.active span.tab_label{
+  border-bottom: #048EC3 solid 4px;
+}
+
+.secondaryTabs{
+  font-size: 18px !important;
+}
+
+.content-wrap{
+  background: #fff;
+}
+
+.pageModuleMainTitle{
+  width: 98%;
+  line-height: 28px;
+  font-size: 18px;
+  height: 28px;
+  color: #00539f !important;
+  background-color:#e5e8ea !important;
+  margin-left: 1%;
+  font-weight: bold;
+
+  //font-weight: 500;
+  //color: #666666 !important;
+  text-align: center;
+  padding-left: 1%;
+  vertical-align: middle;
+}
+
+.pageModuleSubTitle{
+  width: 100%;
+  line-height: 28px;
+  font-size: 18px;
+  height: 30px;
+  color: #00539f !important;
+  font-weight: 500;
+  text-align: center;
+  vertical-align: middle;
+  padding-left: 3%;
+  //padding-top: 3%;
+
+}
+
+.kpiSubTitle{
+  color: #00539f !important;
+}
+
+.infoButtonModuleMainTitle{
+  line-height: 28px;
+  font-size: 17px;
+  height: 28px;
+  color:#00539f;
+  right:10px;
+  vertical-align: middle;
+
+  //background-color:#e5e8ea !important;
+}
+
+.glyphiconPositive { color: green; }
+
+.glyphiconNegative { color: red; }
+
+.glyphiconNeutral { color: #FFA626; }
+
+
+//For the small wow,yoy,lfl boxes in the kpi boxes
+.kpiSmall{
+  padding: 0;
+}
