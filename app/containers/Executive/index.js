@@ -22,6 +22,7 @@ import ExecFilter from 'components/ExecFilter';
 
 // For KPIs and Charts
 import MultilinePromo from 'components/MultilinePromo';
+import GaugeChart2 from 'components/GaugeChart2';
 import {
   OverviewKpiData,
   RolesAndIntentData,
@@ -48,7 +49,8 @@ import {
   SaveFilteredFlag,
   SaveTopName,
   SaveBotName,
-  SaveSupplierName
+  SaveSupplierName,
+  SaveTopBotFlag
 }
 from './actions.js'
 import MultilineThree from 'components/MultilineThree';
@@ -68,6 +70,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
           this.props.loadOverviewKpiTrend();
           this.props.loadOverviewDriversInternal();
           this.props.loadOverviewDriversExternal();
+        this.props.loadRolesAndIntent();
+        this.props.loadBudgetAndForecast();
 
       }
       else {
@@ -81,8 +85,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
         else {
           console.log("______________________ Only KPI functions Called")
-          this.props.loadRolesAndIntent();
-          this.props.loadBudgetAndForecast();
 
           this.props.loadKpiBoxes();
           this.props.loadBestWorst();
@@ -116,8 +118,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
       activeKey3: "1",
       activeKey4: "1",
       activeKey5: "0",
-      activeKey6: "1",
-      activeKey7: "1"
+      activeKey6: "0",
+      activeKey7: "0",
+      activeKey8: "0"
     };
 
   }
@@ -127,6 +130,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
     let dataWeekParam = this.props.Executive.week_param;
     let driverParam = this.props.Executive.driver_param;
     let topName = '';
+    let botName = '';
+    let suppName = '';
+    let topbotflag ='';
     return (
 
 
@@ -209,6 +215,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       this.props.loadOverviewKpiTrend();
                       this.props.loadOverviewDriversInternal();
                       this.props.loadOverviewDriversExternal();
+                      this.props.loadRolesAndIntent();
+                      this.props.loadBudgetAndForecast();
 
                     }
                     else {
@@ -222,13 +230,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                       else {
                         console.log("______________________ Only KPI functions Called")
-                        this.props.loadRolesAndIntent();
-                        this.props.loadBudgetAndForecast();
 
                         this.props.loadKpiBoxes();
                         this.props.loadBestWorst();
                         this.props.loadBestInfoData();
-
                         this.props.loadWorstInfoData();
                         this.props.loadSupplierInfoData();
                         this.props.loadDriversInternalData();
@@ -257,6 +262,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       this.props.loadOverviewKpiTrend();
                       this.props.loadOverviewDriversInternal();
                       this.props.loadOverviewDriversExternal();
+                      this.props.loadRolesAndIntent();
+                      this.props.loadBudgetAndForecast();
 
                     }
                     else {
@@ -270,8 +277,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                       else {
                         console.log("______________________ Only KPI functions Called")
-                        this.props.loadRolesAndIntent();
-                        this.props.loadBudgetAndForecast();
 
                         this.props.loadKpiBoxes();
                         this.props.loadBestWorst();
@@ -306,6 +311,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       this.props.loadOverviewKpiTrend();
                       this.props.loadOverviewDriversInternal();
                       this.props.loadOverviewDriversExternal();
+                      this.props.loadRolesAndIntent();
+                      this.props.loadBudgetAndForecast();
 
                     }
                     else {
@@ -319,8 +326,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                       else {
                         console.log("______________________ Only KPI functions Called")
-                        this.props.loadRolesAndIntent();
-                        this.props.loadBudgetAndForecast();
 
                         this.props.loadKpiBoxes();
                         this.props.loadBestWorst();
@@ -354,6 +359,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       this.props.loadOverviewKpiTrend();
                       this.props.loadOverviewDriversInternal();
                       this.props.loadOverviewDriversExternal();
+                      this.props.loadRolesAndIntent();
+                      this.props.loadBudgetAndForecast();
 
                     }
                     else {
@@ -367,8 +374,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                       else {
                         console.log("______________________ Only KPI functions Called")
-                        this.props.loadRolesAndIntent();
-                        this.props.loadBudgetAndForecast();
 
                         this.props.loadKpiBoxes();
                         this.props.loadBestWorst();
@@ -402,6 +407,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       this.props.loadOverviewKpiTrend();
                       this.props.loadOverviewDriversInternal();
                       this.props.loadOverviewDriversExternal();
+                      this.props.loadRolesAndIntent();
+                      this.props.loadBudgetAndForecast();
 
                     }
                     else {
@@ -415,8 +422,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                       else {
                         console.log("______________________ Only KPI functions Called")
-                        this.props.loadRolesAndIntent();
-                        this.props.loadBudgetAndForecast();
 
                         this.props.loadKpiBoxes();
                         this.props.loadBestWorst();
@@ -470,8 +475,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         this.props.loadKpiBoxes();
                         this.props.loadBestWorst();
-                        this.props.loadDriversInternalData();
-                        this.props.loadDriversExternalData();
+                        {/*this.props.loadWorstInfoData();*/}
+                        {/*this.props.loadBestInfoData();*/}
+                        {/*this.props.loadSupplierInfoData();*/}
+                        {/*this.props.loadDriversInternalData();*/}
+                        {/*this.props.loadDriversExternalData();*/}
 
 
                 }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
@@ -485,7 +493,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                   this.props.loadKpiBoxes();
                   this.props.loadBestWorst();
-
+                  this.props.loadWorstInfoData();
+                  this.props.loadBestInfoData();
+                  this.props.loadSupplierInfoData();
                 }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
                   style={{textDecoration: 'none'}}>Volume</b></NavItem>
 
@@ -496,7 +506,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                   this.props.loadKpiBoxes();
                   this.props.loadBestWorst();
-
+                  this.props.loadWorstInfoData();
+                  this.props.loadBestInfoData();
+                  this.props.loadSupplierInfoData();
 
 
                 }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
@@ -509,7 +521,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                   this.props.loadKpiBoxes();
                   this.props.loadBestWorst();
-
+                  this.props.loadWorstInfoData();
+                  this.props.loadBestInfoData();
+                  this.props.loadSupplierInfoData();
 
 
                 }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
@@ -1210,8 +1224,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                           }
 
-
-
                       })()}
 
 
@@ -1747,9 +1759,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             {(() => {
                               if (this.props.Executive.best_worst_data.Choose_filters == 'no')
                               {
+                                console.log("Choose_filters is no");
                                 return (
                                   <div>
-                           {/*Navs here */}
+                                   {/*Navs here */}
                                     <div className="row">
                                       <div className="col-xs-4">
                                         <Nav bsStyle="tabs" activeKey={this.state.activeKey5} onSelect={this.handleSelect} className="tabsCustom2">
@@ -1757,16 +1770,21 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             topName = this.props.Executive.best_worst_data.top_5[0].name;
                                             topName = "selected_level="+topName;
                                             this.props.onSaveTopName(topName);
+                                            topbotflag = 'top';
+                                            this.props.onSaveTopBotFlag(topbotflag);
+                                            console.log("topName1",topName);
                                             this.setState({activeKey5: "1"});
                                             this.props.loadBestInfoData();
 
                                           }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
                                             <b style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.top_5[0].name}</b></NavItem>
-
                                           <NavItem className="tabsCustomList2" eventKey="2" onClick={() => {
                                             topName = this.props.Executive.best_worst_data.top_5[1].name;
                                             topName = "selected_level="+topName;
+                                            console.log("topName2",topName);
                                             this.props.onSaveTopName(topName);
+                                            topbotflag = 'top';
+                                            this.props.onSaveTopBotFlag(topbotflag);
                                             this.setState({activeKey5: "2"});
                                             this.props.loadBestInfoData();
 
@@ -1776,7 +1794,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                           <NavItem className="tabsCustomList2" eventKey="3" onClick={() => {
                                             topName = this.props.Executive.best_worst_data.top_5[2].name;
                                             topName = "selected_level="+topName;
+                                            console.log("topName3",topName);
                                             this.props.onSaveTopName(topName);
+                                            topbotflag = 'top';
+                                            this.props.onSaveTopBotFlag(topbotflag);
                                             this.setState({activeKey5: "3"});
                                             this.props.loadBestInfoData();
                                           }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
@@ -1785,7 +1806,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                           <NavItem className="tabsCustomList2" eventKey="4" onClick={() => {
                                             topName = this.props.Executive.best_worst_data.top_5[3].name;
                                             topName = "selected_level="+topName;
+                                            console.log("topName4",topName);
                                             this.props.onSaveTopName(topName);
+                                            topbotflag = 'top';
+                                            this.props.onSaveTopBotFlag(topbotflag);
                                             this.setState({activeKey5: "4"});
                                             this.props.loadBestInfoData();
 
@@ -1796,7 +1820,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                           <NavItem className="tabsCustomList2" eventKey="5" onClick={() => {
                                             topName = this.props.Executive.best_worst_data.top_5[4].name;
                                             topName = "selected_level="+topName;
+                                            console.log("topName5",topName);
                                             this.props.onSaveTopName(topName);
+                                            topbotflag = 'top';
+                                            this.props.onSaveTopBotFlag(topbotflag);
                                             this.setState({activeKey5: "5"});
                                             this.props.loadBestInfoData();
                                           }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
@@ -1809,6 +1836,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                         {(() => {
                                           if (this.props.Executive.top_name == 'None')
                                           {
+                                            console.log("Executive.top_name == 'None");
                                             return (
                                               <div>
                                                 <h3> Please select an option to view performance</h3>
@@ -1817,7 +1845,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                           }
                                           else
                                           {
+                                            console.log("Executive.top_name == Not None");
                                             return(
+
                                               <div>
                                                 <div className="pull-right">
                                                   <Button onClick={() => {
@@ -1827,6 +1857,85 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                   }}>Supplier Info</Button>
                                                 </div>
                                                 <h3>Info Selected</h3>
+                                                {(() => {
+                                                  if (this.props.Executive.best_info_data) {
+                                                    return (
+                                                      <div>
+
+                                                        {/*Row for KPIs*/}
+                                                        <div className="row">
+                                                          <div className="panel-body">
+                                                            <div className="col-xs-4 kpiSmall">
+
+
+                                                              <h3>
+                          <span
+                            className={(() => {
+                              if (this.props.Executive.best_info_data.yoy_var > 0)
+                              {
+                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                              }
+                              else if (this.props.Executive.best_info_data.yoy_var < 0)
+                              {
+                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                              } else {
+                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
+                              } })()}>&nbsp;
+
+                        </span>{this.props.Executive.best_info_data.yoy_var}%
+                                                              </h3>
+                                                              <h4 className="kpiSubTitle">YoY</h4>
+
+                                                            </div>
+                                                            <div className="col-xs-4 kpiSmall">
+
+                                                              <h3>
+                          <span
+                            className={(() => {
+                              if (this.props.Executive.best_info_data.cont_to_grwth > 0)
+                              {
+                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                              }
+                              else if (this.props.Executive.best_info_data.cont_to_grwth < 0)
+                              {
+                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                              } else {
+                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
+                              } })()}>&nbsp;
+
+                        </span>
+                                                                {this.props.Executive.best_info_data.cont_to_grwth}%
+                                                              </h3>
+                                                              <h4 className="kpiSubTitle">Contri to growth</h4>
+
+                                                            </div>
+                                                            <div className="col-xs-4 kpiSmall">
+
+                                                              <h3>
+
+                                                                {this.props.Executive.best_info_data.sales_share}%
+                                                              </h3>
+                                                              <h4 className="kpiSubTitle">Sales Share</h4>
+
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                        {/*Row for Multiline Chart*/}
+                                                        <div className="row">
+                                                          <div className="col-xs-12">
+                                                            <h3>Multiline</h3>
+                                                            <MultilinePromo data={this.props.Executive.best_info_data.multiline_trend}
+                                                                            id="top_trend" label_ty={this.props.Executive.best_info_data.legend1} label_ly={this.props.Executive.best_info_data.legend2}
+                                                                            xaxis_title="Tesco Week" no_pref={this.props.Executive.best_info_data.no_pref} no_suffix=''
+                                                                            yaxis_title={this.props.Executive.best_info_data.kpi_type} />
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    )
+                                                  }
+                                                })()}
+
+
                                               </div>
                                             )
                                           } })()}
@@ -1851,8 +1960,205 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           </div>
                           <div className="col-xs-6">
                             <h2 className="pageModuleSubTitle">Top 5 ------ by ------ Share</h2>
-                          </div>
+                          {(() => {
+                            if (this.props.Executive.best_worst_data.Choose_filters == 'no')
+                            {
+                              console.log("Choose_filters is no");
+                              return (
+                                <div>
+                                  {/*Navs here */}
+                                  <div className="row">
+                                    <div className="col-xs-4">
+                                      <Nav bsStyle="tabs" activeKey={this.state.activeKey5} onSelect={this.handleSelect} className="tabsCustom2">
+                                        <NavItem className="tabsCustomList2" eventKey="1" onClick={() => {
+                                          botName = this.props.Executive.best_worst_data.bot_5[0].name;
+                                          botName = "selected_level="+botName;
+                                          this.props.onSaveBotName(botName);
+                                          topbotflag = 'bot';
+                                          this.props.onSaveTopBotFlag(topbotflag);
+                                          console.log("botName1",botName);
+                                          this.setState({activeKey5: "1"});
+                                          this.props.loadWorstInfoData();
 
+                                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
+                                          <b style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.bot_5[0].name}</b></NavItem>
+                                        <NavItem className="tabsCustomList2" eventKey="2" onClick={() => {
+                                          botName = this.props.Executive.best_worst_data.bot_5[1].name;
+                                          botName = "selected_level="+botName;
+                                          console.log("botName2",botName);
+                                          this.props.onSaveBotName(botName);
+                                          topbotflag = 'bot';
+                                          this.props.onSaveTopBotFlag(topbotflag);
+                                          this.setState({activeKey5: "2"});
+                                          this.props.loadWorstInfoData();
+
+                                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
+                                          style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.bot_5[1].name}</b></NavItem>
+
+                                        <NavItem className="tabsCustomList2" eventKey="3" onClick={() => {
+                                          botName = this.props.Executive.best_worst_data.bot_5[2].name;
+                                          botName = "selected_level="+botName;
+                                          console.log("botName3",botName);
+                                          this.props.onSaveBotName(botName);
+                                          topbotflag = 'bot';
+                                          this.props.onSaveTopBotFlag(topbotflag);
+                                          this.setState({activeKey5: "3"});
+                                          this.props.loadWorstInfoData();
+                                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
+                                          style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.bot_5[2].name}</b></NavItem>
+
+                                        <NavItem className="tabsCustomList2" eventKey="4" onClick={() => {
+                                          botName = this.props.Executive.best_worst_data.bot_5[3].name;
+                                          botName = "selected_level="+botName;
+                                          topbotflag = 'bot';
+                                          this.props.onSaveTopBotFlag(topbotflag);
+                                          console.log("botName4",botName);
+                                          this.props.onSaveBotName(botName);
+                                          this.setState({activeKey5: "4"});
+                                          this.props.loadWorstInfoData();
+
+
+                                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
+                                          style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.bot_5[3].name}</b></NavItem>
+
+                                        <NavItem className="tabsCustomList2" eventKey="5" onClick={() => {
+                                          botName = this.props.Executive.best_worst_data.bot_5[4].name;
+                                          botName = "selected_level="+botName;
+                                          console.log("botName5",botName);
+                                          this.props.onSaveBotName(botName);
+                                          topbotflag = 'bot';
+                                          this.props.onSaveTopBotFlag(topbotflag);
+                                          this.setState({activeKey5: "5"});
+                                          this.props.loadWorstInfoData();
+                                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
+                                          style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.bot_5[4].name}</b></NavItem>
+
+                                      </Nav>
+                                    </div>
+                                    <div className="col-xs-8">
+
+                                      {(() => {
+                                        if (this.props.Executive.bot_name == 'None')
+                                        {
+                                          console.log("Executive.bot_name == 'None");
+                                          return (
+                                            <div>
+                                              <h3> Please select an option to view performance</h3>
+                                            </div>
+                                          )
+                                        }
+                                        else
+                                        {
+                                          console.log("Executive.bot_name == Not None");
+                                          return(
+
+                                            <div>
+                                              <div className="pull-right">
+                                                <Button onClick={() => {
+                                                  this.setState({botsuppInfo: true})
+                                                  {/*Load functions here*/}
+
+                                                }}>Supplier Info</Button>
+                                              </div>
+                                              <h3>Info Selected</h3>
+                                              {(() => {
+                                                if (this.props.Executive.worst_info_data) {
+                                                  return (
+                                                    <div>
+
+                                                      {/*Row for KPIs*/}
+                                                      <div className="row">
+                                                        <div className="panel-body">
+                                                          <div className="col-xs-4 kpiSmall">
+
+
+                                                            <h3>
+                          <span
+                            className={(() => {
+                              if (this.props.Executive.worst_info_data.yoy_var > 0)
+                              {
+                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                              }
+                              else if (this.props.Executive.worst_info_data.yoy_var < 0)
+                              {
+                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                              } else {
+                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
+                              } })()}>&nbsp;
+
+                        </span>{this.props.Executive.worst_info_data.yoy_var}%
+                                                            </h3>
+                                                            <h4 className="kpiSubTitle">YoY</h4>
+
+                                                          </div>
+                                                          <div className="col-xs-4 kpiSmall">
+
+                                                            <h3>
+                          <span
+                            className={(() => {
+                              if (this.props.Executive.worst_info_data.cont_to_grwth > 0)
+                              {
+                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                              }
+                              else if (this.props.Executive.worst_info_data.cont_to_grwth < 0)
+                              {
+                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                              } else {
+                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
+                              } })()}>&nbsp;
+
+                        </span>
+                                                              {this.props.Executive.worst_info_data.cont_to_grwth}%
+                                                            </h3>
+                                                            <h4 className="kpiSubTitle">Contri to growth</h4>
+
+                                                          </div>
+                                                          <div className="col-xs-4 kpiSmall">
+
+                                                            <h3>
+
+                                                              {this.props.Executive.worst_info_data.sales_share}%
+                                                            </h3>
+                                                            <h4 className="kpiSubTitle">Sales Share</h4>
+
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                      {/*Row for Multiline Chart*/}
+                                                      <div className="row">
+                                                        <div className="col-xs-12">
+                                                          <h3>Multiline</h3>
+                                                          <MultilinePromo data={this.props.Executive.worst_info_data.multiline_trend}
+                                                                          id="bot_trend" label_ty={this.props.Executive.worst_info_data.legend1} label_ly={this.props.Executive.worst_info_data.legend2}
+                                                                          xaxis_title="Tesco Week" no_pref={this.props.Executive.worst_info_data.no_pref} no_suffix=''
+                                                                          yaxis_title={this.props.Executive.worst_info_data.kpi_type} />
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  )
+                                                }
+                                              })()}
+
+
+                                            </div>
+                                          )
+                                        } })()}
+                                    </div>
+                                  </div>
+                                </div>
+                              )
+                            }
+                            else
+                            {
+                              return (
+                                <div>
+                                  <h3>Please select filter till Buying controller to view bottom performing subgroups</h3>
+                                </div>
+                              )
+
+                            }
+                          })()}
+                          </div>
                         </div>
 
                         {/*Row for Drivers of sales*/}
@@ -1950,7 +2256,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                         </div>
                                         {/*Row for holidays*/}
                                         <div className="row">
-                                          <h3 classname="pageModuleMainTitle">Holidays</h3>
+                                          <h3 className="pageModuleMainTitle">Holidays</h3>
                                           {/*Holiday Table*/}
                                           <div className="col-xs-4">
 
@@ -2022,52 +2328,52 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                         <Nav bsStyle="tabs" activeKey={this.state.activeKey6} onSelect={this.handleSelect}
                              className="tabsCustom2">
                           <NavItem className="tabsCustomList2" eventKey="1" onClick={() => {
-                            suppName = this.props.Executive.best_info_data.top_5_supp[0].supplier;
+                            suppName = this.props.Executive.best_info_data.top_5_supp[0].parent_supplier;
                             suppName = "selected_supplier=" + suppName;
-                            this.props.onSaveSupplierName(topName);
+                            this.props.onSaveSupplierName(suppName);
                             this.setState({activeKey6: "1"});
-
+                            this.props.loadSupplierInfoData();
 
                           }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                            <b style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[0].supplier}</b></NavItem>
+                            <b style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[0].parent_supplier}</b></NavItem>
 
                           <NavItem className="tabsCustomList2" eventKey="2" onClick={() => {
-                            suppName = this.props.Executive.best_info_data.top_5_supp[1].supplier;
+                            suppName = this.props.Executive.best_info_data.top_5_supp[1].parent_supplier;
                             suppName = "selected_supplier=" + suppName;
                             this.props.onSaveSupplierName(suppName);
                             this.setState({activeKey6: "2"});
-
+                            this.props.loadSupplierInfoData();
 
                           }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                            style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[1].supplier}</b></NavItem>
+                            style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[1].parent_supplier}</b></NavItem>
 
                           <NavItem className="tabsCustomList2" eventKey="3" onClick={() => {
-                            suppName = this.props.Executive.best_info_data.top_5_supp[2].supplier;
+                            suppName = this.props.Executive.best_info_data.top_5_supp[2].parent_supplier;
                             suppName = "selected_supplier=" + suppName;
                             this.props.onSaveSupplierName(suppName);
                             this.setState({activeKey6: "3"});
-
+                            this.props.loadSupplierInfoData();
                           }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                            style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[2].supplier}</b></NavItem>
+                            style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[2].parent_supplier}</b></NavItem>
 
                           <NavItem className="tabsCustomList2" eventKey="4" onClick={() => {
-                            suppName = this.props.Executive.best_info_data.top_5_supp[3].supplier;
+                            suppName = this.props.Executive.best_info_data.top_5_supp[3].parent_supplier;
                             suppName = "selected_supplier=" + suppName;
                             this.props.onSaveSupplierName(suppName);
                             this.setState({activeKey6: "4"});
-
+                            this.props.loadSupplierInfoData();
 
                           }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                            style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[3].supplier}</b></NavItem>
+                            style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[3].parent_supplier}</b></NavItem>
 
                           <NavItem className="tabsCustomList2" eventKey="5" onClick={() => {
-                            suppName = this.props.Executive.best_info_data.top_5_supp[4].supplier;
+                            suppName = this.props.Executive.best_info_data.top_5_supp[4].parent_supplier;
                             suppName = "selected_supplier=" + suppName;
                             this.props.onSaveSupplierName(suppName);
                             this.setState({activeKey6: "5"});
-
+                            this.props.loadSupplierInfoData();
                           }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                            style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[4].supplier}</b></NavItem>
+                            style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[4].parent_supplier}</b></NavItem>
 
                         </Nav>
                       );
@@ -2093,23 +2399,71 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           <h3>Supplier Info</h3>
                           {/*Row for KPIs*/}
                           <div className="row">
-                            <div classname="col-xs-4">
-                              <h3>----</h3>
-                            </div>
-                            <div classname="col-xs-4">
-                              <h3>----</h3>
-                            </div>
-                            <div classname="col-xs-4">
-                              <h3>----</h3>
+                            <div className="panel-body">
+                              <div className="col-xs-4 kpiSmall">
+
+
+                                <h3>
+                          <span
+                            className={(() => {
+                              if (this.props.Executive.supp_info_data.yoy_var > 0)
+                              {
+                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                              }
+                              else if (this.props.Executive.supp_info_data.yoy_var < 0)
+                              {
+                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                              } else {
+                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
+                              } })()}>&nbsp;
+
+                        </span>{this.props.Executive.supp_info_data.yoy_var}%
+                                </h3>
+                                <h4 className="kpiSubTitle">YoY</h4>
+
+                              </div>
+                              <div className="col-xs-4 kpiSmall">
+
+                                <h3>
+                          <span
+                            className={(() => {
+                              if (this.props.Executive.supp_info_data.cont_to_grwth > 0)
+                              {
+                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                              }
+                              else if (this.props.Executive.supp_info_data.cont_to_grwth < 0)
+                              {
+                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                              } else {
+                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
+                              } })()}>&nbsp;
+
+                        </span>
+                                  {this.props.Executive.supp_info_data.cont_to_grwth}%
+                                </h3>
+                                <h4 className="kpiSubTitle">Contri to growth</h4>
+
+                              </div>
+                              <div className="col-xs-4 kpiSmall">
+
+                                <h3>sales_share
+
+                                  {this.props.Executive.supp_info_data.sales_share}%
+                                </h3>
+                                <h4 className="kpiSubTitle">Sales Share</h4>
+
+                              </div>
                             </div>
                           </div>
-                          Row for Gauge Charts
-                          <div classname="row">
-                            <div classname="col-xs-6">
-                              <h3>Gauge Chart1</h3>
+                          {/*Row for Gauge Charts*/}
+                          <div className="row">
+                            <div className="col-xs-6">
+                              <h3>Importance to Supplier</h3>
+                              <GaugeChart2 data={[this.props.Executive.supp_info_data.imp_to_supp]} id="top_gauge1" />
                             </div>
                             <div className="col-xs-6">
-                              <h3>Gauge Chart1</h3>
+                              <h3>Importance to Category</h3>
+                              <GaugeChart2 data={[this.props.Executive.supp_info_data.imp_to_categ]} id="top_gauge2" />
                             </div>
                           </div>
                         </div>
@@ -2123,7 +2477,180 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
             </Modal.Body>
           </Modal>
 
+          {/*MODAL FOR bot - Supplier Info*/}
 
+          <Modal show={this.state.botsuppInfo} bsSize="lg"
+                 aria-labelledby="contained-modal-title-lg">
+            <Modal.Header>
+
+              <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
+                style={{textAlign: 'center', fontSize: '14px'}}><b>Supplier Info</b><span
+                style={{textAlign: 'right', float: 'right'}}
+                onClick={() => this.setState({botsuppInfo: false})}><b>X</b></span></span>
+                <div style={{textAlign: 'center'}}>
+                  <div style={{textAlign: 'right'}}>
+                  </div>
+                </div>
+              </Modal.Title>
+
+            </Modal.Header>
+            <Modal.Body style={{fontSize: '14px'}}>
+              <div className="row">
+                <div className="col-xs-4">
+                  {(() => {
+                    if (this.props.Executive.worst_info_data.fetch=='Success') {
+                      return (
+                        <Nav bsStyle="tabs" activeKey={this.state.activeKey8} onSelect={this.handleSelect}
+                             className="tabsCustom2">
+                          <NavItem className="tabsCustomList2" eventKey="1" onClick={() => {
+                            suppName = this.props.Executive.worst_info_data.bot_5_supp[0].parent_supplier;
+                            suppName = "selected_supplier=" + suppName;
+                            this.props.onSaveSupplierName(suppName);
+                            this.setState({activeKey8: "1"});
+                            this.props.loadSupplierInfoData();
+
+                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
+                            <b style={{textDecoration: 'none'}}>{this.props.Executive.worst_info_data.bot_5_supp[0].parent_supplier}</b></NavItem>
+
+                          <NavItem className="tabsCustomList2" eventKey="2" onClick={() => {
+                            suppName = this.props.Executive.worst_info_data.bot_5_supp[1].parent_supplier;
+                            suppName = "selected_supplier=" + suppName;
+                            this.props.onSaveSupplierName(suppName);
+                            this.setState({activeKey8: "2"});
+                            this.props.loadSupplierInfoData();
+
+                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
+                            style={{textDecoration: 'none'}}>{this.props.Executive.worst_info_data.bot_5_supp[1].parent_supplier}</b></NavItem>
+
+                          <NavItem className="tabsCustomList2" eventKey="3" onClick={() => {
+                            suppName = this.props.Executive.worst_info_data.bot_5_supp[2].parent_supplier;
+                            suppName = "selected_supplier=" + suppName;
+                            this.props.onSaveSupplierName(suppName);
+                            this.setState({activeKey8: "3"});
+                            this.props.loadSupplierInfoData();
+                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
+                            style={{textDecoration: 'none'}}>{this.props.Executive.worst_info_data.bot_5_supp[2].parent_supplier}</b></NavItem>
+
+                          <NavItem className="tabsCustomList2" eventKey="4" onClick={() => {
+                            suppName = this.props.Executive.worst_info_data.bot_5_supp[3].parent_supplier;
+                            suppName = "selected_supplier=" + suppName;
+                            this.props.onSaveSupplierName(suppName);
+                            this.setState({activeKey8: "4"});
+                            this.props.loadSupplierInfoData();
+
+                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
+                            style={{textDecoration: 'none'}}>{this.props.Executive.worst_info_data.bot_5_supp[3].parent_supplier}</b></NavItem>
+
+                          <NavItem className="tabsCustomList2" eventKey="5" onClick={() => {
+                            suppName = this.props.Executive.worst_info_data.bot_5_supp[4].parent_supplier;
+                            suppName = "selected_supplier=" + suppName;
+                            this.props.onSaveSupplierName(suppName);
+                            this.setState({activeKey8: "5"});
+                            this.props.loadSupplierInfoData();
+                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
+                            style={{textDecoration: 'none'}}>{this.props.Executive.worst_info_data.bot_5_supp[4].parent_supplier}</b></NavItem>
+
+                        </Nav>
+                      );
+                    }
+                  })()}
+
+
+                </div>
+                <div className="col-xs-8">
+                  {(() => {
+                    if (this.props.Executive.supplier_name=='None') {
+                      return (
+                        <div>
+                          <h3>
+                            Select a supplier to view information
+                          </h3>
+                        </div>
+                      );
+                    }
+                    else{
+                      return(
+                        <div>
+                          <h3>Supplier Info</h3>
+                          {/*Row for KPIs*/}
+                          <div className="row">
+                            <div className="panel-body">
+                              <div className="col-xs-4 kpiSmall">
+
+
+                                <h3>
+                          <span
+                            className={(() => {
+                              if (this.props.Executive.supp_info_data.yoy_var > 0)
+                              {
+                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                              }
+                              else if (this.props.Executive.supp_info_data.yoy_var < 0)
+                              {
+                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                              } else {
+                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
+                              } })()}>&nbsp;
+
+                        </span>{this.props.Executive.supp_info_data.yoy_var}%
+                                </h3>
+                                <h4 className="kpiSubTitle">YoY</h4>
+
+                              </div>
+                              <div className="col-xs-4 kpiSmall">
+
+                                <h3>
+                          <span
+                            className={(() => {
+                              if (this.props.Executive.supp_info_data.cont_to_grwth > 0)
+                              {
+                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                              }
+                              else if (this.props.Executive.supp_info_data.cont_to_grwth < 0)
+                              {
+                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                              } else {
+                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
+                              } })()}>&nbsp;
+
+                        </span>
+                                  {this.props.Executive.supp_info_data.cont_to_grwth}%
+                                </h3>
+                                <h4 className="kpiSubTitle">Contri to growth</h4>
+
+                              </div>
+                              <div className="col-xs-4 kpiSmall">
+
+                                <h3>sales_share
+
+                                  {this.props.Executive.supp_info_data.sales_share}%
+                                </h3>
+                                <h4 className="kpiSubTitle">Sales Share</h4>
+
+                              </div>
+                            </div>
+                          </div>
+                          {/*Row for Gauge Charts*/}
+                          <div className="row">
+                            <div className="col-xs-6">
+                              <h3>Importance to Supplier</h3>
+                              <GaugeChart2 data={[this.props.Executive.supp_info_data.imp_to_supp]} id="bot_gauge1" />
+                            </div>
+                            <div className="col-xs-6">
+                              <h3>Importance to Category</h3>
+                              <GaugeChart2 data={[this.props.Executive.supp_info_data.imp_to_categ]} id="bot_gauge2" />
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    }
+                  })()}
+                </div>
+
+              </div>
+
+            </Modal.Body>
+          </Modal>
 
 
       </div>
@@ -2172,6 +2699,8 @@ function mapDispatchToProps(dispatch) {
     onSaveTopName: (e) => dispatch(SaveTopName(e)),
     onSaveBotName: (e) => dispatch(SaveBotName(e)),
     onSaveSupplierName: (e) => dispatch(SaveSupplierName(e)),
+    onSaveTopBotFlag: (e) => dispatch(SaveTopBotFlag(e)),
+
     dispatch,
   };
 }

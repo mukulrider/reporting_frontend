@@ -47,7 +47,8 @@ import {
   FILTERED_FLAG,
   TOP_SELECTED_NAME,
   BOT_SELECTED_NAME,
-  SUPPLIER_NAME
+  SUPPLIER_NAME,
+  TOP_BOT_FLAG,
 } from './constants';
 
 export function defaultAction() {
@@ -205,7 +206,7 @@ export function BestWorstDataFetchSuccess(data)
 //For Best Info
 export function BestInfoData()
 {
-  console.log('actions.js BestInfoData BEST_WORST_CONSTANT');
+  console.log('actions.js BestInfoData BEST_INFO_CONSTANT');
   return {
     type: BEST_INFO_CONSTANT,
   };
@@ -449,6 +450,14 @@ export function SaveSupplierName(data) {
   console.log('SaveSupplierName = actions', data);
   return {
     type: SUPPLIER_NAME,
+    data,
+  };
+}
+
+export function SaveTopBotFlag(data) {
+  console.log('SaveSupplierName = actions', data);
+  return {
+    type: TOP_BOT_FLAG,
     data,
   };
 }

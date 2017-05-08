@@ -48,7 +48,8 @@ import {
   FILTERED_FLAG,
   TOP_SELECTED_NAME,
   BOT_SELECTED_NAME,
-  SUPPLIER_NAME
+  SUPPLIER_NAME,
+  TOP_BOT_FLAG
 
 
 } from './constants';
@@ -99,19 +100,18 @@ const initialState = fromJS({
   },
   overview_drivers_external_data: {
   "rainfall": {
-  "wow": 158.3783783784,
-    "yoy": 370.1639344262,
-    "avg": 1.434
+  "wow": "0",
+    "yoy": "0",
+    "avg": "0"
 },
   "temperature": {
-  "wow": 3.8414805122,
-    "yoy": 59.0095892372,
-    "avg": 11.11
+  "wow": "0",
+    "avg": "0"
 },
   "sunshine": {
-  "wow": -34.2677978606,
-    "yoy": -49.4037478705,
-    "avg": 1.782
+  "wow": "0",
+    "yoy": "0",
+    "avg": "0"
 }
 },
  kpi_boxes_data: {
@@ -195,6 +195,9 @@ const initialState = fromJS({
         "name": "-----"
       }
     ]
+  },
+  worst_info_data: {
+    "fetch": "fail"
   }
 });
 
@@ -328,6 +331,9 @@ function executiveReducer(state = initialState, action) {
     case SUPPLIER_NAME:
       console.log("reducer SUPPLIER_NAME",action.data);
       return state.set('supplier_name',action.data);
+    case TOP_BOT_FLAG:
+      console.log("reducer TOP_BOT_FLAG",action.data);
+      return state.set('top_bot_flag',action.data);
     default:
       return state;
   }

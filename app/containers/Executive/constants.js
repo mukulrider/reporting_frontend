@@ -90,7 +90,7 @@ export const DRIVER_PARAM = 'app/Executive/DRIVER_PARAM';
 
 //Constant to store the filtered flag for showing top5 and bottom 5
 export const FILTERED_FLAG = 'app/Executive/FILTERED_FLAG';
-
+export const TOP_BOT_FLAG = 'app/Executive/TOP_BOT_FLAG';
 //Constant to store top_5
 export const TOP_SELECTED_NAME = 'app/Executive/TOP_SELECTED_NAME';
 
