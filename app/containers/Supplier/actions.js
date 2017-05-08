@@ -33,6 +33,8 @@ import {
   RADIO_CHECK_PARAM,
   GENERATE_TEXTBOX_QUERY_STRING,
   SAVE_STORE_PARAM,
+  SUPPLIER_VIEW_KPI_SPINNER,
+  BUBBLE_CHART_SPINNER,
 } from './constants';
 
 
@@ -93,7 +95,7 @@ export function fetchGraphSuccess(data) {
 }
 
 export function fetchGraph() {
-// console.log('fetchGraph');
+console.log('actions fetchGraph');
 
   return {
     type: GRAPH_FETCH
@@ -145,7 +147,7 @@ export function SavePageParam(data) {
 }
 
 export function generateTextBoxQueryString(data) {
-// console.log("Search in action for "+data);
+console.log("Search in action for "+data);
   return {
     type: GENERATE_TEXTBOX_QUERY_STRING,
     data
@@ -280,4 +282,25 @@ export function generateCheckedList(checked ,base_product_number) {
     checked ,base_product_number
   }
 }
+
+//SPINNER FOR SUPPLIER VIEW KPI
+
+export function supplierViewKpiSpinnerCheckSuccess(supplierViewKpiSpinnerCheck) {
+  console.log('supplierViewKpiSpinnerCheck', supplierViewKpiSpinnerCheck);
+  return {
+    type: SUPPLIER_VIEW_KPI_SPINNER,
+    supplierViewKpiSpinnerCheck
+  }
+}
+
+//SPINNER FOR BUBBLE CHART
+
+export function bubbleChartSpinnerCheckSuccess(bubbleChartSpinnerCheck) {
+  console.log('bubbleChartSpinnerCheckSuccess', bubbleChartSpinnerCheck);
+  return {
+    type: BUBBLE_CHART_SPINNER,
+    bubbleChartSpinnerCheck
+  }
+}
+
 

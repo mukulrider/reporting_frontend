@@ -11,6 +11,7 @@ import {
   TOP_BOTTOM_CONSTANT,
   KPI_DATA_FETCH_SUCCESS,
   SUPPLIER_TABLE_DATA_FETCH_SUCCESS,
+  GENERATE_TEXTBOX_QUERY_STRING,SAVE_PAGE_PARAM,
   SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS,
   WEEK_PARAM,
   KPI_PARAM,
@@ -30,6 +31,8 @@ import {
   GENERATE_CHECKED_LIST,
   SAVE_PERF_PARAM,
   SAVE_STORE_PARAM,
+  SUPPLIER_VIEW_KPI_SPINNER,
+  BUBBLE_CHART_SPINNER,
 } from './constants';
 
 const initialState = fromJS({
@@ -50,10 +53,13 @@ const initialState = fromJS({
   prodArrayTable: '[]',
   prodArrayOpacity: '[]',
   radioChecked: '',
+  urlParamsString: '',
   dataPerformanceUrlParams: '',
   bubbleParams: '',
-  performanceParams: '',
+  textBoxQueryString:'',
+  dataPageUrlParams:'',
   dataStoreUrlParams: '',
+  dataWeekUrlParams: '',
   checkedList: [],
   chartData: [
     {
@@ -87,6 +93,7 @@ const initialState = fromJS({
       ros: 10
     }],
   urlParams: '',
+  supplierViewKpiSpinner: '',
 
 
 });
@@ -127,20 +134,21 @@ function supplierReducer(state = initialState, action) {
       return state.set('chartData', action.data);
 
     case SAVE_PERF_PARAM:
+      console.log("-----------------updated---------------",action.data);
       return state.set('dataPerformanceUrlParams', action.data);
 
 
     case SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS:
-      console.log("reducer SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS", action.data);
+      // console.log("reducer SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS", action.data);
       return state.set('topBotData', action.data);
     case WEEK_PARAM:
-      console.log("reducer WEEK_PARAM", action.data);
+      // console.log("reducer WEEK_PARAM", action.data);
       return state.set('week_param', action.data)
     case KPI_PARAM:
-      console.log("reducer KPI_PARAM", action.data);
+      // console.log("reducer KPI_PARAM", action.data);
       return state.set('kpi_param', action.data)
     case TOP_BOTTOM_KPI:
-      console.log("reducer TOP_BOTTOM_KPI", action.data);
+      // console.log("reducer TOP_BOTTOM_KPI", action.data);
       return state.set('top_bottom_kpi', action.data);
 
     //STORING FILTERS SELECTED BY USER
@@ -167,6 +175,13 @@ function supplierReducer(state = initialState, action) {
     case GENERATE_TABLE_SUCCESS:
       console.log('generate_table_success..................')
       return state.set('data', action.data);
+    case GENERATE_TEXTBOX_QUERY_STRING:
+      // console.log('generate_table_success..................')
+      return state.set('textBoxQueryString', action.data);
+
+    case SAVE_PAGE_PARAM:
+      // console.log('generate_table_success..................')
+      return state.set('dataPageUrlParams', action.data);
 
     case RADIO_CHECK_PARAM:
       console.log("RADIO_CHECK_PARAM", action.data);
@@ -192,6 +207,17 @@ function supplierReducer(state = initialState, action) {
           }
         ]
       })());
+
+      //SPINNER FOR SUPPLIER VIEW KPI
+    case SUPPLIER_VIEW_KPI_SPINNER:
+      console.log("SUPPLIER_VIEW_KPI_SPINNER", action.supplierViewKpiSpinnerCheck);
+      return state.set('supplierViewKpiSpinner', action.supplierViewKpiSpinnerCheck)
+
+      //SPINNER FOR BUBBLE CHART
+    case BUBBLE_CHART_SPINNER:
+      console.log("BUBBLE_CHART_SPINNER", action.bubbleChartSpinnerCheck);
+      return state.set('bubbleChartSpinnerCheck', action.bubbleChartSpinnerCheck)
+
 
     default:
       return state;

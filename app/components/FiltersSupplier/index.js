@@ -31,7 +31,14 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
         //   this.props.onGenerateCategoryDirector(category[category.length - 2])
         // }
         console.log('queryString', queryString);
-        queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
+
+        if(category.length===1) {
+          // queryString = queryString + "tesco_week="+`${category[category.length - 1]}&`;
+        }else{
+          queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
+        }
+
+        // queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
       }
     });
     queryString = queryString.substring(0, queryString.length - 1);
@@ -98,7 +105,7 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                                 this.props.week_data[0].items.map(obj2 => {
                                   console.log("Cascading Filter Inside map", obj2)
                                   finalCheckbox.push(
-                                    <Checkbox id={obj2.name }
+                                    <Checkbox id={obj2.name}
                                               label={obj2.name}
                                               style={{fontSize: '10px'}}
                                               checked={(() => {
@@ -286,7 +293,7 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                   this.props.onKPIBox();
                   this.props.onSupplierTable();
                   this.props.ontopBottomChart();
-                  this.props.onKPIBoxASP();
+
 
                   {/*let week_no = "time_period=13_weeks";*/}
                   {/*this.props.onWeekClick(week_no);*/}
