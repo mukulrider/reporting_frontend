@@ -8,10 +8,10 @@ import {fromJS} from 'immutable';
 import {
   DEFAULT_ACTION,
   KPI_CONSTANT,
-  TABLE_CONSTANT,
   TOP_BOTTOM_CONSTANT,
   KPI_DATA_FETCH_SUCCESS,
   SUPPLIER_TABLE_DATA_FETCH_SUCCESS,
+  GENERATE_TEXTBOX_QUERY_STRING,SAVE_PAGE_PARAM,
   SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS,
   WEEK_PARAM,
   KPI_PARAM,
@@ -28,7 +28,11 @@ import {
   SAVE_BUBBLE_PARAM2,
   RADIO_CHECK_PARAM,
   GENERATE_TABLE_SUCCESS,
-  SAVE_PERF_PARAM
+  GENERATE_CHECKED_LIST,
+  SAVE_PERF_PARAM,
+  SAVE_STORE_PARAM,
+  SUPPLIER_VIEW_KPI_SPINNER,
+  BUBBLE_CHART_SPINNER,
 } from './constants';
 
 const initialState = fromJS({
@@ -49,7 +53,14 @@ const initialState = fromJS({
   prodArrayTable: '[]',
   prodArrayOpacity: '[]',
   radioChecked: '',
+  urlParamsString: '',
   dataPerformanceUrlParams: '',
+  bubbleParams: '',
+  textBoxQueryString:'',
+  dataPageUrlParams:'',
+  dataStoreUrlParams: '',
+  dataWeekUrlParams: '',
+  checkedList: [],
   chartData: [
     {
       x: 200,
@@ -80,7 +91,9 @@ const initialState = fromJS({
       x: 430,
       y: 70,
       ros: 10
-    }]
+    }],
+  urlParams: '',
+  supplierViewKpiSpinner: '',
 
 
 });
@@ -92,16 +105,13 @@ function supplierReducer(state = initialState, action) {
       return state;
 
     case KPI_CONSTANT:
-      console.log("reducer.js", action.data);
+      console.log("reducer.js KPI CONSTANT", action.data);
       return state.set('reducer', action.data);
     case KPI_ASP_CONSTANT:
-      console.log("reducer.js", action.data);
-      return state.set('kpi_asp1', action.data);
-    case TABLE_CONSTANT:
-      console.log("reducer.js", action.data);
-      return state.set('table_var', action.data);
+      console.log("reducer.js KPI ASP CONTANT", action.data);
+      return state.set('reducer', action.data);
     case TOP_BOTTOM_CONSTANT:
-      console.log("reducer.js", action.data);
+      console.log("reducer.js TOP BOTTOM CONTANT", action.data);
       return state.set('topBotVar', action.data);
 
     case SAVE_BUBBLE_PARAM2:
@@ -112,12 +122,8 @@ function supplierReducer(state = initialState, action) {
       console.log("reducer.js KPI data", action.data);
       return state.set('reducer1', action.data);
     case KPI_DATA_ASP_FETCH_SUCCESS:
-      console.log("reducer.js KPI data", action.data);
-      return state.set('kpi_asp', action.data);
-
-    case SUPPLIER_TABLE_DATA_FETCH_SUCCESS:
-      console.log("reducer SUPPLIER_TABLE_DATA_FETCH_SUCCESS", action.data);
-      return state.set('tableData', action.data);
+      console.log("reducer.js KPI data ASP", action.data);
+      return state.set('reducer1', action.data);
 
 // FOR SAVING FILTERS DATA GOT FROM AJAX CALL IN REDUCER/STATE
     case FILTERS_DATA_SUCCESS:
@@ -128,20 +134,21 @@ function supplierReducer(state = initialState, action) {
       return state.set('chartData', action.data);
 
     case SAVE_PERF_PARAM:
+      console.log("-----------------updated---------------",action.data);
       return state.set('dataPerformanceUrlParams', action.data);
 
 
     case SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS:
-      console.log("reducer SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS", action.data);
+      // console.log("reducer SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS", action.data);
       return state.set('topBotData', action.data);
     case WEEK_PARAM:
-      console.log("reducer WEEK_PARAM", action.data);
+      // console.log("reducer WEEK_PARAM", action.data);
       return state.set('week_param', action.data)
     case KPI_PARAM:
-      console.log("reducer KPI_PARAM", action.data);
+      // console.log("reducer KPI_PARAM", action.data);
       return state.set('kpi_param', action.data)
     case TOP_BOTTOM_KPI:
-      console.log("reducer TOP_BOTTOM_KPI", action.data);
+      // console.log("reducer TOP_BOTTOM_KPI", action.data);
       return state.set('top_bottom_kpi', action.data);
 
     //STORING FILTERS SELECTED BY USER
@@ -151,6 +158,9 @@ function supplierReducer(state = initialState, action) {
     case SAVE_BUBBLE_PARAM:
       console.log("Bubble array in reducer", action.data);
       return state.set('prodArrayTable', action.data);
+
+    case SAVE_STORE_PARAM:
+      return state.set('dataStoreUrlParams', action.data);
 
     //FOR WEEK FILTER DATA
     case WEEK_FILTER_FETCH_SUCCESS:
@@ -163,7 +173,15 @@ function supplierReducer(state = initialState, action) {
 
     //For table
     case GENERATE_TABLE_SUCCESS:
+      console.log('generate_table_success..................')
       return state.set('data', action.data);
+    case GENERATE_TEXTBOX_QUERY_STRING:
+      // console.log('generate_table_success..................')
+      return state.set('textBoxQueryString', action.data);
+
+    case SAVE_PAGE_PARAM:
+      // console.log('generate_table_success..................')
+      return state.set('dataPageUrlParams', action.data);
 
     case RADIO_CHECK_PARAM:
       console.log("RADIO_CHECK_PARAM", action.data);
@@ -172,6 +190,33 @@ function supplierReducer(state = initialState, action) {
     case WEEK:
       console.log("reducer WEEK", action.data);
       return state.set('week', action.data)
+
+    case GENERATE_CHECKED_LIST:
+      return state.set('checkedList', (() => {
+        console.log(state.get('checkedList'));
+        let entireChangedPrices = state.get('checkedList');
+        console.log('entireChangedPrices', entireChangedPrices);
+        const toDelete = new Set([action.base_product_number]);
+        console.log('toDelete', toDelete);
+        const newArray = entireChangedPrices.filter(obj => !toDelete.has(obj.productId));
+        // console.log(newArray, action.checked, action.base_product_number);
+        return [...newArray,
+          {
+            productId: action.base_product_number,
+            checked: action.checked,
+          }
+        ]
+      })());
+
+      //SPINNER FOR SUPPLIER VIEW KPI
+    case SUPPLIER_VIEW_KPI_SPINNER:
+      console.log("SUPPLIER_VIEW_KPI_SPINNER", action.supplierViewKpiSpinnerCheck);
+      return state.set('supplierViewKpiSpinner', action.supplierViewKpiSpinnerCheck)
+
+      //SPINNER FOR BUBBLE CHART
+    case BUBBLE_CHART_SPINNER:
+      console.log("BUBBLE_CHART_SPINNER", action.bubbleChartSpinnerCheck);
+      return state.set('bubbleChartSpinnerCheck', action.bubbleChartSpinnerCheck)
 
 
     default:

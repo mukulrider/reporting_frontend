@@ -33,10 +33,14 @@ console.log("Inside the bar plot -=-=-=-=-====-=-=-=-",JSON.stringify(data));
     let x = d3.scaleLinear()
       .range([0, width]);
 
+    let svg = d3.select(`#${id}`);
+
+    svg.selectAll("*").remove();
+
 // append the svg object to the body of the page
 // append a 'group' element to 'svg'
 // moves the 'group' element to the top left margin
-    let svg = d3.select("#"+id).append("svg")
+    svg = d3.select("#"+id).append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
@@ -45,11 +49,11 @@ console.log("Inside the bar plot -=-=-=-=-====-=-=-=-",JSON.stringify(data));
 
     // format the data
     data.forEach(function(d) {
-      d.profit_product = +d.profit_product;
+      d.val = +d.val;
     });
 
     // Scale the range of the data in the domains
-    x.domain([0, d3.max(data, function(d){ return d.profit_product; })])
+    x.domain([0, d3.max(data, function(d){ return d.val; })])
     y.domain(data.map(function(d) { return d.parent_supplier; }));
     //y.domain([0, d3.max(data, function(d) { return d.profit_product; })]);
 
@@ -59,7 +63,7 @@ console.log("Inside the bar plot -=-=-=-=-====-=-=-=-",JSON.stringify(data));
       .enter().append("rect")
       .attr("class", "bar")
       //.attr("x", function(d) { return x(d.profit_product); })
-      .attr("width", function(d) {return x(d.profit_product); } )
+      .attr("width", function(d) {return x(d.val); } )
       .attr("y", function(d) { return y(d.parent_supplier); })
       .attr("height", y.bandwidth());
 
@@ -79,13 +83,13 @@ console.log("Inside the bar plot -=-=-=-=-====-=-=-=-",JSON.stringify(data));
   }
 
   componentDidMount = () =>{
-    console.log("Inside sample barchart------",this.props)
+    console.log("Inside sample bar chart------",this.props)
     this.createChart(this.props.data[0],this.props.id);
 
   };
 
   componentDidUpdate= () =>{
-
+    this.createChart(this.props.data[0],this.props.id);
 
   };
 
