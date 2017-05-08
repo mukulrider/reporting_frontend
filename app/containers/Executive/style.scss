@@ -29,6 +29,11 @@
   margin-top: 24px;
 }
 
+.tabsCustom2 {
+  margin-top: 24px;
+}
+
+
 
 //TABS
 .tabsCustomList {
@@ -78,6 +83,51 @@
 .secondaryTabs{
   font-size: 18px !important;
 }
+
+//fOR SIDE TABS
+.tabsCustomList2 {
+  display: inline-block;
+  margin: 0 8px 0 0;
+  border-bottom: none;
+  font-size: 16px !important;
+  float: None !important;
+
+}
+
+
+.tabsCustomList2 a{
+  background: #EDECEC;
+  fontFamily: 'Tesco' !important;
+  color: #00539f !important;
+  display: block !important;
+  padding: 15px 24px 16px 24px !important;
+  text-decoration: none;
+}
+.tabsCustomList2 a:hover {
+  text-decoration: underline !important;
+  color:#008dc8;
+}
+.tabsCustomList2.active{
+  margin-bottom: -1px;
+}
+
+.tabsCustomList2 span.tab_label{
+  padding: 12px 8px;
+  color: #048EC3;
+  font-weight: 600;
+}
+
+
+.tabsCustomList2.active span.tab_label{
+  border-bottom: #048EC3 solid 4px;
+}
+
+
+
+
+
+
+
 
 .content-wrap{
   background: #fff;

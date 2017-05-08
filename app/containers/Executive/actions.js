@@ -44,6 +44,10 @@ import {
   PRICE_KPI_CONSTANT,
   PRICE_KPI_FETCH_SUCCESS,
   DRIVER_PARAM,
+  FILTERED_FLAG,
+  TOP_SELECTED_NAME,
+  BOT_SELECTED_NAME,
+  SUPPLIER_NAME
 } from './constants';
 
 export function defaultAction() {
@@ -413,3 +417,38 @@ export function WeekFilterParam(data)
 
 
 
+// For the top5/bot5 modals
+
+
+export function SaveFilteredFlag(data)
+{
+  console.log('SaveFilteredFlag = actions', data);
+  return {
+    type: FILTERED_FLAG,
+    data,
+  };
+}
+
+export function SaveTopName(data) {
+  console.log('SaveTopName = actions', data);
+  return {
+    type: TOP_SELECTED_NAME,
+    data,
+  };
+}
+
+export function SaveBotName(data) {
+  console.log('SaveBotName = actions', data);
+  return {
+    type: BOT_SELECTED_NAME,
+    data,
+  };
+}
+
+export function SaveSupplierName(data) {
+  console.log('SaveSupplierName = actions', data);
+  return {
+    type: SUPPLIER_NAME,
+    data,
+  };
+}

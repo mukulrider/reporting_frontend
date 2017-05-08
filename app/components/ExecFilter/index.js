@@ -96,7 +96,7 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
 
                               {
                                 this.props.week_data[0].items.map(obj2 => {
-                                  console.log("Cascading Filter Inside map", obj2)
+                                  {/*console.log("Cascading Filter Inside map", obj2)*/}
                                   finalCheckbox.push(
                                     <Checkbox id={obj2.name }
                                               label={obj2.name}
@@ -288,10 +288,11 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
                     this.props.loadOverviewKpiTrend();
                     this.props.loadOverviewDriversInternal();
                     this.props.loadOverviewDriversExternal();
-
+                    this.props.loadRolesAndIntent();
+                    this.props.loadBudgetAndForecast();
                   }
                   else {
-                    if(this.props.Executive.kpi_param=='kpi_type=Price')
+                    if(this.props.kpi_param=='kpi_type=Price')
                     {
                       console.log("______________________ Only Price function Called")
                       this.props.loadPriceKPIData();
@@ -301,15 +302,10 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
 
                     else {
                       console.log("______________________ Only KPI functions Called")
-                      this.props.loadRolesAndIntent();
-                      this.props.loadBudgetAndForecast();
+
 
                       this.props.loadKpiBoxes();
                       this.props.loadBestWorst();
-                      this.props.loadBestInfoData();
-
-                      this.props.loadWorstInfoData();
-                      this.props.loadSupplierInfoData();
                       this.props.loadDriversInternalData();
                       this.props.loadDriversExternalData();
                     }

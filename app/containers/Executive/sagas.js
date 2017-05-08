@@ -699,7 +699,7 @@ export function* generateWeekFilterFetch() {
     // todo: update url
     console.log("Inside generateWeekFilterFetch")
     let urlName=yield select(selectExecutiveDomain());
-    let weekurlparams = urlName.get('weekurlParam');
+    let weekurlparams = urlName.get('week_param');
 
 
     // if (urlParams==='')
@@ -753,6 +753,7 @@ export default [
   doOverviewDriversInternalFetch,
   doOverviewDriversExternalFetch,
   doKpiBoxesFetch,
+  doBestWorstFetch,
   doBestInfoFetch,
   doWorstInfoFetch,
   doSupplierInfoFetch,

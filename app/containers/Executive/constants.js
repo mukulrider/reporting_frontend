@@ -88,6 +88,18 @@ export const KPI_PARAM = 'app/Executive/KPI_PARAM';
 //Constant to store the driver parameter
 export const DRIVER_PARAM = 'app/Executive/DRIVER_PARAM';
 
+//Constant to store the filtered flag for showing top5 and bottom 5
+export const FILTERED_FLAG = 'app/Executive/FILTERED_FLAG';
+
+//Constant to store top_5
+export const TOP_SELECTED_NAME = 'app/Executive/TOP_SELECTED_NAME';
+
+//Constant to store bot_5
+export const BOT_SELECTED_NAME = 'app/Executive/BOT_SELECTED_NAME';
+
+//Constant to store supplier name
+export const SUPPLIER_NAME = 'app/Executive/SUPPLIER_NAME';
+
 //Filter Constants
 export const FILTER_CONSTANT='app/Executive/FILTER_CONSTANT';
 

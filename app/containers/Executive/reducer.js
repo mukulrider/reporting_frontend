@@ -45,6 +45,10 @@ import {
   DRIVERS_EXTERNAL_FETCH_SUCCESS,
   PRICE_KPI_CONSTANT,
   PRICE_KPI_FETCH_SUCCESS,
+  FILTERED_FLAG,
+  TOP_SELECTED_NAME,
+  BOT_SELECTED_NAME,
+  SUPPLIER_NAME
 
 
 } from './constants';
@@ -56,6 +60,11 @@ const initialState = fromJS({
   driver_param: 'internal',
   urlParamsString: '',
   weekurlParam: '',
+  filtered_flag: 'no',
+  top_name: 'None',
+  bot_name: 'None',
+  supplier_name: 'None',
+  //Initial Data
   overview_kpi_data: {
     "price": {
       "ACP": 0,
@@ -149,6 +158,43 @@ const initialState = fromJS({
       'index': "0",
       "wow": "0"
     }
+  },
+  best_worst_data: {
+    "top_5": [
+      {
+        "name": "-----"
+      },
+      {
+        "name": "-----"
+      },
+      {
+        "name": "-----"
+      },
+      {
+        "name": "-----"
+      },
+      {
+        "name": "-----"
+      }
+    ],
+    "Choose_filters": "yes",
+    "bot_5": [
+      {
+        "name": "-----"
+      },
+      {
+        "name": "-----"
+      },
+      {
+        "name": "-----"
+      },
+      {
+        "name": "-----"
+      },
+      {
+        "name": "-----"
+      }
+    ]
   }
 });
 
@@ -270,6 +316,18 @@ function executiveReducer(state = initialState, action) {
     case DRIVER_PARAM:
       console.log("reducer KPI_PARAM",action.data);
       return state.set('driver_param',action.data);
+    case FILTERED_FLAG:
+      console.log("reducer FILTERED_FLAG",action.data);
+      return state.set('filtered_flag',action.data);
+    case TOP_SELECTED_NAME:
+      console.log("reducer TOP_SELECTED_NAME",action.data);
+      return state.set('top_name',action.data);
+    case BOT_SELECTED_NAME:
+      console.log("reducer BOT_SELECTED_NAME",action.data);
+      return state.set('bot_name',action.data);
+    case SUPPLIER_NAME:
+      console.log("reducer SUPPLIER_NAME",action.data);
+      return state.set('supplier_name',action.data);
     default:
       return state;
   }
