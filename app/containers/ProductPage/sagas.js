@@ -21,13 +21,24 @@ import {
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-const host_url = 'http://172.20.242.177:8000';
+const host_url = 'http://10.1.244.200:8001';
 // let host_url = "http://172.20.244.228:8000"
 
 
 /* GENERATE SIDE FILTER*/
 export function* generateSideFilter() {
   const urlName = yield select(selectProductPageDomain());
+
+  let getCookie;
+  getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  };
+  const user_token = getCookie('token');
+  const buyer = getCookie('buyer');
+  const token = user_token.concat('___').concat(buyer)
+
   console.log('urlName for sideFilter', urlName);
   let urlParamsString = urlName.get('urlParamsString');
   console.log('urlparam1', urlParamsString);
@@ -40,14 +51,19 @@ export function* generateSideFilter() {
       urlParamsString = urlParamsString.substring(14, urlParamsString.length);
     }
   }
-  //+'tesco_week='+ ''+urlParamsString
+
   console.log('My urlParamsString for SideFilter', urlParamsString);
   // alert(urlParamsString);
   try {
     // todo: update url
 
     // const data = yield call(request, `http://172.20.244.141:8000/api/product_impact/filter_data/?${urlParamsString}`);
-    const filter_data = yield call(request, `${host_url}/api/reporting/filter_data/?${urlParamsString}`);
+    const filter_data = yield call(request, `${host_url}/api/reporting/filter_data/?${urlParamsString}`,
+      {
+        headers: {
+          Authorization: token
+        }
+      });
     console.log('This is my fetched filter data', filter_data);
 
     yield put(generateSideFilterSuccess(filter_data));
@@ -172,7 +188,7 @@ export function* generateWeekFilterFetch() {
     // }
 
 
-    const data = yield call(request, `${host_url}/api/reporting/filter_data_week${filter_week_selection}`);
+    const data = yield call(request, `${host_url}/api/reporting/product/filter_data_week${filter_week_selection}`);
 
     console.log(`${host_url}/api/reporting/filter_data_week${filter_week_selection}`);
 

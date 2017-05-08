@@ -23,7 +23,7 @@ class DualLineChart extends React.PureComponent { // eslint-disable-line react/p
 
     let margin = { top: 30, right: 30, bottom: 80, left: 80 },
       width = 850 - margin.left - margin.right,
-      height = 600 - margin.top - margin.bottom;
+      height = 400 - margin.top - margin.bottom;
 
     console.log(height+10);
 // parse the date / time
@@ -41,15 +41,20 @@ class DualLineChart extends React.PureComponent { // eslint-disable-line react/p
       .tickFormat(d3.timeFormat('%Y%W'))
       .ticks(d3.timeWeek.every(1));
 
-    const format = d3.format(',.2f');
+    let format = d3.format(',');
 
     const yAxis = d3.axisLeft()
       .scale(y)
       .tickFormat((d) => {
-        if ((d / 1000) >= 1) {
-          d = `£ ${d / 1000} K`;
+        if ((d/1000) >= 1 || (d /1000) <= -1) {
+          d = d/1000;
         }
-        return d;
+        if (y_axis_text=="Sales Volume") {
+          return `${format(d)} K`;
+        }
+        else {
+          return `£ ${format(d)} K`;
+        }
       });
 
 // define the 1st line
@@ -143,7 +148,7 @@ class DualLineChart extends React.PureComponent { // eslint-disable-line react/p
       .attr('x', 0 - (height / 2)-15)
       .attr('dy', '1em')
       .style('text-anchor', 'middle')
-      .style('font', '20px sans-serif')
+      .style('font', '18px sans-serif')
       .text((d) => y_axis_text);
 
     const legend = svg.selectAll('.legend')

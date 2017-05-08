@@ -35,32 +35,7 @@ import {
 
 import styles from './style.scss';
 
-
-function triangleColumnFormatter(cell, row) {
-  if (cell > 0) {
-    return '<i class="glyphicon glyphicon-chevron-up productTablePositive"></i>&nbsp'+ cell;
-  }
-  else if (cell < 0) {
-    return '<i class="glyphicon glyphicon-chevron-down productTableNegative"></i>&nbsp'+ cell;
-  } else {
-    return '<i class="glyphicon glyphicon-minus-sign productTableNeutral"></i>&nbsp'+ cell;
-  }
-}
-
-function tickColumnFormatter(cell, row) {
-
-  if (cell == 1) {
-    return '<i class="glyphicon glyphicon-ok-sign productTablePositive"></i>&nbsp'+ cell;
-  }
-  else {
-    return '<i class="glyphicon glyphicon-remove-sign productTableNegative"></i>&nbsp'+ cell;
-  }
-}
-
 export class ProductPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  componentWillMount = () => {
-
-  }
 
   componentDidMount = () => {
     let dataWeekParams = this.props.ProductPage.dataWeekParams;
@@ -85,9 +60,52 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
       activeKey2: "7",
       ty_text:"Sales TY in £",
       ly_text:"Sales LY in £",
-      y_axis_text:"Sales Value"
+      y_axis_text:"Sales Value",
+      page_title:"Value Performance"
     };
   }
+
+  formatSales = (cell) =>{
+  if (cell >= 1000 || cell <= -1000) {
+    let rounded = Math.round(cell / 1000);
+    return ('£ ' + rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'K');
+  }
+  else {
+    return ('£ ' + Math.round(cell));
+  }
+}
+
+  formatVolume = (cell) => {
+  if (cell >= 1000 || cell <= -1000) {
+    let rounded = Math.round(cell / 1000);
+    return (rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'K');
+
+  } else {
+    return (Math.round(cell));
+  }
+}
+
+  diffColumnFormatter=(cell)=> {
+  if (cell > 0) {
+    return '<i class="glyphicon glyphicon-chevron-up productTablePositive"></i>&nbsp'+ cell+'%';
+  }
+  else if (cell < 0) {
+    return '<i class="glyphicon glyphicon-chevron-down productTableNegative"></i>&nbsp'+ cell+'%';
+  } else {
+    return '<i class="glyphicon glyphicon-minus-sign productTableNeutral"></i>&nbsp'+ cell+'%';
+  }
+
+}
+
+  tickColumnFormatter=(cell)=> {
+
+  if (cell == 1) {
+    return '<i class="glyphicon glyphicon-ok-sign productTablePositive"></i>&nbsp'+ cell;
+  }
+  else {
+    return '<i class="glyphicon glyphicon-remove-sign productTableNegative"></i>&nbsp'+ cell;
+  }
+}
   render() {
     //For url parameters
     const options = {
@@ -119,18 +137,21 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
 
     return (
       <Panel>
-      <div className="row">
-          <div style={{ float: 'left', borderRadius: 4, borderWidth: 0.5, borderColor: '#d6d7da', color: 'red' }}>
-            <div className="flexleft" style={{ marginTop:"24px"}}>
+      <div>
+          <div className="row" style={{
+            marginLeft: '0px',
+            marginRight: '0px'
+          }}>
 
-              {/*<Panel>*/}
-              {/*<SelectorDelist sideFilter={this.props.DelistContainer.sideFilter}*/}
-              {/*location={this.props.location}*/}
-              {/*onGenerateTable={this.props.onGenerateTable}*/}
-              {/*onGenerateUrlParams={this.props.onGenerateUrlParams}*/}
-              {/*onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}/>*/}
-
-              {/*{console.log("this.props.DelistContainer.sideFilter", this.props.DelistContainer.sideFilter)}*/}
+            <div style={{
+              height: '100%',
+              position: 'fixed',
+              width: '18%',
+              paddingRight: '1%',
+              overflowX: 'hidden',
+              overflowY: 'scroll',
+              borderTop: '1px solid #ccc'
+            }}>
 
 
               {(() => {
@@ -148,7 +169,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
               )
               } else {
               return (
-              <div style={{padding: '10px'}}>LOADING</div>
+              <div style={{padding: '10px'}}>LOADING FILTERS</div>
               )
               }
               })()}
@@ -161,7 +182,20 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
           </div>
           <div className="col-xs-10" style={{ float: 'right' }}>
             <div className="col-xs-12">
-              <Nav bsStyle="tabs" className="tabsCustom" Key={this.state.activeKey} >
+              <div className="pageTitle">
+                {(() => {
+                  if (this.props.ProductPage.filter_week_selection) {
+                    return (
+                      <span>Product View - {(this.props.ProductPage.filter_week_selection).substring(11,17)}</span>
+                    )
+                  } else {
+                    return (
+                      <span>Product View - Latest Week  </span>
+                    )
+                  }
+                })()}
+              </div>
+              <Nav bsStyle="tabs" className="tabsCustom" activeKey={this.state.activeKey} >
                 <NavItem
                   className=" tabsCustomList" eventKey="1" onClick={() => {
                   this.setState({activeKey: "1"});
@@ -174,8 +208,8 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   this.props.onApiFetch();
                   this.props.ondelistTable();
             this.props.onWeekTabClick("Week: 13 weeks ")*/
-                  }}style={{ fontSize: '14px' ,width:'16%',textAlign:'center'}}
-                ><b>Selected Week</b></NavItem>
+                  }}style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
+                ><span className="tab_label">Selected Week</span></NavItem>
                 <NavItem
                   className="tabsCustomList" eventKey="2" onClick={() => {
                   this.setState({activeKey: "2"});
@@ -188,65 +222,35 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   this.props.onApiFetch();
                   this.props.ondelistTable();
             this.props.onWeekTabClick("Week: 26 weeks ")*/
-                  }}style={{ fontSize: '14px' ,width:'16%',textAlign:'center'}}
-                ><b>Last 4 Weeks</b></NavItem>
+                  }}style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
+                ><span className="tab_label">Last 4 Weeks</span></NavItem>
                 <NavItem
                   className="tabsCustomList" eventKey="3" onClick={() => {
                   this.setState({activeKey: "3"});
                   let dataWeekParams="week_flag=13";
                   this.props.onSaveWeekParam(dataWeekParams);
-//                  this.props.onFetchSaveWeekParam();
-                  /*
-                  let week_no = "time_period=52_weeks";
-                  this.props.onWeekClick(week_no);
-                  this.props.onWaterfallValueChart();
-                  this.props.onApiFetch();
-                  this.props.ondelistTable();
-            this.props.onWeekTabClick("Week: 52 weeks ")*/
-                  }}style={{ fontSize: '14px' ,width:'16%',textAlign:'center'}}
-                ><b>Last 13 Weeks</b></NavItem>
+                  }}style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
+                ><span className="tab_label">Last 13 Weeks</span></NavItem>
                 <NavItem
                   className="tabsCustomList" eventKey="4" onClick={() => {
                   this.setState({activeKey: "4"});
-                  let dataWeekParams="week_flag=52";
+                  let dataWeekParams="week_flag=26";
                   this.props.onSaveWeekParam(dataWeekParams);
-                  /*
-                  let week_no = "time_period=52_weeks";
-                  this.props.onWeekClick(week_no);
-                  this.props.onWaterfallValueChart();
-                  this.props.onApiFetch();
-                  this.props.ondelistTable();
-                  this.props.onWeekTabClick("Week: 52 weeks ")*/
-                  }}style={{ fontSize: '14px' ,width:'16%',textAlign:'center'}}
-                ><b>Last 52 Weeks</b></NavItem>
+                  }}style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
+                ><span className="tab_label">Last 26 Weeks</span></NavItem>
                 <NavItem
                   className="tabsCustomList" eventKey="5" onClick={() => {
                   this.setState({activeKey: "5"});
                   let dataWeekParams="week_flag=YTD";
                   this.props.onSaveWeekParam(dataWeekParams);
-                  /*
-                  let week_no = "time_period=52_weeks";
-                  this.props.onWeekClick(week_no);
-                  this.props.onWaterfallValueChart();
-                  this.props.onApiFetch();
-                  this.props.ondelistTable();
-                  this.props.onWeekTabClick("Week: 52 weeks ")*/
-                  }}style={{ fontSize: '14px' ,width:'16%',textAlign:'center'}}
-                ><b>YTD</b></NavItem>
-                <NavItem
+                  }}style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
+                ><span className="tab_label">YTD</span></NavItem>
+                {/*<NavItem
                   className="tabsCustomList" eventKey="6" onClick={() => {
                   this.setState({activeKey: "6"});
                   let dataWeekParams="week_flag=PTD";
-                  this.props.onSaveWeekParam(dataWeekParams);
-                  /*
-                  let week_no = "time_period=52_weeks";
-                  this.props.onWeekClick(week_no);
-                  this.props.onWaterfallValueChart();
-                  this.props.onApiFetch();
-                  this.props.ondelistTable();
-                  this.props.onWeekTabClick("Week: 52 weeks ")*/
-                  }}style={{ fontSize: '14px' ,width:'16%',textAlign:'center'}}
-                ><b>PTD</b></NavItem>
+                  }}style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
+                ><span className="tab_label">PTD</b></NavItem>*/}
               </Nav>
             </div>
 
@@ -254,108 +258,59 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
               <Nav bsStyle="tabs" className="tabsCustom tabsCustomInner" activeKey={this.state.activeKey2} onSelect={this.handleSelect}>
                 <NavItem
                   eventKey="7" className="tabsCustomList" onClick={() => {
-                  this.setState({activeKey2: "7",ty_text:"Sales TY in £",ly_text:"Sales LY in £",y_axis_text:"Sales Value"});
+                  this.setState({activeKey2: "7",ty_text:"Sales TY in £",ly_text:"Sales LY in £",y_axis_text:"Sales Value",page_title:"Value Performance"});
                   let dataMetricParams="metric_flag=Value";
                   this.props.onSaveMetricParam(dataMetricParams);
-                  /*
-                  let week_no = "time_period=13_weeks";
-                  this.props.onWeekClick(week_no);
-                  this.props.onWaterfallValueChart();
-                  this.props.onApiFetch();
-                  this.props.ondelistTable();
-            this.props.onWeekTabClick("Week: 13 weeks ")*/
-                  }} style={{ fontSize: '14px' }}
-                ><b>Value</b></NavItem>
+                  }} style={{ fontSize: '16px' }}
+                ><span className="tab_label">Value</span></NavItem>
                 <NavItem
                   eventKey="8" className="tabsCustomList" onClick={() => {
-                  this.setState({activeKey2: "8",ty_text:"Volume TY in units",ly_text:"Volume LY in units",y_axis_text:"Sales Volume"});
+                  this.setState({activeKey2: "8",ty_text:"Volume TY in units",ly_text:"Volume LY in units",y_axis_text:"Sales Volume",page_title:"Volume Performance"});
                   let dataMetricParams="metric_flag=Volume";
 
                   this.props.onSaveMetricParam(dataMetricParams);
-                  /*
-                  let week_no = "time_period=26_weeks";
-                  this.props.onWeekClick(week_no);
-                  this.props.onWaterfallValueChart();
-                  this.props.onApiFetch();
-                  this.props.ondelistTable();
-            this.props.onWeekTabClick("Week: 26 weeks ")*/
-                  }} style={{ fontSize: '14px' }}
-                ><b>Volume</b></NavItem>
+                  }} style={{ fontSize: '16px' }}
+                ><span className="tab_label">Volume</span></NavItem>
                 <NavItem
                   eventKey="9" className="tabsCustomList" onClick={() => {
-                  this.setState({activeKey2: "9",ty_text:"COGS TY in £",ly_text:"COGS LY in £",y_axis_text:"COGS"});
+                  this.setState({activeKey2: "9",ty_text:"COGS TY in £",ly_text:"COGS LY in £",y_axis_text:"COGS",page_title:"COGS Performance"});
                   let dataMetricParams="metric_flag=cogs";
                   this.props.onSaveMetricParam(dataMetricParams);
-                  /*
-                  let week_no = "time_period=52_weeks";
-                  this.props.onWeekClick(week_no);
-                  this.props.onWaterfallValueChart();
-                  this.props.onApiFetch();
-                  this.props.ondelistTable();
-            this.props.onWeekTabClick("Week: 52 weeks ")*/
-                  }} style={{ fontSize: '14px' }}
-                ><b>COGS</b></NavItem>
+                  }} style={{ fontSize: '16px' }}
+                ><span className="tab_label">COGS</span></NavItem>
                 <NavItem
                   eventKey="10" className="tabsCustomList" onClick={() => {
-                  this.setState({activeKey2: "10",ty_text:"Profit TY in £",ly_text:"Profit LY in £",y_axis_text:"Profit"});
+                  this.setState({activeKey2: "10",ty_text:"Profit TY in £",ly_text:"Profit LY in £",y_axis_text:"Profit",page_title:"Profit Performance"});
                   let dataMetricParams="metric_flag=cgm";
                   this.props.onSaveMetricParam(dataMetricParams);
-                  /*
-                  let week_no = "time_period=52_weeks";
-                  this.props.onWeekClick(week_no);
-                  this.props.onWaterfallValueChart();
-                  this.props.onApiFetch();
-                  this.props.ondelistTable();
-                  this.props.onWeekTabClick("Week: 52 weeks ")*/
-                  }} style={{ fontSize: '14px' }}
-                ><b>CGM</b></NavItem>
+                  }} style={{ fontSize: '16px' }}
+                ><span className="tab_label">CGM</span></NavItem>
                 <NavItem
                   eventKey="11" className="tabsCustomList" onClick={() => {
-                  this.setState({activeKey2: "11",ty_text:"Waste Value TY",ly_text:"Waste Value LY",y_axis_text:"Waste Value"});
+                  this.setState({activeKey2: "11",ty_text:"Waste Value TY",ly_text:"Waste Value LY",y_axis_text:"Waste Value",page_title:"Waste Performance"});
                   let dataMetricParams="metric_flag=Waste";
                   this.props.onSaveMetricParam(dataMetricParams);
-                  /* this.setState({activeKey: "3"});
-                  let week_no = "time_period=52_weeks";
-                  this.props.onWeekClick(week_no);
-                  this.props.onWaterfallValueChart();
-                  this.props.onApiFetch();
-                  this.props.ondelistTable();
-                  this.props.onWeekTabClick("Week: 52 weeks ")*/
-                  }} style={{ fontSize: '14px' }}
-                ><b>Waste</b></NavItem>
-                <NavItem
+                  }} style={{ fontSize: '16px' }}
+                ><span className="tab_label">Waste</span></NavItem>
+{/*                <NavItem
                   eventKey="12" className="tabsCustomList" onClick={() => {
                   this.setState({activeKey: "12"});
                   let dataMetricParams="metric_flag=Stock";
                   this.props.onSaveMetricParam(dataMetricParams);
-                  /* this.setState({activeKey: "3"});
-                  let week_no = "time_period=52_weeks";
-                  this.props.onWeekClick(week_no);
-                  this.props.onWaterfallValueChart();
-                  this.props.onApiFetch();
-                  this.props.ondelistTable();
-                  this.props.onWeekTabClick("Week: 52 weeks ")*/
-                  }} style={{ fontSize: '14px' }}
-                ><b>Stock</b></NavItem>
+                  }} style={{ fontSize: '16px' }}
+                ><b className="tab_label">Stock</b></NavItem>
                 <NavItem
                   eventKey="13" className="tabsCustomList" onClick={() => {
                   this.setState({activeKey: "13"});
                   let dataMetricParams="metric_flag=Price";
                   this.props.onSaveMetricParam(dataMetricParams);
-                  /*
-                  let week_no = "time_period=52_weeks";
-                  this.props.onWeekClick(week_no);
-                  this.props.onWaterfallValueChart();
-                  this.props.onApiFetch();
-                  this.props.ondelistTable();
-                  this.props.onWeekTabClick("Week: 52 weeks ")*/
-                  }} style={{ fontSize: '14px' }}
-                ><b>Price</b></NavItem>
+                  }} style={{ fontSize: '16px' }}
+                ><b className="tab_label">Price</b></NavItem>*/}
               </Nav>
             </div>
             <div >
               <div className="col-xs-12">
-              <h2 className="pageModuleMainTitle">How Am I positioned against the market?</h2>
+              <h2 className="pageModuleMainTitle">{this.state.page_title}</h2>
               </div>
               <div className="col-xs-12">
                 <div className="col-xs-3" style={{marginTop: '8%'}}>
@@ -371,35 +326,61 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                                   <th colSpan="12" className="pageModuleSubTitle"><b>{obj.metric_title}</b></th>
                                 </tr>
                                 <tr>
-                                <th colSpan="6" style={{ verticalAlign: 'middle', fontSize: '14px',backgroundColor:'#1782CA',textAlign: 'center'}}>{'£ ' + (obj.metric_all / 1000).toFixed(0) + 'K'}</th>
-                                <th colSpan="6" style={{ verticalAlign: 'middle', fontSize: '14px',backgroundColor:'#1782CA',textAlign: 'center' }}>{'LFL: £ ' + (obj.metric_lfl / 1000).toFixed(0) + 'K'}</th>
+                                  <th colSpan="6" style={{ verticalAlign: 'middle', fontSize: '18px',backgroundColor:'#1782CA',textAlign: 'center'}}>
+                                    {(() => {
+                                        if (this.state.y_axis_text == 'Sales Volume') {
+
+
+                                          return (obj.metric_all / 1000).toFixed(0) + 'K'
+
+
+                                        }else {
+                                          return '£ ' + (obj.metric_all / 1000).toFixed(0) + 'K'
+                                        }
+                                      }
+                                    )()}
+                                  </th>
+                                  <th colSpan="6" style={{ verticalAlign: 'middle', fontSize: '18px',backgroundColor:'#1782CA',textAlign: 'center' }}>
+                                    {(() => {
+                                        if (this.state.y_axis_text == 'Sales Volume') {
+
+
+                                          return 'LFL: ' + (obj.metric_lfl / 1000).toFixed(0) + 'K'
+
+
+                                        }else {
+                                          return 'LFL: £ ' + (obj.metric_lfl / 1000).toFixed(0) + 'K'
+                                        }
+                                      }
+                                    )()}
+                                  </th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr style={{ verticalAlign: 'middle',color:'#000000',backgroundColor:'#FFFFFF' }}>
-                                  <td colSpan="4" ><span className={(() => {
+                                  <td colSpan="4"><span className={(() => {
                                     if (obj.wow_change > 0) {
                                       return "glyphicon glyphicon-chevron-up productTablePositive"
                                     } else {
                                       return "glyphicon glyphicon-chevron-down productTableNegative"
                                     }
-                                  })()}>&nbsp;</span>{(obj.wow_change)+'%'}
+                                  })()}>&nbsp;</span> <span style={{fontSize:'16px'}}>{(obj.wow_change)+'%'} </span>
                                     <br/><br/><h4 style={{color:'#00539f'}}>WOW</h4></td>
-                                  <td colSpan="4" ><span className={(() => {
+                                  <td colSpan="4"><span className={(() => {
                                     if (obj.yoy_change > 0) {
                                       return "glyphicon glyphicon-chevron-up productTablePositive"
                                     } else {
                                       return "glyphicon glyphicon-chevron-down productTableNegative"
                                     }
-                                  })()}>&nbsp;</span>{(obj.yoy_change)+'%'}
+                                  })()}>&nbsp;</span> <span style={{fontSize:'16px'}}>{(obj.yoy_change)+'%'} </span>
                                     <br/><br/><h4 style={{color:'#00539f'}}>YOY</h4></td>
-                                  <td colSpan="4" ><span className={(() => {
+                                  <td colSpan="4"><span className={(() => {
                                     if (obj.lfl_change > 0) {
                                       return "glyphicon glyphicon-chevron-up productTablePositive"
                                     } else {
                                       return "glyphicon glyphicon-chevron-down productTableNegative"
                                     }
-                                  })()}>&nbsp;</span>{(obj.lfl_change)+'%'}
+                                  })()}>&nbsp;</span> <span style={{fontSize:'16px'}}>{(obj.lfl_change)+'%'} </span>
                                     <br/><br/><h4 style={{color:'#00539f'}}>LFL</h4></td>
                               </tr>
 
@@ -471,17 +452,17 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   <TableHeaderColumn row="0" rowSpan="2" dataField="product_id" isKey={true} dataAlign="center" dataSort>Product ID</TableHeaderColumn>
                   <TableHeaderColumn row="0" rowSpan="2" width="225" dataField="product" dataSort={true} dataAlign="center">Description</TableHeaderColumn>
                   <TableHeaderColumn row="0" rowSpan="2" width="125" dataField="product_area" dataSort={true} dataAlign="center">Product Area</TableHeaderColumn>
-                  <TableHeaderColumn row="0" colSpan="5" dataAlign="center">Price</TableHeaderColumn>
-                  <TableHeaderColumn row="1" dataField="asp" dataSort={true} dataAlign="center">ASP</TableHeaderColumn>
-                  <TableHeaderColumn row="1" dataField="asp_diff_lw" dataSort={true} dataAlign="center" dataFormat={ triangleColumnFormatter }>v LW</TableHeaderColumn>
-                  <TableHeaderColumn row="1" dataField="promo" dataSort={true} dataAlign="center" dataFormat={ tickColumnFormatter }>Promo?</TableHeaderColumn>
-                  <TableHeaderColumn row="1" dataField="top20" dataSort={true} dataAlign="center" dataFormat={ tickColumnFormatter }>Top 20</TableHeaderColumn>
+                  <TableHeaderColumn row="0" colSpan="3" dataAlign="center">Price</TableHeaderColumn>
+                  <TableHeaderColumn row="1" dataField="asp" dataFormat={this.formatSales} dataSort={true} dataAlign="center">ASP</TableHeaderColumn>
+                  <TableHeaderColumn row="1" dataField="asp_diff_lw" dataSort={true} dataAlign="center" dataFormat={ this.diffColumnFormatter }>v LW</TableHeaderColumn>
+                  <TableHeaderColumn row="1" dataField="promo" dataSort={true} dataAlign="center" dataFormat={ this.tickColumnFormatter }>Promo?</TableHeaderColumn>
+                  <TableHeaderColumn row="0" colSpan="6"  dataSort={true} dataAlign="center">Sales</TableHeaderColumn>
+                  <TableHeaderColumn row="1" dataField="top20" dataSort={true} dataAlign="center" dataFormat={ this.tickColumnFormatter }>Top 20 TW?</TableHeaderColumn>
                   <TableHeaderColumn row="1" dataField="rank_lw" dataSort={true} dataAlign="center">LW Rank</TableHeaderColumn>
-                  <TableHeaderColumn row="0" colSpan="4"  dataSort={true} dataAlign="center">Sales</TableHeaderColumn>
-                  <TableHeaderColumn row="1" dataField="sales_value" dataSort={true} dataAlign="center">Sales Value</TableHeaderColumn>
-                  <TableHeaderColumn row="1" dataField="sales_value_diff_lw" dataSort={true} dataAlign="left" dataFormat={ triangleColumnFormatter }>v LW</TableHeaderColumn>
-                  <TableHeaderColumn row="1" dataField="sales_volume" dataSort={true} dataAlign="center">Sales Volume</TableHeaderColumn>
-                  <TableHeaderColumn row="1" dataField="sales_volume_diff_lw" dataSort={true} dataAlign="left" dataFormat={ triangleColumnFormatter }>vLW</TableHeaderColumn>
+                  <TableHeaderColumn row="1" dataField="sales_value" dataFormat={this.formatSales} dataSort={true} dataAlign="center">Sales Value</TableHeaderColumn>
+                  <TableHeaderColumn row="1" dataField="sales_value_diff_lw" dataSort={true} dataAlign="left" dataFormat={ this.diffColumnFormatter }>v LW</TableHeaderColumn>
+                  <TableHeaderColumn row="1" dataField="sales_volume" dataFormat={this.formatVolume} dataSort={true} dataAlign="center">Sales Volume</TableHeaderColumn>
+                  <TableHeaderColumn row="1" dataField="sales_volume_diff_lw" dataSort={true} dataAlign="left" dataFormat={ this.diffColumnFormatter }>vLW</TableHeaderColumn>
                   </BootstrapTable>
 
                   </div>
@@ -528,17 +509,17 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   <TableHeaderColumn row="0" rowSpan="2" dataField="product_id" isKey={true} dataAlign="center" dataSort>Product ID</TableHeaderColumn>
                   <TableHeaderColumn row="0" rowSpan="2" width="225" dataField="product" dataSort={true} dataAlign="center">Description</TableHeaderColumn>
                   <TableHeaderColumn row="0" rowSpan="2" width="125" dataField="product_area" dataSort={true} dataAlign="center">Product Area</TableHeaderColumn>
-                  <TableHeaderColumn row="0" colSpan="5" dataAlign="center">Price</TableHeaderColumn>
-                  <TableHeaderColumn row="1" dataField="asp" dataSort={true} dataAlign="center">ASP</TableHeaderColumn>
-                  <TableHeaderColumn row="1" dataField="asp_diff_lw" dataSort={true} dataAlign="center" dataFormat={ triangleColumnFormatter }>v LW</TableHeaderColumn>
-                  <TableHeaderColumn row="1" dataField="promo" dataSort={true} dataAlign="center" dataFormat={ tickColumnFormatter }>Promo?</TableHeaderColumn>
-                  <TableHeaderColumn row="1" dataField="top20" dataSort={true} dataAlign="center" dataFormat={ tickColumnFormatter }>Top 20</TableHeaderColumn>
+                  <TableHeaderColumn row="0" colSpan="3" dataAlign="center">Price</TableHeaderColumn>
+                  <TableHeaderColumn row="1" dataField="asp" dataFormat={this.formatSales} dataSort={true} dataAlign="center">ASP</TableHeaderColumn>
+                  <TableHeaderColumn row="1" dataField="asp_diff_lw" dataSort={true} dataAlign="center" dataFormat={ this.diffColumnFormatter }>v LW</TableHeaderColumn>
+                  <TableHeaderColumn row="1" dataField="promo" dataSort={true} dataAlign="center" dataFormat={ this.tickColumnFormatter }>Promo?</TableHeaderColumn>
+                  <TableHeaderColumn row="0" colSpan="6"  dataSort={true} dataAlign="center">Sales</TableHeaderColumn>
+                  <TableHeaderColumn row="1" dataField="top20" dataSort={true} dataAlign="center" dataFormat={ this.tickColumnFormatter }>Top 20 TW?</TableHeaderColumn>
                   <TableHeaderColumn row="1" dataField="rank_lw" dataSort={true} dataAlign="center">LW Rank</TableHeaderColumn>
-                  <TableHeaderColumn row="0" colSpan="4"  dataSort={true} dataAlign="center">Sales</TableHeaderColumn>
-                  <TableHeaderColumn row="1" dataField="sales_value" dataSort={true} dataAlign="center">Sales Value</TableHeaderColumn>
-                  <TableHeaderColumn row="1" dataField="sales_value_diff_lw" dataSort={true} dataAlign="left" dataFormat={ triangleColumnFormatter }>v LW</TableHeaderColumn>
-                  <TableHeaderColumn row="1" dataField="sales_volume" dataSort={true} dataAlign="center">Sales Volume</TableHeaderColumn>
-                  <TableHeaderColumn row="1" dataField="sales_volume_diff_lw" dataSort={true} dataAlign="left" dataFormat={ triangleColumnFormatter }>vLW</TableHeaderColumn>
+                  <TableHeaderColumn row="1" dataField="sales_value" dataFormat={this.formatSales} dataSort={true} dataAlign="center">Sales Value</TableHeaderColumn>
+                  <TableHeaderColumn row="1" dataField="sales_value_diff_lw" dataSort={true} dataAlign="left" dataFormat={ this.diffColumnFormatter }>v LW</TableHeaderColumn>
+                  <TableHeaderColumn row="1" dataField="sales_volume" dataFormat={this.formatVolume} dataSort={true} dataAlign="center">Sales Volume</TableHeaderColumn>
+                  <TableHeaderColumn row="1" dataField="sales_volume_diff_lw" dataSort={true} dataAlign="left" dataFormat={ this.diffColumnFormatter }>vLW</TableHeaderColumn>
                   </BootstrapTable>
 
                   </div>

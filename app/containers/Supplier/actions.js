@@ -35,6 +35,8 @@ import {
   SAVE_STORE_PARAM,
   SUPPLIER_VIEW_KPI_SPINNER,
   BUBBLE_CHART_SPINNER,
+  BAR_CHART_SPINNER,
+  TABLE_SPINNER,
 } from './constants';
 
 
@@ -303,4 +305,22 @@ export function bubbleChartSpinnerCheckSuccess(bubbleChartSpinnerCheck) {
   }
 }
 
+//SPINNER FOR BUBBLE CHART
 
+export function barChartSpinnerCheckSuccess(barChartSpinnerCheck) {
+  console.log('barChartSpinnerCheckSuccess', barChartSpinnerCheck);
+  return {
+    type: BAR_CHART_SPINNER,
+    barChartSpinnerCheck
+  }
+}
+
+//SPINNER FOR TABLE
+
+export function tableChartSpinnerCheckSuccess(tableChartSpinnerCheck) {
+  console.log('tableChartSpinnerCheckSuccess', tableChartSpinnerCheck);
+  return {
+    type: TABLE_SPINNER,
+    tableChartSpinnerCheck
+  }
+}
