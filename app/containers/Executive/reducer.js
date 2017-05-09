@@ -39,6 +39,10 @@ import {
   WORST_INFO_FETCH_SUCCESS,
   SUPPLIER_INFO_CONSTANT,
   SUPPLIER_INFO_FETCH_SUCCESS,
+  TOP_SUPPLIER_INFO_CONSTANT,
+  TOP_SUPPLIER_INFO_FETCH_SUCCESS,
+  BOT_SUPPLIER_INFO_CONSTANT,
+  BOT_SUPPLIER_INFO_FETCH_SUCCESS,
   DRIVERS_INTERNAL_CONSTANT,
   DRIVERS_INTERNAL_FETCH_SUCCESS,
   DRIVERS_EXTERNAL_CONSTANT,
@@ -195,9 +199,6 @@ const initialState = fromJS({
         "name": "-----"
       }
     ]
-  },
-  worst_info_data: {
-    "fetch": "fail"
   }
 });
 
@@ -283,6 +284,18 @@ function executiveReducer(state = initialState, action) {
     case WORST_INFO_FETCH_SUCCESS:
       console.log("reducer WORST_INFO_FETCH_SUCCESS",action.data);
       return state.set('worst_info_data',action.data);
+    case TOP_SUPPLIER_INFO_CONSTANT:
+      console.log("reducer TOP_SUPPLIER_INFO_CONSTANT",action.data);
+      return state.set('top_supp_info',action.data);
+    case TOP_SUPPLIER_INFO_FETCH_SUCCESS:
+      console.log("reducer TOP_SUPPLIER_INFO_FETCH_SUCCESS",action.data);
+      return state.set('top_supp_info_data',action.data);
+    case BOT_SUPPLIER_INFO_CONSTANT:
+      console.log("reducer BOT_SUPPLIER_INFO_CONSTANT",action.data);
+      return state.set('bot_supp_info',action.data);
+    case BOT_SUPPLIER_INFO_FETCH_SUCCESS:
+      console.log("reducer BOT_SUPPLIER_INFO_FETCH_SUCCESS",action.data);
+      return state.set('bot_supp_info_data',action.data);
     case SUPPLIER_INFO_CONSTANT:
       console.log("reducer SUPPLIER_INFO_CONSTANT",action.data);
       return state.set('supp_info',action.data);

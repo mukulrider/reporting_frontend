@@ -303,7 +303,6 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
                     else {
                       console.log("______________________ Only KPI functions Called")
 
-
                       this.props.loadKpiBoxes();
                       this.props.loadBestWorst();
                       this.props.loadDriversInternalData();
@@ -354,10 +353,10 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
 
                       this.props.loadKpiBoxes();
                       this.props.loadBestWorst();
-                      this.props.loadBestInfoData();
+                      {/*this.props.loadBestInfoData();*/}
 
-                      this.props.loadWorstInfoData();
-                      this.props.loadSupplierInfoData();
+                      {/*this.props.loadWorstInfoData();*/}
+                      {/*this.props.loadSupplierInfoData();*/}
                       this.props.loadDriversInternalData();
                       this.props.loadDriversExternalData();
                     }

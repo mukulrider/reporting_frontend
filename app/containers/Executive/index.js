@@ -15,8 +15,7 @@ import { createStructuredSelector } from 'reselect';
 import makeSelectExecutive from './selectors';
 import Button from 'components/button';
 import messages from './messages';
-
-
+import WaterFallChartExec from 'components/WaterFallChartExec'
 //For Filter
 import ExecFilter from 'components/ExecFilter';
 
@@ -35,6 +34,8 @@ import {
   BestInfoData,
   WorstInfoData,
   SupplierInfoData,
+  TopSupplierInfoData,
+  BotSupplierInfoData,
   DriversInternalData,
   DriversExternalData,
   PriceKPIData,
@@ -88,10 +89,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
           this.props.loadKpiBoxes();
           this.props.loadBestWorst();
-          this.props.loadBestInfoData();
-
-          this.props.loadWorstInfoData();
-          this.props.loadSupplierInfoData();
+          // this.props.loadBestInfoData();
+          //
+          // this.props.loadWorstInfoData();
+          // this.props.loadSupplierInfoData();
+          // this.props.loadTopSupplierInfoData();
+          // this.props.loadBotSupplierInfoData();
           this.props.loadDriversInternalData();
           this.props.loadDriversExternalData();
         }
@@ -172,14 +175,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               loadOverviewDriversExternal = { this.props.loadOverviewDriversExternal}
                               loadKpiBoxes = { this.props.loadKpiBoxes}
                               loadBestWorst = { this.props.loadBestWorst}
-
-                              loadBestInfoData = { this.props.loadBestInfoData}
-                              loadWorstInfoData = { this.props.loadWorstInfoData}
-                              loadSupplierInfoData = { this.props.loadSupplierInfoData}
                               loadDriversInternalData = { this.props.loadDriversInternalData}
 
-                              loadDriversExternalData = { this.props.loadWorstInfoData}
-                              loadPriceKPIData = { this.props.loadSupplierInfoData}
+                              loadDriversExternalData = { this.props.loadDriversExternalData}
+                              loadPriceKPIData = { this.props.loadPriceKPIData}
                               kpi_type = {this.props.Executive.kpi_param}
 
 
@@ -233,9 +232,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         this.props.loadKpiBoxes();
                         this.props.loadBestWorst();
-                        this.props.loadBestInfoData();
-                        this.props.loadWorstInfoData();
-                        this.props.loadSupplierInfoData();
+                        {/*this.props.loadBestInfoData();*/}
+                        {/*this.props.loadWorstInfoData();*/}
+                        {/*this.props.loadSupplierInfoData();*/}
+                        {/*this.props.loadTopSupplierInfoData();*/}
+                        {/*this.props.loadBotSupplierInfoData();*/}
                         this.props.loadDriversInternalData();
                         this.props.loadDriversExternalData();
                       }
@@ -280,10 +281,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         this.props.loadKpiBoxes();
                         this.props.loadBestWorst();
-                        this.props.loadBestInfoData();
+                        {/*this.props.loadBestInfoData();*/}
 
-                        this.props.loadWorstInfoData();
-                        this.props.loadSupplierInfoData();
+                        {/*this.props.loadWorstInfoData();*/}
+                        {/*this.props.loadSupplierInfoData();*/}
+                        {/*this.props.loadTopSupplierInfoData();*/}
+                        {/*this.props.loadBotSupplierInfoData();*/}
                         this.props.loadDriversInternalData();
                         this.props.loadDriversExternalData();
                       }
@@ -329,10 +332,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         this.props.loadKpiBoxes();
                         this.props.loadBestWorst();
-                        this.props.loadBestInfoData();
+                        {/*this.props.loadBestInfoData();*/}
 
-                        this.props.loadWorstInfoData();
-                        this.props.loadSupplierInfoData();
+                        {/*this.props.loadWorstInfoData();*/}
+                        {/*this.props.loadSupplierInfoData();*/}
+                        {/*this.props.loadTopSupplierInfoData();*/}
+                        {/*this.props.loadBotSupplierInfoData();*/}
                         this.props.loadDriversInternalData();
                         this.props.loadDriversExternalData();
                       }
@@ -377,10 +382,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         this.props.loadKpiBoxes();
                         this.props.loadBestWorst();
-                        this.props.loadBestInfoData();
+                        {/*this.props.loadBestInfoData();*/}
 
-                        this.props.loadWorstInfoData();
-                        this.props.loadSupplierInfoData();
+                        {/*this.props.loadWorstInfoData();*/}
+                        {/*this.props.loadSupplierInfoData();*/}
+                        {/*this.props.loadTopSupplierInfoData();*/}
+                        {/*this.props.loadBotSupplierInfoData();*/}
                         this.props.loadDriversInternalData();
                         this.props.loadDriversExternalData();
                       }
@@ -425,10 +432,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         this.props.loadKpiBoxes();
                         this.props.loadBestWorst();
-                        this.props.loadBestInfoData();
+                        {/*this.props.loadBestInfoData();*/}
 
-                        this.props.loadWorstInfoData();
-                        this.props.loadSupplierInfoData();
+                        {/*this.props.loadWorstInfoData();*/}
+                        {/*this.props.loadSupplierInfoData();*/}
+                        {/*this.props.loadTopSupplierInfoData();*/}
+                        {/*this.props.loadBotSupplierInfoData();*/}
                         this.props.loadDriversInternalData();
                         this.props.loadDriversExternalData();
                       }
@@ -450,7 +459,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   this.setState({activeKey2: "1"});
                   this.props.onSaveKPIParam(kpiparam);
                   this.props.onSaveDriverParam("internal");
-
+                  topName = 'None';
+                  suppName = 'None';
+                  botName = 'None';
+                  this.props.onSaveTopName(topName);
+                  this.props.onSaveBotName(botName);
+                  this.props.onSaveSupplierName(suppName);
                   this.props.loadOverviewKpi();
                   this.props.loadOverviewKpiTrend();
                   this.props.loadOverviewDriversInternal();
@@ -470,7 +484,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   this.setState({activeKey2: "2"});
                   this.props.onSaveKPIParam(kpiparam);
                   this.props.onSaveDriverParam("internal");
-
+                  topName = 'None';
+                  suppName = 'None';
+                  botName = 'None';
+                  this.props.onSaveTopName(topName);
+                  this.props.onSaveBotName(botName);
+                  this.props.onSaveSupplierName(suppName);
 
 
                         this.props.loadKpiBoxes();
@@ -489,13 +508,20 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   kpiparam = "kpi_type=Volume";
                   this.setState({activeKey2: "3"});
                   this.props.onSaveKPIParam(kpiparam);
-
-
+                  topName = 'None';
+                  suppName = 'None';
+                  botName = 'None';
+                  this.props.onSaveTopName(topName);
+                  this.props.onSaveBotName(botName);
+                  this.props.onSaveSupplierName(suppName);
                   this.props.loadKpiBoxes();
                   this.props.loadBestWorst();
-                  this.props.loadWorstInfoData();
-                  this.props.loadBestInfoData();
-                  this.props.loadSupplierInfoData();
+                  {/*this.props.loadWorstInfoData();*/}
+                  {/*this.props.loadBestInfoData();*/}
+                  {/*this.props.loadSupplierInfoData();*/}
+                  {/*this.props.loadTopSupplierInfoData();*/}
+                  {/*this.props.loadBotSupplierInfoData();*/}
+
                 }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
                   style={{textDecoration: 'none'}}>Volume</b></NavItem>
 
@@ -503,12 +529,19 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   kpiparam = "kpi_type=COGS";
                   this.setState({activeKey2: "4"});
                   this.props.onSaveKPIParam(kpiparam);
-
+                  topName = 'None';
+                  suppName = 'None';
+                  botName = 'None';
+                  this.props.onSaveTopName(topName);
+                  this.props.onSaveBotName(botName);
+                  this.props.onSaveSupplierName(suppName);
                   this.props.loadKpiBoxes();
                   this.props.loadBestWorst();
-                  this.props.loadWorstInfoData();
-                  this.props.loadBestInfoData();
-                  this.props.loadSupplierInfoData();
+                  {/*this.props.loadWorstInfoData();*/}
+                  {/*this.props.loadBestInfoData();*/}
+                  {/*this.props.loadSupplierInfoData();*/}
+                  {/*this.props.loadTopSupplierInfoData();*/}
+                  {/*this.props.loadBotSupplierInfoData();*/}
 
 
                 }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
@@ -518,12 +551,19 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   kpiparam = "kpi_type=Profit";
                   this.setState({activeKey2: "5"});
                   this.props.onSaveKPIParam(kpiparam);
-
+                  topName = 'None';
+                  suppName = 'None';
+                  botName = 'None';
+                  this.props.onSaveTopName(topName);
+                  this.props.onSaveBotName(botName);
+                  this.props.onSaveSupplierName(suppName);
                   this.props.loadKpiBoxes();
                   this.props.loadBestWorst();
-                  this.props.loadWorstInfoData();
-                  this.props.loadBestInfoData();
-                  this.props.loadSupplierInfoData();
+                  {/*this.props.loadWorstInfoData();*/}
+                  {/*this.props.loadBestInfoData();*/}
+                  {/*this.props.loadSupplierInfoData();*/}
+                  {/*this.props.loadTopSupplierInfoData();*/}
+                  {/*this.props.loadBotSupplierInfoData();*/}
 
 
                 }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
@@ -533,6 +573,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   kpiparam = "kpi_type=Price";
                   this.setState({activeKey2: "6"});
                   this.props.onSaveKPIParam(kpiparam);
+                  topName = 'None';
+                  suppName = 'None';
+                  botName = 'None';
+                  this.props.onSaveTopName(topName);
+                  this.props.onSaveBotName(botName);
+                  this.props.onSaveSupplierName(suppName);
                   this.props.loadPriceKPIData();
                 }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
                   style={{textDecoration: 'none'}}>Price</b></NavItem>
@@ -991,9 +1037,67 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       {(() => {
                         if (this.props.Executive.driver_param=='internal') {
                           return(
-                         <div>
-                           <h3>Internal</h3>
-                         </div>)
+                            <div className="row">
+                              <div className="col-xs-6" style={{
+                                textAlign: 'center',
+                                backgroundColor: "white",
+                                margin: "0%",
+                                width: '41.7%',
+                                marginBottom: '4%',
+                                marginTop: '3%',
+                                borderLeft: "1px solid #e5e8ea",
+                                borderTop: "1px solid #e5e8ea",
+                                borderRight: "1px solid #e5e8ea",
+                                borderBottom: "1px solid #e5e8ea"
+                              }}>
+                                <Panel>
+                                  <h4 className="pageModuleMainTitle"> KPI Contribution to growth </h4>
+                                  <h4 className="panel-heading tesco-heading">  LFL Sales: 50 </h4>
+                                  <div className="row">
+                                    <div className="panel-body">
+                                      <div className="col-xs-4">
+                                        {/*<div className="panel-body">*/}
+                                        <h4> 10%  </h4>
+                                        <h4><b> {'Transactions'} </b></h4>
+                                        {/*</div>*/}
+
+                                      </div>
+                                      <div className="col-xs-4">
+                                        {/*<div className="panel-body">*/}
+                                        <h4> 20 % </h4>
+                                        <h4><b> {'Items per Basket'} </b></h4>
+                                        {/*</div>*/}
+                                      </div>
+                                      <div className="col-xs-4">
+                                        {/*<div className="panel-body">*/}
+                                        <h4>  30% </h4>
+                                        <h4><b>{'Item price'}</b></h4>
+                                        {/*</div>*/}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </Panel>
+                              </div>
+                              <div className="col-xs-2">
+                              </div>
+                              <div className="col-xs-4" style={{
+                                textAlign: 'center',
+                                backgroundColor: "white",
+                                margin: "0%",
+                                width: '41.7%',
+                                marginBottom: '4%',
+                                marginTop: '3%',
+                                borderLeft: "1px solid #e5e8ea",
+                                borderTop: "1px solid #e5e8ea",
+                                borderRight: "1px solid #e5e8ea",
+                                borderBottom: "1px solid #e5e8ea"
+                              }}>
+                                <h4 className="pageModuleMainTitle"> Promotion Contribution to growth </h4>
+                                <WaterFallChartExec id="waterfallChart_2" yAxisName="Price Index" formatter="formatSales"
+                                                    positive_text='negative' negative_text='positive' total_text='total1'
+                                />
+                              </div>
+                            </div>)
 
                         }
                         else {
@@ -1753,7 +1857,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                         <h2 className="pageModuleMainTitle">Best and Worst Performances</h2>
                         <div className="row">
                           <div className="col-xs-6">
-                            <h2 className="pageModuleSubTitle">Top 5 ------ by ------ Share</h2>
+
 
 
                             {(() => {
@@ -1762,6 +1866,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 console.log("Choose_filters is no");
                                 return (
                                   <div>
+                                    <h2 className="pageModuleSubTitle">Top 5 {this.props.Executive.best_worst_data.level} by {this.props.Executive.best_worst_data.kpi_type} Share</h2>
                                    {/*Navs here */}
                                     <div className="row">
                                       <div className="col-xs-4">
@@ -1834,41 +1939,35 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                       <div className="col-xs-8">
 
                                         {(() => {
-                                          if (this.props.Executive.top_name == 'None')
+                                          if (this.props.Executive.best_info_data)
                                           {
                                             console.log("Executive.top_name == 'None");
-                                            return (
-                                              <div>
-                                                <h3> Please select an option to view performance</h3>
-                                              </div>
-                                            )
-                                          }
-                                          else
-                                          {
-                                            console.log("Executive.top_name == Not None");
-                                            return(
+                                            if(this.props.Executive.top_name!='None'){
+                                              return (
+                                                <div className="row">
+                                                  <div className="row">
+                                                    <div className="pull-right">
+                                                      <Button onClick={() => {
+                                                        suppName='None';
+                                                        this.props.onSaveSupplierName(suppName);
+                                                        this.setState({topsuppInfo: true});
+                                                        {/*Load functions here*/}
 
-                                              <div>
-                                                <div className="pull-right">
-                                                  <Button onClick={() => {
-                                                    this.setState({topsuppInfo: true})
-                                                    {/*Load functions here*/}
+                                                      }}>Supplier Info</Button>
+                                                    </div>
+                                                  </div>
+                                                  {(() => {
+                                                    if (this.props.Executive.best_info_data) {
+                                                      return (
+                                                        <div>
 
-                                                  }}>Supplier Info</Button>
-                                                </div>
-                                                <h3>Info Selected</h3>
-                                                {(() => {
-                                                  if (this.props.Executive.best_info_data) {
-                                                    return (
-                                                      <div>
-
-                                                        {/*Row for KPIs*/}
-                                                        <div className="row">
-                                                          <div className="panel-body">
-                                                            <div className="col-xs-4 kpiSmall">
+                                                          {/*Row for KPIs*/}
+                                                          <div className="row">
+                                                            <div className="panel-body">
+                                                              <div className="col-xs-4 kpiSmall">
 
 
-                                                              <h3>
+                                                                <h3>
                           <span
                             className={(() => {
                               if (this.props.Executive.best_info_data.yoy_var > 0)
@@ -1883,13 +1982,13 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               } })()}>&nbsp;
 
                         </span>{this.props.Executive.best_info_data.yoy_var}%
-                                                              </h3>
-                                                              <h4 className="kpiSubTitle">YoY</h4>
+                                                                </h3>
+                                                                <h4 className="kpiSubTitle">YoY</h4>
 
-                                                            </div>
-                                                            <div className="col-xs-4 kpiSmall">
+                                                              </div>
+                                                              <div className="col-xs-4 kpiSmall">
 
-                                                              <h3>
+                                                                <h3>
                           <span
                             className={(() => {
                               if (this.props.Executive.best_info_data.cont_to_grwth > 0)
@@ -1904,39 +2003,56 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               } })()}>&nbsp;
 
                         </span>
-                                                                {this.props.Executive.best_info_data.cont_to_grwth}%
-                                                              </h3>
-                                                              <h4 className="kpiSubTitle">Contri to growth</h4>
+                                                                  {this.props.Executive.best_info_data.cont_to_grwth}%
+                                                                </h3>
+                                                                <h4 className="kpiSubTitle">Contri to growth</h4>
 
+                                                              </div>
+                                                              <div className="col-xs-4 kpiSmall">
+
+                                                                <h3>
+
+                                                                  {this.props.Executive.best_info_data.sales_share}%
+                                                                </h3>
+                                                                <h4 className="kpiSubTitle">Sales Share</h4>
+
+                                                              </div>
                                                             </div>
-                                                            <div className="col-xs-4 kpiSmall">
+                                                          </div>
+                                                          {/*Row for Multiline Chart*/}
+                                                          <div className="row">
+                                                            <div className="col-xs-12">
 
-                                                              <h3>
-
-                                                                {this.props.Executive.best_info_data.sales_share}%
-                                                              </h3>
-                                                              <h4 className="kpiSubTitle">Sales Share</h4>
-
+                                                              <MultilinePromo data={this.props.Executive.best_info_data.multiline_trend}
+                                                                              id="top_trend" label_ty={this.props.Executive.best_info_data.legend1} label_ly={this.props.Executive.best_info_data.legend2}
+                                                                              xaxis_title="Tesco Week" no_pref={this.props.Executive.best_info_data.no_pref} no_suffix=''
+                                                                              yaxis_title={this.props.Executive.best_info_data.kpi_type} />
                                                             </div>
                                                           </div>
                                                         </div>
-                                                        {/*Row for Multiline Chart*/}
-                                                        <div className="row">
-                                                          <div className="col-xs-12">
-                                                            <h3>Multiline</h3>
-                                                            <MultilinePromo data={this.props.Executive.best_info_data.multiline_trend}
-                                                                            id="top_trend" label_ty={this.props.Executive.best_info_data.legend1} label_ly={this.props.Executive.best_info_data.legend2}
-                                                                            xaxis_title="Tesco Week" no_pref={this.props.Executive.best_info_data.no_pref} no_suffix=''
-                                                                            yaxis_title={this.props.Executive.best_info_data.kpi_type} />
-                                                          </div>
-                                                        </div>
-                                                      </div>
-                                                    )
-                                                  }
-                                                })()}
+                                                      )
+                                                    }
+                                                  })()}
 
 
-                                              </div>
+                                                </div>
+                                              )
+                                            }
+                                            else
+                                            {
+                                              return(
+                                                <div><h3>Old data present</h3></div>
+                                              )
+                                            }
+
+                                          }
+                                          else
+                                          {
+                                            console.log("Executive.top_name == Not None");
+                                            return(
+                                              <div>
+                                              <h3> Please select an option to view performance</h3>
+                                          </div>
                                             )
                                           } })()}
                                       </div>
@@ -1959,17 +2075,19 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                           </div>
                           <div className="col-xs-6">
-                            <h2 className="pageModuleSubTitle">Top 5 ------ by ------ Share</h2>
+
                           {(() => {
                             if (this.props.Executive.best_worst_data.Choose_filters == 'no')
                             {
+
                               console.log("Choose_filters is no");
                               return (
                                 <div>
+                                  <h2 className="pageModuleSubTitle">Bot 5 5 {this.props.Executive.best_worst_data.level} by {this.props.Executive.best_worst_data.kpi_type} Share</h2>
                                   {/*Navs here */}
                                   <div className="row">
                                     <div className="col-xs-4">
-                                      <Nav bsStyle="tabs" activeKey={this.state.activeKey5} onSelect={this.handleSelect} className="tabsCustom2">
+                                      <Nav bsStyle="tabs" activeKey={this.state.activeKey7} onSelect={this.handleSelect} className="tabsCustom2">
                                         <NavItem className="tabsCustomList2" eventKey="1" onClick={() => {
                                           botName = this.props.Executive.best_worst_data.bot_5[0].name;
                                           botName = "selected_level="+botName;
@@ -1977,7 +2095,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                           topbotflag = 'bot';
                                           this.props.onSaveTopBotFlag(topbotflag);
                                           console.log("botName1",botName);
-                                          this.setState({activeKey5: "1"});
+                                          this.setState({activeKey7: "1"});
                                           this.props.loadWorstInfoData();
 
                                         }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
@@ -1989,7 +2107,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                           this.props.onSaveBotName(botName);
                                           topbotflag = 'bot';
                                           this.props.onSaveTopBotFlag(topbotflag);
-                                          this.setState({activeKey5: "2"});
+                                          this.setState({activeKey7: "2"});
                                           this.props.loadWorstInfoData();
 
                                         }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
@@ -2002,7 +2120,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                           this.props.onSaveBotName(botName);
                                           topbotflag = 'bot';
                                           this.props.onSaveTopBotFlag(topbotflag);
-                                          this.setState({activeKey5: "3"});
+                                          this.setState({activeKey7: "3"});
                                           this.props.loadWorstInfoData();
                                         }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
                                           style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.bot_5[2].name}</b></NavItem>
@@ -2014,7 +2132,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                           this.props.onSaveTopBotFlag(topbotflag);
                                           console.log("botName4",botName);
                                           this.props.onSaveBotName(botName);
-                                          this.setState({activeKey5: "4"});
+                                          this.setState({activeKey7: "4"});
                                           this.props.loadWorstInfoData();
 
 
@@ -2028,7 +2146,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                           this.props.onSaveBotName(botName);
                                           topbotflag = 'bot';
                                           this.props.onSaveTopBotFlag(topbotflag);
-                                          this.setState({activeKey5: "5"});
+                                          this.setState({activeKey7: "5"});
                                           this.props.loadWorstInfoData();
                                         }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
                                           style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.bot_5[4].name}</b></NavItem>
@@ -2038,35 +2156,34 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                     <div className="col-xs-8">
 
                                       {(() => {
-                                        if (this.props.Executive.bot_name == 'None')
+                                        if (this.props.Executive.worst_info_data)
                                         {
-                                          console.log("Executive.bot_name == 'None");
+                                          console.log("this.props.Executive.worst_info_data exists");
+                                          if(this.props.Executive.bot_name!='None')
+                                          {
+                                            console.log("this.props.Executive.bot_name!='None'");
                                           return (
-                                            <div>
-                                              <h3> Please select an option to view performance</h3>
-                                            </div>
-                                          )
-                                        }
-                                        else
-                                        {
-                                          console.log("Executive.bot_name == Not None");
-                                          return(
+                                            <div className="row">
+                                              <div className="row">
+                                                <div className="pull-right">
+                                                  <Button onClick={() => {
+                                                    suppName='None';
+                                                    this.props.onSaveSupplierName(suppName);
+                                                    this.setState({botsuppInfo: true});
 
-                                            <div>
-                                              <div className="pull-right">
-                                                <Button onClick={() => {
-                                                  this.setState({botsuppInfo: true})
-                                                  {/*Load functions here*/}
+                                                    {/*Load functions here*/}
 
-                                                }}>Supplier Info</Button>
+                                                  }}>Supplier Info</Button>
+                                                </div>
                                               </div>
-                                              <h3>Info Selected</h3>
+
                                               {(() => {
                                                 if (this.props.Executive.worst_info_data) {
                                                   return (
                                                     <div>
 
                                                       {/*Row for KPIs*/}
+                                                      <h3>worst info data exists</h3>
                                                       <div className="row">
                                                         <div className="panel-body">
                                                           <div className="col-xs-4 kpiSmall">
@@ -2117,7 +2234,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                                             <h3>
 
-                                                              {this.props.Executive.worst_info_data.sales_share}%
+                                                              {this.props.Executive.worst_info_data}%
                                                             </h3>
                                                             <h4 className="kpiSubTitle">Sales Share</h4>
 
@@ -2127,11 +2244,20 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                       {/*Row for Multiline Chart*/}
                                                       <div className="row">
                                                         <div className="col-xs-12">
-                                                          <h3>Multiline</h3>
-                                                          <MultilinePromo data={this.props.Executive.worst_info_data.multiline_trend}
-                                                                          id="bot_trend" label_ty={this.props.Executive.worst_info_data.legend1} label_ly={this.props.Executive.worst_info_data.legend2}
-                                                                          xaxis_title="Tesco Week" no_pref={this.props.Executive.worst_info_data.no_pref} no_suffix=''
-                                                                          yaxis_title={this.props.Executive.worst_info_data.kpi_type} />
+
+
+                                                          {/*<MultilinePromo data={this.props.Executive.worst_info_data.multiline_trend}*/}
+                                                                          {/*id="top_trend"*/}
+                                                                          {/*label_ty={this.props.Executive.worst_info_data.legend1}*/}
+                                                                          {/*label_ly={this.props.Executive.worst_info_data.legend2}*/}
+                                                                          {/*xaxis_title="Tesco Week"*/}
+                                                                          {/*no_pref={this.props.Executive.worst_info_data.no_pref}*/}
+                                                                          {/*no_suffix=''*/}
+                                                                          {/*yaxis_title={this.props.Executive.worst_info_data.kpi_type} />*/}
+
+
+
+
                                                         </div>
                                                       </div>
                                                     </div>
@@ -2141,6 +2267,22 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                                             </div>
+                                          )
+                                          }
+                                          else{
+                                            console.log("this.props.Executive.worst_info_data exists");
+                                            return (
+                                              <div><h3>Old data present</h3></div>
+                                            )
+                                          }
+                                        }
+                                        else
+                                        {
+
+                                          return(
+                                            <div>
+                                            <h3> Please select an option to view performance</h3>
+                                        </div>
                                           )
                                         } })()}
                                     </div>
@@ -2192,9 +2334,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 {(() => {
                                   if (this.props.Executive.driver_param=='internal') {
                                     return(
-                                      <div>
-                                        <h3>Internal</h3>
-                                      </div>)
+                                      <div>Internal</div>)
 
                                   }
                                   else{
@@ -2323,7 +2463,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
               <div className="row">
                 <div className="col-xs-4">
                   {(() => {
-                    if (this.props.Executive.best_info_data) {
+                    if (this.props.Executive.top_name!='None') {
                       return (
                         <Nav bsStyle="tabs" activeKey={this.state.activeKey6} onSelect={this.handleSelect}
                              className="tabsCustom2">
@@ -2332,7 +2472,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             suppName = "selected_supplier=" + suppName;
                             this.props.onSaveSupplierName(suppName);
                             this.setState({activeKey6: "1"});
-                            this.props.loadSupplierInfoData();
+                            this.props.loadTopSupplierInfoData();
+
 
                           }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
                             <b style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[0].parent_supplier}</b></NavItem>
@@ -2342,7 +2483,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             suppName = "selected_supplier=" + suppName;
                             this.props.onSaveSupplierName(suppName);
                             this.setState({activeKey6: "2"});
-                            this.props.loadSupplierInfoData();
+                            this.props.loadTopSupplierInfoData();
 
                           }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
                             style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[1].parent_supplier}</b></NavItem>
@@ -2352,7 +2493,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             suppName = "selected_supplier=" + suppName;
                             this.props.onSaveSupplierName(suppName);
                             this.setState({activeKey6: "3"});
-                            this.props.loadSupplierInfoData();
+                            this.props.loadTopSupplierInfoData();
                           }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
                             style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[2].parent_supplier}</b></NavItem>
 
@@ -2361,7 +2502,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             suppName = "selected_supplier=" + suppName;
                             this.props.onSaveSupplierName(suppName);
                             this.setState({activeKey6: "4"});
-                            this.props.loadSupplierInfoData();
+                            this.props.loadTopSupplierInfoData();
 
                           }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
                             style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[3].parent_supplier}</b></NavItem>
@@ -2371,7 +2512,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             suppName = "selected_supplier=" + suppName;
                             this.props.onSaveSupplierName(suppName);
                             this.setState({activeKey6: "5"});
-                            this.props.loadSupplierInfoData();
+                            this.props.loadTopSupplierInfoData();
                           }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
                             style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[4].parent_supplier}</b></NavItem>
 
@@ -2384,17 +2525,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                 </div>
                 <div className="col-xs-8">
                   {(() => {
-                    if (this.props.Executive.supplier_name=='None') {
+                    if (this.props.Executive.top_supp_info_data) {
+                      if (this.props.Executive.supplier_name!='None')
+
+
                       return (
-                        <div>
-                          <h3>
-                            Select a supplier to view information
-                          </h3>
-                        </div>
-                      );
-                    }
-                    else{
-                      return(
                         <div>
                           <h3>Supplier Info</h3>
                           {/*Row for KPIs*/}
@@ -2406,18 +2541,18 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 <h3>
                           <span
                             className={(() => {
-                              if (this.props.Executive.supp_info_data.yoy_var > 0)
+                              if (this.props.Executive.top_supp_info_data.yoy_var > 0)
                               {
                                 return "glyphicon glyphicon-chevron-up glyphiconPositive"
                               }
-                              else if (this.props.Executive.supp_info_data.yoy_var < 0)
+                              else if (this.props.Executive.top_supp_info_data.yoy_var < 0)
                               {
                                 return "glyphicon glyphicon-chevron-down glyphiconNegative"
                               } else {
                                 return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                               } })()}>&nbsp;
 
-                        </span>{this.props.Executive.supp_info_data.yoy_var}%
+                        </span>{this.props.Executive.top_supp_info_data.yoy_var}%
                                 </h3>
                                 <h4 className="kpiSubTitle">YoY</h4>
 
@@ -2427,11 +2562,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 <h3>
                           <span
                             className={(() => {
-                              if (this.props.Executive.supp_info_data.cont_to_grwth > 0)
+                              if (this.props.Executive.top_supp_info_data.cont_to_grwth > 0)
                               {
                                 return "glyphicon glyphicon-chevron-up glyphiconPositive"
                               }
-                              else if (this.props.Executive.supp_info_data.cont_to_grwth < 0)
+                              else if (this.props.Executive.top_supp_info_data.cont_to_grwth < 0)
                               {
                                 return "glyphicon glyphicon-chevron-down glyphiconNegative"
                               } else {
@@ -2439,16 +2574,16 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               } })()}>&nbsp;
 
                         </span>
-                                  {this.props.Executive.supp_info_data.cont_to_grwth}%
+                                  {this.props.Executive.top_supp_info_data.cont_to_grwth}%
                                 </h3>
                                 <h4 className="kpiSubTitle">Contri to growth</h4>
 
                               </div>
                               <div className="col-xs-4 kpiSmall">
 
-                                <h3>sales_share
+                                <h3>
 
-                                  {this.props.Executive.supp_info_data.sales_share}%
+                                  {this.props.Executive.top_supp_info_data.sales_share}%
                                 </h3>
                                 <h4 className="kpiSubTitle">Sales Share</h4>
 
@@ -2459,14 +2594,34 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           <div className="row">
                             <div className="col-xs-6">
                               <h3>Importance to Supplier</h3>
-                              <GaugeChart2 data={[this.props.Executive.supp_info_data.imp_to_supp]} id="top_gauge1" />
+                              <GaugeChart2 data={[this.props.Executive.top_supp_info_data.imp_to_supp]} id="top_gauge1" />
                             </div>
                             <div className="col-xs-6">
                               <h3>Importance to Category</h3>
-                              <GaugeChart2 data={[this.props.Executive.supp_info_data.imp_to_categ]} id="top_gauge2" />
+                              <GaugeChart2 data={[this.props.Executive.top_supp_info_data.imp_to_categ]} id="top_gauge2" />
                             </div>
                           </div>
                         </div>
+                      );
+                      else{
+                        return (
+                          <div><h3>Old data is present</h3></div>
+                        );
+                      }
+
+                    }
+                    else{
+                      return(
+
+
+
+
+
+                        <div>
+                        <h3>
+                        Select a supplier to view information
+                      </h3>
+                      </div>
                       )
                     }
                   })()}
@@ -2498,7 +2653,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
               <div className="row">
                 <div className="col-xs-4">
                   {(() => {
-                    if (this.props.Executive.worst_info_data.fetch=='Success') {
+                    if (this.props.Executive.bot_name!='None') {
                       return (
                         <Nav bsStyle="tabs" activeKey={this.state.activeKey8} onSelect={this.handleSelect}
                              className="tabsCustom2">
@@ -2507,7 +2662,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             suppName = "selected_supplier=" + suppName;
                             this.props.onSaveSupplierName(suppName);
                             this.setState({activeKey8: "1"});
-                            this.props.loadSupplierInfoData();
+                            this.props.loadBotSupplierInfoData();
 
                           }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
                             <b style={{textDecoration: 'none'}}>{this.props.Executive.worst_info_data.bot_5_supp[0].parent_supplier}</b></NavItem>
@@ -2517,7 +2672,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             suppName = "selected_supplier=" + suppName;
                             this.props.onSaveSupplierName(suppName);
                             this.setState({activeKey8: "2"});
-                            this.props.loadSupplierInfoData();
+                            this.props.loadBotSupplierInfoData();
 
                           }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
                             style={{textDecoration: 'none'}}>{this.props.Executive.worst_info_data.bot_5_supp[1].parent_supplier}</b></NavItem>
@@ -2527,7 +2682,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             suppName = "selected_supplier=" + suppName;
                             this.props.onSaveSupplierName(suppName);
                             this.setState({activeKey8: "3"});
-                            this.props.loadSupplierInfoData();
+                            this.props.loadBotSupplierInfoData();
                           }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
                             style={{textDecoration: 'none'}}>{this.props.Executive.worst_info_data.bot_5_supp[2].parent_supplier}</b></NavItem>
 
@@ -2536,7 +2691,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             suppName = "selected_supplier=" + suppName;
                             this.props.onSaveSupplierName(suppName);
                             this.setState({activeKey8: "4"});
-                            this.props.loadSupplierInfoData();
+                            this.props.loadBotSupplierInfoData();
 
                           }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
                             style={{textDecoration: 'none'}}>{this.props.Executive.worst_info_data.bot_5_supp[3].parent_supplier}</b></NavItem>
@@ -2546,7 +2701,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             suppName = "selected_supplier=" + suppName;
                             this.props.onSaveSupplierName(suppName);
                             this.setState({activeKey8: "5"});
-                            this.props.loadSupplierInfoData();
+                            this.props.loadBotSupplierInfoData();
                           }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
                             style={{textDecoration: 'none'}}>{this.props.Executive.worst_info_data.bot_5_supp[4].parent_supplier}</b></NavItem>
 
@@ -2559,17 +2714,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                 </div>
                 <div className="col-xs-8">
                   {(() => {
-                    if (this.props.Executive.supplier_name=='None') {
+                    if (this.props.Executive.bot_supp_info_data) {
+                      if(this.props.Executive.supplier_name!='None')
+                      {
                       return (
-                        <div>
-                          <h3>
-                            Select a supplier to view information
-                          </h3>
-                        </div>
-                      );
-                    }
-                    else{
-                      return(
+
                         <div>
                           <h3>Supplier Info</h3>
                           {/*Row for KPIs*/}
@@ -2581,18 +2730,18 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 <h3>
                           <span
                             className={(() => {
-                              if (this.props.Executive.supp_info_data.yoy_var > 0)
+                              if (this.props.Executive.bot_supp_info_data.yoy_var > 0)
                               {
                                 return "glyphicon glyphicon-chevron-up glyphiconPositive"
                               }
-                              else if (this.props.Executive.supp_info_data.yoy_var < 0)
+                              else if (this.props.Executive.bot_supp_info_data.yoy_var < 0)
                               {
                                 return "glyphicon glyphicon-chevron-down glyphiconNegative"
                               } else {
                                 return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                               } })()}>&nbsp;
 
-                        </span>{this.props.Executive.supp_info_data.yoy_var}%
+                        </span>{this.props.Executive.bot_supp_info_data.yoy_var}%
                                 </h3>
                                 <h4 className="kpiSubTitle">YoY</h4>
 
@@ -2602,11 +2751,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 <h3>
                           <span
                             className={(() => {
-                              if (this.props.Executive.supp_info_data.cont_to_grwth > 0)
+                              if (this.props.Executive.bot_supp_info_data.cont_to_grwth > 0)
                               {
                                 return "glyphicon glyphicon-chevron-up glyphiconPositive"
                               }
-                              else if (this.props.Executive.supp_info_data.cont_to_grwth < 0)
+                              else if (this.props.Executive.bot_supp_info_data.cont_to_grwth < 0)
                               {
                                 return "glyphicon glyphicon-chevron-down glyphiconNegative"
                               } else {
@@ -2614,7 +2763,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               } })()}>&nbsp;
 
                         </span>
-                                  {this.props.Executive.supp_info_data.cont_to_grwth}%
+                                  {this.props.Executive.bot_supp_info_data.cont_to_grwth}%
                                 </h3>
                                 <h4 className="kpiSubTitle">Contri to growth</h4>
 
@@ -2623,7 +2772,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                 <h3>sales_share
 
-                                  {this.props.Executive.supp_info_data.sales_share}%
+                                  {this.props.Executive.bot_supp_info_data.sales_share}%
                                 </h3>
                                 <h4 className="kpiSubTitle">Sales Share</h4>
 
@@ -2634,14 +2783,29 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           <div className="row">
                             <div className="col-xs-6">
                               <h3>Importance to Supplier</h3>
-                              <GaugeChart2 data={[this.props.Executive.supp_info_data.imp_to_supp]} id="bot_gauge1" />
+                              <GaugeChart2 data={[this.props.Executive.bot_supp_info_data.imp_to_supp]} id="bot_gauge1" />
                             </div>
                             <div className="col-xs-6">
                               <h3>Importance to Category</h3>
-                              <GaugeChart2 data={[this.props.Executive.supp_info_data.imp_to_categ]} id="bot_gauge2" />
+                              <GaugeChart2 data={[this.props.Executive.bot_supp_info_data.imp_to_categ]} id="bot_gauge2" />
                             </div>
                           </div>
                         </div>
+
+                      );}
+                      else{
+                        return(<div><h3>Old data present</h3></div>);
+                      }
+                    }
+                    else{
+                      return(
+
+
+                        <div>
+                        <h3>
+                        Select a supplier to view information
+                      </h3>
+                      </div>
                       )
                     }
                   })()}
@@ -2682,6 +2846,8 @@ function mapDispatchToProps(dispatch) {
     loadBestInfoData: (e) => dispatch(BestInfoData(e)),
     loadWorstInfoData: (e) => dispatch(WorstInfoData(e)),
     loadSupplierInfoData: (e) => dispatch(SupplierInfoData(e)),
+    loadTopSupplierInfoData: (e) => dispatch(TopSupplierInfoData(e)),
+    loadBotSupplierInfoData: (e) => dispatch(BotSupplierInfoData(e)),
     loadDriversInternalData: (e) => dispatch(DriversInternalData(e)),
     loadDriversExternalData: (e) => dispatch(DriversExternalData(e)),
     loadPriceKPIData: (e) => dispatch(PriceKPIData(e)),
