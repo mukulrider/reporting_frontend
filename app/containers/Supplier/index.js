@@ -522,10 +522,6 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                         )
                                       }
                                     })()}
-                                    <div className="row">
-                                      <div className="col-xs-12">{[this.props.supplier.reducer1.supp_imp_cat_sales]}</div>
-                                    </div>
-
                                   </div>
                                   <div className="col-xs-5 panel-body leftPosition" style={{
                                     textAlign: 'center',
