@@ -51,6 +51,8 @@ export default class App extends React.PureComponent { // eslint-disable-line re
           { linkTitle: 'Competitor View', linkHref: '/sales/competitor' },
           { linkTitle: 'Promo View', linkHref: '/sales/promo' },
           { linkTitle: 'Supplier View', linkHref: '/sales/supplier' },
+          { linkTitle: 'Product View', linkHref: '/sales/product' },
+          { linkTitle: 'Daily Sales View', linkHref: '/sales/dailysales' },
           ]}
         />
       </div>
