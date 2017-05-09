@@ -1,6 +1,6 @@
 @import "./../../stylesheet";
 
-.pageTitle{
+.pageTitle {
   font-family: Tesco;
   font-size: 20px;
   text-align: center;
@@ -10,11 +10,11 @@
   width: 100%;
   padding: 0px;
 
-  color:#00294f !important;
+  color: #00294f !important;
   background-color: #e5e8ea;
 }
 
-.pageModuleTitle{
+.pageModuleTitle {
 
   width: 100%;
   line-height: 28px;
@@ -29,13 +29,13 @@
 
 }
 
-.pageModuleMainTitle{
+.pageModuleMainTitle {
   width: 100%;
   line-height: 28px;
   font-size: 18px;
   height: 28px;
   color: #00539f !important;
-  background-color:#e5e8ea !important;
+  background-color: #e5e8ea !important;
   font-weight: bold;
   //font-weight: 500;
   //color: #666666 !important;
@@ -45,7 +45,7 @@
 
 }
 
-.pageModuleSubTitle{
+.pageModuleSubTitle {
   width: 100%;
   line-height: 28px;
   font-size: 18px;
@@ -59,9 +59,9 @@
 
 }
 
-.table-header-format{
+.table-header-format {
   font-size: 16px;
-  font-family:Tesco;
+  font-family: Tesco;
   text-align: center;
   color: #333333;
   background-color: #e5e5e5;
@@ -97,7 +97,7 @@
   //
 }
 
-.impactNumbers{
+.impactNumbers {
   border: 0.5px solid rgba(0, 0, 0, 0.2);
   //height: 80px;
   font-size: 15px;
@@ -109,33 +109,34 @@
   margin-left: 25%;
 }
 
-
 .table_cust {
   table-layout: fixed;
   word-wrap: break-word;
 }
-.table-body-format{
+
+.table-body-format {
   font-size: 13px;
   vertical-align: middle !important;
-  font-family:Tesco;
+  font-family: Tesco;
 }
 
 td {
   font-size: 12px;
   vertical-align: middle !important;
   text-align: center;
-  font-family:Tesco;
+  font-family: Tesco;
 }
 
 th {
   font-size: 15px;
-  height: 15px ;
-  font-family:Tesco;
+  height: 15px;
+  font-family: Tesco;
   text-align: center;
   color: #333333;
   background-color: #e5e5e5;
   vertical-align: middle !important;
 }
+
 //
 .ts-blk-proview {
   margin-top: 20px;
@@ -192,6 +193,7 @@ th {
   flex: 0 0 200px;
   height: 68%;
 }
+
 .flexright {
   height: 100%;
   width: 80%;
@@ -206,10 +208,9 @@ th {
   margin-top: 24px;
 }
 
-.tabsCustomInner{
+.tabsCustomInner {
   margin-top: 15px;
 }
-
 
 .tabsCustomList {
   display: inline-block;
@@ -217,7 +218,7 @@ th {
   border-bottom: none;
 }
 
-.tabsCustomList a{
+.tabsCustomList a {
   background: #EDECEC;
   fontFamily: 'Tesco' !important;
   color: #00539f !important;
@@ -225,16 +226,17 @@ th {
   padding: 15px 24px 16px 24px !important;
   text-decoration: none;
 }
+
 .tabsCustomList a:hover {
   text-decoration: underline !important;
-  color:#008dc8;
+  color: #008dc8;
 }
-.tabsCustomList.active{
+
+.tabsCustomList.active {
   margin-bottom: -1px;
 }
 
-
-.tabsCustomList span.tab_label{
+.tabsCustomList span.tab_label {
   padding: 12px 8px;
   //color: #048EC3;
   //font-weight: 600;
@@ -245,16 +247,16 @@ th {
   font-size: 16px;
   vertical-align: middle;
 
-
 }
 
-
-.tabsCustomList.active span.tab_label{
+.tabsCustomList.active span.tab_label {
   border-bottom: #048EC3 solid 4px;
 }
-.content-wrap{
+
+.content-wrap {
   background: #fff;
 }
+
 //
 //.li > a {
 //  text-decoration: none;
@@ -271,15 +273,14 @@ th {
 //  border-bottom: 0px solid #ddd !important;
 //}
 
-
-
 //li > a:hover {
 //  background-color: #008dc8 !important;
 //}
 //
-.pagination{
+.pagination {
   margin: 0px;
 }
+
 .pagination a {
   margin: 0px 10px;
   margin-top: -3px !important;
@@ -296,32 +297,32 @@ th {
 }
 
 .pagination li.disabled:first-child a,
-.pagination li.disabled:last-child a{
-  border:2px solid #ccc !important;
+.pagination li.disabled:last-child a {
+  border: 2px solid #ccc !important;
 }
+
 .pagination li:last-child a,
-.pagination li:first-child a{
-  border:2px solid #008dc8 !important;
+.pagination li:first-child a {
+  border: 2px solid #008dc8 !important;
   border-radius: 50% !important;
   line-height: 25px !important;
 }
+
 .pagination li:last-child a:hover,
 .pagination li:first-child a:hover {
   box-shadow: 0 0 0 4px rgba(0, 83, 159, 0.4);
   transition: box-shadow 0.3s;
 }
-.pagination .active a{
+
+.pagination .active a {
   background-color: #008dc8 !important;
   color: #ffffff !important;
   margin-top: -3px !important;
 }
 
-.chartwrap{
+.chartwrap {
   overflow-x: auto;
 }
-
-
-
 
 .FlexContainer.Row {
   -ms-flex-direction: row;
@@ -336,12 +337,13 @@ th {
   -webkit-box-direction: normal;
   flex-direction: column;
 }
-.container-left{
+
+.container-left {
   display: flex;
 }
 
-.selectAttrituteIndicator{
-  font:Tesco;
+.selectAttrituteIndicator {
+  font: Tesco;
   font-size: 30px;
   font-weight: 700;
   text-align: center;
@@ -363,9 +365,67 @@ th {
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
 }
-.flexleft{
-  width:10%
+
+.flexleft {
+  width: 10%
 }
+
 .flexright {
   width: 90%;
 }
+
+.marginClass {
+  margin-top: 3% !important;
+  height: 220px !important;
+  margin: 0%;
+  left: -3%;
+}
+
+.leftPosition {
+  left: -2.2% !important;
+}
+
+.spinnerPosition {
+  marginLeft: 0px;
+  marginRight: 0px;
+  left: 42% !important;
+  position: relative;
+  padding: 14%
+}
+
+.spinnerPositionBarChart {
+  marginLeft: 0px;
+  marginRight: 0px;
+  left: 22% !important;
+  position: relative;
+  padding: 14%
+}
+
+.spinnerPositionWaterfall {
+  marginLeft: 0px;
+  marginRight: 0px;
+  left: 15% !important;
+  margin-top: 3%;
+  position: relative;
+  padding: 15%;
+}
+
+.tesco-heading {
+  width: 100%;
+  line-height: 28px;
+  font-size: 18px;
+  height: 28px;
+  color: #00539f !important;
+  font-weight: 500;
+  text-align: center;
+  padding-left: 1%;
+}
+.bottomSupplierFix {
+  float: right;
+  width: 53%;
+  right: 1%;
+}
+.spinnerPositionFix {
+  left: 29% !important;
+}
+

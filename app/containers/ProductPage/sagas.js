@@ -51,7 +51,7 @@ export function* generateSideFilter() {
       urlParamsString = urlParamsString.substring(14, urlParamsString.length);
     }
   }
-  //+'tesco_week='+ ''+urlParamsString
+
   console.log('My urlParamsString for SideFilter', urlParamsString);
   // alert(urlParamsString);
   try {
@@ -188,7 +188,7 @@ export function* generateWeekFilterFetch() {
     // }
 
 
-    const data = yield call(request, `${host_url}/api/reporting/filter_data_week${filter_week_selection}`);
+    const data = yield call(request, `${host_url}/api/reporting/product/filter_data_week${filter_week_selection}`);
 
     console.log(`${host_url}/api/reporting/filter_data_week${filter_week_selection}`);
 

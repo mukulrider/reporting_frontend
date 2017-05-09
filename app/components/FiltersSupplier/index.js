@@ -31,11 +31,18 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
         //   this.props.onGenerateCategoryDirector(category[category.length - 2])
         // }
         console.log('queryString', queryString);
+
+        // if(category.length===1) {
+        //   // queryString = queryString + "tesco_week="+`${category[category.length - 1]}&`;
+        // }else{
+        //   queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
+        // }
+
         queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
       }
     });
     queryString = queryString.substring(0, queryString.length - 1);
-    // alert(queryString);
+    console.log('queryString2',queryString);
     // APPEND URL PARAMS
 
     this.props.onGenerateUrlParamsString(queryString);
@@ -98,7 +105,7 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                                 this.props.week_data[0].items.map(obj2 => {
                                   console.log("Cascading Filter Inside map", obj2)
                                   finalCheckbox.push(
-                                    <Checkbox id={obj2.name }
+                                    <Checkbox id={obj2.name}
                                               label={obj2.name}
                                               style={{fontSize: '10px'}}
                                               checked={(() => {
@@ -117,9 +124,10 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                                                 }
                                                 if (previous_week_selection == selection) {
                                                   selection = '';
+                                                  console.log('selection2 if', selection);
                                                 }
 
-
+                                                console.log('selection2', selection);
                                                 this.props.onCheckboxWeekChange(selection);
                                                 this.props.onSaveWeek(selection);
                                                 this.props.onGetFilter();
@@ -284,9 +292,16 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                 <Button onClick={() => {
                   console.log('apply');
                   this.props.onKPIBox();
-                  this.props.onSupplierTable();
+                  {/*this.props.onSupplierTable();*/}
                   this.props.ontopBottomChart();
-                  this.props.onKPIBoxASP();
+                  this.props.onGenerateTable();
+                  this.props.onFetchGraph();
+
+                  this.props.barChartSpinnerCheck(0);
+                  this.props.bubbleChartSpinnerCheck(0);
+                  this.props.tableChartSpinnerCheck(0);
+                  this.props.supplierViewKpiSpinnerCheck(0);
+
 
                   {/*let week_no = "time_period=13_weeks";*/}
                   {/*this.props.onWeekClick(week_no);*/}

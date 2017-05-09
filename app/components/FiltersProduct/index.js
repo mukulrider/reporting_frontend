@@ -191,7 +191,7 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
                   return (
 
                     <Panel header={panelHeader} eventKey={++key}>
-                      <div className="panel selector">
+                      <div className="panel text-capitalize">
                         {/*<div className="panel-heading">*/}
                         {/*<input type="text" value={this.props.filterSearch}*/}
                         {/*onChange={(e) => {*/}
@@ -217,7 +217,7 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
                         {/*}}/>*/}
                         {/*</div>*/}
                         <div className="panel-body style-7"
-                             style={{maxHeight: '250px', overflowX: 'hidden'}}>
+                             style={{maxHeight: '250px', overflowX: 'hidden', fontSize: '9px'}}>
                           {item.items.map(obj => {
                             if (obj.highlighted) {
                               if (item.input_type == 'RadioButton') {
