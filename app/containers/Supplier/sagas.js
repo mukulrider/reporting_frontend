@@ -31,16 +31,16 @@
     selectSupplierDomain
   } from 'containers/Supplier/selectors';
 
-  export function* defaultSaga() {
-    // See example in containers/HomePage/sagas.js
-  }
-  let host_url = "http://172.20.244.149:8000"
-  // let host_url = "http://172.20.244.228:8000"
-  // FOR SUPPLIER POPUP TABLE
-  export function* generateDataFetch() {
-    const urlName = yield select(selectSupplierDomain());
-    // const weekurlparam = urlName.get('week_param');
-    // const kpiparam = urlName.get('kpi_param');
+export function* defaultSaga() {
+  // See example in containers/HomePage/sagas.js
+}
+let host_url = "http://10.1.244.200:8001"
+// let host_url = "http://172.20.244.228:8000"
+// FOR SUPPLIER POPUP TABLE
+export function* generateDataFetch() {
+  const urlName = yield select(selectSupplierDomain());
+  // const weekurlparam = urlName.get('week_param');
+  // const kpiparam = urlName.get('kpi_param');
 
     // CREATING 1 PARAMETER FOR APPENDING TO URL
 
@@ -417,10 +417,19 @@
   }
 
 
-  //FOR GETTING FILTERS DATA
-  export function* generateSideFilter() {
-    let urlName = yield select(selectSupplierDomain());
-    let urlParamsString = urlName.get('urlParamsString');
+//FOR GETTING FILTERS DATA
+export function* generateSideFilter() {
+  let urlName = yield select(selectSupplierDomain());
+  let urlParamsString = urlName.get('urlParamsString');
+  let getCookie;
+  getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  };
+  const user_token = getCookie('token');
+  const buyer = getCookie('buyer');
+  const token = user_token.concat('___').concat(buyer)
 
     if (typeof(urlParamsString) == "undefined") {
       urlParamsString = "";
@@ -432,15 +441,20 @@
       }
     }
 
-    try {
-      const filter_data = yield call(request,
-        host_url + `/api/reporting/filter_supplier?${urlParamsString}`);
-      console.log('filter_data', filter_data);
-      yield put(generateSideFilterSuccess(filter_data));
-    } catch (err) {
-      // console.log(err);
-    }
+  try {
+    const filter_data = yield call(request,
+      host_url + `/api/reporting/filter_supplier?${urlParamsString}`,
+      {
+        headers: {
+          Authorization: token
+        }
+      });
+    console.log('filter_data', filter_data);
+    yield put(generateSideFilterSuccess(filter_data));
+  } catch (err) {
+    // console.log(err);
   }
+}
 
   //FOR GETTING FILTERS DATA
   export function* doGenerateSideFilter() {

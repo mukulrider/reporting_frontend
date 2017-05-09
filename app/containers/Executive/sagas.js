@@ -74,7 +74,7 @@ import {
 } from 'containers/Executive/selectors';
 
 
-let host_url="http://172.20.246.12:8000";
+let host_url="http://10.1.244.200:8001";
 // All sagas to be loaded
 
 // Individual exports for testing
@@ -303,7 +303,7 @@ export function* generateOverviewDriversExternalDataFetch() {
   const data = yield call(request,
     host_url+`/api/reporting/exec_overview_drivers_external?`+ weekurlparam + '&' + urlParamsString +  '&' + weekselection);
   console.log("Heres the generateOverviewDriversExternalDataFetch data",data);
-  yield put(OverviewDriversInternalDataFetchSuccess(data));
+  yield put(OverviewDriversExternalDataFetchSuccess(data));
 
   // } catch (err) {
   //   // console.log(err);
@@ -413,12 +413,16 @@ export function* generateBestInfoFetch() {
       urlParamsString = urlParamsString.substring(14, urlParamsString.length);
     }
   }
-  const kpiparam = urlName.get('kpi_param');
+  let kpiparam = urlName.get('kpi_param');
 
-
-  console.log("sagas generateBestInfoFetch url",host_url+`/api/reporting/exec_best_info?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam +  '&' + weekselection)
+  let selected = urlName.get('top_name');
+  if (selected == 'None')
+  {
+    selected='';
+  }
+  console.log("sagas generateBestInfoFetch url",host_url+`/api/reporting/exec_best_info?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam +  '&' + weekselection + '&' + selected)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_best_info?`+ weekurlparam + '&' + urlParamsString +  '&' + kpiparam +  '&' + weekselection);
+    host_url+`/api/reporting/exec_best_info?`+ weekurlparam + '&' + urlParamsString +  '&' + kpiparam +  '&' + weekselection+ '&' + selected);
   console.log("Heres the generateBestInfoFetch data",data);
   yield put(BestInfoDataFetchSuccess(data));
 
@@ -453,14 +457,16 @@ export function* generateWorstInfoFetch() {
     }
   }
   const kpiparam = urlName.get('kpi_param');
-
-
-  console.log("sagas generateWorstInfoFetch url",host_url+`/api/reporting/exec_worst_info?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam +  '&' + weekselection)
+  let selected = urlName.get('bot_name');
+  if (selected == 'None')
+  {
+    selected='';
+  }
+  console.log("sagas generateWorstInfoFetch url",host_url+`/api/reporting/exec_worst_info?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam +  '&' + weekselection + '&' + selected)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_worst_info?`+ weekurlparam + '&' + urlParamsString +  '&' + kpiparam +  '&' + weekselection);
+    host_url+`/api/reporting/exec_worst_info?`+ weekurlparam + '&' + urlParamsString +  '&' + kpiparam +  '&' + weekselection+'&'+selected);
   console.log("Heres the generateWorstInfoFetch data",data);
-  yield put(BestWorstDataFetchSuccess(data));
-
+  yield put(WorstInfoDataFetchSuccess(data));
   // } catch (err) {
   //   // console.log(err);
   // }
@@ -494,9 +500,34 @@ export function* generateSupplierInfoFetch() {
   const kpiparam = urlName.get('kpi_param');
 
 
-  console.log("sagas generateSupplierInfoFetch url",host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam +  '&' + weekselection)
+  let selected_supplier = urlName.get('supplier_name');
+  if (selected_supplier == 'None')
+  {
+    selected_supplier='';
+  }
+  let topbotflag = urlName.get('top_bot_flag');
+  console.log("generateSupplierInfoFetch topbotflag",topbotflag);
+  let selected='';
+  if (topbotflag == 'top')
+  {
+     selected = urlName.get('top_name');
+    console.log("generateSupplierInfoFetch top_name",selected)
+  }
+  else
+  {
+    selected = urlName.get('bot_name');
+    console.log("generateSupplierInfoFetch bot_name",selected)
+  }
+
+  if (selected == 'None')
+  {
+    selected='';
+  }
+
+
+  console.log("sagas generateSupplierInfoFetch url",host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString +  '&' + kpiparam +  '&' + weekselection);
+    host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString +  '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier);
   console.log("Heres the generateSupplierInfoFetch data",data);
   yield put(SupplierInfoDataFetchSuccess(data));
 
@@ -699,7 +730,7 @@ export function* generateWeekFilterFetch() {
     // todo: update url
     console.log("Inside generateWeekFilterFetch")
     let urlName=yield select(selectExecutiveDomain());
-    let weekurlparams = urlName.get('weekurlParam');
+    let weekurlparams = urlName.get('week_param');
 
 
     // if (urlParams==='')
@@ -753,6 +784,7 @@ export default [
   doOverviewDriversInternalFetch,
   doOverviewDriversExternalFetch,
   doKpiBoxesFetch,
+  doBestWorstFetch,
   doBestInfoFetch,
   doWorstInfoFetch,
   doSupplierInfoFetch,
