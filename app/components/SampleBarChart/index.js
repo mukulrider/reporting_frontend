@@ -22,7 +22,7 @@ console.log("Inside the bar plot -=-=-=-=-====-=-=-=-",JSON.stringify(data));
 
 // set the dimensions and margins of the graph
     let margin = {top: 20, right: 20, bottom: 30, left: 150},
-      width = 350 - margin.left - margin.right,
+      width = 450 - margin.left - margin.right,
       height = 300 - margin.top - margin.bottom;
 
 // set the ranges
@@ -77,16 +77,23 @@ console.log("Inside the bar plot -=-=-=-=-====-=-=-=-",JSON.stringify(data));
           lineHeight = 1.1, // ems
           y = text.attr("y"),
           dy = parseFloat(text.attr("dy")),
-          tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+          tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em").style("font-size", "8px");
         console.log("water", text);
         while (word = words.pop()) {
           line.push(word);
           tspan.text(line.join(" "));
+          console.log('line1',line);
+          console.log('width',width);
           if (tspan.node().getComputedTextLength() > width) {
             line.pop();
+            console.log('line2',line);
             tspan.text(line.join(" "));
+            console.log('tspan.text',tspan.text);
             line = [word];
-            tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+            console.log('line',line);
+            console.log('lineNumber',lineNumber);
+            console.log('word',word);
+            tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word).style("font-size", "8px");
           }
         }
       });

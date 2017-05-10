@@ -421,15 +421,16 @@ export function* generateDataFetch() {
 export function* generateSideFilter() {
   let urlName = yield select(selectSupplierDomain());
   let urlParamsString = urlName.get('urlParamsString');
-  let getCookie;
-  getCookie = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  };
-  const user_token = getCookie('token');
-  const buyer = getCookie('buyer');
-  const token = user_token.concat('___').concat(buyer)
+  // let getCookie;
+  // getCookie = (name) => {
+  //   const value = `; ${document.cookie}`;
+  //   const parts = value.split(`; ${name}=`);
+  //   if (parts.length === 2) return parts.pop().split(';').shift();
+  // };
+  // const user_token = getCookie('token');
+  // console.log('user_token',user_token);
+  // const buyer = getCookie('buyer');
+  // const token = user_token.concat('___')
 
     if (typeof(urlParamsString) == "undefined") {
       urlParamsString = "";
@@ -443,12 +444,7 @@ export function* generateSideFilter() {
 
   try {
     const filter_data = yield call(request,
-      host_url + `/api/reporting/filter_supplier?${urlParamsString}`,
-      {
-        headers: {
-          Authorization: token
-        }
-      });
+      host_url + `/api/reporting/filter_supplier?${urlParamsString}`);
     console.log('filter_data', filter_data);
     yield put(generateSideFilterSuccess(filter_data));
   } catch (err) {
