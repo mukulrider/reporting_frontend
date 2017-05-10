@@ -55,7 +55,8 @@ import {
   SaveBotName,
   SaveSupplierName,
   SaveTopBotFlag,
-  SaveValueInternal
+  SaveValueInternal,
+  SaveValueExternal
 }
 from './actions.js'
 
@@ -171,7 +172,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
       activeKey6: "0",
       activeKey7: "0",
       activeKey8: "0",
-      activeKey9: "1"
+      activeKey9: "1",
+      activeKey10: "1"
     };
 
   }
@@ -2512,56 +2514,110 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                       {/*Row for weather data*/}
                                       <div className="row">
-                                        <div className="col-md-4">
-                                          <h3 className="pageModuleSubTitle">Rainfall</h3>
-                                          {(() => {
-                                            if (this.props.Executive.drivers_external_data) {
-                                              console.log("Promo Sales line chart data", this.props.Executive.drivers_external_data.rainfall);
-                                              return (
-                                                <MultilineThree data={this.props.Executive.drivers_external_data.rainfall}
-                                                                id="rainfall_line" label_ty="Rainfall TY" label_ly="Rainfall LY"
-                                                                xaxis_title="Tesco Week" no_pref='£' no_suffix='' no_pref2='' no_suffix2=''
-                                                                yaxis_title='Value' yaxis_title2='Weather'/>
-                                              );
+                                        <Nav bsStyle="tabs" activeKey={this.state.activeKey10} onSelect={this.handleSelect} className="tabsCustom">
+                                          <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+
+                                            let value_external_tab = "sunshine";
+                                            this.setState({activeKey10: "1"});
+                                            this.props.onSaveValueExternal(value_external_tab);
+
+                                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
+                                            <b style={{textDecoration: 'none'}}>Sunshine</b></NavItem>
+
+                                          <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                                            let value_external_tab = "rainfall";
+                                            this.setState({activeKey10: "2"});
+                                            this.props.onSaveValueExternal(value_external_tab);
+                                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
+                                            style={{textDecoration: 'none'}}>Rainfall</b></NavItem>
+
+                                          <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                                            let value_external_tab = "temperature";
+                                            this.setState({activeKey10: "3"});
+                                            this.props.onSaveValueExternal(value_external_tab);
+                                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
+                                            style={{textDecoration: 'none'}}>Temperature</b></NavItem>
+
+
+                                        </Nav>
+
+                                        {(() =>{
+
+                                            if(this.props.Executive.value_external_tab=='rainfall')
+                                            {
+                                              return(
+                                                <div>
+                                                  <h3 className="pageModuleSubTitle">Rainfall</h3>
+                                                  {(() => {
+                                                    if (this.props.Executive.drivers_external_data) {
+                                                      console.log("Promo Sales line chart data", this.props.Executive.drivers_external_data.rainfall);
+                                                      return (
+                                                        <MultilineThree data={this.props.Executive.drivers_external_data.rainfall}
+                                                                        id="rainfall_line" label_ty="Rainfall TY" label_ly="Rainfall LY"
+                                                                        xaxis_title="Tesco Week" no_pref='£' no_suffix='' no_pref2='' no_suffix2=''
+                                                                        yaxis_title='Value' yaxis_title2='Weather'/>
+                                                      );
+                                                    }
+                                                  })()}
+                                                </div>
+                                              )
                                             }
-                                          })()}
-                                        </div>
-                                        <div className="col-md-4">
-                                          <h3 className="pageModuleSubTitle">Sunshine</h3>
-                                          {(() => {
-                                            if (this.props.Executive.drivers_external_data) {
-                                              console.log("Promo Sales line chart data", this.props.Executive.drivers_external_data.sunshine);
-                                              return (
-                                                <MultilineThree data={this.props.Executive.drivers_external_data.sunshine}
-                                                                id="sunshine_line" label_ty="Sunshine TY" label_ly="Sunshine LY"
-                                                                xaxis_title="Tesco Week" no_pref='£' no_suffix='' no_pref2='' no_suffix2=''
-                                                                yaxis_title='Value' yaxis_title2='Sunshine'/>
-                                              );
+                                            else {
+                                              if (this.props.Executive.value_external_tab == 'sunshine') {
+                                                return (
+                                                  <div>
+                                                    <h3 className="pageModuleSubTitle">Sunshine</h3>
+                                                    {(() => {
+                                                      if (this.props.Executive.drivers_external_data) {
+                                                        console.log("Promo Sales line chart data", this.props.Executive.drivers_external_data.sunshine);
+                                                        return (
+                                                          <MultilineThree
+                                                            data={this.props.Executive.drivers_external_data.sunshine}
+                                                            id="sunshine_line" label_ty="Sunshine TY"
+                                                            label_ly="Sunshine LY"
+                                                            xaxis_title="Tesco Week" no_pref='£' no_suffix=''
+                                                            no_pref2='' no_suffix2=''
+                                                            yaxis_title='Value' yaxis_title2='Sunshine'/>
+                                                        );
+                                                      }
+                                                    })()}
+
+
+                                                  </div>
+                                                )
+                                              }
+                                              else {
+                                                return (
+                                                  <div>
+                                                    <h3 className="pageModuleSubTitle">Temperature</h3>
+                                                    {(() => {
+                                                      if (this.props.Executive.drivers_external_data) {
+                                                        console.log("Promo Sales line chart data", this.props.Executive.drivers_external_data.temperature);
+                                                        return (
+                                                          <MultilineThree
+                                                            data={this.props.Executive.drivers_external_data.temperature}
+                                                            id="temperature_line" label_ty="Temperature TY"
+                                                            label_ly="Temperature LY"
+                                                            xaxis_title="Tesco Week" no_pref='£' no_suffix=''
+                                                            no_pref2='' no_suffix2=''
+                                                            yaxis_title='Value' yaxis_title2='Temperature'/>
+                                                        );
+                                                      }
+                                                    })()}
+
+
+                                                  </div>
+                                                )
+                                              }
                                             }
-                                          })()}
+                                              }
+                                        )()}
 
 
 
 
-                                        </div>
-                                        <div className="col-md-4">
-                                          <h3 className="pageModuleSubTitle">Temperature</h3>
-                                          {(() => {
-                                            if (this.props.Executive.drivers_external_data) {
-                                              console.log("Promo Sales line chart data", this.props.Executive.drivers_external_data.temperature);
-                                              return (
-                                                <MultilineThree data={this.props.Executive.drivers_external_data.temperature}
-                                                                id="temperature_line" label_ty="Temperature TY" label_ly="Temperature LY"
-                                                                xaxis_title="Tesco Week" no_pref='£' no_suffix='' no_pref2='' no_suffix2=''
-                                                                yaxis_title='Value' yaxis_title2='Temperature'/>
-                                              );
-                                            }
-                                          })()}
 
 
-
-
-                                        </div>
                                       </div>
                                       {/*Row for holidays*/}
                                       <div className="row">
@@ -3057,7 +3113,7 @@ function mapDispatchToProps(dispatch) {
     onSaveSupplierName: (e) => dispatch(SaveSupplierName(e)),
     onSaveTopBotFlag: (e) => dispatch(SaveTopBotFlag(e)),
     onSaveValueInternal: (e) => dispatch(SaveValueInternal(e)),
-
+    onSaveValueExternal: (e) => dispatch(SaveValueExternal(e)),
     dispatch,
   };
 }
