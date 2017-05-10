@@ -25,7 +25,7 @@ import {
 } from './selectors';
 
 
-let host_url="http://172.20.244.52:8000";
+let host_url="http://127.0.0.1:8000";
 // All sagas to be loaded
 
 
@@ -65,14 +65,8 @@ export function* generateFilterFetch() {
   // todo: update url
 
   let urlName=yield select(selectDailySalesDomain());
-  let urlParams = urlName.get('filter_selection');
-  console.log("filter_week_selection1",urlName.get('filter_week_selection') );
-  console.log("weekurlParam",urlName.get('weekurlParam') );
-  console.log("filter_selection",urlName.get('filter_selection') );
-
-
-  let urlParamsString = urlName.get('filter_selection')
-  console.log('urlParamsString-> ',urlParamsString)
+  let urlParamsString = urlName.get('filter_selection');
+  console.log('urlParamsString-> ',urlParamsString);
   if(!urlParamsString){
     urlParamsString=''
   }
@@ -97,16 +91,14 @@ export function* generateWeekFilterFetch() {
 
   // todo: update url
 
-  console.log("Inside generateWeekFilterFetch")
+  console.log("Inside generateWeekFilterFetch");
   let urlName=yield select(selectDailySalesDomain());
-  let weekurlparams = urlName.get('weekurlParam');
   // let weekurlparams1 = urlName.get('filter_week_selection');
 
   //*********************** FILTERS PARAMETERS ***********************
   // FOR TESCO WEEK
   let urlParams = "";
 
-  let filter_week_selection = "";
   filter_week_selection = urlName.get('filter_week_selection');
   if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
     filter_week_selection = urlName.get('filter_week_selection');
@@ -123,9 +115,9 @@ export function* generateWeekFilterFetch() {
   }
 
   try{
-    const data = yield call(request, host_url+'/api/reporting/filter_data_week?' + urlParams);
+    const data = yield call(request, host_url+'/api/reporting/product/filter_data_week?' + urlParams);
     console.log("Filter week data",data);
-    console.log("Along with the URL",host_url+"/api/reporting/filter_data_week?"+ urlParams);
+    console.log("Along with the URL",host_url+"/api/reporting/product/filter_data_week?"+ urlParams);
     yield put(WeekFilterFetchSuccess(data));
   } catch (err) {
     console.log("Error",err);

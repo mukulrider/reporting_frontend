@@ -3,7 +3,6 @@
  * DailySales
  *
  */
-
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
@@ -15,12 +14,12 @@ import makeSelectDailySales from './selectors';
 import messages from './messages';
 import './style.scss';
 import PieChart from 'components/PieChart';
-import CascadedFilterPromo from 'components/CascadedFilterPromo';
+import CascadedFilterDSS from 'components/CascadedFilterDSS';
 import MultilinePromo from 'components/MultilinePromo';
 import LineChart from 'components/LineChart';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import {PromoGiveawayData,
-lineChartCallAction,SaveKPIParam,generateUrlParamsString,
+  lineChartCallAction,SaveKPIParam,generateUrlParamsString,
   SaveWeekParam, PromoKpiData,
   getFilter,
   getWeekFilter,
@@ -31,23 +30,19 @@ lineChartCallAction,SaveKPIParam,generateUrlParamsString,
   checkboxChange,
   checkboxWeekChange
 } from './actions';
-
-
 export class DailySales extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-
   componentDidMount = () => {
-      this.props.DefaultLineChartCall();
-      let dataWeekParam = 'week_flag=None';
-      let kpiparam = 'val_type=1';
-      this.props.onSaveKPIParam(kpiparam);
-      this.props.onSaveWeekParam(dataWeekParam);
-      this.props.loadKpi();
-      this.props.onGetFilter();
-      this.props.onGetWeekFilter();
+    this.props.DefaultLineChartCall();
+    let dataWeekParam = 'week_flag=None';
+    let kpiparam = 'val_type=1';
+    this.props.onSaveKPIParam(kpiparam);
+    this.props.onSaveWeekParam(dataWeekParam);
+    this.props.loadKpi();
+    this.props.onGetFilter();
+    this.props.onGetWeekFilter();
   };
   componentDidUpdate = () => {
     this.props.onSendUrlParams(this.props.location.query);
-
   };
   constructor(props) {
     super(props);
@@ -55,10 +50,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
       activeKey1: "1"
     };
   }
-
   render() {
     let kpiParmas = this.props.DailySales.kpi_param;
-
     return (
       <div>
         <Helmet
@@ -67,18 +60,17 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
             { name: 'description', content: 'Description of DailySales' },
           ]}
         />
-        <div className="row col-xs-10" style={{ marginleft: '0px', marginright: '0px'}}>
-
-          <div style={{height: '100%',position: 'fixed', width: '20%',
-               overflowX: 'hidden', overflowY: 'scroll', borderTop: '1px solid #ccc' }}>
-
+        {/*<div className="row col-xs-10" style={{ marginleft: '0px', marginright: '0px'}}>*/}
+        {/*<div style={{height: '100%',position: 'fixed', width: '20%',*/}
+        {/*overflowX: 'hidden', overflowY: 'scroll', borderTop: '1px solid #ccc' }}>*/}
+        <div className="row">
+          {/*Filter*/}
+          <div className="col-xs-2">
             {(() => {
-
               if (this.props.DailySales.week_filter_data) {
                 console.log("Calling Filter index.js", this.props.DailySales.filter_data);
                 return (
-                  <CascadedFilterPromo filter_data={this.props.DailySales.filter_data}
-
+                  <CascadedFilterDSS filter_data={this.props.DailySales.filter_data}
                     // week_data={this.props.promotion.filter_data.week_data}
                                        DefaultLineChartCall={this.props.DefaultLineChartCall}
                                        week_data={this.props.DailySales.week_filter_data}
@@ -104,153 +96,122 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                        previous_week_selection={this.props.DailySales.filter_week_selection}
                                        onCheckboxChange={this.props.onCheckboxChange}
                                        onCheckboxWeekChange = {this.props.onCheckboxWeekChange}
-
                   />
                 );
-              } else {
-                return (<div>Loading the data </div>)
+              }
+              else {
+                return (<div style={{padding: '10px'}}>Loading the data </div>)
               }
             })()}
           </div>
-
-        <div className="toptab" style={{width: '78%'}}>
-          {/*<div className="col-xs-10">*/}
-            <div className="col-xs-10 toptab" style={{left: '14%', top: '-25px'}}>
-            <h2 className="pageModuleMainTitle">Daily Sales View</h2>
-            <div className="row">
-              <div className="col-xs-3 overview-blk ">
-
-                <div className="panel">
-                  <div className="panel-heading tesco-heading">
-                    Sales
-                  </div>
-                  <div className="panel-body">
+          <div className="col-xs-10" style={{left: '5.5%'}}>
+            <div>
+              <div className="pageTitle"> Daily Sales View</div>
+              <div className="row" style={{textAlign: 'center'}}>
+                <div className="col-xs-3 overview-blk" >
+                  <Panel>
+                    <div className="panel-heading tesco-heading">Sales</div>
+                    <div className="panel-body">
                     <span className="overview-blk-value">
                                    {(() => {
                                      if (this.props.DailySales.linechart_data) {
                                        let a = this.props.DailySales.linechart_data.static_data;
                                        return a.map(obj => {
                                          return (
-                                           <div>{obj.tot_sales}</div>
+                                           <div><h4>{obj.tot_sales}</h4></div>
                                          )})}
                                    })()}
-                                </span>
-                  </div>
+                    </span>
+                    </div>
+                  </Panel>
                 </div>
-
-            </div>
-            <div className="col-xs-3 overview-blk ">
-                <div className="panel">
-                  <div className="panel-heading tesco-heading">
-                    Volume
-                  </div>
-                  <div className="panel-body">
-                    {/*                  {(() => {
-                     if ((aggregatedFullSummed.cashSales - aggregatedFullSummed.baselineCashSales) < 0) {
-                     return <span className="glyphicon glyphicon-triangle-bottom"> </span>
-                     } else {
-                     return <span className="glyphicon glyphicon-triangle-top"> </span>
-                     }
-                     })()}*/}
-
+                <div className="col-xs-3 overview-blk">
+                  <Panel>
+                    <div className="panel-heading tesco-heading">Volume</div>
+                    <div className="panel-body">
                     <span className="overview-blk-value">
                         {(() => {
                           if (this.props.DailySales.linechart_data) {
                             let a = this.props.DailySales.linechart_data.static_data;
                             return a.map(obj => {
                               return (
-                                <div>{obj.tot_vol}</div>
+                                <div><h4>{obj.tot_vol}</h4></div>
                               )})}
                         })()}
                     </span>
-                  </div>
+                    </div>
+                  </Panel>
                 </div>
-
-            </div>
-
-            <div className="col-xs-3 overview-blk">
-
-                <div className="panel">
-                  <div className="panel-heading tesco-heading">
-                    COGS
-                  </div>
-                  <div className="panel-body">
-                    {/*                  {(() => {
-                     if ((aggregatedFullSummed.cashSales - aggregatedFullSummed.baselineCashSales) < 0) {
-                     return <span className="glyphicon glyphicon-triangle-bottom"> </span>
-                     } else {
-                     return <span className="glyphicon glyphicon-triangle-top"> </span>
-                     }
-                     })()}*/}
-
+                <div className="col-xs-3 overview-blk" >
+                  <Panel>
+                    <div className="panel-heading tesco-heading">COGS</div>
+                    <div className="panel-body">
                     <span className="overview-blk-value">
                                                 {(() => {
                                                   if (this.props.DailySales.linechart_data) {
                                                     let a = this.props.DailySales.linechart_data.static_data;
                                                     return a.map(obj => {
                                                       return (
-                                                        <div>{obj.tot_cogs}</div>
+                                                        <div><h4>{obj.tot_cogs}</h4></div>
                                                       )})}
                                                 })()}
-                                </span>
-                  </div>
-
+                    </span>
+                    </div>
+                  </Panel>
                 </div>
-
-            </div>
-
-            <div className ="row"></div>
-            <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect}  className="tabsCustom">
-              <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
-                 this.setState({activeKey1: "1"});
-                 kpiParmas = "val_type=1";
-                 this.props.onSaveKPIParam(kpiParmas);
-                 this.props.DefaultLineChartCall();
-              }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Sales</b></NavItem>
-              <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
-                 this.setState({activeKey1: "2"});
-                 kpiParmas = "val_type=2";
-                 this.props.onSaveKPIParam(kpiParmas);
-                 this.props.DefaultLineChartCall();
-              }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>Volume</b></NavItem>
-              <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
-                this.setState({activeKey1: "3"});
-                 kpiParmas = "val_type=3";
-                 this.props.onSaveKPIParam(kpiParmas);
-                 this.props.DefaultLineChartCall();
-              }} style={{fontSize: '20px', fontFamily: 'Tesco'}}><b>COGS</b></NavItem>
-            </Nav>
-            <div className ="row"></div>
-            <div className ="row">
-              {(() => {
-
-                if (this.props.DailySales.linechart_data) {
-                  console.log("The line chart data in Index", this.props.DailySales.linechart_data.graph_data);
-                  return (
-                    <LineChart data={this.props.DailySales.linechart_data.graph_data}
-                               y_axis="Axis Title"
-                    />
-                  )
-                }
-              })()}
+              </div>
+              <div className ="row">
+                <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect}  className="tabsCustom">
+                  <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+                    this.setState({activeKey1: "1"});
+                    kpiParmas = "val_type=1";
+                    this.props.onSaveKPIParam(kpiParmas);
+                    this.props.DefaultLineChartCall();
+                  }} ><span className="tab_label">Sales</span></NavItem>
+                  <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                    this.setState({activeKey1: "2"});
+                    kpiParmas = "val_type=2";
+                    this.props.onSaveKPIParam(kpiParmas);
+                    this.props.DefaultLineChartCall();
+                  }} ><span className="tab_label">Volume</span></NavItem>
+                  <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                    this.setState({activeKey1: "3"});
+                    kpiParmas = "val_type=3";
+                    this.props.onSaveKPIParam(kpiParmas);
+                    this.props.DefaultLineChartCall();
+                  }} ><span className="tab_label">COGS</span></NavItem>
+                </Nav>
+              </div>
+              <div className ="row">
+                <Panel>
+                  <div className="col-xs-4">
+                    {(() => {
+                      if (this.props.DailySales.linechart_data) {
+                        console.log("The line chart data in Index", this.props.DailySales.linechart_data.graph_data);
+                        return (
+                          <LineChart data={this.props.DailySales.linechart_data.graph_data}
+                                     y_axis="Axis Title"
+                                     x_axis="Date"
+                          />
+                        )
+                      }
+                    })()}
+                  </div>
+                </Panel>
+              </div>
             </div>
           </div>
-          </div>
-        </div>
         </div>
       </div>
     );
   }
 }
-
 DailySales.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
-
 const mapStateToProps = createStructuredSelector({
   DailySales: makeSelectDailySales(),
 });
-
 function mapDispatchToProps(dispatch) {
   return {
     onSaveKPIParam: (e) => dispatch(SaveKPIParam(e)),
@@ -272,5 +233,4 @@ function mapDispatchToProps(dispatch) {
     dispatch,
   };
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(DailySales);

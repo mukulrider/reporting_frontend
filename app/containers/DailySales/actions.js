@@ -180,7 +180,7 @@ export function checkboxChange(data) {
 }
 
 export function checkboxWeekChange(data) {
-  console.log("checkboxWeekChange Selection in actions" + data);
+  console.log("checkboxWeekChange Selection in actions");
   return {
     type: CHECKBOX_WEEK_CHANGE,
     data
