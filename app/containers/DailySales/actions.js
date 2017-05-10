@@ -125,7 +125,7 @@ export function sendUrlParams(data) {
 
 export function generateUrlParamsString(data)
 {
-  console.log('PromoFilterFetchSuccess = actions', data);
+  console.log('PromoFilterFetchSuccess = actions');   //, data);
   return {
     type: GENERATE_FILTER_PARAMS_STRING,
     data,

@@ -98,7 +98,7 @@ export function* generateWeekFilterFetch() {
   //*********************** FILTERS PARAMETERS ***********************
   // FOR TESCO WEEK
   let urlParams = "";
-
+  let filter_week_selection = '';
   filter_week_selection = urlName.get('filter_week_selection');
   if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
     filter_week_selection = urlName.get('filter_week_selection');

@@ -64,7 +64,7 @@ console.log("Margin.Right:",margin.right);
     svg.attr('width',width+margin.left+margin.right)
       .attr('height',height+margin.top+margin.bottom)
       .append("g")
-      .attr('transform', 'translate(0,0)');
+      .attr('transform', 'translate(200,0)');
 
     const parseTime = d3.timeParse("%Y-%m-%d");
 
@@ -100,7 +100,12 @@ console.log("Margin.Right:",margin.right);
 
       svg.append("g")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x))
+        .call(d3.axisBottom(x).tickFormat(
+          function(data){
+          var dateObj = new Date(data);
+          return dateObj.getDate() + '-' + dateObj.getMonth() + '-' + dateObj.getFullYear()}).ticks(7)
+        ).selectAll("text")
+        .attr("transform","translate(20,10)rotate(45)")
         .select(".domain")
         .remove();
 
@@ -113,7 +118,8 @@ console.log("Margin.Right:",margin.right);
         .attr("y", 6)
         .attr("dy", "0.71em")
         .attr("text-anchor", "end")
-        .text(this.props.y_axis);
+        .text(this.props.y_axis)
+        .selectAll();
 
       svg.append("path")
         .datum(data1)
