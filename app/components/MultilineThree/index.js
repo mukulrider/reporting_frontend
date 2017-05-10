@@ -152,7 +152,7 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
     // Add the valueline path.
     // set the dimensions and margins of the graph
     let margin = {top: 20, right: 200, bottom: 60, left: 100},
-      width = 400 - margin.left - margin.right,
+      width = 500 - margin.left - margin.right,
       height = 250 - margin.top - margin.bottom;
 
     console.log("---insde the createMultilinePromoChart---- check2",margin);
@@ -270,7 +270,11 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
     svg.append("g")
       .attr("transform", "translate(0," + height + ")")
       .classed("axis xaxis", true)
-      .call(xAxis);
+      .call(xAxis)
+    .selectAll("text")
+      .attr("x",25)
+      .attr("transform","rotate(45)");
+
 
     // Add the Y Axis
     svg.append("g")
@@ -287,7 +291,7 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
 
   //X axis title
     svg.append("text")
-      .attr("transform","translate(" + (width/2) + " ," +(height-10 + margin.top+(margin.bottom/2)) + ")")
+      .attr("transform","translate(" + (width/2) + " ," +(height+10 + margin.top+(margin.bottom/2)) + ")")
       .style("text-anchor", "middle")
       .text(xaxis_title);
 

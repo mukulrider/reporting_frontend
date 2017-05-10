@@ -17,6 +17,7 @@ import {
   WEEK_PARAM,
   KPI_PARAM,
   DRIVER_PARAM,
+  VALUE_INTERNAL_TABS,
   OVERVIEW_KPI_CONSTANT,
   OVERVIEW_KPI_FETCH_SUCCESS,
   ROLES_INTENT_CONSTANT,
@@ -76,8 +77,8 @@ const initialState = fromJS({
       "ASP": 0
     },
     "market": {
-      "share": 6,
-      "outperformance": 6
+      "share": "0",
+      "outperformance": "0"
     },
     "kpi": {
       "volume": {
@@ -116,7 +117,13 @@ const initialState = fromJS({
   "wow": "0",
     "yoy": "0",
     "avg": "0"
-}
+},
+    "holidays": [
+      {
+        "holiday_description": "No holidays for the selected time period",
+        "holiday_date": "-----"
+      }
+    ]
 },
  kpi_boxes_data: {
    "total_value": {
@@ -144,24 +151,21 @@ const initialState = fromJS({
 
  },
   price_kpi_data: {
-    'asp': {
-      'inflation': "0",
-      'fisher_inflation': "0",
-      'yoy': "0",
-      "lfl": "0",
-      "wow": "0"
-    },
-    'acp': {
-      'inflation': "0",
-      'fisher_inflation': "0",
-      'yoy': "0",
-      "lfl": "0",
-      "wow": "0"
-    },
-    'price_index': {
-      'index': "0",
-      "wow": "0"
-    }
+  "ACP_abs": 0,
+  "ACP_fisher_infl": 0,
+  "line_count": 0,
+  "ACP_lfl_abs": 0,
+  "ACPInfl_var_wow": 0,
+  "ASPInfl_var_lfl": 0,
+  "price_index_var_wow": 0,
+  "ASP_lfl_abs": 0,
+  "ASPInfl_var_yoy": 0,
+  "ASP_abs": 0,
+  "ASPInfl_var_wow": 0,
+  "ASP_fisher_infl": 0,
+  "ACPInfl_var_yoy": 0,
+  "ACPInfl_var_lfl": 0,
+  "price_index_cw": 0
   },
   best_worst_data: {
     "top_5": [
@@ -208,6 +212,18 @@ const initialState = fromJS({
 
     "fetch": "fail"
   },
+  budget_forecast_data: {
+    "budget_data": [
+  {"label": "Budget", "value": 600},
+{"label": "Sales", "value": 500}],
+    "forecast_data": [
+      {"label": "Forecast", "value": 600},
+      {"label": "Sales", "value": 500}],
+    },
+  value_internal_tab: 'kpi'
+
+
+
 });
 
 function executiveReducer(state = initialState, action) {
@@ -340,6 +356,9 @@ function executiveReducer(state = initialState, action) {
     case DRIVER_PARAM:
       console.log("reducer KPI_PARAM",action.data);
       return state.set('driver_param',action.data);
+    case VALUE_INTERNAL_TABS:
+      console.log("reducer VALUE_INTERNAL_TABS",action.data);
+      return state.set('value_internal_tab',action.data);
     case FILTERED_FLAG:
       console.log("reducer FILTERED_FLAG",action.data);
       return state.set('filtered_flag',action.data);

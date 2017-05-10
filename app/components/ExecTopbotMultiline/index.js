@@ -245,7 +245,10 @@ class ExecTopbotMultiline extends React.PureComponent { // eslint-disable-line r
     svg.append("g")
       .attr("transform", "translate(0," + height + ")")
       .classed("axis xaxis", true)
-      .call(xAxis);
+      .call(xAxis)
+      .selectAll("text")
+      .attr("x",25)
+      .attr("transform","rotate(45)");
 
     // Add the Y Axis
     svg.append("g")
@@ -254,7 +257,7 @@ class ExecTopbotMultiline extends React.PureComponent { // eslint-disable-line r
 
     //X axis title
     svg.append("text")
-      .attr("transform","translate(" + (width/2) + " ," +(height-10 + margin.top+(margin.bottom/2)) + ")")
+      .attr("transform","translate(" + (width/2) + " ," +(height+10 + margin.top+(margin.bottom/2)) + ")")
       .style("text-anchor", "middle")
       .text(xaxis_title);
 

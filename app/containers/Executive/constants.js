@@ -93,9 +93,11 @@ export const WEEK_PARAM = 'app/Executive/WEEK_PARAM';
 //Constant to store the kpi parameter
 export const KPI_PARAM = 'app/Executive/KPI_PARAM';
 
-
 //Constant to store the driver parameter
 export const DRIVER_PARAM = 'app/Executive/DRIVER_PARAM';
+
+//Constant to store the internal tabs parameter
+export const VALUE_INTERNAL_TABS = 'app/Executive/VALUE_INTERNAL_TABS';
 
 //Constant to store the filtered flag for showing top5 and bottom 5
 export const FILTERED_FLAG = 'app/Executive/FILTERED_FLAG';

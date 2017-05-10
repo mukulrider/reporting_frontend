@@ -15,6 +15,7 @@ import {
   GENERATE_FILTER_PARAMS_STRING,
   WEEK_PARAM,
   KPI_PARAM,
+  VALUE_INTERNAL_TABS,
   OVERVIEW_KPI_CONSTANT,
   OVERVIEW_KPI_FETCH_SUCCESS,
   ROLES_INTENT_CONSTANT,
@@ -394,6 +395,18 @@ export function SaveDriverParam(data) {
     data,
   };
 }
+
+// For saving the VALUE INTERNAL TAB SELECTION param (triggered by Value Internal tab buttons)
+
+export function SaveValueInternal(data) {
+  console.log('SaveValueInternal = actions', data);
+  return {
+    type: VALUE_INTERNAL_TABS,
+    data,
+  };
+}
+
+
 
 
 

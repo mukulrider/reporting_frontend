@@ -19,11 +19,11 @@ class SampleBarChart extends React.PureComponent { // eslint-disable-line react/
 
 console.log("Inside the bar plot -=-=-=-=-====-=-=-=-",JSON.stringify(data));
     // let data = [{"parent_supplier":"Bob","profit_product":33},{"parent_supplier":"Robin","profit_product":12},{"parent_supplier":"Anne","profit_product":41},{"parent_supplier":"Mark","profit_product":16},{"parent_supplier":"Joe","profit_product":59},{"parent_supplier":"Eve","profit_product":38},{"parent_supplier":"Karen","profit_product":21},{"parent_supplier":"Kirsty","profit_product":25},{"parent_supplier":"Chris","profit_product":30},{"parent_supplier":"Lisa","profit_product":47},{"parent_supplier":"Tom","profit_product":5},{"parent_supplier":"Stacy","profit_product":20},{"parent_supplier":"Charles","profit_product":13},{"parent_supplier":"Mary","profit_product":29}];
-
+let containerWidth = document.getElementById(id).clientWidth;
 // set the dimensions and margins of the graph
     let margin = {top: 20, right: 20, bottom: 30, left: 150},
-      width = 450 - margin.left - margin.right,
-      height = 300 - margin.top - margin.bottom;
+      width = containerWidth - margin.left - margin.right,
+      height = containerWidth - margin.top - margin.bottom;
 
 // set the ranges
     let y = d3.scaleBand()
@@ -111,8 +111,6 @@ console.log("Inside the bar plot -=-=-=-=-====-=-=-=-",JSON.stringify(data));
       .call(d3.axisLeft(y))
       .selectAll(".tick text")
       .call(wrap, margin.left + 10);
-
-
 
 
 
