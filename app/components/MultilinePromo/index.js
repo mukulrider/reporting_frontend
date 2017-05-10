@@ -12,7 +12,7 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
 class MultilinePromo extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  createMultilinePromoChart = (data,chart_id,label_ty,label_ly,xaxis_title,yaxis_title,no_pref,no_suffix) => {
+  createMultilinePromoChart = (data,chart_id,label_ty,label_ly,xaxis_title,yaxis_title,no_pref,no_suffix,width=800,legend_width=650,legend_text_width=645) => {
     console.log("---insde the createMultilinePromoChart----",data);
     console.log("========= XAxis ",xaxis_title);
     console.log("========= YAxis",yaxis_title);
@@ -151,9 +151,9 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
   //   console.log("---insde the createMultilinePromoChart mock_data",data2);
     // Add the valueline path.
     // set the dimensions and margins of the graph
-    let margin = {top: 20, right: 200, bottom: 60, left: 100},
-      width = 800 - margin.left - margin.right,
-      height = 250 - margin.top - margin.bottom;
+    let margin = {top: 20, right: 200, bottom: 60, left: 100};
+      width = width - margin.left - margin.right;
+   let  height = 250 - margin.top - margin.bottom;
 
     console.log("---insde the createMultilinePromoChart---- check2",margin);
 // set the ranges
@@ -244,7 +244,10 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
     svg.append("g")
       .attr("transform", "translate(0," + height + ")")
       .classed("axis xaxis", true)
-      .call(xAxis);
+      .call(xAxis)
+      .selectAll("text")
+      .attr("x",25)
+      .attr("transform","rotate(45)");
 
     // Add the Y Axis
     svg.append("g")
@@ -253,7 +256,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
 
     //X axis title
     svg.append("text")
-      .attr("transform","translate(" + (width/2) + " ," +(height-10 + margin.top+(margin.bottom/2)) + ")")
+      .attr("transform","translate(" + (width/2) + " ," +(height+10 + margin.top+(margin.bottom/2)) + ")")
       .style("text-anchor", "middle")
       .text(xaxis_title);
 
@@ -266,8 +269,6 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
       .attr("dy", "1em")
       .style("text-anchor", "middle")
       .text(yaxis_title);
-
-
 
     //Legend
 
@@ -288,7 +289,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
     let color_hash = ["steelblue","red"];
 
     legend.append("rect")
-      .attr("x", 650 )
+      .attr("x", legend_width )
       .attr("width", 19)
       .attr("height", 19)
       .attr("fill", function (d, i) {
@@ -296,7 +297,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
       });
 
     legend.append("text")
-      .attr("x", 645)
+      .attr("x", legend_text_width)
       .attr("y", 9.5)
       .attr("dy", "0.32em")
       .text(function (d) {
@@ -309,15 +310,13 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
 
   componentDidMount = () => {
     console.log("XXXXXXXXXXXXXXX",this.props.xaxis_title)
-    this.createMultilinePromoChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly,this.props.xaxis_title,this.props.yaxis_title,this.props.no_pref,this.props.no_suffix);
+    this.createMultilinePromoChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly,this.props.xaxis_title,this.props.yaxis_title,this.props.no_pref,this.props.no_suffix,this.props.chart_width,this.props.legend_width,this.props.legend_text_width);
   };
 
   componentDidUpdate = () => {
     // this.createOrdinalChart (this.props.data[0],this.props.data[1],this.props.data[2])
-    this.createMultilinePromoChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly,this.props.xaxis_title,this.props.yaxis_title,this.props.no_pref,this.props.no_suffix);
+    this.createMultilinePromoChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly,this.props.xaxis_title,this.props.yaxis_title,this.props.no_pref,this.props.no_suffix,this.props.chart_width,this.props.legend_width,this.props.legend_text_width);
   };
-
-
 
   render() {
 

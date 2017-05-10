@@ -63,6 +63,15 @@ export const WORST_INFO_FETCH_SUCCESS = 'app/Executive/WORST_INFO_FETCH_SUCCESS'
 export const SUPPLIER_INFO_CONSTANT='app/Executive/SUPPLIER_INFO_CONSTANT';
 export const SUPPLIER_INFO_FETCH_SUCCESS = 'app/Executive/SUPPLIER_INFO_FETCH_SUCCESS';
 
+
+export const TOP_SUPPLIER_INFO_CONSTANT='app/Executive/TOP_SUPPLIER_INFO_CONSTANT';
+export const TOP_SUPPLIER_INFO_FETCH_SUCCESS = 'app/Executive/TOP_SUPPLIER_INFO_FETCH_SUCCESS';
+
+
+export const BOT_SUPPLIER_INFO_CONSTANT='app/Executive/BOT_SUPPLIER_INFO_CONSTANT';
+export const BOT_SUPPLIER_INFO_FETCH_SUCCESS = 'app/Executive/BOT_SUPPLIER_INFO_FETCH_SUCCESS';
+
+
 //Drivers Internal
 
 export const DRIVERS_INTERNAL_CONSTANT='app/Executive/DRIVERS_INTERNAL_CONSTANT';
@@ -84,9 +93,11 @@ export const WEEK_PARAM = 'app/Executive/WEEK_PARAM';
 //Constant to store the kpi parameter
 export const KPI_PARAM = 'app/Executive/KPI_PARAM';
 
-
 //Constant to store the driver parameter
 export const DRIVER_PARAM = 'app/Executive/DRIVER_PARAM';
+
+//Constant to store the internal tabs parameter
+export const VALUE_INTERNAL_TABS = 'app/Executive/VALUE_INTERNAL_TABS';
 
 //Constant to store the filtered flag for showing top5 and bottom 5
 export const FILTERED_FLAG = 'app/Executive/FILTERED_FLAG';

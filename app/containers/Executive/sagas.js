@@ -1,40 +1,24 @@
 // import { take, call, put, select } from 'redux-saga/effects';
 import {
-  DEFAULT_ACTION,
   FILTER_CONSTANT,
-  FILTER_FETCH_SUCCESS,
-  CHECKBOX_CHANGE,
+
   WEEK_FILTER_CONSTANT,
-  WEEK_FILTER_FETCH_SUCCESS,
-  WEEK_FILTER_PARAM,
   OVERVIEW_KPI_CONSTANT,
-  OVERVIEW_KPI_FETCH_SUCCESS,
   ROLES_INTENT_CONSTANT,
-  ROLES_INTENT_FETCH_SUCCESS,
   BUDGET_FORECAST_CONSTANT,
-  BUDGET_FORECAST_FETCH_SUCCESS,
   OVERVIEW_KPI_TREND_CONSTANT,
-  OVERVIEW_KPI_TREND_FETCH_SUCCESS,
   OVERVIEW_DRIVERS_INTERNAL_CONSTANT,
-  OVERVIEW_DRIVERS_INTERNAL_FETCH_SUCCESS,
   OVERVIEW_DRIVERS_EXTERNAL_CONSTANT,
-  OVERVIEW_DRIVERS_EXTERNAL_FETCH_SUCCESS,
   KPI_BOXES_CONSTANT,
-  KPI_BOXES_FETCH_SUCCESS,
   BEST_WORST_CONSTANT,
-  BEST_WORST_FETCH_SUCCESS,
   BEST_INFO_CONSTANT,
-  BEST_INFO_FETCH_SUCCESS,
   WORST_INFO_CONSTANT,
-  WORST_INFO_FETCH_SUCCESS,
   SUPPLIER_INFO_CONSTANT,
-  SUPPLIER_INFO_FETCH_SUCCESS,
+  TOP_SUPPLIER_INFO_CONSTANT,
+  BOT_SUPPLIER_INFO_CONSTANT,
   DRIVERS_INTERNAL_CONSTANT,
-  DRIVERS_INTERNAL_FETCH_SUCCESS,
   DRIVERS_EXTERNAL_CONSTANT,
-  DRIVERS_EXTERNAL_FETCH_SUCCESS,
   PRICE_KPI_CONSTANT,
-  PRICE_KPI_FETCH_SUCCESS
 } from './constants';
 
 
@@ -51,6 +35,8 @@ import {OverviewKpiDataFetchSuccess,
   BestInfoDataFetchSuccess,
   WorstInfoDataFetchSuccess,
   SupplierInfoDataFetchSuccess,
+  TopSupplierInfoDataFetchSuccess,
+  BotSupplierInfoDataFetchSuccess,
   DriversInternalDataFetchSuccess,
   DriversExternalDataFetchSuccess,
   PriceKPIDataFetchSuccess,
@@ -74,7 +60,8 @@ import {
 } from 'containers/Executive/selectors';
 
 
-let host_url="http://10.1.244.200:8001";
+
+let host_url="http://172.20.246.12:8000";
 // All sagas to be loaded
 
 // Individual exports for testing
@@ -537,11 +524,123 @@ export function* generateSupplierInfoFetch() {
 }
 
 export function* doSupplierInfoFetch() {
-  console.log('sagas doWorstInfoFetch ',SUPPLIER_INFO_CONSTANT);
+  console.log('sagas doSupplierInfoFetch ',SUPPLIER_INFO_CONSTANT);
   const watcher = yield takeLatest(SUPPLIER_INFO_CONSTANT, generateSupplierInfoFetch);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
 }
+
+
+//For Top Supplier Info
+
+export function* generateTopSupplierInfoFetch() {
+  const urlName = yield select(selectExecutiveDomain());
+  const weekurlparam = urlName.get('week_param');
+  let urlParamsString =urlName.get('urlParamsString');
+  let weekselection =urlName.get('weekurlParam');
+  if(!urlParamsString){
+    urlParamsString=''
+  }
+  if (typeof(urlParamsString) == "undefined") {
+    urlParamsString = "";
+  } else {
+    let urlParamsStringCheck = urlParamsString.substring(0, 2);
+    if (urlParamsStringCheck == 20) {
+      urlParamsString = urlParamsString.substring(14, urlParamsString.length);
+    }
+  }
+  const kpiparam = urlName.get('kpi_param');
+
+
+  let selected_supplier = urlName.get('supplier_name');
+  if (selected_supplier == 'None')
+  {
+    selected_supplier='';
+  }
+   let selected = urlName.get('top_name');
+
+  if (selected == 'None')
+  {
+    selected='';
+  }
+
+
+  console.log("sagas generateTopSupplierInfoFetch url",host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier)
+  const data = yield call(request,
+    host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString +  '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier);
+  console.log("Heres the generateTopSupplierInfoFetch data",data);
+  yield put(TopSupplierInfoDataFetchSuccess(data));
+
+  // } catch (err) {
+  //   // console.log(err);
+  // }
+}
+
+export function* doTopSupplierInfoFetch() {
+  console.log('sagas doSupplierInfoFetch ',TOP_SUPPLIER_INFO_CONSTANT);
+  const watcher = yield takeLatest(TOP_SUPPLIER_INFO_CONSTANT, generateTopSupplierInfoFetch);
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+
+
+//For Bot Supplier Info
+
+export function* generateBotSupplierInfoFetch() {
+  const urlName = yield select(selectExecutiveDomain());
+  const weekurlparam = urlName.get('week_param');
+  let urlParamsString =urlName.get('urlParamsString');
+  let weekselection =urlName.get('weekurlParam');
+  if(!urlParamsString){
+    urlParamsString=''
+  }
+  if (typeof(urlParamsString) == "undefined") {
+    urlParamsString = "";
+  } else {
+    let urlParamsStringCheck = urlParamsString.substring(0, 2);
+    if (urlParamsStringCheck == 20) {
+      urlParamsString = urlParamsString.substring(14, urlParamsString.length);
+    }
+  }
+  const kpiparam = urlName.get('kpi_param');
+
+
+  let selected_supplier = urlName.get('supplier_name');
+  if (selected_supplier == 'None')
+  {
+    selected_supplier='';
+  }
+  let selected = urlName.get('bot_name');
+
+  if (selected == 'None')
+  {
+    selected='';
+  }
+
+
+  console.log("sagas generateBotSupplierInfoFetch url",host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier)
+  const data = yield call(request,
+    host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString +  '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier);
+  console.log("Heres the generateBotSupplierInfoFetch data",data);
+  yield put(BotSupplierInfoDataFetchSuccess(data));
+
+  // } catch (err) {
+  //   // console.log(err);
+  // }
+}
+
+export function* doBotSupplierInfoFetch() {
+  console.log('sagas doBotSupplierInfoFetch ',BOT_SUPPLIER_INFO_CONSTANT);
+  const watcher = yield takeLatest(BOT_SUPPLIER_INFO_CONSTANT, generateBotSupplierInfoFetch);
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+
+
+
+
+
+
 
 
 // For Drivers Internal
@@ -788,6 +887,8 @@ export default [
   doBestInfoFetch,
   doWorstInfoFetch,
   doSupplierInfoFetch,
+  doTopSupplierInfoFetch,
+  doBotSupplierInfoFetch,
   doDriversInternalFetch,
   doDriversExternalFetch,
   doPriceKPIFetch

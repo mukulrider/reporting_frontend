@@ -23,19 +23,19 @@ export default class App extends React.PureComponent { // eslint-disable-line re
   };
 
   componentWillMount() {
-    let getCookie;
-    getCookie = (name) => {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop().split(';').shift();
-    };
-    const token = getCookie('token');
-    if (token && this.props.location.pathname.includes('login')) {
-      window.location = 'http://10.1.244.200:3000';
-    }
-    if (!token && !this.props.location.pathname.includes('login')) {
-      window.location = 'http://10.1.244.200:3000/login/';
-    }
+    // let getCookie;
+    // getCookie = (name) => {
+    //   const value = `; ${document.cookie}`;
+    //   const parts = value.split(`; ${name}=`);
+    //   if (parts.length === 2) return parts.pop().split(';').shift();
+    // };
+    // const token = getCookie('token');
+    // if (token && this.props.location.pathname.includes('login')) {
+    //   window.location = 'http://10.1.244.200:3000';
+    // }
+    // if (!token && !this.props.location.pathname.includes('login')) {
+    //   window.location = 'http://10.1.244.200:3000/login/';
+    // }
   };
 
   render() {
@@ -51,6 +51,8 @@ export default class App extends React.PureComponent { // eslint-disable-line re
           { linkTitle: 'Competitor View', linkHref: '/sales/competitor' },
           { linkTitle: 'Promo View', linkHref: '/sales/promo' },
           { linkTitle: 'Supplier View', linkHref: '/sales/supplier' },
+          { linkTitle: 'Product View', linkHref: '/sales/product' },
+          { linkTitle: 'Daily Sales View', linkHref: '/sales/dailysales' },
           ]}
         />
       </div>

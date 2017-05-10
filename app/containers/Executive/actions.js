@@ -15,6 +15,7 @@ import {
   GENERATE_FILTER_PARAMS_STRING,
   WEEK_PARAM,
   KPI_PARAM,
+  VALUE_INTERNAL_TABS,
   OVERVIEW_KPI_CONSTANT,
   OVERVIEW_KPI_FETCH_SUCCESS,
   ROLES_INTENT_CONSTANT,
@@ -37,6 +38,10 @@ import {
   WORST_INFO_FETCH_SUCCESS,
   SUPPLIER_INFO_CONSTANT,
   SUPPLIER_INFO_FETCH_SUCCESS,
+  TOP_SUPPLIER_INFO_CONSTANT,
+  TOP_SUPPLIER_INFO_FETCH_SUCCESS,
+  BOT_SUPPLIER_INFO_CONSTANT,
+  BOT_SUPPLIER_INFO_FETCH_SUCCESS,
   DRIVERS_INTERNAL_CONSTANT,
   DRIVERS_INTERNAL_FETCH_SUCCESS,
   DRIVERS_EXTERNAL_CONSTANT,
@@ -259,6 +264,46 @@ export function SupplierInfoDataFetchSuccess(data)
   };
 }
 
+
+//Top Supplier Info
+
+export function TopSupplierInfoData()
+{
+  console.log('actions.js TopSupplierInfoData TOP_SUPPLIER_INFO_CONSTANT');
+  return {
+    type: TOP_SUPPLIER_INFO_CONSTANT,
+  };
+}
+
+export function TopSupplierInfoDataFetchSuccess(data)
+{
+  console.log('TopSupplierInfoDataFetchSuccess TOP_SUPPLIER_INFO_FETCH_SUCCESS actions',data)
+  return {
+    type: TOP_SUPPLIER_INFO_FETCH_SUCCESS,
+    data,
+  };
+}
+
+//Bot Supplier Info
+
+export function BotSupplierInfoData()
+{
+  console.log('actions.js BotSupplierInfoData BOT_SUPPLIER_INFO_CONSTANT');
+  return {
+    type: BOT_SUPPLIER_INFO_CONSTANT,
+  };
+}
+
+export function BotSupplierInfoDataFetchSuccess(data)
+{
+  console.log('BotSupplierInfoDataFetchSuccess BOT_SUPPLIER_INFO_FETCH_SUCCESS actions',data)
+  return {
+    type: BOT_SUPPLIER_INFO_FETCH_SUCCESS,
+    data,
+  };
+}
+
+
 //For Drivers Internal
 
 export function DriversInternalData()
@@ -350,6 +395,18 @@ export function SaveDriverParam(data) {
     data,
   };
 }
+
+// For saving the VALUE INTERNAL TAB SELECTION param (triggered by Value Internal tab buttons)
+
+export function SaveValueInternal(data) {
+  console.log('SaveValueInternal = actions', data);
+  return {
+    type: VALUE_INTERNAL_TABS,
+    data,
+  };
+}
+
+
 
 
 

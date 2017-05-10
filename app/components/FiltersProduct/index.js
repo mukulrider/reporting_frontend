@@ -35,7 +35,7 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
       }
     });
     queryString = queryString.substring(0, queryString.length - 1);
-    // alert(queryString);
+    alert(queryString);
     // APPEND URL PARAMS
 
     this.props.onGenerateUrlParamsString(queryString);
@@ -47,7 +47,6 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
   };
 
   componentDidMount = () => {
-    console.log('location->>> ');
     // this.props.onGenerateUrlParamsString(this.props.location.search.substring(1, this.props.location.search.length));
     // this.props.onGenerateFilterParamsString(this.props.location.search.substring(1, this.props.location.search.length));
     // this.props.onGenerateTable();
@@ -69,9 +68,15 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
       <div ref={'selector'}>
         {(() => {
           return (
-            <div id="style-7">
-
-
+            <div id="style-7" style={{
+              height: '100%',
+              width: '17%',
+              position: 'fixed',
+              /* padding-right: 5px; */
+              overflowX: 'hidden',
+              overflowY: 'scroll',
+              borderTop: '1px solid #ccc',
+            }}>
               <PanelGroup defaultActiveKey="0" accordion>
                 {(() => {
                   if (this.props.week_data) {
@@ -79,7 +84,7 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
                     var panelHeader = (
 
                       <div className="panel-heading">Tesco Week
-                        <span style={{color: "red"}}>*</span>&nbsp;<span className="accordion-toggle" style={{float: 'right', marginRight: '-6%'}}></span></div>
+                        <span style={{color: "red"}}>*</span>&nbsp;<span className="accordion-toggle" style={{float: 'right'}}></span></div>
                     );
                     return (
 
@@ -96,10 +101,11 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
 
                               {
                                 this.props.week_data[0].items.map(obj2 => {
-                                  console.log("Cascading Filter Inside map", obj2)
+                               //   console.log("Cascading Filter Inside map", obj2)
                                   finalCheckbox.push(
-                                    <Checkbox id={obj2.name }
-                                              label={obj2.name}
+                                    <Checkbox key={Date.now() + Math.random()}
+                                              id={obj2.name.toString()  }
+                                              label={obj2.name.toString() }
                                               style={{fontSize: '10px'}}
                                               checked={(() => {
                                                 return obj2.selected;
@@ -128,7 +134,6 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
 
                                               isDisabled={obj2.disabled}
                                               valid={true}
-                                              key={Date.now() + Math.random()}
                                     />
                                   )
 
@@ -138,15 +143,11 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
                               // for replacing enabled to top
                               let finalled = [];
                               finalCheckbox.map(obj => {
-                                {/*console.log(obj.props.checked);*/
-                                }
                                 if (!obj.props.isDisabled) {
                                   finalled.push(obj)
                                 }
                               });
                               finalCheckbox.map(obj => {
-                                {/*console.log(obj.props.checked);*/
-                                }
                                 if (obj.props.isDisabled) {
                                   finalled.push(obj)
                                 }
@@ -190,32 +191,9 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
                   );
                   return (
 
-                    <Panel header={panelHeader} eventKey={++key}>
+                    <Panel header={panelHeader} eventKey={++key} key={Date.now() + Math.random()}>
                       <div className="panel text-capitalize">
-                        {/*<div className="panel-heading">*/}
-                        {/*<input type="text" value={this.props.filterSearch}*/}
-                        {/*onChange={(e) => {*/}
-                        {/*// console.log(e);*/}
-                        {/*let search = e.target.value.toLowerCase();*/}
-                        {/*if (!search) return*/}
 
-                        {/*let parent = e.target.parentNode;*/}
-                        {/*while (parent.classList.contains('selector')) {*/}
-                        {/*parent = parent.parentNode;*/}
-                        {/*}*/}
-                        {/*parent = parent.parentNode;*/}
-                        {/*let inputText = parent.querySelectorAll(`input[name*=${search}]`);*/}
-                        {/*// console.log(inputText);*/}
-
-                        {/*// inputText.map(obj=>{*/}
-                        {/*//   obj.setAttribute('hidden')*/}
-                        {/*// })*/}
-
-                        {/*// for (let i = 0; i < inputText.length; i++) {*/}
-                        {/*//   inputText[i].setAttribute("hidden", true)*/}
-                        {/*// }*/}
-                        {/*}}/>*/}
-                        {/*</div>*/}
                         <div className="panel-body style-7"
                              style={{maxHeight: '250px', overflowX: 'hidden', fontSize: '9px'}}>
                           {item.items.map(obj => {
