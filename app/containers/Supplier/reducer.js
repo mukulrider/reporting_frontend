@@ -33,6 +33,8 @@ import {
   SAVE_STORE_PARAM,
   SUPPLIER_VIEW_KPI_SPINNER,
   BUBBLE_CHART_SPINNER,
+  BAR_CHART_SPINNER,
+  TABLE_SPINNER ,
 } from './constants';
 
 const initialState = fromJS({
@@ -217,6 +219,16 @@ function supplierReducer(state = initialState, action) {
     case BUBBLE_CHART_SPINNER:
       console.log("BUBBLE_CHART_SPINNER", action.bubbleChartSpinnerCheck);
       return state.set('bubbleChartSpinnerCheck', action.bubbleChartSpinnerCheck)
+
+    //SPINNER FOR BAR CHART
+    case BAR_CHART_SPINNER:
+      console.log("BAR_CHART_SPINNER", action.barChartSpinnerCheck);
+      return state.set('barChartSpinnerCheck', action.barChartSpinnerCheck)
+
+  //SPINNER FOR TABLE
+    case TABLE_SPINNER:
+      console.log("TABLE_SPINNER", action.tableChartSpinnerCheck);
+      return state.set('tableChartSpinnerCheck', action.tableChartSpinnerCheck)
 
 
     default:

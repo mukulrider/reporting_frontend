@@ -15,6 +15,7 @@ import makeSelectPromotion from './selectors';
 import messages from './messages';
 import './style.scss';
 import PieChart from 'components/PieChart';
+
 import PromoFilter from 'components/PromoFilter';
 import MultilinePromo from 'components/MultilinePromo';
 import 'react-bootstrap-table/dist/react-bootstrap-table.min.css';
@@ -237,6 +238,9 @@ export class Promotion extends React.PureComponent {
 
             </span>
             </Nav>
+
+
+
             {/* Promo KPI Boxes */}
 
             <div className="row" style={{textAlign: 'center',backgroundColor: "white",margin: "0%",borderLeft: "1px solid #e5e8ea",borderRight: "1px solid #e5e8ea",borderBottom: "1px solid #e5e8ea"}}>

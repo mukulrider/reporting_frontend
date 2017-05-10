@@ -39,12 +39,21 @@ import {
   WORST_INFO_FETCH_SUCCESS,
   SUPPLIER_INFO_CONSTANT,
   SUPPLIER_INFO_FETCH_SUCCESS,
+  TOP_SUPPLIER_INFO_CONSTANT,
+  TOP_SUPPLIER_INFO_FETCH_SUCCESS,
+  BOT_SUPPLIER_INFO_CONSTANT,
+  BOT_SUPPLIER_INFO_FETCH_SUCCESS,
   DRIVERS_INTERNAL_CONSTANT,
   DRIVERS_INTERNAL_FETCH_SUCCESS,
   DRIVERS_EXTERNAL_CONSTANT,
   DRIVERS_EXTERNAL_FETCH_SUCCESS,
   PRICE_KPI_CONSTANT,
   PRICE_KPI_FETCH_SUCCESS,
+  FILTERED_FLAG,
+  TOP_SELECTED_NAME,
+  BOT_SELECTED_NAME,
+  SUPPLIER_NAME,
+  TOP_BOT_FLAG
 
 
 } from './constants';
@@ -56,6 +65,11 @@ const initialState = fromJS({
   driver_param: 'internal',
   urlParamsString: '',
   weekurlParam: '',
+  filtered_flag: 'no',
+  top_name: 'None',
+  bot_name: 'None',
+  supplier_name: 'None',
+  //Initial Data
   overview_kpi_data: {
     "price": {
       "ACP": 0,
@@ -90,19 +104,18 @@ const initialState = fromJS({
   },
   overview_drivers_external_data: {
   "rainfall": {
-  "wow": 158.3783783784,
-    "yoy": 370.1639344262,
-    "avg": 1.434
+  "wow": "0",
+    "yoy": "0",
+    "avg": "0"
 },
   "temperature": {
-  "wow": 3.8414805122,
-    "yoy": 59.0095892372,
-    "avg": 11.11
+  "wow": "0",
+    "avg": "0"
 },
   "sunshine": {
-  "wow": -34.2677978606,
-    "yoy": -49.4037478705,
-    "avg": 1.782
+  "wow": "0",
+    "yoy": "0",
+    "avg": "0"
 }
 },
  kpi_boxes_data: {
@@ -149,7 +162,52 @@ const initialState = fromJS({
       'index': "0",
       "wow": "0"
     }
-  }
+  },
+  best_worst_data: {
+    "top_5": [
+      {
+        "name": "-----"
+      },
+      {
+        "name": "-----"
+      },
+      {
+        "name": "-----"
+      },
+      {
+        "name": "-----"
+      },
+      {
+        "name": "-----"
+      }
+    ],
+    "Choose_filters": "yes",
+    "bot_5": [
+      {
+        "name": "-----"
+      },
+      {
+        "name": "-----"
+      },
+      {
+        "name": "-----"
+      },
+      {
+        "name": "-----"
+      },
+      {
+        "name": "-----"
+      }
+    ]
+  },
+  worst_info_data: {
+
+    "fetch": "fail"
+  },
+  best_info_data: {
+
+    "fetch": "fail"
+  },
 });
 
 function executiveReducer(state = initialState, action) {
@@ -234,6 +292,18 @@ function executiveReducer(state = initialState, action) {
     case WORST_INFO_FETCH_SUCCESS:
       console.log("reducer WORST_INFO_FETCH_SUCCESS",action.data);
       return state.set('worst_info_data',action.data);
+    case TOP_SUPPLIER_INFO_CONSTANT:
+      console.log("reducer TOP_SUPPLIER_INFO_CONSTANT",action.data);
+      return state.set('top_supp_info',action.data);
+    case TOP_SUPPLIER_INFO_FETCH_SUCCESS:
+      console.log("reducer TOP_SUPPLIER_INFO_FETCH_SUCCESS",action.data);
+      return state.set('top_supp_info_data',action.data);
+    case BOT_SUPPLIER_INFO_CONSTANT:
+      console.log("reducer BOT_SUPPLIER_INFO_CONSTANT",action.data);
+      return state.set('bot_supp_info',action.data);
+    case BOT_SUPPLIER_INFO_FETCH_SUCCESS:
+      console.log("reducer BOT_SUPPLIER_INFO_FETCH_SUCCESS",action.data);
+      return state.set('bot_supp_info_data',action.data);
     case SUPPLIER_INFO_CONSTANT:
       console.log("reducer SUPPLIER_INFO_CONSTANT",action.data);
       return state.set('supp_info',action.data);
@@ -270,6 +340,21 @@ function executiveReducer(state = initialState, action) {
     case DRIVER_PARAM:
       console.log("reducer KPI_PARAM",action.data);
       return state.set('driver_param',action.data);
+    case FILTERED_FLAG:
+      console.log("reducer FILTERED_FLAG",action.data);
+      return state.set('filtered_flag',action.data);
+    case TOP_SELECTED_NAME:
+      console.log("reducer TOP_SELECTED_NAME",action.data);
+      return state.set('top_name',action.data);
+    case BOT_SELECTED_NAME:
+      console.log("reducer BOT_SELECTED_NAME",action.data);
+      return state.set('bot_name',action.data);
+    case SUPPLIER_NAME:
+      console.log("reducer SUPPLIER_NAME",action.data);
+      return state.set('supplier_name',action.data);
+    case TOP_BOT_FLAG:
+      console.log("reducer TOP_BOT_FLAG",action.data);
+      return state.set('top_bot_flag',action.data);
     default:
       return state;
   }

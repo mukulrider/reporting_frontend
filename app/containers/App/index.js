@@ -12,8 +12,6 @@
  */
 
 import React from 'react';
-import messages from './messages';
-import {FormattedMessage} from 'react-intl';
 import Footer from 'components/footer';
 import Header from 'components/header';
 import styles from './style.scss';
@@ -24,45 +22,39 @@ export default class App extends React.PureComponent { // eslint-disable-line re
     children: React.PropTypes.node,
   };
 
-  generateSlector = (selectArray) => {
-    return (
-      <select style={{width: '100px'}}>
-        {selectArray.map(obj => {
-          return (
-            <option key={Date.now() + Math.random()} value={obj}>{obj}</option>
-          )
-        })}
-      </select>
-    )
+  componentWillMount() {
+    // let getCookie;
+    // getCookie = (name) => {
+    //   const value = `; ${document.cookie}`;
+    //   const parts = value.split(`; ${name}=`);
+    //   if (parts.length === 2) return parts.pop().split(';').shift();
+    // };
+    // const token = getCookie('token');
+    // if (token && this.props.location.pathname.includes('login')) {
+    //   window.location = 'http://10.1.244.200:3000';
+    // }
+    // if (!token && !this.props.location.pathname.includes('login')) {
+    //   window.location = 'http://10.1.244.200:3000/login/';
+    // }
   };
 
   render() {
     return (
       <div>
-        {/*<nav className="navbar navbar-default">*/}
-          {/*<div className="container-fluid">*/}
-            {/*<div className="navbar-header">*/}
-              {/*<a className="navbar-brand" href="#"><FormattedMessage {...messages.header} /></a>*/}
-            {/*</div>*/}
-            {/*<ul className="nav navbar-nav">*/}
-              {/*<li className="active"><a href="#">Event*/}
-                {/*Name</a> {this.generateSlector(['Price Change Event1', 'Price Change Event 2'])}</li>*/}
-              {/*<li><a href="#">Store Format</a> {this.generateSlector(['Express', 'Main Estate'])}</li>*/}
-              {/*<li><a href="#">Start Date</a> <input type="date"/></li>*/}
-              {/*<li><a href="#">Number of Weeks</a> {this.generateSlector([4, 8, 13, 52, 'YTD'])}</li>*/}
-            {/*</ul>*/}
-          {/*</div>*/}
-        {/*</nav>*/}
-        <Header/>
-        <div className="container-fluid" style={{marginTop: '120px'}}>
+        <Header />
+        <div className="container-fluid" style={{ marginTop: '120px' }}>
           {React.Children.toArray(this.props.children)}
         </div>
-        <Footer footerLinks={[
-          {linkTitle: 'Executive View', linkHref: '/sales/executive'},
-          {linkTitle: 'Competitor View', linkHref: '/sales/competitor'},
-          {linkTitle: 'Promo View', linkHref: '/sales/promo'},
-          {linkTitle: 'Supplier View', linkHref: '/sales/supplier'},
-          ]}/>
+        <Footer
+          footerLinks={[
+          { linkTitle: 'Executive View', linkHref: '/sales/executive' },
+          { linkTitle: 'Competitor View', linkHref: '/sales/competitor' },
+          { linkTitle: 'Promo View', linkHref: '/sales/promo' },
+          { linkTitle: 'Supplier View', linkHref: '/sales/supplier' },
+          { linkTitle: 'Product View', linkHref: '/sales/product' },
+          { linkTitle: 'Daily Sales View', linkHref: '/sales/dailysales' },
+          ]}
+        />
       </div>
     );
   }

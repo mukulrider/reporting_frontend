@@ -37,6 +37,10 @@ import {
   WORST_INFO_FETCH_SUCCESS,
   SUPPLIER_INFO_CONSTANT,
   SUPPLIER_INFO_FETCH_SUCCESS,
+  TOP_SUPPLIER_INFO_CONSTANT,
+  TOP_SUPPLIER_INFO_FETCH_SUCCESS,
+  BOT_SUPPLIER_INFO_CONSTANT,
+  BOT_SUPPLIER_INFO_FETCH_SUCCESS,
   DRIVERS_INTERNAL_CONSTANT,
   DRIVERS_INTERNAL_FETCH_SUCCESS,
   DRIVERS_EXTERNAL_CONSTANT,
@@ -44,6 +48,11 @@ import {
   PRICE_KPI_CONSTANT,
   PRICE_KPI_FETCH_SUCCESS,
   DRIVER_PARAM,
+  FILTERED_FLAG,
+  TOP_SELECTED_NAME,
+  BOT_SELECTED_NAME,
+  SUPPLIER_NAME,
+  TOP_BOT_FLAG,
 } from './constants';
 
 export function defaultAction() {
@@ -201,7 +210,7 @@ export function BestWorstDataFetchSuccess(data)
 //For Best Info
 export function BestInfoData()
 {
-  console.log('actions.js BestInfoData BEST_WORST_CONSTANT');
+  console.log('actions.js BestInfoData BEST_INFO_CONSTANT');
   return {
     type: BEST_INFO_CONSTANT,
   };
@@ -253,6 +262,46 @@ export function SupplierInfoDataFetchSuccess(data)
     data,
   };
 }
+
+
+//Top Supplier Info
+
+export function TopSupplierInfoData()
+{
+  console.log('actions.js TopSupplierInfoData TOP_SUPPLIER_INFO_CONSTANT');
+  return {
+    type: TOP_SUPPLIER_INFO_CONSTANT,
+  };
+}
+
+export function TopSupplierInfoDataFetchSuccess(data)
+{
+  console.log('TopSupplierInfoDataFetchSuccess TOP_SUPPLIER_INFO_FETCH_SUCCESS actions',data)
+  return {
+    type: TOP_SUPPLIER_INFO_FETCH_SUCCESS,
+    data,
+  };
+}
+
+//Bot Supplier Info
+
+export function BotSupplierInfoData()
+{
+  console.log('actions.js BotSupplierInfoData BOT_SUPPLIER_INFO_CONSTANT');
+  return {
+    type: BOT_SUPPLIER_INFO_CONSTANT,
+  };
+}
+
+export function BotSupplierInfoDataFetchSuccess(data)
+{
+  console.log('BotSupplierInfoDataFetchSuccess BOT_SUPPLIER_INFO_FETCH_SUCCESS actions',data)
+  return {
+    type: BOT_SUPPLIER_INFO_FETCH_SUCCESS,
+    data,
+  };
+}
+
 
 //For Drivers Internal
 
@@ -413,3 +462,46 @@ export function WeekFilterParam(data)
 
 
 
+// For the top5/bot5 modals
+
+
+export function SaveFilteredFlag(data)
+{
+  console.log('SaveFilteredFlag = actions', data);
+  return {
+    type: FILTERED_FLAG,
+    data,
+  };
+}
+
+export function SaveTopName(data) {
+  console.log('SaveTopName = actions', data);
+  return {
+    type: TOP_SELECTED_NAME,
+    data,
+  };
+}
+
+export function SaveBotName(data) {
+  console.log('SaveBotName = actions', data);
+  return {
+    type: BOT_SELECTED_NAME,
+    data,
+  };
+}
+
+export function SaveSupplierName(data) {
+  console.log('SaveSupplierName = actions', data);
+  return {
+    type: SUPPLIER_NAME,
+    data,
+  };
+}
+
+export function SaveTopBotFlag(data) {
+  console.log('SaveSupplierName = actions', data);
+  return {
+    type: TOP_BOT_FLAG,
+    data,
+  };
+}

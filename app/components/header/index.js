@@ -1,3 +1,4 @@
+import Button from 'components/button';
 import React, { PropTypes, Component } from 'react';
 import classNames from 'classnames';
 import Link from '../link';
@@ -5,6 +6,7 @@ import Logo from '../logo';
 import RoundedIconButton from '../rounded_icon_button';
 import Grid from '../grid';
 import tesco from './../../assets/images/tesco.svg';
+
 
 function renderBackLink(backLink) {
   return backLink ?
@@ -46,10 +48,10 @@ class Header extends Component {
 
   static defaultProps = {
     links: [
-      { text: 'Reporting', icon: 'home', href: 'http://dvcmpweb00001uk.dev.global.tesco.org' },
-      { text: 'Ranging', icon: 'home', href: 'http://dvcmpweb00001uk.dev.global.tesco.org:81/ranging/negotiation' },
-      { text: 'Pricing', icon: 'home', href: 'http://dvcmpweb00001uk.dev.global.tesco.org:82/pricing/' },
-      { text: 'Pricing Scenario Tracker', icon: 'home', href: 'http://dvcmpweb00001uk.dev.global.tesco.org:82/pricing/scenario-tracker'},
+      { text: 'Login', icon: 'login', href: 'http://10.1.244.200:3000/login/' },
+      { text: 'Reporting', icon: 'reporting', href: 'http://10.1.244.200:3001/' },
+      { text: 'Pricing', icon: 'pricing', href: 'http://10.1.244.200:3002/pricing' },
+      { text: 'Ranging', icon: 'ranging', href: 'http://10.1.244.200:3003/ranging' },
       { text: 'Tesco.com', icon: 'home', href: 'http://www.tesco.com/' },
       { text: 'Contact us', icon: 'telephone', href: 'http://www.tesco.com/help/contact/' },
       { text: 'Help', icon: 'help', href: 'http://www.tesco.com/help/' }],
@@ -173,6 +175,31 @@ class Header extends Component {
               }
               <div className="ui-component__header__content--right">
                 <RoundedIconButton icon="menu" onClick={this.handleClick} label="Menu" />
+              </div>
+              <div>
+                {(() => {
+                  const getCookie = (name) => {
+                    const value = `; ${document.cookie}`;
+                    const parts = value.split(`; ${name}=`);
+                    if (parts.length === 2) {
+                      return parts.pop().split(';').shift();
+                    }
+                  };
+                  const token = getCookie('token');
+
+                  return token ?
+                    <div>
+                      <br/>
+                      <Button
+                        buttonType={'primary'}
+                        style={{ float: 'right' }}
+                        onClick={() => {
+                          console.log('loggingOut');
+                          document.cookie = 'token' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;Path=/;';
+                          window.location = 'http://10.1.244.200:3000/login/';
+                        }}
+                      >Logout</Button></div> : '';
+                })()};
               </div>
             </div>
           </Grid>

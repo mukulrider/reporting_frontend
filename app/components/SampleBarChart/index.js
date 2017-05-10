@@ -21,8 +21,8 @@ console.log("Inside the bar plot -=-=-=-=-====-=-=-=-",JSON.stringify(data));
     // let data = [{"parent_supplier":"Bob","profit_product":33},{"parent_supplier":"Robin","profit_product":12},{"parent_supplier":"Anne","profit_product":41},{"parent_supplier":"Mark","profit_product":16},{"parent_supplier":"Joe","profit_product":59},{"parent_supplier":"Eve","profit_product":38},{"parent_supplier":"Karen","profit_product":21},{"parent_supplier":"Kirsty","profit_product":25},{"parent_supplier":"Chris","profit_product":30},{"parent_supplier":"Lisa","profit_product":47},{"parent_supplier":"Tom","profit_product":5},{"parent_supplier":"Stacy","profit_product":20},{"parent_supplier":"Charles","profit_product":13},{"parent_supplier":"Mary","profit_product":29}];
 
 // set the dimensions and margins of the graph
-    let margin = {top: 20, right: 20, bottom: 30, left: 40},
-      width = 300 - margin.left - margin.right,
+    let margin = {top: 20, right: 20, bottom: 30, left: 150},
+      width = 350 - margin.left - margin.right,
       height = 300 - margin.top - margin.bottom;
 
 // set the ranges
@@ -67,6 +67,33 @@ console.log("Inside the bar plot -=-=-=-=-====-=-=-=-",JSON.stringify(data));
       .attr("y", function(d) { return y(d.parent_supplier); })
       .attr("height", y.bandwidth());
 
+    let wrap = (text, width) => {
+      text.each(function () {
+        let text = d3.select(this),
+          words = text.text().split(/\s+/).reverse(),
+          word,
+          line = [],
+          lineNumber = 0,
+          lineHeight = 1.1, // ems
+          y = text.attr("y"),
+          dy = parseFloat(text.attr("dy")),
+          tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+        console.log("water", text);
+        while (word = words.pop()) {
+          line.push(word);
+          tspan.text(line.join(" "));
+          if (tspan.node().getComputedTextLength() > width) {
+            line.pop();
+            tspan.text(line.join(" "));
+            line = [word];
+            tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+          }
+        }
+      });
+    }
+
+
+
     // add the x Axis
     svg.append("g")
       .attr("transform", "translate(0," + height + ")")
@@ -74,7 +101,9 @@ console.log("Inside the bar plot -=-=-=-=-====-=-=-=-",JSON.stringify(data));
 
     // add the y Axis
     svg.append("g")
-      .call(d3.axisLeft(y));
+      .call(d3.axisLeft(y))
+      .selectAll(".tick text")
+      .call(wrap, margin.left + 10);
 
 
 

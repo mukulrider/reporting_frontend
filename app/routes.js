@@ -118,6 +118,26 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
+      path: '/sales/dailysales',
+      name: 'dailySales',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/DailySales/reducer'),
+          import('containers/DailySales/sagas'),
+          import('containers/DailySales'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('dailySales', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

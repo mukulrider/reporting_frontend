@@ -46,6 +46,8 @@ import {
   generateCheckedList,
   supplierViewKpiSpinnerCheckSuccess,
   bubbleChartSpinnerCheckSuccess,
+  barChartSpinnerCheckSuccess,
+  tableChartSpinnerCheckSuccess,
 
 } from './actions';
 import styles from './style.scss';
@@ -145,7 +147,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
         <div className="pageTitle" style={{width: '78%', float: 'right'}}>SUPPLIER VIEW</div>
 
         {(() => {
-          if (this.props.supplier.supplierViewKpiSpinner != 1 && this.props.supplier.bubbleChartSpinnerCheck != 1) {
+          if (this.props.supplier.supplierViewKpiSpinner != 1 && this.props.supplier.supplierViewKpiSpinner == 11) {
             return (
               <div className="row spinnerPosition"><Spinner /><h2>Please Wait a Moment....!</h2></div>
             )
@@ -185,6 +187,11 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                          onGenerateTable={this.props.onGenerateTable}
                                          onFetchGraph={this.props.onFetchGraph}
 
+                                         barChartSpinnerCheck={this.props.barChartSpinnerCheckSuccess}
+                                         bubbleChartSpinnerCheck={this.props.bubbleChartSpinnerCheckSuccess}
+                                         tableChartSpinnerCheck={this.props.tableChartSpinnerCheckSuccess}
+                                         supplierViewKpiSpinnerCheck={this.props.supplierViewKpiSpinnerCheckSuccess}
+
 
                           // onGenerateFilterParamsString={this.props.onGenerateFilterParamsString}
                           // onGenerateUrlParamsData={this.props.onGenerateUrlParamsData}
@@ -213,6 +220,10 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                            className="tabsCustom">
                         <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
                           this.setState({activeKey1: "1"});
+                          this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                          this.props.barChartSpinnerCheckSuccess(0);
+                          this.props.bubbleChartSpinnerCheckSuccess(0);
+                          this.props.tableChartSpinnerCheckSuccess(0);
                           dataWeekUrlParams = "week_flag=1";
                           this.props.onSaveWeekParam(dataWeekUrlParams);
                           this.props.onKPIBox();
@@ -227,6 +238,10 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                         <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
                           this.setState({activeKey1: "2"});
+                          this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                          this.props.barChartSpinnerCheckSuccess(0);
+                          this.props.bubbleChartSpinnerCheckSuccess(0);
+                          this.props.tableChartSpinnerCheckSuccess(0);
                           dataWeekUrlParams = "week_flag=2";
                           this.props.onSaveWeekParam(dataWeekUrlParams);
                           this.props.onKPIBox();
@@ -240,6 +255,10 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                         <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
                           this.setState({activeKey1: "3"});
+                          this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                          this.props.barChartSpinnerCheckSuccess(0);
+                          this.props.bubbleChartSpinnerCheckSuccess(0);
+                          this.props.tableChartSpinnerCheckSuccess(0);
                           dataWeekUrlParams = "week_flag=3";
                           this.props.onSaveWeekParam(dataWeekUrlParams);
                           this.props.onKPIBox();
@@ -252,6 +271,10 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                         }}><span className="tab_label">Last 13 weeks</span></NavItem>
                         <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
                           this.setState({activeKey1: "4"});
+                          this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                          this.props.barChartSpinnerCheckSuccess(0);
+                          this.props.bubbleChartSpinnerCheckSuccess(0);
+                          this.props.tableChartSpinnerCheckSuccess(0);
                           dataWeekUrlParams = "week_flag=4";
                           this.props.onSaveWeekParam(dataWeekUrlParams);
                           this.props.onKPIBox();
@@ -265,6 +288,10 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                         <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
                           this.setState({activeKey1: "5"});
+                          this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                          this.props.barChartSpinnerCheckSuccess(0);
+                          this.props.bubbleChartSpinnerCheckSuccess(0);
+                          this.props.tableChartSpinnerCheckSuccess(0);
                           dataWeekUrlParams = "week_flag=5";
                           this.props.onSaveWeekParam(dataWeekUrlParams);
                           this.props.onKPIBox();
@@ -282,240 +309,261 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                              className="tabsCustom">
                           <NavItem eventKey="1" className="tabsCustomList" onClick={() => {
                             this.setState({activeKey2: "1"});
+                            this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                            this.props.barChartSpinnerCheckSuccess(0);
                             kpiParams = "kpi_type=Value";
                             this.props.onSaveKPIParam(kpiParams);
                             this.props.onKPIBox();
-                            this.props.onFetchGraph();
-                            this.props.onGenerateTable();
                             this.props.ontopBottomChart();
                           }}><span className="tab_label">Value</span>
                           </NavItem>
 
                           <NavItem eventKey="2" className="tabsCustomList" onClick={() => {
                             this.setState({activeKey2: "2"});
+                            this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                            this.props.barChartSpinnerCheckSuccess(0);
                             kpiParams = "kpi_type=Volume";
                             this.props.onSaveKPIParam(kpiParams);
                             this.props.onKPIBox();
-                            this.props.onFetchGraph();
-                            this.props.onGenerateTable();
                             this.props.ontopBottomChart();
                           }}><span className="tab_label">Volume</span></NavItem>
 
                           <NavItem eventKey="3" className="tabsCustomList" onClick={() => {
                             this.setState({activeKey2: "3"});
+                            this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                            this.props.barChartSpinnerCheckSuccess(0);
                             kpiParams = "kpi_type=COGS";
                             this.props.onSaveKPIParam(kpiParams);
                             this.props.onKPIBox();
-                            this.props.onFetchGraph();
-                            this.props.onGenerateTable();
                             this.props.ontopBottomChart();
                           }}><span className="tab_label">COGS</span></NavItem>
 
                           <NavItem eventKey="4" className="tabsCustomList" onClick={() => {
                             this.setState({activeKey2: "4"});
+                            this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                            this.props.barChartSpinnerCheckSuccess(0);
                             kpiParams = "kpi_type=CGM";
                             this.props.onSaveKPIParam(kpiParams);
                             this.props.onKPIBox();
-                            this.props.onFetchGraph();
-                            this.props.onGenerateTable();
                             this.props.ontopBottomChart();
                           }}><span className="tab_label">CGM</span></NavItem>
 
                           <NavItem eventKey="5" className="tabsCustomList" onClick={() => {
                             this.setState({activeKey2: "5"});
+                            this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                            this.props.barChartSpinnerCheckSuccess(0);
                             kpiParams = "kpi_type=ASP";
                             this.props.onSaveKPIParam(kpiParams);
                             this.props.onKPIBox();
-                            this.props.onFetchGraph();
-                            this.props.onGenerateTable();
                             this.props.ontopBottomChart();
                           }}><span className="tab_label">ASP</span></NavItem>
 
                           <NavItem eventKey="6" className="tabsCustomList" onClick={() => {
                             this.setState({activeKey2: "6"});
+                            this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                            this.props.barChartSpinnerCheckSuccess(0);
                             kpiParams = "kpi_type=Supp_Fund";
                             this.props.onSaveKPIParam(kpiParams);
                             this.props.onKPIBox();
-                            this.props.onFetchGraph();
-                            this.props.onGenerateTable();
                             this.props.ontopBottomChart();
                           }}><span className="tab_label">Supplier Funding(exc VAT)</span></NavItem>
 
                           <NavItem eventKey="7" className="tabsCustomList" onClick={() => {
                             this.setState({activeKey2: "7"});
+                            this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                            this.props.barChartSpinnerCheckSuccess(0);
                             kpiParams = "kpi_type=SKU";
                             this.props.onSaveKPIParam(kpiParams);
                             this.props.onKPIBox();
-                            this.props.onFetchGraph();
-                            this.props.onGenerateTable();
                             this.props.ontopBottomChart();
                           }}><span className="tab_label">SKUs</span></NavItem>
 
                         </Nav>
                       </div>
 
-                      <div className="row" style={{textAlign: 'center'}}>
-                        <div className="col-xs-6" style={{
-                          textAlign: 'center',
-                          backgroundColor: "white",
-                          margin: "0%",
-                          width: '41.7%',
-                          marginBottom: '4%',
-                          marginTop: '3%',
-                          borderLeft: "1px solid #e5e8ea",
-                          borderTop: "1px solid #e5e8ea",
-                          borderRight: "1px solid #e5e8ea",
-                          borderBottom: "1px solid #e5e8ea"
-                        }}>
-                          <Panel>
-                            <h4 className="pageModuleMainTitle"> Total Sales </h4>
-
-                            <div className="col-xs-6">
-
-                              <h4>  {this.props.supplier.reducer1.sales} </h4>
-                            </div>
-                            <div className="col-xs-6">
-                              <h4> LFL: {this.props.supplier.reducer1.sales_lfl} </h4>
-                            </div>
-                            <div className="row">
-                              <div className="panel-body">
-                                <div className="col-xs-4">
-                                  {/*<div className="panel-body">*/}
-                                  <h4> {this.props.supplier.reducer1.sales_var_week}  </h4>
-
-                                  <h4> WoW </h4>
-
-                                  {/*</div>*/}
-                                </div>
-                                <div className="col-xs-4">
-                                  {/*<div className="panel-body">*/}
-                                  <h4> {this.props.supplier.reducer1.sales_var_year} % </h4>
-                                  <h4> LFL </h4>
-
-                                  {/*</div>*/}
-                                </div>
-                                <div className="col-xs-4">
-                                  {/*<div className="panel-body">*/}
-                                  <h4>  {this.props.supplier.reducer1.sales_var_year_lfl} % </h4>
-                                  <h4> YOY LFL </h4>
-                                  {/*</div>*/}
-                                </div>
-                              </div>
-                            </div>
-
-                          </Panel>
-                        </div>
-                        <div className="col-xs-6 panel-body marginClass" style={{
-                          textAlign: 'center',
-                          borderTop: "1px solid #e5e8ea",
-                          marginTop: '3%',
-                          float: 'right',
-                          backgroundColor: "white",
-                          margin: "0%",
-                          borderLeft: "1px solid #e5e8ea",
-                          borderRight: "1px solid #e5e8ea",
-                          borderBottom: "1px solid #e5e8ea"
-                        }}>
-                          <Panel>
-                            <h4 className="pageModuleMainTitle"> Contribution to Growth </h4>
-
-                            <div className="row">
-                              <div className="col-xs-6">
-                              </div>
-                              <div className="col-xs-6">
-                              </div>
-                            </div>
-                            <div className="row">
-                              {/*<div className="panel-body">*/}
-                              <div className="col-xs-4">
-                                {/*<div className="panel-body">*/}
-                                <div>
-
-                                </div>
-                                <h4> {this.props.supplier.reducer1.sales_growth_wow_1}
-                                  of {this.props.supplier.reducer1.sales_growth_wow_2}  </h4>
-                                <h4>WoW</h4>
-                                {/*</div>*/}
-                              </div>
-                              <div className="col-xs-4">
-                                {/*<div className="panel-body">*/}
-
-                                <h4> {this.props.supplier.reducer1.sales_growth_yoy_1} %
-                                  of {this.props.supplier.reducer1.sales_growth_yoy_2} % </h4>
-                                <h4>YoY</h4>
-                                {/*</div>*/}
-                              </div>
-                              <div className="col-xs-4">
-                                {/*<div className="panel-body">*/}
-
-                                <h4> {this.props.supplier.reducer1.sales_growth_yoy_lfl_1} %
-                                  of {this.props.supplier.reducer1.sales_growth_yoy_lfl_2} % </h4>
-                                <h4>YoY LFL</h4>
-                                {/*</div>*/}
-                              </div>
-                              {/*</div>*/}
-                            </div>
-                          </Panel>
-                        </div>
-
-                      </div>
-
                       <div className="row">
-                        <panel>
-                          <div className="col-xs-5 panel-body" style={{
-                            textAlign: 'center',
-                            borderTop: "1px solid #e5e8ea",
-                            backgroundColor: "white",
-                            margin: "0%",
-                            borderLeft: "1px solid #e5e8ea",
-                            borderRight: "1px solid #e5e8ea",
-                            borderBottom: "1px solid #e5e8ea"
-                          }}>
-                            <h4 className="pageModuleMainTitle"> Supplier Importance to category</h4>
-                            {(() => {
-                              if (this.props.supplier.reducer1.supp_imp_cat_sales) {
+                        {(() => {
+                          if (this.props.supplier.supplierViewKpiSpinner != 1) {
+                            return (
+                              <div className="row spinnerPosition spinnerPositionFix"><Spinner /><h2>Please Wait a Moment....!</h2></div>
+                            )
+                          } else {
+                            return (
+                              <div>
+                                <div className="row" style={{textAlign: 'center'}}>
+                                  <div className="col-xs-6" style={{
+                                    textAlign: 'center',
+                                    backgroundColor: "white",
+                                    margin: "0%",
+                                    width: '41.7%',
+                                    marginBottom: '4%',
+                                    marginTop: '3%',
+                                    borderLeft: "1px solid #e5e8ea",
+                                    borderTop: "1px solid #e5e8ea",
+                                    borderRight: "1px solid #e5e8ea",
+                                    borderBottom: "1px solid #e5e8ea"
+                                  }}>
+                                    <Panel>
+                                      <h4 className="pageModuleMainTitle"> Total Sales </h4>
 
-                                return (
-                                  <div style={{float:"right"}}>
-                                    <GaugeChart2 data={[this.props.supplier.reducer1.supp_imp_cat_sales]} id="gauge1" />
+                                      <div className="col-xs-6">
+
+                                        <h4
+                                          className="panel-heading tesco-heading">  {this.props.supplier.reducer1.sales} </h4>
+                                      </div>
+                                      <div className="col-xs-6">
+                                        <h4 className="panel-heading tesco-heading">
+                                          LFL: {this.props.supplier.reducer1.sales_lfl} </h4>
+                                      </div>
+                                      <div className="row">
+                                        <div className="panel-body">
+                                          <div className="col-xs-4">
+                                            {/*<div className="panel-body">*/}
+                                            <h4> {this.props.supplier.reducer1.sales_var_week}  </h4>
+
+                                            <h4><b> {'WoW'} </b></h4>
+
+                                            {/*</div>*/}
+                                          </div>
+                                          <div className="col-xs-4">
+                                            {/*<div className="panel-body">*/}
+                                            <h4> {this.props.supplier.reducer1.sales_var_year} % </h4>
+                                            <h4><b> {'LFL'} </b></h4>
+
+                                            {/*</div>*/}
+                                          </div>
+                                          <div className="col-xs-4">
+                                            {/*<div className="panel-body">*/}
+                                            <h4>  {this.props.supplier.reducer1.sales_var_year_lfl} % </h4>
+                                            <h4><b>{'YOY LFL'}</b></h4>
+                                            {/*</div>*/}
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                    </Panel>
+
                                   </div>
-                                )
-                              }
-                            })()}
 
-                          </div>
-                          <div className="col-xs-5 panel-body leftPosition" style={{
-                            textAlign: 'center',
-                            left: '-3%',
-                            width: '51%',
-                            borderTop: "1px solid #e5e8ea",
-                            left: '-8%',
-                            float: 'right',
-                            backgroundColor: "white",
-                            margin: "0%",
-                            borderLeft: "1px solid #e5e8ea",
-                            borderRight: "1px solid #e5e8ea",
-                            borderBottom: "1px solid #e5e8ea"
-                          }}>
-                            <h4 className="pageModuleMainTitle"> Category Importance to Supplier </h4>
-                            {(() => {
-                              if (this.props.supplier.reducer1.cat_imp_supp_sales) {
+                                  <div className="col-xs-6 marginClass" style={{
+                                    textAlign: 'center',
+                                    borderTop: "1px solid #e5e8ea",
+                                    marginTop: '3%',
+                                    float: 'right',
+                                    backgroundColor: "white",
+                                    margin: "0%",
+                                    borderLeft: "1px solid #e5e8ea",
+                                    borderRight: "1px solid #e5e8ea",
+                                    borderBottom: "1px solid #e5e8ea"
+                                  }}>
+                                    <Panel>
+                                      <h4 className="pageModuleMainTitle"> Contribution to Growth </h4>
 
-                                return (
-                                  <GaugeChart2 data={[this.props.supplier.reducer1.cat_imp_supp_sales]} id="gauge2"/>
-                                )
-                              }
-                            })()}
-                            {/*<SampleBarChart/>*/}
-                          </div>
-                        </panel>
+                                      <div className="row">
+                                        <div className="col-xs-6">
+                                        </div>
+                                        <div className="col-xs-6">
+                                        </div>
+                                      </div>
+                                      <div className="row">
+                                        {/*<div className="panel-body">*/}
+                                        <div className="col-xs-4">
+                                          {/*<div className="panel-body">*/}
+                                          <div>
+
+                                          </div>
+                                          <h4> {this.props.supplier.reducer1.sales_growth_wow_1}
+                                            of {this.props.supplier.reducer1.sales_growth_wow_2}  </h4>
+                                          <h4><b>{'WoW'}</b></h4>
+                                          {/*</div>*/}
+                                        </div>
+                                        <div className="col-xs-4">
+                                          {/*<div className="panel-body">*/}
+
+                                          <h4> {this.props.supplier.reducer1.sales_growth_yoy_1} %
+                                            of {this.props.supplier.reducer1.sales_growth_yoy_2} % </h4>
+                                          <h4><b>{'YoY'}</b></h4>
+                                          {/*</div>*/}
+                                        </div>
+                                        <div className="col-xs-4">
+                                          {/*<div className="panel-body">*/}
+
+                                          <h4> {this.props.supplier.reducer1.sales_growth_yoy_lfl_1} %
+                                            of {this.props.supplier.reducer1.sales_growth_yoy_lfl_2} % </h4>
+                                          <h4><b>{'YoY LFL'}</b></h4>
+                                          {/*</div>*/}
+                                        </div>
+                                        {/*</div>*/}
+                                      </div>
+                                    </Panel>
+                                  </div>
+
+
+                                </div>
+                                <panel>
+                                  <div className="col-xs-5 panel-body" style={{
+                                    textAlign: 'center',
+                                    borderTop: "1px solid #e5e8ea",
+                                    backgroundColor: "white",
+                                    margin: "0%",
+                                    borderLeft: "1px solid #e5e8ea",
+                                    borderRight: "1px solid #e5e8ea",
+                                    borderBottom: "1px solid #e5e8ea"
+                                  }}>
+                                    <h4 className="pageModuleMainTitle"> Supplier Importance to category</h4>
+                                    {(() => {
+                                      if (this.props.supplier.reducer1.supp_imp_cat_sales) {
+
+                                        return (
+                                          <div style={{float: "right"}}>
+                                            <GaugeChart2 data={[this.props.supplier.reducer1.supp_imp_cat_sales]}
+                                                         id="gauge1"/>
+                                          </div>
+                                        )
+                                      }
+                                    })()}
+                                  </div>
+                                  <div className="col-xs-5 panel-body leftPosition" style={{
+                                    textAlign: 'center',
+                                    left: '-3%',
+                                    width: '51%',
+                                    borderTop: "1px solid #e5e8ea",
+                                    left: '-8%',
+                                    float: 'right',
+                                    backgroundColor: "white",
+                                    margin: "0%",
+                                    borderLeft: "1px solid #e5e8ea",
+                                    borderRight: "1px solid #e5e8ea",
+                                    borderBottom: "1px solid #e5e8ea"
+                                  }}>
+                                    <h4 className="pageModuleMainTitle"> Category Importance to Supplier </h4>
+                                    {(() => {
+                                      if (this.props.supplier.reducer1.cat_imp_supp_sales) {
+
+                                        return (
+                                          <GaugeChart2 data={[this.props.supplier.reducer1.cat_imp_supp_sales]}
+                                                       id="gauge2"/>
+                                        )
+                                      }
+                                    })()}
+                                    {/*<SampleBarChart/>*/}
+                                  </div>
+                                </panel>
+                              </div>
+                            )
+                          }
+                        })()}
+
                       </div>
+
+                      <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
 
                       <div className="row">
                         <div>
                           <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect}>
                             <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
                               this.setState({activeKey3: "1"});
+                              this.props.barChartSpinnerCheckSuccess(0);
                               TopBottomKpi = "top_bottom_kpi=part_by_val";
                               this.props.onSaveTopBottomKpi(TopBottomKpi);
                               this.props.ontopBottomChart();
@@ -524,6 +572,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                             <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
                               this.setState({activeKey3: "2"});
+                              this.props.barChartSpinnerCheckSuccess(0);
                               TopBottomKpi = "top_bottom_kpi=value_growth";
                               this.props.onSaveTopBottomKpi(TopBottomKpi);
                               this.props.ontopBottomChart();
@@ -531,40 +580,58 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                             <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
                               this.setState({activeKey3: "3"});
+                              this.props.barChartSpinnerCheckSuccess(0);
                               TopBottomKpi = "top_bottom_kpi=value_contribution";
                               this.props.onSaveTopBottomKpi(TopBottomKpi);
                               this.props.ontopBottomChart();
                             }}><span className="tab_label">Contribution to Growth</span></NavItem>
                           </Nav>
                         </div>
+
+
                         <panel>
-                          <div className="col-xs-6 panel-body">
+                          <div className="col-xs-5 panel-body">
                             <h4 className="pageModuleMainTitle"> Top Suppliers</h4>
                             {(() => {
-                              if (this.props.supplier.topBotData) {
+                              if (this.props.supplier.topBotData && this.props.supplier.barChartSpinnerCheck != 0) {
 
                                 return (
+                                  <div style={{border: '1px solid #e5e8ea'}}>
                                   <SampleBarChart data={[this.props.supplier.topBotData.top_chart]}
                                                   id="suppliertopchart"/>
+                                  </div>
+                                )
+                              } else {
+                                return (
+                                  <div className="row spinnerPositionBarChart"><Spinner /><h2>Please Wait a
+                                    Moment....!</h2></div>
                                 )
                               }
                             })()}
 
                           </div>
-                          <div className="col-xs-6 panel-body">
+                          <div className="col-xs-6 panel-body bottomSupplierFix">
                             <h4 className="pageModuleMainTitle"> Bottom Suppliers </h4>
                             {(() => {
-                              if (this.props.supplier.topBotData) {
+                              if (this.props.supplier.topBotData && this.props.supplier.barChartSpinnerCheck != 0) {
 
                                 return (
+                                  <div style={{border: '1px solid #e5e8ea'}}>
                                   <SampleBarChart data={[this.props.supplier.topBotData.bottom_chart]}
                                                   id="supplierbotchart"/>
+                                  </div>
+                                )
+                              } else {
+                                return (
+                                  <div className="row spinnerPositionBarChart"><Spinner /><h2>Please Wait a
+                                    Moment....!</h2></div>
                                 )
                               }
                             })()}
                             {/*<SampleBarChart/>*/}
                           </div>
                         </panel>
+
                       </div>
 
                       <div className="row" style={{marginLeft: "0px", marginRight: "0px"}}>
@@ -574,6 +641,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                             <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
                               this.setState({activeKey4: "1"});
                               this.props.bubbleChartSpinnerCheckSuccess(0);
+                              this.props.tableChartSpinnerCheckSuccess(0);
                               dataStoreUrlParams = "store_type=Main Estate";
                               this.props.onSaveStoreParam(dataStoreUrlParams);
                               this.props.onFetchGraph();
@@ -582,6 +650,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                             <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
                               this.setState({activeKey4: "2"});
                               this.props.bubbleChartSpinnerCheckSuccess(0);
+                              this.props.tableChartSpinnerCheckSuccess(0);
                               dataStoreUrlParams = "store_type=Express";
                               this.props.onSaveStoreParam(dataStoreUrlParams);
                               this.props.onFetchGraph();
@@ -598,7 +667,8 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                           {(() => {
                             if (this.props.supplier.bubbleChartSpinnerCheck != 1) {
                               return (
-                                <div className="col-xs-12 col-md-8 spinnerPositionWaterfall"><Spinner /><h2>Please Wait a
+                                <div className="col-xs-12 col-md-8 spinnerPositionWaterfall"><Spinner /><h2>Please Wait
+                                  a
                                   Moment....!</h2></div>
                               )
                             } else {
@@ -664,6 +734,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                              valid={true}
                                              onChange={() => {
                                                this.props.bubbleChartSpinnerCheckSuccess(0);
+                                               this.props.tableChartSpinnerCheckSuccess(0);
                                                dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";
                                                this.props.onSavePFilterParam(dataPerformanceUrlParams);
 
@@ -700,6 +771,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                              valid={true}
                                              onChange={() => {
                                                this.props.bubbleChartSpinnerCheckSuccess(0);
+                                               this.props.tableChartSpinnerCheckSuccess(0);
                                                dataPerformanceUrlParams = "performance_quartile=Low CPS/High Profit";
                                                this.props.onSavePFilterParam(dataPerformanceUrlParams);
                                                this.props.onFetchGraph();
@@ -740,6 +812,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                              })()}
                                              onChange={() => {
                                                this.props.bubbleChartSpinnerCheckSuccess(0);
+                                               this.props.tableChartSpinnerCheckSuccess(0);
                                                dataPerformanceUrlParams = "performance_quartile=Med CPS/Med Profit";
                                                this.props.onSavePFilterParam(dataPerformanceUrlParams);
                                                this.props.onFetchGraph();
@@ -778,6 +851,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                              })()}
                                              onChange={() => {
                                                this.props.bubbleChartSpinnerCheckSuccess(0);
+                                               this.props.tableChartSpinnerCheckSuccess(0);
                                                dataPerformanceUrlParams = "performance_quartile=High CPS/High Profit"
                                                this.props.onSavePFilterParam(dataPerformanceUrlParams);
                                                this.props.onFetchGraph();
@@ -809,6 +883,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                              })()}
                                              onChange={() => {
                                                this.props.bubbleChartSpinnerCheckSuccess(0);
+                                               this.props.tableChartSpinnerCheckSuccess(0);
                                                dataPerformanceUrlParams = "performance_quartile=High CPS/Low Profit"
                                                this.props.onSavePFilterParam(dataPerformanceUrlParams);
                                                this.props.onFetchGraph();
@@ -833,16 +908,16 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                           <div>
                             {/*<div className="col-xs-12 col-xs-5" style={{marginBottom: "10px", marginLeft: "-14px"}}>*/}
 
-                              {/*<InputField type={'string'}*/}
-                                          {/*placeholder="Search for Product Description ..."*/}
-                                          {/*dataPageUrlParams="page=1"*/}
-                                          {/*value={this.props.textBoxQueryString}*/}
-                                          {/*onChange={(e) => {*/}
-                                            {/*this.props.onGenerateTextBoxQueryString(e);*/}
-                                            {/*this.props.onGenerateTable();*/}
-                                            {/*this.props.onSavePageParam(dataPageUrlParams);*/}
-                                          {/*}}*/}
-                              {/*/>*/}
+                            {/*<InputField type={'string'}*/}
+                            {/*placeholder="Search for Product Description ..."*/}
+                            {/*dataPageUrlParams="page=1"*/}
+                            {/*value={this.props.textBoxQueryString}*/}
+                            {/*onChange={(e) => {*/}
+                            {/*this.props.onGenerateTextBoxQueryString(e);*/}
+                            {/*this.props.onGenerateTable();*/}
+                            {/*this.props.onSavePageParam(dataPageUrlParams);*/}
+                            {/*}}*/}
+                            {/*/>*/}
                             {/*</div>*/}
 
                             <table className="table table-hover table-bordered" width="100%">
@@ -864,35 +939,35 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                               {(() => {
 
-                                if (this.props.supplier.data) {
+                                if (this.props.supplier.data && (this.props.supplier.tableChartSpinnerCheck == 1)) {
                                   console.log('this.props.supplier.data.table_data', this.props.supplier.data.table_data);
                                   return this.props.supplier.data.table_data.map(obj => {
                                     return (
                                       <tr key={Math.random() + Date.now()}>
                                         {/**/}
                                         {/*<td style={{textAlign: "center"}}>*/}
-                                          {/*<Checkbox isDisabled={false} id={Math.random() + Date.now()}*/}
-                                                    {/*onChange={(e) => {*/}
-                                                      {/*this.inputUpdate(e.target.checked, obj.base_product_number)*/}
-                                                      {/*this.tableProductUpdate(e.target.checked, obj.base_product_number);*/}
+                                        {/*<Checkbox isDisabled={false} id={Math.random() + Date.now()}*/}
+                                        {/*onChange={(e) => {*/}
+                                        {/*this.inputUpdate(e.target.checked, obj.base_product_number)*/}
+                                        {/*this.tableProductUpdate(e.target.checked, obj.base_product_number);*/}
 
-                                                    {/*}}*/}
-                                                    {/*checked={(() => {*/}
-                                                      {/*let checked = false;*/}
-                                                      {/*console.log('obj.base_product_number.toString()', obj.base_product_number.toString());*/}
-                                                      {/*let base_product_number = obj.base_product_number.toString();*/}
-                                                      {/*console.log('base_product_number', base_product_number);*/}
-                                                      {/*console.log('this.props.supplier.checkedList', this.props.supplier.checkedList);*/}
-                                                      {/*this.props.supplier.checkedList.map(obj2 => {*/}
-                                                        {/*if (obj2.checked) {*/}
-                                                          {/*if (obj2.productId == base_product_number) {*/}
-                                                            {/*checked = true*/}
-                                                          {/*}*/}
-                                                        {/*}*/}
-                                                      {/*});*/}
-                                                      {/*return checked*/}
-                                                    {/*})()}*/}
-                                                    {/*valid={true}/>*/}
+                                        {/*}}*/}
+                                        {/*checked={(() => {*/}
+                                        {/*let checked = false;*/}
+                                        {/*console.log('obj.base_product_number.toString()', obj.base_product_number.toString());*/}
+                                        {/*let base_product_number = obj.base_product_number.toString();*/}
+                                        {/*console.log('base_product_number', base_product_number);*/}
+                                        {/*console.log('this.props.supplier.checkedList', this.props.supplier.checkedList);*/}
+                                        {/*this.props.supplier.checkedList.map(obj2 => {*/}
+                                        {/*if (obj2.checked) {*/}
+                                        {/*if (obj2.productId == base_product_number) {*/}
+                                        {/*checked = true*/}
+                                        {/*}*/}
+                                        {/*}*/}
+                                        {/*});*/}
+                                        {/*return checked*/}
+                                        {/*})()}*/}
+                                        {/*valid={true}/>*/}
                                         {/*</td>*/}
                                         <td style={{
                                           textAlign: 'center',
@@ -913,6 +988,12 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                       </tr>
                                     )
                                   })
+                                } else {
+                                  return (
+                                    <tr>
+                                      <td className="text-center" colSpan="8"><Spinner />Please Wait a Moment....!</td>
+                                    </tr>
+                                  )
                                 }
 
                               })()}
@@ -956,81 +1037,92 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                         </Panel>
 
 
-
                       </div>
 
                     </div>
                   </div>
                 </div>
+
               </div>
 
             )
           }
         })()}
 
-      </div>
+          </div>
 
 
-    );
-  }
-}
+          );
+          }
+        }
 
 
-Supplier.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
+        Supplier.propTypes = {
+        dispatch: PropTypes.func.isRequired,
+      };
 
 
-const mapStateToProps = createStructuredSelector({
-  supplier: makeSelectSupplier(),
-});
+        const mapStateToProps = createStructuredSelector({
+        supplier: makeSelectSupplier(),
+      });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
+        function mapDispatchToProps(dispatch) {
+        return {
+        dispatch,
 
-    onGenerateTable: (e) => dispatch(generateTable(e)),
-    supplierViewKpiSpinnerCheckSuccess: (e) => dispatch(supplierViewKpiSpinnerCheckSuccess(e)),
-    bubbleChartSpinnerCheckSuccess: (e) => dispatch(bubbleChartSpinnerCheckSuccess(e)),
-    onFetchGraph: (e) => dispatch(fetchGraph(e)),
-    onSavePFilterParam: (e) => dispatch(SavePFilterParam(e)),
-    onSaveBubbleParam: (e) => dispatch(SaveBubbleParam(e)),
-    onSaveBubbleParam2: (e) => dispatch(SaveBubbleParam2(e)),
-    onSavePageParam: (e) => dispatch(SavePageParam(e)),
-    onRadioChecked: (e) => dispatch(RadioChecked(e)),
-    onSaveStoreParam: (e) => dispatch(SaveStoreParam(e)),
-    onGenerateTextBoxQueryString: (e) => dispatch(generateTextBoxQueryString(e.target.value)),
+        onGenerateTable: (e) => dispatch(generateTable(e)),
+        supplierViewKpiSpinnerCheckSuccess: (e) => dispatch(supplierViewKpiSpinnerCheckSuccess(e)),
 
-    onKPIBox: (e) => {
-      return dispatch(kpibox(e));
-    },
-    onGetFilter: (e) => dispatch(getWeekFilter(e)),
-    ontopBottomChart: (e) => {
-      return dispatch(topBottomChart(e));
-    },
-    onSaveWeekParam: (e) => {
-      return dispatch(SaveWeekParam(e));
-    },
-    onSaveKPIParam: (e) => {
-      return dispatch(SaveKPIParam(e));
-    },
-    onKPIBoxASP: (e) => {
-      return dispatch(kpibox_asp(e));
-    },
-    onSaveTopBottomKpi: (e) => {
-      return dispatch(SaveTopBottomParam(e));
-    },
+        supplierViewKpiSpinnerCheck: (e) => dispatch(supplierViewKpiSpinnerCheckSuccess(e)),
+        bubbleChartSpinnerCheckSuccess: (e) => dispatch(bubbleChartSpinnerCheckSuccess(e)),
 
-    onCheckboxWeekChange: (e) => dispatch(checkboxWeekChange(e)),
-    onSaveWeek: (e) => dispatch(SaveWeek(e)),
+        bubbleChartSpinnerCheck: (e) => dispatch(bubbleChartSpinnerCheckSuccess(e)),
+        tableChartSpinnerCheckSuccess: (e) => dispatch(tableChartSpinnerCheckSuccess(e)),
 
-    //FOR GETTING FILTERS DATA
-    onGenerateUrlParamsString: (e) => {
-      return dispatch(GenerateUrlParamsString(e));
-    },
-    onGenerateCheckedList: (a, b) => dispatch(generateCheckedList(a, b)),
-  }
-}
+        tableChartSpinnerCheck: (e) => dispatch(tableChartSpinnerCheckSuccess(e)),
+        barChartSpinnerCheckSuccess: (e) => dispatch(barChartSpinnerCheckSuccess(e)),
 
-export default connect(mapStateToProps, mapDispatchToProps)(Supplier);
+        barChartSpinnerCheck: (e) => dispatch(barChartSpinnerCheckSuccess(e)),
+
+        onFetchGraph: (e) => dispatch(fetchGraph(e)),
+        onSavePFilterParam: (e) => dispatch(SavePFilterParam(e)),
+        onSaveBubbleParam: (e) => dispatch(SaveBubbleParam(e)),
+        onSaveBubbleParam2: (e) => dispatch(SaveBubbleParam2(e)),
+        onSavePageParam: (e) => dispatch(SavePageParam(e)),
+        onRadioChecked: (e) => dispatch(RadioChecked(e)),
+        onSaveStoreParam: (e) => dispatch(SaveStoreParam(e)),
+        onGenerateTextBoxQueryString: (e) => dispatch(generateTextBoxQueryString(e.target.value)),
+
+        onKPIBox: (e) => {
+        return dispatch(kpibox(e));
+      },
+        onGetFilter: (e) => dispatch(getWeekFilter(e)),
+        ontopBottomChart: (e) => {
+        return dispatch(topBottomChart(e));
+      },
+        onSaveWeekParam: (e) => {
+        return dispatch(SaveWeekParam(e));
+      },
+        onSaveKPIParam: (e) => {
+        return dispatch(SaveKPIParam(e));
+      },
+        onKPIBoxASP: (e) => {
+        return dispatch(kpibox_asp(e));
+      },
+        onSaveTopBottomKpi: (e) => {
+        return dispatch(SaveTopBottomParam(e));
+      },
+
+        onCheckboxWeekChange: (e) => dispatch(checkboxWeekChange(e)),
+        onSaveWeek: (e) => dispatch(SaveWeek(e)),
+
+        //FOR GETTING FILTERS DATA
+        onGenerateUrlParamsString: (e) => {
+        return dispatch(GenerateUrlParamsString(e));
+      },
+        onGenerateCheckedList: (a, b) => dispatch(generateCheckedList(a, b)),
+      }
+      }
+
+        export default connect(mapStateToProps, mapDispatchToProps)(Supplier);
 

@@ -20,6 +20,8 @@
     kpiboxAspDataFetchSucess,
     supplierViewKpiSpinnerCheckSuccess,
     bubbleChartSpinnerCheckSuccess,
+    barChartSpinnerCheckSuccess,
+    tableChartSpinnerCheckSuccess,
   } from 'containers/Supplier/actions';
   import {take, call, put, select, cancel, takeLatest} from 'redux-saga/effects';
   import {LOCATION_CHANGE} from 'react-router-redux';
@@ -29,16 +31,16 @@
     selectSupplierDomain
   } from 'containers/Supplier/selectors';
 
-  export function* defaultSaga() {
-    // See example in containers/HomePage/sagas.js
-  }
-  let host_url = "http://172.20.244.149:8000"
-  // let host_url = "http://172.20.244.228:8000"
-  // FOR SUPPLIER POPUP TABLE
-  export function* generateDataFetch() {
-    const urlName = yield select(selectSupplierDomain());
-    // const weekurlparam = urlName.get('week_param');
-    // const kpiparam = urlName.get('kpi_param');
+export function* defaultSaga() {
+  // See example in containers/HomePage/sagas.js
+}
+// let host_url = "http://10.1.244.200:8001"
+let host_url = "http://172.20.244.149:8000"
+// FOR SUPPLIER POPUP TABLE
+export function* generateDataFetch() {
+  const urlName = yield select(selectSupplierDomain());
+  // const weekurlparam = urlName.get('week_param');
+  // const kpiparam = urlName.get('kpi_param');
 
     // CREATING 1 PARAMETER FOR APPENDING TO URL
 
@@ -128,7 +130,7 @@
 
     if (!(urlParams == "")) {
       urlParams = '?' + urlParams
-      // urlParams = urlParams.replace('&', '');
+      urlParams = urlParams.replace('&', '');
     }
     console.log('final param', urlParams);
 
@@ -279,17 +281,133 @@
     // const urlParams = urlName.get('reducer');
     const urlName = yield select(selectSupplierDomain());
     // console.log("inside sagas.js", urlParams);
-    const weekurlparam = urlName.get('week_param');
-    const topbottomkpi = urlName.get('top_bottom_kpi');
-    const kpiparam = urlName.get('kpi_param');
-    // try {
+    // const weekurlparam = urlName.get('week_param');
+    // const topbottomkpi = urlName.get('top_bottom_kpi');
+    // const kpiparam = urlName.get('kpi_param');
+
+
+    // CREATING 1 PARAMETER FOR APPENDING TO URL
+
+    let urlParams = "";
+
+    //*********************** FILTERS PARAMETERS ***********************
+    // FOR TESCO WEEK
+    let filter_week_selection = "";
+    filter_week_selection = urlName.get('filter_week_selection');
+
+    if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
+      filter_week_selection = urlName.get('filter_week_selection');
+      console.log("filter_week_selection if", filter_week_selection);
+    } else {
+      filter_week_selection = "";
+      console.log("filter_week_selection else", filter_week_selection);
+    }
+
+    if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
+      urlParams = filter_week_selection;
+      console.log("filter_week_selection urlParams if", urlParams);
+    } else {
+      console.log("filter_week_selection urlParams else", urlParams);
+    }
+
+
+    // FOR OTHER FILTERS EXCEPT TESCO WEEK
+
+    let urlParamsString = urlName.get('urlParamsString');
+    if (typeof(urlParamsString) == "undefined") {
+
+      urlParamsString = "";
+    } else {
+      let urlParamsStringCheck = urlParamsString.substring(0, 2);
+      if (urlParamsStringCheck==20) {
+        urlParamsString = urlParamsString.substring(14, urlParamsString.length);
+      }
+    }
+
+    if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+      urlParams = urlParams + "&" + urlParamsString;
+      console.log("urlParamsString urlParams if", urlParams);
+
+    } else {
+      console.log("urlParamsString urlParams else", urlParams);
+    }
+
+    //*********************** FILTERS PARAMETERS ENDED ***********************
+
+    //*********************** KPI PARAMETERS *********************************
+    let kpiparam = "";
+    kpiparam = urlName.get('kpi_param');
+
+    if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
+      kpiparam = urlName.get('kpi_param');
+      console.log("urlParams if", urlParams);
+    } else {
+      kpiparam = "";
+      console.log("kpiparam else", kpiparam);
+    }
+
+    if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
+      urlParams = urlParams + "&" + kpiparam;
+      console.log("urlParams urlParams if", urlParams);
+    } else {
+      console.log("urlParams urlParams else", urlParams);
+    }
+
+//*********************** TOP BOTTOM KPI PARAMETERS *********************************
+    let topbottomkpi = "";
+    topbottomkpi = urlName.get('top_bottom_kpi');
+
+    if (!(typeof(topbottomkpi) == "undefined") && !(topbottomkpi == "")) {
+      topbottomkpi = urlName.get('top_bottom_kpi');
+      console.log("topbottomkpi if", topbottomkpi);
+    } else {
+      topbottomkpi = "";
+      console.log("topbottomkpi else", topbottomkpi);
+    }
+
+    if (!(typeof(topbottomkpi) == "undefined") && !(topbottomkpi == "")) {
+      urlParams = urlParams + "&" + topbottomkpi;
+      console.log("urlParams topbottomkpi if", topbottomkpi);
+    } else {
+      console.log("urlParams topbottomkpi else", topbottomkpi);
+    }
+
+    //*********************** WEEK TAB PARAMETERS *********************************
+    let weekurlparam = "";
+    weekurlparam = urlName.get('week_param');
+
+    if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+      weekurlparam = urlName.get('week_param');
+      console.log("weekurlparam if", weekurlparam);
+    } else {
+      weekurlparam = "";
+      console.log("weekurlparam else", weekurlparam);
+    }
+
+    if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+      urlParams = urlParams + "&" + weekurlparam;
+      console.log("weekurlparam urlParams if", urlParams);
+    } else {
+      console.log("weekurlparam urlParams else", urlParams);
+    }
+
+    if (!(urlParams == "")) {
+      urlParams = '?' + urlParams
+      urlParams = urlParams.replace('&', '');
+    }
+    console.log('final param', urlParams);
+
+    try {
     const topbot_data = yield call(request,
-      host_url + `/api/reporting/supplier_view_top_bottom?` + weekurlparam + '&' + topbottomkpi + '&' + kpiparam);
+      host_url + `/api/reporting/supplier_view_top_bottom`  + urlParams);
+      // host_url + `/api/reporting/supplier_view_top_bottom?` + weekurlparam + '&' + topbottomkpi + '&' + kpiparam);
     console.log("generateDataFetch3 sagas.js", topbot_data);
     yield put(topBottomChartFetchSuccess(topbot_data));
-    // } catch (err) {
-    //   // console.log(err);
-    // }
+    let barChartSpinnerCheck = 1;
+    yield put(barChartSpinnerCheckSuccess(barChartSpinnerCheck));
+    } catch (err) {
+      // console.log(err);
+    }
   }
 
   export function* doSupplierTopBotFetch() {
@@ -299,10 +417,19 @@
   }
 
 
-  //FOR GETTING FILTERS DATA
-  export function* generateSideFilter() {
-    let urlName = yield select(selectSupplierDomain());
-    let urlParamsString = urlName.get('urlParamsString');
+//FOR GETTING FILTERS DATA
+export function* generateSideFilter() {
+  let urlName = yield select(selectSupplierDomain());
+  let urlParamsString = urlName.get('urlParamsString');
+  let getCookie;
+  getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  };
+  const user_token = getCookie('token');
+  const buyer = getCookie('buyer');
+  const token = user_token.concat('___').concat(buyer)
 
     if (typeof(urlParamsString) == "undefined") {
       urlParamsString = "";
@@ -314,15 +441,20 @@
       }
     }
 
-    try {
-      const filter_data = yield call(request,
-        host_url + `/api/reporting/filter_supplier?${urlParamsString}`);
-      console.log('filter_data', filter_data);
-      yield put(generateSideFilterSuccess(filter_data));
-    } catch (err) {
-      // console.log(err);
-    }
+  try {
+    const filter_data = yield call(request,
+      host_url + `/api/reporting/filter_supplier?${urlParamsString}`,
+      {
+        headers: {
+          Authorization: token
+        }
+      });
+    console.log('filter_data', filter_data);
+    yield put(generateSideFilterSuccess(filter_data));
+  } catch (err) {
+    // console.log(err);
   }
+}
 
   //FOR GETTING FILTERS DATA
   export function* doGenerateSideFilter() {
@@ -408,7 +540,7 @@
     let urlName = yield select(selectSupplierDomain());
     //  Getting the url parameters for filters
     console.log('bbb');
-    let urlParams = urlName.get('urlParamsString');
+    // let urlParams = urlName.get('urlParamsString');
 
     let weekParams = urlName.get('week_param');
 
@@ -452,26 +584,109 @@
 
     }
 
-      let ajaxSelection = '';
+
+    // CREATING 1 PARAMETER FOR APPENDING TO URL
+
+    let urlParams = "";
+
+    //*********************** FILTERS PARAMETERS ***********************
+    // FOR TESCO WEEK
+    let filter_week_selection = "";
+    filter_week_selection = urlName.get('filter_week_selection');
+
+    if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
+      filter_week_selection = urlName.get('filter_week_selection');
+      console.log("filter_week_selection if", filter_week_selection);
+    } else {
+      filter_week_selection = "";
+      console.log("filter_week_selection else", filter_week_selection);
+    }
+
+    if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
+      urlParams = filter_week_selection;
+      console.log("filter_week_selection urlParams if", urlParams);
+    } else {
+      console.log("filter_week_selection urlParams else", urlParams);
+    }
+
+
+    // FOR OTHER FILTERS EXCEPT TESCO WEEK
+
+    let urlParamsString = urlName.get('urlParamsString');
+    if (typeof(urlParamsString) == "undefined") {
+
+      urlParamsString = "";
+    } else {
+      let urlParamsStringCheck = urlParamsString.substring(0, 2);
+      if (urlParamsStringCheck==20) {
+        urlParamsString = urlParamsString.substring(14, urlParamsString.length);
+      }
+    }
+
+    if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+      urlParams = urlParams + "&" + urlParamsString;
+      console.log("urlParamsString urlParams if", urlParams);
+
+    } else {
+      console.log("urlParamsString urlParams else", urlParams);
+    }
+
+    //*********************** FILTERS PARAMETERS ENDED ***********************
+
+    //*********************** WEEK TAB PARAMETERS *********************************
+    let weekurlparam = "";
+    weekurlparam = urlName.get('week_param');
+
+    if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+      weekurlparam = urlName.get('week_param');
+      console.log("weekurlparam if", weekurlparam);
+    } else {
+      weekurlparam = "";
+      console.log("weekurlparam else", weekurlparam);
+    }
+
+    if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+      urlParams = urlParams + "&" + weekurlparam;
+      console.log("weekurlparam urlParams if", urlParams);
+    } else {
+      console.log("weekurlparam urlParams else", urlParams);
+    }
+
+    if (!(urlParams == "")) {
+      urlParams = '?' + urlParams
+      urlParams = urlParams.replace('&', '');
+    }
+    console.log('final param', urlParams);
+
+
+
+    let ajaxSelection = '';
 
       ajaxSelection = SelectionState.replace('&', '');
 
       console.log('ddd', ajaxSelection);
 
       if (!(typeof(ajaxSelection) == "undefined") && !(ajaxSelection == "")) {
+        ajaxSelection = '?' + ajaxSelection;
         console.log('entered ajaxselection', ajaxSelection);
-        const data = yield call(request,host_url + `/api/reporting/supplier_view_table_bubble?` + ajaxSelection
+        const data = yield call(request,host_url + `/api/reporting/supplier_view_table_bubble` + ajaxSelection + urlParams
           )
         ;
 
         yield put(generateTableSuccess(data));
 
+        let tableChartSpinnerCheck = 1;
+        yield put(tableChartSpinnerCheckSuccess(tableChartSpinnerCheck));
+
       }
 
       else {
 
-        const data = yield call(request, host_url + `/api/reporting/supplier_view_table_bubble?`);
+        const data = yield call(request, host_url + `/api/reporting/supplier_view_table_bubble` + urlParams);
         yield put(generateTableSuccess(data));
+
+        let tableChartSpinnerCheck = 1;
+        yield put(tableChartSpinnerCheckSuccess(tableChartSpinnerCheck));
 
       }
 
@@ -497,21 +712,21 @@
     let urlName = yield select(selectSupplierDomain());
   //  Getting the url parameters for filters
     console.log('bbb');
-    let urlParams = urlName.get('urlParamsString');
+    // let urlParams = urlName.get('urlParamsString');
 
-    let weekParams = urlName.get('week_param');
+    // let weekParams = urlName.get('week_param');
 
     let storeParams = urlName.get('dataStoreUrlParams');
     let performanceParams = urlName.get('dataPerformanceUrlParams');
 
    let SelectionState = '';
 
-    if (weekParams !== '') {
-
-      SelectionState = SelectionState + '&' + weekParams
-      console.log('weekparams', SelectionState);
-
-    }
+    // if (weekParams !== '') {
+    //
+    //   SelectionState = SelectionState + '&' + weekParams
+    //   console.log('weekparams', SelectionState);
+    //
+    // }
 
     if (storeParams !== '') {
 
@@ -526,8 +741,81 @@
       console.log('performanceparams', SelectionState);
     }
 
-
     console.log('ccc', SelectionState);
+
+    // CREATING 1 PARAMETER FOR APPENDING TO URL
+
+    let urlParams = "";
+
+    //*********************** FILTERS PARAMETERS ***********************
+    // FOR TESCO WEEK
+    let filter_week_selection = "";
+    filter_week_selection = urlName.get('filter_week_selection');
+
+    if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
+      filter_week_selection = urlName.get('filter_week_selection');
+      console.log("filter_week_selection if", filter_week_selection);
+    } else {
+      filter_week_selection = "";
+      console.log("filter_week_selection else", filter_week_selection);
+    }
+
+    if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
+      urlParams = filter_week_selection;
+      console.log("filter_week_selection urlParams if", urlParams);
+    } else {
+      console.log("filter_week_selection urlParams else", urlParams);
+    }
+
+
+    // FOR OTHER FILTERS EXCEPT TESCO WEEK
+
+    let urlParamsString = urlName.get('urlParamsString');
+    if (typeof(urlParamsString) == "undefined") {
+
+      urlParamsString = "";
+    } else {
+      let urlParamsStringCheck = urlParamsString.substring(0, 2);
+      if (urlParamsStringCheck==20) {
+        urlParamsString = urlParamsString.substring(14, urlParamsString.length);
+      }
+    }
+
+    if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+      urlParams = urlParams + "&" + urlParamsString;
+      console.log("urlParamsString urlParams if", urlParams);
+
+    } else {
+      console.log("urlParamsString urlParams else", urlParams);
+    }
+
+    //*********************** FILTERS PARAMETERS ENDED ***********************
+
+    //*********************** WEEK TAB PARAMETERS *********************************
+    let weekurlparam = "";
+    weekurlparam = urlName.get('week_param');
+
+    if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+      weekurlparam = urlName.get('week_param');
+      console.log("weekurlparam if", weekurlparam);
+    } else {
+      weekurlparam = "";
+      console.log("weekurlparam else", weekurlparam);
+    }
+
+    if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+      urlParams = urlParams + "&" + weekurlparam;
+      console.log("weekurlparam urlParams if", urlParams);
+    } else {
+      console.log("weekurlparam urlParams else", urlParams);
+    }
+
+    // if (!(urlParams == "")) {
+    //   urlParams = '?' + urlParams
+    //   // urlParams = urlParams.replace('&', '');
+    // }
+    console.log('final param', urlParams);
+
 
 
     let ajaxSelection = '';
@@ -537,10 +825,14 @@
     console.log('ddd', ajaxSelection);
 
     if (!(typeof(ajaxSelection) == "undefined") && !(ajaxSelection == "")) {
+      ajaxSelection = '?' + ajaxSelection + urlParams;
+      if (!(urlParams == "")) {
+        ajaxSelection = ajaxSelection.replace('&', '');
+      }
       console.log('entered ajaxselection', ajaxSelection);
       const data = yield call(request,
 
-          host_url + `/api/reporting/supplier_view_chart_bubble?` + ajaxSelection
+          host_url + `/api/reporting/supplier_view_chart_bubble` + ajaxSelection
         )
       ;
   // const data = yield call(request, `http://172.20.244.223:8000/api/nego_chart?` + urlParams +"&"+ ajaxSelection);
@@ -557,8 +849,12 @@
 
     else {
   // const data = yield call(request, `http:// 172.20.244.223:8000/ranging/nego_bubble_chart?`+urlParams );
-
-      const data = yield call(request, host_url + `/api/reporting/supplier_view_chart_bubble?`);
+      if (!(urlParams == "")) {
+        urlParams = '?' + urlParams
+        // urlParams = urlParams.replace('&', '');
+      }
+      console.log('final param', urlParams);
+      const data = yield call(request, host_url + `/api/reporting/supplier_view_chart_bubble` + urlParams);
   // const data = yield call(request, `http://172.20.244.223:8000/api/nego_chart?`+urlParams );
       console.log('fff', data);
       yield put(fetchGraphSuccess(data));
