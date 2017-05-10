@@ -21,7 +21,8 @@ import ExecFilter from 'components/ExecFilter';
 
 // For KPIs and Charts
 import MultilinePromo from 'components/MultilinePromo';
-import GaugeChart2 from 'components/GaugeChart2';
+import ExecTopbotMultiline from 'components/ExecTopbotMultiline';
+import GaugeExec from 'components/GaugeExec';
 import {
   OverviewKpiData,
   RolesAndIntentData,
@@ -590,7 +591,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                 if (this.props.Executive.kpi_param=='kpi_type=Overview') {
                   return (
                     <div>
-                    <h3>Success ----- Overview</h3>
+
                       {/*Row for KPI Boxes */}
                       <h2 className="pageModuleMainTitle">Performance by KPI </h2>
                     <div className="row" style={{textAlign: 'center',backgroundColor: "white",margin: "0%",borderLeft: "1px solid #e5e8ea",borderRight: "1px solid #e5e8ea",borderBottom: "1px solid #e5e8ea"}}>
@@ -964,7 +965,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             if (this.props.Executive.overview_kpi_trend_data) {
                               console.log("overview_kpi_trend_data value line chart data", this.props.Executive.overview_kpi_trend_data.sales_trend);
                               return (
-                                <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.sales_trend} id="overview_value_line" label_ty="Sales TY" label_ly="Sales LY" xaxis_title="Tesco Week" no_pref='£' no_suffix='' yaxis_title='Value'/>
+                                <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.sales_trend} id="overview_value_line" label_ty="Sales TY" label_ly="Sales LY" xaxis_title="Tesco Week" no_pref='£' no_suffix='' yaxis_title='Value' chart_width="600" legend_width="450" legend_text_width="445" />
                               );
                             }
                           })()}
@@ -976,7 +977,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             if (this.props.Executive.overview_kpi_trend_data) {
                               console.log("overview_kpi_trend_data volume line chart data", this.props.Executive.overview_kpi_trend_data.volume_trend);
                               return (
-                                <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.volume_trend} id="overview_volume_line" label_ty="Volume TY" label_ly="Volume LY" xaxis_title="Tesco Week" no_pref='' no_suffix='' yaxis_title='Volume'/>
+                                <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.volume_trend} id="overview_volume_line" label_ty="Volume TY" label_ly="Volume LY" xaxis_title="Tesco Week" no_pref='' no_suffix='' yaxis_title='Volume' chart_width="600" legend_width="450" legend_text_width="445"/>
                               );
                             }
                           })()}
@@ -992,7 +993,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             if (this.props.Executive.overview_kpi_trend_data) {
                               console.log("overview_kpi_trend_data COGS line chart data", this.props.Executive.overview_kpi_trend_data.cogs_trend);
                               return (
-                                <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.cogs_trend} id="overview_cogs_line" label_ty="COGS TY" label_ly="COGS LY" xaxis_title="Tesco Week" no_pref='£' no_suffix='' yaxis_title='COGS'/>
+                                <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.cogs_trend} id="overview_cogs_line" label_ty="COGS TY" label_ly="COGS LY" xaxis_title="Tesco Week" no_pref='£' no_suffix='' yaxis_title='COGS' chart_width="600" legend_width="450" legend_text_width="445"/>
                               );
                             }
                           })()}
@@ -1004,7 +1005,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             if (this.props.Executive.overview_kpi_trend_data) {
                               console.log("overview_kpi_trend_data profit line chart data", this.props.Executive.overview_kpi_trend_data.cgm_trend);
                               return (
-                                <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.cgm_trend} id="overview_cgm_line" label_ty="Profit TY" label_ly="Profit LY" xaxis_title="Tesco Week" no_pref='£' no_suffix='' yaxis_title='Profit'/>
+                                <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.cgm_trend} id="overview_cgm_line" label_ty="Profit TY" label_ly="Profit LY" xaxis_title="Tesco Week" no_pref='£' no_suffix='' yaxis_title='Profit'  chart_width="600" legend_width="450" legend_text_width="445"/>
                               );
                             }
                           })()}
@@ -1342,7 +1343,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                     return (
                       <div>
-                      <h3>Success ----- Price</h3>
+
                         {/*Row for price KPIS*/}
                         <div className="row">
                           {/*Block for ASP*/}
@@ -1574,7 +1575,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   else {
                     return (
                       <div>
-                      <h3>Non Overview Non Price</h3>
+
                         {/*Row for KPIS*/}
                         <div className="row">
                           {/*Block for total*/}
@@ -1939,13 +1940,13 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                       <div className="col-xs-8">
 
                                         {(() => {
-                                          if (this.props.Executive.best_info_data)
+                                          if (this.props.Executive.best_info_data.fetch=="success")
                                           {
                                             console.log("Executive.top_name == 'None");
                                             if(this.props.Executive.top_name!='None'){
                                               return (
                                                 <div className="row">
-                                                  <div className="row">
+                                                  <div className="row topbotdiv">
                                                     <div className="pull-right">
                                                       <Button onClick={() => {
                                                         suppName='None';
@@ -1957,7 +1958,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                     </div>
                                                   </div>
                                                   {(() => {
-                                                    if (this.props.Executive.best_info_data) {
+                                                    if (this.props.Executive.best_info_data.fetch=='success') {
                                                       return (
                                                         <div>
 
@@ -2023,7 +2024,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                           <div className="row">
                                                             <div className="col-xs-12">
 
-                                                              <MultilinePromo data={this.props.Executive.best_info_data.multiline_trend}
+                                                              <ExecTopbotMultiline data={this.props.Executive.best_info_data.multiline_trend}
                                                                               id="top_trend" label_ty={this.props.Executive.best_info_data.legend1} label_ly={this.props.Executive.best_info_data.legend2}
                                                                               xaxis_title="Tesco Week" no_pref={this.props.Executive.best_info_data.no_pref} no_suffix=''
                                                                               yaxis_title={this.props.Executive.best_info_data.kpi_type} />
@@ -2083,7 +2084,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               console.log("Choose_filters is no");
                               return (
                                 <div>
-                                  <h2 className="pageModuleSubTitle">Bot 5 5 {this.props.Executive.best_worst_data.level} by {this.props.Executive.best_worst_data.kpi_type} Share</h2>
+                                  <h2 className="pageModuleSubTitle">Bot 5 {this.props.Executive.best_worst_data.level} by {this.props.Executive.best_worst_data.kpi_type} Share</h2>
                                   {/*Navs here */}
                                   <div className="row">
                                     <div className="col-xs-4">
@@ -2156,40 +2157,37 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                     <div className="col-xs-8">
 
                                       {(() => {
-                                        if (this.props.Executive.worst_info_data)
+                                        if (this.props.Executive.worst_info_data.fetch=="success")
                                         {
                                           console.log("this.props.Executive.worst_info_data exists");
                                           if(this.props.Executive.bot_name!='None')
+
                                           {
-                                            console.log("this.props.Executive.bot_name!='None'");
-                                          return (
-                                            <div className="row">
+                                            return(
                                               <div className="row">
-                                                <div className="pull-right">
-                                                  <Button onClick={() => {
-                                                    suppName='None';
-                                                    this.props.onSaveSupplierName(suppName);
-                                                    this.setState({botsuppInfo: true});
+                                                <div className="row topbotdiv">
+                                                  <div className="pull-right">
+                                                    <Button onClick={() => {
+                                                      suppName='None';
+                                                      this.props.onSaveSupplierName(suppName);
+                                                      this.setState({topsuppInfo: true});
+                                                      {/*Load functions here*/}
 
-                                                    {/*Load functions here*/}
-
-                                                  }}>Supplier Info</Button>
+                                                    }}>Supplier Info</Button>
+                                                  </div>
                                                 </div>
-                                              </div>
+                                                {(() => {
+                                                  if (this.props.Executive.worst_info_data.fetch=='success') {
+                                                    return (
+                                                      <div>
 
-                                              {(() => {
-                                                if (this.props.Executive.worst_info_data) {
-                                                  return (
-                                                    <div>
-
-                                                      {/*Row for KPIs*/}
-                                                      <h3>worst info data exists</h3>
-                                                      <div className="row">
-                                                        <div className="panel-body">
-                                                          <div className="col-xs-4 kpiSmall">
+                                                        {/*Row for KPIs*/}
+                                                        <div className="row">
+                                                          <div className="panel-body">
+                                                            <div className="col-xs-4 kpiSmall">
 
 
-                                                            <h3>
+                                                              <h3>
                           <span
                             className={(() => {
                               if (this.props.Executive.worst_info_data.yoy_var > 0)
@@ -2204,13 +2202,13 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               } })()}>&nbsp;
 
                         </span>{this.props.Executive.worst_info_data.yoy_var}%
-                                                            </h3>
-                                                            <h4 className="kpiSubTitle">YoY</h4>
+                                                              </h3>
+                                                              <h4 className="kpiSubTitle">YoY</h4>
 
-                                                          </div>
-                                                          <div className="col-xs-4 kpiSmall">
+                                                            </div>
+                                                            <div className="col-xs-4 kpiSmall">
 
-                                                            <h3>
+                                                              <h3>
                           <span
                             className={(() => {
                               if (this.props.Executive.worst_info_data.cont_to_grwth > 0)
@@ -2225,50 +2223,42 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               } })()}>&nbsp;
 
                         </span>
-                                                              {this.props.Executive.worst_info_data.cont_to_grwth}%
-                                                            </h3>
-                                                            <h4 className="kpiSubTitle">Contri to growth</h4>
+                                                                {this.props.Executive.worst_info_data.cont_to_grwth}%
+                                                              </h3>
+                                                              <h4 className="kpiSubTitle">Contri to growth</h4>
 
+                                                            </div>
+                                                            <div className="col-xs-4 kpiSmall">
+
+                                                              <h3>
+
+                                                                {this.props.Executive.worst_info_data.sales_share}%
+                                                              </h3>
+                                                              <h4 className="kpiSubTitle">Sales Share</h4>
+
+                                                            </div>
                                                           </div>
-                                                          <div className="col-xs-4 kpiSmall">
+                                                        </div>
+                                                        {/*Row for Multiline Chart*/}
+                                                        <div className="row">
+                                                          <div className="col-xs-12">
 
-                                                            <h3>
-
-                                                              {this.props.Executive.worst_info_data}%
-                                                            </h3>
-                                                            <h4 className="kpiSubTitle">Sales Share</h4>
-
+                                                            <ExecTopbotMultiline data={this.props.Executive.worst_info_data.multiline_trend}
+                                                                            id="bot_trend" label_ty={this.props.Executive.worst_info_data.legend1} label_ly={this.props.Executive.worst_info_data.legend2}
+                                                                            xaxis_title="Tesco Week" no_pref={this.props.Executive.worst_info_data.no_pref} no_suffix=''
+                                                                            yaxis_title={this.props.Executive.worst_info_data.kpi_type} />
                                                           </div>
                                                         </div>
                                                       </div>
-                                                      {/*Row for Multiline Chart*/}
-                                                      <div className="row">
-                                                        <div className="col-xs-12">
+                                                    )
+                                                  }
+                                                })()}
 
 
-                                                          {/*<MultilinePromo data={this.props.Executive.worst_info_data.multiline_trend}*/}
-                                                                          {/*id="top_trend"*/}
-                                                                          {/*label_ty={this.props.Executive.worst_info_data.legend1}*/}
-                                                                          {/*label_ly={this.props.Executive.worst_info_data.legend2}*/}
-                                                                          {/*xaxis_title="Tesco Week"*/}
-                                                                          {/*no_pref={this.props.Executive.worst_info_data.no_pref}*/}
-                                                                          {/*no_suffix=''*/}
-                                                                          {/*yaxis_title={this.props.Executive.worst_info_data.kpi_type} />*/}
-
-
-
-
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  )
-                                                }
-                                              })()}
-
-
-                                            </div>
-                                          )
+                                              </div>
+                                            )
                                           }
+
                                           else{
                                             console.log("this.props.Executive.worst_info_data exists");
                                             return (
@@ -2594,11 +2584,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           <div className="row">
                             <div className="col-xs-6">
                               <h3>Importance to Supplier</h3>
-                              <GaugeChart2 data={[this.props.Executive.top_supp_info_data.imp_to_supp]} id="top_gauge1" />
+                              <GaugeExec data={[this.props.Executive.top_supp_info_data.imp_to_supp]} id="top_gauge1" />
                             </div>
                             <div className="col-xs-6">
                               <h3>Importance to Category</h3>
-                              <GaugeChart2 data={[this.props.Executive.top_supp_info_data.imp_to_categ]} id="top_gauge2" />
+                              <GaugeExec data={[this.props.Executive.top_supp_info_data.imp_to_categ]} id="top_gauge2" />
                             </div>
                           </div>
                         </div>

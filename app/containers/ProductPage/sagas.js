@@ -21,7 +21,7 @@ import {
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-const host_url = 'http://172.20.244.149:8000';
+const host_url = 'http://127.0.0.1:8000';
 // let host_url = "http://172.20.244.228:8000"
 
 
@@ -29,15 +29,15 @@ const host_url = 'http://172.20.244.149:8000';
 export function* generateSideFilter() {
   const urlName = yield select(selectProductPageDomain());
 
-  let getCookie;
-  getCookie = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  };
-  const user_token = getCookie('token');
-  const buyer = getCookie('buyer');
-  const token = user_token.concat('___').concat(buyer)
+  // let getCookie;
+  // getCookie = (name) => {
+  //   const value = `; ${document.cookie}`;
+  //   const parts = value.split(`; ${name}=`);
+  //   if (parts.length === 2) return parts.pop().split(';').shift();
+  // };
+  // const user_token = getCookie('token');
+  // const buyer = getCookie('buyer');
+  // const token = user_token.concat('___').concat(buyer)
 
   console.log('urlName for sideFilter', urlName);
   let urlParamsString = urlName.get('urlParamsString');
@@ -58,12 +58,7 @@ export function* generateSideFilter() {
     // todo: update url
 
     // const data = yield call(request, `http://172.20.244.141:8000/api/product_impact/filter_data/?${urlParamsString}`);
-    const filter_data = yield call(request, `${host_url}/api/reporting/filter_data/?${urlParamsString}`,
-      {
-        headers: {
-          Authorization: token
-        }
-      });
+    const filter_data = yield call(request, `${host_url}/api/reporting/filter_data/?${urlParamsString}`);
     console.log('This is my fetched filter data', filter_data);
 
     yield put(generateSideFilterSuccess(filter_data));
@@ -97,7 +92,7 @@ export function* generateWeekFilter() {
   } else {
     urlParamsWeekFilter = "";
   }
-  console.log("Tesco Week Filter Selected:",urlParamsWeekFilter);
+  console.log("Week Filter With Week,Metric Flag:",urlParamsWeekFilter);
   console.log(urlParams);
 
   let urlparamsHierarchyFilter = urlName.get('urlParamsString');
@@ -136,7 +131,6 @@ export function* generateWeekFilter() {
 }
 
 export function* doGenerateCascadingFilter() {
-  console.log('done2');
   const watcher = yield takeLatest(FETCH_FILTERED_PRODUCT_DATA, generateWeekFilter);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
@@ -158,14 +152,14 @@ export function* generateWeekFilterFetch() {
     console.log('Inside generateWeekFilterFetch');
     const urlName = yield select(selectProductPageDomain());
     console.log('Tesco Week Filter urlName:', urlName);
-    const weekurlparams = urlName.get('weekurlParam');
+    let weekurlparams = '';
 
     let filter_week_selection = '';
     filter_week_selection = urlName.get('filter_week_selection');
     const urlParams = '';
     if (!(typeof (filter_week_selection) === 'undefined') && !(filter_week_selection == '')) {
       filter_week_selection = urlName.get('filter_week_selection');
-      filter_week_selection = `?${filter_week_selection}`;
+//      filter_week_selection = `?${filter_week_selection}`;
       console.log('filter_week_selection', filter_week_selection);
     } else {
       filter_week_selection = '';
@@ -188,7 +182,7 @@ export function* generateWeekFilterFetch() {
     // }
 
 
-    const data = yield call(request, `${host_url}/api/reporting/product/filter_data_week${filter_week_selection}`);
+    const data = yield call(request, `${host_url}/api/reporting/product/filter_data_week?${filter_week_selection}`);
 
     console.log(`${host_url}/api/reporting/filter_data_week${filter_week_selection}`);
 

@@ -17,8 +17,8 @@ import FiltersProduct from 'components/FiltersProduct';
 import Panel from 'components/panel';
 import Button from 'components/button';
 import Spinner from 'components/spinner';
-import { Nav } from 'react-bootstrap';
-import { NavItem } from 'react-bootstrap';
+import { Nav,NavItem,DropdownButton, MenuItem } from 'react-bootstrap';
+import {saveImage,saveDataAsCSV} from './../../utils/exportFunctions';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import makeSelectProductPage from './selectors';
@@ -136,13 +136,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
 
 
     return (
-      <Panel>
-      <div>
-          <div className="row" style={{
-            marginLeft: '0px',
-            marginRight: '0px'
-          }}>
-
+      <Panel id="productPage">
             <div style={{
               height: '100%',
               position: 'fixed',
@@ -179,7 +173,6 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
 
 
             </div>
-          </div>
           <div className="col-xs-10" style={{ float: 'right' }}>
             <div className="col-xs-12">
               <div className="pageTitle">
@@ -320,7 +313,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                             return this.props.ProductPage.data.comp_data.map((obj) => {
 
                               return (
-                                <table className="table table-hover table-striped table-bordered table_cust">
+                                <table key={obj.metric_title } className="table table-hover table-striped table-bordered table_cust">
                                 <thead style={{ verticalAlign: 'middle',color:'#FFFFFF'}}>
                                 <tr>
                                   <th colSpan="12" className="pageModuleSubTitle"><b>{obj.metric_title}</b></th>
@@ -408,7 +401,19 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
 
                         return (
                           <div>
-                          <DualLineChart ty_text={this.state.ty_text} ly_text={this.state.ly_text} y_axis_text={this.state.y_axis_text} data={this.props.ProductPage.data.d3_output}/>
+                          <DualLineChart ref = "chartImage" ty_text={this.state.ty_text} ly_text={this.state.ly_text} y_axis_text={this.state.y_axis_text} data={this.props.ProductPage.data.d3_output}/>
+                            <div style={{float:"right"}}>
+                              <DropdownButton title="Save Image/CSV" style={{backgroundColor:"#449d44", borderColor:"#398439",color:"#fff"}} id="dropButtonId">
+                                <MenuItem onClick={() => {
+                                  saveImage(this.refs.chartImage.refs.image,"line_chart")
+                                  }
+                                }>Save As JPEG</MenuItem>
+                                <MenuItem onClick={() => {
+                                  saveDataAsCSV(this.props.ProductPage.data.d3_output,"line_chart.csv")
+                                  }
+                                }>Download CSV</MenuItem>
+                              </DropdownButton>
+                            </div>
                           </div>
                         )
 
@@ -539,7 +544,6 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
               </div>
             </div>
           </div>
-      </div>
     </Panel>
     );
   }
@@ -555,6 +559,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    dispatch,
     onProductPageValues: (e) => dispatch(productPageValues(e)),
     onSaveWeekParam: (e) => dispatch(saveWeekParam(e)),
     onSaveMetricParam: (e) => dispatch(saveMetricParam(e)),

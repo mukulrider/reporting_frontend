@@ -108,7 +108,7 @@ export function WeekFilterFetchSuccess(data)
 }
 
 export function SaveWeek(data) {
-  console.log('SaveWeek = actions',+ data);
+  console.log('SaveWeek = actions',data);
   return {
     type: WEEK,
     data,

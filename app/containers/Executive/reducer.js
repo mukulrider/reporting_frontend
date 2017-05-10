@@ -199,7 +199,15 @@ const initialState = fromJS({
         "name": "-----"
       }
     ]
-  }
+  },
+  worst_info_data: {
+
+    "fetch": "fail"
+  },
+  best_info_data: {
+
+    "fetch": "fail"
+  },
 });
 
 function executiveReducer(state = initialState, action) {
