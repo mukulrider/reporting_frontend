@@ -327,8 +327,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
 
-              }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                <b style={{textDecoration: 'none'}}>Current Week</b></NavItem>
+              }}>
+                <span className="tab_label">Current Week</span></NavItem>
 
               <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
                 this.setState({activeKey1: "2"});
@@ -379,8 +379,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
 
-              }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                style={{textDecoration: 'none'}}>Last 4 weeks</b></NavItem>
+              }}> <span className="tab_label">Last 4 weeks</span></NavItem>
 
               <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
                 this.setState({activeKey1: "3"});
@@ -429,8 +428,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
 
-              }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                style={{textDecoration: 'none'}}>Last 13 weeks</b></NavItem>
+              }}><span className="tab_label">Last 13 weeks</span></NavItem>
 
               <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
                 this.setState({activeKey1: "4"});
@@ -477,8 +475,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
 
-              }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                style={{textDecoration: 'none'}}>Last 26 weeks</b></NavItem>
+              }}><span className="tab_label">Last 26 weeks</span></NavItem>
 
               <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
                 this.setState({activeKey1: "5"});
@@ -528,8 +525,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
 
-              }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                style={{textDecoration: 'none'}}>YTD</b></NavItem>
+              }}><span className="tab_label">YTD</span></NavItem>
             </Nav>
             {/*Nav for kpi type*/}
             <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect} className="tabsCustom">
@@ -556,8 +552,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
 
-              }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                <b style={{textDecoration: 'none'}}>Overview</b></NavItem>
+              }}><span className="tab_label">Overview</span></NavItem>
 
               <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
                 kpiparam = "kpi_type=Value";
@@ -581,8 +576,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                 this.props.loadDriversExternalData();
 
 
-              }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                style={{textDecoration: 'none'}}>Value</b></NavItem>
+              }}><span className="tab_label">Value</span></NavItem>
 
               <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
                 kpiparam = "kpi_type=Volume";
@@ -602,8 +596,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                 {/*this.props.loadTopSupplierInfoData();*/}
                 {/*this.props.loadBotSupplierInfoData();*/}
 
-              }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                style={{textDecoration: 'none'}}>Volume</b></NavItem>
+              }}><span className="tab_label">Volume</span></NavItem>
 
               <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
                 kpiparam = "kpi_type=COGS";
@@ -624,8 +617,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                 {/*this.props.loadBotSupplierInfoData();*/}
 
 
-              }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                style={{textDecoration: 'none'}}>COGS</b></NavItem>
+              }}><span className="tab_label">COGS</span></NavItem>
 
               <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
                 kpiparam = "kpi_type=Profit";
@@ -646,8 +638,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                 {/*this.props.loadBotSupplierInfoData();*/}
 
 
-              }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                style={{textDecoration: 'none'}}>Profit</b></NavItem>
+              }}><span className="tab_label">Profit</span></NavItem>
 
               <NavItem className="tabsCustomList" eventKey="6" onClick={() => {
                 kpiparam = "kpi_type=Price";
@@ -660,8 +651,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                 this.props.onSaveBotName(botName);
                 this.props.onSaveSupplierName(suppName);
                 this.props.loadPriceKPIData();
-              }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                style={{textDecoration: 'none'}}>Price</b></NavItem>
+              }}><span className="tab_label">Price</span></NavItem>
 
 
             </Nav>
@@ -1156,16 +1146,14 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                         this.setState({activeKey3: "1"});
                         this.props.onSaveDriverParam(driverParam);
 
-                      }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                        <b style={{textDecoration: 'none'}}>Internal</b></NavItem>
+                      }}><span className="tab_label">Internal</span></NavItem>
 
                       <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
                         this.setState({activeKey3: "2"});
                         driverParam = "external";
                         this.props.onSaveDriverParam(driverParam);
 
-                      }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                        style={{textDecoration: 'none'}}>External</b></NavItem>
+                      }}><span className="tab_label">External</span></NavItem>
 
 
                     </Nav>
@@ -2439,15 +2427,13 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                   this.setState({activeKey4: "1"});
                                   this.props.onSaveDriverParam(driverParam);
 
-                                }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                                  <b style={{textDecoration: 'none'}}>Internal</b></NavItem>
+                                }}><span className="tab_label">Internal</span></NavItem>
 
                                 <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
                                   this.setState({activeKey4: "2"});
                                   driverParam = "external";
                                   this.props.onSaveDriverParam(driverParam);
-                                }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                                  style={{textDecoration: 'none'}}>External</b></NavItem>
+                                }}><span className="tab_label">External</span></NavItem>
 
 
                               </Nav>
