@@ -122,9 +122,10 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                                                 {
                                                   console.log('Cascaded Filter selection', selection);
                                                 }
-                                                if (previous_week_selection == selection) {
+                                                if (previous_week_selection == selection ) {
                                                   selection = '';
                                                   console.log('selection2 if', selection);
+                                                  console.log('selection2 ifs', selection);
                                                 }
 
                                                 console.log('selection2', selection);

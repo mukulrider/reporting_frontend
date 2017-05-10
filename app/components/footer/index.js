@@ -30,7 +30,7 @@ export default function Footer(props) {
   );
 
   return (
-    <div className={classes}>
+    <div className={classes} style={{width:'78%',float:'right'}}>
       <Grid>
         <div className={props.contentClass}>
           {renderLinks(props)}
