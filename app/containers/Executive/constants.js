@@ -99,6 +99,10 @@ export const DRIVER_PARAM = 'app/Executive/DRIVER_PARAM';
 //Constant to store the internal tabs parameter
 export const VALUE_INTERNAL_TABS = 'app/Executive/VALUE_INTERNAL_TABS';
 
+//Constant to store the drivers of sale external parameter
+export const VALUE_EXTERNAL_TABS = 'app/Executive/VALUE_EXTERNAL_TABS';
+
+
 //Constant to store the filtered flag for showing top5 and bottom 5
 export const FILTERED_FLAG = 'app/Executive/FILTERED_FLAG';
 export const TOP_BOT_FLAG = 'app/Executive/TOP_BOT_FLAG';

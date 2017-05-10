@@ -18,6 +18,7 @@ import {
   KPI_PARAM,
   DRIVER_PARAM,
   VALUE_INTERNAL_TABS,
+  VALUE_EXTERNAL_TABS,
   OVERVIEW_KPI_CONSTANT,
   OVERVIEW_KPI_FETCH_SUCCESS,
   ROLES_INTENT_CONSTANT,
@@ -70,6 +71,8 @@ const initialState = fromJS({
   top_name: 'None',
   bot_name: 'None',
   supplier_name: 'None',
+  value_internal_tab: 'kpi',
+  value_external_tab: 'sunshine',
   //Initial Data
   overview_kpi_data: {
     "price": {
@@ -220,7 +223,7 @@ const initialState = fromJS({
       {"label": "Forecast", "value": 600},
       {"label": "Sales", "value": 500}],
     },
-  value_internal_tab: 'kpi'
+
 
 
 
@@ -359,6 +362,9 @@ function executiveReducer(state = initialState, action) {
     case VALUE_INTERNAL_TABS:
       console.log("reducer VALUE_INTERNAL_TABS",action.data);
       return state.set('value_internal_tab',action.data);
+    case VALUE_EXTERNAL_TABS:
+      console.log("reducer VALUE_EXTERNAL_TABS",action.data);
+      return state.set('value_external_tab',action.data);
     case FILTERED_FLAG:
       console.log("reducer FILTERED_FLAG",action.data);
       return state.set('filtered_flag',action.data);
