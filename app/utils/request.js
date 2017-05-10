@@ -1,6 +1,7 @@
 /**
  * Created by musigma on 1/3/17.
  */
+//'use strict';
 import 'whatwg-fetch';
 
 /**
@@ -44,3 +45,4 @@ export default function request(url, options) {
     .then(checkStatus)
     .then(parseJSON);
 }
+
