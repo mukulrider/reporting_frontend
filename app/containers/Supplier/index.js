@@ -203,6 +203,8 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                          onGenerateTable={this.props.onGenerateTable}
                                          onFetchGraph={this.props.onFetchGraph}
 
+                                         previous_week_selection={this.props.supplier.filter_week_selection}
+
                                          barChartSpinnerCheck={this.props.barChartSpinnerCheckSuccess}
                                          bubbleChartSpinnerCheck={this.props.bubbleChartSpinnerCheckSuccess}
                                          tableChartSpinnerCheck={this.props.tableChartSpinnerCheckSuccess}
@@ -228,7 +230,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                   width: '78%',
                   marginLeft: '22%'
                 }}>
-                  <div className="row" style={{marginLeft: "0.5%", marginLeft: "0.5%", paddingTop: "-5px"}}>
+                  <div className="row" style={{marginLeft: "0.5%", marginRight: "0px", paddingTop: "-5px"}}>
 
                     <div className="col-md-12 content-wrap">
 
@@ -492,12 +494,12 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                     <Panel>
                                       <h4 className="pageModuleMainTitle"> Contribution to Growth </h4>
                                       <div className="row">
-                                        <div className="col-xs-6" style={{left: '-6%'}}>
+                                        <div className="col-xs-6" style={{left: '-2%'}}>
 
                                           <h4
                                             className="panel-heading tesco-heading">  {this.props.supplier.reducer1.sales} </h4>
                                         </div>
-                                        <div className="col-xs-6" style={{right: '-8%'}}>
+                                        <div className="col-xs-6" style={{right: '-7%'}}>
 
                                           <h4 className="panel-heading tesco-heading">
                                             LFL: {this.props.supplier.reducer1.sales_lfl} </h4>
@@ -528,52 +530,72 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                                 </div>
                                 <panel>
-                                  <div className="col-xs-5 panel-body" style={{
-                                    textAlign: 'center',
-                                    borderTop: "1px solid #e5e8ea",
-                                    backgroundColor: "white",
-                                    margin: "0%",
-                                    borderLeft: "1px solid #e5e8ea",
-                                    borderRight: "1px solid #e5e8ea",
-                                    borderBottom: "1px solid #e5e8ea"
-                                  }}>
-                                    <h4 className="pageModuleMainTitle"> Parent Supplier's value share in Category</h4>
-                                    {(() => {
-                                      if (this.props.supplier.reducer1.supp_imp_cat_sales) {
+                                  <div className="row" style={{marginLeft: '0px', marginRight: '0px'}}>
+                                    <div className="col-xs-5 panel-body" style={{
+                                      textAlign: 'center',
+                                      borderTop: "1px solid #e5e8ea",
+                                      backgroundColor: "white",
+                                      margin: "0%",
+                                      borderLeft: "1px solid #e5e8ea",
+                                      borderRight: "1px solid #e5e8ea",
+                                      borderBottom: "1px solid #e5e8ea"
+                                    }}>
+                                      <h4 className="pageModuleMainTitle"> Parent Supplier's value share in
+                                        Category</h4>
+                                      <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
+                                      {(() => {
+                                        if (this.props.supplier.reducer1.supp_imp_cat_sales) {
 
-                                        return (
-                                          <div style={{float: "right"}}>
-                                            <GaugeChart2 data={[this.props.supplier.reducer1.supp_imp_cat_sales]}
-                                                         id="gauge1"/>
-                                          </div>
-                                        )
-                                      }
-                                    })()}
-                                  </div>
-                                  <div className="col-xs-5 panel-body leftPosition" style={{
-                                    textAlign: 'center',
-                                    left: '-3%',
-                                    width: '51%',
-                                    borderTop: "1px solid #e5e8ea",
-                                    left: '-8%',
-                                    float: 'right',
-                                    backgroundColor: "white",
-                                    margin: "0%",
-                                    borderLeft: "1px solid #e5e8ea",
-                                    borderRight: "1px solid #e5e8ea",
-                                    borderBottom: "1px solid #e5e8ea"
-                                  }}>
-                                    <h4 className="pageModuleMainTitle"> Category's value share to Parent Supplier </h4>
-                                    {(() => {
-                                      if (this.props.supplier.reducer1.cat_imp_supp_sales) {
+                                          return (
+                                            <div style={{float: "right"}}>
+                                              <GaugeChart2 data={[this.props.supplier.reducer1.supp_imp_cat_sales]}
+                                                           id="gauge1"/>
+                                              <div className="row" style={{marginTop: '-11%'}}>
+                                                <div className="col-xs-12"
+                                                     style={{fontWeight: 'bold', fontSize: '14px'}}>
+                                                  {this.props.supplier.reducer1.supp_imp_cat_sales}%
+                                                </div>
+                                              </div>
+                                            </div>
+                                          )
+                                        }
+                                      })()}
+                                    </div>
+                                    <div className="col-xs-5 panel-body leftPosition" style={{
+                                      textAlign: 'center',
+                                      left: '-3%',
+                                      width: '51%',
+                                      borderTop: "1px solid #e5e8ea",
+                                      left: '-8%',
+                                      float: 'right',
+                                      backgroundColor: "white",
+                                      margin: "0%",
+                                      borderLeft: "1px solid #e5e8ea",
+                                      borderRight: "1px solid #e5e8ea",
+                                      borderBottom: "1px solid #e5e8ea"
+                                    }}>
+                                      <h4 className="pageModuleMainTitle"> Category's value share to Parent
+                                        Supplier </h4>
+                                      <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
+                                      {(() => {
+                                        if (this.props.supplier.reducer1.cat_imp_supp_sales) {
 
-                                        return (
-                                          <GaugeChart2 data={[this.props.supplier.reducer1.cat_imp_supp_sales]}
-                                                       id="gauge2"/>
-                                        )
-                                      }
-                                    })()}
-                                    {/*<SampleBarChart/>*/}
+                                          return (
+                                            <div>
+                                              <GaugeChart2 data={[this.props.supplier.reducer1.cat_imp_supp_sales]}
+                                                           id="gauge2"/>
+                                              <div className="row" style={{marginTop: '-11%'}}>
+                                                <div className="col-xs-12"
+                                                     style={{fontWeight: 'bold', fontSize: '14px'}}>
+                                                  {this.props.supplier.reducer1.cat_imp_supp_sales}%
+                                                </div>
+                                              </div>
+                                            </div>
+                                          )
+                                        }
+                                      })()}
+                                      {/*<SampleBarChart/>*/}
+                                    </div>
                                   </div>
                                 </panel>
                               </div>

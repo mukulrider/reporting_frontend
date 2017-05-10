@@ -38,6 +38,7 @@ export function* defaultSaga() {
 let host_url = "http://172.20.244.149:8000"
 // FOR SUPPLIER POPUP TABLE
 export function* generateDataFetch() {
+  console.log('inside kpi');
   const urlName = yield select(selectSupplierDomain());
   // const weekurlparam = urlName.get('week_param');
   // const kpiparam = urlName.get('kpi_param');
@@ -132,7 +133,7 @@ export function* generateDataFetch() {
       urlParams = '?' + urlParams
       urlParams = urlParams.replace('&', '');
     }
-    console.log('final param', urlParams);
+    console.log('final param kpi', urlParams);
 
     try {
       const data = yield call(request, host_url + `/api/reporting/supplier_view_kpi` + urlParams);
@@ -877,6 +878,7 @@ export function* generateSideFilter() {
   export default [
     defaultSaga,
     doKPIFetch,
+    // doKPIAspFetch,
     doSupplierTopBotFetch,
     doGenerateSideFilter,
     doWeekFilterFetch,
