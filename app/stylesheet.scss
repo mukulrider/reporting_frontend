@@ -1,0 +1,40 @@
+// Default variables. These will usually be set by the consumer.
+$assets-path: './../../assets' !default;
+
+// Import common stylesheets.
+@import './common/styles/mixins.scss';
+@import './common/styles/colors';
+@import './common/styles/base';
+@import './common/styles/typography';
+@import './common/styles/icons';
+@import './common/styles/helpers';
+@import './common/styles/server-render-animation.scss';
+@import './common/styles/breakpoints.scss';
+
+
+// Import individual component stylesheets.
+@import './components/manual_address_entry/styles';
+@import './components/grid/styles';
+@import './components/header/styles';
+@import './components/input_field/styles';
+@import './components/constraint_list/styles';
+@import './components/constraint_item/styles';
+@import './components/password_field/styles';
+@import './components/validated_field/styles';
+@import './components/validated_input/styles';
+@import './components/email_field/styles';
+@import './components/footer/styles';
+@import './components/button/styles';
+@import './components/link/styles';
+@import './components/form_header/styles';
+@import './components/logo/styles';
+@import './components/rounded_icon_button/styles';
+@import './components/label/styles';
+@import './components/panel/styles';
+@import './components/notice/styles';
+@import './components/error_text/styles';
+@import './components/checkbox/styles';
+@import './components/radio_button/styles';
+@import './components/select_input/styles';
+@import './components/spinner/styles';
+@import './components/dynamic_list/styles';

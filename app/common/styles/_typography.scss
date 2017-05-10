@@ -1,0 +1,117 @@
+//
+// Fonts
+//
+
+@font-face {
+    font-family: Tesco;
+    src: url("#{$assets-path}/fonts/tesco-webfont.eot");
+    src: url("#{$assets-path}/fonts/tesco-webfont.eot?#iefix") format("eot"),
+         url("#{$assets-path}/fonts/tesco-webfont.woff") format("woff"),
+         url("#{$assets-path}/fonts/tesco-webfont.ttf") format("truetype"),
+         url("#{$assets-path}/fonts/tesco-webfont.svg#tescolight") format("svg");
+    font-weight: 400;
+    font-style: normal
+}
+@font-face {
+    font-family: Tesco;
+    src: url("#{$assets-path}/fonts/tesco-light-webfont.eot");
+    src: url("#{$assets-path}/fonts/tesco-light-webfont.eot?#iefix") format("eot"),
+         url("#{$assets-path}/fonts/tesco-light-webfont.woff") format("woff"),
+         url("#{$assets-path}/fonts/tesco-light-webfont.ttf") format("truetype"),
+         url("#{$assets-path}/fonts/tesco-light-webfont.svg#tescolight") format("svg");
+    font-weight: 200;
+    font-style: normal
+}
+@font-face {
+    font-family: Tesco;
+    src: url("#{$assets-path}/fonts/tescob-webfont.eot");
+    src: url("#{$assets-path}/fonts/tescob-webfont.eot?#iefix") format("eot"),
+         url("#{$assets-path}/fonts/tescob-webfont.woff") format("woff"),
+         url("#{$assets-path}/fonts/tescob-webfont.ttf") format("truetype"),
+         url("#{$assets-path}/fonts/tescob-webfont.svg#tescobold") format("svg");
+    font-weight: 700;
+    font-style: normal
+}
+@font-face {
+    font-family: Tesco;
+    src: url("#{$assets-path}/fonts/tescoi-webfont.eot");
+    src: url("#{$assets-path}/fonts/tescoi-webfont.eot#iefix") format("eot"),
+         url("#{$assets-path}/fonts/tescoi-webfont.woff") format("woff"),
+         url("#{$assets-path}/fonts/tescoi-webfont.ttf") format("truetype"),
+         url("#{$assets-path}/fonts/tescoi-webfont.svg#tescoitalic") format("svg");
+    font-weight: 400;
+    font-style: italic
+}
+
+//
+// Typography
+//
+
+/////////////////////////////////
+// Links
+/////////////////////////////////
+
+a {
+  color: $blue;
+  text-decoration: underline;
+  transition: color .2s ease-out;
+
+  &:hover,
+  &:focus {
+    color: $brightblue;
+  }
+}
+
+/////////////////////////////////
+// Headings (responsive)
+/////////////////////////////////
+
+h1,
+.h1 {
+  font-size: 2.4rem;
+}
+
+h2,
+.h2 {
+  font-size: 2.4rem;
+}
+
+h3,
+.h3 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 1em 0;
+}
+
+h4,
+.h4 {
+  font-size: 1.6rem;
+}
+
+h5,
+.h5 {
+  font-size: 1.2rem;
+}
+
+p,
+.p {
+  font-size: 1.6rem;
+}
+
+fieldset,
+.fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+legend,
+.legend {
+  display: inline-block;
+  padding: 0;
+}
+
+strong {
+  font-weight: bold;
+}
+

@@ -1,0 +1,43 @@
+.constraints__item {
+  margin-bottom: 3px;
+  white-space: pre; // wrap on line breaks
+
+  .ui-component__validated-field--invalid & {
+    color: $error-color;
+  }
+
+  &:before {
+    content: "";
+    padding: .2em .34em .48em;
+    width: 11px;
+    height: 11px;
+    -webkit-transform: scale(0.3);
+    transform: scale(0.3);
+    border-radius: 50px;
+    background: $midgrey5;
+    display: inline-block;
+    margin-right: 5px;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+    text-align: center;
+    font-size: 0.6em;
+    vertical-align: text-top;
+    position: absolute;
+    left: 0;
+  }
+
+  &--valid {
+    .ui-component__validated-field--invalid & {
+      color: $midgrey5;
+    }
+    &:before {
+      content: "\E003";
+      color: #fff;
+      font-family: "tesco-icons";
+      -webkit-transform: scale(1);
+      transform: scale(1);
+      background: #339933;
+    }
+  }
+}

@@ -1,0 +1,128 @@
+// Generic styles that apply to all components.
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-family: 'Tesco';
+  font-size: 1em;
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: $midgrey6;
+  position: relative;
+  margin: 0;
+  background-color: $white;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+ul {
+  list-style-type: none;
+  padding:0;
+  margin:0;
+}
+
+.hidden {
+  display: none;
+}
+
+.hidden-text {
+  height: 0;
+  line-height: 0;
+  font-size: 0;
+}
+
+.skip {
+  a {
+    &:focus,
+    &:active {
+      background: $black20;
+      clip: auto;
+      color: $white;
+      display: block;
+      font-size: 1.1rem;
+      height: auto;
+      margin: 0;
+      min-width: 250px;
+      padding: 10px 20px;
+      position: absolute;
+      text-align: center;
+      z-index: 3;
+    }
+  }
+}
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.visibility-hidden {
+  visibility: hidden;
+}
+
+.no-voice {
+  speak: none;
+
+}
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  text-align: left;
+  background: #ececec;
+}
+
+input[type="email"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="url"],
+input[type="color"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="time"],
+input[type="week"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  box-sizing: border-box;
+  background-image: none;
+  border: solid 1px $black20;
+  box-shadow: none;
+  display: block;
+  padding: 10px;
+  transition: all 0.3s ease-in;
+  width: 100%;
+}
+
+@media screen and (min-width: 600px) {
+  html, body {
+    background: #fff;
+  }
+}

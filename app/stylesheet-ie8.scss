@@ -1,0 +1,19 @@
+// Default variables. These will usually be set by the consumer.
+$assets-path: '' !default;
+
+// Import common stylesheets.
+@import './common/styles/breakpoints';
+@import './common/styles/colors';
+@import './common/styles/base';
+
+// Import individual component stylesheets.
+@import './components/grid/styles';
+@import './components/panel/styles-ie8';
+@import './components/footer/styles-ie8';
+@import './components/header/styles-ie8';
+@import './components/logo/styles-ie8';
+@import './components/password_field/styles-ie8';
+@import './components/rounded_icon_button/styles-ie8';
+@import './components/checkbox/styles-ie8';
+@import './components/spinner/styles-ie8';
+@import './components/button/styles-ie8';

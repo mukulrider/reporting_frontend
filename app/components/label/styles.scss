@@ -1,0 +1,13 @@
+.ui-component__label {
+  display: inline-block;
+  line-height: 1;
+  color: $text-grey;
+  font-size: 1.6em;
+  width: 100%;
+
+  &-text {
+    display: inline-block;
+    margin-bottom: 9px;
+    font-weight: bold;
+  }
+}

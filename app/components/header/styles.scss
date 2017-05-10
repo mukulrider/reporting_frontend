@@ -1,0 +1,319 @@
+.ui-component__header {
+  position: fixed;
+  background-color: $white;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+
+  &__content {
+    height: 70px;
+    border-top: 4px solid $header-blue;
+    border-bottom: 1px solid #ccc;
+    background-color: $white;
+
+    @media screen and (min-width: $bp-mobile) {
+      height: 82px;
+      border-top: none;
+      border-bottom-width: 2px;
+    }
+
+    &--right {
+      padding-top: 8px;
+      font-size: 1.2em;
+      float: right;
+    }
+
+  }
+
+  &__tesco-logo {
+    margin: 20px 0 0 0;
+    min-width: 90px;
+    height: 24px;
+    float: left;
+
+    a {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+    }
+
+    @media screen and (min-width: $bp-mobile) {
+      margin-top: 23px;
+      min-width: 127px;
+      height: 34px;
+    }
+  }
+
+}
+
+.ui-component__utility_bar {
+  display: none;
+
+  @media screen and (min-width: $bp-mobile) {
+    display: block;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 36px;
+    background-color: $header-blue;
+    border-bottom: 4px solid $header-blue-border;
+
+    @include clearfix();
+  }
+}
+
+.ui-component__skip-navigation {
+  position: absolute;
+  display: block;
+  left: 5px;
+  top: -40px;
+  color: #fff;
+
+  &:focus {
+    top: 8px;
+    color: #fff;
+  }
+}
+
+.ui-component__utility-list {
+  float: right;
+  list-style: none;
+  list-style-type: none;
+  list-style-image: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+
+  li {
+    $border: 1px solid transparentize($white, 0.8);
+
+    float: left;
+    height: 32px;
+    font-size: 1.4em;
+    border-left: $border;
+
+    &:last-child {
+      border-right: $border;
+    }
+
+    & a {
+      font-size: 1em; // Override the default Link component styling.
+      display: block;
+      color: $white;
+      padding: 7px 20px 9px;
+
+      &:hover span {
+        border-bottom: 1px solid $white;
+        color: $white;
+      }
+    }
+  }
+}
+
+.ui-component__mobile-menu.show {
+  visibility: visible;
+  transform: translate3d(0%, 0, 0);
+  -webkit-transform: translate(0px, 0px);    /*Safari*/
+}
+
+.ui-component__mobile-menu {
+  visibility: hidden;
+  background-color: $transparent-black1;
+  border-top: 4px solid $black;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: calc(100vh + 100px);
+  width: 100%;
+  z-index: 11;
+  transition: transform .5s cubic-bezier(0.32, 0.29, 0.06, 0.83);
+  transform: translate3d(100%, 0, 0);
+  -ms-transform: translate(100%, 0);          /* IE 9 */
+  -webkit-transition: -webkit-transform .5s cubic-bezier(0.32, 0.29, 0.06, 0.83);
+  -webkit-transform: translate(100%, 0px);    /*Safari*/
+
+  @media screen and (min-width: $bp-mobile) {
+    display: none;
+  }
+
+  &__back-link {
+    line-height: 2.3em;
+    margin-left: 4px;
+  }
+
+  &__header {
+    background-color: $link-blue;
+    margin-right: 6em;
+    height: 6em;
+  }
+
+  .ui-component__icon--close_round {
+    background-color: $black;
+    color: $white;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1em;
+    height: 6em;
+    line-height: 1;
+    text-align: center;
+    width: 6em;
+    z-index: 3;
+    outline: none;
+    border: none;
+    -webkit-appearance: button;
+    cursor: pointer;
+    font: inherit;
+    margin: 0;
+    overflow: visible;
+
+    &:focus {
+      background-color: $white;
+      color: $black;
+    }
+
+    span {
+      text-transform: uppercase;
+    }
+  }
+
+  .ui-component__icon--close_round:before {
+    display: inline-block;
+    font-size: 2em;
+    margin-bottom: 4px;
+    vertical-align: bottom;
+  }
+
+  .ui-component__icon--close_round span {
+    display: block;
+    text-align: center;
+  }
+
+  .ui-component__link {
+    font-size: inherit;
+  }
+
+  &__content-wrapper {
+    bottom: 100px;
+    padding-bottom: 20px;
+    background-color: $text-grey;
+    left: 0;
+    position: absolute;
+    right: 6em;
+    top: 6em;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  &__content {
+    font-size: 1.6em;
+    background-color: $white;
+  }
+
+  &__content--back-links li {
+
+    .ui-component__header__content__back-link {
+      font-weight: 600;
+    }
+
+    &:last-child {
+      border-bottom: 4px solid $header-blue;
+    }
+  }
+
+  &__content--back-links ul,
+  &__content--back-links li,
+  &__content--utility-bar-contents ul,
+  &__content--utility-bar-contents li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__content--back-links ul,
+  &__content--utility-bar-contents ul {
+    vertical-align: top;
+    display: inline-block;
+    width: 100%;
+  }
+
+  &__content--back-links li,
+  &__content--utility-bar-contents li {
+    border: none;
+  }
+
+  &__content--utility-bar-contents {
+    background-color: $link-blue;
+    color: $white;
+  }
+
+  &__content--back-links li a,
+  &__content--back-links li a:visited,
+  &__content--utility-bar-contents li a,
+  &__content--utility-bar-contents li a:visited {
+    padding-left: 1em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    line-height: 1em;
+    padding: 1em 1.8em 1em .5em;
+    position: relative;
+    text-align: left;
+    width: 100%;
+    text-decoration: none;
+    color: $link-blue;
+    cursor: pointer;
+    outline: none;
+  }
+
+  &__content--back-links li a:before {
+    background-color: $white;
+    color: $link-blue;
+    font-size: .8em;
+    margin-right: 2px;
+    padding-left: 0;
+    padding-right: 0;
+    text-decoration: none;
+  }
+
+  &__content--utility-bar-contents li a,
+  &__content--utility-bar-contents li a:visited {
+    color: $white;
+    font-weight: 200;
+  }
+
+  &__content--back-links li a:hover,
+  &__content--back-links li a:focus,
+  &__content--utility-bar-contents li a:hover,
+  &__content--utility-bar-contents li a:focus {
+    background-color: $transparent-black2;
+    outline: 0;
+  }
+
+  &__content--utility-bar-contents li a:before {
+    background-color: $white;
+    color: $link-blue;
+    border-radius: 100px;
+    font-size: 1em;
+    margin-right: .5em;
+    padding: .5em;
+    vertical-align: bottom;
+  }
+
+  &__content--back-links li a span,
+  &__content--utility-bar-contents li a span {
+    border-bottom: 1px solid transparent;
+    transition: border 0.3s;
+  }
+
+  &__content--back-links li a:hover span {
+    border-bottom: 1px solid $link-blue;
+    color: $link-blue;
+  }
+
+  &__content--utility-bar-contents li a:hover span {
+    border-bottom: 1px solid $white;
+    color: $white;
+ }
+}

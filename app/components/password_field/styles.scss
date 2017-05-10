@@ -1,0 +1,123 @@
+.ui-component__password-field {
+
+  &.flush-bottom {
+    margin-bottom: 0;
+  }
+
+  &--focused {
+
+    &.ui-component__validated-field {
+
+      &--valid {
+        .ui-component__password-field__input-wrapper {
+          border-color: $input-border2;
+          box-shadow: 0px 0px 0px 4px $input-box-shadow;
+          background: $white;
+        }
+      }
+
+      &--invalid {
+        .ui-component__password-field__input-wrapper {
+          border-color: $error-color;
+          box-shadow: 0px 0px 0px 4px rgba(204,51,51,0.2);
+          background: $white;
+
+          .ui-component__input-field:focus {
+            border: 0 none;
+            box-shadow: none;
+          }
+
+        }
+      }
+
+    }
+
+  }
+
+  &--blurred {
+
+    &.ui-component__validated-field {
+
+      &--invalid {
+        .ui-component__password-field__input-wrapper {
+          border-color: $error-color;
+          box-shadow: none;
+          background: $white;
+
+          .ui-component__input-field {
+            border: 0 none;
+            box-shadow: none;
+          }
+        }
+      }
+
+    }
+
+  }
+
+  &__input-wrapper {
+    position: relative;
+    background-color: $input-background;
+    border: 1px solid $input-border;
+    border-radius: 0px;
+    font-family: inherit;
+    height: 40px;
+    letter-spacing: 0;
+    position: relative;
+    transition: box-shadow 0.3s;
+    width: 100%;
+    z-index: 2;
+    outline: none;
+    transition: box-shadow 0.3s;
+    margin-bottom: 0;
+
+    .ui-component__input-field {
+      background: none;
+      border: none;
+      box-shadow: none;
+      width: 80%;
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    @media (max-width: $bp-mobile) {
+      height: 50px;
+    }
+
+    &--full-width {
+      .ui-component__input-field {
+        width: 100%;
+      }
+    }
+  }
+
+  &__show-hide {
+    border: none;
+    background-color: transparent;
+    display: inline-block;
+    margin: 0;
+    overflow: visible;
+    text-transform: none;
+    -webkit-appearance: button;
+    cursor: pointer;
+    position: absolute;
+    z-index: 3;
+    bottom: 0;
+    color: $button-blue;
+    font-size: 1.6em;
+    font-family: inherit;
+    top: 0;
+    right: 0;
+    width: 20%;
+    padding: 0;
+
+    &:focus,
+    &:hover {
+      outline: none;
+      text-decoration: underline;
+    }
+  }
+
+}

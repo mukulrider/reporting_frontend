@@ -1,0 +1,155 @@
+/**
+ * THE GRID
+ *
+ * Implementation of DDL Grid, as defined here:
+ * http://ddl-toolkit.tesco-ux.com/foundation/grid/specification/view
+ *
+ **/
+
+@import '../../common/styles/mixins';
+@import '../../common/styles/breakpoints';
+@import '../../../node_modules/susy/sass/susy';
+
+$column-width: 39px; // this value isn't being used, Susy just needs it to equal the 39px in the gutters calculation to provide a fixed gutter width
+$gutter-width: 24px; // 12px each side of column
+$containerClass: 'ui-component__grid';
+
+$susy: (
+  column-width: $column-width,
+  gutters: $gutter-width/$column-width,
+  gutter-position: inside-static
+);
+
+$fluidLayoutMobile: (
+  columns: 8,
+  math: fluid
+);
+
+$fluidLayoutTablet: (
+  columns: 12,
+  math: fluid
+);
+
+$fixedLayoutDesktop: (
+  columns: 16,
+  math: static
+);
+
+$fixedLayoutLargeDesktop: (
+  columns: 20,
+  math: static
+);
+
+$fixedLayoutXLargeDesktop: (
+  columns: 24,
+  math: static
+);
+
+// min-width: 504px - 8 cols
+@include susy-breakpoint($bp-mobile, $fluidLayoutMobile) {
+  .#{$containerClass} {
+    @include container(100%);
+  }
+}
+
+// min-width: 756px - 12 cols
+@include susy-breakpoint($bp-tablet, $fluidLayoutTablet) {
+  .#{$containerClass}  {
+    @include container(100%);
+  }
+}
+
+// min-width: 1008px - 16 cols
+@include susy-breakpoint($bp-desktop, $fixedLayoutDesktop) {
+  .#{$containerClass}  {
+    @include container($bp-desktop);
+  }
+}
+
+// min-width: 1260px - 20 cols
+@include susy-breakpoint($bp-desktop-large, $fixedLayoutLargeDesktop) {
+  .#{$containerClass}  {
+    @include container($bp-desktop-large);
+  }
+}
+
+// min-width: 1512px - 24 cols
+@include susy-breakpoint($bp-desktop-xlarge, $fixedLayoutXLargeDesktop) {
+  .#{$containerClass} {
+    @include container($bp-desktop-xlarge);
+  }
+}
+
+// Helper mixins for consuming apps
+
+@mixin gridBase() {
+  .#{$containerClass}  {
+    @content;
+  }
+}
+
+@mixin gridMobile() {
+  @include susy-breakpoint($bp-mobile, $fluidLayoutMobile) {
+    .#{$containerClass}  {
+      @content;
+    }
+  }
+}
+
+@mixin gridTablet() {
+  @include susy-breakpoint($bp-tablet, $fluidLayoutTablet) {
+    .#{$containerClass}  {
+      @content;
+    }
+  }
+}
+
+@mixin gridDesktop() {
+  @include susy-breakpoint($bp-desktop, $fixedLayoutDesktop) {
+    .#{$containerClass}  {
+      @content;
+    }
+  }
+}
+
+@mixin gridDesktopLarge() {
+  @include susy-breakpoint($bp-desktop-large, $fixedLayoutLargeDesktop) {
+    .#{$containerClass}  {
+      @content;
+    }
+  }
+}
+
+@mixin gridDesktopXLarge() {
+  @include susy-breakpoint($bp-desktop-xlarge, $fixedLayoutXLargeDesktop) {
+    .#{$containerClass}  {
+      @content;
+    }
+  }
+}
+
+// Helpers
+
+@mixin col--1-4 {
+  width: 25%;
+}
+
+@mixin col--1-2 {
+  width: 50%;
+}
+
+@mixin col--3-4 {
+  width: 75%;
+}
+
+.col--1-4 {
+  @include col--1-4;
+}
+
+.col--1-2 {
+  @include col--1-2;
+}
+
+.col--3-4 {
+  @include col--3-4;
+}

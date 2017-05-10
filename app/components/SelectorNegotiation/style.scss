@@ -1,0 +1,117 @@
+@import "./../../stylesheet";
+
+.mycheckbox{
+  height: 16px;
+  width: 16px;
+  background: white;
+  border-color: $checkbox-selected-border;
+  //box-shadow: 0 0 0 4px $checkbox-selected-shadow;
+}
+
+.ui-component__checkbox-wrapper {
+  position: relative;
+  clear: both;
+  margin-bottom: 25px;
+  @include clearfix;
+
+
+  &--invalid {
+    .ui-component__dummy-checkbox {
+      border: 1px solid $error-color;
+    }
+
+    .ui-component__checkbox {
+      &:checked ~ .ui-component__checkbox-label .ui-component__dummy-checkbox {
+        border: 1px solid $error-color;
+      }
+      &:hover ~ .ui-component__checkbox-label .ui-component__dummy-checkbox,
+      &:focus ~ .ui-component__checkbox-label .ui-component__dummy-checkbox {
+        border: 1px solid $error-color;
+        box-shadow: 0px 0px 0px 4px $checkbox-error-shadow;
+      }
+    }
+  }
+
+  .ui-component__checkbox-label {
+    float: left;
+    width: 100%;
+    line-height: 1.1875;
+    color: $midgrey5;
+    font-size: 1.6em;
+
+    &--text {
+      display: inline-block;
+      padding-left: 44px;
+      margin-top: 6px;
+    }
+  }
+
+  .ui-component__icon--checkmark {
+    height: 32px;
+    width: 32px;
+    line-height: 32px;
+    position: absolute;
+    left: -1px;
+    top: -1px;
+    font-size: 20px;
+    text-align: center;
+
+    &:before {
+      color: #fff;
+      display: inline-block;
+      /* The icons itself seems to have some included space at the top
+         This workaround positions the icon correctly in the checkbox */
+      margin-top: -4px;
+    }
+  }
+}
+
+.ui-component__checkbox {
+  &:checked ~ .ui-component__checkbox-label .ui-component__dummy-checkbox {
+    background: $link-blue-hover;
+    border-color: $link-blue-hover;
+  }
+
+  &:focus ~ .ui-component__checkbox-label .ui-component__dummy-checkbox {
+    border-color: $checkbox-selected-border;
+    box-shadow: 0 0 0 4px $checkbox-selected-shadow;
+  }
+
+  &:disabled ~ .ui-component__checkbox-label .ui-component__dummy-checkbox {
+    cursor: default;
+    background-color: $footer-grey;
+
+    .ui-component__icon--checkmark:before {
+      color: $footer-grey;
+    }
+  }
+  &:disabled ~ .ui-component__checkbox-label {
+    color: #999;
+  }
+  &:disabled ~ .ui-component__checkbox-label .ui-component__dummy-checkbox,
+  &:disabled:hover ~ .ui-component__checkbox-label .ui-component__dummy-checkbox,
+  &:disabled:focus ~ .ui-component__checkbox-label .ui-component__dummy-checkbox {
+    border: 1px solid #ccc;
+    box-shadow: none;
+  }
+}
+
+.ui-component__dummy-checkbox {
+  border: 1px solid #ccc;
+  display: block;
+  float: left;
+  clear: none;
+  height: 3.2rem;
+  width: 3.2rem;
+  position: absolute;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+  vertical-align: middle;
+  margin-right: 12px;
+
+  &:hover {
+    border-color: $checkbox-selected-border;
+    box-shadow: 0 0 0 4px $checkbox-selected-shadow;
+  }
+}
+
