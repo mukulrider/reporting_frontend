@@ -44,7 +44,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
     console.log('dataWeekParams',dataWeekParams);
     console.log('dataMetricParams',dataMetricParams);
     this.props.onGetFilter();
-    // this.props.onSaveMetricParam(dataMetricParams);
+    this.props.onSaveMetricParam(dataMetricParams);
     this.props.onGenerateUrlParamsString();
 
     console.log('Function called from index');

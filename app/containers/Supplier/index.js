@@ -138,9 +138,12 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
       }, {
         text: '15', value: 15
       }, {
-        text: 'All', value: 100
-      } ], // you can change the dropdown list for size per page
-      sizePerPage: 25,  // which size per page you want to locate as default
+        text: '25', value: 25
+      },
+        {
+          text: '50', value: 50
+        }], // you can change the dropdown list for size per page
+      sizePerPage: 15,  // which size per page you want to locate as default
       pageStartIndex: 1, // where to start counting the pages
       paginationSize: 3,  // the pagination bar size.
       prePage: 'Prev', // Previous page button text
@@ -154,6 +157,26 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
       // alwaysShowAllBtns: true // Always show next and previous button
       // withFirstAndLast: false > Hide the going to First and Last page button
     };
+
+    let formatSales = (cell) =>{
+      if (cell >= 1000 || cell <= -1000) {
+        let rounded = Math.round(cell / 1000);
+        return ('£ ' + rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'K');
+      }
+      else {
+        return ('£ ' + Math.round(cell));
+      }
+    }
+
+    let formatVolume = (cell) => {
+      if (cell >= 1000 || cell <= -1000) {
+        let rounded = Math.round(cell / 1000);
+        return (rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'K');
+
+      } else {
+        return (Math.round(cell));
+      }
+    }
 
     {
       console.log('this.propss', this.props)
@@ -1003,10 +1026,10 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                         exportCSV={true}
                                       >
                                         <TableHeaderColumn dataField="base_product_number" isKey={true} dataAlign="center" dataSort={true}>Product ID</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="parent_supplier" dataSort={true} dataAlign="center">Parent Supplier</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="sales_ty" dataSort={true} dataAlign="center">Sales TY</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="volume_ty" dataSort={true} dataAlign="center">Volume TY</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="cgm_ty" dataSort={true} dataAlign="center">CGM TY</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="parent_supplier" tdStyle={ { whiteSpace: 'normal' } } width="20%" dataSort={true} dataAlign="center">Parent Supplier</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="sales_ty" dataFormat={formatSales} dataSort={true} dataAlign="center">Sales TY</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="volume_ty" dataFormat={formatVolume} dataSort={true} dataAlign="center">Volume TY</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="cgm_ty" dataFormat={formatSales} dataSort={true} dataAlign="center">CGM TY</TableHeaderColumn>
                                         <TableHeaderColumn dataField="pps" dataSort={true} dataAlign="center">PPS</TableHeaderColumn>
                                         <TableHeaderColumn dataField="cps" dataSort={true} dataAlign="center">CPS</TableHeaderColumn>
                                         <TableHeaderColumn dataField="rate_of_sale" dataSort={true} dataAlign="center">Rate of Sale</TableHeaderColumn>
