@@ -152,8 +152,8 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
 
     console.log("Multiline Promo Frame Width",frameWidth);
     let margin = {top: 20, right: 10, bottom: 60, left: 100};
-     width = frameWidth - margin.left - margin.right,
-     height = frameWidth*0.7 - margin.top - margin.bottom;
+     width = frameWidth - margin.left - margin.right;
+     let height = frameWidth*0.7 - margin.top - margin.bottom;
 
     console.log("MultilinePromo width",width);
     console.log("MultilinePromo height",height);
