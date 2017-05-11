@@ -30,6 +30,37 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
     // this.props.onCompWaterfall();
   };
 
+  checkboxUpdate = (selection) => {
+    console.log('Raunaks Cascaded check', this.props);
+    let newUrl = this.props.location.pathname;
+
+    let queryString = '';
+    [...this.refs.selector.querySelectorAll('input')].map(obj => {
+      if (obj.checked == true){
+        console.log('Cascaded applyButtonFunctionality'); //, obj);
+      let category = obj.id.split('__');
+      //console.log('queryString', queryString);
+      queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
+
+      }
+    });
+    //
+    queryString = queryString.substring(0, queryString.length - 1);
+    //  console.log('queryString->', queryString);
+    //const urlParams = this.props.location.query;
+    this.props.onSaveWeek();
+    this.props.onGenerateUrlParamsString(queryString);
+    // this.props.DefaultLineChartCall();
+    // this.props.onCompetitorPieChart(urlParams);
+    // this.props.onCompetitorPriceRange();
+    // this.props.onCompWaterfall();
+
+
+    this.props.onCheckboxChange(queryString);
+    this.props.onGenerateSideFilter();
+
+
+  };
 
   applyButtonFunctionality = () => {
     console.log('Raunaks Cascaded check', this.props);
@@ -216,12 +247,12 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                                   {
                                     obj.items.map(obj2 => {
                                       finalCheckbox.push(
-                                        <Checkbox id={obj2.title + '__' + obj.name}
+                                        <Checkbox id={obj.title + '__' + obj2.title}
                                                   label={obj2.title}
                                                   style={{fontSize: '10px'}}
                                                   checked={(() => {
                                                     if (obj2.selected) {
-                                                      alert()
+                                                      {/*alert()*/}
                                                     }
                                                     return obj2.resource.selected
                                                   })()}
@@ -243,10 +274,9 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                                                     {/*}*/
                                                     }
                                                     console.log('selection', selection);
-                                                    this.props.onCheckboxChange(selection);
-                                                    this.props.onGenerateSideFilter();
+                                                    this.checkboxUpdate(selection)
                                                   }}
-                                                  isDisabled={obj2.disabled}
+                                                  isDisabled={!obj2.highlighted}
                                                   valid={true}
                                                   key={Date.now() + Math.random()}
                                         />
@@ -284,38 +314,28 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
               </PanelGroup>
 
 
-              <Button style={{marginTop: "5px", width: "10px", minWidth: "170px", fontSize: "13px"}}
-                      onClick={() => {
+              <Button
+                style={{marginTop: "5px", width: "10px", minWidth: "170px", fontSize: "13px", textAlign: "center"}}
+                onClick={() => {
 
-                        this.applyButtonFunctionality();
+                  this.applyButtonFunctionality();
 
-                      }}>Apply Filters</Button>
+                }}>Apply Filters</Button>
 
-              <Button style={{marginTop: "5px", width: "10px", minWidth: "170px", fontSize: "13px"}}
-                      onClick={() => {
-                        //To un check all the buttons
-                        let selection = '';
-                        this.props.onCheckboxChange(selection);
-                        this.props.onGenerateSideFilter();
+              <Button
+                style={{marginTop: "5px", width: "10px", minWidth: "170px", fontSize: "13px", textAlign: "center"}}
+                onClick={() => {
+                  //To un check all the buttons
+                  let selection = '';
+                  this.props.onCheckboxChange(selection);
+                  this.props.onGenerateSideFilter();
 
-                        {/*this.resetButtonFunctionality();*/
-                        }
+                  {/*this.resetButtonFunctionality();*/
+                  }
 
-                      }}>Clear Filter Selections</Button>
+                }}>Clear Filter Selections</Button>
 
-              <Button style={{marginTop: "5px", width: "10px", minWidth: "170px", fontSize: "13px"}}
-                      onClick={() => {
-                        //To un check all the buttons
-                        {/*let selection='';*/
-                        }
-                        {/*this.props.onCheckboxChange(selection);*/
-                        }
-                        {/*this.props.onGenerateSideFilter();*/
-                        }
 
-                        this.resetButtonFunctionality();
-
-                      }}>Load Default view</Button>
             </div>
           )
         })()}
