@@ -306,7 +306,7 @@ export class Competitor extends React.PureComponent {
                           } })()}>&nbsp;
 
                         </span>
-                      {this.props.competitor.piechart_data.tesco_share_data}%
+                      {this.props.competitor.piechart_data.tesco_share_data}
                     </div>
 
 

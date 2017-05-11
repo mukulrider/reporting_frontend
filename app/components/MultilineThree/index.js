@@ -152,8 +152,8 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
     // Add the valueline path.
     // set the dimensions and margins of the graph
     let margin = {top: 20, right: 200, bottom: 60, left: 100},
-      width = 500 - margin.left - margin.right,
-      height = 250 - margin.top - margin.bottom;
+      width = 1200 - margin.left - margin.right,
+      height = 300 - margin.top - margin.bottom;
 
     console.log("---insde the createMultilinePromoChart---- check2",margin);
 // set the ranges
@@ -307,7 +307,7 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
 
     svg.append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 0 + (margin.left)+30)
+      .attr("y", 0 + (margin.left)+840)
       // .attr("y", 0 - (width / 2))
       .attr("x",0 - (height / 2))
       .attr("dy", "1em")
@@ -333,7 +333,7 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
     let color_hash = ["black","blue","yellow"];
 
     legend.append("rect")
-      .attr("x", width-150 )
+      .attr("x", width+95 )
       .attr("width", 19)
       .attr("height", 19)
       .attr("fill", function (d, i) {
@@ -341,7 +341,7 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
       });
 
     legend.append("text")
-      .attr("x", width-155)
+      .attr("x", width+90)
       .attr("y", 9.5)
       .attr("dy", "0.32em")
       .text(function (d) {
@@ -371,7 +371,7 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
 
   render() {
     return (
-      <div id = {this.props.id}>
+      <div id = {this.props.id} style= {{paddingLeft:"5%"}}>
       </div>
     );
   }
