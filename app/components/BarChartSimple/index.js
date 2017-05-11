@@ -16,7 +16,7 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
     // Define Legend Parameters
     let legend_width = containerWidth*1.8, legend_text_width=containerWidth*1.8 -20;
     //defining the colors for the chart bars
-    let color_hash = ["steelblue","red"];
+    let color_hash = ["#98abc5", "#6b486b"];
     // creating legend object for chart
     let data_label = [{"label":"Dummy Label"},{"label":"Dummy Label2"}] // defining the legend label variable
 
@@ -100,7 +100,6 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
 
     let legend = svg.append("svg")
       .attr("font-family", "sans-serif")
-      .attr("font-size", 10)
       .attr("text-anchor", "end")
       .selectAll("g")
       .data(data_label)

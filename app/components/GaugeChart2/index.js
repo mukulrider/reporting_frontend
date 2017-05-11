@@ -105,7 +105,7 @@ class GaugeChart2 extends React.PureComponent { // eslint-disable-line react/pre
 
   componentDidMount = () =>{
     console.log("Inside gauge barchart------",this.props)
-    this.createChart(this.props.data[0],this.props.id,[ "#98abc5", "#8a89a6", "#7b6888" ]);
+    this.createChart(this.props.data[0],this.props.id,[ "#8a89a6", "#8a89a6", "#8a89a6" ]);
   };
 
   componentDidUpdate= () => {
