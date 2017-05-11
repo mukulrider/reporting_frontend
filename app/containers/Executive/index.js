@@ -1218,7 +1218,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                   </h3>
                                   <div className="row">
-                                    <h3>{
+                                    <h3 style={{ textAlign : "center"}}>{
                                       this.props.Executive.overview_drivers_external_data.sunshine.avg
 
                                     }</h3>
@@ -1283,7 +1283,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                   </h3>
                                   <div className="row">
-                                    <h3>{
+                                    <h3 style={{ textAlign : "center"}}>{
                                       this.props.Executive.overview_drivers_external_data.rainfall.avg
 
                                     }</h3>
@@ -1348,7 +1348,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                   </h3>
                                   <div className="row">
-                                    <h3>{
+                                    <h3 style={{ textAlign : "center"}}>{
                                       this.props.Executive.overview_drivers_external_data.temperature.avg
 
                                     }</h3>
