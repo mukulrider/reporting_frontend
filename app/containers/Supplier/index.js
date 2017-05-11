@@ -18,11 +18,14 @@ import BubbleChart2 from 'components/BubbleChart2';
 import GaugeChart2 from 'components/GaugeChart2';
 import {Nav} from 'react-bootstrap';
 import {NavItem, Pagination} from 'react-bootstrap';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import InputField from 'components/input_field';
 import FiltersSupplier from 'components/FiltersSupplier';
 import RadioButton from 'components/radio_button';
 import Checkbox from 'components/checkbox';
 import Spinner from 'components/spinner';
+require('react-bootstrap-table/css/react-bootstrap-table.css')
+
 import {
   kpibox,
   topBottomChart,
@@ -122,6 +125,32 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
   };
 
   render() {
+
+    const options = {
+      page: 1,  // which page you want to show as default
+      sizePerPageList: [ {
+        text: '5', value: 5
+      }, {
+        text: '10', value: 10
+      }, {
+        text: '15', value: 15
+      }, {
+        text: 'All', value: 100
+      } ], // you can change the dropdown list for size per page
+      sizePerPage: 25,  // which size per page you want to locate as default
+      pageStartIndex: 1, // where to start counting the pages
+      paginationSize: 3,  // the pagination bar size.
+      prePage: 'Prev', // Previous page button text
+      nextPage: 'Next', // Next page button text
+      firstPage: 'First', // First page button text
+      lastPage: 'Last', // Last page button text
+      paginationShowsTotal: this.renderShowsTotal,  // Accept bool or function
+      paginationPosition: 'bottom',  // default is bottom, top and both is all available
+      expandRowBgColor: 'rgb(242, 255, 163)'
+      // hideSizePerPage: true > You can hide the dropdown for sizePerPage
+      // alwaysShowAllBtns: true // Always show next and previous button
+      // withFirstAndLast: false > Hide the going to First and Last page button
+    };
 
     {
       console.log('this.propss', this.props)
@@ -906,134 +935,48 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                         <Panel>
                           <div>
-                            {/*<div className="col-xs-12 col-xs-5" style={{marginBottom: "10px", marginLeft: "-14px"}}>*/}
-
-                            {/*<InputField type={'string'}*/}
-                            {/*placeholder="Search for Product Description ..."*/}
-                            {/*dataPageUrlParams="page=1"*/}
-                            {/*value={this.props.textBoxQueryString}*/}
-                            {/*onChange={(e) => {*/}
-                            {/*this.props.onGenerateTextBoxQueryString(e);*/}
-                            {/*this.props.onGenerateTable();*/}
-                            {/*this.props.onSavePageParam(dataPageUrlParams);*/}
-                            {/*}}*/}
-                            {/*/>*/}
-                            {/*</div>*/}
-
-                            <table className="table table-hover table-bordered" width="100%">
-
-                              <thead style={{fontWeight: '700', fontSize: '12px', textAlign: 'center'}}>
-                              <tr className="table-header-format">
-                                {/*<th style={{textAlign: 'center'}}>Select</th>*/}
-                                <th style={{textAlign: 'center'}}>Product ID</th>
-                                <th style={{textAlign: 'center'}}>Parent Supplier</th>
-                                <th style={{textAlign: 'center'}}>Sales TY</th>
-                                <th style={{textAlign: 'center'}}>Volume TY</th>
-                                <th style={{textAlign: 'center'}}>CGM TY</th>
-                                <th style={{textAlign: 'center'}}>PPS</th>
-                                <th style={{textAlign: 'center'}}>CPS</th>
-                                <th style={{textAlign: 'center'}}>Rate of Sale</th>
-                              </tr>
-                              </thead>
-                              <tbody className="table-body-format">
-
-                              {(() => {
-
+                            {
+                              (() => {
+                                // if (this.props.ProductPage.data) {
                                 if (this.props.supplier.data && (this.props.supplier.tableChartSpinnerCheck == 1)) {
-                                  console.log('this.props.supplier.data.table_data', this.props.supplier.data.table_data);
-                                  return this.props.supplier.data.table_data.map(obj => {
-                                    return (
-                                      <tr key={Math.random() + Date.now()}>
-                                        {/**/}
-                                        {/*<td style={{textAlign: "center"}}>*/}
-                                        {/*<Checkbox isDisabled={false} id={Math.random() + Date.now()}*/}
-                                        {/*onChange={(e) => {*/}
-                                        {/*this.inputUpdate(e.target.checked, obj.base_product_number)*/}
-                                        {/*this.tableProductUpdate(e.target.checked, obj.base_product_number);*/}
 
-                                        {/*}}*/}
-                                        {/*checked={(() => {*/}
-                                        {/*let checked = false;*/}
-                                        {/*console.log('obj.base_product_number.toString()', obj.base_product_number.toString());*/}
-                                        {/*let base_product_number = obj.base_product_number.toString();*/}
-                                        {/*console.log('base_product_number', base_product_number);*/}
-                                        {/*console.log('this.props.supplier.checkedList', this.props.supplier.checkedList);*/}
-                                        {/*this.props.supplier.checkedList.map(obj2 => {*/}
-                                        {/*if (obj2.checked) {*/}
-                                        {/*if (obj2.productId == base_product_number) {*/}
-                                        {/*checked = true*/}
-                                        {/*}*/}
-                                        {/*}*/}
-                                        {/*});*/}
-                                        {/*return checked*/}
-                                        {/*})()}*/}
-                                        {/*valid={true}/>*/}
-                                        {/*</td>*/}
-                                        <td style={{
-                                          textAlign: 'center',
-                                          verticalAlign: 'center'
-                                        }}>{obj.base_product_number}</td>
-                                        <td
-                                          style={{
-                                            textAlign: 'center',
-                                            verticalAlign: 'center'
-                                          }}>{obj.parent_supplier}</td>
-                                        <td style={{textAlign: 'center', verticalAlign: 'center'}}>{obj.sales_ty}</td>
-                                        <td style={{textAlign: 'center', verticalAlign: 'center'}}>{obj.volume_ty}</td>
-                                        <td style={{textAlign: 'center', verticalAlign: 'center'}}>{obj.cgm_ty}</td>
-                                        <td style={{textAlign: 'center', verticalAlign: 'center'}}>{obj.pps}</td>
-                                        <td style={{textAlign: 'center', verticalAlign: 'center'}}>{obj.cps}</td>
-                                        <td
-                                          style={{textAlign: 'center', verticalAlign: 'center'}}>{obj.rate_of_sale}</td>
-                                      </tr>
-                                    )
-                                  })
-                                } else {
+
                                   return (
-                                    <tr>
-                                      <td className="text-center" colSpan="8"><Spinner />Please Wait a Moment....!</td>
-                                    </tr>
-                                  )
+                                    <div>
+                                      <BootstrapTable
+                                        data={this.props.supplier.data.table_data} options={options}
+                                        striped={true}
+                                        hover
+                                        condensed
+                                        pagination={ true }
+                                        search={true}
+                                        exportCSV={true}
+                                      >
+                                        <TableHeaderColumn dataField="base_product_number" isKey={true} dataAlign="center" dataSort={true}>Product ID</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="parent_supplier" dataSort={true} dataAlign="center">Parent Supplier</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="sales_ty" dataSort={true} dataAlign="center">Sales TY</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="volume_ty" dataSort={true} dataAlign="center">Volume TY</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="cgm_ty" dataSort={true} dataAlign="center">CGM TY</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="pps" dataSort={true} dataAlign="center">PPS</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="cps" dataSort={true} dataAlign="center">CPS</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="rate_of_sale" dataSort={true} dataAlign="center">Rate of Sale</TableHeaderColumn>
+                                      </BootstrapTable>
+
+                                    </div>
+                                  );
+
                                 }
+                                else {
+                                  return (
 
-                              })()}
+                                    <div className="text-center" colSpan="11"><Spinner />Please Wait a Moment....!</div>
 
-                              </tbody>
-                            </table>
+                                  );
+                                }
+                              })()
+                            }
 
-                            {/*pagination*/}
-
-                            {(() => {
-                              if (this.props.supplier.data && this.props.supplier.data.count) {
-
-                                return <Pagination
-                                  prev
-                                  next
-                                  first
-                                  last
-                                  ellipsis
-                                  boundaryLinks
-                                  items={this.props.supplier.data.num_pages}
-                                  maxButtons={5}
-                                  activePage={this.state.activePage}
-                                  onSelect={(e) => {
-
-                                    this.setState({activePage: e})
-
-                                    let dataPageUrlParams = "page=" + e;
-                                    {/*console.log("dataPageUrlParams",dataPageUrlParams)*/
-                                    }
-                                    this.props.onSavePageParam(dataPageUrlParams);
-                                    this.props.onGenerateTable();
-
-                                  }}
-                                />
-
-                              }
-                            })()}
-
-                          </div>
-
+                              </div>
                         </Panel>
 
 

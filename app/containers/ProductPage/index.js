@@ -12,6 +12,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import * as d3 from 'd3';
+import $ from 'jquery';
 import DualLineChart from 'components/DualLineChart';
 import FiltersProduct from 'components/FiltersProduct';
 import Panel from 'components/panel';
@@ -136,7 +137,8 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
 
 
     return (
-      <Panel id="productPage">
+      <Panel>
+        <div id="productPage" ref="productPage">
             <div style={{
               height: '100%',
               position: 'fixed',
@@ -154,6 +156,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
               <FiltersProduct sideFilter={this.props.ProductPage.sideFilter}
               location={this.props.location}
               week_data={this.props.ProductPage.week_filter_data}
+              previous_week_selection={this.props.ProductPage.filter_week_selection}
               onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}
               onProductPage={this.props.onProductPageValues}
               onSaveWeek={this.props.onSaveWeek}
@@ -312,6 +315,30 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                           if (this.props.ProductPage.data && this.props.ProductPage.data.comp_data) {
                             return this.props.ProductPage.data.comp_data.map((obj) => {
 
+/*                              console.log("ProductPage:");
+                              console.log(this.refs.productPage);
+                              let divToprint=this.refs.productPage;
+                              let width=parseFloat(divToprint.getAttribute("width"));
+                              let height=parseFloat(divToprint.getAttribute("height"));
+                              let newWin=window.open('','printMap');
+                              console.log("NewWin:",newWin);
+                              $(newWin.document).ready(function() {
+                                let printDocHead = $('<head></head>').append($('style[type="text/css"]').clone());
+                                console.log("DivToPrintHtml",printDocHead);
+                                let printDocBodyHtml = $(divToprint).html().replace(/sizePerPage: 5/g, "sizePerPage: 25");
+                                //console.log("DocBodyHtml:",printDocBodyHtml);
+                                let printDocBody = $('<body></body>').html(printDocBodyHtml);
+                                let printDoc = $('<html></html>').append(printDocHead).append(printDocBody);
+                                //console.log("PrintDoc:",printDoc);
+                                newWin.document.write(printDoc[0].outerHTML);
+                                //newWin.document.close();
+                                newWin.focus();
+                                setTimeout(function(){
+                                  newWin.print();
+                                  console.log("print Fired:");
+                                  //newWin.close();
+                                }, 5);
+                              });*/
                               return (
                                 <table key={obj.metric_title } className="table table-hover table-striped table-bordered table_cust">
                                 <thead style={{ verticalAlign: 'middle',color:'#FFFFFF'}}>
@@ -455,7 +482,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   exportCSV={true}
                   >
                   <TableHeaderColumn row="0" rowSpan="2" dataField="product_id" isKey={true} dataAlign="center" dataSort>Product ID</TableHeaderColumn>
-                  <TableHeaderColumn row="0" rowSpan="2" width="225" dataField="product" dataSort={true} dataAlign="center">Description</TableHeaderColumn>
+                  <TableHeaderColumn row="0" rowSpan="2" width="275" tdStyle={ { whiteSpace: 'normal' } } dataField="product" dataSort={true} dataAlign="center">Description</TableHeaderColumn>
                   <TableHeaderColumn row="0" rowSpan="2" width="125" dataField="product_area" dataSort={true} dataAlign="center">Product Area</TableHeaderColumn>
                   <TableHeaderColumn row="0" colSpan="3" dataAlign="center">Price</TableHeaderColumn>
                   <TableHeaderColumn row="1" dataField="asp" dataFormat={this.formatSales} dataSort={true} dataAlign="center">ASP</TableHeaderColumn>
@@ -512,7 +539,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   exportCSV={true}
                   >
                   <TableHeaderColumn row="0" rowSpan="2" dataField="product_id" isKey={true} dataAlign="center" dataSort>Product ID</TableHeaderColumn>
-                  <TableHeaderColumn row="0" rowSpan="2" width="225" dataField="product" dataSort={true} dataAlign="center">Description</TableHeaderColumn>
+                  <TableHeaderColumn row="0" rowSpan="2" width="275" tdStyle={ { whiteSpace: 'normal' } } dataField="product" dataSort={true} dataAlign="center">Description</TableHeaderColumn>
                   <TableHeaderColumn row="0" rowSpan="2" width="125" dataField="product_area" dataSort={true} dataAlign="center">Product Area</TableHeaderColumn>
                   <TableHeaderColumn row="0" colSpan="3" dataAlign="center">Price</TableHeaderColumn>
                   <TableHeaderColumn row="1" dataField="asp" dataFormat={this.formatSales} dataSort={true} dataAlign="center">ASP</TableHeaderColumn>
@@ -544,6 +571,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
               </div>
             </div>
           </div>
+        </div>
     </Panel>
     );
   }

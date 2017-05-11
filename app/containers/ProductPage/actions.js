@@ -108,7 +108,7 @@ export function WeekFilterFetchSuccess(data)
 }
 
 export function SaveWeek(data) {
-  console.log('SaveWeek = actions',data);
+  console.log('SaveWeek',data);
   return {
     type: WEEK,
     data,
@@ -125,7 +125,7 @@ export function checkboxWeekChange(data) {
 
 export function getWeekFilter()
 {
-  console.log('actions.js getWeekFilter',WEEK_FILTER_CONSTANT);
+  console.log('getWeekFilter',WEEK_FILTER_CONSTANT);
   return {
     type: WEEK_FILTER_CONSTANT,
   };

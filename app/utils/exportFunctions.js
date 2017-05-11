@@ -5,7 +5,6 @@ import {saveSvgAsPng} from 'save-svg-as-png';
 import {saveAs} from 'save-as'
 var jsonexport = require('jsonexport');
 
-
 export function saveImage(svgElement,imageFileName){
   console.log("Function saveImage called from LineChart:");
   console.log("svgElement:",svgElement);
@@ -22,3 +21,4 @@ export function saveDataAsCSV(jsonData,csvFileName){
     saveAs(blob, csvFileName)
   })
 }
+

@@ -115,17 +115,11 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
                                                 let previous_week_selection = this.props.previous_week_selection;
                                                 let selection = "tesco_week=" + obj2.name;
                                                 //For enabling un checking
-                                                {
                                                   console.log('Cascaded Filter previous_week_selection', previous_week_selection);
-                                                }
-                                                {
                                                   console.log('Cascaded Filter selection', selection);
-                                                }
                                                 if (previous_week_selection == selection) {
                                                   selection = '';
                                                 }
-
-
                                                 this.props.onCheckboxWeekChange(selection);
                                                 this.props.onSaveWeek(selection);
                                                 this.props.onGetFilter();
