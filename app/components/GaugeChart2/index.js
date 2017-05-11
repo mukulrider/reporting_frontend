@@ -25,13 +25,14 @@ class GaugeChart2 extends React.PureComponent { // eslint-disable-line react/pre
       .attr("id",id +"_svg")
       .attr( "width", width )
       .attr( "height", height )
+      .attr("transform","translate(-" + 40 +")")
       //responsive SVG needs these 2 attributes and no width and height attr
       .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 500 250")
+      .attr("viewBox", "0 0 400 200")
       //class to make it responsive
       .classed("svg-content-responsive", true);
-    svg.append('text').attr('x',width/2 - 80).attr('y',height/2).text("0.0")
-    svg.append('text').attr('x',width/2 + 80).attr('y',height/2).text("100.0%")
+    svg.append('text').attr('x',width/2 + 20 - 80).attr('y',height/2 + 10).text("0.0")
+    svg.append('text').attr('x',width/2 + 20 +80).attr('y',height/2 + 10).text("100.0%")
     let arc = d3.arc()
       .innerRadius( 50 )
       .outerRadius( 80 )
@@ -50,7 +51,8 @@ class GaugeChart2 extends React.PureComponent { // eslint-disable-line react/pre
 // //d3.json("data.json", function(error, data) {
 //
 //
-//     // initialize pie chart
+//  // initialize pie chart
+    //(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
     let pie = d3.pie()
       .startAngle( (-1*Math.PI) / 2 )
       .endAngle( Math.PI / 2 )
@@ -65,7 +67,7 @@ class GaugeChart2 extends React.PureComponent { // eslint-disable-line react/pre
       .append( 'path' )
       .attr( "d", arc )
 
-      .attr( "transform", "translate(" + (width/2 + 80) + ",100)" )
+      .attr( "transform", "translate(" + (width/2 + 30) + ",100)" )
       .style( "fill", function( d, i ) {
         return colors[i]
       } );
@@ -82,7 +84,7 @@ class GaugeChart2 extends React.PureComponent { // eslint-disable-line react/pre
       .classed("needle", true)
       .style( "stroke", "black" )
       .attr( "transform", function( d ) {
-        return " translate(" + (width/2) + ",100) rotate(" + d + ")"
+        return " translate(" + 20 + ",100) rotate(" + d + ")"
       } );
 //
 //     // a = 50
@@ -92,7 +94,7 @@ class GaugeChart2 extends React.PureComponent { // eslint-disable-line react/pre
       .ease( d3.easeElasticOut )
       .duration( 2000 )
       .attr( "transform", function( d ) {
-        return "translate(300,100) rotate(" + d + ")"
+        return "translate(" + (width/2 + 30)+ ",100) rotate(" + d + ")"
       });
 
 
@@ -103,7 +105,7 @@ class GaugeChart2 extends React.PureComponent { // eslint-disable-line react/pre
 
   componentDidMount = () =>{
     console.log("Inside gauge barchart------",this.props)
-    this.createChart(this.props.data[0],this.props.id,[ "#00ff00", "#ffa500", "#ff0000" ]);
+    this.createChart(this.props.data[0],this.props.id,[ "#98abc5", "#8a89a6", "#7b6888" ]);
   };
 
   componentDidUpdate= () => {

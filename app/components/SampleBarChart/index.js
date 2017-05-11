@@ -47,10 +47,17 @@ class SampleBarChart extends React.PureComponent { // eslint-disable-line react/
     var x = d3.scaleLinear()
       .range([0, width]);
 
-// Scale the range of the data in the domains
-    x.domain(d3.extent(data, function (d) {
-      return d.val;
-    }));
+    var getValueRange = function(){
+      let d3_extent = d3.extent(data, function (d) {
+        return d.val;
+      })
+      if(d3_extent[0] < 0 && d3_extent[1] < 0){ d3_extent[1] = 0 ; return d3_extent; }
+      else if(d3_extent[0] > 0 && d3_extent[1] > 0){ d3_extent[0] = 0 ; return d3_extent;}
+      else{ return d3_extent; }
+    }
+
+    // Scale the range of the data in the domains
+    x.domain(getValueRange());
     y.domain(data.map(function (d) {
       return d.parent_supplier;
     }));
