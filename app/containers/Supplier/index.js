@@ -669,7 +669,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
 
                         <panel>
-                          <div className="col-xs-6 panel-body">
+                          <div className="col-md-6 col-sm-12 col-xs-12 panel-body">
                             <h4 className="pageModuleMainTitle"> Top Suppliers</h4>
                             {(() => {
                               if (this.props.supplier.topBotData && this.props.supplier.barChartSpinnerCheck != 0) {
@@ -689,7 +689,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                             })()}
 
                           </div>
-                          <div className="col-xs-6 panel-body">
+                          <div className="col-md-6 col-sm-12 col-xs-12 panel-body">
                             <h4 className="pageModuleMainTitle"> Bottom Suppliers </h4>
                             {(() => {
                               if (this.props.supplier.topBotData && this.props.supplier.barChartSpinnerCheck != 0) {
