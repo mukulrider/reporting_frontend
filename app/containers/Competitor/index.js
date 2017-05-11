@@ -15,8 +15,8 @@ import './style.scss';
 import Pichart from 'components/Pichart';
 import BarLineChart from 'components/BarLineChart';
 import CascadedFilterNpd from 'components/CascadedFilterNpd';
-import {Modal, Nav} from 'react-bootstrap';
-import {NavItem} from 'react-bootstrap';
+import { Modal,Nav,NavItem,DropdownButton, MenuItem } from 'react-bootstrap';
+import {saveImage,saveDataAsCSV} from './../../utils/exportFunctions';
 import WaterFallChart2 from 'components/WaterFallChart2';
 import Panel from 'components/panel';
 import {
@@ -284,7 +284,21 @@ export class Competitor extends React.PureComponent {
                   if (this.props.competitor.piechart_data.pie_chart_value) {
                     console.log("pie chart data", this.props.competitor.piechart_data);
                     return (
-                      <Pichart data={this.props.competitor.piechart_data.pie_chart_value} id="piechart"/>
+                      <div>
+                        <Pichart ref = "competitorPieChartComp" data={this.props.competitor.piechart_data.pie_chart_value} id="piechart"/>
+                        <div style={{float:"right"}}>
+                          <DropdownButton title="Save Image/CSV" style={{backgroundColor:"#449d44", borderColor:"#398439",color:"#fff"}} id="dropButtonId">
+                              <MenuItem onClick={() => {
+                              saveImage(document.getElementById('piechart_svg'),"pie_chart")
+                            }
+                          }>Save As JPEG</MenuItem>
+                            <MenuItem onClick={() => {
+                              saveDataAsCSV(this.props.competitor.piechart_data.pie_chart_value,"pie_chart.csv")
+                            }
+                          }>Download CSV</MenuItem>
+                          </DropdownButton>
+                        </div>
+                      </div>
                     )
                   }
                 })()}
@@ -321,7 +335,21 @@ export class Competitor extends React.PureComponent {
                   if (this.props.competitor.outperformance_data) {
                     console.log("Outperformance data", this.props.competitor.outperformance_data);
                     return (
-                      <BarLineChart data={this.props.competitor.outperformance_data} id="barline" series_col_name= 'id'/>
+                      <div>
+                        <BarLineChart data={this.props.competitor.outperformance_data} id="barline" ref="competitorOutperformComp" series_col_name= 'id'/>
+                        <div style={{float:"right"}}>
+                          <DropdownButton title="Save Image/CSV" style={{backgroundColor:"#449d44", borderColor:"#398439",color:"#fff"}} id="dropButtonId">
+                              <MenuItem onClick={() => {
+                              saveImage(document.getElementById('barline_svg'),"barline_chart")
+                            }
+                          }>Save As JPEG</MenuItem>
+                            <MenuItem onClick={() => {
+                              saveDataAsCSV(this.props.competitor.outperformance_data,"barline_chart.csv")
+                            }
+                          }>Download CSV</MenuItem>
+                            </DropdownButton>
+                      </div>
+                      </div>
                     )
                   }
                 })()}

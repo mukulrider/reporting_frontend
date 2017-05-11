@@ -58,7 +58,7 @@ export function* generateSideFilter() {
     // todo: update url
 
     // const data = yield call(request, `http://172.20.244.141:8000/api/product_impact/filter_data/?${urlParamsString}`);
-    const filter_data = yield call(request, `${host_url}/api/reporting/filter_data/?${urlParamsString}`);
+    const filter_data = yield call(request, `${host_url}/api/reporting/filter_data_product/?${urlParamsString}`);
     console.log('This is my fetched filter data', filter_data);
 
     yield put(generateSideFilterSuccess(filter_data));

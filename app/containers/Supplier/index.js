@@ -16,13 +16,16 @@ import Button from 'components/button';
 import SampleBarChart from 'components/SampleBarChart';
 import BubbleChart2 from 'components/BubbleChart2';
 import GaugeChart2 from 'components/GaugeChart2';
-import {Nav} from 'react-bootstrap';
-import {NavItem, Pagination} from 'react-bootstrap';
+import { Nav,NavItem,DropdownButton, MenuItem } from 'react-bootstrap';
+import {saveImage,saveDataAsCSV} from './../../utils/exportFunctions';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import InputField from 'components/input_field';
 import FiltersSupplier from 'components/FiltersSupplier';
 import RadioButton from 'components/radio_button';
 import Checkbox from 'components/checkbox';
 import Spinner from 'components/spinner';
+require('react-bootstrap-table/css/react-bootstrap-table.css')
+
 import {
   kpibox,
   topBottomChart,
@@ -126,6 +129,55 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
   render() {
 
+    const options = {
+      page: 1,  // which page you want to show as default
+      sizePerPageList: [ {
+        text: '5', value: 5
+      }, {
+        text: '10', value: 10
+      }, {
+        text: '15', value: 15
+      }, {
+        text: '25', value: 25
+      },
+        {
+          text: '50', value: 50
+        }], // you can change the dropdown list for size per page
+      sizePerPage: 15,  // which size per page you want to locate as default
+      pageStartIndex: 1, // where to start counting the pages
+      paginationSize: 3,  // the pagination bar size.
+      prePage: 'Prev', // Previous page button text
+      nextPage: 'Next', // Next page button text
+      firstPage: 'First', // First page button text
+      lastPage: 'Last', // Last page button text
+      paginationShowsTotal: this.renderShowsTotal,  // Accept bool or function
+      paginationPosition: 'bottom',  // default is bottom, top and both is all available
+      expandRowBgColor: 'rgb(242, 255, 163)'
+      // hideSizePerPage: true > You can hide the dropdown for sizePerPage
+      // alwaysShowAllBtns: true // Always show next and previous button
+      // withFirstAndLast: false > Hide the going to First and Last page button
+    };
+
+    let formatSales = (cell) =>{
+      if (cell >= 1000 || cell <= -1000) {
+        let rounded = Math.round(cell / 1000);
+        return ('£ ' + rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'K');
+      }
+      else {
+        return ('£ ' + Math.round(cell));
+      }
+    }
+
+    let formatVolume = (cell) => {
+      if (cell >= 1000 || cell <= -1000) {
+        let rounded = Math.round(cell / 1000);
+        return (rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'K');
+
+      } else {
+        return (Math.round(cell));
+      }
+    }
+
     {
       console.log('this.propss', this.props)
     }
@@ -174,6 +226,8 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                 marginRight: '0px'
               }}>
 
+
+                {/*Filters*/}
                 <div style={{
                   height: '80%',
                   position: 'fixed',
@@ -184,6 +238,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                   overflowY: 'scroll',
                   borderTop: '1px solid #ccc'
                 }}>
+
 
                   {(() => {
                     if (this.props.supplier.sideFilter) {
@@ -712,6 +767,324 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                           </Nav>
                         </div>
 
+                        {/*------Performance quartile---- */}
+
+                        {/*Header row*/}
+                        <div className="row negoHeading" style={{marginLeft:'1%',marginTop:'7%'}}>
+                          <div> Please select a negotiation strategy below to filter 'Negotiation Opportunity' chart and table
+                          </div>
+                        </div>
+
+                        {/*Check box row*/}
+                        <div className="row" style={{marginTop:'1%',marginLeft:'1%'}}>
+
+                          {/*Low CPS/Low Profit*/}
+                          <div className="col-xs-2 center-this input">
+                            <label style={{fontSize:"18px",fontFamily:'tesco',color:'#c74a52',width:'100%'}}>
+                              <input type="checkbox"
+                                     id="PQ1"
+                                     style={{marginRight:'5%'}}
+                                     onChange={() => {
+                                       let pqCurrentSelection="Low CPS/Low Profit";
+                                       let deselect=0;
+                                       let pqApendUrl='';
+                                       let newSelections='';
+
+                                       if(dataPerformanceUrlParams !==''){
+                                         dataPerformanceUrlParams="start&"+dataPerformanceUrlParams;
+                                         let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
+
+                                         for(let i=1;i<pqSelections.length;i++){
+
+                                           if(pqSelections[i]!==pqCurrentSelection){
+                                             newSelections=newSelections+"&performance_quartile="+pqSelections[i];
+                                           }else{
+                                             deselect=1;
+                                           }
+                                         }
+
+                                         if(deselect==0){
+                                           newSelections=newSelections+"&performance_quartile="+pqCurrentSelection;
+                                         }
+
+                                         let pq_ajax_param = newSelections.replace('&', '');
+                                         this.props.onSavePFilterParam(pq_ajax_param);
+                                       }
+                                       else{
+
+                                         let pq_ajax_param = "performance_quartile="+pqCurrentSelection;
+                                         this.props.onSavePFilterParam(pq_ajax_param);
+                                       }
+
+
+                                       this.props.bubbleChartSpinnerCheckSuccess(0);
+                                       this.props.tableChartSpinnerCheckSuccess(0);
+                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/}
+                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+
+                                       this.props.onFetchGraph();
+                                       this.props.onGenerateTable();
+
+
+
+                                     }}
+                              />
+                              <span className="tooltip">Delist Products</span>
+                              Low CPS/Low Profit
+                            </label>
+                          </div>
+
+                          {/*Low CPS/High Profit*/}
+                          <div className="col-xs-2 center-this input">
+                            <label style={{fontSize:"18px",fontFamily:'tesco',color:'#6e6767',width:'100%'}}>
+                              <input type="checkbox"
+                                     id="PQ2"
+                                     style={{marginRight:'5%'}}
+                                     onChange={() => {
+                                       let pqCurrentSelection="Low CPS/High Profit";
+                                       let deselect=0;
+                                       let pqApendUrl='';
+                                       let newSelections='';
+
+                                       if(dataPerformanceUrlParams !==''){
+                                         dataPerformanceUrlParams="start&"+dataPerformanceUrlParams;
+                                         let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
+
+                                         for(let i=1;i<pqSelections.length;i++){
+
+                                           if(pqSelections[i]!==pqCurrentSelection){
+                                             newSelections=newSelections+"&performance_quartile="+pqSelections[i];
+                                           }else{
+                                             deselect=1;
+                                           }
+                                         }
+
+                                         if(deselect==0){
+                                           newSelections=newSelections+"&performance_quartile="+pqCurrentSelection;
+                                         }
+
+                                         let pq_ajax_param = newSelections.replace('&', '');
+                                         this.props.onSavePFilterParam(pq_ajax_param);
+                                       }
+                                       else{
+
+                                         let pq_ajax_param = "performance_quartile="+pqCurrentSelection;
+                                         this.props.onSavePFilterParam(pq_ajax_param);
+                                       }
+
+
+                                       this.props.bubbleChartSpinnerCheckSuccess(0);
+                                       this.props.tableChartSpinnerCheckSuccess(0);
+                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/}
+                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+
+                                       this.props.onFetchGraph();
+                                       this.props.onGenerateTable();
+
+
+
+                                     }}
+                              />
+                              <span className="tooltip">Hard Bargaining’ for stronger profits – Low importance to customers</span>
+                              Low CPS/High Profit
+                            </label>
+
+                          </div>
+
+                          {/*Med CPS/Med Profit*/}
+                          <div className="col-xs-2 center-this input">
+                            <label style={{fontSize:"18px",fontFamily:'tesco',color:'#ffa626',width:'100%'}}>
+                              <input type="checkbox"
+                                     id="PQ3"
+                                     style={{marginRight:'5%'}}
+                                     onChange={() => {
+                                       let pqCurrentSelection="Med CPS/Med Profit";
+                                       let deselect=0;
+                                       let pqApendUrl='';
+                                       let newSelections='';
+
+                                       if(dataPerformanceUrlParams !==''){
+                                         dataPerformanceUrlParams="start&"+dataPerformanceUrlParams;
+                                         let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
+
+                                         for(let i=1;i<pqSelections.length;i++){
+
+                                           if(pqSelections[i]!==pqCurrentSelection){
+                                             newSelections=newSelections+"&performance_quartile="+pqSelections[i];
+                                           }else{
+                                             deselect=1;
+                                           }
+                                         }
+
+                                         if(deselect==0){
+                                           newSelections=newSelections+"&performance_quartile="+pqCurrentSelection;
+                                         }
+
+                                         let pq_ajax_param = newSelections.replace('&', '');
+                                         this.props.onSavePFilterParam(pq_ajax_param);
+                                       }
+                                       else{
+
+                                         let pq_ajax_param = "performance_quartile="+pqCurrentSelection;
+                                         this.props.onSavePFilterParam(pq_ajax_param);
+                                       }
+
+
+                                       this.props.bubbleChartSpinnerCheckSuccess(0);
+                                       this.props.tableChartSpinnerCheckSuccess(0);
+                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/}
+                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+
+                                       this.props.onFetchGraph();
+                                       this.props.onGenerateTable();
+
+
+
+                                     }}
+                              />
+                              <span className="tooltip">Area of opportunity. Concession trading – Subs/Ranging/Price. Reduce range to drive</span>
+                              Med CPS/Med Profit
+                            </label>
+
+                          </div>
+
+                          {/*High CPS/Low Profit*/}
+                          <div className="col-xs-2 center-this input">
+                            <label style={{fontSize:"18px",fontFamily:'tesco',color:'#69b24a',width:'100%'}}>
+                              <input type="checkbox"
+                                     id="PQ4"
+                                     style={{marginRight:'5%'}}
+                                     onChange={() => {
+                                       let pqCurrentSelection="High CPS/Low Profit";
+                                       let deselect=0;
+                                       let pqApendUrl='';
+                                       let newSelections='';
+
+                                       if(dataPerformanceUrlParams !==''){
+                                         dataPerformanceUrlParams="start&"+dataPerformanceUrlParams;
+                                         let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
+
+                                         for(let i=1;i<pqSelections.length;i++){
+
+                                           if(pqSelections[i]!==pqCurrentSelection){
+                                             newSelections=newSelections+"&performance_quartile="+pqSelections[i];
+                                           }else{
+                                             deselect=1;
+                                           }
+                                         }
+
+                                         if(deselect==0){
+                                           newSelections=newSelections+"&performance_quartile="+pqCurrentSelection;
+                                         }
+
+                                         let pq_ajax_param = newSelections.replace('&', '');
+                                         this.props.onSavePFilterParam(pq_ajax_param);
+                                       }
+                                       else{
+
+                                         let pq_ajax_param = "performance_quartile="+pqCurrentSelection;
+                                         this.props.onSavePFilterParam(pq_ajax_param);
+                                       }
+
+
+                                       this.props.bubbleChartSpinnerCheckSuccess(0);
+                                       this.props.tableChartSpinnerCheckSuccess(0);
+                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/}
+                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+
+                                       this.props.onFetchGraph();
+                                       this.props.onGenerateTable();
+
+
+
+                                     }}
+                              />
+                              <span className="tooltip">Win-Win relationship with supplier to share further profit gains</span>
+                              High CPS/Low Profit
+                            </label>
+
+
+                          </div>
+
+                          {/*High CPS/High Profit*/}
+                          <div className="col-xs-2 center-this input">
+                            <label style={{fontSize:"18px",fontFamily:'tesco',color:'#2B7294',width:'100%'}}>
+                              <input type="checkbox"
+                                     id="PQ5"
+                                     style={{marginRight:'5%'}}
+                                     onChange={() => {
+                                       let pqCurrentSelection="High CPS/High Profit";
+                                       let deselect=0;
+                                       let pqApendUrl='';
+                                       let newSelections='';
+
+                                       if(dataPerformanceUrlParams !==''){
+                                         dataPerformanceUrlParams="start&"+dataPerformanceUrlParams;
+                                         let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
+
+                                         for(let i=1;i<pqSelections.length;i++){
+
+                                           if(pqSelections[i]!==pqCurrentSelection){
+                                             newSelections=newSelections+"&performance_quartile="+pqSelections[i];
+                                           }else{
+                                             deselect=1;
+                                           }
+                                         }
+
+                                         if(deselect==0){
+                                           newSelections=newSelections+"&performance_quartile="+pqCurrentSelection;
+                                         }
+
+                                         let pq_ajax_param = newSelections.replace('&', '');
+                                         this.props.onSavePFilterParam(pq_ajax_param);
+                                       }
+                                       else{
+
+                                         let pq_ajax_param = "performance_quartile="+pqCurrentSelection;
+                                         this.props.onSavePFilterParam(pq_ajax_param);
+                                       }
+
+
+                                       this.props.bubbleChartSpinnerCheckSuccess(0);
+                                       this.props.tableChartSpinnerCheckSuccess(0);
+                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/}
+                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+
+                                       this.props.onFetchGraph();
+                                       this.props.onGenerateTable();
+
+
+
+                                     }}
+                              />
+                              <span className="tooltip">Work collaboratively to jointly solve low profitability</span>
+                              High CPS/High Profit
+                            </label>
+
+                          </div>
+
+                          <div className="col-xs-2 center-this">
+                            <Button buttonType={'secondary'}
+                                    onClick={() => {
+                                      this.props.onSavePFilterParam('');
+                                      this.props.onFetchGraph();
+                                      this.props.onGenerateTable();
+
+                                      document.getElementById("PQ1").checked = false;
+                                      document.getElementById("PQ2").checked = false;
+                                      document.getElementById("PQ3").checked = false;
+                                      document.getElementById("PQ4").checked = false;
+                                      document.getElementById("PQ5").checked = false;
+
+                                    }}
+                                    style={{marginTop:'-4%',marginLeft:'-7%'}}>Reset Selections</Button>
+                          </div>
+
+
+                        </div>
+
+
+                        {/*-----Bubble chart-----*/}
 
                         <div className="row">
                           {(() => {
@@ -726,7 +1099,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                                 <div className="col-xs-12 col-md-8" style={{marginTop: '2%'}}>
 
-                                  <BubbleChart2 data={this.props.supplier.chartData}
+                                  <BubbleChart2 ref="bubbleChartComp" data={this.props.supplier.chartData}
 
                                     //Passing array which updates table
                                                 selectedBubbleTable={this.props.supplier.prodArrayTable}
@@ -743,348 +1116,273 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                 onFetchGraph={this.props.onFetchGraph}
                                                 onGenerateTable={this.props.onGenerateTable}
                                   />
-
+                                  <div style={{float:"right"}}>
+                                    <DropdownButton title="Save Image/CSV" style={{backgroundColor:"#449d44", borderColor:"#398439",color:"#fff"}} id="dropButtonId">
+                                      <MenuItem onClick={() => {
+                                      saveImage(this.refs.bubbleChartComp.refs.svgBubble,"bubble_chart")
+                                      }
+                                      }>Save As JPEG</MenuItem>
+                                      <MenuItem onClick={() => {
+                                      saveDataAsCSV(this.props.supplier.chartData,"bubble_chart.csv")
+                                      }
+                                      }>Download CSV</MenuItem>
+                                    </DropdownButton>
+                                  </div>
                                   <i style={{fontSize: '12px'}}>*Size of the bubble corresponds to Rate of Sales</i>
 
-                                  <div className="resetButton" onClick={() => {
-                                    dataPerformanceUrlParams = '';
-                                    this.props.onSavePageParam("page=1");
-                                    this.props.onSavePFilterParam(dataPerformanceUrlParams);
-                                    this.props.onFetchGraph();
-                                    this.props.onGenerateTable();
-                                    this.props.onRadioChecked('6');
-                                  }}><p>View Selections</p></div>
+                                  {/*<div className="resetButton" onClick={() => {*/}
+                                    {/*dataPerformanceUrlParams = '';*/}
+                                    {/*this.props.onSavePageParam("page=1");*/}
+                                    {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                                    {/*this.props.onFetchGraph();*/}
+                                    {/*this.props.onGenerateTable();*/}
+                                    {/*this.props.onRadioChecked('6');*/}
+                                  {/*}}><p>View Selections</p></div>*/}
 
                                 </div>
                               )
                             }
                           })()}
 
-                          <div className="col-xs-12 col-md-4" style={{marginTop: '2%', fontSize: '14px'}}>
+                          {/*<div className="col-xs-12 col-md-4" style={{marginTop: '2%', fontSize: '14px'}}>*/}
 
-                            <h4>
-                              Please select a negotiation strategy below to filter
-                              'Negotiation
-                              Opportunity' chart and table
-                            </h4>
+                            {/*<h4>*/}
+                              {/*Please select a negotiation strategy below to filter*/}
+                              {/*'Negotiation*/}
+                              {/*Opportunity' chart and table*/}
+                            {/*</h4>*/}
 
-                            <div className="panel">
-                              <div className="lowProfit"
-                                   style={{height: '35px', backgroundColor: '#c74a52', opacity: '0.8'}}>
-                                <RadioButton id={'1'}
-                                             checked={(() => {
-                                               if (this.props.supplier.radioChecked === '1') {
-                                                 return true
-                                               }
-                                               else {
-                                                 return false
-                                               }
-                                             })()}
-                                             label={'Low CPS/Low Profit'}
-                                             valid={true}
-                                             onChange={() => {
-                                               this.props.bubbleChartSpinnerCheckSuccess(0);
-                                               this.props.tableChartSpinnerCheckSuccess(0);
-                                               dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";
-                                               this.props.onSavePFilterParam(dataPerformanceUrlParams);
+                            {/*<div className="panel">*/}
+                              {/*<div className="lowProfit"*/}
+                                   {/*style={{height: '35px', backgroundColor: '#c74a52', opacity: '0.8'}}>*/}
+                                {/*<RadioButton id={'1'}*/}
+                                             {/*checked={(() => {*/}
+                                               {/*if (this.props.supplier.radioChecked === '1') {*/}
+                                                 {/*return true*/}
+                                               {/*}*/}
+                                               {/*else {*/}
+                                                 {/*return false*/}
+                                               {/*}*/}
+                                             {/*})()}*/}
+                                             {/*label={'Low CPS/Low Profit'}*/}
+                                             {/*valid={true}*/}
+                                             {/*onChange={() => {*/}
+                                               {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
+                                               {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
+                                               {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/}
+                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
 
-                                               this.props.onFetchGraph();
-                                               this.props.onGenerateTable();
-                                               this.props.onRadioChecked('1');
-                                             }}
-                                             name="x"
-                                />
-                              </div>
-                              <div className="panel-body" style={{marginTop: '2%'}}>
-                                Delist Products
-                              </div>
-                            </div>
-                            <div className="panel panel-default">
-                              <div className="default"
-                                   style={{
-                                     height: '35px',
-                                     backgroundColor: '#6e6767',
-                                     opacity: '0.8',
-                                     fontColor: 'white'
-                                   }}>
-                                <RadioButton id={'2'}
-                                             checked={(() => {
-                                               if (this.props.supplier.radioChecked == '2') {
-                                                 return true
-                                               }
-                                               else {
-                                                 return false
-                                               }
-                                             })()}
+                                               {/*this.props.onFetchGraph();*/}
+                                               {/*this.props.onGenerateTable();*/}
+                                               {/*this.props.onRadioChecked('1');*/}
+                                             {/*}}*/}
+                                             {/*name="x"*/}
+                                {/*/>*/}
+                              {/*</div>*/}
+                              {/*<div className="panel-body" style={{marginTop: '2%'}}>*/}
+                                {/*Delist Products*/}
+                              {/*</div>*/}
+                            {/*</div>*/}
+                            {/*<div className="panel panel-default">*/}
+                              {/*<div className="default"*/}
+                                   {/*style={{*/}
+                                     {/*height: '35px',*/}
+                                     {/*backgroundColor: '#6e6767',*/}
+                                     {/*opacity: '0.8',*/}
+                                     {/*fontColor: 'white'*/}
+                                   {/*}}>*/}
+                                {/*<RadioButton id={'2'}*/}
+                                             {/*checked={(() => {*/}
+                                               {/*if (this.props.supplier.radioChecked == '2') {*/}
+                                                 {/*return true*/}
+                                               {/*}*/}
+                                               {/*else {*/}
+                                                 {/*return false*/}
+                                               {/*}*/}
+                                             {/*})()}*/}
 
-                                             label={'Low CPS/High Profit'}
-                                             valid={true}
-                                             onChange={() => {
-                                               this.props.bubbleChartSpinnerCheckSuccess(0);
-                                               this.props.tableChartSpinnerCheckSuccess(0);
-                                               dataPerformanceUrlParams = "performance_quartile=Low CPS/High Profit";
-                                               this.props.onSavePFilterParam(dataPerformanceUrlParams);
-                                               this.props.onFetchGraph();
-                                               this.props.onGenerateTable();
-                                               this.props.onRadioChecked('2');
+                                             {/*label={'Low CPS/High Profit'}*/}
+                                             {/*valid={true}*/}
+                                             {/*onChange={() => {*/}
+                                               {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
+                                               {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
+                                               {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/High Profit";*/}
+                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                                               {/*this.props.onFetchGraph();*/}
+                                               {/*this.props.onGenerateTable();*/}
+                                               {/*this.props.onRadioChecked('2');*/}
 
-                                             }}
-                                             name="x"
-                                />
-                              </div>
-                              <div className="panel-body" style={{height: '65px', marginTop: '3%'}}>
-                                Hard
-                                Bargaining’
-                                for stronger
-                                profits – Low importance to customers
-                              </div>
-                            </div>
+                                             {/*}}*/}
+                                             {/*name="x"*/}
+                                {/*/>*/}
+                              {/*</div>*/}
+                              {/*<div className="panel-body" style={{height: '65px', marginTop: '3%'}}>*/}
+                                {/*Hard*/}
+                                {/*Bargaining’*/}
+                                {/*for stronger*/}
+                                {/*profits – Low importance to customers*/}
+                              {/*</div>*/}
+                            {/*</div>*/}
 
 
-                            <div className="panel panel-warning">
-                              <div className="medProfit"
-                                   style={{
-                                     height: '35px',
-                                     backgroundColor: '#ffa626',
-                                     opacity: '0.8',
-                                     fontColor: 'white'
-                                   }}>
-                                <RadioButton id={'3'}
-                                             label={'Med CPS/Med Profit'}
-                                             valid={true}
-                                             checked={(() => {
-                                               if (this.props.supplier.radioChecked == '3') {
-                                                 return true
-                                               }
-                                               else {
-                                                 return false
-                                               }
-                                             })()}
-                                             onChange={() => {
-                                               this.props.bubbleChartSpinnerCheckSuccess(0);
-                                               this.props.tableChartSpinnerCheckSuccess(0);
-                                               dataPerformanceUrlParams = "performance_quartile=Med CPS/Med Profit";
-                                               this.props.onSavePFilterParam(dataPerformanceUrlParams);
-                                               this.props.onFetchGraph();
-                                               this.props.onGenerateTable();
-                                               this.props.onRadioChecked('3');
+                            {/*<div className="panel panel-warning">*/}
+                              {/*<div className="medProfit"*/}
+                                   {/*style={{*/}
+                                     {/*height: '35px',*/}
+                                     {/*backgroundColor: '#ffa626',*/}
+                                     {/*opacity: '0.8',*/}
+                                     {/*fontColor: 'white'*/}
+                                   {/*}}>*/}
+                                {/*<RadioButton id={'3'}*/}
+                                             {/*label={'Med CPS/Med Profit'}*/}
+                                             {/*valid={true}*/}
+                                             {/*checked={(() => {*/}
+                                               {/*if (this.props.supplier.radioChecked == '3') {*/}
+                                                 {/*return true*/}
+                                               {/*}*/}
+                                               {/*else {*/}
+                                                 {/*return false*/}
+                                               {/*}*/}
+                                             {/*})()}*/}
+                                             {/*onChange={() => {*/}
+                                               {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
+                                               {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
+                                               {/*dataPerformanceUrlParams = "performance_quartile=Med CPS/Med Profit";*/}
+                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                                               {/*this.props.onFetchGraph();*/}
+                                               {/*this.props.onGenerateTable();*/}
+                                               {/*this.props.onRadioChecked('3');*/}
 
-                                             }}
-                                             name="x"
-                                />
-                              </div>
-                              <div className="panel-body" style={{height: '60px', marginTop: '3%'}}>Area of
-                                opportunity. Concession
-                                trading – Subs/Ranging/Price. Reduce range to drive
-                                volume
-                              </div>
-                            </div>
+                                             {/*}}*/}
+                                             {/*name="x"*/}
+                                {/*/>*/}
+                              {/*</div>*/}
+                              {/*<div className="panel-body" style={{height: '60px', marginTop: '3%'}}>Area of*/}
+                                {/*opportunity. Concession*/}
+                                {/*trading – Subs/Ranging/Price. Reduce range to drive*/}
+                                {/*volume*/}
+                              {/*</div>*/}
+                            {/*</div>*/}
 
-                            <div className="panel panel-success">
-                              <div className="highProfit"
-                                   style={{
-                                     height: '35px',
-                                     backgroundColor: '#69b24a',
-                                     opacity: '0.8',
-                                     fontColor: 'white'
-                                   }}>
-                                <RadioButton id={'4'}
-                                             label={'High CPS/High Profit'}
-                                             valid={true}
-                                             checked={(() => {
-                                               if (this.props.supplier.radioChecked == '4') {
-                                                 return true
-                                               }
-                                               else {
-                                                 return false
-                                               }
-                                             })()}
-                                             onChange={() => {
-                                               this.props.bubbleChartSpinnerCheckSuccess(0);
-                                               this.props.tableChartSpinnerCheckSuccess(0);
-                                               dataPerformanceUrlParams = "performance_quartile=High CPS/High Profit"
-                                               this.props.onSavePFilterParam(dataPerformanceUrlParams);
-                                               this.props.onFetchGraph();
-                                               this.props.onGenerateTable();
-                                               this.props.onRadioChecked('4');
+                            {/*<div className="panel panel-success">*/}
+                              {/*<div className="highProfit"*/}
+                                   {/*style={{*/}
+                                     {/*height: '35px',*/}
+                                     {/*backgroundColor: '#69b24a',*/}
+                                     {/*opacity: '0.8',*/}
+                                     {/*fontColor: 'white'*/}
+                                   {/*}}>*/}
+                                {/*<RadioButton id={'4'}*/}
+                                             {/*label={'High CPS/High Profit'}*/}
+                                             {/*valid={true}*/}
+                                             {/*checked={(() => {*/}
+                                               {/*if (this.props.supplier.radioChecked == '4') {*/}
+                                                 {/*return true*/}
+                                               {/*}*/}
+                                               {/*else {*/}
+                                                 {/*return false*/}
+                                               {/*}*/}
+                                             {/*})()}*/}
+                                             {/*onChange={() => {*/}
+                                               {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
+                                               {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
+                                               {/*dataPerformanceUrlParams = "performance_quartile=High CPS/High Profit"*/}
+                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                                               {/*this.props.onFetchGraph();*/}
+                                               {/*this.props.onGenerateTable();*/}
+                                               {/*this.props.onRadioChecked('4');*/}
 
-                                             }}
-                                             name="x"
-                                />
-                              </div>
-                              <div className="panel-body" style={{height: '50px', marginTop: '3%'}}>Build
-                                Win-Win
-                                relationship with
-                                supplier to share further profit gains
-                              </div>
-                            </div>
-                            <div className="panel">
-                              <div className="highCps" style={{height: '35px', backgroundColor: '#99d9e5'}}>
-                                <RadioButton id={'5'}
-                                             label={'High CPS/Low Profit'}
-                                             valid={true}
-                                             checked={(() => {
-                                               if (this.props.supplier.radioChecked == '5') {
-                                                 return true
-                                               }
-                                               else {
-                                                 return false
-                                               }
-                                             })()}
-                                             onChange={() => {
-                                               this.props.bubbleChartSpinnerCheckSuccess(0);
-                                               this.props.tableChartSpinnerCheckSuccess(0);
-                                               dataPerformanceUrlParams = "performance_quartile=High CPS/Low Profit"
-                                               this.props.onSavePFilterParam(dataPerformanceUrlParams);
-                                               this.props.onFetchGraph();
-                                               this.props.onGenerateTable();
-                                               this.props.onRadioChecked('5');
+                                             {/*}}*/}
+                                             {/*name="x"*/}
+                                {/*/>*/}
+                              {/*</div>*/}
+                              {/*<div className="panel-body" style={{height: '50px', marginTop: '3%'}}>Build*/}
+                                {/*Win-Win*/}
+                                {/*relationship with*/}
+                                {/*supplier to share further profit gains*/}
+                              {/*</div>*/}
+                            {/*</div>*/}
+                            {/*<div className="panel">*/}
+                              {/*<div className="highCps" style={{height: '35px', backgroundColor: '#99d9e5'}}>*/}
+                                {/*<RadioButton id={'5'}*/}
+                                             {/*label={'High CPS/Low Profit'}*/}
+                                             {/*valid={true}*/}
+                                             {/*checked={(() => {*/}
+                                               {/*if (this.props.supplier.radioChecked == '5') {*/}
+                                                 {/*return true*/}
+                                               {/*}*/}
+                                               {/*else {*/}
+                                                 {/*return false*/}
+                                               {/*}*/}
+                                             {/*})()}*/}
+                                             {/*onChange={() => {*/}
+                                               {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
+                                               {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
+                                               {/*dataPerformanceUrlParams = "performance_quartile=High CPS/Low Profit"*/}
+                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                                               {/*this.props.onFetchGraph();*/}
+                                               {/*this.props.onGenerateTable();*/}
+                                               {/*this.props.onRadioChecked('5');*/}
 
-                                             }}
-                                             name="x"
-                                />
-                              </div>
-                              <div className="panel-body" style={{marginTop: '5%'}}>Work
-                                collaboratively to jointly
-                                solve low profitability
-                              </div>
-                            </div>
+                                             {/*}}*/}
+                                             {/*name="x"*/}
+                                {/*/>*/}
+                              {/*</div>*/}
+                              {/*<div className="panel-body" style={{marginTop: '5%'}}>Work*/}
+                                {/*collaboratively to jointly*/}
+                                {/*solve low profitability*/}
+                              {/*</div>*/}
+                            {/*</div>*/}
 
-                          </div>
+                          {/*</div>*/}
                         </div>
 
+                        {/*-----Bubble table-----*/}
 
                         <Panel>
                           <div>
-                            {/*<div className="col-xs-12 col-xs-5" style={{marginBottom: "10px", marginLeft: "-14px"}}>*/}
-
-                            {/*<InputField type={'string'}*/}
-                            {/*placeholder="Search for Product Description ..."*/}
-                            {/*dataPageUrlParams="page=1"*/}
-                            {/*value={this.props.textBoxQueryString}*/}
-                            {/*onChange={(e) => {*/}
-                            {/*this.props.onGenerateTextBoxQueryString(e);*/}
-                            {/*this.props.onGenerateTable();*/}
-                            {/*this.props.onSavePageParam(dataPageUrlParams);*/}
-                            {/*}}*/}
-                            {/*/>*/}
-                            {/*</div>*/}
-
-                            <table className="table table-hover table-bordered" width="100%">
-
-                              <thead style={{fontWeight: '700', fontSize: '12px', textAlign: 'center'}}>
-                              <tr className="table-header-format">
-                                {/*<th style={{textAlign: 'center'}}>Select</th>*/}
-                                <th style={{textAlign: 'center'}}>Product ID</th>
-                                <th style={{textAlign: 'center'}}>Parent Supplier</th>
-                                <th style={{textAlign: 'center'}}>Sales TY</th>
-                                <th style={{textAlign: 'center'}}>Volume TY</th>
-                                <th style={{textAlign: 'center'}}>CGM TY</th>
-                                <th style={{textAlign: 'center'}}>PPS</th>
-                                <th style={{textAlign: 'center'}}>CPS</th>
-                                <th style={{textAlign: 'center'}}>Rate of Sale</th>
-                              </tr>
-                              </thead>
-                              <tbody className="table-body-format">
-
-                              {(() => {
-
+                            {
+                              (() => {
+                                // if (this.props.ProductPage.data) {
                                 if (this.props.supplier.data && (this.props.supplier.tableChartSpinnerCheck == 1)) {
-                                  console.log('this.props.supplier.data.table_data', this.props.supplier.data.table_data);
-                                  return this.props.supplier.data.table_data.map(obj => {
-                                    return (
-                                      <tr key={Math.random() + Date.now()}>
-                                        {/**/}
-                                        {/*<td style={{textAlign: "center"}}>*/}
-                                        {/*<Checkbox isDisabled={false} id={Math.random() + Date.now()}*/}
-                                        {/*onChange={(e) => {*/}
-                                        {/*this.inputUpdate(e.target.checked, obj.base_product_number)*/}
-                                        {/*this.tableProductUpdate(e.target.checked, obj.base_product_number);*/}
 
-                                        {/*}}*/}
-                                        {/*checked={(() => {*/}
-                                        {/*let checked = false;*/}
-                                        {/*console.log('obj.base_product_number.toString()', obj.base_product_number.toString());*/}
-                                        {/*let base_product_number = obj.base_product_number.toString();*/}
-                                        {/*console.log('base_product_number', base_product_number);*/}
-                                        {/*console.log('this.props.supplier.checkedList', this.props.supplier.checkedList);*/}
-                                        {/*this.props.supplier.checkedList.map(obj2 => {*/}
-                                        {/*if (obj2.checked) {*/}
-                                        {/*if (obj2.productId == base_product_number) {*/}
-                                        {/*checked = true*/}
-                                        {/*}*/}
-                                        {/*}*/}
-                                        {/*});*/}
-                                        {/*return checked*/}
-                                        {/*})()}*/}
-                                        {/*valid={true}/>*/}
-                                        {/*</td>*/}
-                                        <td style={{
-                                          textAlign: 'center',
-                                          verticalAlign: 'center'
-                                        }}>{obj.base_product_number}</td>
-                                        <td
-                                          style={{
-                                            textAlign: 'center',
-                                            verticalAlign: 'center'
-                                          }}>{obj.parent_supplier}</td>
-                                        <td style={{textAlign: 'center', verticalAlign: 'center'}}>£ {obj.sales_ty}</td>
-                                        <td style={{textAlign: 'center', verticalAlign: 'center'}}>{obj.volume_ty}</td>
-                                        <td style={{textAlign: 'center', verticalAlign: 'center'}}>£ {obj.cgm_ty}</td>
-                                        <td style={{textAlign: 'center', verticalAlign: 'center'}}>£{obj.pps}</td>
-                                        <td style={{textAlign: 'center', verticalAlign: 'center'}}>{obj.cps}</td>
-                                        <td
-                                          style={{textAlign: 'center', verticalAlign: 'center'}}>
-                                          £ {obj.rate_of_sale}</td>
-                                      </tr>
-                                    )
-                                  })
-                                } else {
+
                                   return (
-                                    <tr>
-                                      <td className="text-center" colSpan="8"><Spinner />Please Wait a Moment....!</td>
-                                    </tr>
-                                  )
+                                    <div>
+                                      <BootstrapTable
+                                        data={this.props.supplier.data.table_data} options={options}
+                                        striped={true}
+                                        hover
+                                        condensed
+                                        pagination={ true }
+                                        search={true}
+                                        exportCSV={true}
+                                      >
+                                        <TableHeaderColumn dataField="base_product_number" isKey={true} dataAlign="center" dataSort={true}>Product ID</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="parent_supplier" tdStyle={ { whiteSpace: 'normal' } } width="20%" dataSort={true} dataAlign="center">Parent Supplier</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="sales_ty" dataFormat={formatSales} dataSort={true} dataAlign="center">Sales TY</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="volume_ty" dataFormat={formatVolume} dataSort={true} dataAlign="center">Volume TY</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="cgm_ty" dataFormat={formatSales} dataSort={true} dataAlign="center">CGM TY</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="pps" dataSort={true} dataAlign="center">PPS</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="cps" dataSort={true} dataAlign="center">CPS</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="rate_of_sale" dataSort={true} dataAlign="center">Rate of Sale</TableHeaderColumn>
+                                      </BootstrapTable>
+
+                                    </div>
+                                  );
+
                                 }
+                                else {
+                                  return (
 
-                              })()}
+                                    <div className="text-center" colSpan="11"><Spinner />Please Wait a Moment....!</div>
 
-                              </tbody>
-                            </table>
+                                  );
+                                }
+                              })()
+                            }
 
-                            {/*pagination*/}
-
-                            {(() => {
-                              if (this.props.supplier.data && this.props.supplier.data.count) {
-
-                                return <Pagination
-                                  prev
-                                  next
-                                  first
-                                  last
-                                  ellipsis
-                                  boundaryLinks
-                                  items={this.props.supplier.data.num_pages}
-                                  maxButtons={5}
-                                  activePage={this.state.activePage}
-                                  onSelect={(e) => {
-
-                                    this.setState({activePage: e})
-
-                                    let dataPageUrlParams = "page=" + e;
-                                    {/*console.log("dataPageUrlParams",dataPageUrlParams)*/
-                                    }
-                                    this.props.onSavePageParam(dataPageUrlParams);
-                                    this.props.onGenerateTable();
-
-                                  }}
-                                />
-
-                              }
-                            })()}
-
-                          </div>
-
+                              </div>
                         </Panel>
 
 

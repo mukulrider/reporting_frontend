@@ -132,7 +132,6 @@ class DualLineChart extends React.PureComponent { // eslint-disable-line react/p
       .attr('dy', '.15em')
       .attr('transform', 'rotate(-65)')
       .append('text')
-      .attr('transform', 'rotate(0)')
       .attr('x', width / 2)
       .attr('y', 35)
       .attr('dx', '0.71em')

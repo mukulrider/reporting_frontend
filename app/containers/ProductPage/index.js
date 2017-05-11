@@ -12,6 +12,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import * as d3 from 'd3';
+import $ from 'jquery';
 import DualLineChart from 'components/DualLineChart';
 import FiltersProduct from 'components/FiltersProduct';
 import Panel from 'components/panel';
@@ -43,7 +44,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
     console.log('dataWeekParams',dataWeekParams);
     console.log('dataMetricParams',dataMetricParams);
     this.props.onGetFilter();
-    // this.props.onSaveMetricParam(dataMetricParams);
+    this.props.onSaveMetricParam(dataMetricParams);
     this.props.onGenerateUrlParamsString();
 
     console.log('Function called from index');
@@ -136,7 +137,8 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
 
 
     return (
-      <Panel id="productPage">
+      <Panel>
+        <div id="productPage" ref="productPage">
             <div style={{
               height: '100%',
               position: 'fixed',
@@ -154,6 +156,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
               <FiltersProduct sideFilter={this.props.ProductPage.sideFilter}
               location={this.props.location}
               week_data={this.props.ProductPage.week_filter_data}
+              previous_week_selection={this.props.ProductPage.filter_week_selection}
               onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}
               onProductPage={this.props.onProductPageValues}
               onSaveWeek={this.props.onSaveWeek}
@@ -189,7 +192,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                 })()}
               </div>
               <Nav bsStyle="tabs" className="tabsCustom" activeKey={this.state.activeKey} >
-                <NavItem
+                <NavItem style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
                   className=" tabsCustomList" eventKey="1" onClick={() => {
                   this.setState({activeKey: "1"});
                   let dataWeekParams="week_flag=Latest Week";
@@ -201,9 +204,9 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   this.props.onApiFetch();
                   this.props.ondelistTable();
             this.props.onWeekTabClick("Week: 13 weeks ")*/
-                  }}style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
+                  }}
                 ><span className="tab_label">Selected Week</span></NavItem>
-                <NavItem
+                <NavItem style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
                   className="tabsCustomList" eventKey="2" onClick={() => {
                   this.setState({activeKey: "2"});
                   let dataWeekParams="week_flag=4";
@@ -215,89 +218,89 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   this.props.onApiFetch();
                   this.props.ondelistTable();
             this.props.onWeekTabClick("Week: 26 weeks ")*/
-                  }}style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
+                  }}
                 ><span className="tab_label">Last 4 Weeks</span></NavItem>
-                <NavItem
+                <NavItem style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
                   className="tabsCustomList" eventKey="3" onClick={() => {
                   this.setState({activeKey: "3"});
                   let dataWeekParams="week_flag=13";
                   this.props.onSaveWeekParam(dataWeekParams);
-                  }}style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
+                  }}
                 ><span className="tab_label">Last 13 Weeks</span></NavItem>
-                <NavItem
+                <NavItem style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
                   className="tabsCustomList" eventKey="4" onClick={() => {
                   this.setState({activeKey: "4"});
                   let dataWeekParams="week_flag=26";
                   this.props.onSaveWeekParam(dataWeekParams);
-                  }}style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
+                  }}
                 ><span className="tab_label">Last 26 Weeks</span></NavItem>
-                <NavItem
+                <NavItem style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
                   className="tabsCustomList" eventKey="5" onClick={() => {
                   this.setState({activeKey: "5"});
                   let dataWeekParams="week_flag=YTD";
                   this.props.onSaveWeekParam(dataWeekParams);
-                  }}style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
+                  }}
                 ><span className="tab_label">YTD</span></NavItem>
-                {/*<NavItem
+                {/*<NavItem style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
                   className="tabsCustomList" eventKey="6" onClick={() => {
                   this.setState({activeKey: "6"});
                   let dataWeekParams="week_flag=PTD";
-                  }}style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
+                  }}
                 ><span className="tab_label">PTD</b></NavItem>*/}
               </Nav>
             </div>
 
             <div className="col-xs-12">
               <Nav bsStyle="tabs" className="tabsCustom tabsCustomInner" activeKey={this.state.activeKey2} onSelect={this.handleSelect}>
-                <NavItem
+                <NavItem style={{ fontSize: '16px' }}
                   eventKey="7" className="tabsCustomList" onClick={() => {
                   this.setState({activeKey2: "7",ty_text:"Sales TY in £",ly_text:"Sales LY in £",y_axis_text:"Sales Value",page_title:"Value Performance"});
                   let dataMetricParams="metric_flag=Value";
                   this.props.onSaveMetricParam(dataMetricParams);
-                  }} style={{ fontSize: '16px' }}
+                  }}
                 ><span className="tab_label">Value</span></NavItem>
-                <NavItem
+                <NavItem style={{ fontSize: '16px' }}
                   eventKey="8" className="tabsCustomList" onClick={() => {
                   this.setState({activeKey2: "8",ty_text:"Volume TY in units",ly_text:"Volume LY in units",y_axis_text:"Sales Volume",page_title:"Volume Performance"});
                   let dataMetricParams="metric_flag=Volume";
 
                   this.props.onSaveMetricParam(dataMetricParams);
-                  }} style={{ fontSize: '16px' }}
+                  }}
                 ><span className="tab_label">Volume</span></NavItem>
-                <NavItem
+                <NavItem style={{ fontSize: '16px' }}
                   eventKey="9" className="tabsCustomList" onClick={() => {
                   this.setState({activeKey2: "9",ty_text:"COGS TY in £",ly_text:"COGS LY in £",y_axis_text:"COGS",page_title:"COGS Performance"});
                   let dataMetricParams="metric_flag=cogs";
                   this.props.onSaveMetricParam(dataMetricParams);
-                  }} style={{ fontSize: '16px' }}
+                  }}
                 ><span className="tab_label">COGS</span></NavItem>
-                <NavItem
+                <NavItem style={{ fontSize: '16px' }}
                   eventKey="10" className="tabsCustomList" onClick={() => {
                   this.setState({activeKey2: "10",ty_text:"Profit TY in £",ly_text:"Profit LY in £",y_axis_text:"Profit",page_title:"Profit Performance"});
                   let dataMetricParams="metric_flag=cgm";
                   this.props.onSaveMetricParam(dataMetricParams);
-                  }} style={{ fontSize: '16px' }}
+                  }}
                 ><span className="tab_label">CGM</span></NavItem>
-                <NavItem
+                <NavItem style={{ fontSize: '16px' }}
                   eventKey="11" className="tabsCustomList" onClick={() => {
                   this.setState({activeKey2: "11",ty_text:"Waste Value TY",ly_text:"Waste Value LY",y_axis_text:"Waste Value",page_title:"Waste Performance"});
                   let dataMetricParams="metric_flag=Waste";
                   this.props.onSaveMetricParam(dataMetricParams);
-                  }} style={{ fontSize: '16px' }}
+                  }}
                 ><span className="tab_label">Waste</span></NavItem>
-{/*                <NavItem
+{/*                <NavItem style={{ fontSize: '16px' }}
                   eventKey="12" className="tabsCustomList" onClick={() => {
                   this.setState({activeKey: "12"});
                   let dataMetricParams="metric_flag=Stock";
                   this.props.onSaveMetricParam(dataMetricParams);
-                  }} style={{ fontSize: '16px' }}
+                  }}
                 ><b className="tab_label">Stock</b></NavItem>
-                <NavItem
+                <NavItem style={{ fontSize: '16px' }}
                   eventKey="13" className="tabsCustomList" onClick={() => {
                   this.setState({activeKey: "13"});
                   let dataMetricParams="metric_flag=Price";
                   this.props.onSaveMetricParam(dataMetricParams);
-                  }} style={{ fontSize: '16px' }}
+                  }}
                 ><b className="tab_label">Price</b></NavItem>*/}
               </Nav>
             </div>
@@ -312,6 +315,30 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                           if (this.props.ProductPage.data && this.props.ProductPage.data.comp_data) {
                             return this.props.ProductPage.data.comp_data.map((obj) => {
 
+/*                              console.log("ProductPage:");
+                              console.log(this.refs.productPage);
+                              let divToprint=this.refs.productPage;
+                              let width=parseFloat(divToprint.getAttribute("width"));
+                              let height=parseFloat(divToprint.getAttribute("height"));
+                              let newWin=window.open('','printMap');
+                              console.log("NewWin:",newWin);
+                              $(newWin.document).ready(function() {
+                                let printDocHead = $('<head></head>').append($('style[type="text/css"]').clone());
+                                console.log("DivToPrintHtml",printDocHead);
+                                let printDocBodyHtml = $(divToprint).html().replace(/sizePerPage: 5/g, "sizePerPage: 25");
+                                //console.log("DocBodyHtml:",printDocBodyHtml);
+                                let printDocBody = $('<body></body>').html(printDocBodyHtml);
+                                let printDoc = $('<html></html>').append(printDocHead).append(printDocBody);
+                                //console.log("PrintDoc:",printDoc);
+                                newWin.document.write(printDoc[0].outerHTML);
+                                //newWin.document.close();
+                                newWin.focus();
+                                setTimeout(function(){
+                                  newWin.print();
+                                  console.log("print Fired:");
+                                  //newWin.close();
+                                }, 5);
+                              });*/
                               return (
                                 <table key={obj.metric_title } className="table table-hover table-striped table-bordered table_cust">
                                 <thead style={{ verticalAlign: 'middle',color:'#FFFFFF'}}>
@@ -404,14 +431,14 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                           <DualLineChart ref = "chartImage" ty_text={this.state.ty_text} ly_text={this.state.ly_text} y_axis_text={this.state.y_axis_text} data={this.props.ProductPage.data.d3_output}/>
                             <div style={{float:"right"}}>
                               <DropdownButton title="Save Image/CSV" style={{backgroundColor:"#449d44", borderColor:"#398439",color:"#fff"}} id="dropButtonId">
-                                {/*<MenuItem onClick={() => {*/}
-                                  {/*saveImage(this.refs.chartImage.refs.image,"line_chart")*/}
-                                  {/*}*/}
-                                {/*}>Save As JPEG</MenuItem>*/}
-                                {/*<MenuItem onClick={() => {*/}
-                                  {/*saveDataAsCSV(this.props.ProductPage.data.d3_output,"line_chart.csv")*/}
-                                  {/*}*/}
-                                {/*}>Download CSV</MenuItem>*/}
+                                <MenuItem onClick={() => {
+                                  saveImage(this.refs.chartImage.refs.image,"line_chart")
+                                  }
+                                }>Save As JPEG</MenuItem>
+                                <MenuItem onClick={() => {
+                                  saveDataAsCSV(this.props.ProductPage.data.d3_output,"line_chart.csv")
+                                  }
+                                }>Download CSV</MenuItem>
                               </DropdownButton>
                             </div>
                           </div>
@@ -455,7 +482,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   exportCSV={true}
                   >
                   <TableHeaderColumn row="0" rowSpan="2" dataField="product_id" isKey={true} dataAlign="center" dataSort>Product ID</TableHeaderColumn>
-                  <TableHeaderColumn row="0" rowSpan="2" width="225" dataField="product" dataSort={true} dataAlign="center">Description</TableHeaderColumn>
+                  <TableHeaderColumn row="0" rowSpan="2" width="275" tdStyle={ { whiteSpace: 'normal' } } dataField="product" dataSort={true} dataAlign="center">Description</TableHeaderColumn>
                   <TableHeaderColumn row="0" rowSpan="2" width="125" dataField="product_area" dataSort={true} dataAlign="center">Product Area</TableHeaderColumn>
                   <TableHeaderColumn row="0" colSpan="3" dataAlign="center">Price</TableHeaderColumn>
                   <TableHeaderColumn row="1" dataField="asp" dataFormat={this.formatSales} dataSort={true} dataAlign="center">ASP</TableHeaderColumn>
@@ -512,7 +539,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   exportCSV={true}
                   >
                   <TableHeaderColumn row="0" rowSpan="2" dataField="product_id" isKey={true} dataAlign="center" dataSort>Product ID</TableHeaderColumn>
-                  <TableHeaderColumn row="0" rowSpan="2" width="225" dataField="product" dataSort={true} dataAlign="center">Description</TableHeaderColumn>
+                  <TableHeaderColumn row="0" rowSpan="2" width="275" tdStyle={ { whiteSpace: 'normal' } } dataField="product" dataSort={true} dataAlign="center">Description</TableHeaderColumn>
                   <TableHeaderColumn row="0" rowSpan="2" width="125" dataField="product_area" dataSort={true} dataAlign="center">Product Area</TableHeaderColumn>
                   <TableHeaderColumn row="0" colSpan="3" dataAlign="center">Price</TableHeaderColumn>
                   <TableHeaderColumn row="1" dataField="asp" dataFormat={this.formatSales} dataSort={true} dataAlign="center">ASP</TableHeaderColumn>
@@ -544,6 +571,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
               </div>
             </div>
           </div>
+        </div>
     </Panel>
     );
   }
