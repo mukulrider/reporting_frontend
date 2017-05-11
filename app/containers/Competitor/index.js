@@ -532,7 +532,7 @@ export class Competitor extends React.PureComponent {
                       series_col_name: 'id',
                       xaxis_bands: this.props.competitor.pricerange_data.axis_data,
                       color_order: this.props.competitor.pricerange_data.colors
-                    }, "id2", '£ ']}/>
+                    }, "multiOrdinalChart2", '£ ']}/>
                   )
                 }
               })()}

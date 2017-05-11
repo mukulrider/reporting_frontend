@@ -432,11 +432,11 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                               <div>
                                 <div className="row"
                                      style={{textAlign: 'center', marginLeft: '0px', marginRight: '0px'}}>
-                                  <div className="col-xs-6" style={{
+                                  <div className="col-md-6 col-sm-12">
+                                  <div className="col-md-12 col-sm-12" style={{
                                     textAlign: 'center',
                                     backgroundColor: "white",
                                     margin: "0%",
-                                    width: '41.7%',
                                     marginBottom: '4%',
                                     marginTop: '3%',
                                     borderLeft: "1px solid #e5e8ea",
@@ -476,14 +476,14 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                       </div>
 
                                     </Panel>
-
                                   </div>
-
-                                  <div className="col-xs-6" style={{
+                                  </div>
+                                  <div className="col-md-6 col-sm-12">
+                                  <div className="col-md-12 col-sm-12" style={{
                                     textAlign: 'center',
                                     borderTop: "1px solid #e5e8ea",
+                                    marginBottom: '4%',
                                     marginTop: '3%',
-                                    marginRight: '3%',
                                     float: 'right',
                                     backgroundColor: "white",
                                     borderLeft: "1px solid #e5e8ea",
@@ -494,12 +494,11 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                     <Panel>
                                       <h4 className="pageModuleMainTitle"> Contribution to Growth </h4>
                                       <div className="row">
-                                        <div className="col-xs-6" style={{left: '-2%'}}>
-
+                                        <div className="col-xs-6" style={{textAlign:"center"}}>
                                           <h4
                                             className="panel-heading tesco-heading">  {this.props.supplier.reducer1.sales} </h4>
                                         </div>
-                                        <div className="col-xs-6" style={{right: '-7%'}}>
+                                        <div className="col-xs-6" style={{textAlign:"center"}}>
 
                                           <h4 className="panel-heading tesco-heading">
                                             LFL: {this.props.supplier.reducer1.sales_lfl} </h4>
@@ -526,12 +525,14 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                       </div>
                                     </Panel>
                                   </div>
+                                  </div>
 
 
                                 </div>
                                 <panel>
                                   <div className="row" style={{marginLeft: '0px', marginRight: '0px'}}>
-                                    <div className="col-xs-5 panel-body" style={{
+                                    <div className="col-md-6 col-sm-12">
+                                    <div className="col-md-12 col-sm-12 panel-body" style={{
                                       textAlign: 'center',
                                       borderTop: "1px solid #e5e8ea",
                                       backgroundColor: "white",
@@ -547,7 +548,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                         if (this.props.supplier.reducer1.supp_imp_cat_sales) {
 
                                           return (
-                                            <div style={{float: "right"}}>
+                                            <div>
                                               <GaugeChart2 data={[this.props.supplier.reducer1.supp_imp_cat_sales]}
                                                            id="gauge1"/>
                                               <div className="row" style={{marginTop: '-11%'}}>
@@ -561,12 +562,11 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                         }
                                       })()}
                                     </div>
-                                    <div className="col-xs-5 panel-body leftPosition" style={{
+                                    </div>
+                                    <div className="col-md-6 col-sm-12">
+                                    <div className="col-md-12 col-sm-12 col-xs-12 panel-body" style={{
                                       textAlign: 'center',
-                                      left: '-3%',
-                                      width: '51%',
                                       borderTop: "1px solid #e5e8ea",
-                                      left: '-8%',
                                       float: 'right',
                                       backgroundColor: "white",
                                       margin: "0%",
@@ -595,6 +595,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                         }
                                       })()}
                                       {/*<SampleBarChart/>*/}
+                                    </div>
                                     </div>
                                   </div>
                                 </panel>
@@ -639,7 +640,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
 
                         <panel>
-                          <div className="col-xs-5 panel-body">
+                          <div className="col-xs-6 panel-body">
                             <h4 className="pageModuleMainTitle"> Top Suppliers</h4>
                             {(() => {
                               if (this.props.supplier.topBotData && this.props.supplier.barChartSpinnerCheck != 0) {
@@ -659,7 +660,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                             })()}
 
                           </div>
-                          <div className="col-xs-6 panel-body bottomSupplierFix">
+                          <div className="col-xs-6 panel-body">
                             <h4 className="pageModuleMainTitle"> Bottom Suppliers </h4>
                             {(() => {
                               if (this.props.supplier.topBotData && this.props.supplier.barChartSpinnerCheck != 0) {

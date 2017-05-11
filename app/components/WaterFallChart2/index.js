@@ -253,7 +253,7 @@ class WaterFallChart2 extends React.PureComponent { // eslint-disable-line react
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
       .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 600 400")
+      .attr("viewBox", "0 0 500 350")
       //class to make it responsive
       .classed("svg-content-responsive", true)
       .append('g')
@@ -430,7 +430,7 @@ class WaterFallChart2 extends React.PureComponent { // eslint-disable-line react
 
     chart.append('g')
       .attr('class', 'y axis')
-      .attr('transform', `translate(${margin.left},0)`)
+      .attr('transform', `translate(${margin.left - 15},0)`)
       .call(yAxis);
 
     const bar = chart.selectAll('.bar')

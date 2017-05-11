@@ -13,9 +13,6 @@ import messages from './messages';
 
 class MultilinePromo extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   createMultilinePromoChart = (data,chart_id,label_ty,label_ly,xaxis_title,yaxis_title,no_pref,no_suffix,width=800,legend_width=650,legend_text_width=645) => {
-    console.log("---insde the createMultilinePromoChart----",data);
-    console.log("========= XAxis ",xaxis_title);
-    console.log("========= YAxis",yaxis_title);
   // let data2 =   [
   //     {
   //       "tesco_week": "1-May-12",
@@ -225,7 +222,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
 
     //Removing the height and width property for preserveAspectRatio
     setTimeout(function(){
-      svg
+      d3.select('#'+chart_id)
         .attr("height",null)
         .attr("width",null);
     },100)
