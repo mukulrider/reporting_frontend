@@ -192,7 +192,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                 })()}
               </div>
               <Nav bsStyle="tabs" className="tabsCustom" activeKey={this.state.activeKey} >
-                <NavItem
+                <NavItem style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
                   className=" tabsCustomList" eventKey="1" onClick={() => {
                   this.setState({activeKey: "1"});
                   let dataWeekParams="week_flag=Latest Week";
@@ -204,9 +204,9 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   this.props.onApiFetch();
                   this.props.ondelistTable();
             this.props.onWeekTabClick("Week: 13 weeks ")*/
-                  }}style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
+                  }}
                 ><span className="tab_label">Selected Week</span></NavItem>
-                <NavItem
+                <NavItem style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
                   className="tabsCustomList" eventKey="2" onClick={() => {
                   this.setState({activeKey: "2"});
                   let dataWeekParams="week_flag=4";
@@ -218,89 +218,89 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   this.props.onApiFetch();
                   this.props.ondelistTable();
             this.props.onWeekTabClick("Week: 26 weeks ")*/
-                  }}style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
+                  }}
                 ><span className="tab_label">Last 4 Weeks</span></NavItem>
-                <NavItem
+                <NavItem style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
                   className="tabsCustomList" eventKey="3" onClick={() => {
                   this.setState({activeKey: "3"});
                   let dataWeekParams="week_flag=13";
                   this.props.onSaveWeekParam(dataWeekParams);
-                  }}style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
+                  }}
                 ><span className="tab_label">Last 13 Weeks</span></NavItem>
-                <NavItem
+                <NavItem style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
                   className="tabsCustomList" eventKey="4" onClick={() => {
                   this.setState({activeKey: "4"});
                   let dataWeekParams="week_flag=26";
                   this.props.onSaveWeekParam(dataWeekParams);
-                  }}style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
+                  }}
                 ><span className="tab_label">Last 26 Weeks</span></NavItem>
-                <NavItem
+                <NavItem style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
                   className="tabsCustomList" eventKey="5" onClick={() => {
                   this.setState({activeKey: "5"});
                   let dataWeekParams="week_flag=YTD";
                   this.props.onSaveWeekParam(dataWeekParams);
-                  }}style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
+                  }}
                 ><span className="tab_label">YTD</span></NavItem>
-                {/*<NavItem
+                {/*<NavItem style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
                   className="tabsCustomList" eventKey="6" onClick={() => {
                   this.setState({activeKey: "6"});
                   let dataWeekParams="week_flag=PTD";
-                  }}style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
+                  }}
                 ><span className="tab_label">PTD</b></NavItem>*/}
               </Nav>
             </div>
 
             <div className="col-xs-12">
               <Nav bsStyle="tabs" className="tabsCustom tabsCustomInner" activeKey={this.state.activeKey2} onSelect={this.handleSelect}>
-                <NavItem
+                <NavItem style={{ fontSize: '16px' }}
                   eventKey="7" className="tabsCustomList" onClick={() => {
                   this.setState({activeKey2: "7",ty_text:"Sales TY in £",ly_text:"Sales LY in £",y_axis_text:"Sales Value",page_title:"Value Performance"});
                   let dataMetricParams="metric_flag=Value";
                   this.props.onSaveMetricParam(dataMetricParams);
-                  }} style={{ fontSize: '16px' }}
+                  }}
                 ><span className="tab_label">Value</span></NavItem>
-                <NavItem
+                <NavItem style={{ fontSize: '16px' }}
                   eventKey="8" className="tabsCustomList" onClick={() => {
                   this.setState({activeKey2: "8",ty_text:"Volume TY in units",ly_text:"Volume LY in units",y_axis_text:"Sales Volume",page_title:"Volume Performance"});
                   let dataMetricParams="metric_flag=Volume";
 
                   this.props.onSaveMetricParam(dataMetricParams);
-                  }} style={{ fontSize: '16px' }}
+                  }}
                 ><span className="tab_label">Volume</span></NavItem>
-                <NavItem
+                <NavItem style={{ fontSize: '16px' }}
                   eventKey="9" className="tabsCustomList" onClick={() => {
                   this.setState({activeKey2: "9",ty_text:"COGS TY in £",ly_text:"COGS LY in £",y_axis_text:"COGS",page_title:"COGS Performance"});
                   let dataMetricParams="metric_flag=cogs";
                   this.props.onSaveMetricParam(dataMetricParams);
-                  }} style={{ fontSize: '16px' }}
+                  }}
                 ><span className="tab_label">COGS</span></NavItem>
-                <NavItem
+                <NavItem style={{ fontSize: '16px' }}
                   eventKey="10" className="tabsCustomList" onClick={() => {
                   this.setState({activeKey2: "10",ty_text:"Profit TY in £",ly_text:"Profit LY in £",y_axis_text:"Profit",page_title:"Profit Performance"});
                   let dataMetricParams="metric_flag=cgm";
                   this.props.onSaveMetricParam(dataMetricParams);
-                  }} style={{ fontSize: '16px' }}
+                  }}
                 ><span className="tab_label">CGM</span></NavItem>
-                <NavItem
+                <NavItem style={{ fontSize: '16px' }}
                   eventKey="11" className="tabsCustomList" onClick={() => {
                   this.setState({activeKey2: "11",ty_text:"Waste Value TY",ly_text:"Waste Value LY",y_axis_text:"Waste Value",page_title:"Waste Performance"});
                   let dataMetricParams="metric_flag=Waste";
                   this.props.onSaveMetricParam(dataMetricParams);
-                  }} style={{ fontSize: '16px' }}
+                  }}
                 ><span className="tab_label">Waste</span></NavItem>
-{/*                <NavItem
+{/*                <NavItem style={{ fontSize: '16px' }}
                   eventKey="12" className="tabsCustomList" onClick={() => {
                   this.setState({activeKey: "12"});
                   let dataMetricParams="metric_flag=Stock";
                   this.props.onSaveMetricParam(dataMetricParams);
-                  }} style={{ fontSize: '16px' }}
+                  }}
                 ><b className="tab_label">Stock</b></NavItem>
-                <NavItem
+                <NavItem style={{ fontSize: '16px' }}
                   eventKey="13" className="tabsCustomList" onClick={() => {
                   this.setState({activeKey: "13"});
                   let dataMetricParams="metric_flag=Price";
                   this.props.onSaveMetricParam(dataMetricParams);
-                  }} style={{ fontSize: '16px' }}
+                  }}
                 ><b className="tab_label">Price</b></NavItem>*/}
               </Nav>
             </div>

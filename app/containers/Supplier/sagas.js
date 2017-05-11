@@ -35,7 +35,7 @@ export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
 // let host_url = "http://10.1.244.200:8001"
-let host_url = "http://172.20.244.149:8000"
+let host_url = "http://127.0.0.1:8000"
 // FOR SUPPLIER POPUP TABLE
 export function* generateDataFetch() {
   console.log('inside kpi');
@@ -445,7 +445,12 @@ export function* generateSideFilter() {
 
   try {
     const filter_data = yield call(request,
-      host_url + `/api/reporting/filter_supplier?${urlParamsString}`);
+      host_url + `/api/reporting/filter_supplier?${urlParamsString}`/*,
+      {
+        headers: {
+          Authorization: token
+        }
+      }*/);
     console.log('filter_data', filter_data);
     yield put(generateSideFilterSuccess(filter_data));
   } catch (err) {
@@ -878,7 +883,6 @@ export function* generateSideFilter() {
   export default [
     defaultSaga,
     doKPIFetch,
-    // doKPIAspFetch,
     doSupplierTopBotFetch,
     doGenerateSideFilter,
     doWeekFilterFetch,
