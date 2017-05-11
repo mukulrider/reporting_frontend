@@ -8,7 +8,8 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
-import {Modal,Nav, NavItem} from 'react-bootstrap';
+import { Modal,Nav,NavItem,DropdownButton, MenuItem } from 'react-bootstrap';
+import {saveImage,saveDataAsCSV} from './../../utils/exportFunctions';
 
 import Panel from 'components/panel';
 import './style.scss';
@@ -1052,6 +1053,18 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             data={this.props.Executive.budget_forecast_data.forecast_data}>
 
                             </BarChartSimple>
+                            <div style={{float:"right"}}>
+                              <DropdownButton title="Save Image/CSV" style={{backgroundColor:"#449d44", borderColor:"#398439",color:"#fff"}} id="dropButtonId">
+                                <MenuItem onClick={() => {
+                                  saveImage(document.getElementById('ForecastSales_svg'),"forecast_bar_chart")
+                                }
+                                }>Save As JPEG</MenuItem>
+                                <MenuItem onClick={() => {
+                                  saveDataAsCSV(this.props.Executive.budget_forecast_data.forecast_data,"forecast_bar_chart.csv")
+                                }
+                                }>Download CSV</MenuItem>
+                              </DropdownButton>
+                            </div>
                           </div>
 
                           <div className="col-md-6">
@@ -1060,6 +1073,18 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             data={this.props.Executive.budget_forecast_data.budget_data}>
 
                             </BarChartSimple>
+                            <div style={{float:"right"}}>
+                              <DropdownButton title="Save Image/CSV" style={{backgroundColor:"#449d44", borderColor:"#398439",color:"#fff"}} id="dropButtonId">
+                                <MenuItem onClick={() => {
+                                  saveImage(document.getElementById('BudgetSales_svg'),"budget_bar_chart")
+                                }
+                                }>Save As JPEG</MenuItem>
+                                <MenuItem onClick={() => {
+                                  saveDataAsCSV(this.props.Executive.budget_forecast_data.budget_data,"budget_bar_chart.csv")
+                                }
+                                }>Download CSV</MenuItem>
+                              </DropdownButton>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -1208,6 +1233,18 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 <WaterFallChartExec id="waterfallChart_2" yAxisName="Price Index" formatter="formatSales"
                                                     positive_text='negative' negative_text='positive' total_text='total1'
                                 />
+                                <div style={{float:"right"}}>
+                                  <DropdownButton title="Save Image/CSV" style={{backgroundColor:"#449d44", borderColor:"#398439",color:"#fff"}} id="dropButtonId">
+                                    <MenuItem onClick={() => {
+                                      saveImage(document.getElementById('waterfallChart_2_svg'),"promoContriWaterfallChart")
+                                    }
+                                    }>Save As JPEG</MenuItem>
+                                    <MenuItem onClick={() => {
+                                      saveDataAsCSV(this.props.Executive.budget_forecast_data.budget_data,"promoContriWaterfallChart.csv")
+                                    }
+                                    }>Download CSV</MenuItem>
+                                  </DropdownButton>
+                                </div>
                               </Panel>
                             </div>
                           </div>)

@@ -42,6 +42,7 @@ class BarLineChart extends React.PureComponent { // eslint-disable-line react/pr
 
     svg = d3.select("#" + id).append("svg")
       .attr("id", id + '_svg')
+      .attr("ref",'competitorOutperformSvg')
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       //responsive SVG needs these 2 attributes and no width and height attr

@@ -16,8 +16,8 @@ import Button from 'components/button';
 import SampleBarChart from 'components/SampleBarChart';
 import BubbleChart2 from 'components/BubbleChart2';
 import GaugeChart2 from 'components/GaugeChart2';
-import {Nav} from 'react-bootstrap';
-import {NavItem, Pagination} from 'react-bootstrap';
+import { Nav,NavItem,DropdownButton, MenuItem } from 'react-bootstrap';
+import {saveImage,saveDataAsCSV} from './../../utils/exportFunctions';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import InputField from 'components/input_field';
 import FiltersSupplier from 'components/FiltersSupplier';
@@ -1099,7 +1099,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                                 <div className="col-xs-12 col-md-8" style={{marginTop: '2%'}}>
 
-                                  <BubbleChart2 data={this.props.supplier.chartData}
+                                  <BubbleChart2 ref="bubbleChartComp" data={this.props.supplier.chartData}
 
                                     //Passing array which updates table
                                                 selectedBubbleTable={this.props.supplier.prodArrayTable}
@@ -1116,7 +1116,18 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                 onFetchGraph={this.props.onFetchGraph}
                                                 onGenerateTable={this.props.onGenerateTable}
                                   />
-
+                                  <div style={{float:"right"}}>
+                                    <DropdownButton title="Save Image/CSV" style={{backgroundColor:"#449d44", borderColor:"#398439",color:"#fff"}} id="dropButtonId">
+                                      <MenuItem onClick={() => {
+                                      saveImage(this.refs.bubbleChartComp.refs.svgBubble,"bubble_chart")
+                                      }
+                                      }>Save As JPEG</MenuItem>
+                                      <MenuItem onClick={() => {
+                                      saveDataAsCSV(this.props.supplier.chartData,"bubble_chart.csv")
+                                      }
+                                      }>Download CSV</MenuItem>
+                                    </DropdownButton>
+                                  </div>
                                   <i style={{fontSize: '12px'}}>*Size of the bubble corresponds to Rate of Sales</i>
 
                                   {/*<div className="resetButton" onClick={() => {*/}

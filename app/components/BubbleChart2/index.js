@@ -221,7 +221,7 @@ console.log("-=-=-====-=-= "+ data2)
 
     return (
       <div>
-        <svg id="svgg" width="1300" height="600" fontFamily="sans-serif" fontSize="10"
+        <svg id="svgg" ref="svgBubble" width="1300" height="600" fontFamily="sans-serif" fontSize="10"
              textAnchor="middle"> </svg>
       </div>
     );
