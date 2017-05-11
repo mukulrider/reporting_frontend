@@ -53,7 +53,7 @@ export function* generateDataFetch() {
     filter_week_selection = urlName.get('filter_week_selection');
 
     if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
-      filter_week_selection = urlName.get('filter_week_selection');
+      filter_week_selection = urlName.get('filter_week_selection') ;
       console.log("filter_week_selection if", filter_week_selection);
     } else {
       filter_week_selection = "";
@@ -61,7 +61,7 @@ export function* generateDataFetch() {
     }
 
     if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
-      urlParams = filter_week_selection;
+      urlParams = filter_week_selection + '&';
       console.log("filter_week_selection urlParams if", urlParams);
     } else {
       console.log("filter_week_selection urlParams else", urlParams);
@@ -115,7 +115,7 @@ export function* generateDataFetch() {
     weekurlparam = urlName.get('week_param');
 
     if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
-      weekurlparam = urlName.get('week_param');
+      weekurlparam = urlName.get('week_param') + '&';
       console.log("weekurlparam if", weekurlparam);
     } else {
       weekurlparam = "";
@@ -305,7 +305,7 @@ export function* generateDataFetch() {
     }
 
     if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
-      urlParams = filter_week_selection;
+      urlParams = filter_week_selection + '&';
       console.log("filter_week_selection urlParams if", urlParams);
     } else {
       console.log("filter_week_selection urlParams else", urlParams);
@@ -600,7 +600,7 @@ export function* generateSideFilter() {
     }
 
     if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
-      urlParams = filter_week_selection;
+      urlParams = filter_week_selection + '&';
       console.log("filter_week_selection urlParams if", urlParams);
     } else {
       console.log("filter_week_selection urlParams else", urlParams);
@@ -680,6 +680,7 @@ export function* generateSideFilter() {
       else {
 
         const data = yield call(request, host_url + `/api/reporting/supplier_view_table_bubble` + urlParams);
+        console.log('data11', data);
         yield put(generateTableSuccess(data));
 
         let tableChartSpinnerCheck = 1;
@@ -758,7 +759,7 @@ export function* generateSideFilter() {
     }
 
     if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
-      urlParams = filter_week_selection;
+      urlParams = filter_week_selection + '&';
       console.log("filter_week_selection urlParams if", urlParams);
     } else {
       console.log("filter_week_selection urlParams else", urlParams);
