@@ -174,6 +174,8 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                 marginRight: '0px'
               }}>
 
+
+                {/*Filters*/}
                 <div style={{
                   height: '80%',
                   position: 'fixed',
@@ -184,6 +186,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                   overflowY: 'scroll',
                   borderTop: '1px solid #ccc'
                 }}>
+
 
                   {(() => {
                     if (this.props.supplier.sideFilter) {
@@ -712,6 +715,324 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                           </Nav>
                         </div>
 
+                        {/*------Performance quartile---- */}
+
+                        {/*Header row*/}
+                        <div className="row negoHeading" style={{marginLeft:'1%',marginTop:'7%'}}>
+                          <div> Please select a negotiation strategy below to filter 'Negotiation Opportunity' chart and table
+                          </div>
+                        </div>
+
+                        {/*Check box row*/}
+                        <div className="row" style={{marginTop:'1%',marginLeft:'1%'}}>
+
+                          {/*Low CPS/Low Profit*/}
+                          <div className="col-xs-2 center-this input">
+                            <label style={{fontSize:"18px",fontFamily:'tesco',color:'#c74a52',width:'100%'}}>
+                              <input type="checkbox"
+                                     id="PQ1"
+                                     style={{marginRight:'5%'}}
+                                     onChange={() => {
+                                       let pqCurrentSelection="Low CPS/Low Profit";
+                                       let deselect=0;
+                                       let pqApendUrl='';
+                                       let newSelections='';
+
+                                       if(dataPerformanceUrlParams !==''){
+                                         dataPerformanceUrlParams="start&"+dataPerformanceUrlParams;
+                                         let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
+
+                                         for(let i=1;i<pqSelections.length;i++){
+
+                                           if(pqSelections[i]!==pqCurrentSelection){
+                                             newSelections=newSelections+"&performance_quartile="+pqSelections[i];
+                                           }else{
+                                             deselect=1;
+                                           }
+                                         }
+
+                                         if(deselect==0){
+                                           newSelections=newSelections+"&performance_quartile="+pqCurrentSelection;
+                                         }
+
+                                         let pq_ajax_param = newSelections.replace('&', '');
+                                         this.props.onSavePFilterParam(pq_ajax_param);
+                                       }
+                                       else{
+
+                                         let pq_ajax_param = "performance_quartile="+pqCurrentSelection;
+                                         this.props.onSavePFilterParam(pq_ajax_param);
+                                       }
+
+
+                                       this.props.bubbleChartSpinnerCheckSuccess(0);
+                                       this.props.tableChartSpinnerCheckSuccess(0);
+                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/}
+                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+
+                                       this.props.onFetchGraph();
+                                       this.props.onGenerateTable();
+
+
+
+                                     }}
+                              />
+                              <span className="tooltip">Delist Products</span>
+                              Low CPS/Low Profit
+                            </label>
+                          </div>
+
+                          {/*Low CPS/High Profit*/}
+                          <div className="col-xs-2 center-this input">
+                            <label style={{fontSize:"18px",fontFamily:'tesco',color:'#6e6767',width:'100%'}}>
+                              <input type="checkbox"
+                                     id="PQ2"
+                                     style={{marginRight:'5%'}}
+                                     onChange={() => {
+                                       let pqCurrentSelection="Low CPS/High Profit";
+                                       let deselect=0;
+                                       let pqApendUrl='';
+                                       let newSelections='';
+
+                                       if(dataPerformanceUrlParams !==''){
+                                         dataPerformanceUrlParams="start&"+dataPerformanceUrlParams;
+                                         let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
+
+                                         for(let i=1;i<pqSelections.length;i++){
+
+                                           if(pqSelections[i]!==pqCurrentSelection){
+                                             newSelections=newSelections+"&performance_quartile="+pqSelections[i];
+                                           }else{
+                                             deselect=1;
+                                           }
+                                         }
+
+                                         if(deselect==0){
+                                           newSelections=newSelections+"&performance_quartile="+pqCurrentSelection;
+                                         }
+
+                                         let pq_ajax_param = newSelections.replace('&', '');
+                                         this.props.onSavePFilterParam(pq_ajax_param);
+                                       }
+                                       else{
+
+                                         let pq_ajax_param = "performance_quartile="+pqCurrentSelection;
+                                         this.props.onSavePFilterParam(pq_ajax_param);
+                                       }
+
+
+                                       this.props.bubbleChartSpinnerCheckSuccess(0);
+                                       this.props.tableChartSpinnerCheckSuccess(0);
+                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/}
+                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+
+                                       this.props.onFetchGraph();
+                                       this.props.onGenerateTable();
+
+
+
+                                     }}
+                              />
+                              <span className="tooltip">Hard Bargaining’ for stronger profits – Low importance to customers</span>
+                              Low CPS/High Profit
+                            </label>
+
+                          </div>
+
+                          {/*Med CPS/Med Profit*/}
+                          <div className="col-xs-2 center-this input">
+                            <label style={{fontSize:"18px",fontFamily:'tesco',color:'#ffa626',width:'100%'}}>
+                              <input type="checkbox"
+                                     id="PQ3"
+                                     style={{marginRight:'5%'}}
+                                     onChange={() => {
+                                       let pqCurrentSelection="Med CPS/Med Profit";
+                                       let deselect=0;
+                                       let pqApendUrl='';
+                                       let newSelections='';
+
+                                       if(dataPerformanceUrlParams !==''){
+                                         dataPerformanceUrlParams="start&"+dataPerformanceUrlParams;
+                                         let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
+
+                                         for(let i=1;i<pqSelections.length;i++){
+
+                                           if(pqSelections[i]!==pqCurrentSelection){
+                                             newSelections=newSelections+"&performance_quartile="+pqSelections[i];
+                                           }else{
+                                             deselect=1;
+                                           }
+                                         }
+
+                                         if(deselect==0){
+                                           newSelections=newSelections+"&performance_quartile="+pqCurrentSelection;
+                                         }
+
+                                         let pq_ajax_param = newSelections.replace('&', '');
+                                         this.props.onSavePFilterParam(pq_ajax_param);
+                                       }
+                                       else{
+
+                                         let pq_ajax_param = "performance_quartile="+pqCurrentSelection;
+                                         this.props.onSavePFilterParam(pq_ajax_param);
+                                       }
+
+
+                                       this.props.bubbleChartSpinnerCheckSuccess(0);
+                                       this.props.tableChartSpinnerCheckSuccess(0);
+                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/}
+                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+
+                                       this.props.onFetchGraph();
+                                       this.props.onGenerateTable();
+
+
+
+                                     }}
+                              />
+                              <span className="tooltip">Area of opportunity. Concession trading – Subs/Ranging/Price. Reduce range to drive</span>
+                              Med CPS/Med Profit
+                            </label>
+
+                          </div>
+
+                          {/*High CPS/Low Profit*/}
+                          <div className="col-xs-2 center-this input">
+                            <label style={{fontSize:"18px",fontFamily:'tesco',color:'#69b24a',width:'100%'}}>
+                              <input type="checkbox"
+                                     id="PQ4"
+                                     style={{marginRight:'5%'}}
+                                     onChange={() => {
+                                       let pqCurrentSelection="High CPS/Low Profit";
+                                       let deselect=0;
+                                       let pqApendUrl='';
+                                       let newSelections='';
+
+                                       if(dataPerformanceUrlParams !==''){
+                                         dataPerformanceUrlParams="start&"+dataPerformanceUrlParams;
+                                         let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
+
+                                         for(let i=1;i<pqSelections.length;i++){
+
+                                           if(pqSelections[i]!==pqCurrentSelection){
+                                             newSelections=newSelections+"&performance_quartile="+pqSelections[i];
+                                           }else{
+                                             deselect=1;
+                                           }
+                                         }
+
+                                         if(deselect==0){
+                                           newSelections=newSelections+"&performance_quartile="+pqCurrentSelection;
+                                         }
+
+                                         let pq_ajax_param = newSelections.replace('&', '');
+                                         this.props.onSavePFilterParam(pq_ajax_param);
+                                       }
+                                       else{
+
+                                         let pq_ajax_param = "performance_quartile="+pqCurrentSelection;
+                                         this.props.onSavePFilterParam(pq_ajax_param);
+                                       }
+
+
+                                       this.props.bubbleChartSpinnerCheckSuccess(0);
+                                       this.props.tableChartSpinnerCheckSuccess(0);
+                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/}
+                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+
+                                       this.props.onFetchGraph();
+                                       this.props.onGenerateTable();
+
+
+
+                                     }}
+                              />
+                              <span className="tooltip">Win-Win relationship with supplier to share further profit gains</span>
+                              High CPS/Low Profit
+                            </label>
+
+
+                          </div>
+
+                          {/*High CPS/High Profit*/}
+                          <div className="col-xs-2 center-this input">
+                            <label style={{fontSize:"18px",fontFamily:'tesco',color:'#2B7294',width:'100%'}}>
+                              <input type="checkbox"
+                                     id="PQ5"
+                                     style={{marginRight:'5%'}}
+                                     onChange={() => {
+                                       let pqCurrentSelection="High CPS/High Profit";
+                                       let deselect=0;
+                                       let pqApendUrl='';
+                                       let newSelections='';
+
+                                       if(dataPerformanceUrlParams !==''){
+                                         dataPerformanceUrlParams="start&"+dataPerformanceUrlParams;
+                                         let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
+
+                                         for(let i=1;i<pqSelections.length;i++){
+
+                                           if(pqSelections[i]!==pqCurrentSelection){
+                                             newSelections=newSelections+"&performance_quartile="+pqSelections[i];
+                                           }else{
+                                             deselect=1;
+                                           }
+                                         }
+
+                                         if(deselect==0){
+                                           newSelections=newSelections+"&performance_quartile="+pqCurrentSelection;
+                                         }
+
+                                         let pq_ajax_param = newSelections.replace('&', '');
+                                         this.props.onSavePFilterParam(pq_ajax_param);
+                                       }
+                                       else{
+
+                                         let pq_ajax_param = "performance_quartile="+pqCurrentSelection;
+                                         this.props.onSavePFilterParam(pq_ajax_param);
+                                       }
+
+
+                                       this.props.bubbleChartSpinnerCheckSuccess(0);
+                                       this.props.tableChartSpinnerCheckSuccess(0);
+                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/}
+                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+
+                                       this.props.onFetchGraph();
+                                       this.props.onGenerateTable();
+
+
+
+                                     }}
+                              />
+                              <span className="tooltip">Work collaboratively to jointly solve low profitability</span>
+                              High CPS/High Profit
+                            </label>
+
+                          </div>
+
+                          <div className="col-xs-2 center-this">
+                            <Button buttonType={'secondary'}
+                                    onClick={() => {
+                                      this.props.onSavePFilterParam('');
+                                      this.props.onFetchGraph();
+                                      this.props.onGenerateTable();
+
+                                      document.getElementById("PQ1").checked = false;
+                                      document.getElementById("PQ2").checked = false;
+                                      document.getElementById("PQ3").checked = false;
+                                      document.getElementById("PQ4").checked = false;
+                                      document.getElementById("PQ5").checked = false;
+
+                                    }}
+                                    style={{marginTop:'-4%',marginLeft:'-7%'}}>Reset Selections</Button>
+                          </div>
+
+
+                        </div>
+
+
+                        {/*-----Bubble chart-----*/}
 
                         <div className="row">
                           {(() => {
@@ -746,213 +1067,214 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                                   <i style={{fontSize: '12px'}}>*Size of the bubble corresponds to Rate of Sales</i>
 
-                                  <div className="resetButton" onClick={() => {
-                                    dataPerformanceUrlParams = '';
-                                    this.props.onSavePageParam("page=1");
-                                    this.props.onSavePFilterParam(dataPerformanceUrlParams);
-                                    this.props.onFetchGraph();
-                                    this.props.onGenerateTable();
-                                    this.props.onRadioChecked('6');
-                                  }}><p>View Selections</p></div>
+                                  {/*<div className="resetButton" onClick={() => {*/}
+                                    {/*dataPerformanceUrlParams = '';*/}
+                                    {/*this.props.onSavePageParam("page=1");*/}
+                                    {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                                    {/*this.props.onFetchGraph();*/}
+                                    {/*this.props.onGenerateTable();*/}
+                                    {/*this.props.onRadioChecked('6');*/}
+                                  {/*}}><p>View Selections</p></div>*/}
 
                                 </div>
                               )
                             }
                           })()}
 
-                          <div className="col-xs-12 col-md-4" style={{marginTop: '2%', fontSize: '14px'}}>
+                          {/*<div className="col-xs-12 col-md-4" style={{marginTop: '2%', fontSize: '14px'}}>*/}
 
-                            <h4>
-                              Please select a negotiation strategy below to filter
-                              'Negotiation
-                              Opportunity' chart and table
-                            </h4>
+                            {/*<h4>*/}
+                              {/*Please select a negotiation strategy below to filter*/}
+                              {/*'Negotiation*/}
+                              {/*Opportunity' chart and table*/}
+                            {/*</h4>*/}
 
-                            <div className="panel">
-                              <div className="lowProfit"
-                                   style={{height: '35px', backgroundColor: '#c74a52', opacity: '0.8'}}>
-                                <RadioButton id={'1'}
-                                             checked={(() => {
-                                               if (this.props.supplier.radioChecked === '1') {
-                                                 return true
-                                               }
-                                               else {
-                                                 return false
-                                               }
-                                             })()}
-                                             label={'Low CPS/Low Profit'}
-                                             valid={true}
-                                             onChange={() => {
-                                               this.props.bubbleChartSpinnerCheckSuccess(0);
-                                               this.props.tableChartSpinnerCheckSuccess(0);
-                                               dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";
-                                               this.props.onSavePFilterParam(dataPerformanceUrlParams);
+                            {/*<div className="panel">*/}
+                              {/*<div className="lowProfit"*/}
+                                   {/*style={{height: '35px', backgroundColor: '#c74a52', opacity: '0.8'}}>*/}
+                                {/*<RadioButton id={'1'}*/}
+                                             {/*checked={(() => {*/}
+                                               {/*if (this.props.supplier.radioChecked === '1') {*/}
+                                                 {/*return true*/}
+                                               {/*}*/}
+                                               {/*else {*/}
+                                                 {/*return false*/}
+                                               {/*}*/}
+                                             {/*})()}*/}
+                                             {/*label={'Low CPS/Low Profit'}*/}
+                                             {/*valid={true}*/}
+                                             {/*onChange={() => {*/}
+                                               {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
+                                               {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
+                                               {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/}
+                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
 
-                                               this.props.onFetchGraph();
-                                               this.props.onGenerateTable();
-                                               this.props.onRadioChecked('1');
-                                             }}
-                                             name="x"
-                                />
-                              </div>
-                              <div className="panel-body" style={{marginTop: '2%'}}>
-                                Delist Products
-                              </div>
-                            </div>
-                            <div className="panel panel-default">
-                              <div className="default"
-                                   style={{
-                                     height: '35px',
-                                     backgroundColor: '#6e6767',
-                                     opacity: '0.8',
-                                     fontColor: 'white'
-                                   }}>
-                                <RadioButton id={'2'}
-                                             checked={(() => {
-                                               if (this.props.supplier.radioChecked == '2') {
-                                                 return true
-                                               }
-                                               else {
-                                                 return false
-                                               }
-                                             })()}
+                                               {/*this.props.onFetchGraph();*/}
+                                               {/*this.props.onGenerateTable();*/}
+                                               {/*this.props.onRadioChecked('1');*/}
+                                             {/*}}*/}
+                                             {/*name="x"*/}
+                                {/*/>*/}
+                              {/*</div>*/}
+                              {/*<div className="panel-body" style={{marginTop: '2%'}}>*/}
+                                {/*Delist Products*/}
+                              {/*</div>*/}
+                            {/*</div>*/}
+                            {/*<div className="panel panel-default">*/}
+                              {/*<div className="default"*/}
+                                   {/*style={{*/}
+                                     {/*height: '35px',*/}
+                                     {/*backgroundColor: '#6e6767',*/}
+                                     {/*opacity: '0.8',*/}
+                                     {/*fontColor: 'white'*/}
+                                   {/*}}>*/}
+                                {/*<RadioButton id={'2'}*/}
+                                             {/*checked={(() => {*/}
+                                               {/*if (this.props.supplier.radioChecked == '2') {*/}
+                                                 {/*return true*/}
+                                               {/*}*/}
+                                               {/*else {*/}
+                                                 {/*return false*/}
+                                               {/*}*/}
+                                             {/*})()}*/}
 
-                                             label={'Low CPS/High Profit'}
-                                             valid={true}
-                                             onChange={() => {
-                                               this.props.bubbleChartSpinnerCheckSuccess(0);
-                                               this.props.tableChartSpinnerCheckSuccess(0);
-                                               dataPerformanceUrlParams = "performance_quartile=Low CPS/High Profit";
-                                               this.props.onSavePFilterParam(dataPerformanceUrlParams);
-                                               this.props.onFetchGraph();
-                                               this.props.onGenerateTable();
-                                               this.props.onRadioChecked('2');
+                                             {/*label={'Low CPS/High Profit'}*/}
+                                             {/*valid={true}*/}
+                                             {/*onChange={() => {*/}
+                                               {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
+                                               {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
+                                               {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/High Profit";*/}
+                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                                               {/*this.props.onFetchGraph();*/}
+                                               {/*this.props.onGenerateTable();*/}
+                                               {/*this.props.onRadioChecked('2');*/}
 
-                                             }}
-                                             name="x"
-                                />
-                              </div>
-                              <div className="panel-body" style={{height: '65px', marginTop: '3%'}}>
-                                Hard
-                                Bargaining’
-                                for stronger
-                                profits – Low importance to customers
-                              </div>
-                            </div>
+                                             {/*}}*/}
+                                             {/*name="x"*/}
+                                {/*/>*/}
+                              {/*</div>*/}
+                              {/*<div className="panel-body" style={{height: '65px', marginTop: '3%'}}>*/}
+                                {/*Hard*/}
+                                {/*Bargaining’*/}
+                                {/*for stronger*/}
+                                {/*profits – Low importance to customers*/}
+                              {/*</div>*/}
+                            {/*</div>*/}
 
 
-                            <div className="panel panel-warning">
-                              <div className="medProfit"
-                                   style={{
-                                     height: '35px',
-                                     backgroundColor: '#ffa626',
-                                     opacity: '0.8',
-                                     fontColor: 'white'
-                                   }}>
-                                <RadioButton id={'3'}
-                                             label={'Med CPS/Med Profit'}
-                                             valid={true}
-                                             checked={(() => {
-                                               if (this.props.supplier.radioChecked == '3') {
-                                                 return true
-                                               }
-                                               else {
-                                                 return false
-                                               }
-                                             })()}
-                                             onChange={() => {
-                                               this.props.bubbleChartSpinnerCheckSuccess(0);
-                                               this.props.tableChartSpinnerCheckSuccess(0);
-                                               dataPerformanceUrlParams = "performance_quartile=Med CPS/Med Profit";
-                                               this.props.onSavePFilterParam(dataPerformanceUrlParams);
-                                               this.props.onFetchGraph();
-                                               this.props.onGenerateTable();
-                                               this.props.onRadioChecked('3');
+                            {/*<div className="panel panel-warning">*/}
+                              {/*<div className="medProfit"*/}
+                                   {/*style={{*/}
+                                     {/*height: '35px',*/}
+                                     {/*backgroundColor: '#ffa626',*/}
+                                     {/*opacity: '0.8',*/}
+                                     {/*fontColor: 'white'*/}
+                                   {/*}}>*/}
+                                {/*<RadioButton id={'3'}*/}
+                                             {/*label={'Med CPS/Med Profit'}*/}
+                                             {/*valid={true}*/}
+                                             {/*checked={(() => {*/}
+                                               {/*if (this.props.supplier.radioChecked == '3') {*/}
+                                                 {/*return true*/}
+                                               {/*}*/}
+                                               {/*else {*/}
+                                                 {/*return false*/}
+                                               {/*}*/}
+                                             {/*})()}*/}
+                                             {/*onChange={() => {*/}
+                                               {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
+                                               {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
+                                               {/*dataPerformanceUrlParams = "performance_quartile=Med CPS/Med Profit";*/}
+                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                                               {/*this.props.onFetchGraph();*/}
+                                               {/*this.props.onGenerateTable();*/}
+                                               {/*this.props.onRadioChecked('3');*/}
 
-                                             }}
-                                             name="x"
-                                />
-                              </div>
-                              <div className="panel-body" style={{height: '60px', marginTop: '3%'}}>Area of
-                                opportunity. Concession
-                                trading – Subs/Ranging/Price. Reduce range to drive
-                                volume
-                              </div>
-                            </div>
+                                             {/*}}*/}
+                                             {/*name="x"*/}
+                                {/*/>*/}
+                              {/*</div>*/}
+                              {/*<div className="panel-body" style={{height: '60px', marginTop: '3%'}}>Area of*/}
+                                {/*opportunity. Concession*/}
+                                {/*trading – Subs/Ranging/Price. Reduce range to drive*/}
+                                {/*volume*/}
+                              {/*</div>*/}
+                            {/*</div>*/}
 
-                            <div className="panel panel-success">
-                              <div className="highProfit"
-                                   style={{
-                                     height: '35px',
-                                     backgroundColor: '#69b24a',
-                                     opacity: '0.8',
-                                     fontColor: 'white'
-                                   }}>
-                                <RadioButton id={'4'}
-                                             label={'High CPS/High Profit'}
-                                             valid={true}
-                                             checked={(() => {
-                                               if (this.props.supplier.radioChecked == '4') {
-                                                 return true
-                                               }
-                                               else {
-                                                 return false
-                                               }
-                                             })()}
-                                             onChange={() => {
-                                               this.props.bubbleChartSpinnerCheckSuccess(0);
-                                               this.props.tableChartSpinnerCheckSuccess(0);
-                                               dataPerformanceUrlParams = "performance_quartile=High CPS/High Profit"
-                                               this.props.onSavePFilterParam(dataPerformanceUrlParams);
-                                               this.props.onFetchGraph();
-                                               this.props.onGenerateTable();
-                                               this.props.onRadioChecked('4');
+                            {/*<div className="panel panel-success">*/}
+                              {/*<div className="highProfit"*/}
+                                   {/*style={{*/}
+                                     {/*height: '35px',*/}
+                                     {/*backgroundColor: '#69b24a',*/}
+                                     {/*opacity: '0.8',*/}
+                                     {/*fontColor: 'white'*/}
+                                   {/*}}>*/}
+                                {/*<RadioButton id={'4'}*/}
+                                             {/*label={'High CPS/High Profit'}*/}
+                                             {/*valid={true}*/}
+                                             {/*checked={(() => {*/}
+                                               {/*if (this.props.supplier.radioChecked == '4') {*/}
+                                                 {/*return true*/}
+                                               {/*}*/}
+                                               {/*else {*/}
+                                                 {/*return false*/}
+                                               {/*}*/}
+                                             {/*})()}*/}
+                                             {/*onChange={() => {*/}
+                                               {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
+                                               {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
+                                               {/*dataPerformanceUrlParams = "performance_quartile=High CPS/High Profit"*/}
+                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                                               {/*this.props.onFetchGraph();*/}
+                                               {/*this.props.onGenerateTable();*/}
+                                               {/*this.props.onRadioChecked('4');*/}
 
-                                             }}
-                                             name="x"
-                                />
-                              </div>
-                              <div className="panel-body" style={{height: '50px', marginTop: '3%'}}>Build
-                                Win-Win
-                                relationship with
-                                supplier to share further profit gains
-                              </div>
-                            </div>
-                            <div className="panel">
-                              <div className="highCps" style={{height: '35px', backgroundColor: '#99d9e5'}}>
-                                <RadioButton id={'5'}
-                                             label={'High CPS/Low Profit'}
-                                             valid={true}
-                                             checked={(() => {
-                                               if (this.props.supplier.radioChecked == '5') {
-                                                 return true
-                                               }
-                                               else {
-                                                 return false
-                                               }
-                                             })()}
-                                             onChange={() => {
-                                               this.props.bubbleChartSpinnerCheckSuccess(0);
-                                               this.props.tableChartSpinnerCheckSuccess(0);
-                                               dataPerformanceUrlParams = "performance_quartile=High CPS/Low Profit"
-                                               this.props.onSavePFilterParam(dataPerformanceUrlParams);
-                                               this.props.onFetchGraph();
-                                               this.props.onGenerateTable();
-                                               this.props.onRadioChecked('5');
+                                             {/*}}*/}
+                                             {/*name="x"*/}
+                                {/*/>*/}
+                              {/*</div>*/}
+                              {/*<div className="panel-body" style={{height: '50px', marginTop: '3%'}}>Build*/}
+                                {/*Win-Win*/}
+                                {/*relationship with*/}
+                                {/*supplier to share further profit gains*/}
+                              {/*</div>*/}
+                            {/*</div>*/}
+                            {/*<div className="panel">*/}
+                              {/*<div className="highCps" style={{height: '35px', backgroundColor: '#99d9e5'}}>*/}
+                                {/*<RadioButton id={'5'}*/}
+                                             {/*label={'High CPS/Low Profit'}*/}
+                                             {/*valid={true}*/}
+                                             {/*checked={(() => {*/}
+                                               {/*if (this.props.supplier.radioChecked == '5') {*/}
+                                                 {/*return true*/}
+                                               {/*}*/}
+                                               {/*else {*/}
+                                                 {/*return false*/}
+                                               {/*}*/}
+                                             {/*})()}*/}
+                                             {/*onChange={() => {*/}
+                                               {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
+                                               {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
+                                               {/*dataPerformanceUrlParams = "performance_quartile=High CPS/Low Profit"*/}
+                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                                               {/*this.props.onFetchGraph();*/}
+                                               {/*this.props.onGenerateTable();*/}
+                                               {/*this.props.onRadioChecked('5');*/}
 
-                                             }}
-                                             name="x"
-                                />
-                              </div>
-                              <div className="panel-body" style={{marginTop: '5%'}}>Work
-                                collaboratively to jointly
-                                solve low profitability
-                              </div>
-                            </div>
+                                             {/*}}*/}
+                                             {/*name="x"*/}
+                                {/*/>*/}
+                              {/*</div>*/}
+                              {/*<div className="panel-body" style={{marginTop: '5%'}}>Work*/}
+                                {/*collaboratively to jointly*/}
+                                {/*solve low profitability*/}
+                              {/*</div>*/}
+                            {/*</div>*/}
 
-                          </div>
+                          {/*</div>*/}
                         </div>
 
+                        {/*-----Bubble table-----*/}
 
                         <Panel>
                           <div>

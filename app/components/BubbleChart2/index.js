@@ -19,12 +19,11 @@ class BubbleChart2 extends React.PureComponent { // eslint-disable-line react/pr
 
 
     forTable = JSON.parse(forTable);
-
     forOpacity = JSON.parse(forOpacity);
-
+console.log("-=-=-====-=-= "+ data2)
     //Chart configurations
     let margin = {top: 20, right: 20, bottom: 40, left: 30};
-    let width = 750 - margin.left - margin.right,
+    let width = 1200 - margin.left - margin.right,
       height = 600 - margin.top - margin.bottom;
 
     let svg = d3.select('#svgg');
@@ -36,10 +35,23 @@ class BubbleChart2 extends React.PureComponent { // eslint-disable-line react/pr
     //Adjusting position of the svg area
 
     let chart = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    let xScale = d3.scaleLinear().domain([0, 100]).range([0, width]);
-
+    // let xScale = d3.scaleLinear().domain([0, 100]).range([0, width]);
+    let xScale = d3.scaleLinear().domain([0, d3.max(data2, function (d) {return d.cps;})]).range([0, width]);
     let yScale = d3.scaleLinear().domain([0, 100]).range([height, 0]);
+
+    // domain([
+    //   d3.min(data2, function (c) {
+    //     return d3.min(c.values, function (d) {
+    //       return d.date;
+    //     });
+    //   }),
+    //   d3.max(cities, function (c) {
+    //     return d3.max(c.values, function (d) {
+    //       return d.date;
+    //     });
+    //   })
+    // ])
+
 
     let rScale = d3.scaleLinear().domain([0, d3.max(data2, function (d) {
       return d.rate_of_sale;
@@ -67,6 +79,21 @@ class BubbleChart2 extends React.PureComponent { // eslint-disable-line react/pr
       .classed("axis", true)
       .call(yAxis);
 
+    // ------------- Tooltip-----------------
+
+
+    let tooltip = d3.select("body")
+      .append("div")
+      .style("position", "absolute")
+      .classed("tooltip_bubble",true)
+      .style("z-index", "10")
+      .style("visibility", "hidden")
+      .style("color", "white")
+      .style("padding", "8px")
+      .style("background-color", "rgba(0, 0, 0, 0.75)")
+      .style("border-radius", "6px")
+      .style("font", "15px sans-serif")
+      .text("tooltip");
 
     // ------------- Adding data points-----------------
     chart.selectAll('circle')
@@ -81,53 +108,16 @@ class BubbleChart2 extends React.PureComponent { // eslint-disable-line react/pr
         return (yScale(d.pps));
       })
 
-      .on('click', function (d) {
-        //Bubble opacity
-        let dataBubbleUrlParams2 = d.base_product_number;
-        let deselectBubFlag = 0;
-
-        // Will be used to just store the product number to decide the opacity
-        for (let i = 0; i < forOpacity.length; i++) {
-          if (forOpacity[i] !== dataBubbleUrlParams2) {
-            console.log("comparing-=-=-=-=", forOpacity[i], dataBubbleUrlParams2)
-            deselectBub.push(forOpacity[i]);
-          }
-          else {
-            console.log("DESELECTION OF BUBBLE")
-            deselectBubFlag = 1;
-          }
-        }
-
-        if (deselectBubFlag === 0) {
-          console.log("NOT DESELECTION OF BUBBLE" + deselectBubFlag)
-          deselectBub.push(dataBubbleUrlParams2);
-        }
-        console.log("selecting for the first time",deselectBub);
-        let dejsonBub = JSON.stringify(deselectBub);
-        bubbleFunc2(dejsonBub);
-
-        //For updating table below
-        let dataBubbleUrlParams = "base_product_number=" + d.base_product_number;
-        let deselect = 0;
-
-        for (let i = 0; i < forTable.length; i++) {
-          if (forTable[i] !== dataBubbleUrlParams) {
-            deselectArr.push(forTable[i]);
-          } else {
-            deselect = 1;
-          }
-        }
-
-        if (deselect == 0) {
-          deselectArr.push(dataBubbleUrlParams);
-        }
-
-        let dejsonTable = JSON.stringify(deselectArr);
-        bubbleFunc(dejsonTable);
-        makeTable();
-        console.log("============================")
-
+      .on('mouseover', function(d) {
+        // console.log("------d"+d);
+        tooltip.html(d.long_description+"<br/>"+"CPS : "+d.cps+"<br/>"+"PPS : "+d.pps);
+        tooltip.style("visibility", "visible");
       })
+      .on('mousemove', function() {
+        // console.log("y--"+(d3.event.pageY)+"x-----"+(d3.event.pageX))
+        return tooltip.style("top", (d3.event.pageY-100)+"px").style("left",(d3.event.pageX+5)+"px");
+      })
+      .on('mouseout', function(){return tooltip.style("visibility", "hidden");})
 
       .attr("r", 0)
       .transition()
@@ -138,7 +128,7 @@ class BubbleChart2 extends React.PureComponent { // eslint-disable-line react/pr
 
       .style("fill", function (d) {
         if (d.brand_ind == "Brand") {
-          return colorArray[1];
+          return colorArray[0];
         }
         else {
           return colorArray[0];
@@ -162,7 +152,7 @@ class BubbleChart2 extends React.PureComponent { // eslint-disable-line react/pr
           }
         }
         else {
-          return opacity[0];
+          return 0.75;
         }
       });
 
@@ -171,7 +161,7 @@ class BubbleChart2 extends React.PureComponent { // eslint-disable-line react/pr
       .attr("transform",
         "translate(" + (width / 2) + " ," + (height + (margin.top * 1.75)) + ")")
       .style("text-anchor", "middle")
-      .style("font-size", "10px")
+      .style("font-size", "12px")
       .text("CPS percentile");
 
     chart.append("text")
@@ -180,40 +170,40 @@ class BubbleChart2 extends React.PureComponent { // eslint-disable-line react/pr
       .attr("x", 0 - (height / 2))
       .attr("dy", "1em")
       .style("text-anchor", "middle")
-      .style("font-size", "10px")
+      .style("font-size", "12px")
       .text("Profit per store percentile (CGM)");
 
     //This is for getting legends
     let series_type_values = ["OL", "Brand"];
 
-    let legend = chart.append("g")
-      .attr("font-family", "Tesco")
-      .attr("font-size", 10).attr("text-anchor", "end")
-      .selectAll("g")
-      .data(series_type_values)
-      .enter()
-      .append("g")
-      .attr("transform", function (d, i) {
-        return "translate(0," + i * 25 + ")";
-      });
-
-    legend.append("rect")
-      .attr("x", 800)
-      .attr("width", 19)
-      .attr("height", 19)
-      .attr("fill", function (d, i) {
-          return colorArray[i];
-        }
-      );
-
-    legend.append("text")
-      .attr("x", 770)
-      .attr("y", 9.5)
-      .attr("dy", "0.32em")
-      .style("text-anchor", "middle")
-      .text(function (d) {
-        return d;
-      });
+    // let legend = chart.append("g")
+    //   .attr("font-family", "Tesco")
+    //   .attr("font-size", 10).attr("text-anchor", "end")
+    //   .selectAll("g")
+    //   .data(series_type_values)
+    //   .enter()
+    //   .append("g")
+    //   .attr("transform", function (d, i) {
+    //     return "translate(0," + i * 25 + ")";
+    //   });
+    //
+    // legend.append("rect")
+    //   .attr("x", 950)
+    //   .attr("width", 19)
+    //   .attr("height", 19)
+    //   .attr("fill", function (d, i) {
+    //       return colorArray[i];
+    //     }
+    //   );
+    //
+    // legend.append("text")
+    //   .attr("x", 975)
+    //   .attr("y", 9.5)
+    //   .attr("dy", "0.32em")
+    //   .style("text-anchor", "middle")
+    //   .text(function (d) {
+    //     return d;
+    //   });
     // let color = d3.scaleLinear().range(d3.schemeCategory20b);
   };
 
@@ -231,7 +221,7 @@ class BubbleChart2 extends React.PureComponent { // eslint-disable-line react/pr
 
     return (
       <div>
-        <svg id="svgg" width="700" height="600" fontFamily="sans-serif" fontSize="10"
+        <svg id="svgg" width="1300" height="600" fontFamily="sans-serif" fontSize="10"
              textAnchor="middle"> </svg>
       </div>
     );

@@ -316,7 +316,6 @@ export function* generateDataFetch3() {
 
   let urlParamsString = urlName.get('urlParamsString');
   if (typeof(urlParamsString) == "undefined") {
-
     urlParamsString = "";
   } else {
     let urlParamsStringCheck = urlParamsString.substring(0, 2);
