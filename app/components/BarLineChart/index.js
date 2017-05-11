@@ -15,12 +15,12 @@ import messages from './messages';
 class BarLineChart extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   createChart = (data, id,series_col_name) => {
-
+    let frameWidth = document.getElementById(id).clientWidth;
     let series_type_col_name = series_col_name;
     console.log("Inside BarLineChart ------", data);
     let margin = {top: 20, right: 40, bottom: 50, left: 60},
-      width = 680 - margin.left - margin.right,
-      height = 300 - margin.top - margin.bottom;
+      width = frameWidth - margin.left - margin.right,
+      height = frameWidth*0.7 - margin.top - margin.bottom;
 
     let x = d3.scaleBand()
       .rangeRound([0, width], .1)
@@ -30,8 +30,7 @@ class BarLineChart extends React.PureComponent { // eslint-disable-line react/pr
       .range([height, 0]);
 
     let xAxis = d3.axisBottom()
-      .scale(x)
-    ;
+      .scale(x);
 
     let yAxis = d3.axisLeft()
       .scale(y)
@@ -44,13 +43,26 @@ class BarLineChart extends React.PureComponent { // eslint-disable-line react/pr
     svg = d3.select("#" + id).append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
+      //responsive SVG needs these 2 attributes and no width and height attr
+      .attr("preserveAspectRatio", "xMinYMin meet")
+      .attr("viewBox", "0 0 600 400")
+      //class to make it responsive
+      .classed("svg-content-responsive", true)
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
     console.log("barLineChart");
     console.log("barLineChart",data);
     x.domain(data.map(function (d) {
       return d.label_week;
     }));
+
+    setTimeout(function(){
+      console.log("Removing height and width from BarLineChart :",id)
+      //d3.select("#" + id).attr("height",null).attr("width",null)
+    },500);
+
     let a=d3.min(data, function (d) {
       return +d.tesco_growth});
     console.log("BarLineChart a",a);

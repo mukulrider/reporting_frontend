@@ -69,8 +69,9 @@ class NewSelector2 extends React.PureComponent { // eslint-disable-line react/pr
       <div ref={'selector'}>
         {(() => {
           return (
-            <div id="style-7">
-
+            <div id="style-7" style={{
+              height: '1100px'
+            }}>
 
               <PanelGroup defaultActiveKey="0" accordion>
                 {(() => {

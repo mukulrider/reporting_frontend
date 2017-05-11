@@ -171,7 +171,6 @@ class StackedChart extends React.PureComponent { // eslint-disable-line react/pr
 }
 
 StackedChart.propTypes = {
-
 };
 
 export default StackedChart;
