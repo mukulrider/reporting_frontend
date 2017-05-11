@@ -164,9 +164,10 @@ class MultilineOrdinalChart extends React.PureComponent { // eslint-disable-line
       //--------------Configurations & Axis definitions
 
       //Configurations
+        var containerWidth = document.getElementById(chart_id).clientWidth;
         let margin = {top: 20, right: 5, bottom: 60, left:50},
-          width = 1100 - margin.left - margin.right,
-          height = 330 - margin.top - margin.bottom;
+          width = containerWidth - margin.left - margin.right,
+          height = containerWidth*0.25 - margin.top - margin.bottom;
 
         let spaceForLegends=65;
         //Axis
@@ -195,13 +196,23 @@ class MultilineOrdinalChart extends React.PureComponent { // eslint-disable-line
 
       let svg = d3.select('#'+chart_id);
       svg.selectAll("*").remove();
-      let chart = svg.append("g")
+      let chart = svg
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-        .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+        //responsive SVG needs these 2 attributes and no width and height attr
+        .attr("preserveAspectRatio", "xMinYMin meet")
+        .attr("viewBox", "0 0 1000 250")
+        //class to make it responsive
+        .classed("svg-content-responsive", true)
+        .append("g")
+        .attr("transform","translate(" + margin.left + "," + margin.top + ")")
+        .attr("width",width + margin.left + margin.right).attr("height",height + margin.top + margin.bottom);
 
 
-
+      //--------- Removing Height and Width property from svg
+      setTimeout(function(){
+        d3.select('#'+chart_id).attr("width",null).attr("height",null)
+      },100)
       //---------- Adding the axis
       chart.append("g")
             .attr("transform", "translate(0," + height + ")")

@@ -21,7 +21,7 @@ import {
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-const host_url = 'http://10.1.244.200:8001';
+const host_url = 'http://172.20.244.149:8000';
 // All sagas to be loaded
 
 // FOR COMPETITOR WATERFALL CHART
@@ -35,26 +35,27 @@ export function* generateCompetitorWaterfallDataFetch() {
   console.log('Filter parameter', filterurlparam);
   console.log('Waterfall param', waterfallparam);
 
-  let getCookie;
-  getCookie = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  };
-  const user_token = getCookie('token');
-  const buyer = getCookie('buyer');
-  const token = user_token.concat('___').concat(buyer)
+  // let getCookie;
+  // getCookie = (name) => {
+  //   const value = `; ${document.cookie}`;
+  //   const parts = value.split(`; ${name}=`);
+  //   if (parts.length === 2) return parts.pop().split(';').shift();
+  // };
+  // const user_token = getCookie('token');
+  // const buyer = getCookie('buyer');
+  // const token = user_token.concat('___').concat(buyer)
 
   //
   // //paramString = paramString + '&week=' + urlParams;
   // paramString = paramString.replace('&', '');
   const data = yield call(request,
     `${host_url}/api/reporting/competitor_price_index?${weekurlparam}&${filterurlparam}&${waterfallparam}&${weekselection}`,
-    {
-      headers: {
-        Authorization: token
-      }
-    });
+    // {
+    //   headers: {
+    //     Authorization: token
+    //   }
+    // }
+    );
   console.log('Heres the kpi data', data);
   yield put(CompetitorWaterfallDataFetchSuccess(data));
 
@@ -83,22 +84,22 @@ export function* generateCompetitorPieChartDataFetch() {
   console.log('Filter parameter', filterurlparam);
   console.log(`Pie Chart sagas.js${host_url}/api/reporting/competitor_market_share?${weekurlparam}&${kpiparam}&${filterurlparam}&${weekselection}`);
 
-  let getCookie;
-  getCookie = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  };
-  const user_token = getCookie('token');
-  const buyer = getCookie('buyer');
-  const token = user_token.concat('___').concat(buyer)
+  // let getCookie;
+  // getCookie = (name) => {
+  //   const value = `; ${document.cookie}`;
+  //   const parts = value.split(`; ${name}=`);
+  //   if (parts.length === 2) return parts.pop().split(';').shift();
+  // };
+  // const user_token = getCookie('token');
+  // const buyer = getCookie('buyer');
+  // const token = user_token.concat('___').concat(buyer)
 
   const data = yield call(request,
     `${host_url}/api/reporting/competitor_market_share?${weekurlparam}&${kpiparam}&${filterurlparam}&${weekselection}`,
     {
-      headers: {
-        Authorization: token
-      }
+      // headers: {
+      //   Authorization: token
+      // }
     });
   console.log('Heres the kpi data', data);
   yield put(CompetitorPieChartDataFetchSuccess(data));
@@ -120,23 +121,24 @@ export function* generateCompetitorPriceRangeDataFetch() {
   // console.log("inside sagas.js", urlParams);
   console.log('generateCompetitorPriceRangeDataFetch sagas.js', `${host_url}/api/reporting/competitor_view_range?${weekurlparam}&${filterurlparam}&${weekselection}`);
 
-  let getCookie;
-  getCookie = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  };
-  const user_token = getCookie('token');
-  const buyer = getCookie('buyer');
-  const token = user_token.concat('___').concat(buyer)
+  // let getCookie;
+  // getCookie = (name) => {
+  //   const value = `; ${document.cookie}`;
+  //   const parts = value.split(`; ${name}=`);
+  //   if (parts.length === 2) return parts.pop().split(';').shift();
+  // };
+  // const user_token = getCookie('token');
+  // const buyer = getCookie('buyer');
+  // const token = user_token.concat('___').concat(buyer)
 
   const data = yield call(request,
     `${host_url}/api/reporting/competitor_view_range?${weekurlparam}&${filterurlparam}&${weekselection}`,
-    {
-      headers: {
-        Authorization: token
-      }
-    });
+    // {
+    //   // headers: {
+    //   //   Authorization: token
+    //   // }
+    // }
+    );
   console.log('Heres the kpi data', data);
   yield put(CompetitorPriceRangeDataFetchSuccess(data));
 
@@ -165,25 +167,26 @@ export function* generateCompetitorOutperformance() {
   console.log('Filter parameter', filterurlparam);
   console.log('Kpi parameter', kpiparam);
 
-  let getCookie;
-  getCookie = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  };
-  const user_token = getCookie('token');
-  const buyer = getCookie('buyer');
-  const token = user_token.concat('___').concat(buyer)
+  // let getCookie;
+  // getCookie = (name) => {
+  //   const value = `; ${document.cookie}`;
+  //   const parts = value.split(`; ${name}=`);
+  //   if (parts.length === 2) return parts.pop().split(';').shift();
+  // };
+  // const user_token = getCookie('token');
+  // const buyer = getCookie('buyer');
+  // const token = user_token.concat('___').concat(buyer)
 
 
   // try {
   const data = yield call(request,
     `${host_url}/api/reporting/competitor_market_outperformance?${weekurlparam}&${kpiparam}&${filterurlparam}&${weekselection}`,
-    {
-      headers: {
-        Authorization: token
-      }
-    });
+    // {
+    //   // headers: {
+    //   //   Authorization: token
+    //   // }
+    // }
+      );
 
   console.log('generateCompetitorOutperformance', data);
 
@@ -203,44 +206,47 @@ export function* doCompetitorOutperformanceFetch() {
 // For generating filters
 export function* generateFilterFetch() {
   try {
-    let getCookie;
-    getCookie = (name) => {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop().split(';').shift();
-    };
-    const user_token = getCookie('token');
-    const buyer = getCookie('buyer');
-    const token = user_token.concat('___').concat(buyer)
+    // let getCookie;
+    // getCookie = (name) => {
+    //   const value = `; ${document.cookie}`;
+    //   const parts = value.split(`; ${name}=`);
+    //   if (parts.length === 2) return parts.pop().split(';').shift();
+    // };
+    // const user_token = getCookie('token');
+    // const buyer = getCookie('buyer');
+    // const token = user_token.concat('___').concat(buyer)
 
     const urlName = yield select(selectCompetitorDomain());
     const urlParams = urlName.get('filter_selection');
     const weekurlparams = urlName.get('filter_week_selection');
     console.log(`${host_url}/api/reporting/competitor_filter_data?${urlParams}`,
-      {
-        headers: {
-          Authorization: token,
-        },
-      });
+      // {
+      //   headers: {
+      //     Authorization: token,
+      //   },
+      // }
+      );
 
     // if (urlParams==='')
     // {urlParams='default'
     // }
 
     const data = yield call(request, `${host_url}/api/reporting/competitor_filter_data?${urlParams}`,
-      {
-        headers: {
-          Authorization: token,
-        },
-      });
+      // {
+      //   headers: {
+      //     Authorization: token,
+      //   },
+      // }
+      );
 
     console.log(`${host_url}/api/reporting/filter_data_week?${weekurlparams}`);
     const data2 = yield call(request, `${host_url}/api/reporting/filter_data_week?${weekurlparams}`,
-      {
-        headers: {
-          Authorization: token,
-        },
-      });
+      // {
+      //   headers: {
+      //     Authorization: token,
+      //   },
+      // }
+      );
     console.log('sagas generateFilterFetch data2', data2);
     // const data = yield call(request, `http://localhost:8090/wash/?format=json`);
     // const data = yield call(request, `http://10.1.161.82:8000/ranging/npd_view/filter_data?`);

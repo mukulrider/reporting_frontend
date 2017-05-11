@@ -92,6 +92,7 @@
   font-size: 16px !important;
   float: None !important;
 
+
 }
 
 
@@ -189,9 +190,22 @@
 //For the small wow,yoy,lfl boxes in the kpi boxes
 .kpiSmall{
   padding: 0;
+  text-align: center;
 }
 
 .topbotdiv {
   padding-top: 10%;
   padding-right: 5%;
+}
+
+.tr-function-red{
+  background-color: red;
+}
+
+.tr-function-yellow{
+  background-color: yellow;
+}
+
+.tr-function-green{
+  background-color: green;
 }

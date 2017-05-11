@@ -151,9 +151,10 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
     //   console.log("---insde the createMultilinePromoChart mock_data",data2);
     // Add the valueline path.
     // set the dimensions and margins of the graph
-    let margin = {top: 20, right: 200, bottom: 60, left: 100},
-      width = 400 - margin.left - margin.right,
-      height = 250 - margin.top - margin.bottom;
+    let containerWidth = document.getElementById(chart_id).clientWidth;
+    let margin = {top: 20, right: 250, bottom: 60, left: 100},
+      width = containerWidth - margin.left - margin.right,
+      height = containerWidth*0.25 - margin.top - margin.bottom;
 
     console.log("---insde the createMultilinePromoChart---- check2",margin);
 // set the ranges
@@ -226,14 +227,19 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
     let svg = d3.select('#'+chart_id);
     svg.selectAll("*").remove();
 
-    svg = d3.select('#'+chart_id).append("svg")
+    svg = d3.select('#' + chart_id)
+      .append("svg")
+      .attr("id",chart_id + '_svg')
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
+      .attr("preserveAspectRatio", "xMinYMin meet")
+      .attr("viewBox", "0 0 1200 350")
+      .classed("svg-content", true)
       .append("g")
       .attr("transform",
         "translate(" + margin.left + "," + margin.top + ")");
 
-// Get the data
+    // Get the data
 
     // format the data
     data.forEach(function(d) {
@@ -243,7 +249,10 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
       d.avg_ly = +d.avg_ly;
     });
 
-
+    // Remove the width height property from svg
+    setTimeout(function(){
+      d3.select('#' + chart_id + '_svg').attr("height",null).attr("width",null);
+    },200)
     // Add the valueline path.
     svg.append("path")
       .data([data])
@@ -270,7 +279,11 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
     svg.append("g")
       .attr("transform", "translate(0," + height + ")")
       .classed("axis xaxis", true)
-      .call(xAxis);
+      .call(xAxis)
+    .selectAll("text")
+      .attr("x",25)
+      .attr("transform","rotate(45)");
+
 
     // Add the Y Axis
     svg.append("g")
@@ -287,7 +300,7 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
 
   //X axis title
     svg.append("text")
-      .attr("transform","translate(" + (width/2) + " ," +(height-10 + margin.top+(margin.bottom/2)) + ")")
+      .attr("transform","translate(" + (width/2) + " ," +(height+10 + margin.top+(margin.bottom/2)) + ")")
       .style("text-anchor", "middle")
       .text(xaxis_title);
 
@@ -303,7 +316,7 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
 
     svg.append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 0 + (margin.left)+30)
+      .attr("y", 0 + (margin.left)+840)
       // .attr("y", 0 - (width / 2))
       .attr("x",0 - (height / 2))
       .attr("dy", "1em")
@@ -329,7 +342,7 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
     let color_hash = ["black","blue","yellow"];
 
     legend.append("rect")
-      .attr("x", width-150 )
+      .attr("x", width+95 )
       .attr("width", 19)
       .attr("height", 19)
       .attr("fill", function (d, i) {
@@ -337,7 +350,7 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
       });
 
     legend.append("text")
-      .attr("x", width-155)
+      .attr("x", width+90)
       .attr("y", 9.5)
       .attr("dy", "0.32em")
       .text(function (d) {
@@ -346,7 +359,7 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
       });
 
 
-  }
+  };
 
   componentDidMount = () => {
     console.log("XXXXXXXXXXXXXXX",this.props.xaxis_title)
@@ -367,7 +380,7 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
 
   render() {
     return (
-      <div id = {this.props.id}>
+      <div id={this.props.id}>
       </div>
     );
   }

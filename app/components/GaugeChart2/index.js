@@ -16,20 +16,32 @@ class GaugeChart2 extends React.PureComponent { // eslint-disable-line react/pre
   createChart = (a,id,colors) => {
     console.log("Inside createchart of GaugeChart2")
     console.log(a)
-    let width = 500;
-    let height = 200;
-
-    let svg = d3.select( "#"+id )
+    var containerWidth = document.getElementById(id).clientWidth;
+    let width = containerWidth;
+    let height = containerWidth*0.5;
+    console.log("GaugeChart2 X :",containerWidth)
+    let svg = d3.select("#"+id )
       .append( "svg" )
+      .attr("id",id +"_svg")
       .attr( "width", width )
-      .attr( "height", height );
-    svg.append('text').attr('x',225).attr('y',115).text("0.0")
-    svg.append('text').attr('x',350).attr('y',115).text("100.0%")
+      .attr( "height", height )
+      //responsive SVG needs these 2 attributes and no width and height attr
+      .attr("preserveAspectRatio", "xMinYMin meet")
+      .attr("viewBox", "0 0 500 250")
+      //class to make it responsive
+      .classed("svg-content-responsive", true);
+    svg.append('text').attr('x',width/2 - 80).attr('y',height/2).text("0.0")
+    svg.append('text').attr('x',width/2 + 80).attr('y',height/2).text("100.0%")
     let arc = d3.arc()
       .innerRadius( 50 )
       .outerRadius( 80 )
       .cornerRadius( 0 )
       .padAngle( 0 );
+
+    // Removing height n width from svg
+    setTimeout(function(){
+      d3.select('#' + id + '_svg').attr("width",null).attr("height",null)
+    },200)
 //
 // // an array of colors
 
@@ -44,7 +56,7 @@ class GaugeChart2 extends React.PureComponent { // eslint-disable-line react/pre
       .endAngle( Math.PI / 2 )
       .value( function( colors ) {
         return 100 / colors.length;
-      } );
+      });
 //
 //     // draw the arcs. one for each color
     let arcs = svg.selectAll( '.arc' )
@@ -53,7 +65,7 @@ class GaugeChart2 extends React.PureComponent { // eslint-disable-line react/pre
       .append( 'path' )
       .attr( "d", arc )
 
-      .attr( "transform", "translate(300,100)" )
+      .attr( "transform", "translate(" + (width/2 + 80) + ",100)" )
       .style( "fill", function( d, i ) {
         return colors[i]
       } );
@@ -70,7 +82,7 @@ class GaugeChart2 extends React.PureComponent { // eslint-disable-line react/pre
       .classed("needle", true)
       .style( "stroke", "black" )
       .attr( "transform", function( d ) {
-        return " translate(300,100) rotate(" + d + ")"
+        return " translate(" + (width/2) + ",100) rotate(" + d + ")"
       } );
 //
 //     // a = 50

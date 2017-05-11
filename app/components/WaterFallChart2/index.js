@@ -170,10 +170,11 @@ class WaterFallChart2 extends React.PureComponent { // eslint-disable-line react
     //   width = 960 - margin.left - margin.right,
     //   height = 500 - margin.top - margin.bottom,
     //   padding = 0.3;
-
-    let margin = {top: 20, right: 80, bottom: 40, left: 25},
-      width = 550 - margin.left - margin.right,
-      height = 300 - margin.top - margin.bottom,
+    let frameWidth = document.getElementById(id).clientWidth;
+    console.log("Waterfall Chart Dimensions",frameWidth, frameWidth*0.7);
+    let margin = {top: 20, right: 40, bottom: 60, left: 35},
+      width = frameWidth - margin.left - margin.right,
+      height = frameWidth*0.7 - margin.top - margin.bottom,
       padding = 0.3;
 
     const x = d3.scaleBand()
@@ -242,18 +243,26 @@ class WaterFallChart2 extends React.PureComponent { // eslint-disable-line react
 //   .style("opacity", 0)
 //   .attr("align", "middle");
 
-    let chart = d3.select(`#${id}`);
+    let chart = d3.select(`#${id + '_svg'}`);
 
 
     chart.selectAll("*").remove();
 
 
-    chart = d3.select(`#${id}`)
+    chart = d3.select(`#${id + '_svg'}`)
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
+      .attr("preserveAspectRatio", "xMinYMin meet")
+      .attr("viewBox", "0 0 500 350")
+      //class to make it responsive
+      .classed("svg-content-responsive", true)
       .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
-
+    setTimeout(function(){
+      console.log("Waterfall removing height : " + id)
+      d3.select(`#${id + '_svg'}`).attr("height",null)
+        .attr("width",null)
+    },200)
     let yaxis_title = yAxisName;
 
     let xaxis_title = xAxisName;
@@ -421,7 +430,7 @@ class WaterFallChart2 extends React.PureComponent { // eslint-disable-line react
 
     chart.append('g')
       .attr('class', 'y axis')
-      .attr('transform', `translate(${margin.left},0)`)
+      .attr('transform', `translate(${margin.left - 15},0)`)
       .call(yAxis);
 
     const bar = chart.selectAll('.bar')
@@ -533,8 +542,8 @@ class WaterFallChart2 extends React.PureComponent { // eslint-disable-line react
 
   render() {
     return (
-      <div>
-        <svg id={this.props.id}></svg>
+      <div id={this.props.id}>
+        <svg id={this.props.id + '_svg'}></svg>
       </div>
     );
   }

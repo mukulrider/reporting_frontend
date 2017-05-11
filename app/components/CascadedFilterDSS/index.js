@@ -38,9 +38,9 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
     let queryString = '';
     [...this.refs.selector.querySelectorAll('input')].map(obj => {
       if (obj.checked == true)
-        console.log('Cascaded applyButtonFunctionality', obj);
+        console.log('Cascaded applyButtonFunctionality'); //, obj);
       let category = obj.id.split('__');
-      console.log('queryString', queryString);
+      //console.log('queryString', queryString);
       queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
 
 
@@ -49,7 +49,7 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
     queryString = queryString.substring(0, queryString.length - 1);
     //  console.log('queryString->', queryString);
     //const urlParams = this.props.location.query;
-    this.props.onSaveWeek()
+    this.props.onSaveWeek();
     this.props.onGenerateUrlParamsString(queryString);
     this.props.DefaultLineChartCall();
     // this.props.onCompetitorPieChart(urlParams);
@@ -67,7 +67,7 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
     const queryString = '';
     this.props.onGenerateUrlParamsString(queryString);
 
-  }
+  };
 
   render() {
     // console.log("inside the cascaded filter",this.props.previous_selection)

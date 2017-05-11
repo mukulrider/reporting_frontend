@@ -15,12 +15,11 @@ import messages from './messages';
 class BarLineChart extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   createChart = (data, id,series_col_name) => {
-
-    let series_type_col_name = series_col_name;
+    let frameWidth = document.getElementById(id).clientWidth;
     console.log("Inside BarLineChart ------", data);
-    let margin = {top: 20, right: 40, bottom: 50, left: 60},
-      width = 680 - margin.left - margin.right,
-      height = 300 - margin.top - margin.bottom;
+    let margin = {top: 20, right: 40, bottom: 60, left: 60},
+      width = frameWidth - margin.left - margin.right,
+      height = frameWidth*0.7 - margin.top - margin.bottom;
 
     let x = d3.scaleBand()
       .rangeRound([0, width], .1)
@@ -30,27 +29,41 @@ class BarLineChart extends React.PureComponent { // eslint-disable-line react/pr
       .range([height, 0]);
 
     let xAxis = d3.axisBottom()
-      .scale(x)
-    ;
+      .scale(x);
 
     let yAxis = d3.axisLeft()
       .scale(y)
-      .ticks(10, "%");
+      .tickFormat(function(d){return d + '%'})
+      .ticks(10, "");
 
     let svg = d3.select(`#${id}`);
 
     svg.selectAll("*").remove();
 
     svg = d3.select("#" + id).append("svg")
+      .attr("id", id + '_svg')
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
+      //responsive SVG needs these 2 attributes and no width and height attr
+      .attr("preserveAspectRatio", "xMinYMin meet")
+      .attr("viewBox", "0 0 700 500")
+      //class to make it responsive
+      .classed("svg-content-responsive", true)
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
     console.log("barLineChart");
     console.log("barLineChart",data);
     x.domain(data.map(function (d) {
       return d.label_week;
     }));
+
+    setTimeout(function(){
+      console.log("Removing height and width from BarLineChart :",id)
+      d3.select("#" + id + '_svg').attr("height",null).attr("width",null)
+    },100);
+
     let a=d3.min(data, function (d) {
       return +d.tesco_growth});
     console.log("BarLineChart a",a);
@@ -150,7 +163,8 @@ class BarLineChart extends React.PureComponent { // eslint-disable-line react/pr
       // .selectAll(".tick text")
       // .call(wrap, x.bandwidth())
       .call(xAxis)
-      .selectAll(".tick text");
+      .selectAll(".tick text")
+      .attr("transform","rotate(45)translate(20,0)");
 //    .call(wrap, x.bandwidth());
 
     svg.append("g")
@@ -222,7 +236,7 @@ class BarLineChart extends React.PureComponent { // eslint-disable-line react/pr
       .attr("d", line3);
 
     svg.append("text")
-      .attr("transform","translate(" + (width/2) + " ," +(height + margin.top+(margin.bottom/2)) + ")")
+      .attr("transform","translate(" + (width/2) + " ," +(height + margin.top+(margin.bottom)) + ")")
       .style("text-anchor", "middle")
       .text("Week");
 

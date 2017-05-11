@@ -13,9 +13,6 @@ import messages from './messages';
 
 class MultilinePromo extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   createMultilinePromoChart = (data,chart_id,label_ty,label_ly,xaxis_title,yaxis_title,no_pref,no_suffix,width=800,legend_width=650,legend_text_width=645) => {
-    console.log("---insde the createMultilinePromoChart----",data);
-    console.log("========= XAxis ",xaxis_title);
-    console.log("========= YAxis",yaxis_title);
   // let data2 =   [
   //     {
   //       "tesco_week": "1-May-12",
@@ -148,15 +145,19 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
   //       "value_ty": 580.12
   //     }
   //   ]
-  //   console.log("---insde the createMultilinePromoChart mock_data",data2);
-    // Add the valueline path.
-    // set the dimensions and margins of the graph
-    let margin = {top: 20, right: 200, bottom: 60, left: 100};
-      width = width - margin.left - margin.right;
-   let  height = 250 - margin.top - margin.bottom;
+  // Add the valueline path.
+  // set the dimensions and margins of the graph
 
-    console.log("---insde the createMultilinePromoChart---- check2",margin);
-// set the ranges
+    let frameWidth = document.getElementById(chart_id).clientWidth;
+
+    console.log("Multiline Promo Frame Width",frameWidth);
+    let margin = {top: 20, right: 10, bottom: 60, left: 100};
+     width = frameWidth - margin.left - margin.right,
+     height = frameWidth*0.7 - margin.top - margin.bottom;
+
+    console.log("MultilinePromo width",width);
+    console.log("MultilinePromo height",height);
+    // set the ranges
     let x = d3.scaleLinear().range([0, width]);
     let y = d3.scaleLinear().range([height, 0]);
 
@@ -208,16 +209,24 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
 // moves the 'group' element to the top left margin
 
     let svg = d3.select('#'+chart_id);
-    svg.selectAll("*").remove();
-
+       svg.selectAll("*").remove();
        svg = d3.select('#'+chart_id).append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
+      .attr("preserveAspectRatio", "xMinYMin meet")
+      .attr("viewBox", "0 0 600 400")
+       //class to make it responsive
+      .classed("svg-content-responsive", true)
       .append("g")
-      .attr("transform",
-        "translate(" + margin.left + "," + margin.top + ")");
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-// Get the data
+    //Removing the height and width property for preserveAspectRatio
+    setTimeout(function(){
+      d3.select('#'+chart_id)
+        .attr("height",null)
+        .attr("width",null);
+    },100)
+    // Get the data
 
     // format the data
     data.forEach(function(d) {
@@ -244,7 +253,9 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
     svg.append("g")
       .attr("transform", "translate(0," + height + ")")
       .classed("axis xaxis", true)
-      .call(xAxis);
+      .call(xAxis)
+      .selectAll("text")
+      .attr("transform", "translate(0,20)rotate(-45)");
 
     // Add the Y Axis
     svg.append("g")
@@ -253,7 +264,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
 
     //X axis title
     svg.append("text")
-      .attr("transform","translate(" + (width/2) + " ," +(height-10 + margin.top+(margin.bottom/2)) + ")")
+      .attr("transform","translate(" + (width/2) + " ," +(height + margin.top+(margin.bottom/2)) + ")")
       .style("text-anchor", "middle")
       .text(xaxis_title);
 
@@ -266,6 +277,8 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
       .attr("dy", "1em")
       .style("text-anchor", "middle")
       .text(yaxis_title);
+
+
 
     //Legend
 
@@ -306,20 +319,21 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
   }
 
   componentDidMount = () => {
-    console.log("XXXXXXXXXXXXXXX",this.props.xaxis_title)
-    this.createMultilinePromoChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly,this.props.xaxis_title,this.props.yaxis_title,this.props.no_pref,this.props.no_suffix,this.props.chart_width,this.props.legend_width,this.props.legend_text_width);
+    this.createMultilinePromoChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly,this.props.xaxis_title,this.props.yaxis_title,this.props.no_pref,this.props.no_suffix,this.props.containerWidth,
+    this.props.containerHeight);
   };
 
   componentDidUpdate = () => {
-    // this.createOrdinalChart (this.props.data[0],this.props.data[1],this.props.data[2])
-    this.createMultilinePromoChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly,this.props.xaxis_title,this.props.yaxis_title,this.props.no_pref,this.props.no_suffix,this.props.chart_width,this.props.legend_width,this.props.legend_text_width);
+    this.createMultilinePromoChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly,this.props.xaxis_title,this.props.yaxis_title,this.props.no_pref,this.props.no_suffix,this.props.containerWidth,
+      this.props.containerHeight);
   };
+
+
 
   render() {
 
     return (
       <div id={this.props.id}>
-
       </div>
     );
   }

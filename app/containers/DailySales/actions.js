@@ -125,7 +125,7 @@ export function sendUrlParams(data) {
 
 export function generateUrlParamsString(data)
 {
-  console.log('PromoFilterFetchSuccess = actions', data);
+  console.log('PromoFilterFetchSuccess = actions');   //, data);
   return {
     type: GENERATE_FILTER_PARAMS_STRING,
     data,
@@ -180,7 +180,7 @@ export function checkboxChange(data) {
 }
 
 export function checkboxWeekChange(data) {
-  console.log("checkboxWeekChange Selection in actions" + data);
+  console.log("checkboxWeekChange Selection in actions");
   return {
     type: CHECKBOX_WEEK_CHANGE,
     data
