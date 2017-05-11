@@ -170,10 +170,10 @@ class WaterFallChartExec extends React.PureComponent { // eslint-disable-line re
     //   width = 960 - margin.left - margin.right,
     //   height = 500 - margin.top - margin.bottom,
     //   padding = 0.3;
-
-    let margin = {top: 20, right: 100, bottom: 40, left: 30},
-      width = 550 - margin.left - margin.right,
-      height = 300 - margin.top - margin.bottom,
+    let frameWidth = document.getElementById(id).clientWidth;
+    let margin = {top: 20, right: 50, bottom: 40, left: 50},
+      width = frameWidth - margin.left - margin.right,
+      height = frameWidth*0.65 - margin.top - margin.bottom,
       padding = 0.3;
 
     const x = d3.scaleBand()
@@ -242,20 +242,29 @@ class WaterFallChartExec extends React.PureComponent { // eslint-disable-line re
 //   .style("opacity", 0)
 //   .attr("align", "middle");
 
-    let chart = d3.select(`#${id}`);
+    let chart = d3.select(`#${id + '_svg'}`);
 
 
     chart.selectAll("*").remove();
 
 
-    chart = d3.select(`#${id}`)
+    chart
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
+      .attr("preserveAspectRatio", "xMinYMin meet")
+      .attr("viewBox", "0 0 450 300")
+      //class to make it responsive
+      .classed("svg-content-responsive", true)
       .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
-    let yaxis_title = yAxisName;
+    setTimeout(function(){
+      console.log("Waterfall removing height : " + id)
+      d3.select(`#${id + '_svg'}`).attr("height",null)
+        .attr("width",null)
+    },200)
 
+    let yaxis_title = yAxisName;
     let xaxis_title = xAxisName;
     chart.append("text")
       .attr("transform", "rotate(-90)")
@@ -272,11 +281,12 @@ class WaterFallChartExec extends React.PureComponent { // eslint-disable-line re
 
 
 data = [
-  {"name": "Product Revenue", "value": 420000},
-  {"name": "Services Revenue", "value": 210000},
-  {"name": "Employee Revenue", "value": 190000},
-  {"name": "Fixed Costs", "value": -170000},
-  {"name": "Variable Costs", "value": -140000}
+  {"name": "Sales LY", "value": 420000},
+  {"name": "Event", "value": 210000},
+  {"name": "Feature Space", "value": 190000},
+  {"name": "Shelf", "value": -170000},
+  {"name": "Base", "value": -140000},
+  {"name": "Sales TY", "value": -100000}
 ];
 
     // const keys = Object.keys(data[0]);
@@ -412,7 +422,7 @@ data = [
     chart.append('g')
     // .attr('class', 'x axis')
     // .attr('transform', `translate(0,${height})`)
-      .attr("transform", "translate(25," + (height) + ")")
+      .attr("transform", "translate(50," + (height) + ")")
       .classed("axis xaxis", true)
       .call(xAxis)
       .selectAll(".tick text")
@@ -428,7 +438,7 @@ data = [
       .data(data)
       .enter().append('g')
       .attr('class', (d) => `bar ${d.class}`)
-      .attr('transform', (d) => `translate(${x(d.name) + margin.right - margin.right / 2},0)`);
+      .attr('transform', (d) => `translate(${x(d.name) + margin.right*1.2},0)`);
 //))
     bar.append('rect')
       .attr('y', (d) => y(Math.max(d.start, d.end)))
@@ -533,8 +543,8 @@ data = [
 
   render() {
     return (
-      <div>
-        <svg id={this.props.id}></svg>
+      <div id={this.props.id}>
+        <svg id={this.props.id + '_svg'}></svg>
       </div>
     );
   }

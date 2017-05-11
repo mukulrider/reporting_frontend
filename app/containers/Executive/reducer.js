@@ -217,8 +217,8 @@ const initialState = fromJS({
   },
   budget_forecast_data: {
     "budget_data": [
-  {"label": "Budget", "value": 600},
-{"label": "Sales", "value": 500}],
+      {"label": "Budget", "value": 600},
+      {"label": "Sales", "value": 500}],
     "forecast_data": [
       {"label": "Forecast", "value": 600},
       {"label": "Sales", "value": 500}],

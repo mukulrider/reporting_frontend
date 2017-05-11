@@ -152,8 +152,8 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
 
     console.log("Multiline Promo Frame Width",frameWidth);
     let margin = {top: 20, right: 10, bottom: 60, left: 100};
-     width = frameWidth - margin.left - margin.right,
-     height = frameWidth*0.7 - margin.top - margin.bottom;
+     width = frameWidth - margin.left - margin.right;
+  let     height = frameWidth*0.7 - margin.top - margin.bottom;
 
     console.log("MultilinePromo width",width);
     console.log("MultilinePromo height",height);
@@ -214,7 +214,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 600 400")
+      .attr("viewBox", "0 0 800 400")
        //class to make it responsive
       .classed("svg-content-responsive", true)
       .append("g")
@@ -286,6 +286,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
 
     let legend = svg.append("svg")
       .attr("font-family", "sans-serif")
+      .attr("transfrom","translate(" + margin.left + ")")
       .attr("font-size", 10)
       .attr("text-anchor", "end")
       .selectAll("g")

@@ -18,10 +18,10 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
     //defining the colors for the chart bars
     let color_hash = ["#98abc5", "#6b486b"];
     // creating legend object for chart
-    let data_label = [{"label":"Dummy Label"},{"label":"Dummy Label2"}] // defining the legend label variable
+    let data_label = [{"label":"Budget"},{"label":"Sales"}] // defining the legend label variable
 
 
-    let svg = d3.select('#'+this.props.id + '_svg');
+    let svg = d3.select('#'+chart_id + '_svg');
     svg.selectAll("*").remove();
 
     var margin = {top: 20, right: 0, bottom: 30, left: 100},
@@ -34,7 +34,7 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
       .attr("height",height)
       .attr("width",width)
       .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 600 600")
+      .attr("viewBox", "0 0 600 400")
       .classed("svg-content", true);
 
     //Removing the height and width property for preserveAspectRatio
@@ -42,7 +42,7 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
       d3.select('#'+chart_id + '_svg')
         .attr("height",null)
         .attr("width",null);
-    },10);
+    },100);
 
     var g = svg.append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -59,7 +59,6 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
 
     g.append("g")
       .attr("transform", "translate(0," + height + ")")
-      .style("font-size","22px")
       .call(d3.axisBottom(x));
     let a = 0;
     g.append("g")
@@ -103,6 +102,7 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
       .attr("text-anchor", "end")
       .selectAll("g")
       .data(data_label)
+      .style("font-size","22px")
       .enter().append("g")
       .attr("transform", function (d, i) {
         return "translate(0," + i * 25 + ")";
@@ -111,6 +111,7 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
       .attr("x", legend_width )
       .attr("width", 19)
       .attr("height", 19)
+      .style("font-size","22px")
       .attr("fill", function (d, i) {
         return color_hash[i];
       });
@@ -119,6 +120,7 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
       .attr("x", legend_text_width)
       .attr("y", 9.5)
       .attr("dy", "0.32em")
+      .style("font-size","22px")
       .text(function (d) {
         console.log("Multiline text d.label",d.label)
         return d.label;
@@ -139,7 +141,7 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
 
   render() {
     return (
-      <div id={this.props.id}><svg id={this.props.id + '_svg'}></svg></div>
+      <div id={this.props.id}><svg id={this.props.id + '_svg'} style={{fontSize:"22px"}}></svg></div>
     );
   }
 }

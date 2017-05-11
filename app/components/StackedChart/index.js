@@ -32,12 +32,12 @@ class StackedChart extends React.PureComponent { // eslint-disable-line react/pr
       {month: "Q9-2016", apples:  60, bananas:  960, cherries: 40, dates: 600, oranges: -300, melons: -900},
       {month: "Q10-2016", apples:  540, bananas:  960, cherries: 640, dates: 600, oranges: -300, melons: -900},
       {month: "Q11-2016", apples:  740, bananas:  960, cherries: 640, dates: 600, oranges: -300, melons: -900},
-      {month: "Q12-2016", apples:  640, bananas:  960, cherries: 640, dates: 600, oranges: -300, melons: -900},
+      {month: "Q12-2016", apples:  640, bananas:  1960, cherries: 640, dates: 600, oranges: -300, melons: -900},
       {month: "Q13-2016", apples:  1140, bananas:  960, cherries: 640, dates: 600, oranges: -300, melons: -900},
       {month: "Q14-2016", apples:  1840, bananas:  960, cherries: 640, dates: 600, oranges: -300, melons: -900},
       {month: "Q15-2016", apples:  1640, bananas:  960, cherries: 640, dates: 600, oranges: -300, melons: -900},
       {month: "Q16-2016", apples:  3640, bananas:  960, cherries: 640, dates: 600, oranges: -300, melons: -900},
-      {month: "Q17-2016", apples:  640, bananas:  960, cherries: 640, dates: 600, oranges: -300, melons: -900},
+      {month: "Q17-2016", apples:  2640, bananas:  960, cherries: 640, dates: 600, oranges: -300, melons: -900},
       {month: "Q18-2016", apples:  640, bananas:  960, cherries: 640, dates: 600, oranges: -300, melons: -900},
       {month: "Q19-2016", apples:  1240, bananas:  960, cherries: 640, dates: 600, oranges: -300, melons: -900},
       {month: "Q20-2016", apples:  2640, bananas:  960, cherries: 640, dates: 600, oranges: -300, melons: -900},
@@ -47,9 +47,16 @@ class StackedChart extends React.PureComponent { // eslint-disable-line react/pr
       {month: "Q24-2016", apples:  140, bananas:  60, cherries: 40, dates: 600, oranges: -300, melons: -900},
       {month: "Q25-2016", apples:  40, bananas:  960, cherries: 40, dates: 60, oranges: -300, melons: -900},
       {month: "Q26-2016", apples:  340, bananas:  160, cherries: 640, dates: 600, oranges: -300, melons: -900},
-      {month: "Q27-2016", apples:  920, bananas:  980, cherries: -640, dates: -400, oranges: -300, melons: -400},
-      {month: "Q27-2016", apples:  320, bananas:  480, cherries: -640, dates: -400, oranges: -300, melons: -400},
-      {month: "Q27-2016", apples:  320, bananas:  480, cherries: -640, dates: -400, oranges: -300, melons: -400}
+      {month: "Q28-2016", apples:  920, bananas:  980, cherries: -640, dates: -400, oranges: -300, melons: -400},
+      {month: "Q29-2016", apples:  320, bananas:  480, cherries: -640, dates: -400, oranges: -300, melons: -400},
+      {month: "Q30-2016", apples:  320, bananas:  480, cherries: -640, dates: -400, oranges: -300, melons: -400},
+      {month: "Q31-2016", apples:  320, bananas:  480, cherries: -640, dates: -400, oranges: -300, melons: -400},
+      {month: "Q32-2016", apples:  320, bananas:  480, cherries: -640, dates: -400, oranges: -300, melons: -400},
+      {month: "Q33-2016", apples:  320, bananas:  480, cherries: -640, dates: -400, oranges: -300, melons: -400},
+      {month: "Q34-2016", apples:  320, bananas:  480, cherries: -640, dates: -400, oranges: -300, melons: -400},
+      {month: "Q35-2016", apples:  320, bananas:  480, cherries: -640, dates: -400, oranges: -300, melons: -400},
+      {month: "Q36-2016", apples:  320, bananas:  480, cherries: -640, dates: -400, oranges: -300, melons: -400},
+      {month: "Q37-2016", apples:  320, bananas:  480, cherries: -640, dates: -400, oranges: -300, melons: -400}
     ];
 
 
@@ -58,9 +65,10 @@ class StackedChart extends React.PureComponent { // eslint-disable-line react/pr
       .offset(stackOffsetDiverging)
       (data);
     console.log("Stackedbarline series",series);
-
+    let containerWidth = document.getElementById(chart_id + '_svg').clientWidth;
+    console.log(containerWidth)
     var margin = {top: 20, right: 30, bottom: 30, left: 60},
-      width = 650 - margin.left - margin.right,
+      width = 850 - margin.left - margin.right,
       height = 250 - margin.top - margin.bottom;
 
     var x = d3.scaleBand()
@@ -73,7 +81,7 @@ class StackedChart extends React.PureComponent { // eslint-disable-line react/pr
       .rangeRound([height - margin.bottom, margin.top]);
 
     var z = d3.scaleOrdinal()
-      .range(["black", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+      .range(["#99b", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
     // define the 1st line
     let valueline = d3.line()
@@ -87,7 +95,7 @@ class StackedChart extends React.PureComponent { // eslint-disable-line react/pr
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.left + margin.right)
       .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 650 450")
+      .attr("viewBox", "0 0 750 200")
       .classed("svg-content", true)
       .append("g")
       .attr("transform",

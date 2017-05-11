@@ -233,7 +233,7 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 1200 350")
+      .attr("viewBox", "0 0 1000 250")
       .classed("svg-content", true)
       .append("g")
       .attr("transform",
