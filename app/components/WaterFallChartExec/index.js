@@ -171,7 +171,7 @@ class WaterFallChartExec extends React.PureComponent { // eslint-disable-line re
     //   height = 500 - margin.top - margin.bottom,
     //   padding = 0.3;
 
-    let margin = {top: 20, right: 80, bottom: 40, left: 25},
+    let margin = {top: 20, right: 100, bottom: 40, left: 30},
       width = 550 - margin.left - margin.right,
       height = 300 - margin.top - margin.bottom,
       padding = 0.3;

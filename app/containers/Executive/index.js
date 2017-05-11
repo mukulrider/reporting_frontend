@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import {Modal,Nav, NavItem} from 'react-bootstrap';
+
 import Panel from 'components/panel';
 import './style.scss';
 import { createStructuredSelector } from 'reselect';
@@ -59,6 +60,11 @@ import {
   SaveValueExternal
 }
   from './actions.js'
+
+import imgSunshine from './../../assets/images/sun.png';
+import imgRainfall from './../../assets/images/rain.png';
+import imgTemperature from './../../assets/images/thermometer.png';
+
 
 function triangleColumnFormatter(cell, row) {
   if (cell == 0) {
@@ -1065,6 +1071,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               return(
                                 <BootstrapTable className="promoTable"
                                                 data={this.props.Executive.roles_intent_data}
+                                                striped={true}
+                                                condensed
                                 >
                                   <TableHeaderColumn  dataAlign={"left"} dataField='buying_controller' isKey>Buying Controller</TableHeaderColumn>
                                   <TableHeaderColumn  dataAlign={"left"} dataField='intent' columnClassName={columnClassNameFormat}>Intent</TableHeaderColumn>
@@ -1215,8 +1223,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               <div className="col-md-4" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
                                 <Panel>
                                   <h3 className="pageModuleSubTitle"> Sunshine
-
                                   </h3>
+
+                                 {/* Image here*/}
+                                  <img style = {{height: 150, width: 150,marginLeft:'25%'}}  src={imgSunshine}/>
+
                                   <div className="row">
                                     <h3 style={{ textAlign : "center"}}>{
                                       this.props.Executive.overview_drivers_external_data.sunshine.avg
@@ -1282,6 +1293,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                   <h3 className="pageModuleSubTitle"> Rainfall
 
                                   </h3>
+                                  {/* Image here*/}
+                                  <img style = {{height: 150, width: 150,marginLeft:'25%'}}  src={imgRainfall}/>
                                   <div className="row">
                                     <h3 style={{ textAlign : "center"}}>{
                                       this.props.Executive.overview_drivers_external_data.rainfall.avg
@@ -1347,6 +1360,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                   <h3 className="pageModuleSubTitle"> Temperature
 
                                   </h3>
+                                  {/* Image here*/}
+                                  <img style = {{height: 150, width: 150,marginLeft:'25%'}}  src={imgTemperature}/>
                                   <div className="row">
                                     <h3 style={{ textAlign : "center"}}>{
                                       this.props.Executive.overview_drivers_external_data.temperature.avg
@@ -1424,11 +1439,13 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                         <BootstrapTable className="promoTable"
                                                         data={this.props.Executive.overview_drivers_external_data.holidays}
                                                         pagination = {true} options={options}
+                                                        striped={true}
+                                                        condensed
                                         >
 
                                           <TableHeaderColumn  dataAlign={"left"} dataField='tesco_week' isKey>Tesco Week</TableHeaderColumn>
                                           <TableHeaderColumn  dataAlign={"left"} dataField='holiday_date'>Holiday Date</TableHeaderColumn>
-                                          <TableHeaderColumn  dataAlign={"left"} dataField='holiday_description'>Holiday Description</TableHeaderColumn>
+                                          <TableHeaderColumn  tdStyle={{whiteSpace:'normal'}} dataAlign={"left"} dataField='holiday_description'>Holiday Description</TableHeaderColumn>
                                         </BootstrapTable>
                                       </div>
                                     )
@@ -2618,11 +2635,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                   <BootstrapTable className="promoTable"
                                                                   data={this.props.Executive.overview_drivers_external_data.holidays}
                                                                   pagination = {true} options={options}
-                                                  >
+                                                                  striped={true}
+                                                                  condensed>
 
                                                     <TableHeaderColumn  dataAlign={"left"} dataField='tesco_week' isKey>Tesco Week</TableHeaderColumn>
                                                     <TableHeaderColumn  dataAlign={"left"} dataField='holiday_date'>Holiday Date</TableHeaderColumn>
-                                                    <TableHeaderColumn  dataAlign={"left"} dataField='holiday_description'>Holiday Description</TableHeaderColumn>
+                                                    <TableHeaderColumn  tdStyle={{whiteSpace:'normal'}} dataAlign={"left"} dataField='holiday_description'>Holiday Description</TableHeaderColumn>
                                                   </BootstrapTable>
                                                 </div>
                                               )
