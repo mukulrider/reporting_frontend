@@ -280,9 +280,9 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
 
                       }}>Clear Filter Selections</Button>
 
-              <Button style={{marginTop: "5px", marginLeft: "48px", width: "10px", "min-width": "170px", fontSize: "13px"}}
-                      onClick={() => {
-                        //To un check all the buttons
+              {/*<Button style={{marginTop: "5px", marginLeft: "48px", width: "10px", "min-width": "170px", fontSize: "13px"}}*/}
+                      {/*onClick={() => {*/}
+                        {/*To un check all the buttons*/}
                         {/*let selection='';*/
                         }
                         {/*this.props.onCheckboxChange(selection);*/
@@ -290,9 +290,9 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
                         {/*this.props.onGenerateSideFilter();*/
                         }
 
-                        this.resetButtonFunctionality();
+                        {/*this.resetButtonFunctionality();*/}
 
-                      }}>Load Default view</Button>
+                      {/*}}>Load Default view</Button>*/}
             </div>
           )
         })()}

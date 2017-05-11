@@ -322,51 +322,53 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
 
                 }}>Reset</Button>
                 <div style={{height: '1%', width: '100%'}}>&nbsp;</div>
-                <Button onClick={() => {
-                  let  selection = '';
-                  this.props.onSaveWeekFilterParam(selection);
-                  this.props.ongenerateWeekFilter();
-                  let queryString='';
-                  this.props.onGenerateUrlParamsString(queryString);
-                  this.props.generateSideFilter();
-                  if (this.props.kpi_param=='kpi_type=Overview') {
-                    console.log("______________________ Only Overview function Called")
-                    this.props.loadOverviewKpi();
-                    this.props.loadOverviewKpiTrend();
-                    this.props.loadOverviewDriversInternal();
-                    this.props.loadOverviewDriversExternal();
 
-                  }
-                  else {
-                    if(this.props.Executive.kpi_param=='kpi_type=Price')
-                    {
-                      console.log("______________________ Only Price function Called")
-                      this.props.loadPriceKPIData();
+                {/*<Button onClick={() => {*/}
+                  {/*let  selection = '';*/}
+                  {/*this.props.onSaveWeekFilterParam(selection);*/}
+                  {/*this.props.ongenerateWeekFilter();*/}
+                  {/*let queryString='';*/}
+                  {/*this.props.onGenerateUrlParamsString(queryString);*/}
+                  {/*this.props.generateSideFilter();*/}
+                  {/*if (this.props.kpi_param=='kpi_type=Overview') {*/}
+                    {/*console.log("______________________ Only Overview function Called")*/}
+                    {/*this.props.loadOverviewKpi();*/}
+                    {/*this.props.loadOverviewKpiTrend();*/}
+                    {/*this.props.loadOverviewDriversInternal();*/}
+                    {/*this.props.loadOverviewDriversExternal();*/}
 
-
-                    }
-
-                    else {
-                      console.log("______________________ Only KPI functions Called")
-                      this.props.loadRolesAndIntent();
-                      this.props.loadBudgetAndForecast();
-
-                      this.props.loadKpiBoxes();
-                      this.props.loadBestWorst();
-                      {/*this.props.loadBestInfoData();*/}
-
-                      {/*this.props.loadWorstInfoData();*/}
-                      {/*this.props.loadSupplierInfoData();*/}
-                      this.props.loadDriversInternalData();
-                      this.props.loadDriversExternalData();
-                    }
-
-                  }
+                  {/*}*/}
+                  {/*else {*/}
+                    {/*if(this.props.Executive.kpi_param=='kpi_type=Price')*/}
+                    {/*{*/}
+                      {/*console.log("______________________ Only Price function Called")*/}
+                      {/*this.props.loadPriceKPIData();*/}
 
 
+                    {/*}*/}
+
+                    {/*else {*/}
+                      {/*console.log("______________________ Only KPI functions Called")*/}
+                      {/*this.props.loadRolesAndIntent();*/}
+                      {/*this.props.loadBudgetAndForecast();*/}
+
+                      {/*this.props.loadKpiBoxes();*/}
+                      {/*this.props.loadBestWorst();*/}
+                      {/*/!*this.props.loadBestInfoData();*!/*/}
+
+                      {/*/!*this.props.loadWorstInfoData();*!/*/}
+                      {/*/!*this.props.loadSupplierInfoData();*!/*/}
+                      {/*this.props.loadDriversInternalData();*/}
+                      {/*this.props.loadDriversExternalData();*/}
+                    {/*}*/}
+
+                  {/*}*/}
 
 
-                }}>Load default</Button></div>
+
+
+                {/*}}>Load default</Button>*/}
+              </div>
               {/*<Button onClick={() => {*/}
               {/*/!*this.props.onFilterReset();*!/*/}
               {/*}}>Reset Filters</Button>&nbsp;&nbsp;*/}

@@ -57,6 +57,16 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
     x.domain(data.map(function(d) { return d.label; }));
     y.domain([0, d3.max(data, function(d) { return d.value; })]);
 
+    const formatVolume = (i) => {
+      if (i >= 1000 || i <= -1000) {
+        const rounded = Math.round(i / 1000);
+        return (`${rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}K`);
+      } else {
+        return (Math.round(i));
+      }
+    };
+
+
     g.append("g")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x));
@@ -64,16 +74,18 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
     g.append("g")
       .style("font-size","22px")
       .call(d3.axisLeft(y).tickFormat(function(d) {
-        if(d>1000) {
-          console.log("---------------------Y axis d",d);
-          a = d/ 1000;
-          a=a+'K';
-          console.log("---------------------Y axis a",a);
-        }
-        else
-          a = d;
-        a = no_pref + a + no_suffix;
-        return (a);
+        // if(d>1000) {
+        //   console.log("---------------------Y axis d",d);
+        //   a = d/ 1000;
+        //   a=a+'K';
+        //   console.log("---------------------Y axis a",a);
+        // }
+        // else
+        //   a = d;
+        // a = no_pref + a + no_suffix;
+        // return (a);
+        return formatVolume(d);
+
       }))
       .append("text")
       .attr("transform", "rotate(-90)")

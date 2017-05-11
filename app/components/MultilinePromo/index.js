@@ -150,22 +150,24 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
 
     let frameWidth = document.getElementById(chart_id).clientWidth;
 
-    console.log("Multiline Promo Frame Width",frameWidth);
+    console.log("Multiline Promo Frame Width", frameWidth);
     let margin = {top: 20, right: 10, bottom: 60, left: 100};
-     width = frameWidth - margin.left - margin.right;
-  let     height = frameWidth*0.7 - margin.top - margin.bottom;
+    width = frameWidth - margin.left - margin.right;
+    let height = frameWidth * 0.7 - margin.top - margin.bottom;
 
-    console.log("MultilinePromo width",width);
-    console.log("MultilinePromo height",height);
+    console.log("MultilinePromo width", width);
+    console.log("MultilinePromo height", height);
     // set the ranges
     let x = d3.scaleLinear().range([0, width]);
     let y = d3.scaleLinear().range([height, 0]);
 
     // Scale the range of the data
-    x.domain(d3.extent(data, function(d) { return d.tesco_week; }));
-    y.domain([0, d3.max(data, function(d) {
-      return Math.max(+d.value_ty, +d.value_ly); })]);
-
+    x.domain(d3.extent(data, function (d) {
+      return d.tesco_week;
+    }));
+    y.domain([0, d3.max(data, function (d) {
+      return Math.max(+d.value_ty, +d.value_ly);
+    })]);
 
 
     //Titles
@@ -174,43 +176,65 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
 
 
     let xAxis = d3.axisBottom(x)
-      .tickFormat(function(d) {
+      .tickFormat(function (d) {
         return (d);
       });
 
     let a = 0;
 
+    const formatVolume = (i) => {
+      if (i >= 1000 || i <= -1000) {
+        const rounded = Math.round(i / 1000);
+        return (`${rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}K`);
+      } else {
+        return (Math.round(i));
+      }
+    };
+
     let yAxis = d3.axisLeft(y)
-      .tickFormat(function(d) {
-        if(d>1000) {
-          console.log("---------------------Y axis d",d);
-        a = d/ 1000;
-          a=a+'K';
-          console.log("---------------------Y axis a",a);
+      .tickFormat(function (d) {
+        if (d > 1000) {
+          console.log("---------------------Y axis d", d);
+          a = d / 1000;
+          a = a + 'K';
+          console.log("---------------------Y axis a", a);
         }
         else
           a = d;
         a = no_pref + a + no_suffix;
         return (a);
       });
+ //
+ // let yAxis = d3.axisLeft(y)
+ //      .tickFormat(function (d) {
+ //        return formatVolume(d);
+ //      });
 
 // define the 1st line
     let valueline = d3.line()
-      .x(function(d) { return x(d.tesco_week); })
-      .y(function(d) { return y(+d.value_ty); });
+      .x(function (d) {
+        return x(d.tesco_week);
+      })
+      .y(function (d) {
+        return y(+d.value_ty);
+      });
 
 // define the 2nd line
     let valueline2 = d3.line()
-      .x(function(d) { return x(d.tesco_week); })
-      .y(function(d) { return y(+d.value_ly); });
+      .x(function (d) {
+        return x(d.tesco_week);
+      })
+      .y(function (d) {
+        return y(+d.value_ly);
+      });
 
 // append the svg obgect to the body of the page
 // appends a 'group' element to 'svg'
 // moves the 'group' element to the top left margin
 
-    let svg = d3.select('#'+chart_id);
-       svg.selectAll("*").remove();
-       svg = d3.select('#'+chart_id).append("svg")
+    let svg = d3.select('#' + chart_id);
+    svg.selectAll("*").remove();
+    svg = d3.select('#' + chart_id).append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .attr("preserveAspectRatio", "xMinYMin meet")

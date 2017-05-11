@@ -302,19 +302,20 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
 
               }}>Reset</Button>
                 <div style={{height: '1%', width: '100%'}}>&nbsp;</div>
-                <Button onClick={() => {
-                  let  selection = '';
-                  this.props.onSaveWeekFilterParam(selection);
-                  this.props.ongenerateWeekFilter();
-                  let queryString='';
-                  this.props.onGenerateUrlParamsString(queryString);
-                  this.props.generateSideFilter();
-                  this.props.loadKpi();
-                  this.props.loadSales();
-                  this.props.loadPromoGiveaway();
-                  this.props.loadPromoProd();
-                  this.props.loadPromoPart();
-                }}>Load default</Button></div>
+                {/*<Button onClick={() => {*/}
+                  {/*let  selection = '';*/}
+                  {/*this.props.onSaveWeekFilterParam(selection);*/}
+                  {/*this.props.ongenerateWeekFilter();*/}
+                  {/*let queryString='';*/}
+                  {/*this.props.onGenerateUrlParamsString(queryString);*/}
+                  {/*this.props.generateSideFilter();*/}
+                  {/*this.props.loadKpi();*/}
+                  {/*this.props.loadSales();*/}
+                  {/*this.props.loadPromoGiveaway();*/}
+                  {/*this.props.loadPromoProd();*/}
+                  {/*this.props.loadPromoPart();*/}
+                {/*}}>Load default</Button>*/}
+            </div>
               {/*<Button onClick={() => {*/}
                 {/*/!*this.props.onFilterReset();*!/*/}
               {/*}}>Reset Filters</Button>&nbsp;&nbsp;*/}

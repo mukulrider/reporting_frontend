@@ -218,6 +218,7 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                 border: '0',
                 borderTop: '1px solid #eee',
               }}></hr>
+
               <PanelGroup defaultActiveKey="11" accordion>
                 {(() => {
                   if (this.props.filter_data) {
@@ -313,6 +314,100 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                 })()}
               </PanelGroup>
 
+              <PanelGroup defaultActiveKey="11" accordion>
+                {(() => {
+                  if (this.props.filter_data) {
+                    console.log("Cascading filter - filter_data", this.props.filter_data);
+                    return (
+
+                      this.props.filter_data.checkbox_list.map((obj, key) => {
+                        let panelHeader = (
+                          <div className="text-capitalize">
+                            {obj.title.replace(/_/g, ' ')}&nbsp;<span style={{color: "red"}}>*</span>&nbsp;
+                            <span className="accordion-toggle" style={{float: 'right'}}></span>
+                          </div>
+                        );
+                        return (
+                          <Panel header={panelHeader} eventKey={++key}>
+                            {/*<div className="panel-heading">*/}
+                            {/*{obj.name}*/}
+                            {/*</div>*/}
+                            <div className="panel text-capitalize"
+                                 key={Date.now() + Math.random() + Math.random() + 10}>
+
+                              <div className="panel-body style-7"
+                                   style={{maxHeight: '250px', overflowX: 'hidden', fontSize: '9px'}}>
+                                {(() => {
+                                  let finalCheckbox = [];
+
+                                  {
+                                    obj.items.map(obj2 => {
+                                      finalCheckbox.push(
+                                        <Checkbox id={obj.title + '__' + obj2.title}
+                                                  label={obj2.title}
+                                                  style={{fontSize: '10px'}}
+                                                  checked={(() => {
+                                                    if (obj2.selected) {
+                                                      {/*alert()*/}
+                                                    }
+                                                    return obj2.resource.selected
+                                                  })()}
+                                                  onChange={() => {
+
+                                                    let previous_selection = this.props.previous_selection;
+                                                    let selection = obj.title + "=" + obj2.title;
+                                                    {/*alert(selection)*/
+                                                    }
+                                                    //For enabling un checking
+                                                    {/*console.log('previous_selection',previous_selection);*/
+                                                    }
+                                                    {/*console.log('selection',selection);*/
+                                                    }
+                                                    {/*if (previous_selection == selection) {*/
+                                                    }
+                                                    {/*selection = '';*/
+                                                    }
+                                                    {/*}*/
+                                                    }
+                                                    console.log('selection', selection);
+                                                    this.checkboxUpdate(selection)
+                                                  }}
+                                                  isDisabled={!obj2.highlighted}
+                                                  valid={true}
+                                                  key={Date.now() + Math.random()}
+                                        />
+                                      )
+                                    })
+                                  }
+
+                                  // for replacing enabled to top
+                                  let finalled = [];
+                                  finalCheckbox.map(obj => {
+                                    {/*console.log(obj.props.checked);*/
+                                    }
+                                    if (!obj.props.isDisabled) {
+                                      finalled.push(obj)
+                                    }
+                                  });
+                                  finalCheckbox.map(obj => {
+                                    {/*console.log(obj.props.checked);*/
+                                    }
+                                    if (obj.props.isDisabled) {
+                                      finalled.push(obj)
+                                    }
+                                  });
+                                  return finalled
+
+                                })()}
+                              </div>
+                            </div>
+                          </Panel>
+                        )
+                      })
+                    )
+                  }
+                })()}
+              </PanelGroup>
 
               <Button
                 style={{marginTop: "5px", width: "10px", minWidth: "170px", fontSize: "13px", textAlign: "center"}}
