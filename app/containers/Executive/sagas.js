@@ -74,6 +74,7 @@ export function* generateOverviewKpiDataFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
   let urlParamsString =urlName.get('urlParamsString');
+  let weekParamString =urlName.get('week_filter_param');
   let weekselection =urlName.get('weekurlParam');
   if(!urlParamsString){
     urlParamsString=''
@@ -89,9 +90,9 @@ export function* generateOverviewKpiDataFetch() {
   // const kpiparam = urlName.get('kpi_param');
 
 
-  console.log("sagas generateOverviewKpiDataFetch url",host_url+`/api/reporting/exec_overview_kpis?`+ weekurlparam + '&' + urlParamsString +  '&' + weekselection)
+  console.log("sagas generateOverviewKpiDataFetch url",host_url+`/api/reporting/exec_overview_kpis?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_overview_kpis?`+ weekurlparam + '&' + urlParamsString +  '&' + weekselection);
+    host_url+`/api/reporting/exec_overview_kpis?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection);
   console.log("Heres the generateOverviewKpiDataFetch data",data);
   yield put(OverviewKpiDataFetchSuccess(data));
 
@@ -113,6 +114,7 @@ export function* generateRolesAndIntentDataFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
   let urlParamsString =urlName.get('urlParamsString');
+  let weekParamString =urlName.get('week_filter_param');
   let weekselection =urlName.get('weekurlParam');
   if(!urlParamsString){
     urlParamsString=''
@@ -128,9 +130,9 @@ export function* generateRolesAndIntentDataFetch() {
   // const kpiparam = urlName.get('kpi_param');
 
 
-  console.log("sagas generateRolesAndIntentDataFetch url",host_url+`/api/reporting/exec_roles_and_intent?`+ weekurlparam + '&' + urlParamsString +  '&' + weekselection)
+  console.log("sagas generateRolesAndIntentDataFetch url",host_url+`/api/reporting/exec_roles_and_intent?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_roles_and_intent?`+ weekurlparam + '&' + urlParamsString +  '&' + weekselection);
+    host_url+`/api/reporting/exec_roles_and_intent?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection);
   console.log("Heres the generateRolesAndIntentDataFetch data",data);
   yield put(RolesAndIntentDataFetchSuccess(data));
 
@@ -152,6 +154,7 @@ export function* generateBudgetForecastDataFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
   let urlParamsString =urlName.get('urlParamsString');
+  let weekParamString =urlName.get('week_filter_param');
   let weekselection =urlName.get('weekurlParam');
   if(!urlParamsString){
     urlParamsString=''
@@ -167,9 +170,9 @@ export function* generateBudgetForecastDataFetch() {
   // const kpiparam = urlName.get('kpi_param');
 
 
-  console.log("sagas generateBudgetForecastDataFetch url",host_url+`/api/reporting/exec_budget_forecast?`+ weekurlparam + '&' + urlParamsString +  '&' + weekselection)
+  console.log("sagas generateBudgetForecastDataFetch url",host_url+`/api/reporting/exec_budget_forecast?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_budget_forecast?`+ weekurlparam + '&' + urlParamsString +  '&' + weekselection);
+    host_url+`/api/reporting/exec_budget_forecast?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection);
   console.log("Heres the generateBudgetForecastDataFetch data",data);
   yield put(BudgetAndForecastDataFetchSuccess(data));
 
@@ -192,6 +195,7 @@ export function* generateOverviewKPITrendDataFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
   let urlParamsString =urlName.get('urlParamsString');
+  let weekParamString =urlName.get('week_filter_param');
   let weekselection =urlName.get('weekurlParam');
   if(!urlParamsString){
     urlParamsString=''
@@ -207,9 +211,9 @@ export function* generateOverviewKPITrendDataFetch() {
   // const kpiparam = urlName.get('kpi_param');
 
 
-  console.log("sagas generateOverviewKPITrendDataFetch url",host_url+`/api/reporting/exec_overview_kpitrends?`+ weekurlparam + '&' + urlParamsString +  '&' + weekselection)
+  console.log("sagas generateOverviewKPITrendDataFetch url",host_url+`/api/reporting/exec_overview_kpitrends?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_overview_kpitrends?`+ weekurlparam + '&' + urlParamsString +  '&' + weekselection);
+    host_url+`/api/reporting/exec_overview_kpitrends?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection);
   console.log("Heres the generateOverviewKPITrendDataFetch data",data);
   yield put(OverviewKpiTrendDataFetchSuccess(data));
 
@@ -231,6 +235,7 @@ export function* generateOverviewDriversInternalDataFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
   let urlParamsString =urlName.get('urlParamsString');
+  let weekParamString =urlName.get('week_filter_param');
   let weekselection =urlName.get('weekurlParam');
   if(!urlParamsString){
     urlParamsString=''
@@ -246,9 +251,9 @@ export function* generateOverviewDriversInternalDataFetch() {
   // const kpiparam = urlName.get('kpi_param');
 
 
-  console.log("sagas generateOverviewDriversInternalDataFetch url",host_url+`/api/reporting/exec_overview_drivers_internal?`+ weekurlparam + '&' + urlParamsString +  '&' + weekselection)
+  console.log("sagas generateOverviewDriversInternalDataFetch url",host_url+`/api/reporting/exec_overview_drivers_internal?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_overview_drivers_internal?`+ weekurlparam + '&' + urlParamsString +  '&' + weekselection);
+    host_url+`/api/reporting/exec_overview_drivers_internal?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection);
   console.log("Heres the generateOverviewDriversInternalDataFetch data",data);
   yield put(OverviewDriversInternalDataFetchSuccess(data));
 
@@ -270,6 +275,7 @@ export function* generateOverviewDriversExternalDataFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
   let urlParamsString =urlName.get('urlParamsString');
+  let weekParamString =urlName.get('week_filter_param');
   let weekselection =urlName.get('weekurlParam');
   if(!urlParamsString){
     urlParamsString=''
@@ -285,9 +291,9 @@ export function* generateOverviewDriversExternalDataFetch() {
   // const kpiparam = urlName.get('kpi_param');
 
 
-  console.log("sagas generateOverviewDriversExternalDataFetch url",host_url+`/api/reporting/exec_overview_drivers_external?`+ weekurlparam + '&' + urlParamsString +  '&' + weekselection)
+  console.log("sagas generateOverviewDriversExternalDataFetch url",host_url+`/api/reporting/exec_overview_drivers_external?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_overview_drivers_external?`+ weekurlparam + '&' + urlParamsString +  '&' + weekselection);
+    host_url+`/api/reporting/exec_overview_drivers_external?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection);
   console.log("Heres the generateOverviewDriversExternalDataFetch data",data);
   yield put(OverviewDriversExternalDataFetchSuccess(data));
 
@@ -309,6 +315,7 @@ export function* generateKpiBoxesDataFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
   let urlParamsString =urlName.get('urlParamsString');
+  let weekParamString =urlName.get('week_filter_param');
   let weekselection =urlName.get('weekurlParam');
   if(!urlParamsString){
     urlParamsString=''
@@ -324,9 +331,9 @@ export function* generateKpiBoxesDataFetch() {
   const kpiparam = urlName.get('kpi_param');
 
 
-  console.log("sagas generateKpiBoxesDataFetch url",host_url+`/api/reporting/exec_kpi?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam +  '&' + weekselection)
+  console.log("sagas generateKpiBoxesDataFetch url",host_url+`/api/reporting/exec_kpi?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_kpi?`+ weekurlparam + '&' + urlParamsString +  '&' + kpiparam +  '&' + weekselection);
+    host_url+`/api/reporting/exec_kpi?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + kpiparam +  '&' + weekselection);
   console.log("Heres the generateKpiBoxesDataFetch data",data);
   yield put(KpiBoxesDataFetchSuccess(data));
 
@@ -348,6 +355,7 @@ export function* generateBestWorstFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
   let urlParamsString =urlName.get('urlParamsString');
+  let weekParamString =urlName.get('week_filter_param');
   let weekselection =urlName.get('weekurlParam');
   if(!urlParamsString){
     urlParamsString=''
@@ -363,9 +371,9 @@ export function* generateBestWorstFetch() {
   const kpiparam = urlName.get('kpi_param');
 
 
-  console.log("sagas generateBestWorstFetch url",host_url+`/api/reporting/exec_best_worst?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam +  '&' + weekselection)
+  console.log("sagas generateBestWorstFetch url",host_url+`/api/reporting/exec_best_worst?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_best_worst?`+ weekurlparam + '&' + urlParamsString +  '&' + kpiparam +  '&' + weekselection);
+    host_url+`/api/reporting/exec_best_worst?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + kpiparam +  '&' + weekselection);
   console.log("Heres the generateBestWorstFetch data",data);
   yield put(BestWorstDataFetchSuccess(data));
 
@@ -387,6 +395,7 @@ export function* generateBestInfoFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
   let urlParamsString =urlName.get('urlParamsString');
+  let weekParamString =urlName.get('week_filter_param');
   let weekselection =urlName.get('weekurlParam');
   if(!urlParamsString){
     urlParamsString=''
@@ -406,9 +415,9 @@ export function* generateBestInfoFetch() {
   {
     selected='';
   }
-  console.log("sagas generateBestInfoFetch url",host_url+`/api/reporting/exec_best_info?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam +  '&' + weekselection + '&' + selected)
+  console.log("sagas generateBestInfoFetch url",host_url+`/api/reporting/exec_best_info?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection + '&' + selected)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_best_info?`+ weekurlparam + '&' + urlParamsString +  '&' + kpiparam +  '&' + weekselection+ '&' + selected);
+    host_url+`/api/reporting/exec_best_info?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + kpiparam +  '&' + weekselection+ '&' + selected);
   console.log("Heres the generateBestInfoFetch data",data);
   yield put(BestInfoDataFetchSuccess(data));
 
@@ -430,6 +439,7 @@ export function* generateWorstInfoFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
   let urlParamsString =urlName.get('urlParamsString');
+  let weekParamString =urlName.get('week_filter_param');
   let weekselection =urlName.get('weekurlParam');
   if(!urlParamsString){
     urlParamsString=''
@@ -448,9 +458,9 @@ export function* generateWorstInfoFetch() {
   {
     selected='';
   }
-  console.log("sagas generateWorstInfoFetch url",host_url+`/api/reporting/exec_worst_info?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam +  '&' + weekselection + '&' + selected)
+  console.log("sagas generateWorstInfoFetch url",host_url+`/api/reporting/exec_worst_info?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection + '&' + selected)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_worst_info?`+ weekurlparam + '&' + urlParamsString +  '&' + kpiparam +  '&' + weekselection+'&'+selected);
+    host_url+`/api/reporting/exec_worst_info?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + kpiparam +  '&' + weekselection+'&'+selected);
   console.log("Heres the generateWorstInfoFetch data",data);
   yield put(WorstInfoDataFetchSuccess(data));
   // } catch (err) {
@@ -471,6 +481,7 @@ export function* generateSupplierInfoFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
   let urlParamsString =urlName.get('urlParamsString');
+  let weekParamString =urlName.get('week_filter_param');
   let weekselection =urlName.get('weekurlParam');
   if(!urlParamsString){
     urlParamsString=''
@@ -496,7 +507,7 @@ export function* generateSupplierInfoFetch() {
   let selected='';
   if (topbotflag == 'top')
   {
-     selected = urlName.get('top_name');
+    selected = urlName.get('top_name');
     console.log("generateSupplierInfoFetch top_name",selected)
   }
   else
@@ -511,9 +522,9 @@ export function* generateSupplierInfoFetch() {
   }
 
 
-  console.log("sagas generateSupplierInfoFetch url",host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier)
+  console.log("sagas generateSupplierInfoFetch url",host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString +  '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier);
+    host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier);
   console.log("Heres the generateSupplierInfoFetch data",data);
   yield put(SupplierInfoDataFetchSuccess(data));
 
@@ -536,6 +547,7 @@ export function* generateTopSupplierInfoFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
   let urlParamsString =urlName.get('urlParamsString');
+  let weekParamString =urlName.get('week_filter_param');
   let weekselection =urlName.get('weekurlParam');
   if(!urlParamsString){
     urlParamsString=''
@@ -556,7 +568,7 @@ export function* generateTopSupplierInfoFetch() {
   {
     selected_supplier='';
   }
-   let selected = urlName.get('top_name');
+  let selected = urlName.get('top_name');
 
   if (selected == 'None')
   {
@@ -564,9 +576,9 @@ export function* generateTopSupplierInfoFetch() {
   }
 
 
-  console.log("sagas generateTopSupplierInfoFetch url",host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier)
+  console.log("sagas generateTopSupplierInfoFetch url",host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString +  '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier);
+    host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier);
   console.log("Heres the generateTopSupplierInfoFetch data",data);
   yield put(TopSupplierInfoDataFetchSuccess(data));
 
@@ -589,6 +601,7 @@ export function* generateBotSupplierInfoFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
   let urlParamsString =urlName.get('urlParamsString');
+  let weekParamString =urlName.get('week_filter_param');
   let weekselection =urlName.get('weekurlParam');
   if(!urlParamsString){
     urlParamsString=''
@@ -617,9 +630,9 @@ export function* generateBotSupplierInfoFetch() {
   }
 
 
-  console.log("sagas generateBotSupplierInfoFetch url",host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier)
+  console.log("sagas generateBotSupplierInfoFetch url",host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString +  '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier);
+    host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier);
   console.log("Heres the generateBotSupplierInfoFetch data",data);
   yield put(BotSupplierInfoDataFetchSuccess(data));
 
@@ -647,6 +660,7 @@ export function* generateDriversInternalFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
   let urlParamsString =urlName.get('urlParamsString');
+  let weekParamString =urlName.get('week_filter_param');
   let weekselection =urlName.get('weekurlParam');
   if(!urlParamsString){
     urlParamsString=''
@@ -662,9 +676,9 @@ export function* generateDriversInternalFetch() {
   const kpiparam = urlName.get('kpi_param');
 
 
-  console.log("sagas generateDriversInternalFetch url",host_url+`/api/reporting/exec_drivers_internal?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam +  '&' + weekselection)
+  console.log("sagas generateDriversInternalFetch url",host_url+`/api/reporting/exec_drivers_internal?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_drivers_internal?`+ weekurlparam + '&' + urlParamsString +  '&' + kpiparam +  '&' + weekselection);
+    host_url+`/api/reporting/exec_drivers_internal?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + kpiparam +  '&' + weekselection);
   console.log("Heres the generateDriversInternalFetch data",data);
   yield put(DriversInternalDataFetchSuccess(data));
 
@@ -686,6 +700,7 @@ export function* generateDriversExternalFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
   let urlParamsString =urlName.get('urlParamsString');
+  let weekParamString =urlName.get('week_filter_param');
   let weekselection =urlName.get('weekurlParam');
   if(!urlParamsString){
     urlParamsString=''
@@ -701,9 +716,9 @@ export function* generateDriversExternalFetch() {
   const kpiparam = urlName.get('kpi_param');
 
 
-  console.log("sagas generateDriversExternalFetch url",host_url+`/api/reporting/exec_drivers_external?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam +  '&' + weekselection)
+  console.log("sagas generateDriversExternalFetch url",host_url+`/api/reporting/exec_drivers_external?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_drivers_external?`+ weekurlparam + '&' + urlParamsString +  '&' + kpiparam +  '&' + weekselection);
+    host_url+`/api/reporting/exec_drivers_external?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + kpiparam +  '&' + weekselection);
   console.log("Heres the generateDriversExternalFetch data",data);
   yield put(DriversExternalDataFetchSuccess(data));
 
@@ -725,6 +740,7 @@ export function* generatePriceKPIFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
   let urlParamsString =urlName.get('urlParamsString');
+  let weekParamString =urlName.get('week_filter_param');
   let weekselection =urlName.get('weekurlParam');
   if(!urlParamsString){
     urlParamsString=''
@@ -740,9 +756,9 @@ export function* generatePriceKPIFetch() {
   const kpiparam = urlName.get('kpi_param');
 
 
-  console.log("sagas generatePriceKPIFetch url",host_url+`/api/reporting/exec_price_kpi?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam +  '&' + weekselection)
+  console.log("sagas generatePriceKPIFetch url",host_url+`/api/reporting/exec_price_kpi?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_price_kpi?`+ weekurlparam + '&' + urlParamsString +  '&' + kpiparam +  '&' + weekselection);
+    host_url+`/api/reporting/exec_price_kpi?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + kpiparam +  '&' + weekselection);
   console.log("Heres the generatePriceKPIFetch data",data);
   yield put(PriceKPIDataFetchSuccess(data));
 
@@ -787,7 +803,9 @@ export function* generateFilterFetch() {
     // if (urlParams==='')
     // {urlParams='default'
     // }
-    let urlParamsString =urlName.get('urlParamsString')
+    let urlParamsString =urlName.get('urlParamsString');
+// let weekParamString =urlName.get('week_filter_param');
+
     if(!urlParamsString){
       urlParamsString=''
     }
@@ -828,13 +846,14 @@ export function* generateWeekFilterFetch() {
     // todo: update url
     console.log("Inside generateWeekFilterFetch")
     let urlName=yield select(selectExecutiveDomain());
-    let weekurlparams = urlName.get('week_param');
+    let weekurlparams = urlName.get('week_filter_param');
 
 
     // if (urlParams==='')
     // {urlParams='default'
     // }
-    // let urlParamsString =urlName.get('urlParamsString')
+    // let urlParamsString =urlName.get('urlParamsString');
+// let weekParamString =urlName.get('week_filter_param');
     // if(!urlParamsString){
     //   urlParamsString=''
     // }

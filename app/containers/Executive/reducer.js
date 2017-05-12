@@ -63,6 +63,7 @@ import {
 
 const initialState = fromJS({
   week_param: '',
+  week_filter_param: '',
   kpi_param: 'kpi_type=Overview',
   driver_param: 'internal',
   urlParamsString: '',
@@ -107,68 +108,68 @@ const initialState = fromJS({
     }
   },
   overview_drivers_external_data: {
-  "rainfall": {
-  "wow": "0",
-    "yoy": "0",
-    "avg": "0"
-},
-  "temperature": {
-  "wow": "0",
-    "avg": "0"
-},
-  "sunshine": {
-  "wow": "0",
-    "yoy": "0",
-    "avg": "0"
-},
+    "rainfall": {
+      "wow": "0",
+      "yoy": "0",
+      "avg": "0"
+    },
+    "temperature": {
+      "wow": "0",
+      "avg": "0"
+    },
+    "sunshine": {
+      "wow": "0",
+      "yoy": "0",
+      "avg": "0"
+    },
     "holidays": [
       {
         "holiday_description": "No holidays for the selected time period",
         "holiday_date": "-----"
       }
     ]
-},
- kpi_boxes_data: {
-   "total_value": {
-     "yoy": "0",
-     "wow": "0",
-     "total_lfl": "0",
-     "lfl": "0",
-     "total": "0"
-   },
-   "growth": {
-     "total": "0",
-     "total_lfl": "0",
-     "wow": "0",
-     "yoy": "0",
-     "lfl": "0",
+  },
+  kpi_boxes_data: {
+    "total_value": {
+      "yoy": "0",
+      "wow": "0",
+      "total_lfl": "0",
+      "lfl": "0",
+      "total": "0"
+    },
+    "growth": {
+      "total": "0",
+      "total_lfl": "0",
+      "wow": "0",
+      "yoy": "0",
+      "lfl": "0",
 
-   },
-   "market": {
-     "total": "0",
-     "total_lfl": "0",
-     "share": "0",
-     "opportunity": "0",
-     "outperformance": "0",
-   },
+    },
+    "market": {
+      "total": "0",
+      "total_lfl": "0",
+      "share": "0",
+      "opportunity": "0",
+      "outperformance": "0",
+    },
 
- },
+  },
   price_kpi_data: {
-  "ACP_abs": 0,
-  "ACP_fisher_infl": 0,
-  "line_count": 0,
-  "ACP_lfl_abs": 0,
-  "ACPInfl_var_wow": 0,
-  "ASPInfl_var_lfl": 0,
-  "price_index_var_wow": 0,
-  "ASP_lfl_abs": 0,
-  "ASPInfl_var_yoy": 0,
-  "ASP_abs": 0,
-  "ASPInfl_var_wow": 0,
-  "ASP_fisher_infl": 0,
-  "ACPInfl_var_yoy": 0,
-  "ACPInfl_var_lfl": 0,
-  "price_index_cw": 0
+    "ACP_abs": 0,
+    "ACP_fisher_infl": 0,
+    "line_count": 0,
+    "ACP_lfl_abs": 0,
+    "ACPInfl_var_wow": 0,
+    "ASPInfl_var_lfl": 0,
+    "price_index_var_wow": 0,
+    "ASP_lfl_abs": 0,
+    "ASPInfl_var_yoy": 0,
+    "ASP_abs": 0,
+    "ASPInfl_var_wow": 0,
+    "ASP_fisher_infl": 0,
+    "ACPInfl_var_yoy": 0,
+    "ACPInfl_var_lfl": 0,
+    "price_index_cw": 0
   },
   best_worst_data: {
     "top_5": [
@@ -222,7 +223,7 @@ const initialState = fromJS({
     "forecast_data": [
       {"label": "Forecast", "value": 600},
       {"label": "Sales", "value": 500}],
-    },
+  },
 
 
 
