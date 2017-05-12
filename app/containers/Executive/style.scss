@@ -1,5 +1,19 @@
 @import "./../../stylesheet";
 
+
+.pageTitle{
+  font-family: Tesco;
+  font-size: 20px;
+  text-align: center;
+  //color: #e5e5e5;
+  //background-color: #00294f;
+  //background-color: #00539f;
+  width: 100%;
+  padding: 0px;
+
+  color:#00294f !important;
+  background-color: #e5e8ea;
+}
 .ts-blk-proview-head {
   text-align: center;
   color: #ffffff !important;
@@ -208,4 +222,207 @@
 
 .tr-function-green{
   background-color: green;
+}
+
+.pageModuleTitle {
+
+  width: 100%;
+  line-height: 28px;
+  font-size: 18px;
+  height: 28px;
+  color: #00539f !important;
+  //font-weight: bold;
+  font-weight: 500;
+  //color: #666666 !important;
+  text-align: center;
+  padding-left: 1%;
+
+}
+
+.pageModuleMainTitle {
+  width: 100%;
+  line-height: 28px;
+  font-size: 18px;
+  height: 28px;
+  color: #00539f !important;
+  background-color: #e5e8ea !important;
+  font-weight: bold;
+  //font-weight: 500;
+  //color: #666666 !important;
+  text-align: center;
+  padding-left: 1%;
+  vertical-align: middle;
+
+}
+
+//
+//.li > a {
+//  text-decoration: none;
+//}
+
+//.nav > li > a {
+//  position: relative;
+//  display: block;
+//  padding: 10px 15px;
+//  text-decoration: none;
+//}
+
+//.nav-tabs {
+//  border-bottom: 0px solid #ddd !important;
+//}
+
+//li > a:hover {
+//  background-color: #008dc8 !important;
+//}
+//
+.pagination {
+  margin: 0px;
+}
+
+.pagination a {
+  margin: 0px 10px;
+  margin-top: -3px !important;
+  width: 30px !important;
+  height: 30px !important;
+  display: inline-block !important;
+  border-radius: 50%;
+  background-color: #fff;
+  color: #008dc8 !important;
+  padding: 0px !important;
+  text-align: center;
+  line-height: 30px !important;
+  border: 0px !important;
+}
+
+.pagination li.disabled:first-child a,
+.pagination li.disabled:last-child a {
+  border: 2px solid #ccc !important;
+}
+
+.pagination li:last-child a,
+.pagination li:first-child a {
+  border: 2px solid #008dc8 !important;
+  border-radius: 50% !important;
+  line-height: 25px !important;
+}
+
+.pagination li:last-child a:hover,
+.pagination li:first-child a:hover {
+  box-shadow: 0 0 0 4px rgba(0, 83, 159, 0.4);
+  transition: box-shadow 0.3s;
+}
+
+.pagination .active a {
+  background-color: #008dc8 !important;
+  color: #ffffff !important;
+  margin-top: -3px !important;
+}
+
+.chartwrap {
+  overflow-x: auto;
+}
+
+.FlexContainer.Row {
+  -ms-flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+}
+
+.FlexContainer.Column {
+  -ms-flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+}
+
+.container-left {
+  display: flex;
+}
+
+.selectAttrituteIndicator {
+  font: Tesco;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+  height: 1000px;
+  width: 100%;
+  background-color: lightgray;
+  color: #00539f;
+  margin-top: 24px;
+  margin-left: 5%;
+}
+
+.FlexContainer {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+.flexleft {
+  width: 10%
+}
+
+.flexright {
+  width: 90%;
+}
+
+.marginClass {
+  margin-top: 3% !important;
+  height: 220px !important;
+  margin: 0%;
+  left: -3%;
+}
+
+.leftPosition {
+  left: -2.2% !important;
+}
+
+.spinnerPosition {
+  marginLeft: 0px;
+  marginRight: 0px;
+  left: 42% !important;
+  position: relative;
+  padding: 14%
+}
+
+.spinnerPositionBarChart {
+  marginLeft: 0px;
+  marginRight: 0px;
+  left: 22% !important;
+  position: relative;
+  padding: 14%
+}
+
+.spinnerPositionWaterfall {
+  marginLeft: 0px;
+  marginRight: 0px;
+  left: 15% !important;
+  margin-top: 3%;
+  position: relative;
+  padding: 15%;
+}
+
+.tesco-heading {
+  width: 100%;
+  line-height: 28px;
+  font-size: 18px;
+  height: 28px;
+  color: #00539f !important;
+  font-weight: 500;
+  text-align: center;
+  padding-left: 1%;
+}
+.bottomSupplierFix {
+  float: right;
+  width: 53%;
+  right: 1%;
+}
+.spinnerPositionFix {
+  left: 29% !important;
 }
