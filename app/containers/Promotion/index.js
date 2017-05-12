@@ -3,7 +3,6 @@
  * Promotion
  *
  */
-
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
@@ -95,6 +94,19 @@ export class Promotion extends React.PureComponent {
           ]}
         />
         {/*<FormattedMessage {...messages.header} />*/}
+        <div className="pageTitle">
+          {(() => {
+            if (this.props.promotion.kpi_data.selected_week) {
+              return (
+                <span>Promotions View - {this.props.promotion.kpi_data.selected_week} </span>
+              )
+            } else {
+              return (
+                <span>Promotions View - 201652  </span>
+              )
+            }
+          })()}
+        </div>
 
         <div className="row" style={{
           marginLeft: '0px',
@@ -137,8 +149,13 @@ export class Promotion extends React.PureComponent {
 
                   />
                 );
-              } else {
-                return (<div>Loading the data </div>)
+              }
+              else {
+                return (
+
+                  <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                );
               }
             })()}
           </div>
@@ -148,7 +165,6 @@ export class Promotion extends React.PureComponent {
           }}>
             <div className="row" style={{marginLeft: "0.5%", paddingTop: "-5px"}}>
           <div className="col-md-12 content-wrap">
-            <h3> Promotions View - Week &nbsp; {this.props.promotion.kpi_data.selected_week} </h3>
               <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom">
               <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
@@ -160,8 +176,7 @@ export class Promotion extends React.PureComponent {
                 this.props.loadPromoGiveaway();
                 this.props.loadPromoProd();
                 this.props.loadPromoPart();
-              }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                <b style={{textDecoration: 'none'}}>Current Week</b></NavItem>
+              }}><span className="tab_label">Current Week</span></NavItem>
 
               <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
                 this.setState({activeKey1: "2"});
@@ -172,8 +187,7 @@ export class Promotion extends React.PureComponent {
                 this.props.loadPromoGiveaway();
                 this.props.loadPromoProd();
                 this.props.loadPromoPart();
-              }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                style={{textDecoration: 'none'}}>Last 4 weeks</b></NavItem>
+              }}><span className="tab_label">Last 4 weeks</span></NavItem>
 
               <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
                 this.setState({activeKey1: "3"});
@@ -184,8 +198,7 @@ export class Promotion extends React.PureComponent {
                 this.props.loadPromoGiveaway();
                 this.props.loadPromoProd();
                 this.props.loadPromoPart();
-              }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                style={{textDecoration: 'none'}}>Last 13 weeks</b></NavItem>
+              }}><span className="tab_label">Last 13 weeks</span></NavItem>
               <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
                 this.setState({activeKey1: "4"});
                 dataWeekParam = "week_flag=Latest 26 Weeks";
@@ -195,8 +208,7 @@ export class Promotion extends React.PureComponent {
                 this.props.loadPromoGiveaway();
                 this.props.loadPromoProd();
                 this.props.loadPromoPart();
-              }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                style={{textDecoration: 'none'}}>Last 26 weeks</b></NavItem>
+              }}><span className="tab_label">Last 26 weeks</span></NavItem>
 
               <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
                 this.setState({activeKey1: "5"});
@@ -208,8 +220,7 @@ export class Promotion extends React.PureComponent {
                 this.props.loadPromoGiveaway();
                 this.props.loadPromoProd();
                 this.props.loadPromoPart();
-              }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                style={{textDecoration: 'none'}}>YTD</b></NavItem>
+              }}><span className="tab_label">YTD</span></NavItem>
             </Nav>
             <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect} className="tabsCustom">
               <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
@@ -219,8 +230,7 @@ export class Promotion extends React.PureComponent {
                 this.props.loadKpi();
                 this.props.loadSales();
 
-              }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                style={{textDecoration: 'none'}}>Value</b></NavItem>
+              }}><span className="tab_label">Value</span></NavItem>
               <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
                 this.setState({activeKey2: "2"});
                 kpiParam = "kpi_type=volume";
@@ -228,8 +238,7 @@ export class Promotion extends React.PureComponent {
                 this.props.loadKpi();
                 this.props.loadSales();
 
-              }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                style={{textDecoration: 'none'}}>Volume</b></NavItem>
+              }}><span className="tab_label">Volume</span></NavItem>
               <span className="glyphicon glyphicon-info-sign pull-right"
                     style={{right: '4px', fontSize: '15px', top: '8px',  color: "#00539f", fontWeight: "bold"}}
                     onClick={() => {
@@ -541,8 +550,7 @@ export class Promotion extends React.PureComponent {
                           this.setState({activeKey4: "1"});
                           this.props.onSaveSalesParam(promoTypeParam);
                           this.props.loadSales();
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                          <b style={{textDecoration: 'none'}}>Total Sales</b></NavItem>
+                        }}><span className="tab_label">Total Sales</span></NavItem>
 
                         <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
 
@@ -550,8 +558,7 @@ export class Promotion extends React.PureComponent {
                           this.setState({activeKey4: "2"});
                           this.props.onSaveSalesParam(promoTypeParam);
                           this.props.loadSales();
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                          <b style={{textDecoration: 'none'}}>Price Cut</b></NavItem>
+                        }}><span className="tab_label">Price Cut</span></NavItem>
 
                         <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
                           this.setState({activeKey4: "3"});
@@ -559,8 +566,7 @@ export class Promotion extends React.PureComponent {
                           this.props.onSaveSalesParam(promoTypeParam);
                           this.props.loadSales();
 
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                          style={{textDecoration: 'none'}}>Multibuy</b></NavItem>
+                        }}><span className="tab_label">Multibuy</span></NavItem>
 
                         <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
                           this.setState({activeKey4: "4"});
@@ -568,16 +574,14 @@ export class Promotion extends React.PureComponent {
                           this.props.onSaveSalesParam(promoTypeParam);
                           this.props.loadSales();
 
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                          style={{textDecoration: 'none'}}>Linksave</b></NavItem>
+                        }}><span className="tab_label">Linksave</span></NavItem>
 
                         <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
                           this.setState({activeKey4: "5"});
                          let promoTypeParam = "promo_type=Non Promo";
                           this.props.onSaveSalesParam(promoTypeParam);
                           this.props.loadSales();
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                          style={{textDecoration: 'none'}}>Non Promo</b></NavItem>
+                        }}><span className="tab_label">Non Promo</span></NavItem>
                       </Nav>
                       </div>
                       <div className="row">
@@ -640,8 +644,7 @@ export class Promotion extends React.PureComponent {
                           this.setState({activeKey5: "1"});
                           this.props.onSaveGiveawayParam(promoTypeParam);
                           this.props.loadPromoGiveaway();
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                          <b style={{textDecoration: 'none'}}>Total Giveaway</b></NavItem>
+                        }}><span className="tab_label">Total Giveaway</span></NavItem>
 
                         <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
 
@@ -649,8 +652,7 @@ export class Promotion extends React.PureComponent {
                           this.setState({activeKey5: "2"});
                           this.props.onSaveGiveawayParam(promoTypeParam);
                           this.props.loadPromoGiveaway();
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                          <b style={{textDecoration: 'none'}}>Price Cut</b></NavItem>
+                        }}><span className="tab_label">Price Cut</span></NavItem>
 
                         <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
                           this.setState({activeKey5: "3"});
@@ -658,8 +660,7 @@ export class Promotion extends React.PureComponent {
                           this.props.onSaveGiveawayParam(promoTypeParam);
                           this.props.loadPromoGiveaway();
 
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                          style={{textDecoration: 'none'}}>Multibuy</b></NavItem>
+                        }}><span className="tab_label">Multibuy</span></NavItem>
 
                         <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
                           this.setState({activeKey5: "4"});
@@ -667,8 +668,7 @@ export class Promotion extends React.PureComponent {
                           this.props.onSaveSalesParam(promoTypeParam);
                           this.props.loadSales();
 
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                          style={{textDecoration: 'none'}}>Linksave</b></NavItem>
+                        }}><span className="tab_label">Linksave</span></NavItem>
 
 
 
@@ -739,8 +739,7 @@ export class Promotion extends React.PureComponent {
                           this.setState({activeKey6: "1"});
                           this.props.onSavePromoProdParam(promoTypeParam);
                           this.props.loadPromoProd();
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                          <b style={{textDecoration: 'none'}}>Total Product Count</b></NavItem>
+                        }}><span className="tab_label">Total Product Count</span></NavItem>
 
 
                         <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
@@ -748,8 +747,7 @@ export class Promotion extends React.PureComponent {
                           this.setState({activeKey6: "2"});
                           this.props.onSavePromoProdParam(promoTypeParam);
                           this.props.loadPromoProd();
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                          <b style={{textDecoration: 'none'}}>Price Cut</b></NavItem>
+                        }}><span className="tab_label">Price Cut</span></NavItem>
 
                         <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
                           this.setState({activeKey6: "3"});
@@ -757,8 +755,7 @@ export class Promotion extends React.PureComponent {
                           this.props.onSavePromoProdParam(promoTypeParam);
                           this.props.loadPromoProd();
 
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                          style={{textDecoration: 'none'}}>Multibuy</b></NavItem>
+                        }}><span className="tab_label">Multibuy</span></NavItem>
 
                         <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
                           this.setState({activeKey6: "4"});
@@ -766,8 +763,7 @@ export class Promotion extends React.PureComponent {
                           this.props.onSaveSalesParam(promoTypeParam);
                           this.props.loadSales();
 
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                          style={{textDecoration: 'none'}}>Linksave</b></NavItem>
+                        }}><span className="tab_label">Linksave</span></NavItem>
 
 
 
@@ -777,8 +773,7 @@ export class Promotion extends React.PureComponent {
                           let promoTypeParam = "promo_type=Non Promo";
                           this.props.onSavePromoProdParam(promoTypeParam);
                           this.props.loadPromoProd();
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                          style={{textDecoration: 'none'}}>Non Promo</b></NavItem>
+                        }}><span className="tab_label">Non Promo</span></NavItem>
                       </Nav>
                       </div>
                       <div className="row">
@@ -848,8 +843,7 @@ export class Promotion extends React.PureComponent {
                           this.setState({activeKey7: "1"});
                           this.props.onSavePromoPartParam(promoTypeParam);
                           this.props.loadPromoPart();
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                          <b style={{textDecoration: 'none'}}>Total Promo Participation</b></NavItem>
+                        }}><span className="tab_label">Total Promo Participation</span></NavItem>
 
                         <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
 
@@ -857,8 +851,7 @@ export class Promotion extends React.PureComponent {
                           this.setState({activeKey7: "2"});
                           this.props.onSavePromoPartParam(promoTypeParam);
                           this.props.loadPromoPart();
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                          <b style={{textDecoration: 'none'}}>Price Cut</b></NavItem>
+                        }}><span className="tab_label">Price Cut</span></NavItem>
 
                         <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
                           this.setState({activeKey7: "3"});
@@ -866,16 +859,14 @@ export class Promotion extends React.PureComponent {
                           this.props.onSavePromoPartParam(promoTypeParam);
                           this.props.loadPromoPart();
 
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                          style={{textDecoration: 'none'}}>Multibuy</b></NavItem>
+                        }}><span className="tab_label">Multibuy</span></NavItem>
                         <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
                           this.setState({activeKey7: "4"});
                           let promoTypeParam = "promo_type=Linksave";
                           this.props.onSaveSalesParam(promoTypeParam);
                           this.props.loadSales();
 
-                        }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                          style={{textDecoration: 'none'}}>Linksave</b></NavItem>
+                        }}><span className="tab_label">Linksave</span></NavItem>
 
                       </Nav>
                       </div>

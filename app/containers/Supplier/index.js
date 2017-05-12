@@ -542,7 +542,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                       borderBottom: "1px solid #e5e8ea"
                                     }}>
                                       <Panel>
-                                        <h4 className="pageModuleMainTitle"> Total Sales </h4>
+                                        <h4 className="pageModuleMainTitle"> {this.props.supplier.reducer1.title} </h4>
                                         <div className="row">
                                           <div className="col-xs-6">
 

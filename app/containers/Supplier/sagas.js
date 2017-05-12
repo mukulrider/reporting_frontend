@@ -765,7 +765,7 @@ export function* generateGraph() {
   }
 
   if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
-    urlParams = filter_week_selection + '&';
+    urlParams = filter_week_selection + "&" + urlParams;
     console.log("filter_week_selection urlParams if", urlParams);
   } else {
     console.log("filter_week_selection urlParams else", urlParams);
@@ -786,7 +786,7 @@ export function* generateGraph() {
   }
 
   if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
-    urlParams = urlParams + "&" + urlParamsString;
+    urlParams = urlParams  + "&" + urlParamsString;
     console.log("urlParamsString urlParams if", urlParams);
 
   } else {
@@ -831,9 +831,9 @@ export function* generateGraph() {
   console.log('ddd', ajaxSelection);
 
   if (!(typeof(ajaxSelection) == "undefined") && !(ajaxSelection == "")) {
-    ajaxSelection = '?' + ajaxSelection + urlParams;
+    ajaxSelection = ajaxSelection + urlParams;
     if (!(urlParams == "")) {
-      ajaxSelection = ajaxSelection.replace('&', '');
+      ajaxSelection = "?" + ajaxSelection.replace('&', '');
     }
     console.log('entered ajaxselection', ajaxSelection);
     const data = yield call(request,
@@ -857,7 +857,7 @@ export function* generateGraph() {
     // const data = yield call(request, `http:// 172.20.244.223:8000/ranging/nego_bubble_chart?`+urlParams );
     if (!(urlParams == "")) {
       urlParams = '?' + urlParams
-      // urlParams = urlParams.replace('&', '');
+      urlParams = urlParams.replace('&', '');
     }
     console.log('final param', urlParams);
     const data = yield call(request, host_url + `/api/reporting/supplier_view_chart_bubble` + urlParams);
