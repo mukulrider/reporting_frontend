@@ -189,17 +189,17 @@ class Header extends Component {
                   >Executive View</NavItem>
                   <NavItem
                     className="tabsCustomList" style={{marginTop:"3px",marginLeft:"2px",fontSize: "12px"}} onClick={() => {
-                      window.location = 'http://10.1.244.200:3000/sales/promo/';
+                      window.location = 'http://10.1.244.200:3000/sales/competitor/';
                     }}
                   >Competitor View</NavItem>
                   <NavItem
                     className="tabsCustomList" style={{marginTop:"3px",marginLeft:"2px",fontSize: "12px"}} onClick={() => {
-                      window.location = 'http://10.1.244.200:3000/sales/competitor/';
+                      window.location = 'http://10.1.244.200:3000/sales/promo/';
                     }}
                   >Promotions View</NavItem>
                   <NavItem
                     className="tabsCustomList" style={{marginTop:"3px",marginLeft:"2px",fontSize: "12px"}} onClick={() => {
-                      window.location = 'http://10.1.244.200:3000/sales/competitor/';
+                      window.location = 'http://10.1.244.200:3000/sales/supplier/';
                     }}
                   >Supplier View</NavItem>
                   <NavItem
@@ -225,7 +225,7 @@ class Header extends Component {
                   };
                   const token = getCookie('token');
 
-                  return true ?
+                  return token ?
                     <div >
                       <br />
                       <Button

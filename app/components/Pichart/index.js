@@ -15,11 +15,11 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
   createChart = (data,id) =>
   {
     // let data = [10, 20];
-    var containerWidth = document.getElementById(id).clientWidth;
-    let margin = {top: 20, right: 20, bottom: 30, left: 10},
-      width = containerWidth - margin.left - margin.right,
-      height = containerWidth*0.7 - margin.top - margin.bottom,
-      radius = Math.min(width, height) / 2;
+    let frameWidth = document.getElementById(id).clientWidth;
+    let margin = {top: 30, right: 30, bottom: 30, left: 30},
+      width = frameWidth - margin.left - margin.right,
+      height = frameWidth - margin.top - margin.bottom,
+      radius = Math.min(width, height) / 3;
 
     let color = d3.scaleOrdinal()
       .range(["#98abc5", "#8a89a6"]);
@@ -36,25 +36,24 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
       .sort(null)
       .value(function(d) { return d; });
 
-    let svg = d3.select(`#${id}`);
 
-    svg.selectAll("*").remove();
 
-     svg = d3.select("#" + id).append("svg")
-       .attr("id",id + '_svg')
-       .attr("width", width + margin.left + margin.right)
-       .attr("height", height + margin.top + margin.bottom)
-       // //responsive SVG needs these 2 attributes and no width and height attr
-       // .attr("preserveAspectRatio", "xMinYMin meet")
-       // .attr("viewBox", "0 0 300 300")
-       // //class to make it responsive
-       // .classed("svg-content-responsive", true)
-       .append("g")
-      .attr("transform", "translate(200," + (width/3) + ")");
 
-     setTimeout(function(){
-       d3.select('#' + id + '_svg').attr("width",null).attr("height",null)
-     },200)
+     let svg = d3.select("#" + id + '_svg')
+       .attr("width", frameWidth)
+       .attr("height", frameWidth)
+       //responsive SVG needs these 2 attributes and no width and height attr
+       .attr("preserveAspectRatio", "xMinYMin meet")
+       .attr("viewBox", "0 0 400 400")
+       //class to make it responsive
+       .classed("svg-content-responsive", true)
+      .append("g")
+     //  .attr("transform", "translate(" + margin.left+ "," + margin.top + ")");
+      .attr("transform", "translate(" + radius + " " + radius+ ")");
+
+    // setTimeout(function(){
+    //   d3.select('#'+id+'_svg').attr("width",null).attr("height",null)
+    // },100)
     let g = svg.selectAll(".arc")
       .data(pie(data))
       .enter().append("g")
@@ -71,10 +70,10 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
     g.append("text")
       .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
       .attr("dy", ".45em")
-      .text(function(d) { return d.data + '%'; });
+      .text(function(d) { return d.data; });
 
 
-    let dataGroup = [{"key":'Market Share'},{"key":'Tesco Share'}]
+    let dataGroup = [{"key":'Tesco Share'},{"key":'Market Share'}]
 
 
     // Legend
@@ -88,7 +87,7 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
       .enter().append("g")
       .attr("transform", function (d, i) {
         console.log("PieChart d.key",d.key)
-        return "translate(0," + i * 25 + ")";
+        return "translate(" + radius + "," + i * 25 + ")";
       });
 
     let color_hash = ["#98abc5", "#8a89a6"];
@@ -129,6 +128,7 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
   render() {
     return (
       <div id = {this.props.id}>
+        <svg id = {this.props.id + '_svg'}></svg>
       </div>
     );
   }

@@ -201,7 +201,7 @@ console.log("MultilineOrdinalChartId:",chart_id);
         .attr("height", height + margin.top + margin.bottom)
         //responsive SVG needs these 2 attributes and no width and height attr
         .attr("preserveAspectRatio", "xMinYMin meet")
-        .attr("viewBox", "0 0 1000 250")
+        .attr("viewBox", "0 0 " + (containerWidth + 200)+ " " + (containerWidth*0.25 + 150))
         //class to make it responsive
         .classed("svg-content-responsive", true)
         .append("g")

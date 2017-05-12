@@ -259,22 +259,24 @@ export class Promotion extends React.PureComponent {
 
               <div className="col-xs-4" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
                 <Panel>
-                  <h3 className="pageModuleSubTitle"> Total {this.props.promotion.kpi_data.kpi_name} </h3>
+
+                  <h4 className="pageModuleMainTitle"> Total {this.props.promotion.kpi_data.kpi_name} </h4>
+
                   <div className="row">
                     <div className="col-xs-6">
 
-                      <h3>{this.props.promotion.kpi_data.total.total}</h3>
+                      <h4 className="panel-heading tesco-heading">{this.props.promotion.kpi_data.total.total}</h4>
                     </div>
                     <div className="col-xs-6">
-                      <h3>LFL &nbsp; {this.props.promotion.kpi_data.total.total_lfl} </h3>
+                      <h4 className="panel-heading tesco-heading">LFL &nbsp; {this.props.promotion.kpi_data.total.total_lfl} </h4>
                     </div>
                   </div>
+
                   <div className="row">
                     <div className="panel-body">
-                      <div className="col-xs-4 kpiSmall">
 
-
-                        <h3>
+                      <div className="col-xs-4 ">
+                        <h4>
                           <span
                             className={(() => {
                               if (this.props.promotion.kpi_data.total.var_total_wow > 0)
@@ -287,16 +289,16 @@ export class Promotion extends React.PureComponent {
                               } else {
                                 return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                               } })()}>&nbsp;
-
-                        </span>
+                         </span>
                           {this.props.promotion.kpi_data.total.var_total_wow}%
-                        </h3>
-                          <h4 className="kpiSubTitle">WoW</h4>
+                        </h4>
+                        <h4><b>WoW</b></h4>
 
                       </div>
-                      <div className="col-xs-4 kpiSmall">
 
-                        <h3>
+                      <div className="col-xs-4">
+
+                        <h4>
                           <span
                             className={(() => {
                               if (this.props.promotion.kpi_data.total.var_total_yoy > 0)
@@ -312,13 +314,14 @@ export class Promotion extends React.PureComponent {
 
                         </span>
                           {this.props.promotion.kpi_data.total.var_total_yoy}%
-                        </h3>
-                        <h4 className="kpiSubTitle">YoY</h4>
+                        </h4>
+                        <h4><b>YoY</b></h4>
 
                       </div>
-                      <div className="col-xs-4 kpiSmall">
 
-                        <h3>
+                      <div className="col-xs-4">
+
+                        <h4>
                           <span
                             className={(() => {
                               if (this.props.promotion.kpi_data.total.var_total_lfl > 0)
@@ -334,33 +337,36 @@ export class Promotion extends React.PureComponent {
 
                         </span>
                           {this.props.promotion.kpi_data.total.var_total_lfl}%
-                        </h3>
-                        <h4 className="kpiSubTitle">LFL</h4>
+                        </h4>
+                        <h4><b>LFL</b></h4>
 
                       </div>
                     </div>
                   </div>
+
                 </Panel>
               </div>
 
               <div className="col-xs-4" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
                 <Panel>
-                  <h4 className="pageModuleSubTitle"> Promo {this.props.promotion.kpi_data.kpi_name} </h4>
+                  <h4 className="pageModuleMainTitle"> Promo {this.props.promotion.kpi_data.kpi_name} </h4>
+
                   <div className="row">
                     <div className="col-xs-6">
 
-                      <h3>  {this.props.promotion.kpi_data.promo.promo} </h3>
+                      <h4 className="panel-heading tesco-heading"> {this.props.promotion.kpi_data.promo.promo} </h4>
                     </div>
                     <div className="col-xs-6">
-                      <h3>LFL &nbsp;{this.props.promotion.kpi_data.promo.promo_lfl} </h3>
+                      <h4  className="panel-heading tesco-heading">LFL &nbsp;{this.props.promotion.kpi_data.promo.promo_lfl} </h4>
                     </div>
                   </div>
+
                   <div className="row">
                     <div className="panel-body">
-                      <div className="col-xs-4 kpiSmall">
+                      <div className="col-xs-4">
 
 
-                        <h3>
+                        <h4>
                           <span
                             className={(() => {
                               if (this.props.promotion.kpi_data.promo.var_promo_wow > 0)
@@ -376,12 +382,13 @@ export class Promotion extends React.PureComponent {
 
                         </span>
                           {this.props.promotion.kpi_data.promo.var_promo_wow}%
-                        </h3>
-                        <h4 className="kpiSubTitle">WoW</h4>
+                        </h4>
+                        <h4><b>WoW</b></h4>
 
                       </div>
-                      <div className="col-xs-4 kpiSmall">
-                        <h3>
+
+                      <div className="col-xs-4">
+                        <h4>
                           <span
                             className={(() => {
                               if (this.props.promotion.kpi_data.promo.var_promo_yoy > 0)
@@ -396,12 +403,13 @@ export class Promotion extends React.PureComponent {
                               } })()}>&nbsp;
                         </span>
                           {this.props.promotion.kpi_data.promo.var_promo_yoy}%
-                        </h3>
-                        <h4 className="kpiSubTitle">YoY</h4>
+                        </h4>
+                        <h4><b>YoY</b></h4>
 
                       </div>
-                      <div className="col-xs-4 kpiSmall">
-                        <h3>
+
+                      <div className="col-xs-4">
+                        <h4>
                           <span
                             className={(() => {
                               if (this.props.promotion.kpi_data.promo.var_promo_lfl > 0)
@@ -417,8 +425,8 @@ export class Promotion extends React.PureComponent {
 
                         </span>
                           {this.props.promotion.kpi_data.promo.var_promo_lfl}%
-                        </h3>
-                        <h4 className="kpiSubTitle">LFL</h4>
+                        </h4>
+                        <h4><b>LFL</b></h4>
 
                       </div>
                     </div>
@@ -428,20 +436,23 @@ export class Promotion extends React.PureComponent {
 
               <div className="col-xs-4" style={{backgroundColor: "#eee #eee #ddd"}}>
                 <Panel>
-                  <h4 className="pageModuleSubTitle"> Non Promo {this.props.promotion.kpi_data.kpi_name} </h4>
+                  <h4 className="pageModuleMainTitle"> Non Promo {this.props.promotion.kpi_data.kpi_name} </h4>
+
                   <div className="row">
                     <div className="col-xs-6">
 
-                      <h3>  {this.props.promotion.kpi_data.nonpromo.nonpromo} </h3>
+                      <h4 className="panel-heading tesco-heading">  {this.props.promotion.kpi_data.nonpromo.nonpromo} </h4>
                     </div>
                     <div className="col-xs-6">
-                      <h3>LFL &nbsp;    {this.props.promotion.kpi_data.nonpromo.nonpromo_lfl} </h3>
+                      <h4  className="panel-heading tesco-heading">LFL &nbsp;    {this.props.promotion.kpi_data.nonpromo.nonpromo_lfl} </h4>
                     </div>
                   </div>
+
                   <div className="row">
                     <div className="panel-body">
-                      <div className="col-xs-4 kpiSmall">
-                        <h3>
+
+                      <div className="col-xs-4">
+                        <h4>
                           <span
                             className={(() => {
                               if (this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow > 0)
@@ -457,12 +468,13 @@ export class Promotion extends React.PureComponent {
 
                         </span>
                           {this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow}%
-                        </h3>
-                        <h4 className="kpiSubTitle">WoW</h4>
+                        </h4>
+                        <h4><b>WoW</b></h4>
 
                       </div>
-                      <div className="col-xs-4 kpiSmall">
-                        <h3>
+
+                      <div className="col-xs-4">
+                        <h4>
                           <span
                             className={(() => {
                               if (this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy > 0)
@@ -478,12 +490,13 @@ export class Promotion extends React.PureComponent {
 
                         </span>
                           {this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy}%
-                        </h3>
-                        <h4 className="kpiSubTitle">YoY</h4>
+                        </h4>
+                        <h4><b>YoY</b></h4>
 
                       </div>
-                      <div className="col-xs-4 kpiSmall">
-                          <h3>
+
+                      <div className="col-xs-4">
+                          <h4>
                           <span
                             className={(() => {
                               if (this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl > 0)
@@ -499,8 +512,8 @@ export class Promotion extends React.PureComponent {
 
                         </span>
                           {this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl}%
-                        </h3>
-                        <h4 className="kpiSubTitle">LFL</h4>
+                        </h4>
+                        <h4><b>LFL</b></h4>
 
                       </div>
                     </div>

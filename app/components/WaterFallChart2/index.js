@@ -253,7 +253,7 @@ class WaterFallChart2 extends React.PureComponent { // eslint-disable-line react
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
       .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 500 350")
+      .attr("viewBox", "0 0 " + (frameWidth + 100) + " " + (frameWidth*0.7 + 100))
       //class to make it responsive
       .classed("svg-content-responsive", true)
       .append('g')

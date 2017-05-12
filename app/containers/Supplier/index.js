@@ -529,6 +529,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                               <div>
                                 <div className="row"
                                      style={{textAlign: 'center', marginLeft: '0px', marginRight: '0px'}}>
+
                                   <div className="col-md-6 col-sm-12">
                                     <div className="col-md-12 col-sm-12" style={{
                                       textAlign: 'center',
@@ -543,6 +544,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                     }}>
                                       <Panel>
                                         <h4 className="pageModuleMainTitle"> {this.props.supplier.reducer1.title} </h4>
+
                                         <div className="row">
                                           <div className="col-xs-6">
 
@@ -555,6 +557,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                               LFL: {this.props.supplier.reducer1.sales_lfl} </h4>
                                           </div>
                                         </div>
+
                                         <div className="row">
                                           <div className="panel-body">
                                             <div className="col-xs-4">
@@ -575,6 +578,8 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                       </Panel>
                                     </div>
                                   </div>
+
+
                                   <div className="col-md-6 col-sm-12">
                                   <div className="col-md-12 col-sm-12" style={{
                                     textAlign: 'center',

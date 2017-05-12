@@ -37,7 +37,7 @@ export function* defaultSaga() {
 let host_url = "http://10.1.244.154:8000"
 // let host_url = "http://172.20.244.149:8000"
 // FOR SUPPLIER POPUP TABLE
-export function* generateDataFetch() {
+export function* generateDataFetch( ) {
   console.log('inside kpi');
   const urlName = yield select(selectSupplierDomain());
   // const weekurlparam = urlName.get('week_param');
