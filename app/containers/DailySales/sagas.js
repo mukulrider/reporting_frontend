@@ -11,10 +11,8 @@ import {
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-import {
-  lineChartCallAction, LineChartDataFetchSuccess,
-  PromoKpiDataFetchSuccess, FilterFetchSuccess, WeekFilterFetchSuccess
-}
+import {lineChartCallAction,LineChartDataFetchSuccess,
+  PromoKpiDataFetchSuccess, FilterFetchSuccess, WeekFilterFetchSuccess}
   from './actions';
 
 // import { take, call, put, select } from 'redux-saga/effects';
@@ -27,7 +25,7 @@ import {
 } from './selectors';
 
 
-let host_url = "http://10.1.244.200:8001";
+let host_url="http://10.1.244.200:8000";
 // let host_url="http://172.20.246.60:8000";
 // All sagas to be loaded
 
@@ -43,44 +41,13 @@ export function* LineChart_watcher() {
 export function* LineChartData_pull() {
   const urlName = yield select(selectDailySalesDomain());
   console.log("Begin Line Chart Pull");
+  const kpiparam = urlName.get('kpi_param');
   const week_filter = urlName.get('filter_week_selection');
   const filter = urlName.get('filter_selection');
 
-  let urlParams = "";
-  let urlParamsString = urlName.get('filter_week_selection');
-  if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
-    urlParams = urlParamsString + '&';
-    console.log('urlParams111',urlParams);
-  } else {
-    urlParams = urlParams;
-  }
-
-
-  let filter_week = urlName.get('week');
-  if (!(typeof(filter_week) == "undefined") && !(filter_week == "")) {
-    let week_date=filter_week.split('&');
-    console.log('week_date111',week_date);
-    console.log('filter_week111',filter_week);
-    urlParams = urlParams + '&' + filter_week;
-    console.log('urlParams222',urlParams);
-  } else {
-    urlParams = urlParams;
-  }
-
-  let kpiparam = urlName.get('kpi_param');
-  if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
-    urlParams = urlParams + '&' + kpiparam;
-    urlParams = "?" + urlParams.replace('&', '');
-    console.log('urlParams111',urlParams);
-  } else {
-    urlParams = urlParams;
-  }
-
-  console.log('final append..',urlParams);
-
-  const data = yield call(request, host_url + "/api/reporting/daily_sales" + urlParams);
-  console.log("Line chart fetched data", data);
-  console.log("Along with the URL", host_url + "/api/reporting/daily_sales?" + '&' + kpiparam + '&' + filter + '&' + week_filter);
+  const data = yield call(request,host_url+"/api/reporting/daily_sales?"+'&'+kpiparam+'&'+filter+'&'+week_filter);
+  console.log("Line chart fetched data",data);
+  console.log("Along with the URL",host_url+"/api/reporting/daily_sales?"+'&'+kpiparam+'&'+filter+'&'+week_filter);
   yield put(LineChartDataFetchSuccess(data));
 
 }
@@ -89,7 +56,7 @@ export function* LineChartData_pull() {
 // FOR FILTER DATA
 
 export function* doFilterFetch() {
-  console.log('Filter_Watcher ', FILTER_CONSTANT);
+  console.log('Filter_Watcher ',FILTER_CONSTANT);
   const watcher = yield takeLatest(FILTER_CONSTANT, generateFilterFetch);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
@@ -98,20 +65,25 @@ export function* doFilterFetch() {
 export function* generateFilterFetch() {
   // todo: update url
 
-  let urlName = yield select(selectDailySalesDomain());
-  let urlParamsString = urlName.get('filter_week_selection');
-  console.log('urlParamsString-> ', urlParamsString);
-  if (!urlParamsString) {
-    urlParamsString = ''
+  let urlName=yield select(selectDailySalesDomain());
+  let urlParamsString = urlName.get('filter_selection');
+  console.log('urlParamsString-> ',urlParamsString);
+  if(!urlParamsString){
+    urlParamsString=''
   }
 
   if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
     urlParamsString = '?' + urlParamsString;
   }
   try {
-    const data = yield call(request, host_url + '/api/reporting/filter_daily_sales' + urlParamsString);
+    const data = yield call(request, host_url+'/api/reporting/filter_daily_sales' + urlParamsString);
+    // const data = yield call(request, host_url+'/api/reporting/filter_data?' + urlParamsString);
 
-    console.log("Filter data", data);
+    // console.log(host_url+'/api/reporting/filter_data_week?');
+    // const data2 = yield call(request, host_url+'/api/reporting/filter_data_week?' +weekurlparams);
+    // console.log("sagas generateFilterFetch data2",data2)
+    // const filter_data = {"filter_data": data, "week_data": data2 }
+    console.log("Filter data",data);
     yield put(FilterFetchSuccess(data));
   } catch (err) {
     console.log(err);
@@ -125,7 +97,7 @@ export function* generateWeekFilterFetch() {
   // todo: update url
 
   console.log("Inside generateWeekFilterFetch");
-  let urlName = yield select(selectDailySalesDomain());
+  let urlName=yield select(selectDailySalesDomain());
   // let weekurlparams1 = urlName.get('filter_week_selection');
 
   //*********************** FILTERS PARAMETERS *****************************
@@ -147,14 +119,14 @@ export function* generateWeekFilterFetch() {
     console.log("filter_week_selection urlParams else", urlParams);
   }
 
-  try {
-    const data = yield call(request, host_url + '/api/reporting/filter_daily_tesco_week' + urlParams);
+  try{
+    const data = yield call(request, host_url+'/api/reporting/filter_daily_tesco_week' + urlParams);
     // const data = yield call(request, host_url+'/api/reporting/product/filter_data_week?' + urlParams);
-    console.log("Filter week data", data);
+    console.log("Filter week data",data);
 
     yield put(WeekFilterFetchSuccess(data));
   } catch (err) {
-    console.log("Error", err);
+    console.log("Error",err);
   }
 }
 
