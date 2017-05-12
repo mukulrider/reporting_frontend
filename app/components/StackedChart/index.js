@@ -9,10 +9,13 @@ import * as d3 from 'd3';
 import { FormattedMessage } from 'react-intl';
 
 class StackedChart extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  createStackedBarChart = (data,chart_id,label_ty,label_ly,xaxis_title,yaxis_title,no_pref,no_suffix) => {
+  createStackedBarChart = (data,chart_id,label_ty,label_ly,xaxis_title,yaxis_title,no_pref,no_suffix,legend_text) => {
     console.log("---insde the createStackedBarChart----",data);
     console.log("========= XAxis ",xaxis_title);
     console.log("========= YAxis",yaxis_title);
+    console.log("========= legend_text",legend_text);
+
+
     window.onresize = function(){
       console.log("window.onresiz id",chart_id)
     }
@@ -20,7 +23,7 @@ class StackedChart extends React.PureComponent { // eslint-disable-line react/pr
     let margin = {top: 20, right: 200, bottom: 60, left: 100},
       width = 650 - margin.left - margin.right,
       height = 250 - margin.top - margin.bottom;*/
-    var data = [
+    var data1 = [
       {month: "Q1-2016", apples: -3840, bananas: -1920, cherries: -1960, dates: -400, oranges: -300, melons: -400},
       {month: "Q2-2016", apples: 1600, bananas: 1440, cherries: 960, dates: 400, oranges: 500, melons: 500},
       {month: "Q3-2016", apples:  40, bananas:  960, cherries: 640, dates: 600, oranges: -300, melons: -900},
@@ -61,42 +64,43 @@ class StackedChart extends React.PureComponent { // eslint-disable-line react/pr
 
 
     var series = d3.stack()
-      .keys(["0","apples", "bananas", "cherries", "dates","oranges","melons"])
+      .keys(["0","fs_cont_to_growth", "trade_plan_cont_to_growth", "shelf_cont_to_growth", "base_cont_to_growth","event_cont_to_growth"])
       .offset(stackOffsetDiverging)
       (data);
     console.log("Stackedbarline series",series);
-    let containerWidth = document.getElementById(chart_id + '_svg').clientWidth;
-    console.log(containerWidth)
-    var margin = {top: 20, right: 30, bottom: 30, left: 60},
-      width = 850 - margin.left - margin.right,
-      height = 250 - margin.top - margin.bottom;
 
+    let containerWidth = document.getElementById(chart_id).clientWidth;
+
+    var margin = {top: 50, right: 100, bottom: 30, left: 60},
+      width = containerWidth - margin.left - margin.right,
+      height = containerWidth*0.35 - margin.top - margin.bottom;
+    console.log('Stcked Chart X, Y -> ',containerWidth,width,height)
     var x = d3.scaleBand()
-      .domain(data.map(function(d) { return d.month; }))
-      .rangeRound([margin.left, width - margin.right])
+      .domain(data.map(function(d) { return d.tesco_week; }))
+      .rangeRound([margin.left, width])
       .padding(0.1);
 
     var y = d3.scaleLinear()
-      .domain([d3.min(series, stackMin), d3.max(series, stackMax)])
-      .rangeRound([height - margin.bottom, margin.top]);
+      .domain([d3.min(series, stackMin), d3.max(series, stackMax)+10])
+      .rangeRound([height, margin.top]);
 
     var z = d3.scaleOrdinal()
       .range(["#99b", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
     // define the 1st line
     let valueline = d3.line()
-      .x(function(d) { return x(d.month); })
-      .y(function(d) { return y(d.bananas); });
+      .x(function(d) { return x(d.tesco_week); })
+      .y(function(d) { return y(d.total_growth); });
 
 
     let svg = d3.select('#'+this.props.id + '_svg');
     //svg.selectAll("*").remove();
     svg
       .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.left + margin.right)
-      .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 750 200")
-      .classed("svg-content", true)
+      .attr("height", height + margin.top + margin.bottom)
+      // .attr("preserveAspectRatio", "xMinYMin meet")
+      // .attr("viewBox", "0 0 750 200")
+      // .classed("svg-content", true)
       .append("g")
       .attr("transform",
         "translate(" + margin.left + "," + margin.top + ")");
@@ -108,16 +112,16 @@ class StackedChart extends React.PureComponent { // eslint-disable-line react/pr
       .data(function(d) { return d; })
       .enter().append("rect")
       .attr("width", x.bandwidth)
-      .attr("x", function(d) { return x(d.data.month); })
+      .attr("x", function(d) { return x(d.data.tesco_week); })
       .attr("y", function(d) { return y(d[1]); })
       .attr("height", function(d) { return y(d[0]) - y(d[1]); })
 
     //Removing the height and width property for preserveAspectRatio
-    setTimeout(function(){
-      svg
-        .attr("height",null)
-        .attr("width",null);
-    },100);
+    // setTimeout(function(){
+    //   svg
+    //     .attr("height",null)
+    //     .attr("width",null);
+    // },100);
     // Add the valueline path.
     svg.append("path")
       .data([data])
@@ -136,12 +140,48 @@ class StackedChart extends React.PureComponent { // eslint-disable-line react/pr
       .attr("transform", "translate(" + margin.left + ",0)")
       .call(d3.axisLeft(y));
 
+
+    let colorArray = ["#99b", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"];
+    let series_type_values = legend_text;
+    let legend = svg.append("g")
+      .attr("font-family", "Tesco")
+      .attr("font-size", 10).attr("text-anchor", "start")
+      .selectAll("g")
+      .data(series_type_values)
+      .enter()
+      .append("g")
+      .attr("transform", function (d, i) {
+        return "translate(0," + (margin.top+(i * 25)) + ")";
+        // return "translate("+margin.top+ "," + i * 25 + ")";
+      });
+    legend.append("rect")
+      .attr("x", containerWidth-margin.right-20)
+      .attr("width", 19)
+      .attr("height", 19)
+      .attr("fill", function (d, i) {
+          return colorArray[i];
+        }
+      );
+    legend.append("text")
+      .attr("x", containerWidth-margin.right)
+      .attr("y", 9.5)
+      .attr("dy", "0.32em")
+      .style("text-anchor", "start")
+      .text(function (d) {
+        return d;
+      });
+
+
+
     function stackMin(serie) {
-      return d3.min(serie, function(d) { return d[0]; });
+      return d3.min(serie, function(d) {
+        return d[0]; });
     }
 
     function stackMax(serie) {
-      return d3.max(serie, function(d) { return d[1]; });
+      return d3.max(serie, function(d) {
+        console.log("---------dddddddddddddddddd--------"+d);
+        return d[1]; });
     }
 
     function stackOffsetDiverging(series, order) {
@@ -162,11 +202,11 @@ class StackedChart extends React.PureComponent { // eslint-disable-line react/pr
   }
 
   componentDidMount = () => {
-    this.createStackedBarChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly,this.props.xaxis_title,this.props.yaxis_title,this.props.no_pref,this.props.no_suffix);
+    this.createStackedBarChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly,this.props.xaxis_title,this.props.yaxis_title,this.props.no_pref,this.props.no_suffix,this.props.legend_label);
   };
 
   componentDidUpdate = () => {
-    this.createStackedBarChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly,this.props.xaxis_title,this.props.yaxis_title,this.props.no_pref,this.props.no_suffix);
+    this.createStackedBarChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly,this.props.xaxis_title,this.props.yaxis_title,this.props.no_pref,this.props.no_suffix,this.props.legend_label);
   };
 
 

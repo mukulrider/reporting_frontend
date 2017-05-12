@@ -150,24 +150,22 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
 
     let frameWidth = document.getElementById(chart_id).clientWidth;
 
-    console.log("Multiline Promo Frame Width", frameWidth);
+    console.log("Multiline Promo Frame Width",frameWidth);
     let margin = {top: 20, right: 10, bottom: 60, left: 100};
-    width = frameWidth - margin.left - margin.right;
-    let height = frameWidth * 0.7 - margin.top - margin.bottom;
+     width = frameWidth - margin.left - margin.right;
+    let height = frameWidth*0.6 - margin.top - margin.bottom;
 
-    console.log("MultilinePromo width", width);
-    console.log("MultilinePromo height", height);
+    console.log("MultilinePromo width",width);
+    console.log("MultilinePromo height",height);
     // set the ranges
     let x = d3.scaleLinear().range([0, width]);
     let y = d3.scaleLinear().range([height, 0]);
 
     // Scale the range of the data
-    x.domain(d3.extent(data, function (d) {
-      return d.tesco_week;
-    }));
-    y.domain([0, d3.max(data, function (d) {
-      return Math.max(+d.value_ty, +d.value_ly);
-    })]);
+    x.domain(d3.extent(data, function(d) { return d.tesco_week; }));
+    y.domain([0, d3.max(data, function(d) {
+      return Math.max(+d.value_ty, +d.value_ly); })]);
+
 
 
     //Titles
@@ -176,69 +174,48 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
 
 
     let xAxis = d3.axisBottom(x)
-      .tickFormat(function (d) {
+      .tickFormat(function(d) {
         return (d);
       });
 
     let a = 0;
 
-    const formatVolume = (i) => {
-      if (i >= 1000 || i <= -1000) {
-        const rounded = Math.round(i / 1000);
-        return (`${rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}K`);
-      } else {
-        return (Math.round(i));
-      }
-    };
-
     let yAxis = d3.axisLeft(y)
-      .tickFormat(function (d) {
-        if (d > 1000) {
-          console.log("---------------------Y axis d", d);
-          a = d / 1000;
-          a = a + 'K';
-          console.log("---------------------Y axis a", a);
+      .tickFormat(function(d) {
+        if(d>1000) {
+          console.log("---------------------Y axis d",d);
+        a = d/ 1000;
+          a=a+'K';
+          console.log("---------------------Y axis a",a);
         }
         else
           a = d;
         a = no_pref + a + no_suffix;
         return (a);
       });
- //
- // let yAxis = d3.axisLeft(y)
- //      .tickFormat(function (d) {
- //        return formatVolume(d);
- //      });
 
 // define the 1st line
     let valueline = d3.line()
-      .x(function (d) {
-        return x(d.tesco_week);
-      })
-      .y(function (d) {
-        return y(+d.value_ty);
-      });
+      .x(function(d) { return x(d.tesco_week); })
+      .y(function(d) { return y(+d.value_ty); });
 
 // define the 2nd line
     let valueline2 = d3.line()
-      .x(function (d) {
-        return x(d.tesco_week);
-      })
-      .y(function (d) {
-        return y(+d.value_ly);
-      });
+      .x(function(d) { return x(d.tesco_week); })
+      .y(function(d) { return y(+d.value_ly); });
 
 // append the svg obgect to the body of the page
 // appends a 'group' element to 'svg'
 // moves the 'group' element to the top left margin
 
-    let svg = d3.select('#' + chart_id);
-    svg.selectAll("*").remove();
-    svg = d3.select('#' + chart_id).append("svg")
+    let svg = d3.select('#'+chart_id);
+       svg.selectAll("*").remove();
+       svg = d3.select('#'+chart_id).append("svg")
+      .attr("id", chart_id + '_svg')
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 800 400")
+      .attr("viewBox", "0 0 " + frameWidth*1.3 + " " + frameWidth*0.6*1.2)
        //class to make it responsive
       .classed("svg-content-responsive", true)
       .append("g")
@@ -246,10 +223,10 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
 
     //Removing the height and width property for preserveAspectRatio
     setTimeout(function(){
-      d3.select('#'+chart_id)
+      d3.select('#'+chart_id + '_svg')
         .attr("height",null)
         .attr("width",null);
-    },100)
+    },200)
     // Get the data
 
     // format the data
@@ -310,7 +287,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
 
     let legend = svg.append("svg")
       .attr("font-family", "sans-serif")
-      .attr("transfrom","translate(" + margin.left + ")")
+      .attr("x", -100 )
       .attr("font-size", 10)
       .attr("text-anchor", "end")
       .selectAll("g")
@@ -324,7 +301,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
     let color_hash = ["steelblue","red"];
 
     legend.append("rect")
-      .attr("x", legend_width )
+      .attr("x", frameWidth )
       .attr("width", 19)
       .attr("height", 19)
       .attr("fill", function (d, i) {
@@ -332,7 +309,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
       });
 
     legend.append("text")
-      .attr("x", legend_text_width)
+      .attr("x", frameWidth-5)
       .attr("y", 9.5)
       .attr("dy", "0.32em")
       .text(function (d) {
