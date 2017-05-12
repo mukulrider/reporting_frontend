@@ -15,7 +15,7 @@ import makeSelectPromotion from './selectors';
 import messages from './messages';
 import './style.scss';
 import PieChart from 'components/PieChart';
-
+import Spinner from 'components/spinner';
 import PromoFilter from 'components/PromoFilter';
 import MultilinePromo from 'components/MultilinePromo';
 import 'react-bootstrap-table/dist/react-bootstrap-table.min.css';
@@ -520,6 +520,13 @@ export class Promotion extends React.PureComponent {
                             <PieChart data={this.props.promotion.sales_data.promo_sales.pie_chart} id="piechart"/>
                           );
                         }
+                        else {
+                          return (
+
+                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                          );
+                        }
                       })()}
 
                     </div>
@@ -581,6 +588,13 @@ export class Promotion extends React.PureComponent {
                             <MultilinePromo data={this.props.promotion.sales_data.promo_sales.trend} id="linechart" label_ty="Sales TY" label_ly="Sales LY" xaxis_title="Tesco Week" no_pref={this.props.promotion.sales_data.no_pref} no_suffix='' yaxis_title={this.props.promotion.sales_data.yaxis_title}/>
                           );
                         }
+                        else {
+                          return (
+
+                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                          );
+                        }
                       })()}
                       </div>
                     </div>
@@ -603,6 +617,13 @@ export class Promotion extends React.PureComponent {
                           return (
                             <PieChart data={this.props.promotion.promo_giveaway_data.pie_chart}
                                       id="piechart2"/>
+                          );
+                        }
+                        else {
+                          return (
+
+                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
                           );
                         }
                       })()}
@@ -662,6 +683,13 @@ export class Promotion extends React.PureComponent {
                                             id="linechart2" label_ty="Promo Giveaway TY" label_ly="Promo Giveaway LY" xaxis_title="Tesco Week" yaxis_title="Promo Giveaway" no_pref='£' no_suffix=''/>
                           );
                         }
+                        else {
+                          return (
+
+                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                          );
+                        }
                       })()}
                       </div>
                     </div>
@@ -689,6 +717,13 @@ export class Promotion extends React.PureComponent {
                           return (
                             <PieChart data={this.props.promotion.promo_prod_data.pie_chart}
                                       id="piechart3"/>
+                          );
+                        }
+                        else {
+                          return (
+
+                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
                           );
                         }
                       })()}
@@ -755,6 +790,13 @@ export class Promotion extends React.PureComponent {
                                             id="linechart3" label_ty="Products on Promo TY" label_ly="Products on Promo LY"  xaxis_title="Tesco Week" yaxis_title="Products on Promo" no_pref='' no_suffix=''/>
                           );
                         }
+                        else {
+                          return (
+
+                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                          );
+                        }
                       })()}
                       </div>
                     </div>
@@ -782,6 +824,13 @@ export class Promotion extends React.PureComponent {
                           return (
                             <PieChart data={this.props.promotion.promo_part_data.pie_chart}
                                       id="piechart4"/>
+                          );
+                        }
+                        else {
+                          return (
+
+                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
                           );
                         }
                       })()}
@@ -839,6 +888,13 @@ export class Promotion extends React.PureComponent {
                                             id="linechart4" label_ty="Promo Participation TY" label_ly="Promo Participation LY" xaxis_title="Tesco Week" yaxis_title="Promo Participation" no_pref='' no_suffix='%'/>
                           );
                         }
+                        else {
+                          return (
+
+                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                          );
+                        }
                       })()}
                       </div>
                     </div>
@@ -878,7 +934,11 @@ export class Promotion extends React.PureComponent {
                   </div>
                 )
               }else {
-                return (<div>Loading</div>)
+                return (
+
+                  <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                );
               }
 
             })()}

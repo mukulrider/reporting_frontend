@@ -19,6 +19,7 @@ import { Modal,Nav,NavItem,DropdownButton, MenuItem } from 'react-bootstrap';
 import {saveImage,saveDataAsCSV} from './../../utils/exportFunctions';
 import WaterFallChart2 from 'components/WaterFallChart2';
 import Panel from 'components/panel';
+import Spinner from 'components/spinner';
 import {
   CompetitorWaterfall,
   CompetitorPieChart,
@@ -301,6 +302,13 @@ export class Competitor extends React.PureComponent {
                       </div>
                     )
                   }
+                  else {
+                    return (
+
+                      <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                    );
+                  }
                 })()}
                 <div>
 
@@ -351,6 +359,13 @@ export class Competitor extends React.PureComponent {
                       </div>
                       </div>
                     )
+                  }
+                  else {
+                    return (
+
+                      <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                    );
                   }
                 })()}
               </div>
@@ -461,6 +476,13 @@ export class Competitor extends React.PureComponent {
                         data={ this.props.competitor.waterfall_data.asda }/>
                     )
                   }
+                  else {
+                    return (
+
+                      <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                    );
+                  }
                 })()}
               </div>
 
@@ -480,6 +502,13 @@ export class Competitor extends React.PureComponent {
                       />
                     )
                   }
+                  else {
+                    return (
+
+                      <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                    );
+                  }
                 })()}
               </div>
             </div>
@@ -497,6 +526,13 @@ export class Competitor extends React.PureComponent {
                                        data={ this.props.competitor.waterfall_data.morr}/>
                     )
                   }
+                  else {
+                    return (
+
+                      <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                    );
+                  }
                 })()}
               </div>
 
@@ -512,6 +548,13 @@ export class Competitor extends React.PureComponent {
                         positive_text='negative' negative_text='positive' total_text='total1'
                         data={ this.props.competitor.waterfall_data.aldi}/>
                     )
+                  }
+                  else {
+                    return (
+
+                      <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                    );
                   }
                 })()}
               </div>
@@ -562,6 +605,13 @@ export class Competitor extends React.PureComponent {
                       color_order: this.props.competitor.pricerange_data.colors
                     }, "multiOrdinalChart2", '£ ']}/>
                   )
+                }
+                else {
+                  return (
+
+                    <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                  );
                 }
               })()}
             </div>

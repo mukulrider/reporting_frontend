@@ -16,9 +16,9 @@ import Button from 'components/button';
 import SampleBarChart from 'components/SampleBarChart';
 import BubbleChart2 from 'components/BubbleChart2';
 import GaugeChart2 from 'components/GaugeChart2';
-import { Nav,NavItem,DropdownButton, MenuItem } from 'react-bootstrap';
-import {saveImage,saveDataAsCSV} from './../../utils/exportFunctions';
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import {Nav, NavItem, DropdownButton, MenuItem, Modal} from 'react-bootstrap';
+import {saveImage, saveDataAsCSV} from './../../utils/exportFunctions';
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import InputField from 'components/input_field';
 import FiltersSupplier from 'components/FiltersSupplier';
 import RadioButton from 'components/radio_button';
@@ -92,6 +92,9 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
       paticipationByTab: "Paticipation by Value",
       GrowthTab: "Value Growth",
       ContributionToGrowthTab: "Contribution to Value Growth",
+      suppKPIbar: false,
+      suppNegotiationbar: false,
+      suppTopBottombar: false,
     };
   }
 
@@ -131,7 +134,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
     const options = {
       page: 1,  // which page you want to show as default
-      sizePerPageList: [ {
+      sizePerPageList: [{
         text: '5', value: 5
       }, {
         text: '10', value: 10
@@ -158,7 +161,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
       // withFirstAndLast: false > Hide the going to First and Last page button
     };
 
-    let formatSales = (cell) =>{
+    let formatSales = (cell) => {
       if (cell >= 1000 || cell <= -1000) {
         let rounded = Math.round(cell / 1000);
         return ('£ ' + rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'K');
@@ -378,6 +381,41 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                       </Nav>
 
                       <div style={{height: '0px', width: '100%'}}>&nbsp;</div>
+
+                      <Modal show={this.state.suppKPIbar} bsSize="lg"
+                             aria-labelledby="contained-modal-title-lg"
+                      >
+                        <Modal.Header>
+                          <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
+                            style={{textAlign: 'center', fontSize: '14px'}}><b>Supplier KPIs</b><span
+                            style={{textAlign: 'right', float: 'right'}}
+                            onClick={() => this.setState({suppKPIbar: false})}><b>X</b></span></span>
+                            <div style={{textAlign: 'center'}}>
+                              <div style={{textAlign: 'right'}}>
+                              </div>
+                            </div>
+                          </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body style={{fontSize: '14px'}}>
+                          <list>
+                            <ul>        <b>Value: </b>Sales of a supplier in £ </ul>
+                            <ul>      <b> COGS: </b>Cost of goods sold (COGS) are the direct costs attributable to the production of the goods sold by a company. This amount includes the cost of the materials used in producing the goods, transportation cost, store replenishments, waste and shrinkage used to produce and getting product to store to sell. </ul>
+                            <ul>        <b>CGM (Commercial Gross Margin): </b>Scanned margin plus all other commercial income(include supplier funding) and expenses that are managed by Product </ul>
+                            <ul>        <b>Supplier fund XVAT: </b>The funding is an amount to be paid by the supplier per unit sold </ul>
+                            <ul>        <b>ASP (Average Selling Price): </b>The average price for a single product across a period of time. </ul>
+                            <ul>        <b>SKU: </b>A stock keeping unit or SKU is a distinct type of item for sale which has attributes associated with the item type that distinguish it from other item types. For a product, these attributes include, but are not limited to, manufacturer, description, material, size, colour, packaging, and warranty terms.</ul>
+                            <ul>        <b>YTD (Year to Date): </b>The cumulative total for a given measure (e.g. sales, profit) from the beginning of the financial year to the current date.​</ul>
+                          </list>
+                        </Modal.Body>
+                      </Modal>
+
+                      <div> <span className="glyphicon glyphicon-info-sign pull-right"
+                                 style={{right: '4px', fontSize: '15px', top: '8px'}}
+                                 onClick={() => {
+                                   this.setState({suppKPIbar: true});
+                                 }}>
+
+                        </span>
                       <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect}
                            className="tabsCustom">
                         <NavItem eventKey="1" className="tabsCustomList" onClick={() => {
@@ -474,6 +512,8 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                         }}><span className="tab_label">SKUs</span></NavItem>
 
                       </Nav>
+                      </div>
+
 
                       <div className="row">
                         {(() => {
@@ -488,98 +528,98 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                 <div className="row"
                                      style={{textAlign: 'center', marginLeft: '0px', marginRight: '0px'}}>
                                   <div className="col-md-6 col-sm-12">
-                                  <div className="col-md-12 col-sm-12" style={{
-                                    textAlign: 'center',
-                                    backgroundColor: "white",
-                                    margin: "0%",
-                                    marginBottom: '4%',
-                                    marginTop: '3%',
-                                    borderLeft: "1px solid #e5e8ea",
-                                    borderTop: "1px solid #e5e8ea",
-                                    borderRight: "1px solid #e5e8ea",
-                                    borderBottom: "1px solid #e5e8ea"
-                                  }}>
-                                    <Panel>
-                                      <h4 className="pageModuleMainTitle"> Total Sales </h4>
-                                      <div className="row">
-                                        <div className="col-xs-6">
+                                    <div className="col-md-12 col-sm-12" style={{
+                                      textAlign: 'center',
+                                      backgroundColor: "white",
+                                      margin: "0%",
+                                      marginBottom: '4%',
+                                      marginTop: '3%',
+                                      borderLeft: "1px solid #e5e8ea",
+                                      borderTop: "1px solid #e5e8ea",
+                                      borderRight: "1px solid #e5e8ea",
+                                      borderBottom: "1px solid #e5e8ea"
+                                    }}>
+                                      <Panel>
+                                        <h4 className="pageModuleMainTitle"> Total Sales </h4>
+                                        <div className="row">
+                                          <div className="col-xs-6">
 
-                                          <h4
-                                            className="panel-heading tesco-heading">  {this.props.supplier.reducer1.sales} </h4>
-                                        </div>
-                                        <div className="col-xs-6">
+                                            <h4
+                                              className="panel-heading tesco-heading">  {this.props.supplier.reducer1.sales} </h4>
+                                          </div>
+                                          <div className="col-xs-6">
 
-                                          <h4 className="panel-heading tesco-heading">
-                                            LFL: {this.props.supplier.reducer1.sales_lfl} </h4>
-                                        </div>
-                                      </div>
-                                      <div className="row">
-                                        <div className="panel-body">
-                                          <div className="col-xs-4">
-                                            <h4> {this.props.supplier.reducer1.sales_var_week}  </h4>
-                                            <h4><b> {'WoW'} </b></h4>
-                                          </div>
-                                          <div className="col-xs-4">
-                                            <h4> {this.props.supplier.reducer1.sales_var_year} % </h4>
-                                            <h4><b> {'YOY'} </b></h4>
-                                          </div>
-                                          <div className="col-xs-4">
-                                            <h4>  {this.props.supplier.reducer1.sales_var_year_lfl} % </h4>
-                                            <h4><b>{'LFL'}</b></h4>
+                                            <h4 className="panel-heading tesco-heading">
+                                              LFL: {this.props.supplier.reducer1.sales_lfl} </h4>
                                           </div>
                                         </div>
-                                      </div>
+                                        <div className="row">
+                                          <div className="panel-body">
+                                            <div className="col-xs-4">
+                                              <h4> {this.props.supplier.reducer1.sales_var_week}  </h4>
+                                              <h4><b> {'WoW'} </b></h4>
+                                            </div>
+                                            <div className="col-xs-4">
+                                              <h4> {this.props.supplier.reducer1.sales_var_year} % </h4>
+                                              <h4><b> {'YOY'} </b></h4>
+                                            </div>
+                                            <div className="col-xs-4">
+                                              <h4>  {this.props.supplier.reducer1.sales_var_year_lfl} % </h4>
+                                              <h4><b>{'LFL'}</b></h4>
+                                            </div>
+                                          </div>
+                                        </div>
 
-                                    </Panel>
-                                  </div>
+                                      </Panel>
+                                    </div>
                                   </div>
                                   <div className="col-md-6 col-sm-12">
-                                  <div className="col-md-12 col-sm-12" style={{
-                                    textAlign: 'center',
-                                    borderTop: "1px solid #e5e8ea",
-                                    marginBottom: '4%',
-                                    marginTop: '3%',
-                                    float: 'right',
-                                    backgroundColor: "white",
-                                    borderLeft: "1px solid #e5e8ea",
-                                    borderRight: "1px solid #e5e8ea",
-                                    borderBottom: "1px solid #e5e8ea"
-                                  }}>
+                                    <div className="col-md-12 col-sm-12" style={{
+                                      textAlign: 'center',
+                                      borderTop: "1px solid #e5e8ea",
+                                      marginBottom: '4%',
+                                      marginTop: '3%',
+                                      float: 'right',
+                                      backgroundColor: "white",
+                                      borderLeft: "1px solid #e5e8ea",
+                                      borderRight: "1px solid #e5e8ea",
+                                      borderBottom: "1px solid #e5e8ea"
+                                    }}>
 
-                                    <Panel>
-                                      <h4 className="pageModuleMainTitle"> Contribution to Growth </h4>
-                                      <div className="row">
-                                        <div className="col-xs-6" style={{textAlign:"center"}}>
-                                          <h4
-                                            className="panel-heading tesco-heading">  {this.props.supplier.reducer1.sales} </h4>
-                                        </div>
-                                        <div className="col-xs-6" style={{textAlign:"center"}}>
+                                      <Panel>
+                                        <h4 className="pageModuleMainTitle"> Contribution to Growth </h4>
+                                        <div className="row">
+                                          <div className="col-xs-6" style={{textAlign: "center"}}>
+                                            <h4
+                                              className="panel-heading tesco-heading">  {this.props.supplier.reducer1.sales} </h4>
+                                          </div>
+                                          <div className="col-xs-6" style={{textAlign: "center"}}>
 
-                                          <h4 className="panel-heading tesco-heading">
-                                            LFL: {this.props.supplier.reducer1.sales_lfl} </h4>
-                                        </div>
-                                      </div>
-                                      <div className="row">
-                                        <div className="panel-body">
-                                          <div className="col-xs-4">
-                                            <h4> {this.props.supplier.reducer1.sales_growth_wow_1}
-                                              of {this.props.supplier.reducer1.sales_growth_wow_2}  </h4>
-                                            <h4><b>{'WoW'}</b></h4>
-                                          </div>
-                                          <div className="col-xs-4">
-                                            <h4> {this.props.supplier.reducer1.sales_growth_yoy_1} %
-                                              of {this.props.supplier.reducer1.sales_growth_yoy_2} % </h4>
-                                            <h4><b>{'YoY'}</b></h4>
-                                          </div>
-                                          <div className="col-xs-4">
-                                            <h4> {this.props.supplier.reducer1.sales_growth_yoy_lfl_1} %
-                                              of {this.props.supplier.reducer1.sales_growth_yoy_lfl_2} % </h4>
-                                            <h4><b>{'LFL'}</b></h4>
+                                            <h4 className="panel-heading tesco-heading">
+                                              LFL: {this.props.supplier.reducer1.sales_lfl} </h4>
                                           </div>
                                         </div>
-                                      </div>
-                                    </Panel>
-                                  </div>
+                                        <div className="row">
+                                          <div className="panel-body">
+                                            <div className="col-xs-4">
+                                              <h4> {this.props.supplier.reducer1.sales_growth_wow_1}
+                                                of {this.props.supplier.reducer1.sales_growth_wow_2}  </h4>
+                                              <h4><b>{'WoW'}</b></h4>
+                                            </div>
+                                            <div className="col-xs-4">
+                                              <h4> {this.props.supplier.reducer1.sales_growth_yoy_1} %
+                                                of {this.props.supplier.reducer1.sales_growth_yoy_2} % </h4>
+                                              <h4><b>{'YoY'}</b></h4>
+                                            </div>
+                                            <div className="col-xs-4">
+                                              <h4> {this.props.supplier.reducer1.sales_growth_yoy_lfl_1} %
+                                                of {this.props.supplier.reducer1.sales_growth_yoy_lfl_2} % </h4>
+                                              <h4><b>{'LFL'}</b></h4>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </Panel>
+                                    </div>
                                   </div>
 
 
@@ -587,70 +627,70 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                 <panel>
                                   <div className="row" style={{marginLeft: '0px', marginRight: '0px'}}>
                                     <div className="col-md-6 col-sm-12">
-                                    <div className="col-md-12 col-sm-12 panel-body" style={{
-                                      textAlign: 'center',
-                                      borderTop: "1px solid #e5e8ea",
-                                      backgroundColor: "white",
-                                      margin: "0%",
-                                      borderLeft: "1px solid #e5e8ea",
-                                      borderRight: "1px solid #e5e8ea",
-                                      borderBottom: "1px solid #e5e8ea"
-                                    }}>
-                                      <h4 className="pageModuleMainTitle"> Parent Supplier's value share in
-                                        Category</h4>
-                                      <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
-                                      {(() => {
-                                        if (this.props.supplier.reducer1.supp_imp_cat_sales) {
+                                      <div className="col-md-12 col-sm-12 panel-body" style={{
+                                        textAlign: 'center',
+                                        borderTop: "1px solid #e5e8ea",
+                                        backgroundColor: "white",
+                                        margin: "0%",
+                                        borderLeft: "1px solid #e5e8ea",
+                                        borderRight: "1px solid #e5e8ea",
+                                        borderBottom: "1px solid #e5e8ea"
+                                      }}>
+                                        <h4 className="pageModuleMainTitle"> Parent Supplier's value share in
+                                          Category</h4>
+                                        <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
+                                        {(() => {
+                                          if (this.props.supplier.reducer1.supp_imp_cat_sales) {
 
-                                          return (
-                                            <div>
-                                              <GaugeChart2 data={[this.props.supplier.reducer1.supp_imp_cat_sales]}
-                                                           id="gauge1"/>
-                                              <div className="row" style={{marginTop: '-11%'}}>
-                                                <div className="col-xs-12"
-                                                     style={{fontWeight: 'bold', fontSize: '14px'}}>
-                                                  {this.props.supplier.reducer1.supp_imp_cat_sales}%
+                                            return (
+                                              <div>
+                                                <GaugeChart2 data={[this.props.supplier.reducer1.supp_imp_cat_sales]}
+                                                             id="gauge1"/>
+                                                <div className="row" style={{marginTop: '-11%'}}>
+                                                  <div className="col-xs-12"
+                                                       style={{fontWeight: 'bold', fontSize: '14px'}}>
+                                                    {this.props.supplier.reducer1.supp_imp_cat_sales}%
+                                                  </div>
                                                 </div>
                                               </div>
-                                            </div>
-                                          )
-                                        }
-                                      })()}
-                                    </div>
+                                            )
+                                          }
+                                        })()}
+                                      </div>
                                     </div>
                                     <div className="col-md-6 col-sm-12">
-                                    <div className="col-md-12 col-sm-12 col-xs-12 panel-body" style={{
-                                      textAlign: 'center',
-                                      borderTop: "1px solid #e5e8ea",
-                                      float: 'right',
-                                      backgroundColor: "white",
-                                      margin: "0%",
-                                      borderLeft: "1px solid #e5e8ea",
-                                      borderRight: "1px solid #e5e8ea",
-                                      borderBottom: "1px solid #e5e8ea"
-                                    }}>
-                                      <h4 className="pageModuleMainTitle"> Category's value share to Parent
-                                        Supplier </h4>
-                                      <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
-                                      {(() => {
-                                        if (this.props.supplier.reducer1.cat_imp_supp_sales) {
+                                      <div className="col-md-12 col-sm-12 col-xs-12 panel-body" style={{
+                                        textAlign: 'center',
+                                        borderTop: "1px solid #e5e8ea",
+                                        float: 'right',
+                                        backgroundColor: "white",
+                                        margin: "0%",
+                                        borderLeft: "1px solid #e5e8ea",
+                                        borderRight: "1px solid #e5e8ea",
+                                        borderBottom: "1px solid #e5e8ea"
+                                      }}>
+                                        <h4 className="pageModuleMainTitle"> Category's value share to Parent
+                                          Supplier </h4>
+                                        <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
+                                        {(() => {
+                                          if (this.props.supplier.reducer1.cat_imp_supp_sales) {
 
-                                          return (
-                                            <div>
-                                              <GaugeChart2 data={[this.props.supplier.reducer1.cat_imp_supp_sales]}
-                                                           id="gauge2"/>
-                                              <div className="row" style={{marginTop: '-11%'}}>
-                                                <div className="col-xs-12"
-                                                     style={{fontWeight: 'bold', fontSize: '14px'}}>
-                                                  {this.props.supplier.reducer1.cat_imp_supp_sales}%
+                                            return (
+                                              <div>
+                                                <GaugeChart2 data={[this.props.supplier.reducer1.cat_imp_supp_sales]}
+                                                             id="gauge2"/>
+                                                <div className="row" style={{marginTop: '-11%'}}>
+                                                  <div className="col-xs-12"
+                                                       style={{fontWeight: 'bold', fontSize: '14px'}}>
+                                                    {this.props.supplier.reducer1.cat_imp_supp_sales}%
+                                                  </div>
                                                 </div>
                                               </div>
-                                            </div>
-                                          )
-                                        }
-                                      })()}
-                                      {/*<SampleBarChart/>*/}
-                                    </div>
+                                            )
+                                          }
+                                        })()}
+                                        {/*<SampleBarChart/>*/}
+                                      </div>
                                     </div>
                                   </div>
                                 </panel>
@@ -660,10 +700,35 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                         })()}
 
                       </div>
+                      <Modal show={this.state.suppTopBottombar} bsSize="lg"
+                             aria-labelledby="contained-modal-title-lg"
+                      >
+                        <Modal.Header>
+
+                          <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
+                            style={{textAlign: 'center', fontSize: '14px'}}><b>Assess Performance by Parent Supplier</b><span
+                            style={{textAlign: 'right', float: 'right'}}
+                            onClick={() => this.setState({suppTopBottombar: false})}><b>X</b></span></span>
+                            <div style={{textAlign: 'center'}}>
+                              <div style={{textAlign: 'right'}}>
+                              </div>
+                            </div>
+                          </Modal.Title>
+
+                        </Modal.Header>
+                        <Modal.Body style={{fontSize: '14px'}}>
+                          A comparison of suppliers based on various metric is pivotal to improved buyer- supplier negotiations. Empowered with data regarding how different suppliers offer similar products at varying prices, a buyer can make more informed decisions to grow his portfolio. The list of top and bottom suppliers will help critically evaluate engagements with buyers.
+                        </Modal.Body>
+                      </Modal>
 
                       <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
 
                       <div className="row">
+                        <span className="glyphicon glyphicon-info-sign pull-right"
+                              style={{right: '4px', fontSize: '15px', top: '8px'}}
+                              onClick={() => {
+                                this.setState({suppTopBottombar: true});
+                              }}></span>
                         <div>
                           <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect}>
                             <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
@@ -695,8 +760,11 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
 
                         <panel>
+                          <div className="pageTitle">
+                            <span>Assess Performance by Parent Supplier</span>
+                          </div>
                           <div className="col-md-6 col-sm-12 col-xs-12 panel-body">
-                            <h4 className="pageModuleMainTitle"> Top Suppliers</h4>
+                            <h4 className="pageModuleMainTitle"> Top Parent Suppliers</h4>
                             {(() => {
                               if (this.props.supplier.topBotData && this.props.supplier.barChartSpinnerCheck != 0) {
 
@@ -716,7 +784,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                           </div>
                           <div className="col-md-6 col-sm-12 col-xs-12 panel-body">
-                            <h4 className="pageModuleMainTitle"> Bottom Suppliers </h4>
+                            <h4 className="pageModuleMainTitle"> Bottom Parent Suppliers </h4>
                             {(() => {
                               if (this.props.supplier.topBotData && this.props.supplier.barChartSpinnerCheck != 0) {
 
@@ -738,7 +806,36 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                         </panel>
 
                       </div>
+                      <Modal show={this.state.suppNegotiationbar} bsSize="lg"
+                             aria-labelledby="contained-modal-title-lg"
+                      >
+                        <Modal.Header>
 
+                          <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
+                            style={{textAlign: 'center', fontSize: '14px'}}><b>Negotiation Opportunity</b><span
+                            style={{textAlign: 'right', float: 'right'}}
+                            onClick={() => this.setState({suppNegotiationbar: false})}><b>X</b></span></span>
+                            <div style={{textAlign: 'center'}}>
+                              <div style={{textAlign: 'right'}}>
+                              </div>
+                            </div>
+                          </Modal.Title>
+
+                        </Modal.Header>
+                        <Modal.Body style={{fontSize: '14px'}}>
+                          * Both the axes are represented by percentiles.
+                          The supplier negotiation clockface is helps you decide the negotiation strategy to be employed when meeting suppliers. This strategy is decided based on the product’s importance to the customer and the profit per store that it brings in. A product with low customer priority score and low profits per store could be delisted. The size of the bubble represents the rate of sale of the product (Volume/No. of stores that the product sold in). A plausible use of this dimension is that a product could move from the ‘Opportunity’ area to the ‘High CPS/High Profit’ sector if its rate of sale is increased.
+                        </Modal.Body>
+                      </Modal>
+
+                      <div className="pageTitle">
+                        <span>Negotiation Opportunity</span>
+                              <span className="glyphicon glyphicon-info-sign pull-right"
+                                    style={{right: '4px', fontSize: '15px', top: '8px'}}
+                                    onClick={() => {
+                                      this.setState({suppNegotiationbar: true});
+                                    }}></span>
+                      </div>
                       <div className="row" style={{marginLeft: "0px", marginRight: "0px"}}>
                         <div className="col-md-12 content-wrap">
                           <Nav bsStyle="tabs" className="tabsCustom" activeKey={this.state.activeKey4}
@@ -747,7 +844,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                               this.setState({activeKey4: "1"});
                               this.props.bubbleChartSpinnerCheckSuccess(0);
                               this.props.tableChartSpinnerCheckSuccess(0);
-                              dataStoreUrlParams = "store_type=Main Estate";
+                              dataStoreUrlParams = "store_type_nego=Main Estate";
                               this.props.onSaveStoreParam(dataStoreUrlParams);
                               this.props.onFetchGraph();
                               this.props.onGenerateTable();
@@ -756,7 +853,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                               this.setState({activeKey4: "2"});
                               this.props.bubbleChartSpinnerCheckSuccess(0);
                               this.props.tableChartSpinnerCheckSuccess(0);
-                              dataStoreUrlParams = "store_type=Express";
+                              dataStoreUrlParams = "store_type_nego=Express";
                               this.props.onSaveStoreParam(dataStoreUrlParams);
                               this.props.onFetchGraph();
                               this.props.onGenerateTable();
@@ -770,61 +867,63 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                         {/*------Performance quartile---- */}
 
                         {/*Header row*/}
-                        <div className="row negoHeading" style={{marginLeft:'1%',marginTop:'7%'}}>
-                          <div> Please select a negotiation strategy below to filter 'Negotiation Opportunity' chart and table
+                        <div className="row negoHeading" style={{marginLeft: '1%', marginTop: '7%'}}>
+                          <div> Please select a negotiation strategy below to filter 'Negotiation Opportunity' chart and
+                            table
                           </div>
                         </div>
 
                         {/*Check box row*/}
-                        <div className="row" style={{marginTop:'1%',marginLeft:'1%'}}>
+                        <div className="row" style={{marginTop: '1%', marginLeft: '1%'}}>
 
                           {/*Low CPS/Low Profit*/}
                           <div className="col-xs-2 center-this input">
-                            <label style={{fontSize:"18px",fontFamily:'tesco',color:'#c74a52',width:'100%'}}>
+                            <label style={{fontSize: "18px", fontFamily: 'tesco', color: '#c74a52', width: '100%'}}>
                               <input type="checkbox"
                                      id="PQ1"
-                                     style={{marginRight:'5%'}}
+                                     style={{marginRight: '5%'}}
                                      onChange={() => {
-                                       let pqCurrentSelection="Low CPS/Low Profit";
-                                       let deselect=0;
-                                       let pqApendUrl='';
-                                       let newSelections='';
+                                       let pqCurrentSelection = "Low CPS/Low Profit";
+                                       let deselect = 0;
+                                       let pqApendUrl = '';
+                                       let newSelections = '';
 
-                                       if(dataPerformanceUrlParams !==''){
-                                         dataPerformanceUrlParams="start&"+dataPerformanceUrlParams;
+                                       if (dataPerformanceUrlParams !== '') {
+                                         dataPerformanceUrlParams = "start&" + dataPerformanceUrlParams;
                                          let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
 
-                                         for(let i=1;i<pqSelections.length;i++){
+                                         for (let i = 1; i < pqSelections.length; i++) {
 
-                                           if(pqSelections[i]!==pqCurrentSelection){
-                                             newSelections=newSelections+"&performance_quartile="+pqSelections[i];
-                                           }else{
-                                             deselect=1;
+                                           if (pqSelections[i] !== pqCurrentSelection) {
+                                             newSelections = newSelections + "&performance_quartile=" + pqSelections[i];
+                                           } else {
+                                             deselect = 1;
                                            }
                                          }
 
-                                         if(deselect==0){
-                                           newSelections=newSelections+"&performance_quartile="+pqCurrentSelection;
+                                         if (deselect == 0) {
+                                           newSelections = newSelections + "&performance_quartile=" + pqCurrentSelection;
                                          }
 
                                          let pq_ajax_param = newSelections.replace('&', '');
                                          this.props.onSavePFilterParam(pq_ajax_param);
                                        }
-                                       else{
+                                       else {
 
-                                         let pq_ajax_param = "performance_quartile="+pqCurrentSelection;
+                                         let pq_ajax_param = "performance_quartile=" + pqCurrentSelection;
                                          this.props.onSavePFilterParam(pq_ajax_param);
                                        }
 
 
                                        this.props.bubbleChartSpinnerCheckSuccess(0);
                                        this.props.tableChartSpinnerCheckSuccess(0);
-                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/}
-                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/
+                                       }
+                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
+                                       }
 
                                        this.props.onFetchGraph();
                                        this.props.onGenerateTable();
-
 
 
                                      }}
@@ -836,51 +935,52 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                           {/*Low CPS/High Profit*/}
                           <div className="col-xs-2 center-this input">
-                            <label style={{fontSize:"18px",fontFamily:'tesco',color:'#6e6767',width:'100%'}}>
+                            <label style={{fontSize: "18px", fontFamily: 'tesco', color: '#6e6767', width: '100%'}}>
                               <input type="checkbox"
                                      id="PQ2"
-                                     style={{marginRight:'5%'}}
+                                     style={{marginRight: '5%'}}
                                      onChange={() => {
-                                       let pqCurrentSelection="Low CPS/High Profit";
-                                       let deselect=0;
-                                       let pqApendUrl='';
-                                       let newSelections='';
+                                       let pqCurrentSelection = "Low CPS/High Profit";
+                                       let deselect = 0;
+                                       let pqApendUrl = '';
+                                       let newSelections = '';
 
-                                       if(dataPerformanceUrlParams !==''){
-                                         dataPerformanceUrlParams="start&"+dataPerformanceUrlParams;
+                                       if (dataPerformanceUrlParams !== '') {
+                                         dataPerformanceUrlParams = "start&" + dataPerformanceUrlParams;
                                          let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
 
-                                         for(let i=1;i<pqSelections.length;i++){
+                                         for (let i = 1; i < pqSelections.length; i++) {
 
-                                           if(pqSelections[i]!==pqCurrentSelection){
-                                             newSelections=newSelections+"&performance_quartile="+pqSelections[i];
-                                           }else{
-                                             deselect=1;
+                                           if (pqSelections[i] !== pqCurrentSelection) {
+                                             newSelections = newSelections + "&performance_quartile=" + pqSelections[i];
+                                           } else {
+                                             deselect = 1;
                                            }
                                          }
 
-                                         if(deselect==0){
-                                           newSelections=newSelections+"&performance_quartile="+pqCurrentSelection;
+                                         if (deselect == 0) {
+                                           newSelections = newSelections + "&performance_quartile=" + pqCurrentSelection;
                                          }
 
                                          let pq_ajax_param = newSelections.replace('&', '');
                                          this.props.onSavePFilterParam(pq_ajax_param);
                                        }
-                                       else{
+                                       else {
 
-                                         let pq_ajax_param = "performance_quartile="+pqCurrentSelection;
+                                         let pq_ajax_param = "performance_quartile=" + pqCurrentSelection;
                                          this.props.onSavePFilterParam(pq_ajax_param);
                                        }
 
 
                                        this.props.bubbleChartSpinnerCheckSuccess(0);
                                        this.props.tableChartSpinnerCheckSuccess(0);
-                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/}
-                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/
+                                       }
+                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
+                                       }
 
                                        this.props.onFetchGraph();
                                        this.props.onGenerateTable();
-
 
 
                                      }}
@@ -893,51 +993,52 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                           {/*Med CPS/Med Profit*/}
                           <div className="col-xs-2 center-this input">
-                            <label style={{fontSize:"18px",fontFamily:'tesco',color:'#ffa626',width:'100%'}}>
+                            <label style={{fontSize: "18px", fontFamily: 'tesco', color: '#ffa626', width: '100%'}}>
                               <input type="checkbox"
                                      id="PQ3"
-                                     style={{marginRight:'5%'}}
+                                     style={{marginRight: '5%'}}
                                      onChange={() => {
-                                       let pqCurrentSelection="Med CPS/Med Profit";
-                                       let deselect=0;
-                                       let pqApendUrl='';
-                                       let newSelections='';
+                                       let pqCurrentSelection = "Med CPS/Med Profit";
+                                       let deselect = 0;
+                                       let pqApendUrl = '';
+                                       let newSelections = '';
 
-                                       if(dataPerformanceUrlParams !==''){
-                                         dataPerformanceUrlParams="start&"+dataPerformanceUrlParams;
+                                       if (dataPerformanceUrlParams !== '') {
+                                         dataPerformanceUrlParams = "start&" + dataPerformanceUrlParams;
                                          let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
 
-                                         for(let i=1;i<pqSelections.length;i++){
+                                         for (let i = 1; i < pqSelections.length; i++) {
 
-                                           if(pqSelections[i]!==pqCurrentSelection){
-                                             newSelections=newSelections+"&performance_quartile="+pqSelections[i];
-                                           }else{
-                                             deselect=1;
+                                           if (pqSelections[i] !== pqCurrentSelection) {
+                                             newSelections = newSelections + "&performance_quartile=" + pqSelections[i];
+                                           } else {
+                                             deselect = 1;
                                            }
                                          }
 
-                                         if(deselect==0){
-                                           newSelections=newSelections+"&performance_quartile="+pqCurrentSelection;
+                                         if (deselect == 0) {
+                                           newSelections = newSelections + "&performance_quartile=" + pqCurrentSelection;
                                          }
 
                                          let pq_ajax_param = newSelections.replace('&', '');
                                          this.props.onSavePFilterParam(pq_ajax_param);
                                        }
-                                       else{
+                                       else {
 
-                                         let pq_ajax_param = "performance_quartile="+pqCurrentSelection;
+                                         let pq_ajax_param = "performance_quartile=" + pqCurrentSelection;
                                          this.props.onSavePFilterParam(pq_ajax_param);
                                        }
 
 
                                        this.props.bubbleChartSpinnerCheckSuccess(0);
                                        this.props.tableChartSpinnerCheckSuccess(0);
-                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/}
-                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/
+                                       }
+                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
+                                       }
 
                                        this.props.onFetchGraph();
                                        this.props.onGenerateTable();
-
 
 
                                      }}
@@ -950,56 +1051,58 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                           {/*High CPS/Low Profit*/}
                           <div className="col-xs-2 center-this input">
-                            <label style={{fontSize:"18px",fontFamily:'tesco',color:'#69b24a',width:'100%'}}>
+                            <label style={{fontSize: "18px", fontFamily: 'tesco', color: '#69b24a', width: '100%'}}>
                               <input type="checkbox"
                                      id="PQ4"
-                                     style={{marginRight:'5%'}}
+                                     style={{marginRight: '5%'}}
                                      onChange={() => {
-                                       let pqCurrentSelection="High CPS/Low Profit";
-                                       let deselect=0;
-                                       let pqApendUrl='';
-                                       let newSelections='';
+                                       let pqCurrentSelection = "High CPS/Low Profit";
+                                       let deselect = 0;
+                                       let pqApendUrl = '';
+                                       let newSelections = '';
 
-                                       if(dataPerformanceUrlParams !==''){
-                                         dataPerformanceUrlParams="start&"+dataPerformanceUrlParams;
+                                       if (dataPerformanceUrlParams !== '') {
+                                         dataPerformanceUrlParams = "start&" + dataPerformanceUrlParams;
                                          let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
 
-                                         for(let i=1;i<pqSelections.length;i++){
+                                         for (let i = 1; i < pqSelections.length; i++) {
 
-                                           if(pqSelections[i]!==pqCurrentSelection){
-                                             newSelections=newSelections+"&performance_quartile="+pqSelections[i];
-                                           }else{
-                                             deselect=1;
+                                           if (pqSelections[i] !== pqCurrentSelection) {
+                                             newSelections = newSelections + "&performance_quartile=" + pqSelections[i];
+                                           } else {
+                                             deselect = 1;
                                            }
                                          }
 
-                                         if(deselect==0){
-                                           newSelections=newSelections+"&performance_quartile="+pqCurrentSelection;
+                                         if (deselect == 0) {
+                                           newSelections = newSelections + "&performance_quartile=" + pqCurrentSelection;
                                          }
 
                                          let pq_ajax_param = newSelections.replace('&', '');
                                          this.props.onSavePFilterParam(pq_ajax_param);
                                        }
-                                       else{
+                                       else {
 
-                                         let pq_ajax_param = "performance_quartile="+pqCurrentSelection;
+                                         let pq_ajax_param = "performance_quartile=" + pqCurrentSelection;
                                          this.props.onSavePFilterParam(pq_ajax_param);
                                        }
 
 
                                        this.props.bubbleChartSpinnerCheckSuccess(0);
                                        this.props.tableChartSpinnerCheckSuccess(0);
-                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/}
-                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/
+                                       }
+                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
+                                       }
 
                                        this.props.onFetchGraph();
                                        this.props.onGenerateTable();
 
 
-
                                      }}
                               />
-                              <span className="tooltip">Win-Win relationship with supplier to share further profit gains</span>
+                              <span
+                                className="tooltip">Win-Win relationship with supplier to share further profit gains</span>
                               High CPS/Low Profit
                             </label>
 
@@ -1008,51 +1111,52 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                           {/*High CPS/High Profit*/}
                           <div className="col-xs-2 center-this input">
-                            <label style={{fontSize:"18px",fontFamily:'tesco',color:'#2B7294',width:'100%'}}>
+                            <label style={{fontSize: "18px", fontFamily: 'tesco', color: '#2B7294', width: '100%'}}>
                               <input type="checkbox"
                                      id="PQ5"
-                                     style={{marginRight:'5%'}}
+                                     style={{marginRight: '5%'}}
                                      onChange={() => {
-                                       let pqCurrentSelection="High CPS/High Profit";
-                                       let deselect=0;
-                                       let pqApendUrl='';
-                                       let newSelections='';
+                                       let pqCurrentSelection = "High CPS/High Profit";
+                                       let deselect = 0;
+                                       let pqApendUrl = '';
+                                       let newSelections = '';
 
-                                       if(dataPerformanceUrlParams !==''){
-                                         dataPerformanceUrlParams="start&"+dataPerformanceUrlParams;
+                                       if (dataPerformanceUrlParams !== '') {
+                                         dataPerformanceUrlParams = "start&" + dataPerformanceUrlParams;
                                          let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
 
-                                         for(let i=1;i<pqSelections.length;i++){
+                                         for (let i = 1; i < pqSelections.length; i++) {
 
-                                           if(pqSelections[i]!==pqCurrentSelection){
-                                             newSelections=newSelections+"&performance_quartile="+pqSelections[i];
-                                           }else{
-                                             deselect=1;
+                                           if (pqSelections[i] !== pqCurrentSelection) {
+                                             newSelections = newSelections + "&performance_quartile=" + pqSelections[i];
+                                           } else {
+                                             deselect = 1;
                                            }
                                          }
 
-                                         if(deselect==0){
-                                           newSelections=newSelections+"&performance_quartile="+pqCurrentSelection;
+                                         if (deselect == 0) {
+                                           newSelections = newSelections + "&performance_quartile=" + pqCurrentSelection;
                                          }
 
                                          let pq_ajax_param = newSelections.replace('&', '');
                                          this.props.onSavePFilterParam(pq_ajax_param);
                                        }
-                                       else{
+                                       else {
 
-                                         let pq_ajax_param = "performance_quartile="+pqCurrentSelection;
+                                         let pq_ajax_param = "performance_quartile=" + pqCurrentSelection;
                                          this.props.onSavePFilterParam(pq_ajax_param);
                                        }
 
 
                                        this.props.bubbleChartSpinnerCheckSuccess(0);
                                        this.props.tableChartSpinnerCheckSuccess(0);
-                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/}
-                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/
+                                       }
+                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
+                                       }
 
                                        this.props.onFetchGraph();
                                        this.props.onGenerateTable();
-
 
 
                                      }}
@@ -1077,7 +1181,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                       document.getElementById("PQ5").checked = false;
 
                                     }}
-                                    style={{marginTop:'-4%',marginLeft:'-7%'}}>Reset Selections</Button>
+                                    style={{marginTop: '-4%', marginLeft: '-7%'}}>Reset Selections</Button>
                           </div>
 
 
@@ -1116,14 +1220,18 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                 onFetchGraph={this.props.onFetchGraph}
                                                 onGenerateTable={this.props.onGenerateTable}
                                   />
-                                  <div style={{float:"right"}}>
-                                    <DropdownButton title="Save Image/CSV" style={{backgroundColor:"#449d44", borderColor:"#398439",color:"#fff"}} id="dropButtonId">
+                                  <div style={{float: "right"}}>
+                                    <DropdownButton title="Save Image/CSV" style={{
+                                      backgroundColor: "#449d44",
+                                      borderColor: "#398439",
+                                      color: "#fff"
+                                    }} id="dropButtonId">
                                       <MenuItem onClick={() => {
-                                      saveImage(this.refs.bubbleChartComp.refs.svgBubble,"bubble_chart")
+                                        saveImage(this.refs.bubbleChartComp.refs.svgBubble, "bubble_chart")
                                       }
                                       }>Save As JPEG</MenuItem>
                                       <MenuItem onClick={() => {
-                                      saveDataAsCSV(this.props.supplier.chartData,"bubble_chart.csv")
+                                        saveDataAsCSV(this.props.supplier.chartData, "bubble_chart.csv")
                                       }
                                       }>Download CSV</MenuItem>
                                     </DropdownButton>
@@ -1131,12 +1239,12 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                   <i style={{fontSize: '12px'}}>*Size of the bubble corresponds to Rate of Sales</i>
 
                                   {/*<div className="resetButton" onClick={() => {*/}
-                                    {/*dataPerformanceUrlParams = '';*/}
-                                    {/*this.props.onSavePageParam("page=1");*/}
-                                    {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
-                                    {/*this.props.onFetchGraph();*/}
-                                    {/*this.props.onGenerateTable();*/}
-                                    {/*this.props.onRadioChecked('6');*/}
+                                  {/*dataPerformanceUrlParams = '';*/}
+                                  {/*this.props.onSavePageParam("page=1");*/}
+                                  {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                                  {/*this.props.onFetchGraph();*/}
+                                  {/*this.props.onGenerateTable();*/}
+                                  {/*this.props.onRadioChecked('6');*/}
                                   {/*}}><p>View Selections</p></div>*/}
 
                                 </div>
@@ -1146,193 +1254,193 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                           {/*<div className="col-xs-12 col-md-4" style={{marginTop: '2%', fontSize: '14px'}}>*/}
 
-                            {/*<h4>*/}
-                              {/*Please select a negotiation strategy below to filter*/}
-                              {/*'Negotiation*/}
-                              {/*Opportunity' chart and table*/}
-                            {/*</h4>*/}
+                          {/*<h4>*/}
+                          {/*Please select a negotiation strategy below to filter*/}
+                          {/*'Negotiation*/}
+                          {/*Opportunity' chart and table*/}
+                          {/*</h4>*/}
 
-                            {/*<div className="panel">*/}
-                              {/*<div className="lowProfit"*/}
-                                   {/*style={{height: '35px', backgroundColor: '#c74a52', opacity: '0.8'}}>*/}
-                                {/*<RadioButton id={'1'}*/}
-                                             {/*checked={(() => {*/}
-                                               {/*if (this.props.supplier.radioChecked === '1') {*/}
-                                                 {/*return true*/}
-                                               {/*}*/}
-                                               {/*else {*/}
-                                                 {/*return false*/}
-                                               {/*}*/}
-                                             {/*})()}*/}
-                                             {/*label={'Low CPS/Low Profit'}*/}
-                                             {/*valid={true}*/}
-                                             {/*onChange={() => {*/}
-                                               {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
-                                               {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
-                                               {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/}
-                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                          {/*<div className="panel">*/}
+                          {/*<div className="lowProfit"*/}
+                          {/*style={{height: '35px', backgroundColor: '#c74a52', opacity: '0.8'}}>*/}
+                          {/*<RadioButton id={'1'}*/}
+                          {/*checked={(() => {*/}
+                          {/*if (this.props.supplier.radioChecked === '1') {*/}
+                          {/*return true*/}
+                          {/*}*/}
+                          {/*else {*/}
+                          {/*return false*/}
+                          {/*}*/}
+                          {/*})()}*/}
+                          {/*label={'Low CPS/Low Profit'}*/}
+                          {/*valid={true}*/}
+                          {/*onChange={() => {*/}
+                          {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
+                          {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
+                          {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/}
+                          {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
 
-                                               {/*this.props.onFetchGraph();*/}
-                                               {/*this.props.onGenerateTable();*/}
-                                               {/*this.props.onRadioChecked('1');*/}
-                                             {/*}}*/}
-                                             {/*name="x"*/}
-                                {/*/>*/}
-                              {/*</div>*/}
-                              {/*<div className="panel-body" style={{marginTop: '2%'}}>*/}
-                                {/*Delist Products*/}
-                              {/*</div>*/}
-                            {/*</div>*/}
-                            {/*<div className="panel panel-default">*/}
-                              {/*<div className="default"*/}
-                                   {/*style={{*/}
-                                     {/*height: '35px',*/}
-                                     {/*backgroundColor: '#6e6767',*/}
-                                     {/*opacity: '0.8',*/}
-                                     {/*fontColor: 'white'*/}
-                                   {/*}}>*/}
-                                {/*<RadioButton id={'2'}*/}
-                                             {/*checked={(() => {*/}
-                                               {/*if (this.props.supplier.radioChecked == '2') {*/}
-                                                 {/*return true*/}
-                                               {/*}*/}
-                                               {/*else {*/}
-                                                 {/*return false*/}
-                                               {/*}*/}
-                                             {/*})()}*/}
+                          {/*this.props.onFetchGraph();*/}
+                          {/*this.props.onGenerateTable();*/}
+                          {/*this.props.onRadioChecked('1');*/}
+                          {/*}}*/}
+                          {/*name="x"*/}
+                          {/*/>*/}
+                          {/*</div>*/}
+                          {/*<div className="panel-body" style={{marginTop: '2%'}}>*/}
+                          {/*Delist Products*/}
+                          {/*</div>*/}
+                          {/*</div>*/}
+                          {/*<div className="panel panel-default">*/}
+                          {/*<div className="default"*/}
+                          {/*style={{*/}
+                          {/*height: '35px',*/}
+                          {/*backgroundColor: '#6e6767',*/}
+                          {/*opacity: '0.8',*/}
+                          {/*fontColor: 'white'*/}
+                          {/*}}>*/}
+                          {/*<RadioButton id={'2'}*/}
+                          {/*checked={(() => {*/}
+                          {/*if (this.props.supplier.radioChecked == '2') {*/}
+                          {/*return true*/}
+                          {/*}*/}
+                          {/*else {*/}
+                          {/*return false*/}
+                          {/*}*/}
+                          {/*})()}*/}
 
-                                             {/*label={'Low CPS/High Profit'}*/}
-                                             {/*valid={true}*/}
-                                             {/*onChange={() => {*/}
-                                               {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
-                                               {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
-                                               {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/High Profit";*/}
-                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
-                                               {/*this.props.onFetchGraph();*/}
-                                               {/*this.props.onGenerateTable();*/}
-                                               {/*this.props.onRadioChecked('2');*/}
+                          {/*label={'Low CPS/High Profit'}*/}
+                          {/*valid={true}*/}
+                          {/*onChange={() => {*/}
+                          {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
+                          {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
+                          {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/High Profit";*/}
+                          {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                          {/*this.props.onFetchGraph();*/}
+                          {/*this.props.onGenerateTable();*/}
+                          {/*this.props.onRadioChecked('2');*/}
 
-                                             {/*}}*/}
-                                             {/*name="x"*/}
-                                {/*/>*/}
-                              {/*</div>*/}
-                              {/*<div className="panel-body" style={{height: '65px', marginTop: '3%'}}>*/}
-                                {/*Hard*/}
-                                {/*Bargaining’*/}
-                                {/*for stronger*/}
-                                {/*profits – Low importance to customers*/}
-                              {/*</div>*/}
-                            {/*</div>*/}
+                          {/*}}*/}
+                          {/*name="x"*/}
+                          {/*/>*/}
+                          {/*</div>*/}
+                          {/*<div className="panel-body" style={{height: '65px', marginTop: '3%'}}>*/}
+                          {/*Hard*/}
+                          {/*Bargaining’*/}
+                          {/*for stronger*/}
+                          {/*profits – Low importance to customers*/}
+                          {/*</div>*/}
+                          {/*</div>*/}
 
 
-                            {/*<div className="panel panel-warning">*/}
-                              {/*<div className="medProfit"*/}
-                                   {/*style={{*/}
-                                     {/*height: '35px',*/}
-                                     {/*backgroundColor: '#ffa626',*/}
-                                     {/*opacity: '0.8',*/}
-                                     {/*fontColor: 'white'*/}
-                                   {/*}}>*/}
-                                {/*<RadioButton id={'3'}*/}
-                                             {/*label={'Med CPS/Med Profit'}*/}
-                                             {/*valid={true}*/}
-                                             {/*checked={(() => {*/}
-                                               {/*if (this.props.supplier.radioChecked == '3') {*/}
-                                                 {/*return true*/}
-                                               {/*}*/}
-                                               {/*else {*/}
-                                                 {/*return false*/}
-                                               {/*}*/}
-                                             {/*})()}*/}
-                                             {/*onChange={() => {*/}
-                                               {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
-                                               {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
-                                               {/*dataPerformanceUrlParams = "performance_quartile=Med CPS/Med Profit";*/}
-                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
-                                               {/*this.props.onFetchGraph();*/}
-                                               {/*this.props.onGenerateTable();*/}
-                                               {/*this.props.onRadioChecked('3');*/}
+                          {/*<div className="panel panel-warning">*/}
+                          {/*<div className="medProfit"*/}
+                          {/*style={{*/}
+                          {/*height: '35px',*/}
+                          {/*backgroundColor: '#ffa626',*/}
+                          {/*opacity: '0.8',*/}
+                          {/*fontColor: 'white'*/}
+                          {/*}}>*/}
+                          {/*<RadioButton id={'3'}*/}
+                          {/*label={'Med CPS/Med Profit'}*/}
+                          {/*valid={true}*/}
+                          {/*checked={(() => {*/}
+                          {/*if (this.props.supplier.radioChecked == '3') {*/}
+                          {/*return true*/}
+                          {/*}*/}
+                          {/*else {*/}
+                          {/*return false*/}
+                          {/*}*/}
+                          {/*})()}*/}
+                          {/*onChange={() => {*/}
+                          {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
+                          {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
+                          {/*dataPerformanceUrlParams = "performance_quartile=Med CPS/Med Profit";*/}
+                          {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                          {/*this.props.onFetchGraph();*/}
+                          {/*this.props.onGenerateTable();*/}
+                          {/*this.props.onRadioChecked('3');*/}
 
-                                             {/*}}*/}
-                                             {/*name="x"*/}
-                                {/*/>*/}
-                              {/*</div>*/}
-                              {/*<div className="panel-body" style={{height: '60px', marginTop: '3%'}}>Area of*/}
-                                {/*opportunity. Concession*/}
-                                {/*trading – Subs/Ranging/Price. Reduce range to drive*/}
-                                {/*volume*/}
-                              {/*</div>*/}
-                            {/*</div>*/}
+                          {/*}}*/}
+                          {/*name="x"*/}
+                          {/*/>*/}
+                          {/*</div>*/}
+                          {/*<div className="panel-body" style={{height: '60px', marginTop: '3%'}}>Area of*/}
+                          {/*opportunity. Concession*/}
+                          {/*trading – Subs/Ranging/Price. Reduce range to drive*/}
+                          {/*volume*/}
+                          {/*</div>*/}
+                          {/*</div>*/}
 
-                            {/*<div className="panel panel-success">*/}
-                              {/*<div className="highProfit"*/}
-                                   {/*style={{*/}
-                                     {/*height: '35px',*/}
-                                     {/*backgroundColor: '#69b24a',*/}
-                                     {/*opacity: '0.8',*/}
-                                     {/*fontColor: 'white'*/}
-                                   {/*}}>*/}
-                                {/*<RadioButton id={'4'}*/}
-                                             {/*label={'High CPS/High Profit'}*/}
-                                             {/*valid={true}*/}
-                                             {/*checked={(() => {*/}
-                                               {/*if (this.props.supplier.radioChecked == '4') {*/}
-                                                 {/*return true*/}
-                                               {/*}*/}
-                                               {/*else {*/}
-                                                 {/*return false*/}
-                                               {/*}*/}
-                                             {/*})()}*/}
-                                             {/*onChange={() => {*/}
-                                               {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
-                                               {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
-                                               {/*dataPerformanceUrlParams = "performance_quartile=High CPS/High Profit"*/}
-                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
-                                               {/*this.props.onFetchGraph();*/}
-                                               {/*this.props.onGenerateTable();*/}
-                                               {/*this.props.onRadioChecked('4');*/}
+                          {/*<div className="panel panel-success">*/}
+                          {/*<div className="highProfit"*/}
+                          {/*style={{*/}
+                          {/*height: '35px',*/}
+                          {/*backgroundColor: '#69b24a',*/}
+                          {/*opacity: '0.8',*/}
+                          {/*fontColor: 'white'*/}
+                          {/*}}>*/}
+                          {/*<RadioButton id={'4'}*/}
+                          {/*label={'High CPS/High Profit'}*/}
+                          {/*valid={true}*/}
+                          {/*checked={(() => {*/}
+                          {/*if (this.props.supplier.radioChecked == '4') {*/}
+                          {/*return true*/}
+                          {/*}*/}
+                          {/*else {*/}
+                          {/*return false*/}
+                          {/*}*/}
+                          {/*})()}*/}
+                          {/*onChange={() => {*/}
+                          {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
+                          {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
+                          {/*dataPerformanceUrlParams = "performance_quartile=High CPS/High Profit"*/}
+                          {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                          {/*this.props.onFetchGraph();*/}
+                          {/*this.props.onGenerateTable();*/}
+                          {/*this.props.onRadioChecked('4');*/}
 
-                                             {/*}}*/}
-                                             {/*name="x"*/}
-                                {/*/>*/}
-                              {/*</div>*/}
-                              {/*<div className="panel-body" style={{height: '50px', marginTop: '3%'}}>Build*/}
-                                {/*Win-Win*/}
-                                {/*relationship with*/}
-                                {/*supplier to share further profit gains*/}
-                              {/*</div>*/}
-                            {/*</div>*/}
-                            {/*<div className="panel">*/}
-                              {/*<div className="highCps" style={{height: '35px', backgroundColor: '#99d9e5'}}>*/}
-                                {/*<RadioButton id={'5'}*/}
-                                             {/*label={'High CPS/Low Profit'}*/}
-                                             {/*valid={true}*/}
-                                             {/*checked={(() => {*/}
-                                               {/*if (this.props.supplier.radioChecked == '5') {*/}
-                                                 {/*return true*/}
-                                               {/*}*/}
-                                               {/*else {*/}
-                                                 {/*return false*/}
-                                               {/*}*/}
-                                             {/*})()}*/}
-                                             {/*onChange={() => {*/}
-                                               {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
-                                               {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
-                                               {/*dataPerformanceUrlParams = "performance_quartile=High CPS/Low Profit"*/}
-                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
-                                               {/*this.props.onFetchGraph();*/}
-                                               {/*this.props.onGenerateTable();*/}
-                                               {/*this.props.onRadioChecked('5');*/}
+                          {/*}}*/}
+                          {/*name="x"*/}
+                          {/*/>*/}
+                          {/*</div>*/}
+                          {/*<div className="panel-body" style={{height: '50px', marginTop: '3%'}}>Build*/}
+                          {/*Win-Win*/}
+                          {/*relationship with*/}
+                          {/*supplier to share further profit gains*/}
+                          {/*</div>*/}
+                          {/*</div>*/}
+                          {/*<div className="panel">*/}
+                          {/*<div className="highCps" style={{height: '35px', backgroundColor: '#99d9e5'}}>*/}
+                          {/*<RadioButton id={'5'}*/}
+                          {/*label={'High CPS/Low Profit'}*/}
+                          {/*valid={true}*/}
+                          {/*checked={(() => {*/}
+                          {/*if (this.props.supplier.radioChecked == '5') {*/}
+                          {/*return true*/}
+                          {/*}*/}
+                          {/*else {*/}
+                          {/*return false*/}
+                          {/*}*/}
+                          {/*})()}*/}
+                          {/*onChange={() => {*/}
+                          {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
+                          {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
+                          {/*dataPerformanceUrlParams = "performance_quartile=High CPS/Low Profit"*/}
+                          {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                          {/*this.props.onFetchGraph();*/}
+                          {/*this.props.onGenerateTable();*/}
+                          {/*this.props.onRadioChecked('5');*/}
 
-                                             {/*}}*/}
-                                             {/*name="x"*/}
-                                {/*/>*/}
-                              {/*</div>*/}
-                              {/*<div className="panel-body" style={{marginTop: '5%'}}>Work*/}
-                                {/*collaboratively to jointly*/}
-                                {/*solve low profitability*/}
-                              {/*</div>*/}
-                            {/*</div>*/}
+                          {/*}}*/}
+                          {/*name="x"*/}
+                          {/*/>*/}
+                          {/*</div>*/}
+                          {/*<div className="panel-body" style={{marginTop: '5%'}}>Work*/}
+                          {/*collaboratively to jointly*/}
+                          {/*solve low profitability*/}
+                          {/*</div>*/}
+                          {/*</div>*/}
 
                           {/*</div>*/}
                         </div>
@@ -1343,7 +1451,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                           <div>
                             {
                               (() => {
-                                // if (this.props.ProductPage.data) {
+
                                 if (this.props.supplier.data && (this.props.supplier.tableChartSpinnerCheck == 1)) {
 
 
@@ -1358,14 +1466,26 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                         search={true}
                                         exportCSV={true}
                                       >
-                                        <TableHeaderColumn dataField="base_product_number" isKey={true} dataAlign="center" dataSort={true}>Product ID</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="parent_supplier" tdStyle={ { whiteSpace: 'normal' } } width="20%" dataSort={true} dataAlign="center">Parent Supplier</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="sales_ty" dataFormat={formatSales} dataSort={true} dataAlign="center">Sales TY</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="volume_ty" dataFormat={formatVolume} dataSort={true} dataAlign="center">Volume TY</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="cgm_ty" dataFormat={formatSales} dataSort={true} dataAlign="center">CGM TY</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="pps" dataSort={true} dataAlign="center">PPS</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="cps" dataSort={true} dataAlign="center">CPS</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="rate_of_sale" dataSort={true} dataAlign="center">Rate of Sale</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="base_product_number" isKey={true}
+                                                           dataAlign="center" dataSort={true}>Product
+                                          ID</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="parent_supplier"
+                                                           tdStyle={ {whiteSpace: 'normal'} } width="20%"
+                                                           dataSort={true} dataAlign="center">Parent
+                                          Supplier</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="sales_ty" dataFormat={formatSales} dataSort={true}
+                                                           dataAlign="center">Sales TY</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="volume_ty" dataFormat={formatVolume}
+                                                           dataSort={true} dataAlign="center">Volume
+                                          TY</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="cgm_ty" dataFormat={formatSales} dataSort={true}
+                                                           dataAlign="center">CGM TY</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="pps" dataSort={true}
+                                                           dataAlign="center">PPS</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="cps" dataSort={true}
+                                                           dataAlign="center">CPS</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="rate_of_sale" dataSort={true} dataAlign="center">Rate
+                                          of Sale</TableHeaderColumn>
                                       </BootstrapTable>
 
                                     </div>
@@ -1381,8 +1501,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                 }
                               })()
                             }
-
-                              </div>
+                          </div>
                         </Panel>
 
 
