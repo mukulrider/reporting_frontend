@@ -250,7 +250,7 @@ function executiveReducer(state = initialState, action) {
       return state.set('week_filter_data',action.data);
     case WEEK_FILTER_PARAM:
       console.log("reducer WEEK_FILTER_PARAM",action.data);
-      return state.set('week_param',action.data);
+      return state.set('week_filter_param',action.data);
     case OVERVIEW_KPI_CONSTANT:
       console.log("reducer OVERVIEW_KPI_CONSTANT",action.data);
       return state.set('overview_kpi',action.data);
