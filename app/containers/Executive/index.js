@@ -236,17 +236,17 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
       }}>
 
         <div className="pageTitle">
-          {/*{(() => {*/}
-          {/*if (this.props.executive.filter_week_selection) {*/}
-          {/*return (*/}
-          {/*<span>Executive View - {(this.props.executive.filter_week_selection).substring(11, 17)}</span>*/}
-          {/*)*/}
-          {/*} else {*/}
-          {/*return (*/}
+          {(() => {
+          if (this.props.executive.filter_week_selection) {
+          return (
+          <span>Executive View - {(this.props.executive.filter_week_selection).substring(11, 17)}</span>
+          )
+          } else {
+          return (
             <span>Executive View </span>
-          {/*)*/}
-          {/*}*/}
-          {/*})()}*/}
+          )
+          }
+          })()}
         </div>
 
 
