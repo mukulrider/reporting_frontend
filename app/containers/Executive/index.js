@@ -302,7 +302,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
           marginLeft: '22%'
         }}>
           <div className="col-md-12 content-wrap">
-            <h3> Executive View - Week &nbsp; </h3>
             {/*Nav for time period*/}
             <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom">
               <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
@@ -1271,45 +1270,56 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       if (this.props.Executive.driver_param=='internal') {
                         return(
                           <div className="row">
-                            <div className="col-md-4">
-                              <Panel>
+                            <div className="col-md-6 col-xs-12">
+                              <Panel style={{marginLeft:"15px"}}>
                                 <div>
                                   <h4 className="pageModuleSubTitle"> KPI Contribution to growth </h4>
                                   <h4 className="panel-heading tesco-heading h3" style={{ textAlign : "center"}}>  LFL Sales: 50 </h4>
-                                  <div className="row">
-                                    <div className="panel-body">
-                                      <div className="col-md-4 col-sm-4" style={{padding:"2px"}}>
-                                        <div className="col-md-12 col-sm-12" style={{background : "#eee", height : "100px", textAlign : "center" ,border: "1px solid rgb(229, 232, 234)"}}>
-                                          {/*<div className="panel-body">*/}
-                                          <h4> 10%  </h4><br/>
-                                          <h4><b> {'Transactions'} </b></h4>
-                                          {/*</div>*/}
-
+                                  <div className="row" style={{width:"480px"}}>
+                                    <div className="col-xs-3 overview-blk" style={{marginRight:"5px"}} >
+                                      <Panel>
+                                        <div className="panel" style={{border: '1px solid #E5E8EA', width: '120px'}}>
+                                          <h4 className="panel-heading tesco-heading"><b>Transactions</b></h4>
+                                          <div className="panel-body">
+                                            <span className="overview-blk-value">
+                                          <h4> 10%  </h4>
+                                            </span>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div className="col-md-4 col-sm-4" style={{padding:"2px"}}>
-                                        <div className="col-md-12 col-sm-12" style={{background : "#eee",height : "100px", textAlign : "center" ,border: "1px solid rgb(229, 232, 234)"}}>
-                                          {/*<div className="panel-body">*/}
-                                          <h4> 20 % </h4><br/>
-                                          <h4><b> {'Items per Basket'} </b></h4>
-                                          {/*</div>*/}
-                                        </div>
-                                      </div>
-                                      <div className="col-md-4 col-sm-4" style={{padding:"2px"}}>
-                                        <div className="col-md-12 col-sm-12" style={{background : "#eee",height : "100px", textAlign : "center" ,border: "1px solid rgb(229, 232, 234)"}}>
-                                          {/*<div className="panel-body">*/}
-                                          <h4>  30% </h4><br/>
-                                          <h4><b>{'Item price'}</b></h4>
-                                          {/*</div>*/}
-                                        </div>
-                                      </div>
+                                      </Panel>
                                     </div>
-                                  </div>
+                                    <div className="col-xs-3 overview-blk" style={{marginRight:"5px"}} >
+                                      <Panel>
+                                        <div className="panel" style={{border: '1px solid #E5E8EA', width: '120px'}}>
+                                          <h4 className="panel-heading tesco-heading"><b>Items per Basket</b></h4>
+                                          <div className="panel-body">
+                                            <span className="overview-blk-value">
+                                          <h4> 20 % </h4>
+                                            </span>
+                                          </div>
+                                        </div>
+                                      </Panel>
+                                    </div>
+                                    <div className="col-xs-3 overview-blk" style={{marginRight:"5px"}} >
+                                      <Panel>
+                                        <div className="panel" style={{border: '1px solid #E5E8EA', width: '120px'}}>
+                                          <h4 className="panel-heading tesco-heading"><b>Item price</b></h4>
+                                          <div className="panel-body">
+                                            <span className="overview-blk-value">
+                                          <h4> 30% </h4>
+                                            </span>
+                                          </div>
+                                        </div>
+                                      </Panel>
+                                    </div>
+                                      </div>
                                 </div>
                               </Panel>
-                            </div>
 
-                            <div className="col-md-8">
+                                  </div>
+
+
+                            <div className="col-md-6 col-xs-12">
                               <Panel>
                                 <h4 className="pageModuleSubTitle"> Promotion Contribution to growth </h4>
                                 {(() =>{

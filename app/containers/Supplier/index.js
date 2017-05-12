@@ -89,7 +89,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
       activeKey2: "1",
       activeKey3: "1",
       activeKey4: "1",
-      paticipationByTab: "Paticipation by Value",
+      paticipationByTab: "Participation by Value",
       GrowthTab: "Value Growth",
       ContributionToGrowthTab: "Contribution to Value Growth",
       suppKPIbar: false,
