@@ -42,7 +42,7 @@ export default class App extends React.PureComponent { // eslint-disable-line re
     return (
       <div>
         <Header />
-        <div className="container-fluid" style={{ marginTop: '120px' }}>
+        <div className="container-fluid" style={{ marginTop: '160px' }}>
           {React.Children.toArray(this.props.children)}
         </div>
         <Footer />
