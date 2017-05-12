@@ -13,69 +13,99 @@ import styles from './style.scss';
 
 class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentDidMount = () => {
-    // console.log("----inside selector----",this.props);
     let selector = '';
-    // this.props.onGenerateSideFilter();
-
   };
 
   componentDidUpdate = () => {
-    // const urlParams = this.props.location.query;
-    // const tesco_week_value = '';
-    // this.props.onGenerateUrlParams(urlParams);
-    // this.props.onSendUrlParams(urlParams);
-    // this.props.onSaveWeek(tesco_week_value);
-    // this.props.onCompetitorPieChart(urlParams);
-    // this.props.onCompetitorPriceRange();
-    // this.props.onCompWaterfall();
+
   };
 
   checkboxUpdate = (selection) => {
-    console.log('Raunaks Cascaded check', this.props);
+
     let newUrl = this.props.location.pathname;
 
     let queryString = '';
     [...this.refs.selector.querySelectorAll('input')].map(obj => {
       if (obj.checked == true){
-        console.log('Cascaded applyButtonFunctionality'); //, obj);
       let category = obj.id.split('__');
-      //console.log('queryString', queryString);
-      queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
+
+        console.log('queryString for time',queryString);
+        queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
+        console.log('queryString 2 for time',queryString);
 
       }
     });
     //
     queryString = queryString.substring(0, queryString.length - 1);
-    //  console.log('queryString->', queryString);
+    console.log('queryString 3 for time',queryString);
     this.props.onSaveWeek(queryString);
     // this.props.onGenerateUrlParamsString(queryString);
-    // this.props.DefaultLineChartCall();
     // this.props.onCheckboxChange(queryString);
     this.props.ongenerateWeekFilter();
 
 
   };
 
-  applyButtonFunctionality = () => {
+  checkboxUpdate1 = (selection) => {
     console.log('Raunaks Cascaded check', this.props);
     let newUrl = this.props.location.pathname;
 
     let queryString = '';
+    let queryString_without_week = '';
+    let queryString_for_week_date = '';
     [...this.refs.selector.querySelectorAll('input')].map(obj => {
-      if (obj.checked == true)
-        console.log('Cascaded applyButtonFunctionality'); //, obj);
-      let category = obj.id.split('__');
-      //console.log('queryString', queryString);
-      queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
+      if (obj.checked == true){
 
+        let category = obj.id.split('__');
 
+        console.log('queryString for product1',queryString);
+        console.log('match',queryString.match(/tesco_week/gi));
+
+        queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
+        console.log('queryString 2 for product1',queryString);
+
+        // aa
+
+        if(category[0]!=="tesco_week"&& category[0]!=="date"){
+          alert(category[0])
+          queryString_without_week = queryString_without_week + `${category[0]}=${category[category.length - 1]}&`;
+
+        }
+      }
     });
     //
     queryString = queryString.substring(0, queryString.length - 1);
+    queryString_without_week = queryString_without_week.substring(0, queryString_without_week.length - 1);
+    alert(queryString_without_week);
+    console.log('queryString 3 for product1',queryString_without_week);
+
+
+
+    this.props.onCheckboxWeekChange(queryString_without_week);
+    this.props.onGenerateSideFilter();
+
+  };
+
+  applyButtonFunctionality = () => {
+    // console.log('Raunaks Cascaded check', this.props);
+    // let newUrl = this.props.location.pathname;
+    //
+    // let queryString = '';
+    // [...this.refs.selector.querySelectorAll('input')].map(obj => {
+    //   if (obj.checked == true)
+    //     console.log('Cascaded applyButtonFunctionality'); //, obj);
+    //   let category = obj.id.split('__');
+    //   //console.log('queryString', queryString);
+    //   queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
+    //
+    //
+    // });
+    // //
+    // queryString = queryString.substring(0, queryString.length - 1);
     //  console.log('queryString->', queryString);
     //const urlParams = this.props.location.query;
-    this.props.onSaveWeek();
-    this.props.onGenerateUrlParamsString(queryString);
+    // this.props.onSaveWeek();
+    // this.props.onGenerateUrlParamsString(queryString);
     this.props.DefaultLineChartCall();
     // this.props.onCompetitorPieChart(urlParams);
     // this.props.onCompetitorPriceRange();
@@ -95,9 +125,7 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
   };
 
   render() {
-    // console.log("inside the cascaded filter",this.props.previous_selection)
     return (
-
 
       <div className="row" ref={'selector'}>
         {(() => {
@@ -119,9 +147,6 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                         );
                         return (
                           <Panel header={panelHeader} eventKey={++key}>
-                            {/*<div className="panel-heading">*/}
-                            {/*{obj.name}*/}
-                            {/*</div>*/}
                             <div className="panel text-capitalize"
                                  key={Date.now() + Math.random() + Math.random() + 10}>
 
@@ -146,22 +171,9 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
 
                                                     let previous_selection = this.props.previous_selection;
                                                     let selection = obj.title + "=" + obj2.title;
-                                                    {/*alert(selection)*/
-                                                    }
-                                                    //For enabling un checking
-                                                    {/*console.log('previous_selection',previous_selection);*/
-                                                    }
-                                                    {/*console.log('selection',selection);*/
-                                                    }
-                                                    {/*if (previous_selection == selection) {*/
-                                                    }
-                                                    {/*selection = '';*/
-                                                    }
-                                                    {/*}*/
-                                                    }
-                                                    console.log('selection', selection);
+
+                                                    console.log('selection for product', selection);
                                                     this.checkboxUpdate(selection);
-                                                    this.props.ongenerateWeekFilter();
                                                   }}
                                                   isDisabled={!obj2.highlighted}
                                                   valid={true}
@@ -215,9 +227,6 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                         );
                         return (
                           <Panel header={panelHeader} eventKey={++key}>
-                            {/*<div className="panel-heading">*/}
-                            {/*{obj.name}*/}
-                            {/*</div>*/}
                             <div className="panel text-capitalize"
                                  key={Date.now() + Math.random() + Math.random() + 10}>
 
@@ -242,23 +251,9 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
 
                                                     let previous_selection = this.props.previous_selection;
                                                     let selection = obj.title + "=" + obj2.title;
-                                                    {/*alert(selection)*/
-                                                    }
-                                                    //For enabling un checking
-                                                    {/*console.log('previous_selection',previous_selection);*/
-                                                    }
-                                                    {/*console.log('selection',selection);*/
-                                                    }
-                                                    {/*if (previous_selection == selection) {*/
-                                                    }
-                                                    {/*selection = '';*/
-                                                    }
-                                                    {/*}*/
-                                                    }
-                                                    this.props.onCheckboxWeekChange(selection);
-                                                    this.props.onGenerateSideFilter();
-                                                    console.log('selection', selection);
-                                                    {/*this.checkboxUpdate(selection)*/}
+
+                                                    console.log('selection11', selection);
+                                                    this.checkboxUpdate1(selection)
                                                   }}
                                                   isDisabled={!obj2.highlighted}
                                                   valid={true}
