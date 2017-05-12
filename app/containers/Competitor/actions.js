@@ -25,6 +25,10 @@ import {
   OUTPERFORMANCE_CONSTANT,
   PRICE_OUTPERFORMACE_FETCH_SUCCESS,
   PRICE_INDEX_CLICK,
+  PIE_CHART_SPINNER_SUCCESS,
+  OUTPERFORMANCE_CHART_SPINNER_SUCCESS,
+  WATERFALL_CHART_ASDA_SPINNER_SUCCESS,
+  PRICE_RANGE_CHART_SPINNER_SUCCESS,
 
 } from './constants';
 
@@ -218,6 +222,43 @@ export function generateUrlParamsString(data) {
     data
   }
 }
+
+//PIE CHART SPINNER
+export function onPieChartSpinnerSuccess(spinnerCheck) {
+  console.log('onPieChartSpinnerSuccess',spinnerCheck);
+  return {
+    type: PIE_CHART_SPINNER_SUCCESS,
+    spinnerCheck
+  }
+}
+
+//PIE CHART SPINNER
+export function outPerformanceChartSuccess(spinnerCheck) {
+  console.log('outPerformanceChartSuccess',spinnerCheck);
+  return {
+    type: OUTPERFORMANCE_CHART_SPINNER_SUCCESS,
+    spinnerCheck
+  }
+}
+
+//WATERFALL CHART - ASDA SPINNER
+export function waterChartAsdaSuccess(spinnerCheck) {
+  console.log('waterChartAsdaSuccess',spinnerCheck);
+  return {
+    type: WATERFALL_CHART_ASDA_SPINNER_SUCCESS,
+    spinnerCheck
+  }
+}
+
+//PRICE RANGE CHART - ASDA SPINNER
+export function priceRangeChartSuccess(spinnerCheck) {
+  console.log('priceRangeChartSuccess',spinnerCheck);
+  return {
+    type: PRICE_RANGE_CHART_SPINNER_SUCCESS,
+    spinnerCheck
+  }
+}
+
 
 
 

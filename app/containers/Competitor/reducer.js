@@ -4,30 +4,30 @@
  *
  */
 
-import { fromJS } from 'immutable';
+import {fromJS} from 'immutable';
 import {
   DEFAULT_ACTION, WATERFALL_CONSTANT, WATERFALL_DATA_FETCH_SUCCESS, PIECHART_CONSTANT,
   PIECHART_DATA_FETCH_SUCCESS,
   PRICE_RANGE_CONSTANT, PRICE_RANGE_DATA_FETCH_SUCCESS, WEEK_PARAM, KPI_PARAM, FILTER_CONSTANT,
   FILTER_FETCH_SUCCESS, CHECKBOX_CHANGE, GENERATE_URL_PARAMS, GENERATE_URL_PARAMS_STRING,
   SEND_URL_PARAMS, SAVE_PRICE_INDEX, OUTPERFORMANCE_CONSTANT, PRICE_OUTPERFORMACE_FETCH_SUCCESS,
-  PRICE_INDEX_CLICK, WEEK, CHECKBOX_WEEK_CHANGE,
+  PRICE_INDEX_CLICK, WEEK, CHECKBOX_WEEK_CHANGE, PIE_CHART_SPINNER_SUCCESS, OUTPERFORMANCE_CHART_SPINNER_SUCCESS,WATERFALL_CHART_ASDA_SPINNER_SUCCESS,
+  PRICE_RANGE_CHART_SPINNER_SUCCESS
 } from './constants';
 
 
-
 const initialState = fromJS({
-  piechart_data:{'tesco_share_data':'0'},
+  piechart_data: {'tesco_share_data': '0'},
   dataWeekUrlParams: '',
   urlParamsString: '',
   filter_selection: '',
   kpi_type: '',
   dataPriceIndexParam: '',
   chat_data: '',
-  filter_week_selection:'',
-  dataPerformanceUrlParams:'',
+  filter_week_selection: '',
+  dataPerformanceUrlParams: '',
   dataBubbleUrlParams: '',
-  dataPageUrlParams:'page=1',
+  dataPageUrlParams: 'page=1',
   checkedList: [],
   radioChecked: '',
   chartData: [
@@ -71,7 +71,7 @@ const initialState = fromJS({
 function competitorReducer(state = initialState, action) {
   switch (action.type) {
     case DEFAULT_ACTION:
-      console.log("printing state",state)
+      console.log("printing state", state)
       return state;
 
     case WATERFALL_CONSTANT:
@@ -104,25 +104,25 @@ function competitorReducer(state = initialState, action) {
       return state.set('dataBrandParams', action.data);
 
     case WEEK_PARAM:
-      console.log("reducer WEEK_PARAM",action.data);
-      return state.set('week_param',action.data)
+      console.log("reducer WEEK_PARAM", action.data);
+      return state.set('week_param', action.data)
     case KPI_PARAM:
-      console.log("reducer KPI_PARAM",action.data);
-      return state.set('kpi_param',action.data)
+      console.log("reducer KPI_PARAM", action.data);
+      return state.set('kpi_param', action.data)
     case WEEK:
-      console.log("reducer WEEK",action.data);
-      return state.set('week',action.data)
+      console.log("reducer WEEK", action.data);
+      return state.set('week', action.data)
 
     case FILTER_CONSTANT:
       console.log("reducer FILTER_CONSTANT", action.data);
       return state.set('filters', action.data);
     case FILTER_FETCH_SUCCESS:
-      console.log("reducer FILTER_FETCH_SUCCESS",action.data);
-      return state.set('filter_data',action.data)
+      console.log("reducer FILTER_FETCH_SUCCESS", action.data);
+      return state.set('filter_data', action.data)
 
     case CHECKBOX_CHANGE:
-    // console.log(CHECKBOX_CHANGE, 'reducer', action);
-    return state.set('filter_selection', action.data);
+      // console.log(CHECKBOX_CHANGE, 'reducer', action);
+      return state.set('filter_selection', action.data);
 
     case CHECKBOX_WEEK_CHANGE:
       console.log('CHECKBOX_WEEK_CHANGE reducer', action.data);
@@ -143,6 +143,27 @@ function competitorReducer(state = initialState, action) {
     case PRICE_INDEX_CLICK:
       console.log("reducer PRICE_INDEX_CLICK", action.data);
       return state.set('dataPriceIndexParam', action.data);
+
+    //PIE CHART - SPINNER
+    case PIE_CHART_SPINNER_SUCCESS:
+      console.log("PIE_CHART_SPINNER_SUCCESS", action.spinnerCheck);
+      return state.set('onPieChartSpinnerSuccess', action.spinnerCheck);
+
+      //OUTPERFORMANCE CHART - SPINNER
+    case OUTPERFORMANCE_CHART_SPINNER_SUCCESS:
+      console.log("OUTPERFORMANCE_CHART_SPINNER_SUCCESS", action.spinnerCheck);
+      return state.set('outperformanceChartSpinnerSuccess', action.spinnerCheck);
+
+      //WATERFALL CHART - ASDA - SPINNER
+    case WATERFALL_CHART_ASDA_SPINNER_SUCCESS:
+      console.log("WATERFALL_CHART_ASDA_SPINNER_SUCCESS", action.spinnerCheck);
+      return state.set('waterfallChartAsdaSpinnerSuccess', action.spinnerCheck);
+
+ //WATERFALL CHART - ASDA - SPINNER
+    case PRICE_RANGE_CHART_SPINNER_SUCCESS:
+      console.log("PRICE_RANGE_CHART_SPINNER_SUCCESS", action.spinnerCheck);
+      return state.set('priceRangeChartSpinnerSuccess', action.spinnerCheck);
+
 
     // case UPDATE_CHART_DATA:
     //   console.log("reducer UPDATE_CHART_DATA", action.data);

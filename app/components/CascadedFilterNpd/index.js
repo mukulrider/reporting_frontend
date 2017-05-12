@@ -264,6 +264,11 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
               <Button style={{marginTop: "5px",marginLeft: "48px", width: "10px", "min-width": "170px", fontSize: "13px"}}
                       onClick={() => {
 
+                        this.props.onPieChartSpinnerSuccess(0);
+                        this.props.outPerformanceChartSuccess(0);
+                        this.props.waterChartAsdaSuccess(0);
+                        this.props.priceRangeChartSuccess(0);
+
                         this.applyButtonFunctionality();
 
                       }}>Apply Filters</Button>
