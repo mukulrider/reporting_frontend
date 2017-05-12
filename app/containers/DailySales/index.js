@@ -247,10 +247,24 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                         {
                           console.log("The line chart data in Index", this.props.DailySales.linechart_data.graph_data);
                           return(
-                          <LineChart data={this.props.DailySales.linechart_data.graph_data}
-                                     y_axis="Value"
-                                     x_axis="Date"
-                          />
+                            <div>
+                              <div style={{float:"right"}}>
+                                <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                  <MenuItem onClick={() => {
+                                    saveImage(document.getElementById('sampleSvg'),"dailySales_lineChart")
+                                  }
+                                  }>Save As JPEG</MenuItem>
+                                  <MenuItem onClick={() => {
+                                    saveDataAsCSV(this.props.DailySales.linechart_data.graph_data,"dailySales_lineChart_data.csv")
+                                  }
+                                  }>Download CSV</MenuItem>
+                                </DropdownButton>
+                              </div>
+                              <LineChart data={this.props.DailySales.linechart_data.graph_data}
+                                         y_axis="Value"
+                                         x_axis="Date"
+                              />
+                            </div>
                           )
                         }
                       })()}
