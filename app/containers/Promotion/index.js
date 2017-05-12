@@ -7,7 +7,8 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
-import {Modal,Nav, NavItem} from 'react-bootstrap';
+import { Modal,Nav,NavItem,DropdownButton, MenuItem } from 'react-bootstrap';
+import {saveImage,saveDataAsCSV} from './../../utils/exportFunctions';
 import Panel from 'components/panel';
 import {FormattedMessage} from 'react-intl';
 import {createStructuredSelector} from 'reselect';
@@ -18,8 +19,9 @@ import PieChart from 'components/PieChart';
 
 import PromoFilter from 'components/PromoFilter';
 import MultilinePromo from 'components/MultilinePromo';
-import 'react-bootstrap-table/dist/react-bootstrap-table.min.css';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import 'react-bootstrap-table/dist/react-bootstrap-table.min.css';
+
 import {
   generateUrlParamsString,
   SaveWeekParam,
@@ -517,7 +519,21 @@ export class Promotion extends React.PureComponent {
                         if (this.props.promotion.sales_data) {
                           console.log("pie chart data", this.props.promotion.sales_data.promo_sales.pie_chart);
                           return (
-                            <PieChart data={this.props.promotion.sales_data.promo_sales.pie_chart} id="piechart"/>
+                            <div>
+                              <div style={{float:"right"}}>
+                                <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                  <MenuItem onClick={() => {
+                                    saveImage(document.getElementById('piechart'+'_svg'),"promo_sales_piechart")
+                                  }
+                                  }>Save As JPEG</MenuItem>
+                                  <MenuItem onClick={() => {
+                                    saveDataAsCSV(this.props.promotion.sales_data.promo_sales.pie_chart,"promo_sales_piechart_data.csv")
+                                  }
+                                  }>Download CSV</MenuItem>
+                                </DropdownButton>
+                              </div>
+                              <PieChart data={this.props.promotion.sales_data.promo_sales.pie_chart} id="piechart"/>
+                            </div>
                           );
                         }
                       })()}
@@ -578,7 +594,21 @@ export class Promotion extends React.PureComponent {
                         if (this.props.promotion.sales_data) {
                           console.log("Promo Sales line chart data", this.props.promotion.sales_data.promo_sales.trend);
                           return (
-                            <MultilinePromo data={this.props.promotion.sales_data.promo_sales.trend} id="linechart" label_ty="Sales TY" label_ly="Sales LY" xaxis_title="Tesco Week" no_pref={this.props.promotion.sales_data.no_pref} no_suffix='' yaxis_title={this.props.promotion.sales_data.yaxis_title}/>
+                            <div>
+                              <div style={{float:"right"}}>
+                                <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                  <MenuItem onClick={() => {
+                                    saveImage(document.getElementById('sampleSvg'),"promo_sales_trend_multilineChart")
+                                  }
+                                  }>Save As JPEG</MenuItem>
+                                  <MenuItem onClick={() => {
+                                    saveDataAsCSV(this.props.promotion.sales_data.promo_sales.trend,"promo_sales_trend_multilineChart_data.csv")
+                                  }
+                                  }>Download CSV</MenuItem>
+                                </DropdownButton>
+                              </div>
+                              <MultilinePromo data={this.props.promotion.sales_data.promo_sales.trend} id="linechart" label_ty="Sales TY" label_ly="Sales LY" xaxis_title="Tesco Week" no_pref={this.props.promotion.sales_data.no_pref} no_suffix='' yaxis_title={this.props.promotion.sales_data.yaxis_title}/>
+                            </div>
                           );
                         }
                       })()}
@@ -601,8 +631,22 @@ export class Promotion extends React.PureComponent {
                         if (this.props.promotion.promo_giveaway_data) {
                           console.log("pie chart promo_giveaway data", this.props.promotion.promo_giveaway_data.pie_chart);
                           return (
-                            <PieChart data={this.props.promotion.promo_giveaway_data.pie_chart}
+                            <div>
+                              <div style={{float:"right"}}>
+                                <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                  <MenuItem onClick={() => {
+                                    saveImage(document.getElementById('piechart2'+'_svg'),"promo_giveaway_piechart")
+                                  }
+                                  }>Save As JPEG</MenuItem>
+                                  <MenuItem onClick={() => {
+                                    saveDataAsCSV(this.props.promotion.promo_giveaway_data.pie_chart,"promo_giveaway_data.csv")
+                                  }
+                                  }>Download CSV</MenuItem>
+                                </DropdownButton>
+                              </div>
+                              <PieChart data={this.props.promotion.promo_giveaway_data.pie_chart}
                                       id="piechart2"/>
+                            </div>
                           );
                         }
                       })()}
@@ -658,8 +702,22 @@ export class Promotion extends React.PureComponent {
                         if (this.props.promotion.promo_giveaway_data) {
                           console.log("Promo Giveaway line chart data", this.props.promotion.promo_giveaway_data.trend);
                           return (
-                            <MultilinePromo data={this.props.promotion.promo_giveaway_data.trend}
-                                            id="linechart2" label_ty="Promo Giveaway TY" label_ly="Promo Giveaway LY" xaxis_title="Tesco Week" yaxis_title="Promo Giveaway" no_pref='£' no_suffix=''/>
+                            <div>
+                              <div style={{float:"right"}}>
+                                <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                  <MenuItem onClick={() => {
+                                    saveImage(document.getElementById('linechart2'+'_svg'),"promo_giveaway_linechart")
+                                  }
+                                  }>Save As JPEG</MenuItem>
+                                  <MenuItem onClick={() => {
+                                    saveDataAsCSV(this.props.promotion.promo_giveaway_data.trend,"promo_giveaway_linechart_data.csv")
+                                  }
+                                  }>Download CSV</MenuItem>
+                                </DropdownButton>
+                              </div>
+                              <MultilinePromo data={this.props.promotion.promo_giveaway_data.trend}
+                                              id="linechart2" label_ty="Promo Giveaway TY" label_ly="Promo Giveaway LY" xaxis_title="Tesco Week" yaxis_title="Promo Giveaway" no_pref='£' no_suffix=''/>
+                            </div>
                           );
                         }
                       })()}
@@ -687,8 +745,22 @@ export class Promotion extends React.PureComponent {
                         if (this.props.promotion.promo_prod_data) {
                           console.log("pie chart promo_products data", this.props.promotion.promo_prod_data.pie_chart);
                           return (
-                            <PieChart data={this.props.promotion.promo_prod_data.pie_chart}
-                                      id="piechart3"/>
+                            <div>
+                              <div style={{float:"right"}}>
+                                <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                  <MenuItem onClick={() => {
+                                    saveImage(document.getElementById('piechart3'+'_svg'),"promo_products_piechart")
+                                  }
+                                  }>Save As JPEG</MenuItem>
+                                  <MenuItem onClick={() => {
+                                    saveDataAsCSV(this.props.promotion.promo_prod_data.pie_chart,"promo_products_piechart_data.csv")
+                                  }
+                                  }>Download CSV</MenuItem>
+                                </DropdownButton>
+                              </div>
+                              <PieChart data={this.props.promotion.promo_prod_data.pie_chart}
+                                        id="piechart3"/>
+                            </div>
                           );
                         }
                       })()}
@@ -751,8 +823,22 @@ export class Promotion extends React.PureComponent {
                         if (this.props.promotion.promo_prod_data) {
                           console.log("Promo Giveaway line chart data", this.props.promotion.promo_prod_data.trend);
                           return (
-                            <MultilinePromo data={this.props.promotion.promo_prod_data.trend}
-                                            id="linechart3" label_ty="Products on Promo TY" label_ly="Products on Promo LY"  xaxis_title="Tesco Week" yaxis_title="Products on Promo" no_pref='' no_suffix=''/>
+                            <div>
+                              <div style={{float:"right"}}>
+                                <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                  <MenuItem onClick={() => {
+                                    saveImage(document.getElementById('linechart3'+'_svg'),"promo_products_trend_multilineChart")
+                                  }
+                                  }>Save As JPEG</MenuItem>
+                                  <MenuItem onClick={() => {
+                                    saveDataAsCSV(this.props.promotion.promo_prod_data.trend,"promo_products_trend_multilineChart_data.csv")
+                                  }
+                                  }>Download CSV</MenuItem>
+                                </DropdownButton>
+                              </div>
+                              <MultilinePromo data={this.props.promotion.promo_prod_data.trend}
+                                              id="linechart3" label_ty="Products on Promo TY" label_ly="Products on Promo LY"  xaxis_title="Tesco Week" yaxis_title="Products on Promo" no_pref='' no_suffix=''/>
+                            </div>
                           );
                         }
                       })()}
@@ -780,8 +866,22 @@ export class Promotion extends React.PureComponent {
                         if (this.props.promotion.promo_part_data) {
                           console.log("pie chart promo_products data", this.props.promotion.promo_part_data.pie_chart);
                           return (
-                            <PieChart data={this.props.promotion.promo_part_data.pie_chart}
-                                      id="piechart4"/>
+                            <div>
+                              <div style={{float:"right"}}>
+                                <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                  <MenuItem onClick={() => {
+                                    saveImage(document.getElementById('piechart4'+'_svg'),"promo_participation_split_pieChart")
+                                  }
+                                  }>Save As JPEG</MenuItem>
+                                  <MenuItem onClick={() => {
+                                    saveDataAsCSV(this.props.promotion.promo_part_data.pie_chart,"promo_participation_split_pieChart_data.csv")
+                                  }
+                                  }>Download CSV</MenuItem>
+                                </DropdownButton>
+                              </div>
+                              <PieChart data={this.props.promotion.promo_part_data.pie_chart}
+                                        id="piechart4"/>
+                            </div>
                           );
                         }
                       })()}
@@ -835,8 +935,22 @@ export class Promotion extends React.PureComponent {
                         if (this.props.promotion.promo_part_data) {
                           console.log("Promo Participation line chart data", this.props.promotion.promo_part_data.trend);
                           return (
-                            <MultilinePromo data={this.props.promotion.promo_part_data.trend}
-                                            id="linechart4" label_ty="Promo Participation TY" label_ly="Promo Participation LY" xaxis_title="Tesco Week" yaxis_title="Promo Participation" no_pref='' no_suffix='%'/>
+                            <div>
+                              <div style={{float:"right"}}>
+                                <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                  <MenuItem onClick={() => {
+                                    saveImage(document.getElementById('linechart4'+'_svg'),"promo_participation_split_multilineChart")
+                                  }
+                                  }>Save As JPEG</MenuItem>
+                                  <MenuItem onClick={() => {
+                                    saveDataAsCSV(this.props.promotion.promo_part_data.pie_chart,"promo_participation_split_multilineChart_data.csv")
+                                  }
+                                  }>Download CSV</MenuItem>
+                                </DropdownButton>
+                              </div>
+                              <MultilinePromo data={this.props.promotion.promo_part_data.trend}
+                                              id="linechart4" label_ty="Promo Participation TY" label_ly="Promo Participation LY" xaxis_title="Tesco Week" yaxis_title="Promo Participation" no_pref='' no_suffix='%'/>
+                            </div>
                           );
                         }
                       })()}

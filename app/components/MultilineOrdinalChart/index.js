@@ -123,7 +123,7 @@ class MultilineOrdinalChart extends React.PureComponent { // eslint-disable-line
         let series_type_col_name=data2.series_col_name;
         let xaxis_bands=data2.xaxis_bands;
         // console.log(combined,yaxis_col_name,xaxis_col_name,series_type_col_name,xaxis_bands)
-
+console.log("MultilineOrdinalChartId:",chart_id);
 
 
         let xaxis_title="Price buckets (£) ";

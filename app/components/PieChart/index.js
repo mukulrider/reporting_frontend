@@ -47,6 +47,7 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
     svg.selectAll("*").remove();
     console.log("Inside pie chart check 3",data);
     svg = d3.select("#" + id).append("svg")
+      .attr("id",id + '_svg')
     // .attr("width", width)
     // .attr("height", height)
       .attr("width", width + margin.left + margin.right)

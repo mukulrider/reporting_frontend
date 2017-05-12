@@ -211,6 +211,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
     let svg = d3.select('#'+chart_id);
        svg.selectAll("*").remove();
        svg = d3.select('#'+chart_id).append("svg")
+         .attr("id",chart_id + '_svg')
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .attr("preserveAspectRatio", "xMinYMin meet")

@@ -428,19 +428,19 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
 
                         return (
                           <div>
-                          <DualLineChart ref = "chartImage" ty_text={this.state.ty_text} ly_text={this.state.ly_text} y_axis_text={this.state.y_axis_text} data={this.props.ProductPage.data.d3_output}/>
                             <div style={{float:"right"}}>
-                              <DropdownButton title="Save Image/CSV" style={{backgroundColor:"#449d44", borderColor:"#398439",color:"#fff"}} id="dropButtonId">
+                              <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
                                 <MenuItem onClick={() => {
-                                  saveImage(this.refs.chartImage.refs.image,"line_chart")
-                                  }
+                                  saveImage(this.refs.chartImage.refs.image,"TY_v/s_LY_Product_Performance_Comparison")
+                                }
                                 }>Save As JPEG</MenuItem>
                                 <MenuItem onClick={() => {
-                                  saveDataAsCSV(this.props.ProductPage.data.d3_output,"line_chart.csv")
-                                  }
+                                  saveDataAsCSV(this.props.ProductPage.data.d3_output,"TY_v/s_LY_Product_Performance_Comparison.csv")
+                                }
                                 }>Download CSV</MenuItem>
                               </DropdownButton>
                             </div>
+                            <DualLineChart ref = "chartImage" ty_text={this.state.ty_text} ly_text={this.state.ly_text} y_axis_text={this.state.y_axis_text} data={this.props.ProductPage.data.d3_output}/>
                           </div>
                         )
 

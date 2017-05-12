@@ -1049,12 +1049,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           {/*BarChart for Forecast*/}
                           <div className="col-md-6">
                             <h2 className="pageModuleSubTitle">Value vs. Forecast</h2>
-                            <BarChartSimple id="ForecastSales"
-                                            data={this.props.Executive.budget_forecast_data.forecast_data}>
-
-                            </BarChartSimple>
                             <div style={{float:"right"}}>
-                              <DropdownButton title="Save Image/CSV" style={{backgroundColor:"#449d44", borderColor:"#398439",color:"#fff"}} id="dropButtonId">
+                              <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
                                 <MenuItem onClick={() => {
                                   saveImage(document.getElementById('ForecastSales_svg'),"forecast_bar_chart")
                                 }
@@ -1065,16 +1061,17 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 }>Download CSV</MenuItem>
                               </DropdownButton>
                             </div>
+                            <BarChartSimple id="ForecastSales"
+                                            data={this.props.Executive.budget_forecast_data.forecast_data}>
+
+                            </BarChartSimple>
+
                           </div>
 
                           <div className="col-md-6">
                             <h2 className="pageModuleSubTitle">Value vs. Budget</h2>
-                            <BarChartSimple id="BudgetSales"
-                                            data={this.props.Executive.budget_forecast_data.budget_data}>
-
-                            </BarChartSimple>
                             <div style={{float:"right"}}>
-                              <DropdownButton title="Save Image/CSV" style={{backgroundColor:"#449d44", borderColor:"#398439",color:"#fff"}} id="dropButtonId">
+                              <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
                                 <MenuItem onClick={() => {
                                   saveImage(document.getElementById('BudgetSales_svg'),"budget_bar_chart")
                                 }
@@ -1085,6 +1082,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 }>Download CSV</MenuItem>
                               </DropdownButton>
                             </div>
+                            <BarChartSimple id="BudgetSales"
+                                            data={this.props.Executive.budget_forecast_data.budget_data}>
+
+                            </BarChartSimple>
                           </div>
                         </div>
                       </div>
@@ -1126,9 +1127,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             console.log("overview_kpi_trend_data value line chart data", this.props.Executive.overview_kpi_trend_data.sales_trend);
                             return (
                               <div>
-                                <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.sales_trend} id="overview_value_line" label_ty="Sales TY" label_ly="Sales LY" xaxis_title="Tesco Week" no_pref='£' no_suffix='' yaxis_title='Value' chart_width="600" legend_width="450" legend_text_width="445" />
                                 <div style={{float:"right"}}>
-                                  <DropdownButton title="Save Image/CSV" style={{backgroundColor:"#449d44", borderColor:"#398439",color:"#fff"}} id="dropButtonId">
+                                  <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
                                     <MenuItem onClick={() => {
                                       saveImage(document.getElementById('overview_value_line'),"kpiSalesValueTrend")
                                     }
@@ -1139,6 +1139,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                     }>Download CSV</MenuItem>
                                   </DropdownButton>
                                 </div>
+                                <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.sales_trend} id="overview_value_line" label_ty="Sales TY" label_ly="Sales LY" xaxis_title="Tesco Week" no_pref='£' no_suffix='' yaxis_title='Value' chart_width="600" legend_width="450" legend_text_width="445" />
                               </div>
                             );
                           }
@@ -1152,9 +1153,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             console.log("overview_kpi_trend_data volume line chart data", this.props.Executive.overview_kpi_trend_data.volume_trend);
                             return (
                               <div>
-                                <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.volume_trend} id="overview_volume_line" label_ty="Volume TY" label_ly="Volume LY" xaxis_title="Tesco Week" no_pref='' no_suffix='' yaxis_title='Volume' chart_width="600" legend_width="450" legend_text_width="445"/>
                                 <div style={{float:"right"}}>
-                                  <DropdownButton title="Save Image/CSV" style={{backgroundColor:"#449d44", borderColor:"#398439",color:"#fff"}} id="dropButtonId">
+                                  <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
                                     <MenuItem onClick={() => {
                                       saveImage(document.getElementById('overview_volume_line'),"kpiSalesVolumeTrend")
                                     }
@@ -1165,6 +1165,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                     }>Download CSV</MenuItem>
                                   </DropdownButton>
                                 </div>
+                                <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.volume_trend} id="overview_volume_line" label_ty="Volume TY" label_ly="Volume LY" xaxis_title="Tesco Week" no_pref='' no_suffix='' yaxis_title='Volume' chart_width="600" legend_width="450" legend_text_width="445"/>
                               </div>
                             );
                           }
@@ -1182,9 +1183,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             console.log("overview_kpi_trend_data COGS line chart data", this.props.Executive.overview_kpi_trend_data.cogs_trend);
                             return (
                               <div>
-                                <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.cogs_trend} id="overview_cogs_line" label_ty="COGS TY" label_ly="COGS LY" xaxis_title="Tesco Week" no_pref='£' no_suffix='' yaxis_title='COGS' chart_width="600" legend_width="450" legend_text_width="445"/>
                                 <div style={{float:"right"}}>
-                                  <DropdownButton title="Save Image/CSV" style={{backgroundColor:"#449d44", borderColor:"#398439",color:"#fff"}} id="dropButtonId">
+                                  <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
                                     <MenuItem onClick={() => {
                                       saveImage(document.getElementById('overview_cogs_line'),"kpiCOGSTrend")
                                     }
@@ -1195,6 +1195,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                     }>Download CSV</MenuItem>
                                   </DropdownButton>
                                 </div>
+                                <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.cogs_trend} id="overview_cogs_line" label_ty="COGS TY" label_ly="COGS LY" xaxis_title="Tesco Week" no_pref='£' no_suffix='' yaxis_title='COGS' chart_width="600" legend_width="450" legend_text_width="445"/>
                               </div>
                             );
                           }
@@ -1208,9 +1209,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             console.log("overview_kpi_trend_data profit line chart data", this.props.Executive.overview_kpi_trend_data.cgm_trend);
                             return (
                               <div>
-                                <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.cgm_trend} id="overview_cgm_line" label_ty="Profit TY" label_ly="Profit LY" xaxis_title="Tesco Week" no_pref='£' no_suffix='' yaxis_title='Profit'  chart_width="600" legend_width="450" legend_text_width="445"/>
                                 <div style={{float:"right"}}>
-                                  <DropdownButton title="Save Image/CSV" style={{backgroundColor:"#449d44", borderColor:"#398439",color:"#fff"}} id="dropButtonId">
+                                  <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
                                     <MenuItem onClick={() => {
                                       saveImage(document.getElementById('overview_cgm_line'),"kpiCGMTrend")
                                     }
@@ -1221,6 +1221,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                     }>Download CSV</MenuItem>
                                   </DropdownButton>
                                 </div>
+                                <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.cgm_trend} id="overview_cgm_line" label_ty="Profit TY" label_ly="Profit LY" xaxis_title="Tesco Week" no_pref='£' no_suffix='' yaxis_title='Profit'  chart_width="600" legend_width="450" legend_text_width="445"/>
                               </div>
                             );
                           }
@@ -1286,11 +1287,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             <div className="col-md-6">
                               <Panel>
                                 <h4 className="pageModuleSubTitle"> Promotion Contribution to growth </h4>
-                                <WaterFallChartExec id="waterfallChart_2" yAxisName="Price Index" formatter="formatSales"
-                                                    positive_text='negative' negative_text='positive' total_text='total1'
-                                />
                                 <div style={{float:"right"}}>
-                                  <DropdownButton title="Save Image/CSV" style={{backgroundColor:"#449d44", borderColor:"#398439",color:"#fff"}} id="dropButtonId">
+                                  <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
                                     <MenuItem onClick={() => {
                                       saveImage(document.getElementById('waterfallChart_2_svg'),"promoContriWaterfallChart")
                                     }
@@ -1301,6 +1299,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                     }>Download CSV</MenuItem>
                                   </DropdownButton>
                                 </div>
+                                <WaterFallChartExec id="waterfallChart_2" yAxisName="Price Index" formatter="formatSales"
+                                                    positive_text='negative' negative_text='positive' total_text='total1'
+                                />
                               </Panel>
                             </div>
                           </div>)
@@ -2254,13 +2255,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                         {/*Row for Multiline Chart*/}
                                                         <div className="row">
                                                           <div className="col-md-12">
-
-                                                            <ExecTopbotMultiline data={this.props.Executive.best_info_data.multiline_trend}
-                                                                                 id="top_trend" label_ty={this.props.Executive.best_info_data.legend1} label_ly={this.props.Executive.best_info_data.legend2}
-                                                                                 xaxis_title="Tesco Week" no_pref={this.props.Executive.best_info_data.no_pref} no_suffix=''
-                                                                                 yaxis_title={this.props.Executive.best_info_data.kpi_type} />
                                                             <div style={{float:"right"}}>
-                                                              <DropdownButton title="Save Image/CSV" style={{backgroundColor:"#449d44", borderColor:"#398439",color:"#fff"}} id="dropButtonId">
+                                                              <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
                                                                 <MenuItem onClick={() => {
                                                                   saveImage(document.getElementById('top_trend'),"botSupplierTrendMultiline_chart")
                                                                 }
@@ -2271,6 +2267,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                 }>Download CSV</MenuItem>
                                                               </DropdownButton>
                                                             </div>
+                                                            <ExecTopbotMultiline data={this.props.Executive.best_info_data.multiline_trend}
+                                                                                 id="top_trend" label_ty={this.props.Executive.best_info_data.legend1} label_ly={this.props.Executive.best_info_data.legend2}
+                                                                                 xaxis_title="Tesco Week" no_pref={this.props.Executive.best_info_data.no_pref} no_suffix=''
+                                                                                 yaxis_title={this.props.Executive.best_info_data.kpi_type} />
                                                           </div>
                                                         </div>
                                                       </div>
@@ -2485,13 +2485,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                         {/*Row for Multiline Chart*/}
                                                         <div className="row">
                                                           <div className="col-md-12">
-
-                                                            <ExecTopbotMultiline data={this.props.Executive.worst_info_data.multiline_trend}
-                                                                                 id="bot_trend" label_ty={this.props.Executive.worst_info_data.legend1} label_ly={this.props.Executive.worst_info_data.legend2}
-                                                                                 xaxis_title="Tesco Week" no_pref={this.props.Executive.worst_info_data.no_pref} no_suffix=''
-                                                                                 yaxis_title={this.props.Executive.worst_info_data.kpi_type} />
                                                             <div style={{float:"right"}}>
-                                                              <DropdownButton title="Save Image/CSV" style={{backgroundColor:"#449d44", borderColor:"#398439",color:"#fff"}} id="dropButtonId">
+                                                              <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
                                                                 <MenuItem onClick={() => {
                                                                   saveImage(document.getElementById('bot_trend'),"botSupplierTrendMultiline_chart")
                                                                 }
@@ -2502,6 +2497,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                 }>Download CSV</MenuItem>
                                                               </DropdownButton>
                                                             </div>
+                                                            <ExecTopbotMultiline data={this.props.Executive.worst_info_data.multiline_trend}
+                                                                                 id="bot_trend" label_ty={this.props.Executive.worst_info_data.legend1} label_ly={this.props.Executive.worst_info_data.legend2}
+                                                                                 xaxis_title="Tesco Week" no_pref={this.props.Executive.worst_info_data.no_pref} no_suffix=''
+                                                                                 yaxis_title={this.props.Executive.worst_info_data.kpi_type} />
                                                           </div>
                                                         </div>
                                                       </div>
@@ -2672,10 +2671,24 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                     if (this.props.Executive.drivers_external_data) {
                                                       console.log("Promo Sales line chart data", this.props.Executive.drivers_external_data.rainfall);
                                                       return (
-                                                        <MultilineThree data={this.props.Executive.drivers_external_data.rainfall}
-                                                                        id="rainfall_line" label_ty="Rainfall TY" label_ly="Rainfall LY"
-                                                                        xaxis_title="Tesco Week" no_pref='£' no_suffix='' no_pref2='' no_suffix2=''
-                                                                        yaxis_title='Value' yaxis_title2='Weather'/>
+                                                        <div>
+                                                          <div style={{float:"right"}}>
+                                                            <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                                              <MenuItem onClick={() => {
+                                                                saveImage(document.getElementById('rainfall_line'+'_svg'),"external_drivers_rainfall")
+                                                              }
+                                                              }>Save As JPEG</MenuItem>
+                                                              <MenuItem onClick={() => {
+                                                                saveDataAsCSV(this.props.Executive.drivers_external_data.rainfall,"external_drivers_rainfall.csv")
+                                                              }
+                                                              }>Download CSV</MenuItem>
+                                                            </DropdownButton>
+                                                          </div>
+                                                          <MultilineThree data={this.props.Executive.drivers_external_data.rainfall}
+                                                                          id="rainfall_line" label_ty="Rainfall TY" label_ly="Rainfall LY"
+                                                                          xaxis_title="Tesco Week" no_pref='£' no_suffix='' no_pref2='' no_suffix2=''
+                                                                          yaxis_title='Value' yaxis_title2='Weather'/>
+                                                        </div>
                                                       );
                                                     }
                                                   })()}
@@ -2691,13 +2704,27 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                       if (this.props.Executive.drivers_external_data) {
                                                         console.log("Promo Sales line chart data", this.props.Executive.drivers_external_data.sunshine);
                                                         return (
-                                                          <MultilineThree
-                                                            data={this.props.Executive.drivers_external_data.sunshine}
-                                                            id="sunshine_line" label_ty="Sunshine TY"
-                                                            label_ly="Sunshine LY"
-                                                            xaxis_title="Tesco Week" no_pref='£' no_suffix=''
-                                                            no_pref2='' no_suffix2=''
-                                                            yaxis_title='Value' yaxis_title2='Sunshine'/>
+                                                          <div>
+                                                            <div style={{float:"right"}}>
+                                                              <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                                                <MenuItem onClick={() => {
+                                                                  saveImage(document.getElementById('sunshine_line'+'_svg'),"external_drivers_sunshine")
+                                                                }
+                                                                }>Save As JPEG</MenuItem>
+                                                                <MenuItem onClick={() => {
+                                                                  saveDataAsCSV(this.props.Executive.drivers_external_data.sunshine,"external_drivers_sunshine.csv")
+                                                                }
+                                                                }>Download CSV</MenuItem>
+                                                              </DropdownButton>
+                                                            </div>
+                                                            <MultilineThree
+                                                              data={this.props.Executive.drivers_external_data.sunshine}
+                                                              id="sunshine_line" label_ty="Sunshine TY"
+                                                              label_ly="Sunshine LY"
+                                                              xaxis_title="Tesco Week" no_pref='£' no_suffix=''
+                                                              no_pref2='' no_suffix2=''
+                                                              yaxis_title='Value' yaxis_title2='Sunshine'/>
+                                                          </div>
                                                         );
                                                       }
                                                     })()}
@@ -2714,13 +2741,27 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                       if (this.props.Executive.drivers_external_data) {
                                                         console.log("Promo Sales line chart data", this.props.Executive.drivers_external_data.temperature);
                                                         return (
-                                                          <MultilineThree
-                                                            data={this.props.Executive.drivers_external_data.temperature}
-                                                            id="temperature_line" label_ty="Temperature TY"
-                                                            label_ly="Temperature LY"
-                                                            xaxis_title="Tesco Week" no_pref='£' no_suffix=''
-                                                            no_pref2='' no_suffix2=''
-                                                            yaxis_title='Value' yaxis_title2='Temperature'/>
+                                                          <div>
+                                                            <div style={{float:"right"}}>
+                                                              <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                                                <MenuItem onClick={() => {
+                                                                  saveImage(document.getElementById('temperature_line'+'_svg'),"external_drivers_temperature")
+                                                                }
+                                                                }>Save As JPEG</MenuItem>
+                                                                <MenuItem onClick={() => {
+                                                                  saveDataAsCSV(this.props.Executive.drivers_external_data.temperature,"external_drivers_temperature.csv")
+                                                                }
+                                                                }>Download CSV</MenuItem>
+                                                              </DropdownButton>
+                                                            </div>
+                                                            <MultilineThree
+                                                              data={this.props.Executive.drivers_external_data.temperature}
+                                                              id="temperature_line" label_ty="Temperature TY"
+                                                              label_ly="Temperature LY"
+                                                              xaxis_title="Tesco Week" no_pref='£' no_suffix=''
+                                                              no_pref2='' no_suffix2=''
+                                                              yaxis_title='Value' yaxis_title2='Temperature'/>
+                                                          </div>
                                                         );
                                                       }
                                                     })()}
@@ -2776,7 +2817,21 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             if (this.props.Executive.overview_kpi_trend_data) {
                                               console.log("Promo Sales line chart data", this.props.Executive.overview_kpi_trend_data.sales_trend);
                                               return (
-                                                <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.sales_trend} id="holiday_value_line" label_ty="Sales TY" label_ly="Sales LY" xaxis_title="Tesco Week" no_pref='£' no_suffix='' yaxis_title='Value'/>
+                                                <div>
+                                                  <div style={{float:"right"}}>
+                                                    <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                                      <MenuItem onClick={() => {
+                                                        saveImage(document.getElementById('holiday_value_line'+'_svg'),"overview_kpi_sales_trend")
+                                                      }
+                                                      }>Save As JPEG</MenuItem>
+                                                      <MenuItem onClick={() => {
+                                                        saveDataAsCSV(this.props.Executive.overview_kpi_trend_data.sales_trend,"overview_kpi_sales_trend.csv")
+                                                      }
+                                                      }>Download CSV</MenuItem>
+                                                    </DropdownButton>
+                                                  </div>
+                                                  <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.sales_trend} id="holiday_value_line" label_ty="Sales TY" label_ly="Sales LY" xaxis_title="Tesco Week" no_pref='£' no_suffix='' yaxis_title='Value'/>
+                                                </div>
                                               );
                                             }
                                           })()}

@@ -285,19 +285,19 @@ export class Competitor extends React.PureComponent {
                     console.log("pie chart data", this.props.competitor.piechart_data);
                     return (
                       <div>
-                        <Pichart ref = "competitorPieChartComp" data={this.props.competitor.piechart_data.pie_chart_value} id="piechart"/>
                         <div style={{float:"right"}}>
-                          <DropdownButton title="Save Image/CSV" style={{backgroundColor:"#449d44", borderColor:"#398439",color:"#fff"}} id="dropButtonId">
-                              <MenuItem onClick={() => {
-                              saveImage(document.getElementById('piechart_svg'),"pie_chart")
+                          <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                            <MenuItem onClick={() => {
+                              saveImage(document.getElementById('piechart'+'_svg'),"pie_chart")
                             }
-                          }>Save As JPEG</MenuItem>
+                            }>Save As JPEG</MenuItem>
                             <MenuItem onClick={() => {
                               saveDataAsCSV(this.props.competitor.piechart_data.pie_chart_value,"pie_chart.csv")
                             }
-                          }>Download CSV</MenuItem>
+                            }>Download CSV</MenuItem>
                           </DropdownButton>
                         </div>
+                        <Pichart ref = "competitorPieChartComp" data={this.props.competitor.piechart_data.pie_chart_value} id="piechart"/>
                       </div>
                     )
                   }
@@ -336,19 +336,19 @@ export class Competitor extends React.PureComponent {
                     console.log("Outperformance data", this.props.competitor.outperformance_data);
                     return (
                       <div>
-                        <BarLineChart data={this.props.competitor.outperformance_data} id="barline" ref="competitorOutperformComp" series_col_name= 'id'/>
                         <div style={{float:"right"}}>
-                          <DropdownButton title="Save Image/CSV" style={{backgroundColor:"#449d44", borderColor:"#398439",color:"#fff"}} id="dropButtonId">
-                              <MenuItem onClick={() => {
-                              saveImage(document.getElementById('barline_svg'),"barline_chart")
+                          <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                            <MenuItem onClick={() => {
+                              saveImage(document.getElementById('barline'+'_svg'),"barline_chart")
                             }
-                          }>Save As JPEG</MenuItem>
+                            }>Save As JPEG</MenuItem>
                             <MenuItem onClick={() => {
                               saveDataAsCSV(this.props.competitor.outperformance_data,"barline_chart.csv")
                             }
-                          }>Download CSV</MenuItem>
-                            </DropdownButton>
-                      </div>
+                            }>Download CSV</MenuItem>
+                          </DropdownButton>
+                        </div>
+                        <BarLineChart data={this.props.competitor.outperformance_data} id="barline" ref="competitorOutperformComp" series_col_name= 'id'/>
                       </div>
                     )
                   }
@@ -454,11 +454,24 @@ export class Competitor extends React.PureComponent {
                     console.log("consoling basda data", this.props.competitor.waterfall_data);
 
                     return (
-                      <WaterFallChart2
-
-                        id="waterfallChart_1" yAxisName="Price Index" formatter="formatSales"
-                        positive_text='negative' negative_text='positive' total_text='total1'
-                        data={ this.props.competitor.waterfall_data.asda }/>
+                      <div>
+                        <div style={{float:"right"}}>
+                          <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                            <MenuItem onClick={() => {
+                              saveImage(document.getElementById('waterfallChart_1'+'_svg'),"Asda_priceIndex_waterfall_chart")
+                            }
+                            }>Save As JPEG</MenuItem>
+                            <MenuItem onClick={() => {
+                              saveDataAsCSV(this.props.competitor.waterfall_data.asda,"Asda_priceIndex_waterfall_chart.csv")
+                            }
+                            }>Download CSV</MenuItem>
+                          </DropdownButton>
+                        </div>
+                        <WaterFallChart2
+                          id="waterfallChart_1" yAxisName="Price Index" formatter="formatSales"
+                          positive_text='negative' negative_text='positive' total_text='total1'
+                          data={ this.props.competitor.waterfall_data.asda }/>
+                      </div>
                     )
                   }
                 })()}
@@ -471,13 +484,26 @@ export class Competitor extends React.PureComponent {
                   if (this.props.competitor.waterfall_data) {
                     console.log("------------------------------", this.props.competitor.waterfall_data);
                     return (
-                      <WaterFallChart2
+                      <div>
+                        <div style={{float:"right"}}>
+                          <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                            <MenuItem onClick={() => {
+                              saveImage(document.getElementById('waterfallChart_2'+'_svg'),"JS_priceIndex_waterfall_chart")
+                            }
+                            }>Save As JPEG</MenuItem>
+                            <MenuItem onClick={() => {
+                              saveDataAsCSV(this.props.competitor.waterfall_data.js,"JS_priceIndex_waterfall_chart.csv")
+                            }
+                            }>Download CSV</MenuItem>
+                          </DropdownButton>
+                        </div>
+                        <WaterFallChart2
+                          id="waterfallChart_2" yAxisName="Price Index" formatter="formatSales"
+                          positive_text='negative' negative_text='positive' total_text='total1'
+                          data={ this.props.competitor.waterfall_data.js }
 
-                        id="waterfallChart_2" yAxisName="Price Index" formatter="formatSales"
-                        positive_text='negative' negative_text='positive' total_text='total1'
-                        data={ this.props.competitor.waterfall_data.js }
-
-                      />
+                        />
+                      </div>
                     )
                   }
                 })()}
@@ -492,9 +518,23 @@ export class Competitor extends React.PureComponent {
                   if (this.props.competitor.waterfall_data) {
                     console.log("------------------------------", this.props.competitor.waterfall_data);
                     return (
-                      <WaterFallChart2 id="waterfallChart_3" yAxisName="Price Index" formatter="formatSales"
-                                       positive_text='negative' negative_text='positive' total_text='total1'
-                                       data={ this.props.competitor.waterfall_data.morr}/>
+                      <div>
+                        <div style={{float:"right"}}>
+                          <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                            <MenuItem onClick={() => {
+                              saveImage(document.getElementById('waterfallChart_3'+'_svg'),"Morrisons_priceIndex_waterfall_chart")
+                            }
+                            }>Save As JPEG</MenuItem>
+                            <MenuItem onClick={() => {
+                              saveDataAsCSV(this.props.competitor.waterfall_data.morr,"Morrisons_priceIndex_waterfall_chart.csv")
+                            }
+                            }>Download CSV</MenuItem>
+                          </DropdownButton>
+                        </div>
+                        <WaterFallChart2 id="waterfallChart_3" yAxisName="Price Index" formatter="formatSales"
+                                         positive_text='negative' negative_text='positive' total_text='total1'
+                                         data={ this.props.competitor.waterfall_data.morr}/>
+                      </div>
                     )
                   }
                 })()}
@@ -507,10 +547,24 @@ export class Competitor extends React.PureComponent {
                   if (this.props.competitor.waterfall_data) {
                     console.log("------------------------------", this.props.competitor.waterfall_data);
                     return (
-                      <WaterFallChart2
-                        id="waterfallChart_4" yAxisName="Price Index" formatter="formatSales"
-                        positive_text='negative' negative_text='positive' total_text='total1'
-                        data={ this.props.competitor.waterfall_data.aldi}/>
+                      <div>
+                        <div style={{float:"right"}}>
+                          <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                            <MenuItem onClick={() => {
+                              saveImage(document.getElementById('waterfallChart_4'+'_svg'),"Aldi_priceIndex_waterfall_chart")
+                            }
+                            }>Save As JPEG</MenuItem>
+                            <MenuItem onClick={() => {
+                              saveDataAsCSV(this.props.competitor.waterfall_data.aldi,"Aldi_priceIndex_waterfall_chart.csv")
+                            }
+                            }>Download CSV</MenuItem>
+                          </DropdownButton>
+                        </div>
+                        <WaterFallChart2
+                          id="waterfallChart_4" yAxisName="Price Index" formatter="formatSales"
+                          positive_text='negative' negative_text='positive' total_text='total1'
+                          data={ this.props.competitor.waterfall_data.aldi}/>
+                      </div>
                     )
                   }
                 })()}
@@ -553,14 +607,28 @@ export class Competitor extends React.PureComponent {
                 if (this.props.competitor.pricerange_data) {
                   console.log("---------------------check---------  ", this.props.competitor.pricerange_data);
                   return (
-                    <MultilineOrdinalChart data={[{
-                      chart_data: this.props.competitor.pricerange_data.data,
-                      xaxis_col_name: 'price_gravity',
-                      yaxis_col_name: 'sku_gravity',
-                      series_col_name: 'id',
-                      xaxis_bands: this.props.competitor.pricerange_data.axis_data,
-                      color_order: this.props.competitor.pricerange_data.colors
-                    }, "multiOrdinalChart2", '£ ']}/>
+                    <div>
+                      <div style={{float:"right"}}>
+                        <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                          <MenuItem onClick={() => {
+                            saveImage(document.getElementById('multiOrdinalChart2'),"Competitor_Price_Range_ordinal_chart")
+                          }
+                          }>Save As JPEG</MenuItem>
+                          <MenuItem onClick={() => {
+                            saveDataAsCSV(this.props.competitor.pricerange_data.data,"Competitor_Price_Range_data.csv")
+                          }
+                          }>Download CSV</MenuItem>
+                        </DropdownButton>
+                      </div>
+                      <MultilineOrdinalChart data={[{
+                        chart_data: this.props.competitor.pricerange_data.data,
+                        xaxis_col_name: 'price_gravity',
+                        yaxis_col_name: 'sku_gravity',
+                        series_col_name: 'id',
+                        xaxis_bands: this.props.competitor.pricerange_data.axis_data,
+                        color_order: this.props.competitor.pricerange_data.colors
+                      }, "multiOrdinalChart2", '£ ']}/>
+                    </div>
                   )
                 }
               })()}

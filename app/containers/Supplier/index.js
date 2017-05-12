@@ -702,7 +702,19 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                                 return (
                                   <div style={{border: '1px solid #e5e8ea'}}>
-                                    <SampleBarChart data={[this.props.supplier.topBotData.top_chart]}
+                                    <div style={{float:"right"}}>
+                                      <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                        <MenuItem onClick={() => {
+                                          saveImage(document.getElementById('suppliertopchart'+'_svg'),"topSuppliers_barChart")
+                                        }
+                                        }>Save As JPEG</MenuItem>
+                                        <MenuItem onClick={() => {
+                                          saveDataAsCSV(this.props.supplier.topBotData.top_chart,"topSuppliers_barChart.csv")
+                                        }
+                                        }>Download CSV</MenuItem>
+                                      </DropdownButton>
+                                    </div>
+                                    <SampleBarChart ref="suppliertopchart" data={[this.props.supplier.topBotData.top_chart]}
                                                     id="suppliertopchart"/>
                                   </div>
                                 )
@@ -722,7 +734,19 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                                 return (
                                   <div style={{border: '1px solid #e5e8ea'}}>
-                                    <SampleBarChart data={[this.props.supplier.topBotData.bottom_chart]}
+                                    <div style={{float:"right"}}>
+                                      <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                        <MenuItem onClick={() => {
+                                          saveImage(document.getElementById('supplierbotchart'+'_svg'),"bottomSuppliers_barChart")
+                                        }
+                                        }>Save As JPEG</MenuItem>
+                                        <MenuItem onClick={() => {
+                                          saveDataAsCSV(this.props.supplier.topBotData.bottom_chart,"bottomSuppliers_barChart.csv")
+                                        }
+                                        }>Download CSV</MenuItem>
+                                      </DropdownButton>
+                                    </div>
+                                    <SampleBarChart ref="supplierbotchart" data={[this.props.supplier.topBotData.bottom_chart]}
                                                     id="supplierbotchart"/>
                                   </div>
                                 )
@@ -1097,8 +1121,19 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                             } else {
                               return (
 
-                                <div className="col-xs-12 col-md-8" style={{marginTop: '2%'}}>
-
+                                <div className="col-xs-12" style={{marginTop: '2%'}}>
+                                  <div style={{float:"right"}}>
+                                    <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                      <MenuItem onClick={() => {
+                                        saveImage(this.refs.bubbleChartComp.refs.svgBubble,"bubble_chart")
+                                      }
+                                      }>Save As JPEG</MenuItem>
+                                      <MenuItem onClick={() => {
+                                        saveDataAsCSV(this.props.supplier.chartData,"bubble_chart.csv")
+                                      }
+                                      }>Download CSV</MenuItem>
+                                    </DropdownButton>
+                                  </div>
                                   <BubbleChart2 ref="bubbleChartComp" data={this.props.supplier.chartData}
 
                                     //Passing array which updates table
@@ -1116,18 +1151,6 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                 onFetchGraph={this.props.onFetchGraph}
                                                 onGenerateTable={this.props.onGenerateTable}
                                   />
-                                  <div style={{float:"right"}}>
-                                    <DropdownButton title="Save Image/CSV" style={{backgroundColor:"#449d44", borderColor:"#398439",color:"#fff"}} id="dropButtonId">
-                                      <MenuItem onClick={() => {
-                                      saveImage(this.refs.bubbleChartComp.refs.svgBubble,"bubble_chart")
-                                      }
-                                      }>Save As JPEG</MenuItem>
-                                      <MenuItem onClick={() => {
-                                      saveDataAsCSV(this.props.supplier.chartData,"bubble_chart.csv")
-                                      }
-                                      }>Download CSV</MenuItem>
-                                    </DropdownButton>
-                                  </div>
                                   <i style={{fontSize: '12px'}}>*Size of the bubble corresponds to Rate of Sales</i>
 
                                   {/*<div className="resetButton" onClick={() => {*/}
