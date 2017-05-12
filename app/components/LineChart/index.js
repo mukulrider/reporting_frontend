@@ -47,12 +47,14 @@ class LineChart extends React.PureComponent { // eslint-disable-line react/prefe
     //   }
     // ];
     const data1=data;
-    var svg = d3.select("#sampleSvg"),
-      margin = {top: 20, right: 20, bottom: 60, left: 50},
-      width = +svg.attr("width") - margin.left - margin.right,
-      height = +svg.attr("height") - margin.top - margin.bottom,
-      g = svg.append("g").attr("transform", "translate(100," + margin.top + ")");
+    var svg = d3.select("#sampleSvg");
     svg.selectAll("*").remove();
+    svg = d3.select("#sampleSvg");
+    let  margin = {top: 20, right: 20, bottom: 60, left: 50};
+    let  width = +svg.attr("width") - margin.left - margin.right;
+    let  height = +svg.attr("height") - margin.top - margin.bottom;
+    let  g = svg.append("g").attr("transform", "translate(100," + margin.top + ")");
+
     //.attr("transform",'translate(300,0)');
     // .attr('width',width+margin.left+margin.right)
     // .attr('height',height+margin.top+margin.bottom)
