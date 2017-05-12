@@ -34,14 +34,16 @@ import {
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-// let host_url = "http://10.1.244.200:8001"
-let host_url = "http://172.20.244.149:8000"
+let host_url = "http://10.1.244.154:8000"
+// let host_url = "http://172.20.244.149:8000"
 // FOR SUPPLIER POPUP TABLE
 export function* generateDataFetch() {
   console.log('inside kpi');
   const urlName = yield select(selectSupplierDomain());
   // const weekurlparam = urlName.get('week_param');
   // const kpiparam = urlName.get('kpi_param');
+
+
 
   // CREATING 1 PARAMETER FOR APPENDING TO URL
 
@@ -668,9 +670,14 @@ export function* generateTable() {
   console.log('ddd', ajaxSelection);
 
   if (!(typeof(ajaxSelection) == "undefined") && !(ajaxSelection == "")) {
-    ajaxSelection = '?' + ajaxSelection;
+    // ajaxSelection = '?' + ajaxSelection;
+
+    urlParams = urlParams + '&' + ajaxSelection ;
+    // urlParams = '?' + urlParams.replace('&', '');
+
+    console.log('entered urlParams', urlParams);
     console.log('entered ajaxselection', ajaxSelection);
-    const data = yield call(request,host_url + `/api/reporting/supplier_view_table_bubble` + ajaxSelection + urlParams
+    const data = yield call(request,host_url + `/api/reporting/supplier_view_table_bubble` + urlParams
       )
     ;
 
@@ -683,6 +690,7 @@ export function* generateTable() {
 
   else {
     console.log('data12');
+    // urlParams = '?' + urlParams;
     const data = yield call(request, host_url + `/api/reporting/supplier_view_table_bubble` + urlParams);
 
     console.log(host_url + `/api/reporting/supplier_view_table_bubble` + urlParams);
@@ -826,19 +834,18 @@ export function* generateGraph() {
   let ajaxSelection = '';
 
   ajaxSelection = SelectionState;
-  // ajaxSelection = SelectionState.replace('&', '');
+  ajaxSelection = SelectionState.replace('&', '');
 
   console.log('ddd', ajaxSelection);
 
   if (!(typeof(ajaxSelection) == "undefined") && !(ajaxSelection == "")) {
-    ajaxSelection = ajaxSelection + urlParams;
-    if (!(urlParams == "")) {
-      ajaxSelection = "?" + ajaxSelection.replace('&', '');
-    }
-    console.log('entered ajaxselection', ajaxSelection);
+    urlParams = urlParams + '&' + ajaxSelection ;
+    urlParams = '?' + urlParams.replace('&', '');
+
+    console.log('entered urlParams', urlParams);
     const data = yield call(request,
 
-        host_url + `/api/reporting/supplier_view_chart_bubble` + ajaxSelection
+        host_url + `/api/reporting/supplier_view_chart_bubble` + urlParams
       )
     ;
     // const data = yield call(request, `http://172.20.244.223:8000/api/nego_chart?` + urlParams +"&"+ ajaxSelection);
