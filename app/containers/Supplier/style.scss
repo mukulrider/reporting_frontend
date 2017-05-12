@@ -386,28 +386,18 @@ th {
 }
 
 .spinnerPosition {
-  marginLeft: 0px;
-  marginRight: 0px;
-  left: 42% !important;
-  position: relative;
+  text-align : center;
   padding: 14%
 }
 
 .spinnerPositionBarChart {
-  marginLeft: 0px;
-  marginRight: 0px;
-  left: 22% !important;
-  position: relative;
+  text-align : center;
   padding: 14%
 }
 
 .spinnerPositionWaterfall {
-  marginLeft: 0px;
-  marginRight: 0px;
-  left: 15% !important;
-  margin-top: 3%;
-  position: relative;
-  padding: 15%;
+  text-align : center;
+  padding: 14%
 }
 
 .tesco-heading {
@@ -420,11 +410,7 @@ th {
   text-align: center;
   padding-left: 1%;
 }
-.bottomSupplierFix {
-  float: right;
-  width: 53%;
-  right: 1%;
-}
+
 .spinnerPositionFix {
   left: 29% !important;
 }

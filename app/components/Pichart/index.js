@@ -44,13 +44,13 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
        .attr("id",id + '_svg')
        .attr("width", width + margin.left + margin.right)
        .attr("height", height + margin.top + margin.bottom)
-       //responsive SVG needs these 2 attributes and no width and height attr
-       .attr("preserveAspectRatio", "xMinYMin meet")
-       .attr("viewBox", "0 0 300 300")
-       //class to make it responsive
-       .classed("svg-content-responsive", true)
+       // //responsive SVG needs these 2 attributes and no width and height attr
+       // .attr("preserveAspectRatio", "xMinYMin meet")
+       // .attr("viewBox", "0 0 300 300")
+       // //class to make it responsive
+       // .classed("svg-content-responsive", true)
        .append("g")
-      .attr("transform", "translate(200,75)");
+      .attr("transform", "translate(200," + (width/3) + ")");
 
      setTimeout(function(){
        d3.select('#' + id + '_svg').attr("width",null).attr("height",null)
