@@ -78,13 +78,11 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
           {/*})()}*/}
         </div>
 
-
-
-
           <div style={{
             height: '100%',
             position: 'fixed',
             width: '20%',
+            marginTop:'-1%',
             paddingRight: '1%',
             overflowX: 'hidden',
             overflowY: 'scroll',
@@ -95,15 +93,12 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                 console.log("Calling Filter index.js", this.props.DailySales.filter_data);
                 return (
                   <CascadedFilterDSS filter_data={this.props.DailySales.filter_data}
-                    // week_data={this.props.promotion.filter_data.week_data}
                                        DefaultLineChartCall={this.props.DefaultLineChartCall}
                                        week_data={this.props.DailySales.week_filter_data}
                                        location={this.props.location}
                                        save_week={this.props.save_week}
                                        onGenerateSideFilter={this.props.onGetFilter}
                                        onFilterReset={this.props.onFilterReset}
-                                       onDataUrlParams={this.props.DataUrlParams}
-                                       onUrlParamsData={this.props.onUrlParamsData}
                                        onGenerateUrlParams={this.props.onGenerateUrlParams}
                                        onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}
                                        onGenerateFilterParamsString={this.props.onGenerateFilterParamsString}
@@ -111,10 +106,6 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                        ongenerateWeekFilter={this.props.onGetWeekFilter}
                                        onSaveWeekFilterParam={this.props.onSaveWeekFilterParam}
                                        loadKpi={this.props.loadKpi}
-                                       loadSales={this.props.loadSales}
-                                       loadPromoProd={this.props.loadPromoProd}
-                                       loadPromoPart={this.props.loadPromoPart}
-                                       onSendUrlParams={this.props.onSendUrlParams}
                                        onSaveWeek={this.props.onSaveWeek}
                                        previous_selection={this.props.DailySales.filter_selection}
                                        previous_week_selection={this.props.DailySales.filter_week_selection}
@@ -143,7 +134,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                     <div className="col-xs-4 overview-blk" >
                       <Panel>
                         <div className="panel" style={{border: '1px solid #E5E8EA', width: '250px'}}>
-                        <h4 className="panel-heading tesco-heading"><b>Sales</b></h4>
+                        <h4 className="panel-heading tesco-heading"><b>Value</b></h4>
                         <div className="panel-body">
                           <span className="overview-blk-value">
                                    {(() => {
@@ -220,7 +211,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                     kpiParmas = "val_type=1";
                     this.props.onSaveKPIParam(kpiParmas);
                     this.props.DefaultLineChartCall();
-                    }} ><span className="tab_label">Sales</span></NavItem>
+                    }} ><span className="tab_label">Value</span></NavItem>
                     <NavItem style={{fontSize: '16px', width:'16%',textAlign:'center'}} className="tabsCustomList" eventKey="2" onClick={() => {
                     this.setState({activeKey1: "2"});
                     kpiParmas = "val_type=2";

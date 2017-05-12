@@ -237,9 +237,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
         <div className="pageTitle">
           {(() => {
-          if (this.props.executive.filter_week_selection) {
+          if (this.props.Executive.filter_week_selection) {
           return (
-          <span>Executive View - {(this.props.executive.filter_week_selection).substring(11, 17)}</span>
+          <span>Executive View - {(this.props.Executive.filter_week_selection).substring(11, 17)}</span>
           )
           } else {
           return (
@@ -1267,55 +1267,85 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                     {/*Row for internal/external drivers of sales*/}
                     {(() => {
                       if (this.props.Executive.driver_param=='internal') {
+
                         return(
                           <div className="row">
-                            <div className="col-md-6 col-xs-12">
-                              <Panel style={{marginLeft:"15px"}}>
-                                <div>
-                                  <h4 className="pageModuleSubTitle"> KPI Contribution to growth </h4>
-                                  <h4 className="panel-heading tesco-heading h3" style={{ textAlign : "center"}}>  LFL Sales: 50 </h4>
-                                  <div className="row" style={{width:"480px"}}>
-                                    <div className="col-xs-3 overview-blk" style={{marginRight:"5px"}} >
-                                      <Panel>
-                                        <div className="panel" style={{border: '1px solid #E5E8EA', width: '120px'}}>
-                                          <h4 className="panel-heading tesco-heading"><b>Transactions</b></h4>
-                                          <div className="panel-body">
+                            {(() => {
+                              if (this.props.Executive.overview_drivers_internal_data) {
+                                if (this.props.Executive.overview_drivers_internal_data.data_available == 'yes') {
+                                  return (
+                                    <div className="col-md-6 col-xs-12">
+                                      <Panel style={{marginLeft: "15px"}}>
+                                        <div>
+                                          <h4 className="pageModuleSubTitle"> KPI Contribution to growth </h4>
+                                          <h4 className="panel-heading tesco-heading h3" style={{textAlign: "center"}}>
+                                            LFL Sales: 50 </h4>
+                                          <div className="row" style={{width: "480px"}}>
+                                            <div className="col-xs-3 overview-blk" style={{marginRight: "5px"}}>
+                                              <Panel>
+                                                <div className="panel"
+                                                     style={{border: '1px solid #E5E8EA', width: '120px'}}>
+                                                  <h4 className="panel-heading tesco-heading"><b>Transactions</b></h4>
+                                                  <div className="panel-body">
                                             <span className="overview-blk-value">
                                           <h4> 10%  </h4>
                                             </span>
-                                          </div>
-                                        </div>
-                                      </Panel>
-                                    </div>
-                                    <div className="col-xs-3 overview-blk" style={{marginRight:"5px"}} >
-                                      <Panel>
-                                        <div className="panel" style={{border: '1px solid #E5E8EA', width: '120px'}}>
-                                          <h4 className="panel-heading tesco-heading"><b>Items per Basket</b></h4>
-                                          <div className="panel-body">
+                                                  </div>
+                                                </div>
+                                              </Panel>
+                                            </div>
+                                            <div className="col-xs-3 overview-blk" style={{marginRight: "5px"}}>
+                                              <Panel>
+                                                <div className="panel"
+                                                     style={{border: '1px solid #E5E8EA', width: '120px'}}>
+                                                  <h4 className="panel-heading tesco-heading"><b>Items per Basket</b>
+                                                  </h4>
+                                                  <div className="panel-body">
                                             <span className="overview-blk-value">
                                           <h4> 20 % </h4>
                                             </span>
-                                          </div>
-                                        </div>
-                                      </Panel>
-                                    </div>
-                                    <div className="col-xs-3 overview-blk" style={{marginRight:"5px"}} >
-                                      <Panel>
-                                        <div className="panel" style={{border: '1px solid #E5E8EA', width: '120px'}}>
-                                          <h4 className="panel-heading tesco-heading"><b>Item price</b></h4>
-                                          <div className="panel-body">
+                                                  </div>
+                                                </div>
+                                              </Panel>
+                                            </div>
+                                            <div className="col-xs-3 overview-blk" style={{marginRight: "5px"}}>
+                                              <Panel>
+                                                <div className="panel"
+                                                     style={{border: '1px solid #E5E8EA', width: '120px'}}>
+                                                  <h4 className="panel-heading tesco-heading"><b>Item price</b></h4>
+                                                  <div className="panel-body">
                                             <span className="overview-blk-value">
                                           <h4> 30% </h4>
                                             </span>
+                                                  </div>
+                                                </div>
+                                              </Panel>
+                                            </div>
                                           </div>
                                         </div>
                                       </Panel>
-                                    </div>
-                                      </div>
-                                </div>
-                              </Panel>
 
-                                  </div>
+                                    </div>
+                                  )
+                                }
+                                  else{
+                                    return (
+                                      <div><h3>Data is available only from week 201702</h3></div>
+                                    )
+                                  }
+                                }
+                              else{
+                                return(
+                                  <div><h3>Data is available only from week 201702</h3></div>
+                                )
+                              }
+                            }
+                            )()}
+
+
+
+
+
 
 
                             <div className="col-md-6 col-xs-12">
