@@ -113,7 +113,7 @@
 .ui-component__mobile-menu.show {
   visibility: visible;
   transform: translate3d(0%, 0, 0);
-  -webkit-transform: translate(0px, 0px);    /*Safari*/
+  -webkit-transform: translate(0px, 0px); /*Safari*/
 }
 
 .ui-component__mobile-menu {
@@ -128,9 +128,9 @@
   z-index: 11;
   transition: transform .5s cubic-bezier(0.32, 0.29, 0.06, 0.83);
   transform: translate3d(100%, 0, 0);
-  -ms-transform: translate(100%, 0);          /* IE 9 */
+  -ms-transform: translate(100%, 0); /* IE 9 */
   -webkit-transition: -webkit-transform .5s cubic-bezier(0.32, 0.29, 0.06, 0.83);
-  -webkit-transform: translate(100%, 0px);    /*Safari*/
+  -webkit-transform: translate(100%, 0px); /*Safari*/
 
   @media screen and (min-width: $bp-mobile) {
     display: none;
@@ -315,5 +315,78 @@
   &__content--utility-bar-contents li a:hover span {
     border-bottom: 1px solid $white;
     color: $white;
- }
+    .tabsCustom {
+      margin-top: 24px;
+    }
+  }
+}
+//TABS
+.tabsCustomList {
+  //color: red;
+  //width: 30%;
+  //text-align: center;
+  //border-style: ridge;
+  //border-radius: 8px;
+  //margin-left: 35px;
+}
+
+.tabsAppHeaderCustomList{
+  display: inline-block;
+  margin-top: 3px;
+  margin-left: 2px;
+  border-bottom: none;
+}
+
+.tabsCustomList {
+  display: inline-block;
+  margin-top: 15px;
+  margin-left: 30px;
+  border-bottom: none;
+}
+
+
+.tabsCustomList a:hover {
+  text-decoration: underline !important;
+  color: #008dc8;
+}
+.tabsCustomList.active {
+  margin-bottom: -1px;
+}
+
+.tabsCustomList span.tab_label {
+  padding: 12px 8px;
+  //color: #048EC3;
+  //font-weight: 600;
+
+  font-weight: 600;
+  font-family: Tesco;
+  color: #00539f;
+  font-size: 16px;
+  vertical-align: middle;
+}
+
+.tabsCustomList.active span.tab_label {
+  border-bottom: #048EC3 solid 4px;
+}
+.tabsCustomList a {
+  background: #fff;
+  font-family: 'Tesco' !important;
+  padding: 15px 15px 16px 15px !important;
+  text-decoration: none;
+  font-size: 14px;
+}
+.nav {
+  margin-top: 24px;
+}
+.nav-tabs{
+  border-bottom: 0px;
+}
+.tabsCustomList a:hover ,
+.tabsCustomList a:active
+{
+  background: #fff !important;
+  border:0px;
+  border-bottom: 2px solid #00539f;
+  text-decoration: none !important;
+  border-color: #00539f !important;
 }

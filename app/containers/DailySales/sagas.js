@@ -25,7 +25,8 @@ import {
 } from './selectors';
 
 
-let host_url="http://172.20.246.250:8000";
+let host_url="http://10.1.244.200:8000";
+// let host_url="http://172.20.246.60:8000";
 // All sagas to be loaded
 
 
@@ -70,15 +71,19 @@ export function* generateFilterFetch() {
   if(!urlParamsString){
     urlParamsString=''
   }
+
+  if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+    urlParamsString = '?' + urlParamsString;
+  }
   try {
-    const data = yield call(request, host_url+'/api/reporting/filter_data?' + urlParamsString);
+    const data = yield call(request, host_url+'/api/reporting/filter_daily_sales' + urlParamsString);
+    // const data = yield call(request, host_url+'/api/reporting/filter_data?' + urlParamsString);
 
     // console.log(host_url+'/api/reporting/filter_data_week?');
     // const data2 = yield call(request, host_url+'/api/reporting/filter_data_week?' +weekurlparams);
     // console.log("sagas generateFilterFetch data2",data2)
     // const filter_data = {"filter_data": data, "week_data": data2 }
     console.log("Filter data",data);
-    console.log("Along with the URL",host_url+"/api/reporting/filter_data?"+ urlParamsString);
     yield put(FilterFetchSuccess(data));
   } catch (err) {
     console.log(err);
@@ -95,29 +100,30 @@ export function* generateWeekFilterFetch() {
   let urlName=yield select(selectDailySalesDomain());
   // let weekurlparams1 = urlName.get('filter_week_selection');
 
-  //*********************** FILTERS PARAMETERS ***********************
+  //*********************** FILTERS PARAMETERS *****************************
   // FOR TESCO WEEK
   let urlParams = "";
   let filter_week_selection = '';
-  filter_week_selection = urlName.get('filter_week_selection');
+  filter_week_selection = urlName.get('week');
   if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
-    filter_week_selection = urlName.get('filter_week_selection');
+    filter_week_selection = urlName.get('week');
     console.log("filter_week_selection if", filter_week_selection);
   } else {
     filter_week_selection = "";
     console.log("filter_week_selection else", filter_week_selection);
   }
   if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
-    urlParams = filter_week_selection;
+    urlParams = '?' + filter_week_selection;
     console.log("filter_week_selection urlParams if", urlParams);
   } else {
     console.log("filter_week_selection urlParams else", urlParams);
   }
 
   try{
-    const data = yield call(request, host_url+'/api/reporting/product/filter_data_week?' + urlParams);
+    const data = yield call(request, host_url+'/api/reporting/filter_daily_tesco_week' + urlParams);
+    // const data = yield call(request, host_url+'/api/reporting/product/filter_data_week?' + urlParams);
     console.log("Filter week data",data);
-    console.log("Along with the URL",host_url+"/api/reporting/product/filter_data_week?"+ urlParams);
+
     yield put(WeekFilterFetchSuccess(data));
   } catch (err) {
     console.log("Error",err);

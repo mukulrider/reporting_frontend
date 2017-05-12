@@ -227,6 +227,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
     return (
+      <div>
 
 
       <div className="row" style={{
@@ -234,11 +235,26 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
         marginRight: '0px'
       }}>
 
+        <div className="pageTitle">
+          {/*{(() => {*/}
+          {/*if (this.props.executive.filter_week_selection) {*/}
+          {/*return (*/}
+          {/*<span>Executive View - {(this.props.executive.filter_week_selection).substring(11, 17)}</span>*/}
+          {/*)*/}
+          {/*} else {*/}
+          {/*return (*/}
+            <span>Executive View </span>
+          {/*)*/}
+          {/*}*/}
+          {/*})()}*/}
+        </div>
+
+
         <div style={{
-          height: '100%',
+          height: '80%',
           position: 'fixed',
           width: '20%',
-          /* padding-right: 5px; */
+          paddingRight: '1%',
           overflowX: 'hidden',
           overflowY: 'scroll',
           borderTop: '1px solid #ccc'
@@ -286,7 +302,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
           marginLeft: '22%'
         }}>
           <div className="col-md-12 content-wrap">
-            <h3> Executive View - Week &nbsp; </h3>
             {/*Nav for time period*/}
             <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom">
               <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
@@ -684,7 +699,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                           <div className="row">
-                            <div className="col-md-12">
+                            <div className="col-md-12 col-xs-12">
 
                               <h3></h3>
                             </div>
@@ -693,7 +708,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                           <div className="row">
                             <div className="panel-body">
-                              <div className="col-md-6 kpiSmall">
+                              <div className="col-md-6 col-xs-12 kpiSmall">
 
 
                                 <h3>
@@ -717,7 +732,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 <h4 className="kpiSubTitle">WoW</h4>
 
                               </div>
-                              <div className="col-md-6 kpiSmall">
+                              <div className="col-md-6 col-xs-12 kpiSmall">
 
                                 <h3>
                         <span
@@ -756,7 +771,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                           </h3>
                           <div className="row">
-                            <div className="col-md-12">
+                            <div className="col-md-12 col-xs-12">
 
                               <h3></h3>
 
@@ -765,7 +780,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           </div>
                           <div className="row">
                             <div className="panel-body">
-                              <div className="col-md-6 kpiSmall">
+                              <div className="col-md-6 col-xs-12 kpiSmall">
 
 
                                 <h3>
@@ -789,7 +804,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 <h4 className="kpiSubTitle">WoW</h4>
 
                               </div>
-                              <div className="col-md-6 kpiSmall">
+                              <div className="col-md-6 col-xs-12 kpiSmall">
 
                                 <h3>
                         <span
@@ -828,7 +843,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                           </h3>
                           <div className="row">
-                            <div className="col-md-12">
+                            <div className="col-md-12 col-xs-12">
 
                               <h3></h3>
                             </div>
@@ -836,7 +851,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           </div>
                           <div className="row">
                             <div className="panel-body">
-                              <div className="col-md-6 kpiSmall">
+                              <div className="col-md-6 col-xs-12 kpiSmall">
 
 
                                 <h3>
@@ -860,7 +875,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 <h4 className="kpiSubTitle">WoW</h4>
 
                               </div>
-                              <div className="col-md-6 kpiSmall">
+                              <div className="col-md-6 col-xs-12 kpiSmall">
 
                                 <h3>
                         <span
@@ -899,7 +914,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                           </h3>
                           <div className="row">
-                            <div className="col-md-12">
+                            <div className="col-md-12 col-xs-12">
 
                               <h3></h3>
                             </div>
@@ -907,7 +922,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           </div>
                           <div className="row">
                             <div className="panel-body">
-                              <div className="col-md-6 kpiSmall">
+                              <div className="col-md-6 col-xs-12 kpiSmall">
 
 
                                 <h3>
@@ -931,7 +946,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 <h4 className="kpiSubTitle">WoW</h4>
 
                               </div>
-                              <div className="col-md-6 kpiSmall">
+                              <div className="col-md-6 col-xs-12 kpiSmall">
 
                                 <h3>
                         <span
@@ -964,8 +979,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           <h3 className="pageModuleSubTitle"> Price
 
                           </h3>
-                          <div className="row">
-                            <div className="col-md-12">
+                          <div className="row" style={{ marginTop: "80px"}}>
+                            <div className="col-md-12 col-xs-12">
 
                               <h3></h3>
                             </div>
@@ -973,7 +988,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           </div>
                           <div className="row">
                             <div className="panel-body">
-                              <div className="col-md-6 kpiSmall">
+                              <div className="col-md-6 col-xs-12 kpiSmall">
 
 
                                 <h3>
@@ -984,7 +999,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 <h4 className="kpiSubTitle">ACP</h4>
 
                               </div>
-                              <div className="col-md-6 kpiSmall">
+                              <div className="col-md-6 col-xs-12 kpiSmall">
 
                                 <h3>
 
@@ -1004,8 +1019,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           <h3 className="pageModuleSubTitle"> Market Share
 
                           </h3>
-                          <div className="row">
-                            <div className="col-md-12">
+                          <div className="row" style={{ marginTop: "80px"}}>
+                            <div className="col-md-12 col-xs-12">
 
                               <h3></h3>
                             </div>
@@ -1013,7 +1028,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           </div>
                           <div className="row">
                             <div className="panel-body">
-                              <div className="col-md-6 kpiSmall">
+                              <div className="col-md-6 col-xs-12 kpiSmall">
 
 
                                 <h3>
@@ -1024,7 +1039,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 <h4 className="kpiSubTitle">Value Share</h4>
 
                               </div>
-                              <div className="col-md-6 kpiSmall">
+                              <div className="col-md-6 col-xs-12 kpiSmall">
 
                                 <h3>
 
@@ -1062,13 +1077,13 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               </DropdownButton>
                             </div>
                             <BarChartSimple id="ForecastSales"
-                                            data={this.props.Executive.budget_forecast_data.forecast_data}>
+                                            data={this.props.Executive.budget_forecast_data.forecast_data}
+                                            col_a='Forecast'>
 
                             </BarChartSimple>
-
                           </div>
 
-                          <div className="col-md-6">
+                          <div className="col-md-6 col-xs-12">
                             <h2 className="pageModuleSubTitle">Value vs. Budget</h2>
                             <div style={{float:"right"}}>
                               <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
@@ -1120,7 +1135,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                     {/*Row for value and volume*/}
                     <div className="row">
                       {/*Value Trend*/}
-                      <div className="col-md-6">
+                      <div className="col-md-6 col-xs-12">
                         <h3 className="pageModuleSubTitle"> Value</h3>
                         {(() => {
                           if (this.props.Executive.overview_kpi_trend_data) {
@@ -1146,7 +1161,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                         })()}
                       </div>
                       {/*Volume Trend*/}
-                      <div className="col-md-6">
+                      <div className="col-md-6 col-xs-12">
                         <h3 className="pageModuleSubTitle"> Volume</h3>
                         {(() => {
                           if (this.props.Executive.overview_kpi_trend_data) {
@@ -1176,7 +1191,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                     {/*Row for COGS and CGM*/}
                     <div className="row">
                       {/*COGS Trend*/}
-                      <div className="col-md-6">
+                      <div className="col-md-6 col-xs-12">
                         <h3 className="pageModuleSubTitle"> COGS</h3>
                         {(() => {
                           if (this.props.Executive.overview_kpi_trend_data) {
@@ -1202,7 +1217,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                         })()}
                       </div>
                       {/*CGM Trend*/}
-                      <div className="col-md-6">
+                      <div className="col-md-6 col-xs-12">
                         <h3 className="pageModuleSubTitle"> Profit</h3>
                         {(() => {
                           if (this.props.Executive.overview_kpi_trend_data) {
@@ -1254,54 +1269,89 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       if (this.props.Executive.driver_param=='internal') {
                         return(
                           <div className="row">
-                            <div className="col-md-6">
-                              <Panel>
-                                <h4 className="pageModuleSubTitle"> KPI Contribution to growth </h4>
-                                <h4 className="panel-heading tesco-heading">  LFL Sales: 50 </h4>
-                                <div className="row">
-                                  <div className="panel-body">
-                                    <div className="col-md-4">
-                                      {/*<div className="panel-body">*/}
-                                      <h4> 10%  </h4>
-                                      <h4><b> {'Transactions'} </b></h4>
-                                      {/*</div>*/}
-
+                            <div className="col-md-6 col-xs-12">
+                              <Panel style={{marginLeft:"15px"}}>
+                                <div>
+                                  <h4 className="pageModuleSubTitle"> KPI Contribution to growth </h4>
+                                  <h4 className="panel-heading tesco-heading h3" style={{ textAlign : "center"}}>  LFL Sales: 50 </h4>
+                                  <div className="row" style={{width:"480px"}}>
+                                    <div className="col-xs-3 overview-blk" style={{marginRight:"5px"}} >
+                                      <Panel>
+                                        <div className="panel" style={{border: '1px solid #E5E8EA', width: '120px'}}>
+                                          <h4 className="panel-heading tesco-heading"><b>Transactions</b></h4>
+                                          <div className="panel-body">
+                                            <span className="overview-blk-value">
+                                          <h4> 10%  </h4>
+                                            </span>
+                                          </div>
+                                        </div>
+                                      </Panel>
                                     </div>
-                                    <div className="col-md-4">
-                                      {/*<div className="panel-body">*/}
-                                      <h4> 20 % </h4>
-                                      <h4><b> {'Items per Basket'} </b></h4>
-                                      {/*</div>*/}
+                                    <div className="col-xs-3 overview-blk" style={{marginRight:"5px"}} >
+                                      <Panel>
+                                        <div className="panel" style={{border: '1px solid #E5E8EA', width: '120px'}}>
+                                          <h4 className="panel-heading tesco-heading"><b>Items per Basket</b></h4>
+                                          <div className="panel-body">
+                                            <span className="overview-blk-value">
+                                          <h4> 20 % </h4>
+                                            </span>
+                                          </div>
+                                        </div>
+                                      </Panel>
                                     </div>
-                                    <div className="col-md-4">
-                                      {/*<div className="panel-body">*/}
-                                      <h4>  30% </h4>
-                                      <h4><b>{'Item price'}</b></h4>
-                                      {/*</div>*/}
+                                    <div className="col-xs-3 overview-blk" style={{marginRight:"5px"}} >
+                                      <Panel>
+                                        <div className="panel" style={{border: '1px solid #E5E8EA', width: '120px'}}>
+                                          <h4 className="panel-heading tesco-heading"><b>Item price</b></h4>
+                                          <div className="panel-body">
+                                            <span className="overview-blk-value">
+                                          <h4> 30% </h4>
+                                            </span>
+                                          </div>
+                                        </div>
+                                      </Panel>
                                     </div>
-                                  </div>
+                                      </div>
                                 </div>
                               </Panel>
-                            </div>
 
-                            <div className="col-md-6">
+                                  </div>
+
+
+                            <div className="col-md-6 col-xs-12">
                               <Panel>
                                 <h4 className="pageModuleSubTitle"> Promotion Contribution to growth </h4>
-                                <div style={{float:"right"}}>
-                                  <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
-                                    <MenuItem onClick={() => {
-                                      saveImage(document.getElementById('waterfallChart_2_svg'),"promoContriWaterfallChart")
-                                    }
-                                    }>Save As JPEG</MenuItem>
-                                    <MenuItem onClick={() => {
-                                      saveDataAsCSV(this.props.Executive.budget_forecast_data.budget_data,"promoContriWaterfallChart.csv")
-                                    }
-                                    }>Download CSV</MenuItem>
-                                  </DropdownButton>
-                                </div>
-                                <WaterFallChartExec id="waterfallChart_2" yAxisName="Price Index" formatter="formatSales"
-                                                    positive_text='negative' negative_text='positive' total_text='total1'
-                                />
+                                {(() =>{
+                                  if(this.props.Executive.overview_drivers_internal_data)
+                                    return(
+                                      <div>
+                                        <div style={{float:"right"}}>
+                                          <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                            <MenuItem onClick={() => {
+                                              saveImage(document.getElementById('waterfallChart_2_svg'),"overviewDriversInternalWaterfallChart")
+                                            }
+                                            }>Save As JPEG</MenuItem>
+                                            <MenuItem onClick={() => {
+                                              saveDataAsCSV(this.props.Executive.overview_drivers_internal_data.promo,"overviewDriversInternalWaterfallChart_data.csv")
+                                            }
+                                            }>Download CSV</MenuItem>
+                                          </DropdownButton>
+                                        </div>
+                                        <WaterFallChartExec id="waterfallChart_2"
+                                                            yAxisName="Price Index"
+                                                            formatter="formatSales"
+                                                            positive_text='negative'
+                                                            negative_text='positive'
+                                                            total_text='total1'
+                                                            data= {this.props.Executive.overview_drivers_internal_data.promo}
+                                        />
+                                      </div>
+                                    )
+                                  }
+
+
+
+                                )()}
                               </Panel>
                             </div>
                           </div>)
@@ -1319,8 +1369,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                   <h3 className="pageModuleSubTitle"> Sunshine
                                   </h3>
 
-                                 {/* Image here*/}
-                                  <img style = {{height: 150, width: 150,marginLeft:'25%'}}  src={imgSunshine}/>
+                                  {/* Image here*/}
+                                  <img style = {{height: 100, width: 100,marginLeft:'32%'}}  src={imgSunshine}/>
 
                                   <div className="row">
                                     <h3 style={{ textAlign : "center"}}>{
@@ -1330,7 +1380,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                   </div>
                                   <div className="row">
                                     <div className="panel-body">
-                                      <div className="col-md-6 kpiSmall">
+                                      <div className="col-md-6 col-xs-12 kpiSmall">
 
 
                                         <h3>
@@ -1354,7 +1404,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                         <h4 className="kpiSubTitle">WoW</h4>
 
                                       </div>
-                                      <div className="col-md-6 kpiSmall">
+                                      <div className="col-md-6 col-xs-12 kpiSmall">
 
                                         <h3>
                         <span
@@ -1388,7 +1438,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                   </h3>
                                   {/* Image here*/}
-                                  <img style = {{height: 150, width: 150,marginLeft:'25%'}}  src={imgRainfall}/>
+                                  <img style = {{height: 100, width: 100,marginLeft:'32%'}}  src={imgRainfall}/>
                                   <div className="row">
                                     <h3 style={{ textAlign : "center"}}>{
                                       this.props.Executive.overview_drivers_external_data.rainfall.avg
@@ -1397,7 +1447,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                   </div>
                                   <div className="row">
                                     <div className="panel-body">
-                                      <div className="col-md-6 kpiSmall">
+                                      <div className="col-md-6 col-xs-12 kpiSmall">
 
 
                                         <h3>
@@ -1421,7 +1471,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                         <h4 className="kpiSubTitle">WoW</h4>
 
                                       </div>
-                                      <div className="col-md-6 kpiSmall">
+                                      <div className="col-md-6 col-xs-12 kpiSmall">
 
                                         <h3>
                         <span
@@ -1455,7 +1505,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                   </h3>
                                   {/* Image here*/}
-                                  <img style = {{height: 150, width: 150,marginLeft:'25%'}}  src={imgTemperature}/>
+                                  <img style = {{height: 100, width: 100,marginLeft:'32%'}}  src={imgTemperature}/>
                                   <div className="row">
                                     <h3 style={{ textAlign : "center"}}>{
                                       this.props.Executive.overview_drivers_external_data.temperature.avg
@@ -1464,7 +1514,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                   </div>
                                   <div className="row">
                                     <div className="panel-body">
-                                      <div className="col-md-6 kpiSmall">
+                                      <div className="col-md-6 col-xs-12 kpiSmall">
 
 
                                         <h3>
@@ -1488,7 +1538,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                         <h4 className="kpiSubTitle">WoW</h4>
 
                                       </div>
-                                      <div className="col-md-6 kpiSmall">
+                                      <div className="col-md-6 col-xs-12 kpiSmall">
 
                                         <h3>
                         <span
@@ -1524,7 +1574,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               <h3 className="pageModuleMainTitle"> Holidays this week
                               </h3>
                               {/*Block for holidays table*/}
-                              <div className="col-md-4">
+                              <div className="col-md-6">
                                 {(() => {
                                   if (this.props.Executive.overview_drivers_external_data) {
                                     return (
@@ -1550,7 +1600,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 })()}
                               </div>
                               {/*Block for sales trend value*/}
-                              <div className="col-md-8">
+                              <div className="col-md-6">
                                 {(() => {
                                   if (this.props.Executive.overview_kpi_trend_data) {
                                     console.log("Promo Sales line chart data", this.props.Executive.overview_kpi_trend_data.sales_trend);
@@ -1589,11 +1639,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           <Panel>
                             <h3 className="pageModuleSubTitle"> ASP </h3>
                             <div className="row">
-                              <div className="col-md-6">
+                              <div className="col-md-6 col-xs-12">
 
                                 <h3>Inflation  &nbsp; {this.props.Executive.price_kpi_data.ASP_abs}</h3>
                               </div>
-                              <div className="col-md-6">
+                              <div className="col-md-6 col-xs-12">
                                 <h3>Fisher Inflation &nbsp; {this.props.Executive.price_kpi_data.ASP_fisher_infl} </h3>
                               </div>
                             </div>
@@ -1644,7 +1694,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                   <h4 className="kpiSubTitle">LFL</h4>
 
                                 </div>
-                                <div className="col-md-6 kpiSmall">
+                                <div className="col-md-6 col-xs-12 kpiSmall">
 
                                   <h3>
                           <span
@@ -1677,11 +1727,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           <Panel>
                             <h3 className="pageModuleSubTitle"> ACP </h3>
                             <div className="row">
-                              <div className="col-md-6">
+                              <div className="col-md-6 col-xs-12">
 
                                 <h3>Inflation  &nbsp; {this.props.Executive.price_kpi_data.ACP_abs}</h3>
                               </div>
-                              <div className="col-md-6">
+                              <div className="col-md-6 col-xs-12">
                                 <h3>Fisher Inflation &nbsp; {this.props.Executive.price_kpi_data.ACP_fisher_infl} </h3>
                               </div>
                             </div>
@@ -1732,7 +1782,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                   <h4 className="kpiSubTitle">LFL</h4>
 
                                 </div>
-                                <div className="col-md-6 kpiSmall">
+                                <div className="col-md-6 col-xs-12 kpiSmall">
 
                                   <h3>
                           <span
@@ -1766,17 +1816,17 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           <Panel>
                             <h3 className="pageModuleSubTitle"> Price Index </h3>
                             <div className="row">
-                              <div className="col-md-6">
+                              <div className="col-md-6 col-xs-12">
 
                                 <h3>vs. ASDA  &nbsp; </h3>
                               </div>
-                              <div className="col-md-6">
+                              <div className="col-md-6 col-xs-12">
                                 <h3>Index &nbsp; {this.props.Executive.price_kpi_data.price_index_cw} </h3>
                               </div>
                             </div>
                             <div className="row">
                               <div className="panel-body">
-                                <div className="col-md-12 kpiSmall">
+                                <div className="col-md-12 col-xs-12 kpiSmall">
                                   <h3>
                                     <span
                                       className={(() => {
@@ -1832,11 +1882,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             <h3 className="pageModuleSubTitle"> Total {this.props.Executive.kpi_boxes_data.kpi_name} </h3>
                             <div style={{paddingLeft: '5%'}}>
                               <div className="row" style={{paddingRight: '15%'}}>
-                                <div className="col-md-6" style={{textAlign: 'center'}}>
+                                <div className="col-md-6 col-xs-12" style={{textAlign: 'center'}}>
 
                                   <h3>{this.props.Executive.kpi_boxes_data.total_value.total}</h3>
                                 </div>
-                                <div className="col-md-6" style={{textAlign: 'center'}}>
+                                <div className="col-md-6 col-xs-12" style={{textAlign: 'center'}}>
                                   <h3>LFL &nbsp; {this.props.Executive.kpi_boxes_data.total_value.total_lfl} </h3>
                                 </div>
                               </div>
@@ -1923,17 +1973,17 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           }
                           else
                           {
-                            return "col-md-6"
+                            return "col-md-6 col-xs-12"
                           }  })()} style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
                           <Panel>
                             <h3 className="pageModuleSubTitle"> Contribution to Growth </h3>
                             <div style={{paddingLeft: '5%'}}>
                               <div className="row"  style={{paddingRight: '15%'}}>
-                                <div className="col-md-6" style={{textAlign: 'center'}}>
+                                <div className="col-md-6 col-xs-12" style={{textAlign: 'center'}}>
 
                                   <h3>{this.props.Executive.kpi_boxes_data.growth.total}</h3>
                                 </div>
-                                <div className="col-md-6" style={{textAlign: 'center'}}>
+                                <div className="col-md-6 col-xs-12" style={{textAlign: 'center'}}>
                                   <h3>LFL &nbsp; {this.props.Executive.kpi_boxes_data.growth.total_lfl} </h3>
                                 </div>
                               </div>
@@ -2022,11 +2072,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                   <h3 className="pageModuleSubTitle"> Market </h3>
                                   <div style={{paddingLeft: '5%'}}>
                                     <div className="row"  style={{paddingRight: '15%'}}>
-                                      <div className="col-md-6" style={{textAlign: 'center'}}>
+                                      <div className="col-md-6 col-xs-12" style={{textAlign: 'center'}}>
 
                                         <h3>{this.props.Executive.kpi_boxes_data.market.total}</h3>
                                       </div>
-                                      <div className="col-md-6" style={{textAlign: 'center'}}>
+                                      <div className="col-md-6 col-xs-12" style={{textAlign: 'center'}}>
                                         <h3>LFL &nbsp; {this.props.Executive.kpi_boxes_data.market.total_lfl} </h3>
                                       </div>
                                     </div>
@@ -2089,7 +2139,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       {/*Row for best and worst performances*/}
                       <h2 className="pageModuleMainTitle">Best and Worst Performances</h2>
                       <div className="row">
-                        <div className="col-md-6">
+                        <div className="col-md-6 col-xs-12">
 
 
 
@@ -2318,7 +2368,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-6 col-xs-12">
 
                           {(() => {
                             if (this.props.Executive.best_worst_data.Choose_filters == 'no')
@@ -2484,7 +2534,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                         </div>
                                                         {/*Row for Multiline Chart*/}
                                                         <div className="row">
-                                                          <div className="col-md-12">
+                                                          <div className="col-md-12 col-xs-12">
                                                             <div style={{float:"right"}}>
                                                               <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
                                                                 <MenuItem onClick={() => {
@@ -2588,6 +2638,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                           this.props.onSaveValueInternal(value_internal_tab);
 
                                         }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
+
                                           <b style={{textDecoration: 'none'}}>KPI Contribution</b></NavItem>
 
                                         <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
@@ -2599,13 +2650,40 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                                       </Nav>
+                                      <div className="col-md-12 col-sm-12">
                                       {(() =>{
                                           if(this.props.Executive.value_internal_tab=='kpi')
                                           {
                                             return (
                                               <div className="row">
                                                 <h2 className="pageModuleSubTitle">KPI</h2>
-                                                <StackedChart/>
+
+                                                {(() =>{
+                                                  if(this.props.Executive.drivers_internal_data){
+                                                    if(this.props.Executive.drivers_internal_data.kpi_data_available_flag=='yes')
+                                                    {
+                                                      return(
+                                                        <StackedChart data= {this.props.drivers_internal_data.kpi}
+                                                                      col_label = {this.props.Executive.drivers_internal_data.kpi_col_label}
+                                                                      legend_label ={this.props.Executive.drivers_internal_data.kpi_legend_label}/>
+
+                                                      )
+
+                                                    }
+                                                    else {
+                                                      return(
+                                                        <div>
+                                                          <h3> Data available only for weeks from 201702</h3>
+                                                        </div>
+                                                      )
+                                                    }
+
+                                                  }
+                                                }
+
+                                                )()}
+
+
                                               </div>
                                             )
                                           }
@@ -2613,15 +2691,25 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             return (
                                               <div className="row">
                                                 <h2 className="pageModuleSubTitle">Promotion</h2>
-                                                <StackedChart/>
+                                                {(() =>{
+                                                    if(this.props.Executive.drivers_internal_data){
+                                                      return(
+                                                        <StackedChart id="stackedChartPromotion" data= {this.props.Executive.drivers_internal_data.promo}
+                                                                      col_label = {this.props.Executive.drivers_internal_data.promo_col_label}
+                                                                       legend_label ={this.props.Executive.drivers_internal_data.promo_legend_label}/>
+                                                      )
+                                                    }
+                                                  }
+
+                                                )()}
                                               </div>
                                             )
                                           }
 
-                                        }
-                                      )()}
+                                          }
+                                        )()}
 
-
+                                      </div>
 
                                     </div>)
 
@@ -2784,7 +2872,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                       <div className="row">
                                         <h3 className="pageModuleMainTitle">Holidays</h3>
                                         {/*Holiday Table*/}
-                                        <div className="col-md-4">
+                                        <div className="col-md-6" style={{paddingTop : "80px"}}>
 
                                           {(() => {
                                             if (this.props.Executive.overview_drivers_external_data) {
@@ -2812,7 +2900,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                         </div>
                                         {/*Value Trend*/}
-                                        <div className="col-md-8">
+                                        <div className="col-md-6">
                                           {(() => {
                                             if (this.props.Executive.overview_kpi_trend_data) {
                                               console.log("Promo Sales line chart data", this.props.Executive.overview_kpi_trend_data.sales_trend);
@@ -3014,11 +3102,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           </div>
                           {/*Row for Gauge Charts*/}
                           <div className="row">
-                            <div className="col-md-6">
+                            <div className="col-md-6 col-xs-12">
                               <h3>Importance to Supplier</h3>
                               <GaugeExec data={[this.props.Executive.top_supp_info_data.imp_to_supp]} id="top_gauge1" />
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-md-6 col-xs-12">
                               <h3>Importance to Category</h3>
                               <GaugeExec data={[this.props.Executive.top_supp_info_data.imp_to_categ]} id="top_gauge2" />
                             </div>
@@ -3073,7 +3161,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
           </Modal.Header>
           <Modal.Body style={{fontSize: '14px'}}>
             <div className="row">
-              <div className="col-md-4">
+              <div className="col-md-4 col-xs-12">
                 {(() => {
                   if (this.props.Executive.bot_name!='None') {
                     return (
@@ -3134,7 +3222,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
               </div>
-              <div className="col-md-8">
+              <div className="col-md-8 col-xs-12">
                 {(() => {
                   if (this.props.Executive.bot_supp_info_data) {
                     if(this.props.Executive.supplier_name!='None')
@@ -3203,11 +3291,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           </div>
                           {/*Row for Gauge Charts*/}
                           <div className="row">
-                            <div className="col-md-6">
+                            <div className="col-md-6 col-xs-12">
                               <h3>Importance to Supplier</h3>
                               <GaugeChart2 data={[this.props.Executive.bot_supp_info_data.imp_to_supp]} id="bot_gauge1" />
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-md-6 col-xs-12">
                               <h3>Importance to Category</h3>
                               <GaugeChart2 data={[this.props.Executive.bot_supp_info_data.imp_to_categ]} id="bot_gauge2" />
                             </div>
@@ -3239,6 +3327,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
         </Modal>
 
 
+      </div>
       </div>
     );
   }

@@ -140,7 +140,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                 <h4 className="pageModuleMainTitle">Overview</h4>
                 <div className="row" style={{textAlign: "center",marginLeft: "0.5%", align: "center",alignItems:"center", backgroundColor:"1px solid #FAFAFA"}}>
                   <div className="col-md-12 col-sm-12 col-xs-12">
-                    <div className="col-xs-3 overview-blk" >
+                    <div className="col-xs-4 overview-blk" >
                       <Panel>
                         <div className="panel" style={{border: '1px solid #E5E8EA', width: '250px'}}>
                         <h4 className="panel-heading tesco-heading"><b>Sales</b></h4>
@@ -159,7 +159,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                         </div>
                       </Panel>
                     </div>
-                  <div className="col-xs-3 overview-blk">
+                  <div className="col-xs-4 overview-blk">
                     <Panel>
                       <div className="panel" style={{border: '1px solid #E5E8EA', width: '250px'}}>
                         <h4 className="panel-heading tesco-heading"><b>Volume</b></h4>
@@ -178,7 +178,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                       </div>
                     </Panel>
                   </div>
-                  <div className="col-xs-3 overview-blk" >
+                  <div className="col-xs-4 overview-blk" >
                     <Panel>
                       <div className="panel" style={{border: '1px solid #E5E8EA', width: '250px'}}>
                         <h4 className="panel-heading tesco-heading"><b>COGS</b></h4>
@@ -284,6 +284,7 @@ function mapDispatchToProps(dispatch) {
     onGenerateSideFilter: (e) => dispatch(getFilter(e)),
     onSaveSalesParam: (e) => dispatch(SaveSalesParam(e)),
     onGetWeekFilter: (e) => dispatch(getWeekFilter(e)),
+    ongenerateWeekFilter: (e) => dispatch(getWeekFilter(e)),
     onSaveWeekFilterParam: (e) => dispatch(WeekFilterParam(e)),
     onGenerateUrlParams: (e) => dispatch(generateUrlParams(e)),
     onSendUrlParams: (e) => dispatch(sendUrlParams(e)),

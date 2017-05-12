@@ -16,7 +16,7 @@ import makeSelectPromotion from './selectors';
 import messages from './messages';
 import './style.scss';
 import PieChart from 'components/PieChart';
-
+import Spinner from 'components/spinner';
 import PromoFilter from 'components/PromoFilter';
 import MultilinePromo from 'components/MultilinePromo';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
@@ -536,6 +536,13 @@ export class Promotion extends React.PureComponent {
                             </div>
                           );
                         }
+                        else {
+                          return (
+
+                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                          );
+                        }
                       })()}
 
                     </div>
@@ -611,6 +618,13 @@ export class Promotion extends React.PureComponent {
                             </div>
                           );
                         }
+                        else {
+                          return (
+
+                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                          );
+                        }
                       })()}
                       </div>
                     </div>
@@ -647,6 +661,13 @@ export class Promotion extends React.PureComponent {
                               <PieChart data={this.props.promotion.promo_giveaway_data.pie_chart}
                                       id="piechart2"/>
                             </div>
+                          );
+                        }
+                        else {
+                          return (
+
+                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
                           );
                         }
                       })()}
@@ -720,6 +741,13 @@ export class Promotion extends React.PureComponent {
                             </div>
                           );
                         }
+                        else {
+                          return (
+
+                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                          );
+                        }
                       })()}
                       </div>
                     </div>
@@ -761,6 +789,13 @@ export class Promotion extends React.PureComponent {
                               <PieChart data={this.props.promotion.promo_prod_data.pie_chart}
                                         id="piechart3"/>
                             </div>
+                          );
+                        }
+                        else {
+                          return (
+
+                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
                           );
                         }
                       })()}
@@ -841,6 +876,13 @@ export class Promotion extends React.PureComponent {
                             </div>
                           );
                         }
+                        else {
+                          return (
+
+                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                          );
+                        }
                       })()}
                       </div>
                     </div>
@@ -882,6 +924,13 @@ export class Promotion extends React.PureComponent {
                               <PieChart data={this.props.promotion.promo_part_data.pie_chart}
                                         id="piechart4"/>
                             </div>
+                          );
+                        }
+                        else {
+                          return (
+
+                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
                           );
                         }
                       })()}
@@ -953,6 +1002,13 @@ export class Promotion extends React.PureComponent {
                             </div>
                           );
                         }
+                        else {
+                          return (
+
+                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                          );
+                        }
                       })()}
                       </div>
                     </div>
@@ -992,7 +1048,11 @@ export class Promotion extends React.PureComponent {
                   </div>
                 )
               }else {
-                return (<div>Loading</div>)
+                return (
+
+                  <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                );
               }
 
             })()}

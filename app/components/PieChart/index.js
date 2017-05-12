@@ -15,10 +15,10 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
   createChart = (data,id) =>
   { console.log("Piechart inside createChart check 1",data);
     // let data = [10, 20];
-
+    var containerWidth = document.getElementById(id).clientWidth;
     let margin = {top: 120, right: 20, bottom: 30, left: 50},
-      width = 340 - margin.left - margin.right,
-      height = 290 - margin.top - margin.bottom,
+      width = containerWidth - margin.left - margin.right,
+      height = containerWidth - margin.top - margin.bottom,
       radius = Math.min(width, height) / 2;
     console.log("Piechart inside createChart margin",margin);
 

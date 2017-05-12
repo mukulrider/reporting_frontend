@@ -20,14 +20,25 @@ class BubbleChart2 extends React.PureComponent { // eslint-disable-line react/pr
 
     forTable = JSON.parse(forTable);
     forOpacity = JSON.parse(forOpacity);
-console.log("-=-=-====-=-= "+ data2)
+    console.log("-=-=-====-=-= "+ data2)
     //Chart configurations
-    let margin = {top: 20, right: 20, bottom: 40, left: 30};
-    let width = 1200 - margin.left - margin.right,
-      height = 600 - margin.top - margin.bottom;
+    var containerWidth = document.getElementById('bubbleChart2_div').clientWidth;
 
-    let svg = d3.select('#svgg');
+    let margin = {top: 20, right: 180, bottom: 180, left: 30};
+    let width = containerWidth - margin.left - margin.right,
+      height = containerWidth*0.6 - margin.top - margin.bottom;
+    console.log("BubbleChart2 X,Y -> ", containerWidth,containerWidth*0.5)
+    let svg = d3.select('#bubbleChart2_svg')
+      .attr("height",containerWidth*0.5)
+      .attr("width",containerWidth)
+      .attr("preserveAspectRatio", "xMinYMin meet")
+      .attr("viewBox", "0 0 1000 500")
+      //class to make it responsive
+      .classed("svg-content-responsive", true);
 
+    setTimeout(function(){
+      d3.select('#bubbleChart2_svg').attr("width",null).attr("height",null);
+    },200)
     let colorArray = ['#00838f', '#33691e'];
     let opacity = [1, 0.4];
 
@@ -220,9 +231,8 @@ console.log("-=-=-====-=-= "+ data2)
   render() {
 
     return (
-      <div>
-        <svg id="svgg" ref="svgBubble" width="1300" height="600" fontFamily="sans-serif" fontSize="10"
-             textAnchor="middle"> </svg>
+      <div id="bubbleChart2_div">
+        <svg id="bubbleChart2_svg" fontFamily="sans-serif" fontSize="10" textAnchor="middle"> </svg>
       </div>
     );
   }

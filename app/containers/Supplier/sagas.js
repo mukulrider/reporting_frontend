@@ -35,7 +35,7 @@ export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
 // let host_url = "http://10.1.244.200:8001"
-let host_url = "http://127.0.0.1:8000"
+let host_url = "http://172.20.244.149:8000"
 // FOR SUPPLIER POPUP TABLE
 export function* generateDataFetch() {
   console.log('inside kpi');
@@ -682,8 +682,10 @@ export function* generateTable() {
   }
 
   else {
-
+    console.log('data12');
     const data = yield call(request, host_url + `/api/reporting/supplier_view_table_bubble` + urlParams);
+
+    console.log(host_url + `/api/reporting/supplier_view_table_bubble` + urlParams);
     console.log('data11', data);
     yield put(generateTableSuccess(data));
 
@@ -823,7 +825,8 @@ export function* generateGraph() {
 
   let ajaxSelection = '';
 
-  ajaxSelection = SelectionState.replace('&', '');
+  ajaxSelection = SelectionState;
+  // ajaxSelection = SelectionState.replace('&', '');
 
   console.log('ddd', ajaxSelection);
 

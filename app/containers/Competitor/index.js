@@ -19,6 +19,7 @@ import { Modal,Nav,NavItem,DropdownButton, MenuItem } from 'react-bootstrap';
 import {saveImage,saveDataAsCSV} from './../../utils/exportFunctions';
 import WaterFallChart2 from 'components/WaterFallChart2';
 import Panel from 'components/panel';
+import Spinner from 'components/spinner';
 import {
   CompetitorWaterfall,
   CompetitorPieChart,
@@ -301,6 +302,13 @@ export class Competitor extends React.PureComponent {
                       </div>
                     )
                   }
+                  else {
+                    return (
+
+                      <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                    );
+                  }
                 })()}
                 <div>
 
@@ -351,6 +359,13 @@ export class Competitor extends React.PureComponent {
                         <BarLineChart data={this.props.competitor.outperformance_data} id="barline" ref="competitorOutperformComp" series_col_name= 'id'/>
                       </div>
                     )
+                  }
+                  else {
+                    return (
+
+                      <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                    );
                   }
                 })()}
               </div>
@@ -474,6 +489,13 @@ export class Competitor extends React.PureComponent {
                       </div>
                     )
                   }
+                  else {
+                    return (
+
+                      <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                    );
+                  }
                 })()}
               </div>
 
@@ -506,6 +528,13 @@ export class Competitor extends React.PureComponent {
                       </div>
                     )
                   }
+                  else {
+                    return (
+
+                      <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                    );
+                  }
                 })()}
               </div>
             </div>
@@ -537,6 +566,13 @@ export class Competitor extends React.PureComponent {
                       </div>
                     )
                   }
+                  else {
+                    return (
+
+                      <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                    );
+                  }
                 })()}
               </div>
 
@@ -566,6 +602,13 @@ export class Competitor extends React.PureComponent {
                           data={ this.props.competitor.waterfall_data.aldi}/>
                       </div>
                     )
+                  }
+                  else {
+                    return (
+
+                      <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                    );
                   }
                 })()}
               </div>
@@ -630,6 +673,13 @@ export class Competitor extends React.PureComponent {
                       }, "multiOrdinalChart2", '£ ']}/>
                     </div>
                   )
+                }
+                else {
+                  return (
+
+                    <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                  );
                 }
               })()}
             </div>
