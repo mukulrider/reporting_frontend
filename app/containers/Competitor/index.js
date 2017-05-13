@@ -36,6 +36,10 @@ import {
   CompetitorOutperformance,
   SavePriceIndexParam,
   SaveWeek,
+  onPieChartSpinnerSuccess,
+  outPerformanceChartSuccess,
+  waterChartAsdaSuccess,
+  priceRangeChartSuccess,
 
 } from './actions';
 
@@ -152,6 +156,10 @@ export class Competitor extends React.PureComponent {
                     dataFilterUrlParams={dataFilterUrlParams}
                     onSaveWeek={this.props.onSaveWeek}
                     onCheckboxWeekChange = {this.props.onCheckboxWeekChange}
+                    onPieChartSpinnerSuccess = {this.props.onPieChartSpinnerSuccess}
+                    outPerformanceChartSuccess = {this.props.outPerformanceChartSuccess}
+                    waterChartAsdaSuccess = {this.props.waterChartAsdaSuccess}
+                    priceRangeChartSuccess = {this.props.priceRangeChartSuccess}
 
                   />
                 )
@@ -173,6 +181,11 @@ export class Competitor extends React.PureComponent {
 
                   dataWeekUrlParams = "week_flag=Current Week";
                   this.setState({activeKey1: "1"});
+                  this.props.onPieChartSpinnerSuccess(0);
+                  this.props.outPerformanceChartSuccess(0);
+                  this.props.waterChartAsdaSuccess(0);
+                  this.props.priceRangeChartSuccess(0);
+
                   this.props.onSaveWeekParam(dataWeekUrlParams);
                   this.props.onCompWaterfall();
                   this.props.onCompetitorPieChart();
@@ -183,6 +196,10 @@ export class Competitor extends React.PureComponent {
 
                 <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
                   this.setState({activeKey1: "2"});
+                  this.props.onPieChartSpinnerSuccess(0);
+                  this.props.outPerformanceChartSuccess(0);
+                  this.props.waterChartAsdaSuccess(0);
+                  this.props.priceRangeChartSuccess(0);
                   dataWeekUrlParams = "week_flag=Latest 4 Weeks";
                   this.props.onSaveWeekParam(dataWeekUrlParams);
                   this.props.onCompWaterfall();
@@ -194,6 +211,10 @@ export class Competitor extends React.PureComponent {
 
                 <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
                   this.setState({activeKey1: "3"});
+                  this.props.onPieChartSpinnerSuccess(0);
+                  this.props.outPerformanceChartSuccess(0);
+                  this.props.waterChartAsdaSuccess(0);
+                  this.props.priceRangeChartSuccess(0);
                   dataWeekUrlParams = "week_flag=Latest 13 Weeks";
                   this.props.onSaveWeekParam(dataWeekUrlParams);
                   this.props.onCompWaterfall();
@@ -204,6 +225,10 @@ export class Competitor extends React.PureComponent {
                 }}><span className="tab_label" >Last 13 weeks</span></NavItem>
                 <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
                   this.setState({activeKey1: "4"});
+                  this.props.onPieChartSpinnerSuccess(0);
+                  this.props.outPerformanceChartSuccess(0);
+                  this.props.waterChartAsdaSuccess(0);
+                  this.props.priceRangeChartSuccess(0);
                   dataWeekUrlParams = "week_flag=Latest 52 Weeks";
                   this.props.onSaveWeekParam(dataWeekUrlParams);
                   this.props.onCompWaterfall();
@@ -215,7 +240,10 @@ export class Competitor extends React.PureComponent {
 
                 <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
                   this.setState({activeKey1: "5"});
-
+                  this.props.onPieChartSpinnerSuccess(0);
+                  this.props.outPerformanceChartSuccess(0);
+                  this.props.waterChartAsdaSuccess(0);
+                  this.props.priceRangeChartSuccess(0);
                   dataWeekUrlParams = "week_flag=YTD";
                   this.props.onSaveWeekParam(dataWeekUrlParams);
                   this.props.onCompWaterfall();
@@ -228,6 +256,8 @@ export class Competitor extends React.PureComponent {
               <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect}  className="tabsCustom">
                 <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
                   this.setState({activeKey2: "1"});
+                  this.props.onPieChartSpinnerSuccess(0);
+                  this.props.outPerformanceChartSuccess(0);
                   kpiParmas = "kpi_type=value";
                   this.props.onSaveKPIParam(kpiParmas);
                   this.props.onCompetitorPieChart();
@@ -235,6 +265,9 @@ export class Competitor extends React.PureComponent {
                 }}><span className="tab_label" >Value</span></NavItem>
                 <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
                   this.setState({activeKey2: "2"});
+                  this.props.onPieChartSpinnerSuccess(0);
+                  this.props.outPerformanceChartSuccess(0);
+
                   kpiParmas = "kpi_type=volume";
                   this.props.onSaveKPIParam(kpiParmas);
                   this.props.onCompetitorPieChart();
@@ -282,7 +315,7 @@ export class Competitor extends React.PureComponent {
 
                 {(() => {
 
-                  if (this.props.competitor.piechart_data.pie_chart_value) {
+                  if (this.props.competitor.piechart_data.pie_chart_value && (this.props.competitor.onPieChartSpinnerSuccess == 1)) {
                     console.log("pie chart data", this.props.competitor.piechart_data);
                     return (
                       <div>
@@ -340,7 +373,7 @@ export class Competitor extends React.PureComponent {
                 <h4 className="pageModuleSubTitle"><b>Outperformance</b></h4>
                 {(() => {
 
-                  if (this.props.competitor.outperformance_data) {
+                  if (this.props.competitor.outperformance_data && (this.props.competitor.outperformanceChartSpinnerSuccess == 1)) {
                     console.log("Outperformance data", this.props.competitor.outperformance_data);
                     return (
                       <div>
@@ -409,13 +442,15 @@ export class Competitor extends React.PureComponent {
             <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect} className="tabsCustom">
               <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
                 console.log("Price/Promo button pressed");
-
+                this.setState({activeKey3: "1"});
+                this.props.waterChartAsdaSuccess(0);
                 dataPriceIndexParam = "waterfall_index_param=promo_price";
                 this.props.onSavePriceIndexParam(dataPriceIndexParam);
                 this.props.onCompWaterfall();
               }}><span className="tab_label" >Price/Promo</span></NavItem>
               <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
                 this.setState({activeKey3: "2"});
+                this.props.waterChartAsdaSuccess(0);
                 console.log("Own label/Brand button pressed");
 
                 dataPriceIndexParam = "waterfall_index_param=brand";
@@ -424,6 +459,7 @@ export class Competitor extends React.PureComponent {
               }}><span className="tab_label" >Own Label/Brand</span></NavItem>
               <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
                 this.setState({activeKey3: "3"});
+                this.props.waterChartAsdaSuccess(0);
                 console.log("Basket button pressed");
                 dataPriceIndexParam = "waterfall_index_param=basket";
                 this.props.onSavePriceIndexParam(dataPriceIndexParam);
@@ -464,7 +500,7 @@ export class Competitor extends React.PureComponent {
                 <h4 className="pageModuleSubTitle"><b>Asda</b></h4>
 
                 {(() => {
-                  if (this.props.competitor.waterfall_data) {
+                  if (this.props.competitor.waterfall_data && (this.props.competitor.waterfallChartAsdaSpinnerSuccess)) {
                     console.log("in asda chart div");
                     console.log("consoling basda data", this.props.competitor.waterfall_data);
 
@@ -503,7 +539,7 @@ export class Competitor extends React.PureComponent {
                 <h4 className="pageModuleSubTitle"><b>JS</b></h4>
                 {(() => {
 
-                  if (this.props.competitor.waterfall_data) {
+                  if (this.props.competitor.waterfall_data && (this.props.competitor.waterfallChartAsdaSpinnerSuccess)) {
                     console.log("------------------------------", this.props.competitor.waterfall_data);
                     return (
                       <div>
@@ -544,7 +580,7 @@ export class Competitor extends React.PureComponent {
                 <h4 className="pageModuleSubTitle"><b>Morrisons</b></h4>
                 {(() => {
 
-                  if (this.props.competitor.waterfall_data) {
+                  if (this.props.competitor.waterfall_data && (this.props.competitor.waterfallChartAsdaSpinnerSuccess)) {
                     console.log("------------------------------", this.props.competitor.waterfall_data);
                     return (
                       <div>
@@ -580,7 +616,7 @@ export class Competitor extends React.PureComponent {
                 <h4 className="pageModuleSubTitle"><b>Aldi</b></h4>
                 {(() => {
 
-                  if (this.props.competitor.waterfall_data) {
+                  if (this.props.competitor.waterfall_data && (this.props.competitor.waterfallChartAsdaSpinnerSuccess)) {
                     console.log("------------------------------", this.props.competitor.waterfall_data);
                     return (
                       <div>
@@ -647,7 +683,7 @@ export class Competitor extends React.PureComponent {
             <div className="col-xs-12 panel-body">
               {(() => {
 
-                if (this.props.competitor.pricerange_data) {
+                if (this.props.competitor.pricerange_data && (this.props.competitor.priceRangeChartSpinnerSuccess)) {
                   console.log("---------------------check---------  ", this.props.competitor.pricerange_data);
                   return (
                     <div>
@@ -718,6 +754,12 @@ function mapDispatchToProps(dispatch) {
     onSavePriceIndexParam: (e) => dispatch(SavePriceIndexParam(e)),
     onSaveWeek: (e) => dispatch(SaveWeek(e)),
     onCheckboxWeekChange: (e) => dispatch(checkboxWeekChange(e)),
+
+    onPieChartSpinnerSuccess: (e) => dispatch(onPieChartSpinnerSuccess(e)),
+    outPerformanceChartSuccess: (e) => dispatch(outPerformanceChartSuccess(e)),
+    waterChartAsdaSuccess: (e) => dispatch(waterChartAsdaSuccess(e)),
+    priceRangeChartSuccess: (e) => dispatch(priceRangeChartSuccess(e)),
+
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Competitor);

@@ -319,6 +319,17 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                   {/*this.props.ondelistTable();*/}
                   {/*this.props.onWeekTabClick("Week: 13 weeks ");*/}
                 }}>Apply</Button></div>
+              <br/>
+              <div className="text-center">
+                <Button buttonType={'primary'}
+                        onClick={()=>{
+                          this.props.onGenerateUrlParamsString('');
+                          {/*this.updateUrl()*/}
+
+                        }}>
+                  Clear filters
+                </Button>
+              </div>
               {/*<Button onClick={() => {*/}
               {/*/!*this.props.onFilterReset();*!/*/}
               {/*}}>Reset Filters</Button>&nbsp;&nbsp;*/}

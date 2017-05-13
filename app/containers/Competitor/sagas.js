@@ -4,7 +4,8 @@ import {
 } from './constants';
 import {
   CompetitorWaterfallDataFetchSuccess, CompetitorPieChartDataFetchSuccess, CompetitorPriceRangeDataFetchSuccess,
-  FilterFetchSuccess, CompetitorOutpermanceFetchSuccess,
+  FilterFetchSuccess, CompetitorOutpermanceFetchSuccess,onPieChartSpinnerSuccess, outPerformanceChartSuccess,waterChartAsdaSuccess,
+  priceRangeChartSuccess
 } from 'containers/Competitor/actions';
 
 
@@ -21,7 +22,8 @@ import {
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-const host_url = 'http://172.20.244.149:8000';
+const host_url = 'http://10.1.244.154:8000';
+// const host_url = 'http://172.20.244.149:8000';
 // All sagas to be loaded
 
 // FOR COMPETITOR WATERFALL CHART
@@ -57,7 +59,9 @@ export function* generateCompetitorWaterfallDataFetch() {
     // }
     );
   console.log('Heres the kpi data', data);
+  let spinnerCheck = 1;
   yield put(CompetitorWaterfallDataFetchSuccess(data));
+  yield put(waterChartAsdaSuccess(spinnerCheck));
 
   // } catch (err) {
   //   // console.log(err);
@@ -102,7 +106,9 @@ export function* generateCompetitorPieChartDataFetch() {
       // }
     });
   console.log('Heres the kpi data', data);
+  let spinnerCheck = 1;
   yield put(CompetitorPieChartDataFetchSuccess(data));
+  yield put(onPieChartSpinnerSuccess(spinnerCheck));
 }
 
 
@@ -140,7 +146,10 @@ export function* generateCompetitorPriceRangeDataFetch() {
     // }
     );
   console.log('Heres the kpi data', data);
+
+  let spinnerCheck = 1;
   yield put(CompetitorPriceRangeDataFetchSuccess(data));
+  yield put(priceRangeChartSuccess(spinnerCheck));
 
 
   // } catch (err) {
@@ -178,7 +187,7 @@ export function* generateCompetitorOutperformance() {
   // const token = user_token.concat('___').concat(buyer)
 
 
-  // try {
+  try {
   const data = yield call(request,
     `${host_url}/api/reporting/competitor_market_outperformance?${weekurlparam}&${kpiparam}&${filterurlparam}&${weekselection}`,
     // {
@@ -189,12 +198,14 @@ export function* generateCompetitorOutperformance() {
       );
 
   console.log('generateCompetitorOutperformance', data);
+    let spinnerCheck = 1;
+    yield put(CompetitorOutpermanceFetchSuccess(data));
+    yield put(outPerformanceChartSuccess(spinnerCheck));
 
-  yield put(CompetitorOutpermanceFetchSuccess(data));
 
-  // } catch (err) {
-  //   // console.log(err);
-  // }
+  } catch (err) {
+    // console.log(err);
+  }
 }
 
 
