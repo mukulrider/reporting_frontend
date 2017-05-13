@@ -329,7 +329,10 @@
   //border-radius: 8px;
   //margin-left: 35px;
 }
-
+.tabsCustomList ul li{
+  margin : 0px;
+  padding : 0px;
+}
 .tabsAppHeaderCustomList{
   display: inline-block;
   margin-top: 3px;
@@ -354,14 +357,13 @@
 }
 
 .tabsCustomList span.tab_label {
-  padding: 12px 8px;
+  //padding: 2px 8px;
   //color: #048EC3;
   //font-weight: 600;
-
   font-weight: 600;
   font-family: Tesco;
   color: #00539f;
-  font-size: 16px;
+  font-size: 12px;
   vertical-align: middle;
 }
 
@@ -371,7 +373,7 @@
 .tabsCustomList a {
   background: #fff;
   font-family: 'Tesco' !important;
-  padding: 15px 15px 16px 15px !important;
+  //padding: 15px 15px 16px 15px !important;
   text-decoration: none;
   font-size: 14px;
 }

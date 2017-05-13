@@ -531,7 +531,7 @@ export class Promotion extends React.PureComponent {
                           console.log("pie chart data", this.props.promotion.sales_data.promo_sales.pie_chart);
                           return (
                             <div>
-                              <div style={{float:"right"}}>
+                              <div style={{float:"right", marginTop:"60px"}}>
                                 <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                   <MenuItem onClick={() => {
                                     saveImage(document.getElementById('piechart'+'_svg'),"promo_sales_piechart")
@@ -652,7 +652,7 @@ export class Promotion extends React.PureComponent {
                           console.log("pie chart promo_giveaway data", this.props.promotion.promo_giveaway_data.pie_chart);
                           return (
                             <div>
-                              <div style={{float:"right"}}>
+                              <div style={{float:"right", marginTop:"60px"}}>
                                 <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                   <MenuItem onClick={() => {
                                     saveImage(document.getElementById('piechart2'+'_svg'),"promo_giveaway_piechart")
@@ -776,7 +776,7 @@ export class Promotion extends React.PureComponent {
                           console.log("pie chart promo_products data", this.props.promotion.promo_prod_data.pie_chart);
                           return (
                             <div>
-                              <div style={{float:"right"}}>
+                              <div style={{float:"right", marginTop:"60px"}}>
                                 <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                   <MenuItem onClick={() => {
                                     saveImage(document.getElementById('piechart3'+'_svg'),"promo_products_piechart")
@@ -906,7 +906,7 @@ export class Promotion extends React.PureComponent {
                           console.log("pie chart promo_products data", this.props.promotion.promo_part_data.pie_chart);
                           return (
                             <div>
-                              <div style={{float:"right"}}>
+                              <div style={{float:"right", marginTop:"60px"}}>
                                 <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                   <MenuItem onClick={() => {
                                     saveImage(document.getElementById('piechart4'+'_svg'),"promo_participation_split_pieChart")

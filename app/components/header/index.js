@@ -225,18 +225,18 @@ class Header extends Component {
                   };
                   const token = getCookie('token');
 
-                  return true ?
-                    <div >
-                      <br />
+                  return (true ?
+                    <div>
+                      <br/>
                       <Button
                         buttonType={'primary'}
                         style={{ minWidth: '175px',marginTop: '6px'}}
                         onClick={() => {
-                          console.log('loggingOut');
+                          console.log('loggingOut')
                           document.cookie = 'token' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;Path=/;';
                           window.location = 'http://10.1.244.200:3000/login/';
                         }}
-                      >Logout</Button></div> : '';
+                      >Logout</Button></div> : '')
                 })()};
               </div>
             </div>

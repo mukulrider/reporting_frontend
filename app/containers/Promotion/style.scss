@@ -56,9 +56,9 @@
 
 .tabsCustomList {
   display: inline-block;
-  margin: 0 8px 0 0;
+  margin: 0 0px 0 0 !important;
   border-bottom: none;
-  font-size: 16px !important;
+  font-size: 12px !important;
 }
 
 
@@ -79,7 +79,7 @@
 }
 
 .tabsCustomList span.tab_label{
-  padding: 12px 8px;
+  //padding: 12px 8px;
   //color: #048EC3;
   //font-weight: 600;
 }
