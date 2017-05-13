@@ -45,16 +45,7 @@ export default class App extends React.PureComponent { // eslint-disable-line re
         <div className="container-fluid" style={{ marginTop: '120px' }}>
           {React.Children.toArray(this.props.children)}
         </div>
-        <Footer
-          footerLinks={[
-          { linkTitle: 'Executive View', linkHref: '/sales/executive' },
-          { linkTitle: 'Competitor View', linkHref: '/sales/competitor' },
-          { linkTitle: 'Promo View', linkHref: '/sales/promo' },
-          { linkTitle: 'Supplier View', linkHref: '/sales/supplier' },
-          { linkTitle: 'Product View', linkHref: '/sales/product' },
-          { linkTitle: 'Daily Sales View', linkHref: '/sales/dailysales' },
-          ]}
-        />
+        <Footer />
       </div>
     );
   }

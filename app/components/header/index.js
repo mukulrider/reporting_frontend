@@ -6,6 +6,8 @@ import Logo from '../logo';
 import RoundedIconButton from '../rounded_icon_button';
 import Grid from '../grid';
 import tesco from './../../assets/images/tesco.svg';
+import { Nav } from 'react-bootstrap';
+import { NavItem } from 'react-bootstrap';
 
 
 function renderBackLink(backLink) {
@@ -165,7 +167,8 @@ class Header extends Component {
         </div>
         <div className={contentClasses}>
           <Grid>
-            <div className={contentClass}>
+            <div className="Row" >
+            <div className="col-md-2">
               {
                 (logo,
                   <div className="ui-component__header__tesco-logo">
@@ -173,10 +176,45 @@ class Header extends Component {
                   </div>
                 )
               }
-              <div className="ui-component__header__content--right">
-                <RoundedIconButton icon="menu" onClick={this.handleClick} label="Menu" />
-              </div>
-              <div>
+            </div>
+              {/*<div className="ui-component__header__content--right">*/}
+                {/*<RoundedIconButton icon="menu" onClick={this.handleClick} label="Menu" />*/}
+              {/*</div>*/}
+<div className="col-md-8">
+                <Nav bsStyle="tabs" className="tabsCustom" style={{marginWidth:"5%"}}>
+                  <NavItem
+                    className="tabsCustomList" style={{marginTop:"3px"}} onClick={() => {
+                      window.location = 'http://10.1.244.200:3000/sales/executive';
+                    }}
+                  >Executive View</NavItem>
+                  <NavItem
+                    className="tabsCustomList" style={{marginTop:"3px",marginLeft:"2px",fontSize: "12px"}} onClick={() => {
+                      window.location = 'http://10.1.244.200:3000/sales/promo/';
+                    }}
+                  >Competitor View</NavItem>
+                  <NavItem
+                    className="tabsCustomList" style={{marginTop:"3px",marginLeft:"2px",fontSize: "12px"}} onClick={() => {
+                      window.location = 'http://10.1.244.200:3000/sales/competitor/';
+                    }}
+                  >Promotions View</NavItem>
+                  <NavItem
+                    className="tabsCustomList" style={{marginTop:"3px",marginLeft:"2px",fontSize: "12px"}} onClick={() => {
+                      window.location = 'http://10.1.244.200:3000/sales/competitor/';
+                    }}
+                  >Supplier View</NavItem>
+                  <NavItem
+                    className="tabsCustomList" style={{marginTop:"3px",marginLeft:"2px",fontSize: "12px"}} onClick={() => {
+                      window.location = 'http://10.1.244.200:3000/sales/product/';
+                    }}
+                  >Product View</NavItem>
+                  <NavItem
+                    className="tabsCustomList" style={{marginTop:"3px",marginLeft:"2px",fontSize: "12px"}} onClick={() => {
+                    window.location = 'http://10.1.244.200:3000/sales/dailysales/';
+                  }}
+                  >Daily Sales View</NavItem>
+                </Nav>
+</div>
+              <div className="col-md-2">
                 {(() => {
                   const getCookie = (name) => {
                     const value = `; ${document.cookie}`;
@@ -187,12 +225,12 @@ class Header extends Component {
                   };
                   const token = getCookie('token');
 
-                  return token ?
-                    <div>
-                      <br/>
+                  return true ?
+                    <div >
+                      <br />
                       <Button
                         buttonType={'primary'}
-                        style={{ float: 'right' }}
+                        style={{ minWidth: '175px',marginTop: '6px'}}
                         onClick={() => {
                           console.log('loggingOut');
                           document.cookie = 'token' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;Path=/;';
@@ -202,6 +240,7 @@ class Header extends Component {
                 })()};
               </div>
             </div>
+
           </Grid>
         </div>
         {this.renderMobileMenu()}
