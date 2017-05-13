@@ -800,7 +800,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                 return (
                                   <div style={{border: '1px solid #e5e8ea'}}>
                                     <div style={{float:"right"}}>
-                                      <DropdownButton className="glyphicon glyphicon-download-alt" pullRight style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                      <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                         <MenuItem onClick={() => {
                                           saveImage(document.getElementById('suppliertopchart'+'_svg'),"topSuppliers_barChart")
                                         }
@@ -832,7 +832,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                 return (
                                   <div style={{border: '1px solid #e5e8ea'}}>
                                     <div style={{float:"right"}}>
-                                      <DropdownButton className="glyphicon glyphicon-download-alt" pullRight style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                      <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                         <MenuItem onClick={() => {
                                           saveImage(document.getElementById('supplierbotchart'+'_svg'),"bottomSuppliers_barChart")
                                         }
@@ -1258,7 +1258,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                                 <div className="col-md-12 col-sm-12 col-xs-12 " style={{marginTop: '2%'}}>
                                   <div style={{float:"right"}}>
-                                    <DropdownButton className="glyphicon glyphicon-download-alt" pullRight style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                    <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                       <MenuItem onClick={() => {
                                         saveImage(this.refs.bubbleChartComp.refs.svgBubble,"bubble_chart")
                                       }

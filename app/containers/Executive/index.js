@@ -1059,13 +1059,15 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       <h2 className="pageModuleMainTitle">Target and Strategy</h2>
                       <div className="row">
                         {/*Block for bar charts*/}
-                        <div className="col-md-8">
+                        <div className="col-md-8 ">
                           <div className="row">
                             {/*BarChart for Forecast*/}
-                            <div className="col-md-6">
+                            <div className="col-md-6 col-xs-12">
+                              <class className="col-md-9 col-sm-9">
                               <h2 className="pageModuleSubTitle">Value vs. Forecast</h2>
-                              <div style={{float:"right"}}>
-                                <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                              </class>
+                              <div className="col-md-3 col-sm-3" style={{float:"right",marginTop: "15px"}}>
+                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                   <MenuItem onClick={() => {
                                     saveImage(document.getElementById('ForecastSales_svg'),"forecast_bar_chart")
                                   }
@@ -1088,7 +1090,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 <h2 className="pageModuleSubTitle">Value vs. Budget</h2>
                               </class>
                               <div className="col-md-3 col-sm-3" style={{float:"right",marginTop: "15px"}}>
-                                <DropdownButton className="glyphicon glyphicon-menu-hamburger dropdown-menu-right" style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
+                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                   <MenuItem onClick={() => {
                                     saveImage(document.getElementById('BudgetSales_svg'),"budget_bar_chart")
                                   }
@@ -1138,24 +1140,24 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       <div className="row">
                         {/*Value Trend*/}
                         <div className="col-md-6 col-xs-12">
-                          <h3 className="pageModuleSubTitle"> Value</h3>
+                          <h3 className="pageModuleSubTitle"> Value<div style={{float:"right"}}>
+                            <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
+                              <MenuItem onClick={() => {
+                                saveImage(document.getElementById('overview_value_line'),"kpiSalesValueTrend")
+                              }
+                              }>Save As JPEG</MenuItem>
+                              <MenuItem onClick={() => {
+                                saveDataAsCSV(this.props.Executive.overview_kpi_trend_data.sales_trend,"kpiSalesValueTrend.csv")
+                              }
+                              }>Download CSV</MenuItem>
+                            </DropdownButton>
+                          </div></h3>
+
                           {(() => {
                             if (this.props.Executive.overview_kpi_trend_data) {
                               console.log("overview_kpi_trend_data value line chart data", this.props.Executive.overview_kpi_trend_data.sales_trend);
                               return (
                                 <div>
-                                  <div style={{float:"right"}}>
-                                    <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
-                                      <MenuItem onClick={() => {
-                                        saveImage(document.getElementById('overview_value_line'),"kpiSalesValueTrend")
-                                      }
-                                      }>Save As JPEG</MenuItem>
-                                      <MenuItem onClick={() => {
-                                        saveDataAsCSV(this.props.Executive.overview_kpi_trend_data.sales_trend,"kpiSalesValueTrend.csv")
-                                      }
-                                      }>Download CSV</MenuItem>
-                                    </DropdownButton>
-                                  </div>
                                   <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.sales_trend} id="overview_value_line" label_ty="Sales TY" label_ly="Sales LY" xaxis_title="Tesco Week" no_pref='£' no_suffix='' yaxis_title='Value' chart_width="600" legend_width="450" legend_text_width="445" />
                                 </div>
                               );
@@ -1164,24 +1166,23 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                         </div>
                         {/*Volume Trend*/}
                         <div className="col-md-6 col-xs-12">
-                          <h3 className="pageModuleSubTitle"> Volume</h3>
+                          <h3 className="pageModuleSubTitle"> Volume<div style={{float:"right"}}>
+                            <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
+                              <MenuItem onClick={() => {
+                                saveImage(document.getElementById('overview_volume_line'),"kpiSalesVolumeTrend")
+                              }
+                              }>Save As JPEG</MenuItem>
+                              <MenuItem onClick={() => {
+                                saveDataAsCSV(this.props.Executive.overview_kpi_trend_data.volume_trend,"kpiSalesVolumeTrend.csv")
+                              }
+                              }>Download CSV</MenuItem>
+                            </DropdownButton>
+                          </div></h3>
                           {(() => {
                             if (this.props.Executive.overview_kpi_trend_data) {
                               console.log("overview_kpi_trend_data volume line chart data", this.props.Executive.overview_kpi_trend_data.volume_trend);
                               return (
                                 <div>
-                                  <div style={{float:"right"}}>
-                                    <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
-                                      <MenuItem onClick={() => {
-                                        saveImage(document.getElementById('overview_volume_line'),"kpiSalesVolumeTrend")
-                                      }
-                                      }>Save As JPEG</MenuItem>
-                                      <MenuItem onClick={() => {
-                                        saveDataAsCSV(this.props.Executive.overview_kpi_trend_data.volume_trend,"kpiSalesVolumeTrend.csv")
-                                      }
-                                      }>Download CSV</MenuItem>
-                                    </DropdownButton>
-                                  </div>
                                   <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.volume_trend} id="overview_volume_line" label_ty="Volume TY" label_ly="Volume LY" xaxis_title="Tesco Week" no_pref='' no_suffix='' yaxis_title='Volume' chart_width="600" legend_width="450" legend_text_width="445"/>
                                 </div>
                               );
@@ -1194,24 +1195,23 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       <div className="row">
                         {/*COGS Trend*/}
                         <div className="col-md-6 col-xs-12">
-                          <h3 className="pageModuleSubTitle"> COGS</h3>
+                          <h3 className="pageModuleSubTitle"> COGS<div style={{float:"right"}}>
+                            <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
+                              <MenuItem onClick={() => {
+                                saveImage(document.getElementById('overview_cogs_line'),"kpiCOGSTrend")
+                              }
+                              }>Save As JPEG</MenuItem>
+                              <MenuItem onClick={() => {
+                                saveDataAsCSV(this.props.Executive.overview_kpi_trend_data.cogs_trend,"kpiCOGSTrend.csv")
+                              }
+                              }>Download CSV</MenuItem>
+                            </DropdownButton>
+                          </div></h3>
                           {(() => {
                             if (this.props.Executive.overview_kpi_trend_data) {
                               console.log("overview_kpi_trend_data COGS line chart data", this.props.Executive.overview_kpi_trend_data.cogs_trend);
                               return (
                                 <div>
-                                  <div style={{float:"right"}}>
-                                    <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
-                                      <MenuItem onClick={() => {
-                                        saveImage(document.getElementById('overview_cogs_line'),"kpiCOGSTrend")
-                                      }
-                                      }>Save As JPEG</MenuItem>
-                                      <MenuItem onClick={() => {
-                                        saveDataAsCSV(this.props.Executive.overview_kpi_trend_data.cogs_trend,"kpiCOGSTrend.csv")
-                                      }
-                                      }>Download CSV</MenuItem>
-                                    </DropdownButton>
-                                  </div>
                                   <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.cogs_trend} id="overview_cogs_line" label_ty="COGS TY" label_ly="COGS LY" xaxis_title="Tesco Week" no_pref='£' no_suffix='' yaxis_title='COGS' chart_width="600" legend_width="450" legend_text_width="445"/>
                                 </div>
                               );
@@ -1220,24 +1220,23 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                         </div>
                         {/*CGM Trend*/}
                         <div className="col-md-6 col-xs-12">
-                          <h3 className="pageModuleSubTitle"> Profit</h3>
+                          <h3 className="pageModuleSubTitle"> Profit<div style={{float:"right"}}>
+                            <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
+                              <MenuItem onClick={() => {
+                                saveImage(document.getElementById('overview_cgm_line'),"kpiCGMTrend")
+                              }
+                              }>Save As JPEG</MenuItem>
+                              <MenuItem onClick={() => {
+                                saveDataAsCSV(this.props.Executive.overview_kpi_trend_data.cgm_trend,"kpiCGMTrend.csv")
+                              }
+                              }>Download CSV</MenuItem>
+                            </DropdownButton>
+                          </div></h3>
                           {(() => {
                             if (this.props.Executive.overview_kpi_trend_data) {
                               console.log("overview_kpi_trend_data profit line chart data", this.props.Executive.overview_kpi_trend_data.cgm_trend);
                               return (
                                 <div>
-                                  <div style={{float:"right"}}>
-                                    <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
-                                      <MenuItem onClick={() => {
-                                        saveImage(document.getElementById('overview_cgm_line'),"kpiCGMTrend")
-                                      }
-                                      }>Save As JPEG</MenuItem>
-                                      <MenuItem onClick={() => {
-                                        saveDataAsCSV(this.props.Executive.overview_kpi_trend_data.cgm_trend,"kpiCGMTrend.csv")
-                                      }
-                                      }>Download CSV</MenuItem>
-                                    </DropdownButton>
-                                  </div>
                                   <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.cgm_trend} id="overview_cgm_line" label_ty="Profit TY" label_ly="Profit LY" xaxis_title="Tesco Week" no_pref='£' no_suffix='' yaxis_title='Profit'  chart_width="600" legend_width="450" legend_text_width="445"/>
                                 </div>
                               );
@@ -1405,25 +1404,24 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               </div>
                               <div className="col-md-8 col-sm-12 col-xs-12">
                                 <Panel>
-                                  <h4 className="pageModuleSubTitle"> Promotion Contribution to growth </h4>
+                                  <h4 className="pageModuleSubTitle"> Promotion Contribution to growth
+                                    <div style={{float: "right"}}>
+                                      <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
+                                        <MenuItem onClick={() => {
+                                          saveImage(document.getElementById('waterfallChart_2_svg'), "overviewDriversInternalWaterfallChart")
+                                        }
+                                        }>Save As JPEG</MenuItem>
+                                        <MenuItem onClick={() => {
+                                          saveDataAsCSV(this.props.Executive.overview_drivers_internal_data.promo, "overviewDriversInternalWaterfallChart_data.csv")
+                                        }
+                                        }>Download CSV</MenuItem>
+                                      </DropdownButton>
+                                    </div>
+                                  </h4>
                                   {(() => {
                                       if (this.props.Executive.overview_drivers_internal_data)
                                         return (
                                           <div>
-                                            <div style={{float: "right"}}>
-                                              <DropdownButton className="glyphicon glyphicon-download-alt"
-                                                              style={{backgroundColor: "#FFF", borderColor: "#398439", color: "#000"}}
-                                                              id="dropButtonId">
-                                                <MenuItem onClick={() => {
-                                                  saveImage(document.getElementById('waterfallChart_2_svg'), "overviewDriversInternalWaterfallChart")
-                                                }
-                                                }>Save As JPEG</MenuItem>
-                                                <MenuItem onClick={() => {
-                                                  saveDataAsCSV(this.props.Executive.overview_drivers_internal_data.promo, "overviewDriversInternalWaterfallChart_data.csv")
-                                                }
-                                                }>Download CSV</MenuItem>
-                                              </DropdownButton>
-                                            </div>
                                             <WaterFallChartExec id="waterfallChart_2"
                                                                 yAxisName="Price Index"
                                                                 formatter="formatSales"
@@ -2391,7 +2389,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                           <div className="row">
                                                             <div className="col-md-12">
                                                               <div style={{float:"right"}}>
-                                                                <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                                                   <MenuItem onClick={() => {
                                                                     saveImage(document.getElementById('top_trend'),"botSupplierTrendMultiline_chart")
                                                                   }
@@ -2621,7 +2619,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                           <div className="row">
                                                             <div className="col-md-12 col-xs-12">
                                                               <div style={{float:"right"}}>
-                                                                <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                                                   <MenuItem onClick={() => {
                                                                     saveImage(document.getElementById('bot_trend'),"botSupplierTrendMultiline_chart")
                                                                   }
@@ -2846,7 +2844,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                         return (
                                                           <div>
                                                             <div style={{float:"right"}}>
-                                                              <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                                              <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                                                 <MenuItem onClick={() => {
                                                                   saveImage(document.getElementById('rainfall_line'+'_svg'),"external_drivers_rainfall")
                                                                 }
@@ -2879,7 +2877,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                           return (
                                                             <div>
                                                               <div style={{float:"right"}}>
-                                                                <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                                                   <MenuItem onClick={() => {
                                                                     saveImage(document.getElementById('sunshine_line'+'_svg'),"external_drivers_sunshine")
                                                                   }
@@ -2916,7 +2914,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                           return (
                                                             <div>
                                                               <div style={{float:"right"}}>
-                                                                <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                                                   <MenuItem onClick={() => {
                                                                     saveImage(document.getElementById('temperature_line'+'_svg'),"external_drivers_temperature")
                                                                   }
@@ -2992,7 +2990,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                 return (
                                                   <div>
                                                     <div style={{float:"right"}}>
-                                                      <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                                      <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                                         <MenuItem onClick={() => {
                                                           saveImage(document.getElementById('holiday_value_line'+'_svg'),"overview_kpi_sales_trend")
                                                         }
