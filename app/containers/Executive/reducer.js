@@ -62,7 +62,7 @@ import {
 
 
 const initialState = fromJS({
-  week_param: '',
+  week_param: 'week_flag=Current Week',
   week_filter_param: '',
   kpi_param: 'kpi_type=Overview',
   driver_param: 'internal',

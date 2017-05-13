@@ -236,14 +236,48 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
         }}>
 
           <div className="pageTitle">
+
+
+            {/*Header to show the week selection and time period*/}
             {(() => {
-              if (this.props.Executive.filter_week_selection) {
+              if (this.props.Executive.week_filter_param) {
                 return (
-                  <span>Executive View - {(this.props.Executive.filter_week_selection).substring(11, 17)}</span>
+                  <span>Executive View -
+                    {(() => {
+                    if (this.props.Executive.week_param!='week_flag=Current Week')
+                      {
+                        return (
+                          <span> {(this.props.Executive.week_param).substring(10, this.props.Executive.week_param.length)} to</span>
+                        )
+                      }
+                    else{
+                      return(
+                        <span></span>
+                      )
+                    }
+                    }
+                  )()}
+                  {(this.props.Executive.week_filter_param).substring(11, this.props.Executive.week_filter_param.length)}</span>
                 )
               } else {
                 return (
-                  <span>Executive View </span>
+                  <span>Executive View
+                    {(() => {
+                        if (this.props.Executive.week_param!='week_flag=Current Week')
+                        {
+                          return (
+                            <span> {(this.props.Executive.week_param).substring(10, this.props.Executive.week_param.length)} to</span>
+                          )
+                        }
+                        else{
+                          return(
+                            <span> </span>
+                          )
+                        }
+                      }
+                    )()}
+
+                    - 201652 </span>
                 )
               }
             })()}
@@ -271,7 +305,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               week_data = {this.props.Executive.week_filter_data}
                               ongenerateWeekFilter = {this.props.onGetWeekFilter}
                               onSaveWeekFilterParam = {this.props.onSaveWeekFilterParam}
-                              previous_week_selection = {this.props.weekurlParam}
+                              previous_week_selection = {this.props.Executive.week_filter_param}
                               kpi_param = {this.props.Executive.kpi_param}
                               loadOverviewKpi = { this.props.loadOverviewKpi}
                               loadRolesAndIntent = { this.props.loadRolesAndIntent}
@@ -356,7 +390,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                 <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
                   this.setState({activeKey1: "2"});
-                  dataWeekParam = "week_flag=Latest 4 Weeks";
+                  dataWeekParam = "week_flag=4 Weeks";
                   this.props.onSaveWeekParam(dataWeekParam);
 
 
@@ -407,7 +441,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                 <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
                   this.setState({activeKey1: "3"});
-                  dataWeekParam = "week_flag=Latest 13 Weeks";
+                  dataWeekParam = "week_flag=13 Weeks";
                   this.props.onSaveWeekParam(dataWeekParam);
 
                   {(() => {
@@ -456,7 +490,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                 <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
                   this.setState({activeKey1: "4"});
-                  dataWeekParam = "week_flag=Latest 26 Weeks";
+                  dataWeekParam = "week_flag=26 Weeks";
                   this.props.onSaveWeekParam(dataWeekParam);
 
                   {(() => {
@@ -1043,9 +1077,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                   <h3>
 
-                                    {this.props.Executive.overview_kpi_data.market.outperformance}%
+                                    {this.props.Executive.overview_kpi_data.market.opportunity}
                                   </h3>
-                                  <h4 className="kpiSubTitle">Value Outperf.</h4>
+                                  <h4 className="kpiSubTitle">Opportunity</h4>
 
                                 </div>
 
@@ -1102,7 +1136,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 </DropdownButton>
                               </div>
                               <BarChartSimple id="BudgetSales"
-                                              data={this.props.Executive.budget_forecast_data.budget_data}>
+                                              data={this.props.Executive.budget_forecast_data.budget_data}  col_a='Budget'>
 
                               </BarChartSimple>
                             </div>
@@ -1187,7 +1221,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 </div>
                               );
                             }
-                          })()}
+                          }
+                          )()}
 
                         </div>
                       </div>
@@ -1276,7 +1311,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                   <div>
                                     {(() => {
                                         if (this.props.Executive.overview_drivers_internal_data) {
-                                          if (this.props.Executive.overview_drivers_internal_data.data_available == 'yes') {
+                                          if (this.props.Executive.overview_drivers_internal_data.kpi.data_available == 'yes') {
                                             return (
                                               <div>
 

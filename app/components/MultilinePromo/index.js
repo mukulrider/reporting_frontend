@@ -147,8 +147,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
   //   ]
   // Add the valueline path.
   // set the dimensions and margins of the graph
-    data.forEach(function(item){item.tesco_week = item.tesco_week.toString()})
-    console.log('And again the PromoLineChart Data', data)
+
     let frameWidth = document.getElementById(chart_id).clientWidth;
 
     console.log("Multiline Promo Frame Width",frameWidth);
@@ -163,7 +162,8 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
     let y = d3.scaleLinear().range([height, 0]);
 
     // Scale the range of the data
-    x.domain(data.map(function(d) { return d.tesco_week; }));
+    console.log('Output for Extent',data.map(function(d) { return d.tesco_week; }))
+    x.domain(data.map(function(d) { return d.tesco_week.toString(); }));
     y.domain([0, d3.max(data, function(d) {
       return Math.max(+d.value_ty, +d.value_ly); })]);
 

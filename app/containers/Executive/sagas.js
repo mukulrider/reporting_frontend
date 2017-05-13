@@ -60,7 +60,7 @@ import {
 } from 'containers/Executive/selectors';
 
 
-let host_url="http://172.20.244.149:8000";
+let host_url="http://172.20.246.11:8000";
 // All sagas to be loaded
 
 // Individual exports for testing
@@ -92,7 +92,7 @@ export function* generateOverviewKpiDataFetch() {
 
   console.log("sagas generateOverviewKpiDataFetch url",host_url+`/api/reporting/exec_overview_kpis?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_overview_kpis?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection);
+    host_url+`/api/reporting/exec_overview_kpis?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + weekselection);
   console.log("Heres the generateOverviewKpiDataFetch data",data);
   yield put(OverviewKpiDataFetchSuccess(data));
 
@@ -132,7 +132,7 @@ export function* generateRolesAndIntentDataFetch() {
 
   console.log("sagas generateRolesAndIntentDataFetch url",host_url+`/api/reporting/exec_roles_and_intent?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_roles_and_intent?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection);
+    host_url+`/api/reporting/exec_roles_and_intent?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + weekselection);
   console.log("Heres the generateRolesAndIntentDataFetch data",data);
   yield put(RolesAndIntentDataFetchSuccess(data));
 
@@ -172,7 +172,7 @@ export function* generateBudgetForecastDataFetch() {
 
   console.log("sagas generateBudgetForecastDataFetch url",host_url+`/api/reporting/exec_budget_forecast?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_budget_forecast?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection);
+    host_url+`/api/reporting/exec_budget_forecast?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + weekselection);
   console.log("Heres the generateBudgetForecastDataFetch data",data);
   yield put(BudgetAndForecastDataFetchSuccess(data));
 
@@ -213,7 +213,7 @@ export function* generateOverviewKPITrendDataFetch() {
 
   console.log("sagas generateOverviewKPITrendDataFetch url",host_url+`/api/reporting/exec_overview_kpitrends?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_overview_kpitrends?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection);
+    host_url+`/api/reporting/exec_overview_kpitrends?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + weekselection);
   console.log("Heres the generateOverviewKPITrendDataFetch data",data);
   yield put(OverviewKpiTrendDataFetchSuccess(data));
 
@@ -253,7 +253,7 @@ export function* generateOverviewDriversInternalDataFetch() {
 
   console.log("sagas generateOverviewDriversInternalDataFetch url",host_url+`/api/reporting/exec_overview_drivers_internal?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_overview_drivers_internal?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection);
+    host_url+`/api/reporting/exec_overview_drivers_internal?`+ weekurlparam + '&' + urlParamsString + '&' +weekParamString +  '&' + weekselection);
   console.log("Heres the generateOverviewDriversInternalDataFetch data",data);
   yield put(OverviewDriversInternalDataFetchSuccess(data));
 
@@ -293,7 +293,7 @@ export function* generateOverviewDriversExternalDataFetch() {
 
   console.log("sagas generateOverviewDriversExternalDataFetch url",host_url+`/api/reporting/exec_overview_drivers_external?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_overview_drivers_external?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection);
+    host_url+`/api/reporting/exec_overview_drivers_external?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + weekselection);
   console.log("Heres the generateOverviewDriversExternalDataFetch data",data);
   yield put(OverviewDriversExternalDataFetchSuccess(data));
 
@@ -333,7 +333,7 @@ export function* generateKpiBoxesDataFetch() {
 
   console.log("sagas generateKpiBoxesDataFetch url",host_url+`/api/reporting/exec_kpi?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_kpi?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + kpiparam +  '&' + weekselection);
+    host_url+`/api/reporting/exec_kpi?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + kpiparam +  '&' + weekselection);
   console.log("Heres the generateKpiBoxesDataFetch data",data);
   yield put(KpiBoxesDataFetchSuccess(data));
 
@@ -373,7 +373,7 @@ export function* generateBestWorstFetch() {
 
   console.log("sagas generateBestWorstFetch url",host_url+`/api/reporting/exec_best_worst?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_best_worst?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + kpiparam +  '&' + weekselection);
+    host_url+`/api/reporting/exec_best_worst?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + kpiparam +  '&' + weekselection);
   console.log("Heres the generateBestWorstFetch data",data);
   yield put(BestWorstDataFetchSuccess(data));
 
@@ -417,7 +417,7 @@ export function* generateBestInfoFetch() {
   }
   console.log("sagas generateBestInfoFetch url",host_url+`/api/reporting/exec_best_info?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection + '&' + selected)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_best_info?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + kpiparam +  '&' + weekselection+ '&' + selected);
+    host_url+`/api/reporting/exec_best_info?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + kpiparam +  '&' + weekselection+ '&' + selected);
   console.log("Heres the generateBestInfoFetch data",data);
   yield put(BestInfoDataFetchSuccess(data));
 
@@ -460,7 +460,7 @@ export function* generateWorstInfoFetch() {
   }
   console.log("sagas generateWorstInfoFetch url",host_url+`/api/reporting/exec_worst_info?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection + '&' + selected)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_worst_info?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + kpiparam +  '&' + weekselection+'&'+selected);
+    host_url+`/api/reporting/exec_worst_info?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + kpiparam +  '&' + weekselection+'&'+selected);
   console.log("Heres the generateWorstInfoFetch data",data);
   yield put(WorstInfoDataFetchSuccess(data));
   // } catch (err) {
@@ -524,7 +524,7 @@ export function* generateSupplierInfoFetch() {
 
   console.log("sagas generateSupplierInfoFetch url",host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier);
+    host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier);
   console.log("Heres the generateSupplierInfoFetch data",data);
   yield put(SupplierInfoDataFetchSuccess(data));
 
@@ -578,7 +578,7 @@ export function* generateTopSupplierInfoFetch() {
 
   console.log("sagas generateTopSupplierInfoFetch url",host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier);
+    host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + '&' +  weekParamString +  '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier);
   console.log("Heres the generateTopSupplierInfoFetch data",data);
   yield put(TopSupplierInfoDataFetchSuccess(data));
 
@@ -632,7 +632,7 @@ export function* generateBotSupplierInfoFetch() {
 
   console.log("sagas generateBotSupplierInfoFetch url",host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier);
+    host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier);
   console.log("Heres the generateBotSupplierInfoFetch data",data);
   yield put(BotSupplierInfoDataFetchSuccess(data));
 
@@ -678,7 +678,7 @@ export function* generateDriversInternalFetch() {
 
   console.log("sagas generateDriversInternalFetch url",host_url+`/api/reporting/exec_drivers_internal?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_drivers_internal?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + kpiparam +  '&' + weekselection);
+    host_url+`/api/reporting/exec_drivers_internal?`+ weekurlparam + '&' + urlParamsString + '&' +  weekParamString +  '&' + kpiparam +  '&' + weekselection);
   console.log("Heres the generateDriversInternalFetch data",data);
   yield put(DriversInternalDataFetchSuccess(data));
 
@@ -718,7 +718,7 @@ export function* generateDriversExternalFetch() {
 
   console.log("sagas generateDriversExternalFetch url",host_url+`/api/reporting/exec_drivers_external?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_drivers_external?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + kpiparam +  '&' + weekselection);
+    host_url+`/api/reporting/exec_drivers_external?`+ weekurlparam + '&' + urlParamsString + '&' +  weekParamString +  '&' + kpiparam +  '&' + weekselection);
   console.log("Heres the generateDriversExternalFetch data",data);
   yield put(DriversExternalDataFetchSuccess(data));
 
@@ -758,7 +758,7 @@ export function* generatePriceKPIFetch() {
 
   console.log("sagas generatePriceKPIFetch url",host_url+`/api/reporting/exec_price_kpi?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_price_kpi?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + kpiparam +  '&' + weekselection);
+    host_url+`/api/reporting/exec_price_kpi?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + kpiparam +  '&' + weekselection);
   console.log("Heres the generatePriceKPIFetch data",data);
   yield put(PriceKPIDataFetchSuccess(data));
 
