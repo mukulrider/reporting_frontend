@@ -429,7 +429,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                         return (
                           <div>
                             <div style={{float:"right"}}>
-                              <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                              <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                 <MenuItem onClick={() => {
                                   saveImage(this.refs.chartImage.refs.image,"TY_v/s_LY_Product_Performance_Comparison")
                                 }

@@ -168,7 +168,7 @@ class Header extends Component {
         <div className={contentClasses}>
           <Grid>
             <div className="Row" >
-            <div className="col-md-2">
+            <div className="col-md-2 col-sm-2 col-sx-2">
               {
                 (logo,
                   <div className="ui-component__header__tesco-logo">
@@ -180,35 +180,35 @@ class Header extends Component {
               {/*<div className="ui-component__header__content--right">*/}
                 {/*<RoundedIconButton icon="menu" onClick={this.handleClick} label="Menu" />*/}
               {/*</div>*/}
-<div className="col-md-8">
-                <Nav bsStyle="tabs" className="tabsCustom" style={{marginWidth:"5%"}}>
+              <div className="col-md-8 col-sm-8 col-xs-8">
+                <Nav bsStyle="tabs" className="tabsNavPanel" style={{marginWidth:"5%"}}>
                   <NavItem
-                    className="tabsCustomList" style={{marginTop:"3px"}} onClick={() => {
+                    className="tabsNavPanelList" onClick={() => {
                       window.location = 'http://10.1.244.200:3000/sales/executive';
                     }}
                   >Executive View</NavItem>
                   <NavItem
-                    className="tabsCustomList" style={{marginTop:"3px",marginLeft:"2px",fontSize: "12px"}} onClick={() => {
-                      window.location = 'http://10.1.244.200:3000/sales/competitor/';
+                    className="tabsNavPanelList" onClick={() => {
+                      window.location = 'http://10.1.244.200:3000/sales/promo/';
                     }}
                   >Competitor View</NavItem>
                   <NavItem
-                    className="tabsCustomList" style={{marginTop:"3px",marginLeft:"2px",fontSize: "12px"}} onClick={() => {
-                      window.location = 'http://10.1.244.200:3000/sales/promo/';
+                    className="tabsNavPanelList" onClick={() => {
+                      window.location = 'http://10.1.244.200:3000/sales/competitor/';
                     }}
                   >Promotions View</NavItem>
                   <NavItem
-                    className="tabsCustomList" style={{marginTop:"3px",marginLeft:"2px",fontSize: "12px"}} onClick={() => {
-                      window.location = 'http://10.1.244.200:3000/sales/supplier/';
+                    className="tabsNavPanelList" onClick={() => {
+                      window.location = 'http://10.1.244.200:3000/sales/competitor/';
                     }}
                   >Supplier View</NavItem>
                   <NavItem
-                    className="tabsCustomList" style={{marginTop:"3px",marginLeft:"2px",fontSize: "12px"}} onClick={() => {
+                    className="tabsNavPanelList" onClick={() => {
                       window.location = 'http://10.1.244.200:3000/sales/product/';
                     }}
                   >Product View</NavItem>
                   <NavItem
-                    className="tabsCustomList" style={{marginTop:"3px",marginLeft:"2px",fontSize: "12px"}} onClick={() => {
+                    className="tabsNavPanelList" onClick={() => {
                     window.location = 'http://10.1.244.200:3000/sales/dailysales/';
                   }}
                   >Daily Sales View</NavItem>
@@ -225,7 +225,7 @@ class Header extends Component {
                   };
                   const token = getCookie('token');
 
-                  return token ?
+                  return true ?
                     <div >
                       <br />
                       <Button

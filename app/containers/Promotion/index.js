@@ -543,7 +543,7 @@ export class Promotion extends React.PureComponent {
                           return (
                             <div>
                               <div style={{float:"right"}}>
-                                <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                   <MenuItem onClick={() => {
                                     saveImage(document.getElementById('piechart'+'_svg'),"promo_sales_piechart")
                                   }
@@ -620,7 +620,7 @@ export class Promotion extends React.PureComponent {
                           return (
                             <div>
                               <div style={{float:"right"}}>
-                                <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                   <MenuItem onClick={() => {
                                     saveImage(document.getElementById('sampleSvg'),"promo_sales_trend_multilineChart")
                                   }
@@ -664,7 +664,7 @@ export class Promotion extends React.PureComponent {
                           return (
                             <div>
                               <div style={{float:"right"}}>
-                                <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                   <MenuItem onClick={() => {
                                     saveImage(document.getElementById('piechart2'+'_svg'),"promo_giveaway_piechart")
                                   }
@@ -738,7 +738,7 @@ export class Promotion extends React.PureComponent {
                           return (
                             <div>
                               <div style={{float:"right"}}>
-                                <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                   <MenuItem onClick={() => {
                                     saveImage(document.getElementById('linechart2'+'_svg'),"promo_giveaway_linechart")
                                   }
@@ -788,7 +788,7 @@ export class Promotion extends React.PureComponent {
                           return (
                             <div>
                               <div style={{float:"right"}}>
-                                <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                   <MenuItem onClick={() => {
                                     saveImage(document.getElementById('piechart3'+'_svg'),"promo_products_piechart")
                                   }
@@ -868,7 +868,7 @@ export class Promotion extends React.PureComponent {
                           return (
                             <div>
                               <div style={{float:"right"}}>
-                                <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                   <MenuItem onClick={() => {
                                     saveImage(document.getElementById('linechart3'+'_svg'),"promo_products_trend_multilineChart")
                                   }
@@ -918,7 +918,7 @@ export class Promotion extends React.PureComponent {
                           return (
                             <div>
                               <div style={{float:"right"}}>
-                                <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                   <MenuItem onClick={() => {
                                     saveImage(document.getElementById('piechart4'+'_svg'),"promo_participation_split_pieChart")
                                   }
@@ -990,7 +990,7 @@ export class Promotion extends React.PureComponent {
                           return (
                             <div>
                               <div style={{float:"right"}}>
-                                <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                   <MenuItem onClick={() => {
                                     saveImage(document.getElementById('linechart4'+'_svg'),"promo_participation_split_multilineChart")
                                   }

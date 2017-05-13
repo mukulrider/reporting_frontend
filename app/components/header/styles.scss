@@ -390,3 +390,47 @@
   text-decoration: none !important;
   border-color: #00539f !important;
 }
+
+
+
+//Tabs For the Navigation Panel
+.tabsNavPanel{
+  margin-top: 27px;
+}
+
+.tabsNavPanelList {
+  display: inline-block;
+  border-bottom: none;
+}
+
+.tabsNavPanelList span.tab_label {
+  padding: 12px 8px;
+  font-weight: 700;
+  font-family: Tesco;
+  color: #00539f;
+  font-size: 16px;
+  vertical-align: middle;
+}
+
+.tabsNavPanelList.active span.tab_label {
+  border-bottom: #048EC3 solid 4px;
+}
+.tabsNavPanelList a {
+  font-weight: 700 !important;
+  font-family: 'Tesco' !important;
+  padding: 15px 15px 16px 15px !important;
+  text-decoration: none;
+  font-size: 14px;
+  color: #00539f !important;
+}
+
+.tabsNavPanelList a:hover ,
+.tabsNavPanelList a:active
+{
+  background: #fff !important;
+  border:0px;
+  border-bottom: 2px solid #00539f;
+  text-decoration: none !important;
+  border-color: #008dc8 !important;
+  color: #008dc8 !important;
+}
