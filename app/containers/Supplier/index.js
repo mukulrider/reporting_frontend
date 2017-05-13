@@ -55,6 +55,21 @@ import {
 } from './actions';
 import styles from './style.scss';
 
+function glyphiconFormatter(cell){
+  console.log("Cell:",cell);
+  if (cell > 0) {
+    let classType = "glyphicon glyphicon-chevron-up glyphiconPositive";
+    return classType;
+  }
+  else if (cell < 0) {
+    let classType ="glyphicon glyphicon-chevron-down glyphiconNegative";
+    return classType;
+  } else {
+    let classType = "glyphicon glyphicon-minus-sign glyphiconNeutral";
+    return classType;
+  }
+
+}
 export class Supplier extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   componentDidMount = () => {
@@ -72,6 +87,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
     this.props.onFetchGraph();
     // this.props.supplier.reducer1.sales;
   };
+
 
 
   constructor(props) {
@@ -180,6 +196,8 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
         return (Math.round(cell));
       }
     }
+
+
 
     {
       console.log('this.propss', this.props)
@@ -524,179 +542,187 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                               <div className="row spinnerPosition spinnerPositionFix"><Spinner /><h2>Please Wait a
                                 Moment....!</h2></div>
                             )
-                          } else {
-                            return (
-                              <div>
-                                <div className="row"
-                                     style={{textAlign: 'center', marginLeft: '0px', marginRight: '0px'}}>
-                                  <div className="col-md-6 col-sm-12">
-                                    <div className="col-md-12 col-sm-12" style={{
-                                      textAlign: 'center',
-                                      backgroundColor: "white",
-                                      margin: "0%",
-                                      marginBottom: '4%',
-                                      marginTop: '3%',
-                                      borderLeft: "1px solid #e5e8ea",
-                                      borderTop: "1px solid #e5e8ea",
-                                      borderRight: "1px solid #e5e8ea",
-                                      borderBottom: "1px solid #e5e8ea"
-                                    }}>
-                                      <Panel>
-                                        <h4 className="pageModuleMainTitle"> {this.props.supplier.reducer1.title} </h4>
-                                        <div className="row">
-                                          <div className="col-xs-6">
+                          } else  {
+                            return this.props.supplier.reducer1.map((obj) => {
+                              return (
+                                <div>
+                                  <div className="row"
+                                       style={{textAlign: 'center', marginLeft: '0px', marginRight: '0px'}}>
+                                    <div className="col-md-6 col-sm-12">
+                                      <div className="col-md-12 col-sm-12" style={{
+                                        textAlign: 'center',
+                                        backgroundColor: "white",
+                                        margin: "0%",
+                                        marginBottom: '4%',
+                                        marginTop: '3%',
+                                        borderLeft: "1px solid #e5e8ea",
+                                        borderTop: "1px solid #e5e8ea",
+                                        borderRight: "1px solid #e5e8ea",
+                                        borderBottom: "1px solid #e5e8ea"
+                                      }}>
+                                        <Panel>
+                                          <h4 className="pageModuleMainTitle"> {obj.title} </h4>
+                                          <div className="row">
+                                            <div className="col-xs-6">
 
-                                            <h4
-                                              className="panel-heading tesco-heading">  {this.props.supplier.reducer1.sales} </h4>
-                                          </div>
-                                          <div className="col-xs-6">
+                                              <h4
+                                                className="panel-heading tesco-heading">  {obj.sales} </h4>
+                                            </div>
+                                            <div className="col-xs-6">
 
-                                            <h4 className="panel-heading tesco-heading">
-                                              LFL: {this.props.supplier.reducer1.sales_lfl} </h4>
-                                          </div>
-                                        </div>
-                                        <div className="row">
-                                          <div className="panel-body">
-                                            <div className="col-xs-4">
-                                              <h4> {this.props.supplier.reducer1.sales_var_week}  </h4>
-                                              <h4><b> {'WoW'} </b></h4>
-                                            </div>
-                                            <div className="col-xs-4">
-                                              <h4> {this.props.supplier.reducer1.sales_var_year} % </h4>
-                                              <h4><b> {'YOY'} </b></h4>
-                                            </div>
-                                            <div className="col-xs-4">
-                                              <h4>  {this.props.supplier.reducer1.sales_var_year_lfl} % </h4>
-                                              <h4><b>{'LFL'}</b></h4>
+                                              <h4 className="panel-heading tesco-heading">
+                                                LFL: {obj.sales_lfl} </h4>
                                             </div>
                                           </div>
-                                        </div>
+                                          <div className="row">
+                                            <div className="panel-body">
+                                              <div className="col-xs-4">
+                                                <h4><span
+                                                  className={glyphiconFormatter(obj.sales_var_week)}></span>{(obj.sales_var_week)+'%'}
+                                                </h4>
+                                                <h4><b> {'WoW'} </b></h4>
+                                              </div>
+                                              <div className="col-xs-4">
+                                                <h4><span
+                                                  className={glyphiconFormatter(obj.sales_var_year)}></span>{(obj.sales_var_year)+'%'}
+                                                </h4>
+                                                <h4><b> {'YOY'} </b></h4>
+                                              </div>
+                                              <div className="col-xs-4">
+                                                <h4><span
+                                                  className={glyphiconFormatter(obj.sales_var_year_lfl)}></span>{(obj.sales_var_year_lfl)+'%'}
+                                                </h4>
+                                                <h4><b>{'LFL'}</b></h4>
+                                              </div>
+                                            </div>
+                                          </div>
 
-                                      </Panel>
+                                        </Panel>
+                                      </div>
                                     </div>
-                                  </div>
-                                  <div className="col-md-6 col-sm-12">
-                                  <div className="col-md-12 col-sm-12" style={{
-                                    textAlign: 'center',
-                                    borderTop: "1px solid #e5e8ea",
-                                    marginBottom: '4%',
-                                    marginTop: '3%',
-                                    backgroundColor: "white",
-                                    borderLeft: "1px solid #e5e8ea",
-                                    borderRight: "1px solid #e5e8ea",
-                                    borderBottom: "1px solid #e5e8ea"
-                                  }}>
+                                    <div className="col-md-6 col-sm-12">
+                                      <div className="col-md-12 col-sm-12" style={{
+                                        textAlign: 'center',
+                                        borderTop: "1px solid #e5e8ea",
+                                        marginBottom: '4%',
+                                        marginTop: '3%',
+                                        backgroundColor: "white",
+                                        borderLeft: "1px solid #e5e8ea",
+                                        borderRight: "1px solid #e5e8ea",
+                                        borderBottom: "1px solid #e5e8ea"
+                                      }}>
 
-                                      <Panel>
-                                        <h4 className="pageModuleMainTitle"> Contribution to Growth </h4>
-                                        <div className="row">
-                                          <div className="col-xs-6" style={{textAlign: "center"}}>
-                                            <h4
-                                              className="panel-heading tesco-heading">  {this.props.supplier.reducer1.sales} </h4>
-                                          </div>
-                                          <div className="col-xs-6" style={{textAlign: "center"}}>
+                                        <Panel>
+                                          <h4 className="pageModuleMainTitle"> Contribution to Growth </h4>
+                                          <div className="row">
+                                            <div className="col-xs-6" style={{textAlign: "center"}}>
+                                              <h4
+                                                className="panel-heading tesco-heading">  {obj.sales} </h4>
+                                            </div>
+                                            <div className="col-xs-6" style={{textAlign: "center"}}>
 
-                                            <h4 className="panel-heading tesco-heading">
-                                              LFL: {this.props.supplier.reducer1.sales_lfl} </h4>
-                                          </div>
-                                        </div>
-                                        <div className="row">
-                                          <div className="panel-body">
-                                            <div className="col-xs-4">
-                                              <h4> {this.props.supplier.reducer1.sales_growth_wow_1}
-                                                of {this.props.supplier.reducer1.sales_growth_wow_2}  </h4>
-                                              <h4><b>{'WoW'}</b></h4>
-                                            </div>
-                                            <div className="col-xs-4">
-                                              <h4> {this.props.supplier.reducer1.sales_growth_yoy_1} %
-                                                of {this.props.supplier.reducer1.sales_growth_yoy_2} % </h4>
-                                              <h4><b>{'YoY'}</b></h4>
-                                            </div>
-                                            <div className="col-xs-4">
-                                              <h4> {this.props.supplier.reducer1.sales_growth_yoy_lfl_1} %
-                                                of {this.props.supplier.reducer1.sales_growth_yoy_lfl_2} % </h4>
-                                              <h4><b>{'LFL'}</b></h4>
+                                              <h4 className="panel-heading tesco-heading">
+                                                LFL: {obj.sales_lfl} </h4>
                                             </div>
                                           </div>
-                                        </div>
-                                      </Panel>
+                                          <div className="row">
+                                            <div className="panel-body">
+                                              <div className="col-xs-4">
+                                                <h4><span className={glyphiconFormatter(obj.sales_growth_wow_1)}></span>&nbsp;{(obj.sales_growth_wow_1)+' % '}
+                                                  of <span className={glyphiconFormatter(obj.sales_growth_wow_2)}></span>{(obj.sales_growth_wow_2)+' % '} </h4>
+                                                <h4><b>{'WoW'}</b></h4>
+                                              </div>
+                                              <div className="col-xs-4">
+                                                <h4> <span className={glyphiconFormatter(obj.sales_growth_yoy_1)}></span>&nbsp;{(obj.sales_growth_yoy_1)+' % '}
+                                                  of <span className={glyphiconFormatter(obj.sales_growth_yoy_2)}></span>{(obj.sales_growth_yoy_2)+' % '} </h4>
+                                                <h4><b>{'YoY'}</b></h4>
+                                              </div>
+                                              <div className="col-xs-4">
+                                                <h4> <span className={glyphiconFormatter(obj.sales_growth_yoy_lfl_1)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_1)+' % '}
+                                                  of <span className={glyphiconFormatter(obj.sales_growth_yoy_lfl_2)}></span>{(obj.sales_growth_yoy_lfl_2)+' % '} </h4>
+                                                <h4><b>{'LFL'}</b></h4>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </Panel>
+                                      </div>
                                     </div>
+
+
                                   </div>
+                                  <panel>
+                                    <div className="row" style={{marginLeft: '0px', marginRight: '0px'}}>
+                                      <div className="col-md-6 col-sm-12">
+                                        <div className="col-md-12 col-sm-12 panel-body" style={{
+                                          textAlign: 'center',
+                                          borderTop: "1px solid #e5e8ea",
+                                          backgroundColor: "white",
+                                          margin: "0%",
+                                          borderLeft: "1px solid #e5e8ea",
+                                          borderRight: "1px solid #e5e8ea",
+                                          borderBottom: "1px solid #e5e8ea"
+                                        }}>
+                                          <h4 className="pageModuleMainTitle"> Parent Supplier's value share in
+                                            Category</h4>
+                                          <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
+                                          {(() => {
+                                            if (obj.supp_imp_cat_sales) {
 
+                                              return (
+                                                <div>
+                                                  <GaugeChart2 data={[obj.supp_imp_cat_sales]}
+                                                               id="gauge1"/>
+                                                  <div className="row" style={{marginTop: '-11%'}}>
+                                                    <div className="col-xs-12"
+                                                         style={{fontWeight: 'bold', fontSize: '14px'}}>
+                                                      {obj.supp_imp_cat_sales}%
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              )
+                                            }
+                                          })()}
+                                        </div>
+                                      </div>
+                                      <div className="col-md-6 col-sm-12">
+                                        <div className="col-md-12 col-sm-12 col-xs-12 panel-body" style={{
+                                          textAlign: 'center',
+                                          borderTop: "1px solid #e5e8ea",
+                                          float: 'right',
+                                          backgroundColor: "white",
+                                          margin: "0%",
+                                          borderLeft: "1px solid #e5e8ea",
+                                          borderRight: "1px solid #e5e8ea",
+                                          borderBottom: "1px solid #e5e8ea"
+                                        }}>
+                                          <h4 className="pageModuleMainTitle"> Category's value share to Parent
+                                            Supplier </h4>
+                                          <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
+                                          {(() => {
+                                            if (obj.cat_imp_supp_sales) {
 
+                                              return (
+                                                <div>
+                                                  <GaugeChart2 data={[obj.cat_imp_supp_sales]}
+                                                               id="gauge2"/>
+                                                  <div className="row" style={{marginTop: '-11%'}}>
+                                                    <div className="col-xs-12"
+                                                         style={{fontWeight: 'bold', fontSize: '14px'}}>
+                                                      {obj.cat_imp_supp_sales}%
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              )
+                                            }
+                                          })()}
+                                          {/*<SampleBarChart/>*/}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </panel>
                                 </div>
-                                <panel>
-                                  <div className="row" style={{marginLeft: '0px', marginRight: '0px'}}>
-                                    <div className="col-md-6 col-sm-12">
-                                      <div className="col-md-12 col-sm-12 panel-body" style={{
-                                        textAlign: 'center',
-                                        borderTop: "1px solid #e5e8ea",
-                                        backgroundColor: "white",
-                                        margin: "0%",
-                                        borderLeft: "1px solid #e5e8ea",
-                                        borderRight: "1px solid #e5e8ea",
-                                        borderBottom: "1px solid #e5e8ea"
-                                      }}>
-                                        <h4 className="pageModuleMainTitle"> Parent Supplier's value share in
-                                          Category</h4>
-                                        <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
-                                        {(() => {
-                                          if (this.props.supplier.reducer1.supp_imp_cat_sales) {
-
-                                            return (
-                                              <div>
-                                                <GaugeChart2 data={[this.props.supplier.reducer1.supp_imp_cat_sales]}
-                                                             id="gauge1"/>
-                                                <div className="row" style={{marginTop: '-11%'}}>
-                                                  <div className="col-xs-12"
-                                                       style={{fontWeight: 'bold', fontSize: '14px'}}>
-                                                    {this.props.supplier.reducer1.supp_imp_cat_sales}%
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            )
-                                          }
-                                        })()}
-                                      </div>
-                                    </div>
-                                    <div className="col-md-6 col-sm-12">
-                                      <div className="col-md-12 col-sm-12 col-xs-12 panel-body" style={{
-                                        textAlign: 'center',
-                                        borderTop: "1px solid #e5e8ea",
-                                        float: 'right',
-                                        backgroundColor: "white",
-                                        margin: "0%",
-                                        borderLeft: "1px solid #e5e8ea",
-                                        borderRight: "1px solid #e5e8ea",
-                                        borderBottom: "1px solid #e5e8ea"
-                                      }}>
-                                        <h4 className="pageModuleMainTitle"> Category's value share to Parent
-                                          Supplier </h4>
-                                        <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
-                                        {(() => {
-                                          if (this.props.supplier.reducer1.cat_imp_supp_sales) {
-
-                                            return (
-                                              <div>
-                                                <GaugeChart2 data={[this.props.supplier.reducer1.cat_imp_supp_sales]}
-                                                             id="gauge2"/>
-                                                <div className="row" style={{marginTop: '-11%'}}>
-                                                  <div className="col-xs-12"
-                                                       style={{fontWeight: 'bold', fontSize: '14px'}}>
-                                                    {this.props.supplier.reducer1.cat_imp_supp_sales}%
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            )
-                                          }
-                                        })()}
-                                        {/*<SampleBarChart/>*/}
-                                      </div>
-                                    </div>
-                                  </div>
-                                </panel>
-                              </div>
-                            )
+                              )
+                            })
                           }
                         })()}
 
@@ -774,7 +800,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                 return (
                                   <div style={{border: '1px solid #e5e8ea'}}>
                                     <div style={{float:"right"}}>
-                                      <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                      <DropdownButton className="glyphicon glyphicon-download-alt" pullRight style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
                                         <MenuItem onClick={() => {
                                           saveImage(document.getElementById('suppliertopchart'+'_svg'),"topSuppliers_barChart")
                                         }
@@ -806,7 +832,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                 return (
                                   <div style={{border: '1px solid #e5e8ea'}}>
                                     <div style={{float:"right"}}>
-                                      <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                      <DropdownButton className="glyphicon glyphicon-download-alt" pullRight style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
                                         <MenuItem onClick={() => {
                                           saveImage(document.getElementById('supplierbotchart'+'_svg'),"bottomSuppliers_barChart")
                                         }
@@ -1232,7 +1258,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                                 <div className="col-md-12 col-sm-12 col-xs-12 " style={{marginTop: '2%'}}>
                                   <div style={{float:"right"}}>
-                                    <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                                    <DropdownButton className="glyphicon glyphicon-download-alt" pullRight style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
                                       <MenuItem onClick={() => {
                                         saveImage(this.refs.bubbleChartComp.refs.svgBubble,"bubble_chart")
                                       }
@@ -1491,7 +1517,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                         exportCSV={true}
                                       >
                                         <TableHeaderColumn dataField="base_product_number" isKey={true}
-                                                           dataAlign="center" dataSort={true}>Product
+                                                           dataAlign="center" dataSort={true} width="20%">Product
                                           ID</TableHeaderColumn>
                                         <TableHeaderColumn dataField="parent_supplier"
                                                            tdStyle={ {whiteSpace: 'normal'} } width="20%"

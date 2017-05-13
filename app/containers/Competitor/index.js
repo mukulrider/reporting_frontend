@@ -287,7 +287,7 @@ export class Competitor extends React.PureComponent {
                     return (
                       <div>
                         <div style={{float:"right"}}>
-                          <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                          <DropdownButton className="glyphicon glyphicon-download-alt" pullRight style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
                             <MenuItem onClick={() => {
                               saveImage(document.getElementById('piechart'+'_svg'),"pie_chart")
                             }
@@ -345,7 +345,7 @@ export class Competitor extends React.PureComponent {
                     return (
                       <div>
                         <div style={{float:"right"}}>
-                          <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                          <DropdownButton className="glyphicon glyphicon-download-alt" pullRight style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
                             <MenuItem onClick={() => {
                               saveImage(document.getElementById('barline'+'_svg'),"barline_chart")
                             }
@@ -471,7 +471,7 @@ export class Competitor extends React.PureComponent {
                     return (
                       <div>
                         <div style={{float:"right"}}>
-                          <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                          <DropdownButton className="glyphicon glyphicon-download-alt" pullRight style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
                             <MenuItem onClick={() => {
                               saveImage(document.getElementById('waterfallChart_1'+'_svg'),"Asda_priceIndex_waterfall_chart")
                             }
@@ -508,7 +508,7 @@ export class Competitor extends React.PureComponent {
                     return (
                       <div>
                         <div style={{float:"right"}}>
-                          <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                          <DropdownButton className="glyphicon glyphicon-download-alt" pullRight style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
                             <MenuItem onClick={() => {
                               saveImage(document.getElementById('waterfallChart_2'+'_svg'),"JS_priceIndex_waterfall_chart")
                             }
@@ -549,7 +549,7 @@ export class Competitor extends React.PureComponent {
                     return (
                       <div>
                         <div style={{float:"right"}}>
-                          <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                          <DropdownButton className="glyphicon glyphicon-download-alt" pullRight style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
                             <MenuItem onClick={() => {
                               saveImage(document.getElementById('waterfallChart_3'+'_svg'),"Morrisons_priceIndex_waterfall_chart")
                             }
@@ -585,7 +585,7 @@ export class Competitor extends React.PureComponent {
                     return (
                       <div>
                         <div style={{float:"right"}}>
-                          <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                          <DropdownButton className="glyphicon glyphicon-download-alt" pullRight style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
                             <MenuItem onClick={() => {
                               saveImage(document.getElementById('waterfallChart_4'+'_svg'),"Aldi_priceIndex_waterfall_chart")
                             }
@@ -652,7 +652,7 @@ export class Competitor extends React.PureComponent {
                   return (
                     <div>
                       <div style={{float:"right"}}>
-                        <DropdownButton className="glyphicon glyphicon-download-alt" style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
+                        <DropdownButton className="glyphicon glyphicon-download-alt" pullRight style={{backgroundColor:"#FFF", borderColor:"#398439",color:"#000"}} id="dropButtonId">
                           <MenuItem onClick={() => {
                             saveImage(document.getElementById('multiOrdinalChart2'),"Competitor_Price_Range_ordinal_chart")
                           }
