@@ -213,15 +213,20 @@
 }
 
 .tr-function-red{
-  background-color: red;
+  //background-color: red;
+  background-color: #cc3333;
+  //opacity:0.5;
 }
 
 .tr-function-yellow{
   background-color: yellow;
+  //opacity:0.75;
 }
 
 .tr-function-green{
-  background-color: green;
+  //background-color: green;
+  background-color: #58ee81;
+  //opacity:0.75;
 }
 
 .pageModuleTitle {
@@ -411,7 +416,7 @@
 .tesco-heading {
   width: 100%;
   line-height: 28px;
-  font-size: 18px;
+  font-size: 8px;
   height: 28px;
   color: #00539f !important;
   font-weight: 500;
@@ -425,4 +430,98 @@
 }
 .spinnerPositionFix {
   left: 29% !important;
+}
+.tesco-heading{    width: 100%;
+  line-height: 28px;
+  font-size: 18px;
+  height: 28px;
+  color: #00539f !important;
+  font-weight: 500;
+  text-align: center;
+  padding-left: 1%;}
+.table-header-format{
+  font-size: 16px;
+  font-family:Tesco;
+  text-align: center;
+  color: #333333;
+  background-color: #e5e5e5;
+}
+
+.glyphicon-triangle-top {
+  //font-size: 12px;
+  color: #8bc249;
+}
+.glyphicon-triangle-bottom {
+  font-size: 12px;
+  color: #ef4438;
+}
+.overview-blk-heading {
+  margin-top: 1px;
+  //margin-bottom: 1px;
+  //text-align: center;
+  vertical-align: middle;
+  border-bottom: dashed 1px;
+  border-bottom-color: gray;
+  font-size: 25px;
+  //font-weight: bold;
+}
+.overview-blk {
+  text-align: center;
+  vertical-align: middle;
+  //border: dashed 1px;
+}
+.overview-blk-value{
+  font-size: 20px;
+}
+// CSS FOR TABS / NEW UI DESIGN UPDATES
+.tabsCustom {
+  margin-top: 2px;
+  margin-bottom: 20px;
+}
+.tabsCustomList {
+  display: inline-block;
+  margin: 0 8px 0 0;
+  border-bottom: none;
+}
+.tabsCustomList a{
+  background: #EDECEC;
+  fontFamily: 'Tesco' !important;
+  color: #00539f !important;
+  display: block !important;
+  padding: 15px 24px 16px 24px !important;
+  text-decoration: none;
+  text-align: center;
+}
+.tabsCustomList a:hover {
+  text-decoration: underline !important;
+  color:#008dc8;
+}
+.tabsCustomList.active{
+  margin-bottom: -1px;
+}
+.tabsCustomList span.tab_label{
+  padding: 12px 8px;
+  color: #048EC3;
+  font-weight: 600;
+}
+.tabsCustomList.active span.tab_label{
+  border-bottom: #048EC3 solid 4px;
+}
+.content-wrap{
+  background: #fff;
+}
+.FlexContainer.Row {
+  -ms-flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+}
+.FlexContainer.Column {
+  -ms-flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+}
+.container-left{
+  display: flex;
 }

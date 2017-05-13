@@ -15,9 +15,10 @@ import * as d3          from 'd3';
 class GaugeChart2 extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   createChart = (a,id,colors) => {
     console.log("Inside createchart of GaugeChart2")
-    console.log(a)
     var containerWidth = document.getElementById(id).clientWidth;
-    let width = containerWidth;
+    let margin = {top: 20, right: 40, bottom: 50, left: 40};
+
+    let width = containerWidth*0.75;
     let height = containerWidth*0.5;
     console.log("GaugeChart2 X :",containerWidth)
     let svg = d3.select("#"+id )
@@ -40,9 +41,9 @@ class GaugeChart2 extends React.PureComponent { // eslint-disable-line react/pre
       .padAngle( 0 );
 
     // Removing height n width from svg
-    setTimeout(function(){
-      d3.select('#' + id + '_svg').attr("width",null).attr("height",null)
-    },200)
+    // setTimeout(function(){
+    //   d3.select('#' + id + '_svg').attr("width",null).attr("height",null)
+    // },200)
 //
 // // an array of colors
 
@@ -84,7 +85,7 @@ class GaugeChart2 extends React.PureComponent { // eslint-disable-line react/pre
       .classed("needle", true)
       .style( "stroke", "black" )
       .attr( "transform", function( d ) {
-        return " translate(" + 20 + ",100) rotate(" + d + ")"
+        return " translate(" + 20 + ",100) rotate(" + (d) + ")"
       } );
 //
 //     // a = 50
@@ -94,7 +95,7 @@ class GaugeChart2 extends React.PureComponent { // eslint-disable-line react/pre
       .ease( d3.easeElasticOut )
       .duration( 2000 )
       .attr( "transform", function( d ) {
-        return "translate(" + (width/2 + 30)+ ",100) rotate(" + d + ")"
+        return "translate(" + (width/2 + 30)+ ",100) rotate(" + (d*1.8) + ")"
       });
 
 
