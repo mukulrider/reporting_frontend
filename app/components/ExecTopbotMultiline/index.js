@@ -153,7 +153,7 @@ class ExecTopbotMultiline extends React.PureComponent { // eslint-disable-line r
     // Add the valueline path.
     // set the dimensions and margins of the graph
     var containerWidth = document.getElementById(chart_id).clientWidth;
-    let margin = {top: 20, right: 40, bottom: 60, left: 60},
+    let margin = {top: 20, right: 40, bottom: 80, left: 60},
       width = containerWidth - margin.left - margin.right,
       height = containerWidth*0.8 - margin.top - margin.bottom;
 
@@ -282,19 +282,18 @@ class ExecTopbotMultiline extends React.PureComponent { // eslint-disable-line r
       .attr("font-family", "sans-serif")
       .attr("font-size", 10)
       .attr("text-anchor", "end")
-      .attr("x",-2*margin.right)
       .selectAll("g")
       .data(data_label)
       .enter().append("g")
       .attr("transform", function (d, i) {
         console.log("Multiline ---- d.label",d.label)
-        return "translate(0," + i * 25 + ")";
+        return "translate(0," + (i*25) + ")";
       });
 
     let color_hash = ["steelblue","red"];
 
     legend.append("rect")
-      .attr("x", 350 )
+      .attr("x", containerWidth-margin.right-40)
       .attr("width", 19)
       .attr("height", 19)
       .attr("fill", function (d, i) {
@@ -302,7 +301,7 @@ class ExecTopbotMultiline extends React.PureComponent { // eslint-disable-line r
       });
 
     legend.append("text")
-      .attr("x", 340)
+      .attr("x", containerWidth - margin.right-60)
       .attr("y", 9.5)
       .attr("dy", "0.32em")
       .text(function (d) {

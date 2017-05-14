@@ -344,7 +344,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
             <div className="col-md-12 content-wrap">
               {/*Nav for time period*/}
               <div style={{borderRight: '1%'}}>
-              <Nav style={{marginLeft: '1%'}} bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom  mainTab">
+              <Nav style={{marginLeft: '1%', marginBottom: '0%'}} bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom  mainTab">
                 <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
                   dataWeekParam = "week_flag=Current Week";
@@ -2370,6 +2370,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             if(this.props.Executive.top_name!='None'){
                                               return (
                                                 <div className="row" style={{paddingTop:"15px"}}>
+                                                  <div className="row">
                                                     <span style={{float:"left"}}>
                                                       <Button onClick={() => {
                                                         suppName='None';
@@ -2391,6 +2392,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                     }>Download CSV</MenuItem>
                                                   </DropdownButton>
                                                 </span>
+                                              </div>
                                         {(() => {
                                           if (this.props.Executive.best_info_data.fetch=='success') {
                                             return (
@@ -2595,6 +2597,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             {
                                               return(
                                                 <div className="row" style={{paddingTop:"15px"}}>
+                                                  <div className="row">
                                                   <span style={{float:"left"}}>
                                                       <Button onClick={() => {
                                                         suppName='None';
@@ -2616,6 +2619,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                       }>Download CSV</MenuItem>
                                                     </DropdownButton>
                                                   </span>
+                                                  </div>
                                                   {(() => {
                                                     if (this.props.Executive.worst_info_data.fetch=='success') {
                                                       return (
@@ -2741,7 +2745,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 </div>
                                 {/*Internal External Tab*/}
 
-                                <Nav style={{marginLeft: '1%', marginBottom: '0%'}} bsStyle="tabs" activeKey={this.state.activeKey4} onSelect={this.handleSelect} className="tabsCustom  mainTab">
+                                <Nav style={{marginLeft: '1%'}} bsStyle="tabs" activeKey={this.state.activeKey4} onSelect={this.handleSelect} className="tabsCustom  mainTab">
                                   <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
                                     driverParam = "internal";
