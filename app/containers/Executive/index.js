@@ -345,7 +345,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
               {/*Nav for time period*/}
               <div style={{borderRight: '1%'}}>
               <Nav style={{marginLeft: '1%', marginBottom: '0%'}} bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom  mainTab">
-                <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+                <NavItem className="tabsCustomListTime" eventKey="1" onClick={() => {
 
                   dataWeekParam = "week_flag=Current Week";
 
@@ -395,7 +395,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                 }}>
                   <span className="tab_label">Current Week</span></NavItem>
 
-                <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                <NavItem className="tabsCustomListTime" eventKey="2" onClick={() => {
                   this.setState({activeKey1: "2"});
                   dataWeekParam = "week_flag=4 Weeks";
                   this.props.onSaveWeekParam(dataWeekParam);
@@ -446,7 +446,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                 }}> <span className="tab_label">Last 4 weeks</span></NavItem>
 
-                <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                <NavItem className="tabsCustomListTime" eventKey="3" onClick={() => {
                   this.setState({activeKey1: "3"});
                   dataWeekParam = "week_flag=13 Weeks";
                   this.props.onSaveWeekParam(dataWeekParam);
@@ -495,7 +495,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                 }}><span className="tab_label">Last 13 weeks</span></NavItem>
 
-                <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+                <NavItem className="tabsCustomListTime" eventKey="4" onClick={() => {
                   this.setState({activeKey1: "4"});
                   dataWeekParam = "week_flag=26 Weeks";
                   this.props.onSaveWeekParam(dataWeekParam);
@@ -542,7 +542,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                 }}><span className="tab_label">Last 26 weeks</span></NavItem>
 
-                <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
+                <NavItem className="tabsCustomListTime" eventKey="5" onClick={() => {
                   this.setState({activeKey1: "5"});
 
                   dataWeekParam = "week_flag=YTD";

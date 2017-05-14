@@ -177,7 +177,7 @@ export class Competitor extends React.PureComponent {
               <div className="col-md-12 content-wrap">
 
               <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom">
-                <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+                <NavItem className="tabsCustomListTime" eventKey="1" onClick={() => {
 
                   dataWeekUrlParams = "week_flag=Current Week";
                   this.setState({activeKey1: "1"});
@@ -194,7 +194,7 @@ export class Competitor extends React.PureComponent {
 
                 }}><span className="tab_label" >Selected Week</span></NavItem>
 
-                <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                <NavItem className="tabsCustomListTime" eventKey="2" onClick={() => {
                   this.setState({activeKey1: "2"});
                   this.props.onPieChartSpinnerSuccess(0);
                   this.props.outPerformanceChartSuccess(0);
@@ -209,7 +209,7 @@ export class Competitor extends React.PureComponent {
 
                 }}><span className="tab_label" >Last 4 weeks</span></NavItem>
 
-                <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                <NavItem className="tabsCustomListTime" eventKey="3" onClick={() => {
                   this.setState({activeKey1: "3"});
                   this.props.onPieChartSpinnerSuccess(0);
                   this.props.outPerformanceChartSuccess(0);
@@ -223,7 +223,7 @@ export class Competitor extends React.PureComponent {
                   this.props.onCompetitorOutperformance();
 
                 }}><span className="tab_label" >Last 13 weeks</span></NavItem>
-                <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+                <NavItem className="tabsCustomListTime" eventKey="4" onClick={() => {
                   this.setState({activeKey1: "4"});
                   this.props.onPieChartSpinnerSuccess(0);
                   this.props.outPerformanceChartSuccess(0);
@@ -238,7 +238,7 @@ export class Competitor extends React.PureComponent {
 
                 }}><span className="tab_label" >Last 52 weeks</span></NavItem>
 
-                <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
+                <NavItem className="tabsCustomListTime" eventKey="5" onClick={() => {
                   this.setState({activeKey1: "5"});
                   this.props.onPieChartSpinnerSuccess(0);
                   this.props.outPerformanceChartSuccess(0);

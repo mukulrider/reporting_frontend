@@ -25,8 +25,8 @@ import {
 } from './selectors';
 
 
-let host_url="http://172.20.244.150:8000";
-// let host_url="http://172.20.246.60:8000";
+// let host_url="http://10.1.244.200:8000";
+let host_url="http://127.0.0.1:8000";
 // All sagas to be loaded
 
 

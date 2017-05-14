@@ -169,8 +169,8 @@ export class Promotion extends React.PureComponent {
               })()}
             </div>
           <div className="col-md-12 content-wrap">
-              <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom" style={{margin:"0px"}}>
-              <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+              <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom">
+              <NavItem className="tabsCustomListTime" eventKey="1" onClick={() => {
 
                 dataWeekParam = "week_flag=Current Week";
                 this.setState({activeKey1: "1"});
@@ -182,7 +182,7 @@ export class Promotion extends React.PureComponent {
                 this.props.loadPromoPart();
               }}><span className="tab_label">Current Week</span></NavItem>
 
-              <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+              <NavItem className="tabsCustomListTime" eventKey="2" onClick={() => {
                 this.setState({activeKey1: "2"});
                 dataWeekParam = "week_flag=Latest 4 Weeks";
                 this.props.onSaveWeekParam(dataWeekParam);
@@ -193,7 +193,7 @@ export class Promotion extends React.PureComponent {
                 this.props.loadPromoPart();
               }}><span className="tab_label">Last 4 weeks</span></NavItem>
 
-              <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+              <NavItem className="tabsCustomListTime" eventKey="3" onClick={() => {
                 this.setState({activeKey1: "3"});
                 dataWeekParam = "week_flag=Latest 13 Weeks";
                 this.props.onSaveWeekParam(dataWeekParam);
@@ -203,7 +203,7 @@ export class Promotion extends React.PureComponent {
                 this.props.loadPromoProd();
                 this.props.loadPromoPart();
               }}><span className="tab_label">Last 13 weeks</span></NavItem>
-              <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+              <NavItem className="tabsCustomListTime" eventKey="4" onClick={() => {
                 this.setState({activeKey1: "4"});
                 dataWeekParam = "week_flag=Latest 26 Weeks";
                 this.props.onSaveWeekParam(dataWeekParam);
@@ -214,7 +214,7 @@ export class Promotion extends React.PureComponent {
                 this.props.loadPromoPart();
               }}><span className="tab_label">Last 26 weeks</span></NavItem>
 
-              <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
+              <NavItem className="tabsCustomListTime" eventKey="5" onClick={() => {
                 this.setState({activeKey1: "5"});
 
                 dataWeekParam = "week_flag=YTD";

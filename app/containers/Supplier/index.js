@@ -314,7 +314,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                       <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect}
                            className="tabsCustom">
-                        <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+                        <NavItem className="tabsCustomListTime" eventKey="1" onClick={() => {
                           this.setState({activeKey1: "1"});
                           this.props.supplierViewKpiSpinnerCheckSuccess(0);
                           this.props.barChartSpinnerCheckSuccess(0);
@@ -332,7 +332,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                         }}>
                           <span className="tab_label">Current Week</span></NavItem>
 
-                        <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                        <NavItem className="tabsCustomListTime" eventKey="2" onClick={() => {
                           this.setState({activeKey1: "2"});
                           this.props.supplierViewKpiSpinnerCheckSuccess(0);
                           this.props.barChartSpinnerCheckSuccess(0);
@@ -349,7 +349,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                         }}><span className="tab_label">Last 4 Week</span></NavItem>
 
-                        <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                        <NavItem className="tabsCustomListTime" eventKey="3" onClick={() => {
                           this.setState({activeKey1: "3"});
                           this.props.supplierViewKpiSpinnerCheckSuccess(0);
                           this.props.barChartSpinnerCheckSuccess(0);
@@ -365,7 +365,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                           this.props.ontopBottomChart();
 
                         }}><span className="tab_label">Last 13 weeks</span></NavItem>
-                        <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+                        <NavItem className="tabsCustomListTime" eventKey="4" onClick={() => {
                           this.setState({activeKey1: "4"});
                           this.props.supplierViewKpiSpinnerCheckSuccess(0);
                           this.props.barChartSpinnerCheckSuccess(0);
@@ -382,7 +382,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                         }}><span className="tab_label">Last 52 weeks</span></NavItem>
 
-                        <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
+                        <NavItem className="tabsCustomListTime" eventKey="5" onClick={() => {
                           this.setState({activeKey1: "5"});
                           this.props.supplierViewKpiSpinnerCheckSuccess(0);
                           this.props.barChartSpinnerCheckSuccess(0);

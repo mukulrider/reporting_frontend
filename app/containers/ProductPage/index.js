@@ -221,28 +221,28 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   }}
                 ><span className="tab_label">Last 4 Weeks</span></NavItem>
                 <NavItem style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
-                  className="tabsCustomList" eventKey="3" onClick={() => {
+                  className="tabsCustomListTime" eventKey="3" onClick={() => {
                   this.setState({activeKey: "3"});
                   let dataWeekParams="week_flag=13";
                   this.props.onSaveWeekParam(dataWeekParams);
                   }}
                 ><span className="tab_label">Last 13 Weeks</span></NavItem>
                 <NavItem style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
-                  className="tabsCustomList" eventKey="4" onClick={() => {
+                  className="tabsCustomListTime" eventKey="4" onClick={() => {
                   this.setState({activeKey: "4"});
                   let dataWeekParams="week_flag=26";
                   this.props.onSaveWeekParam(dataWeekParams);
                   }}
                 ><span className="tab_label">Last 26 Weeks</span></NavItem>
                 <NavItem style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
-                  className="tabsCustomList" eventKey="5" onClick={() => {
+                  className="tabsCustomListTime" eventKey="5" onClick={() => {
                   this.setState({activeKey: "5"});
                   let dataWeekParams="week_flag=YTD";
                   this.props.onSaveWeekParam(dataWeekParams);
                   }}
                 ><span className="tab_label">YTD</span></NavItem>
                 {/*<NavItem style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
-                  className="tabsCustomList" eventKey="6" onClick={() => {
+                  className="tabsCustomListTime" eventKey="6" onClick={() => {
                   this.setState({activeKey: "6"});
                   let dataWeekParams="week_flag=PTD";
                   }}

@@ -205,7 +205,8 @@ th {
 }
 
 .tabsCustom {
-  margin-top: 24px;
+  margin-top: 2px;
+  margin-bottom: 5px;
 }
 
 .tabsCustomInner {
@@ -214,7 +215,7 @@ th {
 
 .tabsCustomList {
   display: inline-block;
-  margin: 0 8px 0 0;
+  margin: 0 2px 0 0;
   border-bottom: none;
 }
 
@@ -223,7 +224,7 @@ th {
   fontFamily: 'Tesco' !important;
   color: #00539f !important;
   display: block !important;
-  padding: 15px 24px 16px 24px !important;
+  padding: 8px 10px 8px 10px !important;
   text-decoration: none;
 }
 
@@ -244,7 +245,7 @@ th {
   font-weight: 600;
   font-family: Tesco;
   color: #00539f;
-  font-size: 16px;
+  font-size: 14px;
   vertical-align: middle;
 
 }
@@ -252,6 +253,43 @@ th {
 .tabsCustomList.active span.tab_label {
   border-bottom: #048EC3 solid 4px;
 }
+
+.tabsCustomListTime {
+  display: inline-block;
+  margin: 0 2px 0 0;
+  border-bottom: none;
+  font-size: 16px !important;
+}
+
+
+.tabsCustomListTime a{
+  background: #EDECEC;
+  fontFamily: 'Tesco' !important;
+  color: #00539f !important;
+  display: block !important;
+  padding: 12px 12px 12px 12px !important;
+  text-decoration: none;
+}
+.tabsCustomListTime a:hover {
+  text-decoration: underline !important;
+  color:#008dc8;
+}
+.tabsCustomListTime.active{
+  margin-bottom: -1px;
+}
+
+.tabsCustomListTime span.tab_label{
+  padding: 5px 5px;
+  color: #048EC3;
+  font-weight: 600;
+}
+
+
+.tabsCustomListTime.active span.tab_label{
+  border-bottom: #048EC3 solid 4px;
+}
+
+
 
 .content-wrap {
   background: #fff;
