@@ -138,6 +138,12 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
 
     return (
       <Panel>
+        <Helmet
+          title="Products"
+          meta={[
+            { name: 'description', content: 'Description of Products' },
+          ]}
+        />
         <div id="productPage" ref="productPage">
             <div style={{
               height: '100%',
@@ -408,15 +414,14 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                               </table>
                               )
 
-                            })
-                          }else {
+                            });
+                          }else{
                             return (
 
                               <div className="text-center" colSpan="11"><Spinner />Please Wait a Moment....!</div>
 
                             );
-                          }
-                          }
+                          }}
                         )()}
 
                 </div>

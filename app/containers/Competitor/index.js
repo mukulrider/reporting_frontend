@@ -311,15 +311,11 @@ export class Competitor extends React.PureComponent {
 
             <div className="row">
               <div className="col-xs-4 panel-body ts-blk-proview">
-                <h4 className="pageModuleSubTitle"><b>Market Share</b></h4>
-
-                {(() => {
-
-                  if (this.props.competitor.piechart_data.pie_chart_value && (this.props.competitor.onPieChartSpinnerSuccess == 1)) {
-                    console.log("pie chart data", this.props.competitor.piechart_data);
-                    return (
-                      <div>
-                        <div style={{float:"right"}}>
+                <div className="col-md-9 col-sm-9 col-xs-9">
+                  <h4 className="pageModuleSubTitle"><b>Market Share</b></h4>
+                </div>
+                <div className="col-md-3 col-sm-3 col-xs-3">
+                  <span style={{float:"right"}}>
                           <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                             <MenuItem onClick={() => {
                               saveImage(document.getElementById('piechart'+'_svg'),"pie_chart")
@@ -330,7 +326,16 @@ export class Competitor extends React.PureComponent {
                             }
                             }>Download CSV</MenuItem>
                           </DropdownButton>
-                        </div>
+                        </span>
+                </div>
+
+                {(() => {
+
+                  if (this.props.competitor.piechart_data.pie_chart_value && (this.props.competitor.onPieChartSpinnerSuccess == 1)) {
+                    console.log("pie chart data", this.props.competitor.piechart_data);
+                    return (
+                      <div>
+
                         <Pichart ref = "competitorPieChartComp" data={this.props.competitor.piechart_data.pie_chart_value} id="piechart"/>
                       </div>
                     )
@@ -346,7 +351,7 @@ export class Competitor extends React.PureComponent {
                 <div>
 
                     <div className="panel-body wowformatting">
-                      <h4>  WoW </h4>
+
                       <span
                         className={(() => {
                           if (this.props.competitor.piechart_data.tesco_share_data > 0)
@@ -362,6 +367,8 @@ export class Competitor extends React.PureComponent {
 
                         </span>
                       {this.props.competitor.piechart_data.tesco_share_data}
+
+                      <h4>  WoW </h4>
                     </div>
 
 
@@ -370,14 +377,11 @@ export class Competitor extends React.PureComponent {
               </div>
 
               <div className="col-xs-8 panel-body ts-blk-proview">
-                <h4 className="pageModuleSubTitle"><b>Outperformance</b></h4>
-                {(() => {
-
-                  if (this.props.competitor.outperformance_data && (this.props.competitor.outperformanceChartSpinnerSuccess == 1)) {
-                    console.log("Outperformance data", this.props.competitor.outperformance_data);
-                    return (
-                      <div>
-                        <div style={{float:"right"}}>
+                <div className="col-md-9 col-sm-9 col-xs-9">
+                  <h4 className="pageModuleSubTitle"><b>Outperformance</b></h4>
+                </div>
+                <div className="col-md-3 col-sm-3 col-xs-3">
+                  <span style={{float:"right"}}>
                           <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                             <MenuItem onClick={() => {
                               saveImage(document.getElementById('barline'+'_svg'),"barline_chart")
@@ -388,7 +392,14 @@ export class Competitor extends React.PureComponent {
                             }
                             }>Download CSV</MenuItem>
                           </DropdownButton>
-                        </div>
+                        </span>
+                </div>
+                {(() => {
+
+                  if (this.props.competitor.outperformance_data && (this.props.competitor.outperformanceChartSpinnerSuccess == 1)) {
+                    console.log("Outperformance data", this.props.competitor.outperformance_data);
+                    return (
+                      <div>
                         <BarLineChart data={this.props.competitor.outperformance_data} id="barline" ref="competitorOutperformComp" series_col_name= 'id'/>
                       </div>
                     )
@@ -497,16 +508,11 @@ export class Competitor extends React.PureComponent {
 
             <div className="row">
               <div className="col-xs-6 panel-body ts-blk-proview">
-                <h4 className="pageModuleSubTitle"><b>Asda</b></h4>
-
-                {(() => {
-                  if (this.props.competitor.waterfall_data && (this.props.competitor.waterfallChartAsdaSpinnerSuccess)) {
-                    console.log("in asda chart div");
-                    console.log("consoling basda data", this.props.competitor.waterfall_data);
-
-                    return (
-                      <div>
-                        <div style={{float:"right"}}>
+                <div className="col-md-9 col-sm-9 col-xs-9">
+                  <h4 className="pageModuleSubTitle"><b>Asda</b></h4>
+                </div>
+                <div className="col-md-3 col-sm-3 col-xs-3">
+                  <span style={{float:"right"}}>
                           <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                             <MenuItem onClick={() => {
                               saveImage(document.getElementById('waterfallChart_1'+'_svg'),"Asda_priceIndex_waterfall_chart")
@@ -517,7 +523,16 @@ export class Competitor extends React.PureComponent {
                             }
                             }>Download CSV</MenuItem>
                           </DropdownButton>
-                        </div>
+                        </span>
+                </div>
+                {(() => {
+                  if (this.props.competitor.waterfall_data && (this.props.competitor.waterfallChartAsdaSpinnerSuccess)) {
+                    console.log("in asda chart div");
+                    console.log("consoling basda data", this.props.competitor.waterfall_data);
+
+                    return (
+                      <div>
+
                         <WaterFallChart2
                           id="waterfallChart_1" yAxisName="Price Index" formatter="formatSales"
                           positive_text='negative' negative_text='positive' total_text='total1'
@@ -536,14 +551,11 @@ export class Competitor extends React.PureComponent {
               </div>
 
               <div className="col-xs-6 panel-body ts-blk-proview">
-                <h4 className="pageModuleSubTitle"><b>JS</b></h4>
-                {(() => {
-
-                  if (this.props.competitor.waterfall_data && (this.props.competitor.waterfallChartAsdaSpinnerSuccess)) {
-                    console.log("------------------------------", this.props.competitor.waterfall_data);
-                    return (
-                      <div>
-                        <div style={{float:"right"}}>
+                <div className="col-md-9 col-sm-9 col-xs-9">
+                  <h4 className="pageModuleSubTitle"><b>JS</b></h4>
+                </div>
+                <div className="col-md-3 col-sm-3 col-xs-3">
+                  <span style={{float:"right"}}>
                           <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                             <MenuItem onClick={() => {
                               saveImage(document.getElementById('waterfallChart_2'+'_svg'),"JS_priceIndex_waterfall_chart")
@@ -554,7 +566,15 @@ export class Competitor extends React.PureComponent {
                             }
                             }>Download CSV</MenuItem>
                           </DropdownButton>
-                        </div>
+                        </span>
+                </div>
+                {(() => {
+
+                  if (this.props.competitor.waterfall_data && (this.props.competitor.waterfallChartAsdaSpinnerSuccess)) {
+                    console.log("------------------------------", this.props.competitor.waterfall_data);
+                    return (
+                      <div>
+
                         <WaterFallChart2
                           id="waterfallChart_2" yAxisName="Price Index" formatter="formatSales"
                           positive_text='negative' negative_text='positive' total_text='total1'
@@ -577,14 +597,11 @@ export class Competitor extends React.PureComponent {
 
             <div className="row">
               <div className="col-xs-6 panel-body">
+                <div className="col-md-9 col-sm-9 col-xs-9">
                 <h4 className="pageModuleSubTitle"><b>Morrisons</b></h4>
-                {(() => {
-
-                  if (this.props.competitor.waterfall_data && (this.props.competitor.waterfallChartAsdaSpinnerSuccess)) {
-                    console.log("------------------------------", this.props.competitor.waterfall_data);
-                    return (
-                      <div>
-                        <div style={{float:"right"}}>
+                </div>
+                <div className="col-md-3 col-sm-3 col-xs-3">
+                  <span style={{float:"right"}}>
                           <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                             <MenuItem onClick={() => {
                               saveImage(document.getElementById('waterfallChart_3'+'_svg'),"Morrisons_priceIndex_waterfall_chart")
@@ -595,7 +612,14 @@ export class Competitor extends React.PureComponent {
                             }
                             }>Download CSV</MenuItem>
                           </DropdownButton>
-                        </div>
+                        </span>
+                </div>
+                {(() => {
+
+                  if (this.props.competitor.waterfall_data && (this.props.competitor.waterfallChartAsdaSpinnerSuccess)) {
+                    console.log("------------------------------", this.props.competitor.waterfall_data);
+                    return (
+                      <div>
                         <WaterFallChart2 id="waterfallChart_3" yAxisName="Price Index" formatter="formatSales"
                                          positive_text='negative' negative_text='positive' total_text='total1'
                                          data={ this.props.competitor.waterfall_data.morr}/>
@@ -613,14 +637,11 @@ export class Competitor extends React.PureComponent {
               </div>
 
               <div className="col-xs-6 panel-body">
-                <h4 className="pageModuleSubTitle"><b>Aldi</b></h4>
-                {(() => {
-
-                  if (this.props.competitor.waterfall_data && (this.props.competitor.waterfallChartAsdaSpinnerSuccess)) {
-                    console.log("------------------------------", this.props.competitor.waterfall_data);
-                    return (
-                      <div>
-                        <div style={{float:"right"}}>
+                <div className="col-md-9 col-sm-9 col-xs-9">
+                  <h4 className="pageModuleSubTitle"><b>Aldi</b></h4>
+                </div>
+                <div className="col-md-3 col-sm-3 col-xs-3">
+                  <span style={{float:"right"}}>
                           <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                             <MenuItem onClick={() => {
                               saveImage(document.getElementById('waterfallChart_4'+'_svg'),"Aldi_priceIndex_waterfall_chart")
@@ -631,7 +652,15 @@ export class Competitor extends React.PureComponent {
                             }
                             }>Download CSV</MenuItem>
                           </DropdownButton>
-                        </div>
+                        </span>
+                </div>
+                {(() => {
+
+                  if (this.props.competitor.waterfall_data && (this.props.competitor.waterfallChartAsdaSpinnerSuccess)) {
+                    console.log("------------------------------", this.props.competitor.waterfall_data);
+                    return (
+                      <div>
+
                         <WaterFallChart2
                           id="waterfallChart_4" yAxisName="Price Index" formatter="formatSales"
                           positive_text='negative' negative_text='positive' total_text='total1'

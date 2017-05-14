@@ -19,7 +19,7 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
     let margin = {top: 30, right: 30, bottom: 30, left: 30},
       width = frameWidth - margin.left - margin.right,
       height = frameWidth - margin.top - margin.bottom,
-      radius = Math.min(width, height) / 3;
+      radius = Math.min(width, height) / 1.5;
 
     let color = d3.scaleOrdinal()
       .range(["#98abc5", "#8a89a6"]);
@@ -41,7 +41,7 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
 
      let svg = d3.select("#" + id + '_svg')
        .attr("width", frameWidth)
-       .attr("height", frameWidth)
+       .attr("height", frameWidth*0.8)
        //responsive SVG needs these 2 attributes and no width and height attr
        .attr("preserveAspectRatio", "xMinYMin meet")
        .attr("viewBox", "0 0 400 400")
@@ -51,9 +51,9 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
      //  .attr("transform", "translate(" + margin.left+ "," + margin.top + ")");
       .attr("transform", "translate(" + radius + " " + radius+ ")");
 
-    // setTimeout(function(){
-    //   d3.select('#'+id+'_svg').attr("width",null).attr("height",null)
-    // },100)
+    setTimeout(function(){
+      d3.select('#'+id+'_svg').attr("width",null).attr("height",null)
+    },100)
     let g = svg.selectAll(".arc")
       .data(pie(data))
       .enter().append("g")
@@ -80,7 +80,7 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
 
     let legend = svg.append("g")
       .attr("font-family", "sans-serif")
-      .attr("font-size", 10)
+      .attr("font-size", 14)
       .attr("text-anchor", "end")
       .selectAll("g")
       .data(dataGroup)
@@ -94,17 +94,16 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
 
 
     legend.append("rect")
-      .attr("x", 85 )
+      .attr("x", 10 ).attr("y", radius)
       .attr("width", 19)
       .attr("height", 19)
-      .attr("y", 75)
       .attr("fill", function (d, i) {
         return color_hash[i];
       });
 
     legend.append("text")
-      .attr("x", 80)
-      .attr("y", 85)
+      .attr("x", 0)
+      .attr("y", radius + 10)
       .attr("dy", "0.32em")
       .text(function (d) {
         console.log("PieChart text d.key",d.key)

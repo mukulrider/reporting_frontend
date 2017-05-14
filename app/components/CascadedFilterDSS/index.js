@@ -115,10 +115,8 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
   };
 
   resetButtonFunctionality = () => {
-
     //To remove the parameters from the url
     let newUrl = this.props.location.pathname;
-
     const queryString = '';
     this.props.onGenerateUrlParamsString(queryString);
 
@@ -291,29 +289,22 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                   }
                 })()}
               </PanelGroup>
-
+              <div style={{textAlign:"center"}}>
               <Button
-                style={{marginTop: "5px", width: "10px", minWidth: "170px", fontSize: "13px", textAlign: "center"}}
+                style={{marginTop: "5px"}}
                 onClick={() => {
-
                   this.applyButtonFunctionality();
-
                 }}>Apply Filters</Button>
 
               <Button
-                style={{marginTop: "5px", width: "10px", minWidth: "170px", fontSize: "13px", textAlign: "center"}}
+                style={{marginTop: "5px"}}
                 onClick={() => {
                   //To un check all the buttons
                   let selection = '';
                   this.props.onCheckboxChange(selection);
                   this.props.onGenerateSideFilter();
-
-                  {/*this.resetButtonFunctionality();*/
-                  }
-
                 }}>Clear Filter Selections</Button>
-
-
+              </div>
             </div>
           )
         })()}

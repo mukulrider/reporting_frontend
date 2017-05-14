@@ -172,9 +172,9 @@ class WaterFallChart2 extends React.PureComponent { // eslint-disable-line react
     //   padding = 0.3;
     let frameWidth = document.getElementById(id).clientWidth;
     console.log("Waterfall Chart Dimensions",frameWidth, frameWidth*0.7);
-    let margin = {top: 20, right: 40, bottom: 60, left: 35},
+    let margin = {top: 20, right: 40, bottom: 10, left: 35},
       width = frameWidth - margin.left - margin.right,
-      height = frameWidth*0.7 - margin.top - margin.bottom,
+      height = frameWidth*0.5 - margin.top - margin.bottom,
       padding = 0.3;
 
     const x = d3.scaleBand()
@@ -250,10 +250,10 @@ class WaterFallChart2 extends React.PureComponent { // eslint-disable-line react
 
 
     chart = d3.select(`#${id + '_svg'}`)
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
+      .attr('width', frameWidth)
+      .attr('height', frameWidth*0.3)
       .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 " + (frameWidth + 100) + " " + (frameWidth*0.7 + 100))
+      .attr("viewBox", "0 0 " + (frameWidth + 100) + " " + (frameWidth*0.4 + 100))
       //class to make it responsive
       .classed("svg-content-responsive", true)
       .append('g')

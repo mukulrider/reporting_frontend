@@ -49,7 +49,8 @@ class LineChart extends React.PureComponent { // eslint-disable-line react/prefe
     const data1=data;
     var svg = d3.select("#sampleSvg");
     svg.selectAll("*").remove();
-    svg = d3.select("#sampleSvg");
+    let frameWidth = document.getElementById("sampleSvg_container").clientWidth;
+    svg = d3.select("#sampleSvg").attr("width",frameWidth).attr("height",frameWidth*0.4);
     let  margin = {top: 20, right: 20, bottom: 60, left: 50};
     let  width = +svg.attr("width") - margin.left - margin.right;
     let  height = +svg.attr("height") - margin.top - margin.bottom;
@@ -134,8 +135,8 @@ class LineChart extends React.PureComponent { // eslint-disable-line react/prefe
   };
   render() {
     return (
-      <div>
-        <svg width="700" height="300" id="sampleSvg" className="lineChart"></svg>
+      <div id="sampleSvg_container">
+        <svg id="sampleSvg" className="lineChart"></svg>
       </div>
     );
   }

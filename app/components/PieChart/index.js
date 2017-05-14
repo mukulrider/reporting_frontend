@@ -48,10 +48,8 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
     console.log("Inside pie chart check 3",data);
     svg = d3.select("#" + id).append("svg")
       .attr("id",id + '_svg')
-    // .attr("width", width)
-    // .attr("height", height)
       .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top*1.5 + margin.bottom)
+      .attr("height", containerWidth*0.5 + margin.top + margin.bottom)
       .append("g")
       //  .attr("transform", "translate(" + margin.left+ "," + margin.top + ")");
       .attr("transform", "translate(" + width / 2 + "," + height / 1.5 + ")");
@@ -92,7 +90,7 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
       .data(data)
       .enter().append("g")
       .attr("transform", function (d, i) {
-        return "translate(" + (i*-legendWidth) + "," + (radius*1.5) + ")";
+        return "translate(" + (i*-legendWidth) + "," + (radius*1.4) + ")";
       });
 
     // let color_hash = ["#f6eff7","#d0d1e6","#a6bddb","#67a9cf","#3690c0","#02818a","#016450"];

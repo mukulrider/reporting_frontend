@@ -23,9 +23,10 @@ class DualLineChart extends React.PureComponent { // eslint-disable-line react/p
     console.log(ty_text);
     console.log(ly_text);
 
-    let margin = {top: 30, right: 30, bottom: 80, left: 80},
-      width = 850 - margin.left - margin.right,
-      height = 400 - margin.top - margin.bottom;
+    var containerWidth = document.getElementById('sample_div_container').clientWidth;
+    let margin = {top: 30, right: 80, bottom: 80, left: 80},
+      width = containerWidth - margin.left - margin.right,
+      height = containerWidth*0.6 - margin.top - margin.bottom;
 
     console.log(height + 10);
 // parse the date / time
@@ -209,7 +210,7 @@ class DualLineChart extends React.PureComponent { // eslint-disable-line react/p
 
   render() {
     return (
-      <div>
+      <div id="sample_div_container">
         <svg id="sample" ref="image" fontFamily="sans-serif" fontSize="10"> </svg>
       </div>
     );

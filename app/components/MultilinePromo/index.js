@@ -216,7 +216,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 " + frameWidth*1.3 + " " + frameWidth*0.6*1.2)
+      .attr("viewBox", "0 0 " + frameWidth*1.3 + " " + frameWidth*0.6)
        //class to make it responsive
       .classed("svg-content-responsive", true)
       .append("g")
@@ -257,7 +257,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
 
     //X axis title
     svg.append("text")
-      .attr("transform","translate(" + (width/2) + " ," +(height + margin.top+(margin.bottom/2)) + ")")
+      .attr("transform","translate(" + (width/2) + " ," +(height + margin.top+(margin.bottom/1.5))+")")
       .style("text-anchor", "middle")
       .text(xaxis_title);
 
