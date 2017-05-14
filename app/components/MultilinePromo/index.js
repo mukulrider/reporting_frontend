@@ -153,16 +153,17 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
     console.log("Multiline Promo Frame Width",frameWidth);
     let margin = {top: 20, right: 10, bottom: 60, left: 100};
      width = frameWidth - margin.left - margin.right;
-    let height = frameWidth*0.6 - margin.top - margin.bottom;
+    let height = frameWidth*0.5 - margin.top - margin.bottom;
 
     console.log("MultilinePromo width",width);
     console.log("MultilinePromo height",height);
     // set the ranges
-    let x = d3.scaleLinear().range([0, width]);
+    let x = d3.scalePoint().range([0, width]);
     let y = d3.scaleLinear().range([height, 0]);
 
     // Scale the range of the data
-    x.domain(d3.extent(data, function(d) { return d.tesco_week; }));
+    console.log('Output for Extent',data.map(function(d) { return d.tesco_week; }))
+    x.domain(data.map(function(d) { return d.tesco_week.toString(); }));
     y.domain([0, d3.max(data, function(d) {
       return Math.max(+d.value_ty, +d.value_ly); })]);
 
@@ -227,15 +228,6 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
         .attr("height",null)
         .attr("width",null);
     },200)
-    // Get the data
-
-    // format the data
-    data.forEach(function(d) {
-
-      d.value_ty = +d.value_ty;
-      d.value_ly = +d.value_ly;
-    });
-
 
     // Add the valueline path.
     svg.append("path")

@@ -342,7 +342,7 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
     let color_hash = ["black","blue","yellow"];
 
     legend.append("rect")
-      .attr("x", width+95 )
+      .attr("x", width+105 )
       .attr("width", 19)
       .attr("height", 19)
       .attr("fill", function (d, i) {
@@ -350,7 +350,7 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
       });
 
     legend.append("text")
-      .attr("x", width+90)
+      .attr("x", width+100)
       .attr("y", 9.5)
       .attr("dy", "0.32em")
       .text(function (d) {

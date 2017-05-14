@@ -228,26 +228,19 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
     return (
       <div>
-
+        <Helmet
+          title="Executive"
+          meta={[
+            {name: 'description', content: 'Description of Executives'},
+          ]}
+        />
 
         <div className="row" style={{
           marginLeft: '0px',
           marginRight: '0px'
         }}>
 
-          <div className="pageTitle">
-            {(() => {
-              if (this.props.Executive.filter_week_selection) {
-                return (
-                  <span>Executive View - {(this.props.Executive.filter_week_selection).substring(11, 17)}</span>
-                )
-              } else {
-                return (
-                  <span>Executive View </span>
-                )
-              }
-            })()}
-          </div>
+
 
 
           <div style={{
@@ -271,7 +264,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               week_data = {this.props.Executive.week_filter_data}
                               ongenerateWeekFilter = {this.props.onGetWeekFilter}
                               onSaveWeekFilterParam = {this.props.onSaveWeekFilterParam}
-                              previous_week_selection = {this.props.weekurlParam}
+                              previous_week_selection = {this.props.Executive.week_filter_param}
                               kpi_param = {this.props.Executive.kpi_param}
                               loadOverviewKpi = { this.props.loadOverviewKpi}
                               loadRolesAndIntent = { this.props.loadRolesAndIntent}
@@ -301,9 +294,57 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
             width: '78%',
             marginLeft: '22%'
           }}>
+            <div className="pageTitle">
+
+
+              {/*Header to show the week selection and time period*/}
+              {(() => {
+                if (this.props.Executive.week_filter_param) {
+                  return (
+                    <span>Executive View -
+                      {(() => {
+                          if (this.props.Executive.week_param!='week_flag=Current Week')
+                          {
+                            return (
+                              <span> {(this.props.Executive.week_param).substring(10, this.props.Executive.week_param.length)} to</span>
+                            )
+                          }
+                          else{
+                            return(
+                              <span></span>
+                            )
+                          }
+                        }
+                      )()}
+                      {(this.props.Executive.week_filter_param).substring(11, this.props.Executive.week_filter_param.length)}</span>
+                  )
+                } else {
+                  return (
+                    <span>Executive View
+                      {(() => {
+                          if (this.props.Executive.week_param!='week_flag=Current Week')
+                          {
+                            return (
+                              <span> {(this.props.Executive.week_param).substring(10, this.props.Executive.week_param.length)} to</span>
+                            )
+                          }
+                          else{
+                            return(
+                              <span> </span>
+                            )
+                          }
+                        }
+                      )()}
+
+                      - 201652 </span>
+                  )
+                }
+              })()}
+            </div>
             <div className="col-md-12 content-wrap">
               {/*Nav for time period*/}
-              <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom">
+              <div style={{borderRight: '1%'}}>
+              <Nav style={{marginLeft: '1%'}} bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom  mainTab">
                 <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
                   dataWeekParam = "week_flag=Current Week";
@@ -356,7 +397,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                 <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
                   this.setState({activeKey1: "2"});
-                  dataWeekParam = "week_flag=Latest 4 Weeks";
+                  dataWeekParam = "week_flag=4 Weeks";
                   this.props.onSaveWeekParam(dataWeekParam);
 
 
@@ -407,7 +448,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                 <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
                   this.setState({activeKey1: "3"});
-                  dataWeekParam = "week_flag=Latest 13 Weeks";
+                  dataWeekParam = "week_flag=13 Weeks";
                   this.props.onSaveWeekParam(dataWeekParam);
 
                   {(() => {
@@ -456,7 +497,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                 <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
                   this.setState({activeKey1: "4"});
-                  dataWeekParam = "week_flag=Latest 26 Weeks";
+                  dataWeekParam = "week_flag=26 Weeks";
                   this.props.onSaveWeekParam(dataWeekParam);
 
                   {(() => {
@@ -551,8 +592,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                 }}><span className="tab_label">YTD</span></NavItem>
               </Nav>
+              </div>
+              <div style={{borderRight: '1%'}}>
               {/*Nav for kpi type*/}
-              <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect} className="tabsCustom">
+              <Nav  style={{marginLeft: '1%'}} bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect} className="tabsCustom  mainTab">
                 <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
                   kpiparam = "kpi_type=Overview";
@@ -679,15 +722,17 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
               </Nav>
-
+              </div>
               {(() => {
                 if (this.props.Executive.kpi_param=='kpi_type=Overview') {
                   return (
-                    <div>
+                    <div className="mainBox">
 
                       {/*Row for overview KPI Boxes */}
-                      <h2 className="pageModuleMainTitle">Performance by KPI </h2>
-                      <div className="row" style={{textAlign: 'center',backgroundColor: "white",margin: "0%",borderLeft: "1px solid #e5e8ea",borderRight: "1px solid #e5e8ea",borderBottom: "1px solid #e5e8ea"}}>
+                      <div className="headerBox">
+                      <h2 className="pageModuleMainTitle">Performance by KPI</h2>
+                      </div>
+                      <div className="row mainBox" style={{textAlign: 'center',backgroundColor: "white",margin: "0%",borderLeft: "1px solid #e5e8ea",borderRight: "1px solid #e5e8ea",borderBottom: "1px solid #e5e8ea"}}>
                         {/* Box for value */}
                         <div className="col-md-2" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
                           <Panel>
@@ -1043,9 +1088,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                   <h3>
 
-                                    {this.props.Executive.overview_kpi_data.market.outperformance}%
+                                    {this.props.Executive.overview_kpi_data.market.opportunity}
                                   </h3>
-                                  <h4 className="kpiSubTitle">Value Outperf.</h4>
+                                  <h4 className="kpiSubTitle">Opportunity</h4>
 
                                 </div>
 
@@ -1056,8 +1101,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                       </div>
                       {/*Row for sales forecasting and roles and intent*/}
+                      <div className="headerBox">
                       <h2 className="pageModuleMainTitle">Target and Strategy</h2>
-                      <div className="row">
+                      </div>
+                      <div className="row mainBox">
                         {/*Block for bar charts*/}
                         <div className="col-md-8 ">
                           <div className="row">
@@ -1102,7 +1149,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 </DropdownButton>
                               </div>
                               <BarChartSimple id="BudgetSales"
-                                              data={this.props.Executive.budget_forecast_data.budget_data}>
+                                              data={this.props.Executive.budget_forecast_data.budget_data}  col_a='Budget'>
 
                               </BarChartSimple>
                             </div>
@@ -1135,9 +1182,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                       {/*Row for Trended performance*/}
+                      <div className="headerBox">
                       <h2 className="pageModuleMainTitle">Trended Performance</h2>
+                      </div>
+                      <div className="mainBox">
                       {/*Row for value and volume*/}
-                      <div className="row">
+                      <div className="row ">
                         {/*Value Trend*/}
                         <div className="col-md-6 col-xs-12">
                           <h3 className="pageModuleSubTitle"> Value<div style={{float:"right"}}>
@@ -1187,7 +1237,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 </div>
                               );
                             }
-                          })()}
+                          }
+                          )()}
 
                         </div>
                       </div>
@@ -1245,9 +1296,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         </div>
                       </div>
-
+                      </div>
                       {/*Internal External Tab*/}
-                      <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect} className="tabsCustom">
+                      <div style={{borderRight: '1%'}}>
+                      <Nav  style={{marginLeft: '1%'}} bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect} className="tabsCustom mainTab">
                         <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
                           driverParam = "internal";
@@ -1265,18 +1317,19 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                       </Nav>
+                      </div>
                       {/*Row for internal/external drivers of sales*/}
                       {(() => {
                         if (this.props.Executive.driver_param=='internal') {
 
                           return(<div>
-                            <div className="row">
+                            <div className="row mainBox">
                               <div className="col-md-4 col-sm-12 col-xs-12">
                                 <Panel style={{marginLeft: "15px"}}>
                                   <div>
                                     {(() => {
                                         if (this.props.Executive.overview_drivers_internal_data) {
-                                          if (this.props.Executive.overview_drivers_internal_data.data_available == 'yes') {
+                                          if (this.props.Executive.overview_drivers_internal_data.kpi.data_available == 'yes') {
                                             return (
                                               <div>
 
@@ -1298,6 +1351,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         </span>
                                                   {this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var} </h4>
+
                                                 <div className="row" style={{width: "480px"}}>
                                                   <div className="col-xs-3 overview-blk" style={{marginRight: "5px"}}>
                                                     <Panel>
@@ -1443,9 +1497,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                         else {
                           return(
                           <div>
-                          <h3>External</h3>
+
                           {/*Row for Sunshine/Rainfall/Temp performance*/}
-                          <div className="row">
+                          <div className="row mainBox">
                           {/*Block for sunshine*/}
                           <div className="col-md-4" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
                           <Panel>
@@ -1653,9 +1707,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                           </div>
                           {/*Row for holidays*/}
-                          <div className="Row">
+                          <div className="row mainBox">
+                            <div className="headerBox">
                           <h3 className="pageModuleMainTitle"> Holidays this week
                           </h3>
+                            </div>
                           {/*Block for holidays table*/}
                           <div className="col-md-6">
                           {(() => {
@@ -1703,6 +1759,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                     </div>
+
                   )
 
                 }
@@ -1711,11 +1768,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   {
 
                     return (
-                      <div>
+                      <div className="mainBox" >
 
                         {/*Row for price KPIS*/}
 
-                        <div className="row">
+                        <div className="row mainBox" style={{marginTop: '1%'}}>
                           {/*Block for ASP*/}
 
                           <div className='col-md-4' style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
@@ -1946,10 +2003,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                   else {
                     return (
-                      <div>
+                      <div className="mainBox">
 
                         {/*Row for KPIS*/}
-                        <div className="row">
+                        <div className="row mainBox" style={{marginTop: '1%'}}>
                           {/*Block for total*/}
 
                           <div className={(() => {
@@ -2220,8 +2277,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                         {/*Row for best and worst performances*/}
+                        <div className="headerBox">
                         <h2 className="pageModuleMainTitle">Best and Worst Performances</h2>
-                        <div className="row">
+                        </div>
+                        <div className="row mainBox">
                           <div className="col-md-6 col-xs-12">
 
 
@@ -2310,9 +2369,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             console.log("Executive.top_name == 'None");
                                             if(this.props.Executive.top_name!='None'){
                                               return (
-                                                <div className="row">
-                                                  <div className="row topbotdiv">
-                                                    <div className="pull-right">
+                                                <div className="row" style={{paddingTop:"15px"}}>
+                                                    <span style={{float:"left"}}>
                                                       <Button onClick={() => {
                                                         suppName='None';
                                                         this.props.onSaveSupplierName(suppName);
@@ -2320,86 +2378,84 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                         {/*Load functions here*/}
 
                                                       }}>Supplier Info</Button>
+                                                    </span>
+                                                  <span style={{float:"right"}}>
+                                                  <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
+                                                    <MenuItem onClick={() => {
+                                                      saveImage(document.getElementById('top_trend'),"botSupplierTrendMultiline_chart")
+                                                    }
+                                                    }>Save As JPEG</MenuItem>
+                                                    <MenuItem onClick={() => {
+                                                      saveDataAsCSV(this.props.Executive.best_info_data.multiline_trend,"botSupplierTrendMultiline_chart.csv")
+                                                    }
+                                                    }>Download CSV</MenuItem>
+                                                  </DropdownButton>
+                                                </span>
+                                        {(() => {
+                                          if (this.props.Executive.best_info_data.fetch=='success') {
+                                            return (
+                                              <div>
+
+                                                {/*Row for KPIs*/}
+                                                <div className="row">
+                                                  <div className="panel-body">
+                                                    <div className="col-md-4 kpiSmall" style={{borderRight: "1px solid rgb(229, 232, 234)"}}>
+                                                      <h4 style={{fontWeight:"700"}}>
+                                                      <span
+                                                        className={(() => {
+                                                          if (this.props.Executive.best_info_data.yoy_var > 0)
+                                                          {
+                                                            return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                                          }
+                                                          else if (this.props.Executive.best_info_data.yoy_var < 0)
+                                                          {
+                                                            return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                                          } else {
+                                                            return "glyphicon glyphicon-minus-sign glyphiconNeutral"
+                                                          } })()}>&nbsp;
+
+                                                    </span>{this.props.Executive.best_info_data.yoy_var}%
+                                                      </h4>
+                                                      <h4 className="kpiSubTitle">YoY</h4>
+
                                                     </div>
-                                                  </div>
-                                                  {(() => {
-                                                    if (this.props.Executive.best_info_data.fetch=='success') {
-                                                      return (
-                                                        <div>
+                                                    <div className="col-md-4 kpiSmall" style={{borderRight: "1px solid rgb(229, 232, 234)"}}>
 
-                                                          {/*Row for KPIs*/}
-                                                          <div className="row">
-                                                            <div className="panel-body">
-                                                              <div className="col-md-4 kpiSmall">
+                                                      <h4 style={{fontWeight:"700"}}>
+                                                            <span
+                                                              className={(() => {
+                                                                if (this.props.Executive.best_info_data.cont_to_grwth > 0)
+                                                                {
+                                                                  return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                                                }
+                                                                else if (this.props.Executive.best_info_data.cont_to_grwth < 0)
+                                                                {
+                                                                  return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                                                } else {
+                                                                  return "glyphicon glyphicon-minus-sign glyphiconNeutral"
+                                                                } })()}>&nbsp;
 
+                                                          </span>
+                                                        {this.props.Executive.best_info_data.cont_to_grwth}%
+                                                      </h4>
+                                                      <h4 className="kpiSubTitle">Contri to growth</h4>
 
-                                                                <h3>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.best_info_data.yoy_var > 0)
-                              {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                              }
-                              else if (this.props.Executive.best_info_data.yoy_var < 0)
-                              {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>&nbsp;
+                                                    </div>
+                                                    <div className="col-md-4 kpiSmall">
 
-                        </span>{this.props.Executive.best_info_data.yoy_var}%
-                                                                </h3>
-                                                                <h4 className="kpiSubTitle">YoY</h4>
+                                                      <h4 style={{fontWeight:"700"}}>
 
-                                                              </div>
-                                                              <div className="col-md-4 kpiSmall">
+                                                        {this.props.Executive.best_info_data.sales_share}%
+                                                      </h4>
+                                                      <h4 className="kpiSubTitle">Sales Share</h4>
 
-                                                                <h3>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.best_info_data.cont_to_grwth > 0)
-                              {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                              }
-                              else if (this.props.Executive.best_info_data.cont_to_grwth < 0)
-                              {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>&nbsp;
-
-                        </span>
-                                                                  {this.props.Executive.best_info_data.cont_to_grwth}%
-                                                                </h3>
-                                                                <h4 className="kpiSubTitle">Contri to growth</h4>
-
-                                                              </div>
-                                                              <div className="col-md-4 kpiSmall">
-
-                                                                <h3>
-
-                                                                  {this.props.Executive.best_info_data.sales_share}%
-                                                                </h3>
-                                                                <h4 className="kpiSubTitle">Sales Share</h4>
-
-                                                              </div>
+                                                    </div>
                                                             </div>
                                                           </div>
                                                           {/*Row for Multiline Chart*/}
                                                           <div className="row">
                                                             <div className="col-md-12">
-                                                              <div style={{float:"right"}}>
-                                                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
-                                                                  <MenuItem onClick={() => {
-                                                                    saveImage(document.getElementById('top_trend'),"botSupplierTrendMultiline_chart")
-                                                                  }
-                                                                  }>Save As JPEG</MenuItem>
-                                                                  <MenuItem onClick={() => {
-                                                                    saveDataAsCSV(this.props.Executive.best_info_data.multiline_trend,"botSupplierTrendMultiline_chart.csv")
-                                                                  }
-                                                                  }>Download CSV</MenuItem>
-                                                                </DropdownButton>
-                                                              </div>
+
                                                               <ExecTopbotMultiline data={this.props.Executive.best_info_data.multiline_trend}
                                                                                    id="top_trend" label_ty={this.props.Executive.best_info_data.legend1} label_ly={this.props.Executive.best_info_data.legend2}
                                                                                    xaxis_title="Tesco Week" no_pref={this.props.Executive.best_info_data.no_pref} no_suffix=''
@@ -2410,8 +2466,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                       )
                                                     }
                                                   })()}
-
-
                                                 </div>
                                               )
                                             }
@@ -2540,9 +2594,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                             {
                                               return(
-                                                <div className="row">
-                                                  <div className="row topbotdiv">
-                                                    <div className="pull-right">
+                                                <div className="row" style={{paddingTop:"15px"}}>
+                                                  <span style={{float:"left"}}>
                                                       <Button onClick={() => {
                                                         suppName='None';
                                                         this.props.onSaveSupplierName(suppName);
@@ -2550,8 +2603,19 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                         {/*Load functions here*/}
 
                                                       }}>Supplier Info</Button>
-                                                    </div>
-                                                  </div>
+                                                  </span>
+                                                  <span style={{float:"right"}}>
+                                                    <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
+                                                      <MenuItem onClick={() => {
+                                                        saveImage(document.getElementById('bot_trend'),"botSupplierTrendMultiline_chart")
+                                                      }
+                                                      }>Save As JPEG</MenuItem>
+                                                      <MenuItem onClick={() => {
+                                                        saveDataAsCSV(this.props.Executive.worst_info_data.multiline_trend,"botSupplierTrendMultiline_chart.csv")
+                                                      }
+                                                      }>Download CSV</MenuItem>
+                                                    </DropdownButton>
+                                                  </span>
                                                   {(() => {
                                                     if (this.props.Executive.worst_info_data.fetch=='success') {
                                                       return (
@@ -2560,56 +2624,54 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                           {/*Row for KPIs*/}
                                                           <div className="row">
                                                             <div className="panel-body">
-                                                              <div className="col-md-4 kpiSmall">
+                                                              <div className="col-md-4 kpiSmall" style={{borderRight: "1px solid rgb(229, 232, 234)"}}>
+                                                                <h4 style={{fontWeight:"700"}}>
+                                                                    <span
+                                                                        className={(() => {
+                                                                          if (this.props.Executive.worst_info_data.yoy_var > 0)
+                                                                          {
+                                                                            return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                                                          }
+                                                                          else if (this.props.Executive.worst_info_data.yoy_var < 0)
+                                                                          {
+                                                                            return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                                                          } else {
+                                                                            return "glyphicon glyphicon-minus-sign glyphiconNeutral"
+                                                                          } })()}>&nbsp;
 
+                                                                    </span>{this.props.Executive.worst_info_data.yoy_var}%
+                                                                      </h4>
+                                                                      <h4 className="kpiSubTitle">YoY</h4>
 
-                                                                <h3>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.worst_info_data.yoy_var > 0)
-                              {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                              }
-                              else if (this.props.Executive.worst_info_data.yoy_var < 0)
-                              {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>&nbsp;
+                                                                    </div>
+                                                                    <div className="col-md-4 kpiSmall" style={{borderRight: "1px solid rgb(229, 232, 234)"}}>
 
-                        </span>{this.props.Executive.worst_info_data.yoy_var}%
-                                                                </h3>
-                                                                <h4 className="kpiSubTitle">YoY</h4>
+                                                                      <h4 style={{fontWeight:"700"}}>
+                                                                      <span
+                                                                        className={(() => {
+                                                                          if (this.props.Executive.worst_info_data.cont_to_grwth > 0)
+                                                                          {
+                                                                            return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                                                          }
+                                                                          else if (this.props.Executive.worst_info_data.cont_to_grwth < 0)
+                                                                          {
+                                                                            return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                                                          } else {
+                                                                            return "glyphicon glyphicon-minus-sign glyphiconNeutral"
+                                                                          } })()}>&nbsp;
 
-                                                              </div>
-                                                              <div className="col-md-4 kpiSmall">
-
-                                                                <h3>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.worst_info_data.cont_to_grwth > 0)
-                              {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                              }
-                              else if (this.props.Executive.worst_info_data.cont_to_grwth < 0)
-                              {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>&nbsp;
-
-                        </span>
+                                                                    </span>
                                                                   {this.props.Executive.worst_info_data.cont_to_grwth}%
-                                                                </h3>
+                                                                </h4>
                                                                 <h4 className="kpiSubTitle">Contri to growth</h4>
 
                                                               </div>
                                                               <div className="col-md-4 kpiSmall">
 
-                                                                <h3>
+                                                                <h4 style={{fontWeight:"700"}}>
 
                                                                   {this.props.Executive.worst_info_data.sales_share}%
-                                                                </h3>
+                                                                </h4>
                                                                 <h4 className="kpiSubTitle">Sales Share</h4>
 
                                                               </div>
@@ -2618,18 +2680,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                           {/*Row for Multiline Chart*/}
                                                           <div className="row">
                                                             <div className="col-md-12 col-xs-12">
-                                                              <div style={{float:"right"}}>
-                                                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
-                                                                  <MenuItem onClick={() => {
-                                                                    saveImage(document.getElementById('bot_trend'),"botSupplierTrendMultiline_chart")
-                                                                  }
-                                                                  }>Save As JPEG</MenuItem>
-                                                                  <MenuItem onClick={() => {
-                                                                    saveDataAsCSV(this.props.Executive.worst_info_data.multiline_trend,"botSupplierTrendMultiline_chart.csv")
-                                                                  }
-                                                                  }>Download CSV</MenuItem>
-                                                                </DropdownButton>
-                                                              </div>
                                                               <ExecTopbotMultiline data={this.props.Executive.worst_info_data.multiline_trend}
                                                                                    id="bot_trend" label_ty={this.props.Executive.worst_info_data.legend1} label_ly={this.props.Executive.worst_info_data.legend2}
                                                                                    xaxis_title="Tesco Week" no_pref={this.props.Executive.worst_info_data.no_pref} no_suffix=''
@@ -2685,10 +2735,13 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           if (this.props.Executive.kpi_param=='kpi_type=Value')
                           {
                             return (
-                              <div>
+                              <div className="mainBox">
+                                <div className="headerBox">
                                 <h2 className="pageModuleMainTitle">Drivers Of Sales</h2>
+                                </div>
                                 {/*Internal External Tab*/}
-                                <Nav bsStyle="tabs" activeKey={this.state.activeKey4} onSelect={this.handleSelect} className="tabsCustom">
+
+                                <Nav style={{marginLeft: '1%', marginBottom: '0%'}} bsStyle="tabs" activeKey={this.state.activeKey4} onSelect={this.handleSelect} className="tabsCustom  mainTab">
                                   <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
                                     driverParam = "internal";
@@ -2711,9 +2764,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                     return(
 
 
-                                      <div>
+                                      <div className="mainBox">
 
-                                        <Nav bsStyle="tabs" activeKey={this.state.activeKey9} onSelect={this.handleSelect} className="tabsCustom">
+                                        <Nav style={{marginLeft: '1%', marginBottom: '0%'}} bsStyle="tabs" activeKey={this.state.activeKey9} onSelect={this.handleSelect} className="tabsCustom">
                                           <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
                                             let value_internal_tab = "kpi";
@@ -2733,7 +2786,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                                         </Nav>
-                                        <div className="col-md-12 col-sm-12">
+                                        <div className=" row mainBox">
+
                                           {(() =>{
                                               if(this.props.Executive.value_internal_tab=='kpi')
                                               {
@@ -2799,12 +2853,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                   }
                                   else{
                                     return(
-                                      <div>
+                                      <div className="row mainBox">
 
 
                                         {/*Row for weather data*/}
                                         <div className="row">
-                                          <Nav bsStyle="tabs" activeKey={this.state.activeKey10} onSelect={this.handleSelect} className="tabsCustom">
+                                          <Nav style={{marginLeft: '1%', marginBottom: '0%'}} bsStyle="tabs" activeKey={this.state.activeKey10} onSelect={this.handleSelect} className="tabsCustom">
                                             <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
                                               let value_external_tab = "sunshine";
@@ -2953,7 +3007,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                         </div>
                                         {/*Row for holidays*/}
                                         <div className="row">
+                                          <div className="headerBox">
                                           <h3 className="pageModuleMainTitle">Holidays</h3>
+                                          </div>
                                           {/*Holiday Table*/}
                                           <div className="col-md-6" style={{paddingTop : "80px"}}>
 
@@ -3042,7 +3098,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
             <Modal.Header>
 
               <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
-                style={{textAlign: 'center', fontSize: '14px'}}><b>Supplier Info</b><span
+                style={{textAlign: 'center', fontSize: '20px'}}><b>Supplier Info</b><span
                 style={{textAlign: 'right', float: 'right'}}
                 onClick={() => this.setState({topsuppInfo: false})}><b>X</b></span></span>
                 <div style={{textAlign: 'center'}}>
@@ -3124,11 +3180,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         return (
                           <div>
-                            <h3>Supplier Info</h3>
                             {/*Row for KPIs*/}
                             <div className="row">
                               <div className="panel-body">
-                                <div className="col-md-4 kpiSmall">
+                                <div className="col-md-4 kpiSmall" style={{borderRight: "1px solid rgb(229, 232, 234)"}}>
 
 
                                   <h3>
@@ -3150,7 +3205,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                   <h4 className="kpiSubTitle">YoY</h4>
 
                                 </div>
-                                <div className="col-md-4 kpiSmall">
+                                <div className="col-md-4 kpiSmall" style={{borderRight: "1px solid rgb(229, 232, 234)"}}>
 
                                   <h3>
                           <span
@@ -3185,12 +3240,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             </div>
                             {/*Row for Gauge Charts*/}
                             <div className="row">
-                              <div className="col-md-6 col-xs-12">
-                                <h3>Importance to Supplier</h3>
+                              <div className="col-md-6 col-xs-12" style={{fontSize:"10px",textAlign:"center"}}>
+                                <b>Importance to Supplier</b>
                                 <GaugeExec data={[this.props.Executive.top_supp_info_data.imp_to_supp]} id="top_gauge1" />
                               </div>
-                              <div className="col-md-6 col-xs-12">
-                                <h3>Importance to Category</h3>
+                              <div className="col-md-6 col-xs-12" style={{fontSize:"10px",textAlign:"center"}}>
+                                <b>Importance to Category</b>
                                 <GaugeExec data={[this.props.Executive.top_supp_info_data.imp_to_categ]} id="top_gauge2" />
                               </div>
                             </div>
@@ -3232,7 +3287,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
             <Modal.Header>
 
               <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
-                style={{textAlign: 'center', fontSize: '14px'}}><b>Supplier Info</b><span
+                style={{textAlign: 'center', fontSize: '20px'}}><b>Supplier Info</b><span
                 style={{textAlign: 'right', float: 'right'}}
                 onClick={() => this.setState({botsuppInfo: false})}><b>X</b></span></span>
                 <div style={{textAlign: 'center'}}>
@@ -3313,28 +3368,26 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                         return (
 
                           <div>
-                            <h3>Supplier Info</h3>
                             {/*Row for KPIs*/}
                             <div className="row">
                               <div className="panel-body">
                                 <div className="col-md-4 kpiSmall">
-
-
                                   <h3>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.bot_supp_info_data.yoy_var > 0)
-                              {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                              }
-                              else if (this.props.Executive.bot_supp_info_data.yoy_var < 0)
-                              {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>&nbsp;
+                                  <span
+                                    className={(() => {
+                                      if (this.props.Executive.bot_supp_info_data.yoy_var > 0)
+                                      {
+                                        return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                      }
+                                      else if (this.props.Executive.bot_supp_info_data.yoy_var < 0)
+                                      {
+                                        return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                      } else {
+                                        return "glyphicon glyphicon-minus-sign glyphiconNeutral"
+                                      } })()}>&nbsp;
 
-                        </span>{this.props.Executive.bot_supp_info_data.yoy_var}%
+                                    </span>
+                                    {this.props.Executive.bot_supp_info_data.yoy_var}%
                                   </h3>
                                   <h4 className="kpiSubTitle">YoY</h4>
 
@@ -3342,20 +3395,20 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 <div className="col-md-4 kpiSmall">
 
                                   <h3>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.bot_supp_info_data.cont_to_grwth > 0)
-                              {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                              }
-                              else if (this.props.Executive.bot_supp_info_data.cont_to_grwth < 0)
-                              {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>&nbsp;
+                                <span
+                                  className={(() => {
+                                    if (this.props.Executive.bot_supp_info_data.cont_to_grwth > 0)
+                                    {
+                                      return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                    }
+                                    else if (this.props.Executive.bot_supp_info_data.cont_to_grwth < 0)
+                                    {
+                                      return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                    } else {
+                                      return "glyphicon glyphicon-minus-sign glyphiconNeutral"
+                                    } })()}>&nbsp;
 
-                        </span>
+                              </span>
                                     {this.props.Executive.bot_supp_info_data.cont_to_grwth}%
                                   </h3>
                                   <h4 className="kpiSubTitle">Contri to growth</h4>
@@ -3374,12 +3427,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             </div>
                             {/*Row for Gauge Charts*/}
                             <div className="row">
-                              <div className="col-md-6 col-xs-12">
-                                <h3>Importance to Supplier</h3>
+                              <div className="col-md-6 col-xs-12" style={{fontSize:"10px",textAlign:"center"}}>
+                                <b style={{fontSize:"15px"}}>Importance to Supplier</b>
                                 <GaugeChart2 data={[this.props.Executive.bot_supp_info_data.imp_to_supp]} id="bot_gauge1" />
                               </div>
-                              <div className="col-md-6 col-xs-12">
-                                <h3>Importance to Category</h3>
+                              <div className="col-md-6 col-xs-12" style={{fontSize:"10px",textAlign:"center"}}>
+                                <b style={{fontSize:"15px"}}>Importance to Category</b>
                                 <GaugeChart2 data={[this.props.Executive.bot_supp_info_data.imp_to_categ]} id="bot_gauge2" />
                               </div>
                             </div>

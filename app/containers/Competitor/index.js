@@ -89,7 +89,7 @@ export class Competitor extends React.PureComponent {
     console.log('this.props',this.props);
 
     return (
-      <Panel>
+      <div>
       <div>
         <Helmet
           title="Competitor"
@@ -98,20 +98,6 @@ export class Competitor extends React.PureComponent {
           ]}
         />
 
-        {/*Page title*/}
-        <div className="pageTitle">
-          {(() => {
-            if (this.props.competitor.filter_week_selection) {
-               return (
-                <span>Competitor View - {(this.props.competitor.filter_week_selection).substring(11,17)}</span>
-              )
-            } else {
-              return (
-                <span>Competitor View - 201652  </span>
-              )
-            }
-          })()}
-        </div>
 
         <div className="row" style={{
           marginLeft: '0px',
@@ -172,8 +158,22 @@ export class Competitor extends React.PureComponent {
             width: '78%',
             marginLeft: '22%'
           }}>
+            {/*Page title*/}
+            <div className="pageTitle">
+              {(() => {
+                if (this.props.competitor.filter_week_selection) {
+                  return (
+                    <span>Competitor View - {(this.props.competitor.filter_week_selection).substring(11,17)}</span>
+                  )
+                } else {
+                  return (
+                    <span>Competitor View - 201652  </span>
+                  )
+                }
+              })()}
+            </div>
 
-            <div className="row fixingPosition" style={{marginLeft: "0.5%", paddingTop: "-5px", marginRightt: "0px"}}>
+            <div className="row fixingPosition" style={{marginLeft: "0%", paddingTop: "-5px", marginRightt: "0px"}}>
               <div className="col-md-12 content-wrap">
 
               <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom">
@@ -725,7 +725,7 @@ export class Competitor extends React.PureComponent {
 
         </div>
       </div>
-      </Panel>
+      </div>
     );
   }
 }

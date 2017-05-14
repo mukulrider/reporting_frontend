@@ -32,7 +32,7 @@ class BubbleChart2 extends React.PureComponent { // eslint-disable-line react/pr
       .attr("height",containerWidth*0.5)
       .attr("width",containerWidth)
       .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 1000 500")
+      .attr("viewBox", "0 0 " + containerWidth + " " + containerWidth*0.5)
       //class to make it responsive
       .classed("svg-content-responsive", true);
 

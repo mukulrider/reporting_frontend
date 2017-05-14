@@ -197,11 +197,11 @@ console.log("MultilineOrdinalChartId:",chart_id);
       let svg = d3.select('#'+chart_id);
       svg.selectAll("*").remove();
       let chart = svg
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        .attr("width", containerWidth)
+        .attr("height", containerWidth*0.25)
         //responsive SVG needs these 2 attributes and no width and height attr
         .attr("preserveAspectRatio", "xMinYMin meet")
-        .attr("viewBox", "0 0 " + (containerWidth + 200)+ " " + (containerWidth*0.25 + 150))
+        .attr("viewBox", "0 0 " + containerWidth + " " + containerWidth*0.25)
         //class to make it responsive
         .classed("svg-content-responsive", true)
         .append("g")

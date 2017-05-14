@@ -32,7 +32,7 @@ import {
 } from 'containers/Promotion/selectors';
 
 
-let host_url="http://172.20.244.149:8000";
+let host_url="http://172.20.246.61:8000";
 // All sagas to be loaded
 
 
@@ -257,6 +257,16 @@ export function* generateFilterFetch() {
   try {
     // todo: update url
 
+    let getCookie;
+    getCookie = (name) => {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    };
+    const user_token = getCookie('token');
+    const buyer = getCookie('buyer');
+    const token = user_token.concat('___').concat(buyer)
+
     console.log("Inside generateFilterFetch")
     let urlName=yield select(selectPromotionDomain());
     // let urlParams = urlName.get('filter_selection');
@@ -278,7 +288,13 @@ export function* generateFilterFetch() {
         urlParamsString = urlParamsString.substring(14, urlParamsString.length);
       }
     }
-    const data = yield call(request, host_url+'/api/reporting/promo_filter_data?' + urlParamsString);
+    const data = yield call(request,
+      host_url+'/api/reporting/promo_filter_data?' + urlParamsString,
+      {
+        headers: {
+          Authorization: token
+        }
+      });
 
     // console.log(host_url+'/api/reporting/filter_data_week?');
     // const data2 = yield call(request, host_url+'/api/reporting/filter_data_week?' );

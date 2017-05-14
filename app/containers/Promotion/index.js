@@ -95,20 +95,7 @@ export class Promotion extends React.PureComponent {
             {name: 'description', content: 'Description of Promotion'},
           ]}
         />
-        {/*<FormattedMessage {...messages.header} />*/}
-        <div className="pageTitle">
-          {(() => {
-            if (this.props.promotion.kpi_data.selected_week) {
-              return (
-                <span>Promotions View - {this.props.promotion.kpi_data.selected_week} </span>
-              )
-            } else {
-              return (
-                <span>Promotions View - 201652  </span>
-              )
-            }
-          })()}
-        </div>
+
 
         <div className="row" style={{
           marginLeft: '0px',
@@ -165,9 +152,24 @@ export class Promotion extends React.PureComponent {
             width: '78%',
             marginLeft: '22%'
           }}>
-            <div className="row" style={{marginLeft: "0.5%", paddingTop: "-5px"}}>
+
+          <div className="row" style={{marginLeft: "0.5%", paddingTop: "-5px"}}>
+            {/*<FormattedMessage {...messages.header} />*/}
+            <div className="pageTitle">
+              {(() => {
+                if (this.props.promotion.kpi_data.selected_week) {
+                  return (
+                    <span>Promotions View - {this.props.promotion.kpi_data.selected_week} </span>
+                  )
+                } else {
+                  return (
+                    <span>Promotions View - 201652  </span>
+                  )
+                }
+              })()}
+            </div>
           <div className="col-md-12 content-wrap">
-              <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom">
+              <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom" style={{margin:"0px"}}>
               <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
                 dataWeekParam = "week_flag=Current Week";
@@ -224,7 +226,7 @@ export class Promotion extends React.PureComponent {
                 this.props.loadPromoPart();
               }}><span className="tab_label">YTD</span></NavItem>
             </Nav>
-            <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect} className="tabsCustom">
+            <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect} className="tabsCustom" style={{margin:"0px"}}>
               <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
                 this.setState({activeKey2: "1"});
                 kpiParam = "kpi_type=value";
@@ -535,14 +537,14 @@ export class Promotion extends React.PureComponent {
 
             </span></h2>
                   <panel>
-                    <div className="col-xs-4">
+                    <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 
                       {(() => {
                         if (this.props.promotion.sales_data) {
                           console.log("pie chart data", this.props.promotion.sales_data.promo_sales.pie_chart);
                           return (
                             <div>
-                              <div style={{float:"right"}}>
+                              <div style={{float:"right", marginTop:"60px"}}>
                                 <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                   <MenuItem onClick={() => {
                                     saveImage(document.getElementById('piechart'+'_svg'),"promo_sales_piechart")
@@ -568,11 +570,11 @@ export class Promotion extends React.PureComponent {
                       })()}
 
                     </div>
-                    <div className="col-xs-8">
+                    <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                       <div className="row">
                         {/*Nav for Sales data*/}
                       <Nav bsStyle="tabs" activeKey={this.state.activeKey4} onSelect={this.handleSelect}
-                           className="tabsCustom secondaryTabs">
+                           className="tabsCustom secondaryTabs" style={{margin:"0px"}}>
                         <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
                          let promoTypeParam = "";
@@ -655,7 +657,7 @@ export class Promotion extends React.PureComponent {
                                                                                                      this.setState({promoGiveawayInfo: true});
                                                                                                    }}></span></h2>
                   <panel>
-                    <div className="col-xs-4">
+                    <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 
                       {(() => {
 
@@ -663,7 +665,7 @@ export class Promotion extends React.PureComponent {
                           console.log("pie chart promo_giveaway data", this.props.promotion.promo_giveaway_data.pie_chart);
                           return (
                             <div>
-                              <div style={{float:"right"}}>
+                              <div style={{float:"right", marginTop:"60px"}}>
                                 <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                   <MenuItem onClick={() => {
                                     saveImage(document.getElementById('piechart2'+'_svg'),"promo_giveaway_piechart")
@@ -690,11 +692,11 @@ export class Promotion extends React.PureComponent {
                       })()}
 
                     </div>
-                    <div className="col-xs-8">
+                    <div className="col-lg-8 col-md-8 col-md-12 col-xs-8">
                       {/*Nav for Giveaway*/}
                       <div className="row">
                       <Nav bsStyle="tabs" activeKey={this.state.activeKey5} onSelect={this.handleSelect}
-                           className="tabsCustom secondaryTabs">
+                           className="tabsCustom secondaryTabs" style={{margin:"0px"}}>
                         <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
                           let promoTypeParam = "";
@@ -779,7 +781,7 @@ export class Promotion extends React.PureComponent {
                     </span>
                   </h2>
                   <panel>
-                    <div className="col-xs-4">
+                    <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 
                       {(() => {
 
@@ -787,7 +789,7 @@ export class Promotion extends React.PureComponent {
                           console.log("pie chart promo_products data", this.props.promotion.promo_prod_data.pie_chart);
                           return (
                             <div>
-                              <div style={{float:"right"}}>
+                              <div style={{float:"right", marginTop:"60px"}}>
                                 <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                   <MenuItem onClick={() => {
                                     saveImage(document.getElementById('piechart3'+'_svg'),"promo_products_piechart")
@@ -814,11 +816,11 @@ export class Promotion extends React.PureComponent {
                       })()}
 
                     </div>
-                    <div className="col-xs-8">
+                    <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                       {/*Nav for Promo products*/}
                       <div className="row">
                       <Nav bsStyle="tabs" activeKey={this.state.activeKey6} onSelect={this.handleSelect}
-                           className="tabsCustom secondaryTabs">
+                           className="tabsCustom secondaryTabs" style={{margin:"0px"}}>
                         <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
                           let promoTypeParam = "";
                           this.setState({activeKey6: "1"});
@@ -917,7 +919,7 @@ export class Promotion extends React.PureComponent {
                           console.log("pie chart promo_products data", this.props.promotion.promo_part_data.pie_chart);
                           return (
                             <div>
-                              <div style={{float:"right"}}>
+                              <div style={{float:"right", marginTop:"60px"}}>
                                 <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                   <MenuItem onClick={() => {
                                     saveImage(document.getElementById('piechart4'+'_svg'),"promo_participation_split_pieChart")
@@ -944,11 +946,11 @@ export class Promotion extends React.PureComponent {
                       })()}
 
                     </div>
-                    <div className="col-xs-8">
+                    <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                       {/*Nav for Promo Participation*/}
                       <div className="row">
                       <Nav bsStyle="tabs" activeKey={this.state.activeKey7} onSelect={this.handleSelect}
-                           className="tabsCustom secondaryTabs">
+                           className="tabsCustom secondaryTabs" style={{margin:"0px"}}>
 
                         <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
@@ -1074,7 +1076,6 @@ export class Promotion extends React.PureComponent {
                aria-labelledby="contained-modal-title-lg"
         >
           <Modal.Header>
-
             <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
               style={{textAlign: 'center', fontSize: '14px'}}><b>Value</b><span
               style={{textAlign: 'right', float: 'right'}}

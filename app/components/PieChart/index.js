@@ -19,11 +19,11 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
     let margin = {top: 120, right: 20, bottom: 30, left: 50},
       width = containerWidth - margin.left - margin.right,
       height = containerWidth - margin.top - margin.bottom,
-      radius = Math.min(width, height) / 2;
+      radius = Math.min(width, height) / 1.5;
     console.log("Piechart inside createChart margin",margin);
 
     let arc = d3.arc()
-      .outerRadius(radius - 10)
+      .outerRadius(radius)
       .innerRadius(0);
     console.log("Piechart inside createChart arc",arc);
     let labelArc = d3.arc()
@@ -51,10 +51,10 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
     // .attr("width", width)
     // .attr("height", height)
       .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
+      .attr("height", height + margin.top*1.5 + margin.bottom)
       .append("g")
       //  .attr("transform", "translate(" + margin.left+ "," + margin.top + ")");
-      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+      .attr("transform", "translate(" + width / 2 + "," + height / 1.5 + ")");
 
     let g = svg.selectAll(".arc")
       .data(pie(data))
@@ -83,6 +83,7 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
 
     // Legend
 
+    const legendWidth = containerWidth/5;
     let legend = svg.append("g")
       .attr("font-family", "sans-serif")
       .attr("font-size", 10)
@@ -91,9 +92,7 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
       .data(data)
       .enter().append("g")
       .attr("transform", function (d, i) {
-        console.log("PieChart ---- d.label",d.label)
-        return "translate(5," + (i * 15 - 55) + ")";
-        // return "translate(-200,100)";
+        return "translate(" + (i*-legendWidth) + "," + (radius*1.5) + ")";
       });
 
     // let color_hash = ["#f6eff7","#d0d1e6","#a6bddb","#67a9cf","#3690c0","#02818a","#016450"];
@@ -101,7 +100,7 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
 
     legend.append("rect")
       .attr("x", 140 )
-      .attr("y", -2.5 )
+      .attr("y", 0 )
       .attr("width", 19)
       .attr("height", 19)
       .attr("fill", function (d, i) {
@@ -109,8 +108,8 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
       });
 
     legend.append("text")
-      .attr("x", 135)
-      .attr("y", 9.5)
+      .attr("x", 140 + legendWidth/2)
+      .attr("y", 30)
       .attr("dy", "0.32em")
       .text(function (d) {
         console.log("PieChart text d.key",d.label)

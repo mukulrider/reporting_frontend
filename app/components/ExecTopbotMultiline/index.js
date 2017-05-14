@@ -152,9 +152,10 @@ class ExecTopbotMultiline extends React.PureComponent { // eslint-disable-line r
     //   console.log("---insde the createMultilinePromoChart mock_data",data2);
     // Add the valueline path.
     // set the dimensions and margins of the graph
-    let margin = {top: 20, right: 170, bottom: 60, left: 80},
-      width = 500 - margin.left - margin.right,
-      height = 250 - margin.top - margin.bottom;
+    var containerWidth = document.getElementById(chart_id).clientWidth;
+    let margin = {top: 20, right: 40, bottom: 60, left: 60},
+      width = containerWidth - margin.left - margin.right,
+      height = containerWidth*0.8 - margin.top - margin.bottom;
 
     console.log("---insde the createMultilinePromoChart---- check2",margin);
 // set the ranges
@@ -281,6 +282,7 @@ class ExecTopbotMultiline extends React.PureComponent { // eslint-disable-line r
       .attr("font-family", "sans-serif")
       .attr("font-size", 10)
       .attr("text-anchor", "end")
+      .attr("x",-2*margin.right)
       .selectAll("g")
       .data(data_label)
       .enter().append("g")
