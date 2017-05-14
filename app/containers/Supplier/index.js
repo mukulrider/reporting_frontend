@@ -308,7 +308,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                     })()}
                   </div>
 
-                  <div className="row" style={{marginLeft: "0.5%", marginRight: "0px", paddingTop: "-5px"}}>
+                  <div className="row" style={{marginLeft: "0%", marginRight: "0px", paddingTop: "-5px"}}>
 
                     <div className="col-md-12 content-wrap">
 
@@ -1545,7 +1545,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                 else {
                                   return (
 
-                                    <div className="text-center" colSpan="11"><Spinner />Please Wait a Moment....!</div>
+                                    <div className="text-center" colSpan="11"><Spinner /><h3>Please Wait a Moment....!</h3></div>
 
                                   );
                                 }

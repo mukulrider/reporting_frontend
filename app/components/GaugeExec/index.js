@@ -15,7 +15,7 @@ class GaugeExec extends React.PureComponent { // eslint-disable-line react/prefe
   createChart = (a,id,colors) => {
     console.log("Inside createchart of GaugeChart2")
     console.log(a)
-    let width = 300;
+    let width = 200;
     let height = 200;
 
     let svg = d3.select( "#"+id )

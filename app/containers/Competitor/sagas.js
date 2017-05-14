@@ -23,7 +23,7 @@ export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
 // const host_url = 'http://10.1.244.154:8000';
-const host_url = 'http://172.20.246.60:8001';
+const host_url = 'http://172.20.246.61:8000';
 // Aldl sagas to be loaded
 
 // FOR COMPETITOR WATERFALL CHART

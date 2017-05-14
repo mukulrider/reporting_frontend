@@ -32,7 +32,7 @@ import {
 } from 'containers/Promotion/selectors';
 
 
-let host_url="http://172.20.246.60:8001";
+let host_url="http://172.20.246.61:8000";
 // All sagas to be loaded
 
 
