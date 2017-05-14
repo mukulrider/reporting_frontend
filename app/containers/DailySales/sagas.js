@@ -25,8 +25,8 @@ import {
 } from './selectors';
 
 
-// let host_url="http://10.1.244.200:8000";
-let host_url="http://172.20.246.60:8001";
+let host_url="http://172.20.244.150:8000";
+// let host_url="http://172.20.246.60:8000";
 // All sagas to be loaded
 
 
@@ -65,15 +65,15 @@ export function* doFilterFetch() {
 export function* generateFilterFetch() {
   // todo: update url
 
-  let getCookie;
-  getCookie = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  };
-  const user_token = getCookie('token');
-  const buyer = getCookie('buyer');
-  const token = user_token.concat('___').concat(buyer)
+  // let getCookie;
+  // getCookie = (name) => {
+  //   const value = `; ${document.cookie}`;
+  //   const parts = value.split(`; ${name}=`);
+  //   if (parts.length === 2) return parts.pop().split(';').shift();
+  // };
+  // const user_token = getCookie('token');
+  // const buyer = getCookie('buyer');
+  // const token = user_token.concat('___').concat(buyer)
 
   let urlName=yield select(selectDailySalesDomain());
   let urlParamsString = urlName.get('filter_selection');
@@ -87,11 +87,11 @@ export function* generateFilterFetch() {
   }
   try {
     const data = yield call(request, host_url+'/api/reporting/filter_daily_sales' + urlParamsString,
-      {
-        headers: {
-          Authorization: token
-        }
-      }
+      // {
+      //   headers: {
+      //     Authorization: token
+      //   }
+      // }
       );
     // const data = yield call(request, host_url+'/api/reporting/filter_data?' + urlParamsString);
 

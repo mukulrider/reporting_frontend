@@ -34,7 +34,7 @@ import {
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-let host_url = "http://172.20.246.61:8000"
+let host_url = "http://172.20.244.150:8000"
 // let host_url = "http://172.20.244.149:8000"
 // FOR SUPPLIER POPUP TABLE
 export function* generateDataFetch( ) {
@@ -430,16 +430,16 @@ export function* doSupplierTopBotFetch() {
 export function* generateSideFilter() {
   let urlName = yield select(selectSupplierDomain());
   let urlParamsString = urlName.get('urlParamsString');
-
-  let getCookie;
-  getCookie = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  };
-  const user_token = getCookie('token');
-  const buyer = getCookie('buyer');
-  const token = user_token.concat('___').concat(buyer)
+  // let getCookie;
+  // getCookie = (name) => {
+  //   const value = `; ${document.cookie}`;
+  //   const parts = value.split(`; ${name}=`);
+  //   if (parts.length === 2) return parts.pop().split(';').shift();
+  // };
+  // const user_token = getCookie('token');
+  // console.log('user_token',user_token);
+  // const buyer = getCookie('buyer');
+  // const token = user_token.concat('___')
 
   if (typeof(urlParamsString) == "undefined") {
     urlParamsString = "";
@@ -453,12 +453,12 @@ export function* generateSideFilter() {
 
   try {
     const filter_data = yield call(request,
-      host_url + `/api/reporting/filter_supplier?${urlParamsString}`,
+      host_url + `/api/reporting/filter_supplier?${urlParamsString}`/*,
       {
         headers: {
           Authorization: token
         }
-      });
+      }*/);
     console.log('filter_data', filter_data);
     yield put(generateSideFilterSuccess(filter_data));
   } catch (err) {

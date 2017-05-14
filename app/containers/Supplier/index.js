@@ -653,23 +653,25 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                   <panel>
                                     <div className="row" style={{marginLeft: '0px', marginRight: '0px'}}>
                                       <div className="col-md-6 col-sm-12">
-                                        <div className="col-md-12 col-sm-12 panel-body" style={{
-                                          textAlign: 'center',
-                                          borderTop: "1px solid #e5e8ea",
-                                          backgroundColor: "white",
-                                          margin: "0%",
-                                          borderLeft: "1px solid #e5e8ea",
-                                          borderRight: "1px solid #e5e8ea",
-                                          borderBottom: "1px solid #e5e8ea"
-                                        }}>
-                                          <h4 className="pageModuleMainTitle"> Parent Supplier's value share in
-                                            Category</h4>
-                                          <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
+
+
                                           {(() => {
-                                            if (obj.supp_imp_cat_sales) {
+                                            if (obj.supp_imp_cat_sales != "---") {
 
                                               return (
                                                 <div>
+                                                  <div className="col-md-12 col-sm-12 panel-body" style={{
+                                                    textAlign: 'center',
+                                                    borderTop: "1px solid #e5e8ea",
+                                                    backgroundColor: "white",
+                                                    margin: "0%",
+                                                    borderLeft: "1px solid #e5e8ea",
+                                                    borderRight: "1px solid #e5e8ea",
+                                                    borderBottom: "1px solid #e5e8ea"
+                                                  }}>
+                                                  <h4 className="pageModuleMainTitle"> Parent Supplier's value share in
+                                                    Category</h4>
+                                                  <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
                                                   <GaugeChart2 data={[obj.supp_imp_cat_sales]}
                                                                id="gauge1"/>
                                                   <div className="row" style={{marginTop: '-11%'}}>
@@ -679,30 +681,33 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                     </div>
                                                   </div>
                                                 </div>
+                                              </div>
                                               )
                                             }
                                           })()}
-                                        </div>
+
                                       </div>
                                       <div className="col-md-6 col-sm-12">
-                                        <div className="col-md-12 col-sm-12 col-xs-12 panel-body" style={{
-                                          textAlign: 'center',
-                                          borderTop: "1px solid #e5e8ea",
-                                          float: 'right',
-                                          backgroundColor: "white",
-                                          margin: "0%",
-                                          borderLeft: "1px solid #e5e8ea",
-                                          borderRight: "1px solid #e5e8ea",
-                                          borderBottom: "1px solid #e5e8ea"
-                                        }}>
-                                          <h4 className="pageModuleMainTitle"> Category's value share to Parent
-                                            Supplier </h4>
-                                          <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
+
+
                                           {(() => {
-                                            if (obj.cat_imp_supp_sales) {
+                                            if (obj.cat_imp_supp_sales != "---") {
 
                                               return (
                                                 <div>
+                                                  <div className="col-md-12 col-sm-12 col-xs-12 panel-body" style={{
+                                                    textAlign: 'center',
+                                                    borderTop: "1px solid #e5e8ea",
+                                                    float: 'right',
+                                                    backgroundColor: "white",
+                                                    margin: "0%",
+                                                    borderLeft: "1px solid #e5e8ea",
+                                                    borderRight: "1px solid #e5e8ea",
+                                                    borderBottom: "1px solid #e5e8ea"
+                                                  }}>
+                                                  <h4 className="pageModuleMainTitle"> Category's value share to Parent
+                                                    Supplier </h4>
+                                                  <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
                                                   <GaugeChart2 data={[obj.cat_imp_supp_sales]}
                                                                id="gauge2"/>
                                                   <div className="row" style={{marginTop: '-11%'}}>
@@ -712,11 +717,12 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                     </div>
                                                   </div>
                                                 </div>
+                                               </div>
                                               )
                                             }
                                           })()}
                                           {/*<SampleBarChart/>*/}
-                                        </div>
+
                                       </div>
                                     </div>
                                   </panel>

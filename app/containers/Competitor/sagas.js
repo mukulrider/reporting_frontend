@@ -22,8 +22,8 @@ import {
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-const host_url = 'http://10.1.244.154:8000';
-// const host_url = 'http://172.20.244.149:8000';
+const host_url = 'http://172.20.244.150:8000';
+// const host_url = 'http://10.1.244.154:8000';
 // All sagas to be loaded
 
 // FOR COMPETITOR WATERFALL CHART

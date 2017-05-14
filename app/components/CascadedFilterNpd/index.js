@@ -283,7 +283,7 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
                         {/*this.resetButtonFunctionality();*/
                         }
 
-                      }}>Clear Filter Selections</Button>
+                      }}>Clear Filters</Button>
 
               {/*<Button style={{marginTop: "5px", marginLeft: "48px", width: "10px", "min-width": "170px", fontSize: "13px"}}*/}
                       {/*onClick={() => {*/}

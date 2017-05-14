@@ -78,7 +78,8 @@
 
 .panel-heading a:hover{
   color: #00539f;
-  text-decoration: underline;
+  //text-decoration: underline;
+  cursor: pointer;
 }
 .panel-heading .accordion-toggle:after {
   /* symbol for "opening" panels */
