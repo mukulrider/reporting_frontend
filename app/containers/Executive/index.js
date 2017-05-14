@@ -337,7 +337,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
           }}>
             <div className="col-md-12 content-wrap">
               {/*Nav for time period*/}
-              <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom">
+              <div style={{borderRight: '1%'}}>
+              <Nav style={{marginLeft: '1%'}} bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom  mainTab">
                 <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
                   dataWeekParam = "week_flag=Current Week";
@@ -585,8 +586,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                 }}><span className="tab_label">YTD</span></NavItem>
               </Nav>
+              </div>
+              <div style={{borderRight: '1%'}}>
               {/*Nav for kpi type*/}
-              <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect} className="tabsCustom">
+              <Nav  style={{marginLeft: '1%'}} bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect} className="tabsCustom  mainTab">
                 <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
                   kpiparam = "kpi_type=Overview";
@@ -713,15 +716,17 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
               </Nav>
-
+              </div>
               {(() => {
                 if (this.props.Executive.kpi_param=='kpi_type=Overview') {
                   return (
-                    <div>
+                    <div className="mainBox">
 
                       {/*Row for overview KPI Boxes */}
-                      <h2 className="pageModuleMainTitle">Performance by KPI </h2>
-                      <div className="row" style={{textAlign: 'center',backgroundColor: "white",margin: "0%",borderLeft: "1px solid #e5e8ea",borderRight: "1px solid #e5e8ea",borderBottom: "1px solid #e5e8ea"}}>
+                      <div className="headerBox">
+                      <h2 className="pageModuleMainTitle">Performance by KPI</h2>
+                      </div>
+                      <div className="row mainBox" style={{textAlign: 'center',backgroundColor: "white",margin: "0%",borderLeft: "1px solid #e5e8ea",borderRight: "1px solid #e5e8ea",borderBottom: "1px solid #e5e8ea"}}>
                         {/* Box for value */}
                         <div className="col-md-2" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
                           <Panel>
@@ -1090,8 +1095,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                       </div>
                       {/*Row for sales forecasting and roles and intent*/}
+                      <div className="headerBox">
                       <h2 className="pageModuleMainTitle">Target and Strategy</h2>
-                      <div className="row">
+                      </div>
+                      <div className="row mainBox">
                         {/*Block for bar charts*/}
                         <div className="col-md-8 ">
                           <div className="row">
@@ -1169,9 +1176,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                       {/*Row for Trended performance*/}
+                      <div className="headerBox">
                       <h2 className="pageModuleMainTitle">Trended Performance</h2>
+                      </div>
+                      <div className="mainBox">
                       {/*Row for value and volume*/}
-                      <div className="row">
+                      <div className="row ">
                         {/*Value Trend*/}
                         <div className="col-md-6 col-xs-12">
                           <h3 className="pageModuleSubTitle"> Value<div style={{float:"right"}}>
@@ -1280,9 +1290,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         </div>
                       </div>
-
+                      </div>
                       {/*Internal External Tab*/}
-                      <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect} className="tabsCustom">
+                      <div style={{borderRight: '1%'}}>
+                      <Nav  style={{marginLeft: '1%'}} bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect} className="tabsCustom mainTab">
                         <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
                           driverParam = "internal";
@@ -1300,12 +1311,13 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                       </Nav>
+                      </div>
                       {/*Row for internal/external drivers of sales*/}
                       {(() => {
                         if (this.props.Executive.driver_param=='internal') {
 
                           return(<div>
-                            <div className="row">
+                            <div className="row mainBox">
                               <div className="col-md-4 col-sm-12 col-xs-12">
                                 <Panel style={{marginLeft: "15px"}}>
                                   <div>
@@ -1333,6 +1345,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         </span>
                                                   {this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var} </h4>
+
                                                 <div className="row" style={{width: "480px"}}>
                                                   <div className="col-xs-3 overview-blk" style={{marginRight: "5px"}}>
                                                     <Panel>
@@ -1478,9 +1491,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                         else {
                           return(
                           <div>
-                          <h3>External</h3>
+
                           {/*Row for Sunshine/Rainfall/Temp performance*/}
-                          <div className="row">
+                          <div className="row mainBox">
                           {/*Block for sunshine*/}
                           <div className="col-md-4" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
                           <Panel>
@@ -1688,9 +1701,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                           </div>
                           {/*Row for holidays*/}
-                          <div className="Row">
+                          <div className="row mainBox">
+                            <div className="headerBox">
                           <h3 className="pageModuleMainTitle"> Holidays this week
                           </h3>
+                            </div>
                           {/*Block for holidays table*/}
                           <div className="col-md-6">
                           {(() => {
@@ -1738,6 +1753,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                     </div>
+
                   )
 
                 }
@@ -1746,11 +1762,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   {
 
                     return (
-                      <div>
+                      <div className="mainBox" >
 
                         {/*Row for price KPIS*/}
 
-                        <div className="row">
+                        <div className="row mainBox" style={{marginTop: '1%'}}>
                           {/*Block for ASP*/}
 
                           <div className='col-md-4' style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
@@ -1981,10 +1997,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                   else {
                     return (
-                      <div>
+                      <div className="mainBox">
 
                         {/*Row for KPIS*/}
-                        <div className="row">
+                        <div className="row mainBox" style={{marginTop: '1%'}}>
                           {/*Block for total*/}
 
                           <div className={(() => {
@@ -2255,8 +2271,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                         {/*Row for best and worst performances*/}
+                        <div className="headerBox">
                         <h2 className="pageModuleMainTitle">Best and Worst Performances</h2>
-                        <div className="row">
+                        </div>
+                        <div className="row mainBox">
                           <div className="col-md-6 col-xs-12">
 
 
@@ -2720,10 +2738,13 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           if (this.props.Executive.kpi_param=='kpi_type=Value')
                           {
                             return (
-                              <div>
+                              <div className="mainBox">
+                                <div className="headerBox">
                                 <h2 className="pageModuleMainTitle">Drivers Of Sales</h2>
+                                </div>
                                 {/*Internal External Tab*/}
-                                <Nav bsStyle="tabs" activeKey={this.state.activeKey4} onSelect={this.handleSelect} className="tabsCustom">
+
+                                <Nav style={{marginLeft: '1%', marginBottom: '0%'}} bsStyle="tabs" activeKey={this.state.activeKey4} onSelect={this.handleSelect} className="tabsCustom  mainTab">
                                   <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
                                     driverParam = "internal";
@@ -2746,9 +2767,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                     return(
 
 
-                                      <div>
+                                      <div className="mainBox">
 
-                                        <Nav bsStyle="tabs" activeKey={this.state.activeKey9} onSelect={this.handleSelect} className="tabsCustom">
+                                        <Nav style={{marginLeft: '1%', marginBottom: '0%'}} bsStyle="tabs" activeKey={this.state.activeKey9} onSelect={this.handleSelect} className="tabsCustom">
                                           <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
                                             let value_internal_tab = "kpi";
@@ -2768,7 +2789,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                                         </Nav>
-                                        <div className="col-md-12 col-sm-12">
+                                        <div className=" row mainBox">
+
                                           {(() =>{
                                               if(this.props.Executive.value_internal_tab=='kpi')
                                               {
@@ -2834,12 +2856,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                   }
                                   else{
                                     return(
-                                      <div>
+                                      <div className="row mainBox">
 
 
                                         {/*Row for weather data*/}
                                         <div className="row">
-                                          <Nav bsStyle="tabs" activeKey={this.state.activeKey10} onSelect={this.handleSelect} className="tabsCustom">
+                                          <Nav style={{marginLeft: '1%', marginBottom: '0%'}} bsStyle="tabs" activeKey={this.state.activeKey10} onSelect={this.handleSelect} className="tabsCustom">
                                             <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
                                               let value_external_tab = "sunshine";
@@ -2988,7 +3010,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                         </div>
                                         {/*Row for holidays*/}
                                         <div className="row">
+                                          <div className="headerBox">
                                           <h3 className="pageModuleMainTitle">Holidays</h3>
+                                          </div>
                                           {/*Holiday Table*/}
                                           <div className="col-md-6" style={{paddingTop : "80px"}}>
 

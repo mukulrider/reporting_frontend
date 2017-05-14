@@ -60,7 +60,7 @@ import {
 } from 'containers/Executive/selectors';
 
 
-let host_url="http://172.20.246.12:8000";
+let host_url="http://172.20.246.13:8000";
 // All sagas to be loaded
 
 // Individual exports for testing
@@ -792,15 +792,15 @@ export function* doPriceKPIFetch() {
 // FOR PROMO FILTER DATA
 export function* generateFilterFetch() {
 
-  let getCookie;
-  getCookie = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  };
-  const user_token = getCookie('token');
-  const buyer = getCookie('buyer');
-  const token = user_token.concat('___').concat(buyer)
+  // let getCookie;
+  // getCookie = (name) => {
+  //   const value = `; ${document.cookie}`;
+  //   const parts = value.split(`; ${name}=`);
+  //   if (parts.length === 2) return parts.pop().split(';').shift();
+  // };
+  // const user_token = getCookie('token');
+  // const buyer = getCookie('buyer');
+  // const token = user_token.concat('___').concat(buyer)
 
   try {
     // todo: update url
@@ -829,12 +829,13 @@ export function* generateFilterFetch() {
       }
     }
     const data = yield call(request,
-      host_url+'/api/reporting/exec_filter_data?' + urlParamsString,
-      {
-        headers: {
-          Authorization: token
-        }
-      });
+      host_url+'/api/reporting/exec_filter_data?' + urlParamsString
+      // {
+      //   headers: {
+      //     Authorization: token
+      //   }
+      // }
+      );
 
     // console.log(host_url+'/api/reporting/filter_data_week?');
     // const data2 = yield call(request, host_url+'/api/reporting/filter_data_week?' );
