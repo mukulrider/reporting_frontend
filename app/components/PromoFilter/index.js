@@ -10,7 +10,7 @@ import {browserHistory} from 'react-router';
 import Checkbox from 'components/checkbox';
 import RadioButton from 'components/radio_button';
 // import Panel from 'components/panel';
-import {Accordion,PanelGroup, Panel} from 'react-bootstrap';
+import {Accordion, PanelGroup, Panel} from 'react-bootstrap';
 import Button from 'components/button';
 // import styled from 'styled-components';
 import styles from './style.scss';
@@ -20,7 +20,7 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
     let queryString = '';
     [...this.refs.selector.querySelectorAll('input')].map(obj => {
       if (obj.checked == true) {
-        console.log("Objects",obj);
+        console.log("Objects", obj);
         let category = obj.id.split('__');
 
 
@@ -66,6 +66,7 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
   };
 
   render() {
+    console.log('this.props', this.props);
     return (
       <div ref={'selector'}>
         {(() => {
@@ -284,6 +285,12 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
               <div className="text-center">
                 <Button onClick={() => {
 
+                  this.props.pieChartSuccess(0);
+                  this.props.promoGiveAwaySuccess(0);
+                  this.props.productsCountSplitSuccess(0);
+                  this.props.promoParticipationBySplitSuccess(0);
+                  this.props.productsTableSplitSuccess(0);
+                  this.props.kpiDataSuccess(0);
                   this.props.loadKpi();
                   this.props.loadSales();
                   this.props.loadPromoGiveaway();

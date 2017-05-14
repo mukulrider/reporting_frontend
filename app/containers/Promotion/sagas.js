@@ -14,9 +14,23 @@ import {
 } from './constants';
 
 
-import {PromoKpiDataFetchSuccess,PromoSalesDataFetchSuccess,PromoGiveawayDataFetchSuccess,
-PromoProdDataFetchSuccess,PromoPartDataFetchSuccess,FilterFetchSuccess,WeekFilterFetchSuccess}
-from 'containers/Promotion/actions';
+import {
+  PromoKpiDataFetchSuccess,
+  PromoSalesDataFetchSuccess,
+  PromoGiveawayDataFetchSuccess,
+  PromoProdDataFetchSuccess,
+  PromoPartDataFetchSuccess,
+  FilterFetchSuccess,
+  WeekFilterFetchSuccess,
+  pieChartSuccess,
+  promoGiveAwaySuccess,
+  productsCountSplitSuccess,
+  promoParticipationBySplitSuccess,
+  productsTableSplitSuccess,
+  kpiDataSuccess,
+
+}
+  from 'containers/Promotion/actions';
 // Individual exports for testing
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
@@ -32,7 +46,8 @@ import {
 } from 'containers/Promotion/selectors';
 
 
-let host_url="http://127.0.0.1:8000";
+let host_url = "http://172.20.244.150:8000";
+// let host_url="http://172.20.246.13:8000";
 // All sagas to be loaded
 
 
@@ -63,6 +78,9 @@ export function* generatePromoKpiDataFetch() {
     host_url+`/api/reporting/promo_kpi?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam+ '&' + weekselection);
   console.log("Heres the kpi data",data);
   yield put(PromoKpiDataFetchSuccess(data));
+
+  let spinnerCheck = 1;
+  yield put(kpiDataSuccess(spinnerCheck));
 
   // } catch (err) {
   //   // console.log(err);
@@ -105,6 +123,12 @@ export function* generatePromoSalesDataFetch() {
     host_url+`/api/reporting/promo_sales?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam+'&'+salesparam+ '&' + weekselection);
   console.log("Heres the promo sales data",data);
   yield put(PromoSalesDataFetchSuccess(data));
+
+  let spinnerCheck = 1;
+  yield put(pieChartSuccess(spinnerCheck))
+
+  let spinnerCheckTable = 1;
+  yield put(productsTableSplitSuccess(spinnerCheckTable));
 
   // } catch (err) {
   //   // console.log(err);
@@ -149,6 +173,9 @@ export function* generatePromoGiveawayDataFetch() {
   console.log("Heres the promo sales data",data);
   console.log("sagas generatePromoGiveawayDataFetch ",data)
   yield put(PromoGiveawayDataFetchSuccess(data));
+
+  let spinnerCheck = 1;
+  yield put(promoGiveAwaySuccess(spinnerCheck));
 
   // } catch (err) {
   //   // console.log(err);
@@ -196,6 +223,10 @@ export function* generatePromoProdDataFetch() {
   console.log("sagas generatePromoProdDataFetch ",data)
   yield put(PromoProdDataFetchSuccess(data));
 
+  let spinnerCheck = 1;
+  console.log('spinnerCheck');
+  yield put(productsCountSplitSuccess(spinnerCheck));
+
   // } catch (err) {
   //   // console.log(err);
   // }
@@ -239,6 +270,9 @@ export function* generatePromoPartDataFetch() {
   console.log("sagas generatePromoPartDataFetch ",data)
   yield put(PromoPartDataFetchSuccess(data));
 
+
+  let spinnerCheck = 1;
+  yield put(promoParticipationBySplitSuccess(spinnerCheck));
   // } catch (err) {
   //   // console.log(err);
   // }

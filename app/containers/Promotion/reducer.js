@@ -27,7 +27,13 @@ import {
   PROMO_PART_FETCH_SUCCESS,
   WEEK_FILTER_CONSTANT,
   WEEK_FILTER_FETCH_SUCCESS,
-  WEEK_FILTER_PARAM
+  WEEK_FILTER_PARAM,
+  PIE_CHART_SPINNER_SUCCESS,
+  PROMO_GIVE_AWAY_SPINNER_SUCCESS,
+  PRODUCTS_COUNT_SPILT_SPINNER_SUCCESS,
+  PROMO_PARTICIPATION_SPILT_SPINNER_SUCCESS,
+  PRODUCTS_TABLE_SPINNER_SUCCESS,
+  KPI_SPINNER_SUCCESS,
 
 } from './constants';
 
@@ -140,6 +146,43 @@ function promotionReducer(state = initialState, action) {
     case WEEK_FILTER_PARAM:
       console.log("reducer WEEK_FILTER_PARAM",action.data);
       return state.set('weekurlParam',action.data)
+
+
+    //PIE CHART - SPINNER
+    case PIE_CHART_SPINNER_SUCCESS:
+      console.log("PIE_CHART_SPINNER_SUCCESS", action.spinnerCheck);
+      return state.set('pieChartSpinnerSuccess', action.spinnerCheck);
+
+      //PROMO GIVE AWAY- SPINNER
+    case PROMO_GIVE_AWAY_SPINNER_SUCCESS:
+      console.log("PROMO_GIVE_AWAY_SPINNER_SUCCESS", action.spinnerCheck);
+      return state.set('promoGiveAwaySpinnerSuccess', action.spinnerCheck);
+
+      // PRODUCTS COUNT SPLIT SPINNER - SPINNER
+    case PRODUCTS_COUNT_SPILT_SPINNER_SUCCESS:
+      console.log("PRODUCTS_COUNT_SPILT_SPINNER_SUCCESS", action.spinnerCheck);
+      return state.set('productsCountSplitSpinnerSuccess', action.spinnerCheck);
+
+//SPINNERS - PROMO PARTICIPATION SPILT SPINNER
+    case PROMO_PARTICIPATION_SPILT_SPINNER_SUCCESS:
+      console.log("PROMO_PARTICIPATION_SPILT_SPINNER_SUCCESS", action.spinnerCheck);
+      return state.set('promoparticipationSplitSpinnerSuccess', action.spinnerCheck);
+
+      //SPINNERS - PROMO PARTICIPATION SPILT SPINNER
+    case PROMO_PARTICIPATION_SPILT_SPINNER_SUCCESS:
+      console.log("PROMO_PARTICIPATION_SPILT_SPINNER_SUCCESS", action.spinnerCheck);
+      return state.set('promoparticipationSplitSpinnerSuccess', action.spinnerCheck);
+
+      //SPINNERS - TOP 25 PRODUCTS TABLE
+    case PRODUCTS_TABLE_SPINNER_SUCCESS:
+      console.log("PRODUCTS_TABLE_SPINNER_SUCCESS", action.spinnerCheck);
+      return state.set('productsTableSpinnerSuccess', action.spinnerCheck);
+
+      //SPINNERS - KPI DATA
+    case KPI_SPINNER_SUCCESS:
+      console.log("KPI_SPINNER_SUCCESS", action.spinnerCheck);
+      return state.set('kpiSpinnerSuccess', action.spinnerCheck);
+
     default:
       return state;
   }

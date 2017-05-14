@@ -30,7 +30,13 @@ import {
   PROMO_PART_PARAM,
   WEEK_FILTER_CONSTANT,
   WEEK_FILTER_FETCH_SUCCESS,
-  WEEK_FILTER_PARAM
+  WEEK_FILTER_PARAM,
+  PIE_CHART_SPINNER_SUCCESS,
+  PROMO_GIVE_AWAY_SPINNER_SUCCESS,
+  PRODUCTS_COUNT_SPILT_SPINNER_SUCCESS,
+  PROMO_PARTICIPATION_SPILT_SPINNER_SUCCESS,
+  PRODUCTS_TABLE_SPINNER_SUCCESS,
+  KPI_SPINNER_SUCCESS,
 
 } from './constants';
 
@@ -245,6 +251,61 @@ export function WeekFilterParam(data)
     type: WEEK_FILTER_PARAM,
     data,
   };
+}
+
+
+//PIE CHART SPINNER
+export function pieChartSuccess(spinnerCheck) {
+  console.log('pieChartSuccess',spinnerCheck);
+  return {
+    type: PIE_CHART_SPINNER_SUCCESS,
+    spinnerCheck
+  }
+}
+
+//MULTI LINE PROMO CHART SPINNER
+export function promoGiveAwaySuccess(spinnerCheck) {
+  console.log('promoGiveAwaySuccess',spinnerCheck);
+  return {
+    type: PROMO_GIVE_AWAY_SPINNER_SUCCESS,
+    spinnerCheck
+  }
+}
+
+//productsCountSplitSuccess SPINNER
+export function productsCountSplitSuccess(spinnerCheck) {
+  console.log('productsCountSplitSuccess',spinnerCheck);
+  return {
+    type: PRODUCTS_COUNT_SPILT_SPINNER_SUCCESS,
+    spinnerCheck
+  }
+}
+
+//promoParticipationBySplitSuccess SPINNER
+export function promoParticipationBySplitSuccess(spinnerCheck) {
+  console.log('promoParticipationBySplitSuccess',spinnerCheck);
+  return {
+    type: PROMO_PARTICIPATION_SPILT_SPINNER_SUCCESS,
+    spinnerCheck
+  }
+}
+
+//promoParticipationBySplitSuccess SPINNER
+export function productsTableSplitSuccess(spinnerCheck) {
+  console.log('productsTableSplitSuccess',spinnerCheck);
+  return {
+    type: PRODUCTS_TABLE_SPINNER_SUCCESS,
+    spinnerCheck
+  }
+}
+
+//kpiDataSuccess SPINNER
+export function kpiDataSuccess(spinnerCheck) {
+  console.log('kpiDataSuccess',spinnerCheck);
+  return {
+    type: KPI_SPINNER_SUCCESS,
+    spinnerCheck
+  }
 }
 
 

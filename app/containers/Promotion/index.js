@@ -37,6 +37,12 @@ import {
   SavePromoProdParam,
   SavePromoPartParam,
   WeekFilterParam,
+  pieChartSuccess,
+  promoGiveAwaySuccess,
+  productsCountSplitSuccess,
+  promoParticipationBySplitSuccess,
+  productsTableSplitSuccess,
+  kpiDataSuccess,
 
 } from './actions';
 
@@ -87,6 +93,8 @@ export class Promotion extends React.PureComponent {
   render() {
     let kpiParam = this.props.promotion.kpi_param;
     let dataWeekParam = this.props.promotion.week_param;
+
+    console.log('this.props', this.props);
     return (
       <div>
         <Helmet
@@ -117,24 +125,29 @@ export class Promotion extends React.PureComponent {
                 return (
                   <PromoFilter sideFilter={this.props.promotion.filter_data}
                     // week_data={this.props.promotion.filter_data.week_data}
-                                location={this.props.location}
-                                generateSideFilter={this.props.onGetFilter}
-                                onFilterReset={this.props.onFilterReset}
-                                onDataUrlParams={this.props.DataUrlParams}
-                                onUrlParamsData={this.props.onUrlParamsData}
-                                onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}
-                                onGenerateFilterParamsString={this.props.onGenerateFilterParamsString}
-                                onGenerateUrlParamsData={this.props.onGenerateUrlParamsData}
-                                week_data = {this.props.promotion.week_filter_data}
-                                ongenerateWeekFilter = {this.props.onGetWeekFilter}
-                                onSaveWeekFilterParam = {this.props.onSaveWeekFilterParam}
-                                previous_week_selection = {this.props.weekurlParam}
-                                loadKpi={this.props.loadKpi}
-                                loadSales={this.props.loadSales}
-                                loadPromoGiveaway={this.props.loadPromoGiveaway}
-                                loadPromoProd={this.props.loadPromoProd}
-                                loadPromoPart={this.props.loadPromoPart}
-
+                               location={this.props.location}
+                               generateSideFilter={this.props.onGetFilter}
+                               onFilterReset={this.props.onFilterReset}
+                               onDataUrlParams={this.props.DataUrlParams}
+                               onUrlParamsData={this.props.onUrlParamsData}
+                               onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}
+                               onGenerateFilterParamsString={this.props.onGenerateFilterParamsString}
+                               onGenerateUrlParamsData={this.props.onGenerateUrlParamsData}
+                               week_data={this.props.promotion.week_filter_data}
+                               ongenerateWeekFilter={this.props.onGetWeekFilter}
+                               onSaveWeekFilterParam={this.props.onSaveWeekFilterParam}
+                               previous_week_selection={this.props.weekurlParam}
+                               loadKpi={this.props.loadKpi}
+                               loadSales={this.props.loadSales}
+                               loadPromoGiveaway={this.props.loadPromoGiveaway}
+                               loadPromoProd={this.props.loadPromoProd}
+                               loadPromoPart={this.props.loadPromoPart}
+                               pieChartSuccess={this.props.pieChartSuccess}
+                               promoGiveAwaySuccess={this.props.promoGiveAwaySuccess}
+                               productsCountSplitSuccess={this.props.productsCountSplitSuccess}
+                               promoParticipationBySplitSuccess={this.props.promoParticipationBySplitSuccess}
+                               productsTableSplitSuccess={this.props.productsTableSplitSuccess}
+                               kpiDataSuccess={this.props.kpiDataSuccess}
 
                   />
                 );
@@ -172,82 +185,122 @@ export class Promotion extends React.PureComponent {
               <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom">
               <NavItem className="tabsCustomListTime" eventKey="1" onClick={() => {
 
-                dataWeekParam = "week_flag=Current Week";
-                this.setState({activeKey1: "1"});
-                this.props.onSaveWeekParam(dataWeekParam);
-                this.props.loadKpi();
-                this.props.loadSales();
-                this.props.loadPromoGiveaway();
-                this.props.loadPromoProd();
-                this.props.loadPromoPart();
-              }}><span className="tab_label">Current Week</span></NavItem>
+                    dataWeekParam = "week_flag=Current Week";
+                    this.setState({activeKey1: "1"});
+                    this.props.pieChartSuccess(0);
+                    this.props.promoGiveAwaySuccess(0);
+                    this.props.productsCountSplitSuccess(0);
+                    this.props.promoParticipationBySplitSuccess(0);
+                    this.props.productsTableSplitSuccess(0);
 
-              <NavItem className="tabsCustomListTime" eventKey="2" onClick={() => {
-                this.setState({activeKey1: "2"});
-                dataWeekParam = "week_flag=Latest 4 Weeks";
-                this.props.onSaveWeekParam(dataWeekParam);
-                this.props.loadKpi();
-                this.props.loadSales();
-                this.props.loadPromoGiveaway();
-                this.props.loadPromoProd();
-                this.props.loadPromoPart();
-              }}><span className="tab_label">Last 4 weeks</span></NavItem>
+                    this.props.onSaveWeekParam(dataWeekParam);
+                    this.props.loadKpi();
+                    this.props.loadSales();
+                    this.props.loadPromoGiveaway();
+                    this.props.loadPromoProd();
+                    this.props.loadPromoPart();
+                  }}><span className="tab_label">Current Week</span></NavItem>
 
-              <NavItem className="tabsCustomListTime" eventKey="3" onClick={() => {
-                this.setState({activeKey1: "3"});
-                dataWeekParam = "week_flag=Latest 13 Weeks";
-                this.props.onSaveWeekParam(dataWeekParam);
-                this.props.loadKpi();
-                this.props.loadSales();
-                this.props.loadPromoGiveaway();
-                this.props.loadPromoProd();
-                this.props.loadPromoPart();
-              }}><span className="tab_label">Last 13 weeks</span></NavItem>
-              <NavItem className="tabsCustomListTime" eventKey="4" onClick={() => {
-                this.setState({activeKey1: "4"});
-                dataWeekParam = "week_flag=Latest 26 Weeks";
-                this.props.onSaveWeekParam(dataWeekParam);
-                this.props.loadKpi();
-                this.props.loadSales();
-                this.props.loadPromoGiveaway();
-                this.props.loadPromoProd();
-                this.props.loadPromoPart();
-              }}><span className="tab_label">Last 26 weeks</span></NavItem>
+                  <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                    this.setState({activeKey1: "2"});
+
+                    this.props.pieChartSuccess(0);
+                    this.props.promoGiveAwaySuccess(0);
+                    this.props.productsCountSplitSuccess(0);
+                    this.props.promoParticipationBySplitSuccess(0);
+                    this.props.productsTableSplitSuccess(0);
+
+
+                    dataWeekParam = "week_flag=Latest 4 Weeks";
+                    this.props.onSaveWeekParam(dataWeekParam);
+                    this.props.loadKpi();
+                    this.props.loadSales();
+                    this.props.loadPromoGiveaway();
+                    this.props.loadPromoProd();
+                    this.props.loadPromoPart();
+                  }}><span className="tab_label">Last 4 weeks</span></NavItem>
+
+                  <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                    this.setState({activeKey1: "3"});
+
+                    this.props.pieChartSuccess(0);
+                    this.props.promoGiveAwaySuccess(0);
+                    this.props.productsCountSplitSuccess(0);
+                    this.props.promoParticipationBySplitSuccess(0);
+                    this.props.productsTableSplitSuccess(0);
+
+                    dataWeekParam = "week_flag=Latest 13 Weeks";
+                    this.props.onSaveWeekParam(dataWeekParam);
+                    this.props.loadKpi();
+                    this.props.loadSales();
+                    this.props.loadPromoGiveaway();
+                    this.props.loadPromoProd();
+                    this.props.loadPromoPart();
+                  }}><span className="tab_label">Last 13 weeks</span></NavItem>
+                  <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+                    this.setState({activeKey1: "4"});
+
+                    this.props.pieChartSuccess(0);
+                    this.props.promoGiveAwaySuccess(0);
+                    this.props.productsCountSplitSuccess(0);
+                    this.props.promoParticipationBySplitSuccess(0);
+                    this.props.productsTableSplitSuccess(0);
+
+                    dataWeekParam = "week_flag=Latest 26 Weeks";
+                    this.props.onSaveWeekParam(dataWeekParam);
+                    this.props.loadKpi();
+                    this.props.loadSales();
+                    this.props.loadPromoGiveaway();
+                    this.props.loadPromoProd();
+                    this.props.loadPromoPart();
+                  }}><span className="tab_label">Last 26 weeks</span></NavItem>
+
 
               <NavItem className="tabsCustomListTime" eventKey="5" onClick={() => {
                 this.setState({activeKey1: "5"});
 
-                dataWeekParam = "week_flag=YTD";
-                this.props.onSaveWeekParam(dataWeekParam);
-                this.props.loadKpi();
-                this.props.loadSales();
-                this.props.loadPromoGiveaway();
-                this.props.loadPromoProd();
-                this.props.loadPromoPart();
-              }}><span className="tab_label">YTD</span></NavItem>
-            </Nav>
-            <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect} className="tabsCustom" style={{margin:"0px"}}>
-              <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
-                this.setState({activeKey2: "1"});
-                kpiParam = "kpi_type=value";
-                this.props.onSaveKPIParam(kpiParam);
-                this.props.loadKpi();
-                this.props.loadSales();
+                    this.props.pieChartSuccess(0);
+                    this.props.promoGiveAwaySuccess(0);
+                    this.props.productsCountSplitSuccess(0);
+                    this.props.promoParticipationBySplitSuccess(0);
+                    this.props.productsTableSplitSuccess(0);
 
-              }}><span className="tab_label">Value</span></NavItem>
-              <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
-                this.setState({activeKey2: "2"});
-                kpiParam = "kpi_type=volume";
-                this.props.onSaveKPIParam(kpiParam);
-                this.props.loadKpi();
-                this.props.loadSales();
+                    dataWeekParam = "week_flag=YTD";
+                    this.props.onSaveWeekParam(dataWeekParam);
+                    this.props.loadKpi();
+                    this.props.loadSales();
+                    this.props.loadPromoGiveaway();
+                    this.props.loadPromoProd();
+                    this.props.loadPromoPart();
+                  }}><span className="tab_label">YTD</span></NavItem>
+                </Nav>
 
-              }}><span className="tab_label">Volume</span></NavItem>
-              <span className="glyphicon glyphicon-info-sign pull-right"
-                    style={{right: '4px', fontSize: '15px', top: '8px',  color: "#00539f", fontWeight: "bold"}}
-                    onClick={() => {
-                      this.setState({promoKPIInfo: true});
-                    }}>
+                <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect}
+                     className="tabsCustom" style={{margin: "0px"}}>
+                  <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+                    this.setState({activeKey2: "1"});
+                    this.props.kpiDataSuccess(0);
+                    kpiParam = "kpi_type=value";
+                    this.props.onSaveKPIParam(kpiParam);
+                    this.props.loadKpi();
+                    this.props.loadSales();
+
+
+                  }}><span className="tab_label">Value</span></NavItem>
+                  <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                    this.setState({activeKey2: "2"});
+                    this.props.kpiDataSuccess(0);
+                    kpiParam = "kpi_type=volume";
+                    this.props.onSaveKPIParam(kpiParam);
+                    this.props.loadKpi();
+                    this.props.loadSales();
+
+                  }}><span className="tab_label">Volume</span></NavItem>
+                  <span className="glyphicon glyphicon-info-sign pull-right"
+                        style={{right: '4px', fontSize: '15px', top: '8px', color: "#00539f", fontWeight: "bold"}}
+                        onClick={() => {
+                          this.setState({promoKPIInfo: true});
+                        }}>
 
             </span>
             </Nav>
@@ -258,6 +311,10 @@ export class Promotion extends React.PureComponent {
 
             <div className="row" style={{textAlign: 'center',backgroundColor: "white",margin: "0%",borderLeft: "1px solid #e5e8ea",borderRight: "1px solid #e5e8ea",borderBottom: "1px solid #e5e8ea"}}>
 
+                  {(() => {
+                    if (this.props.promotion.kpi_data && this.props.promotion.kpiSpinnerSuccess) {
+                      return (
+                      <div>
 
               <div className="col-xs-4" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
                 <Panel>
@@ -524,6 +581,16 @@ export class Promotion extends React.PureComponent {
               </div>
 
             </div>
+                      )
+                    } else {
+                      return (
+
+                        <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                      );
+                    }
+                  })()}
+            </div>
 
             <div>
               <panel>
@@ -539,29 +606,33 @@ export class Promotion extends React.PureComponent {
                   <panel>
                     <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 
-                      {(() => {
-                        if (this.props.promotion.sales_data) {
-                          console.log("pie chart data", this.props.promotion.sales_data.promo_sales.pie_chart);
-                          return (
-                            <div>
-                              <div style={{float:"right", marginTop:"60px"}}>
-                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
-                                  <MenuItem onClick={() => {
-                                    saveImage(document.getElementById('piechart'+'_svg'),"promo_sales_piechart")
-                                  }
-                                  }>Save As JPEG</MenuItem>
-                                  <MenuItem onClick={() => {
-                                    saveDataAsCSV(this.props.promotion.sales_data.promo_sales.pie_chart,"promo_sales_piechart_data.csv")
-                                  }
-                                  }>Download CSV</MenuItem>
-                                </DropdownButton>
-                              </div>
-                              <PieChart data={this.props.promotion.sales_data.promo_sales.pie_chart} id="piechart"/>
-                            </div>
-                          );
-                        }
-                        else {
-                          return (
+                          {(() => {
+                            if (this.props.promotion.sales_data && this.props.promotion.pieChartSpinnerSuccess) {
+                              console.log("pie chart data", this.props.promotion.sales_data.promo_sales.pie_chart);
+                              return (
+                                <div>
+                                  <div style={{float: "right", marginTop: "60px"}}>
+                                    <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                                      backgroundColor: "transparent",
+                                      borderColor: "transparent",
+                                      color: "#00539f"
+                                    }} id="dropButtonId">
+                                      <MenuItem onClick={() => {
+                                        saveImage(document.getElementById('piechart' + '_svg'), "promo_sales_piechart")
+                                      }
+                                      }>Save As JPEG</MenuItem>
+                                      <MenuItem onClick={() => {
+                                        saveDataAsCSV(this.props.promotion.sales_data.promo_sales.pie_chart, "promo_sales_piechart_data.csv")
+                                      }
+                                      }>Download CSV</MenuItem>
+                                    </DropdownButton>
+                                  </div>
+                                  <PieChart data={this.props.promotion.sales_data.promo_sales.pie_chart} id="piechart"/>
+                                </div>
+                              );
+                            }
+                            else {
+                              return (
 
                             <div className="text-center"><Spinner />Please Wait a Moment....!</div>
 
@@ -579,117 +650,137 @@ export class Promotion extends React.PureComponent {
 
                          let promoTypeParam = "";
                           this.setState({activeKey4: "1"});
+                          this.props.pieChartSuccess(0);
                           this.props.onSaveSalesParam(promoTypeParam);
                           this.props.loadSales();
                         }}><span className="tab_label">Total Sales</span></NavItem>
 
                         <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
 
-                          let promoTypeParam = "promo_type=Price Cut";
-                          this.setState({activeKey4: "2"});
-                          this.props.onSaveSalesParam(promoTypeParam);
-                          this.props.loadSales();
-                        }}><span className="tab_label">Price Cut</span></NavItem>
+                                let promoTypeParam = "promo_type=Price Cut";
+                                this.setState({activeKey4: "2"});
+                                this.props.pieChartSuccess(0);
+                                this.props.onSaveSalesParam(promoTypeParam);
+                                this.props.loadSales();
+                              }}><span className="tab_label">Price Cut</span></NavItem>
 
-                        <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
-                          this.setState({activeKey4: "3"});
-                         let promoTypeParam = "promo_type=Multibuy";
-                          this.props.onSaveSalesParam(promoTypeParam);
-                          this.props.loadSales();
+                              <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                                this.setState({activeKey4: "3"});
+                                this.props.pieChartSuccess(0);
+                                let promoTypeParam = "promo_type=Multibuy";
+                                this.props.onSaveSalesParam(promoTypeParam);
+                                this.props.loadSales();
 
-                        }}><span className="tab_label">Multibuy</span></NavItem>
+                              }}><span className="tab_label">Multibuy</span></NavItem>
 
-                        <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
-                          this.setState({activeKey4: "4"});
-                          let promoTypeParam = "promo_type=Linksave";
-                          this.props.onSaveSalesParam(promoTypeParam);
-                          this.props.loadSales();
+                              <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+                                this.setState({activeKey4: "4"});
+                                this.props.pieChartSuccess(0);
+                                let promoTypeParam = "promo_type=Linksave";
+                                this.props.onSaveSalesParam(promoTypeParam);
+                                this.props.loadSales();
 
-                        }}><span className="tab_label">Linksave</span></NavItem>
+                              }}><span className="tab_label">Linksave</span></NavItem>
 
-                        <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
-                          this.setState({activeKey4: "5"});
-                         let promoTypeParam = "promo_type=Non Promo";
-                          this.props.onSaveSalesParam(promoTypeParam);
-                          this.props.loadSales();
-                        }}><span className="tab_label">Non Promo</span></NavItem>
-                      </Nav>
-                      </div>
-                      <div className="row">
-                      {(() => {
-                        if (this.props.promotion.sales_data) {
-                          console.log("Promo Sales line chart data", this.props.promotion.sales_data.promo_sales.trend);
-                          return (
-                            <div>
-                              <div style={{float:"right"}}>
-                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
-                                  <MenuItem onClick={() => {
-                                    saveImage(document.getElementById('sampleSvg'),"promo_sales_trend_multilineChart")
-                                  }
-                                  }>Save As JPEG</MenuItem>
-                                  <MenuItem onClick={() => {
-                                    saveDataAsCSV(this.props.promotion.sales_data.promo_sales.trend,"promo_sales_trend_multilineChart_data.csv")
-                                  }
-                                  }>Download CSV</MenuItem>
-                                </DropdownButton>
-                              </div>
-                              <MultilinePromo data={this.props.promotion.sales_data.promo_sales.trend} id="linechart" label_ty="Sales TY" label_ly="Sales LY" xaxis_title="Tesco Week" no_pref={this.props.promotion.sales_data.no_pref} no_suffix='' yaxis_title={this.props.promotion.sales_data.yaxis_title}/>
-                            </div>
-                          );
-                        }
-                        else {
-                          return (
+                              <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
+                                this.setState({activeKey4: "5"});
+                                this.props.pieChartSuccess(0);
+                                let promoTypeParam = "promo_type=Non Promo";
+                                this.props.onSaveSalesParam(promoTypeParam);
+                                this.props.loadSales();
+                              }}><span className="tab_label">Non Promo</span></NavItem>
+                            </Nav>
+                          </div>
 
-                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+                          <div className="row">
+                            {(() => {
+                              if (this.props.promotion.sales_data && this.props.promotion.pieChartSpinnerSuccess) {
+                                console.log("Promo Sales line chart data", this.props.promotion.sales_data.promo_sales.trend);
+                                return (
+                                  <div>
+                                    <div style={{float: "right"}}>
+                                      <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                                        backgroundColor: "transparent",
+                                        borderColor: "transparent",
+                                        color: "#00539f"
+                                      }} id="dropButtonId">
+                                        <MenuItem onClick={() => {
+                                          saveImage(document.getElementById('sampleSvg'), "promo_sales_trend_multilineChart")
+                                        }
+                                        }>Save As JPEG</MenuItem>
+                                        <MenuItem onClick={() => {
+                                          saveDataAsCSV(this.props.promotion.sales_data.promo_sales.trend, "promo_sales_trend_multilineChart_data.csv")
+                                        }
+                                        }>Download CSV</MenuItem>
+                                      </DropdownButton>
+                                    </div>
+                                    <MultilinePromo data={this.props.promotion.sales_data.promo_sales.trend}
+                                                    id="linechart" label_ty="Sales TY" label_ly="Sales LY"
+                                                    xaxis_title="Tesco Week"
+                                                    no_pref={this.props.promotion.sales_data.no_pref} no_suffix=''
+                                                    yaxis_title={this.props.promotion.sales_data.yaxis_title}/>
+                                  </div>
+                                );
+                              }
+                              else {
+                                return (
 
-                          );
-                        }
-                      })()}
-                      </div>
+                                  <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                                );
+                              }
+                            })()}
+                          </div>
+
+                        </div>
+                      </panel>
                     </div>
-                  </panel>
-                </div>
-                {/*Row for giveaway*/}
-                <div className="row">
-                  <h2 className="pageModuleMainTitle">Promotion Giveaway Split By Promo Type <span className="glyphicon glyphicon-info-sign pull-right"
-                                                                                                   style={{right: '4px', fontSize: '15px', top: '8px'}}
-                                                                                                   onClick={() => {
-                                                                                                     this.setState({promoGiveawayInfo: true});
-                                                                                                   }}></span></h2>
-                  <panel>
-                    <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    {/*Row for giveaway*/}
+                    <div className="row">
+                      <h2 className="pageModuleMainTitle">Promotion Giveaway Split By Promo Type <span
+                        className="glyphicon glyphicon-info-sign pull-right"
+                        style={{right: '4px', fontSize: '15px', top: '8px'}}
+                        onClick={() => {
+                          this.setState({promoGiveawayInfo: true});
+                        }}></span></h2>
+                      <panel>
+                        <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 
-                      {(() => {
+                          {(() => {
 
-                        if (this.props.promotion.promo_giveaway_data) {
-                          console.log("pie chart promo_giveaway data", this.props.promotion.promo_giveaway_data.pie_chart);
-                          return (
-                            <div>
-                              <div style={{float:"right", marginTop:"60px"}}>
-                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
-                                  <MenuItem onClick={() => {
-                                    saveImage(document.getElementById('piechart2'+'_svg'),"promo_giveaway_piechart")
-                                  }
-                                  }>Save As JPEG</MenuItem>
-                                  <MenuItem onClick={() => {
-                                    saveDataAsCSV(this.props.promotion.promo_giveaway_data.pie_chart,"promo_giveaway_data.csv")
-                                  }
-                                  }>Download CSV</MenuItem>
-                                </DropdownButton>
-                              </div>
-                              <PieChart data={this.props.promotion.promo_giveaway_data.pie_chart}
-                                      id="piechart2"/>
-                            </div>
-                          );
-                        }
-                        else {
-                          return (
+                            if (this.props.promotion.promo_giveaway_data && this.props.promotion.promoGiveAwaySpinnerSuccess) {
+                              console.log("pie chart promo_giveaway data", this.props.promotion.promo_giveaway_data.pie_chart);
+                              return (
+                                <div>
+                                  <div style={{float: "right", marginTop: "60px"}}>
+                                    <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                                      backgroundColor: "transparent",
+                                      borderColor: "transparent",
+                                      color: "#00539f"
+                                    }} id="dropButtonId">
+                                      <MenuItem onClick={() => {
+                                        saveImage(document.getElementById('piechart2' + '_svg'), "promo_giveaway_piechart")
+                                      }
+                                      }>Save As JPEG</MenuItem>
+                                      <MenuItem onClick={() => {
+                                        saveDataAsCSV(this.props.promotion.promo_giveaway_data.pie_chart, "promo_giveaway_data.csv")
+                                      }
+                                      }>Download CSV</MenuItem>
+                                    </DropdownButton>
+                                  </div>
+                                  <PieChart data={this.props.promotion.promo_giveaway_data.pie_chart}
+                                            id="piechart2"/>
+                                </div>
+                              );
+                            }
+                            else {
+                              return (
 
-                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+                                <div className="text-center"><Spinner />Please Wait a Moment....!</div>
 
-                          );
-                        }
-                      })()}
+                              );
+                            }
+                          })()}
 
                     </div>
                     <div className="col-lg-8 col-md-8 col-md-12 col-xs-8">
@@ -699,75 +790,84 @@ export class Promotion extends React.PureComponent {
                            className="tabsCustom secondaryTabs" style={{margin:"0px"}}>
                         <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
-                          let promoTypeParam = "";
-                          this.setState({activeKey5: "1"});
-                          this.props.onSaveGiveawayParam(promoTypeParam);
-                          this.props.loadPromoGiveaway();
-                        }}><span className="tab_label">Total Giveaway</span></NavItem>
+                                let promoTypeParam = "";
+                                this.setState({activeKey5: "1"});
+                                this.props.promoGiveAwaySuccess(0);
+                                this.props.onSaveGiveawayParam(promoTypeParam);
+                                this.props.loadPromoGiveaway();
+                              }}><span className="tab_label">Total Giveaway</span></NavItem>
 
-                        <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                              <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
 
-                          let promoTypeParam = "promo_type=Price Cut";
-                          this.setState({activeKey5: "2"});
-                          this.props.onSaveGiveawayParam(promoTypeParam);
-                          this.props.loadPromoGiveaway();
-                        }}><span className="tab_label">Price Cut</span></NavItem>
+                                let promoTypeParam = "promo_type=Price Cut";
+                                this.setState({activeKey5: "2"});
+                                this.props.promoGiveAwaySuccess(0);
+                                this.props.onSaveGiveawayParam(promoTypeParam);
+                                this.props.loadPromoGiveaway();
+                              }}><span className="tab_label">Price Cut</span></NavItem>
 
-                        <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
-                          this.setState({activeKey5: "3"});
-                          let promoTypeParam = "promo_type=Multibuy";
-                          this.props.onSaveGiveawayParam(promoTypeParam);
-                          this.props.loadPromoGiveaway();
+                              <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                                this.setState({activeKey5: "3"});
+                                this.props.promoGiveAwaySuccess(0);
+                                let promoTypeParam = "promo_type=Multibuy";
+                                this.props.onSaveGiveawayParam(promoTypeParam);
+                                this.props.loadPromoGiveaway();
 
-                        }}><span className="tab_label">Multibuy</span></NavItem>
+                              }}><span className="tab_label">Multibuy</span></NavItem>
 
-                        <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
-                          this.setState({activeKey5: "4"});
-                          let promoTypeParam = "promo_type=Linksave";
-                          this.props.onSaveSalesParam(promoTypeParam);
-                          this.props.loadSales();
+                              <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+                                this.setState({activeKey5: "4"});
+                                this.props.promoGiveAwaySuccess(0);
+                                let promoTypeParam = "promo_type=Linksave";
+                                this.props.onSaveSalesParam(promoTypeParam);
+                                this.props.loadSales();
 
-                        }}><span className="tab_label">Linksave</span></NavItem>
+                              }}><span className="tab_label">Linksave</span></NavItem>
 
 
-
-                      </Nav>
-                      </div>
-                      <div className="row">
-                      {(() => {
-                        if (this.props.promotion.promo_giveaway_data) {
-                          console.log("Promo Giveaway line chart data", this.props.promotion.promo_giveaway_data.trend);
-                          return (
-                            <div>
-                              <div style={{float:"right"}}>
-                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
-                                  <MenuItem onClick={() => {
-                                    saveImage(document.getElementById('linechart2'+'_svg'),"promo_giveaway_linechart")
-                                  }
-                                  }>Save As JPEG</MenuItem>
-                                  <MenuItem onClick={() => {
-                                    saveDataAsCSV(this.props.promotion.promo_giveaway_data.trend,"promo_giveaway_linechart_data.csv")
-                                  }
-                                  }>Download CSV</MenuItem>
-                                </DropdownButton>
-                              </div>
-                              <MultilinePromo data={this.props.promotion.promo_giveaway_data.trend}
-                                              id="linechart2" label_ty="Promo Giveaway TY" label_ly="Promo Giveaway LY" xaxis_title="Tesco Week" yaxis_title="Promo Giveaway" no_pref='£' no_suffix=''/>
-                            </div>
-                          );
-                        }
-                        else {
-                          return (
+                            </Nav>
+                          </div>
+                          <div className="row">
+                            {(() => {
+                              if (this.props.promotion.promo_giveaway_data && this.props.promotion.promoGiveAwaySpinnerSuccess) {
+                                console.log("Promo Giveaway line chart data", this.props.promotion.promo_giveaway_data.trend);
+                                return (
+                                  <div>
+                                    <div style={{float: "right"}}>
+                                      <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                                        backgroundColor: "transparent",
+                                        borderColor: "transparent",
+                                        color: "#00539f"
+                                      }} id="dropButtonId">
+                                        <MenuItem onClick={() => {
+                                          saveImage(document.getElementById('linechart2' + '_svg'), "promo_giveaway_linechart")
+                                        }
+                                        }>Save As JPEG</MenuItem>
+                                        <MenuItem onClick={() => {
+                                          saveDataAsCSV(this.props.promotion.promo_giveaway_data.trend, "promo_giveaway_linechart_data.csv")
+                                        }
+                                        }>Download CSV</MenuItem>
+                                      </DropdownButton>
+                                    </div>
+                                    <MultilinePromo data={this.props.promotion.promo_giveaway_data.trend}
+                                                    id="linechart2" label_ty="Promo Giveaway TY"
+                                                    label_ly="Promo Giveaway LY" xaxis_title="Tesco Week"
+                                                    yaxis_title="Promo Giveaway" no_pref='£' no_suffix=''/>
+                                  </div>
+                                );
+                              }
+                              else {
+                                return (
 
                             <div className="text-center"><Spinner />Please Wait a Moment....!</div>
 
-                          );
-                        }
-                      })()}
-                      </div>
+                                );
+                              }
+                            })()}
+                          </div>
+                        </div>
+                      </panel>
                     </div>
-                  </panel>
-                </div>
 
                 {/*Row for Promo Products*/}
                 <div className="row">
@@ -783,121 +883,134 @@ export class Promotion extends React.PureComponent {
                   <panel>
                     <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 
-                      {(() => {
+                          {(() => {
 
-                        if (this.props.promotion.promo_prod_data) {
-                          console.log("pie chart promo_products data", this.props.promotion.promo_prod_data.pie_chart);
-                          return (
-                            <div>
-                              <div style={{float:"right", marginTop:"60px"}}>
-                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
-                                  <MenuItem onClick={() => {
-                                    saveImage(document.getElementById('piechart3'+'_svg'),"promo_products_piechart")
-                                  }
-                                  }>Save As JPEG</MenuItem>
-                                  <MenuItem onClick={() => {
-                                    saveDataAsCSV(this.props.promotion.promo_prod_data.pie_chart,"promo_products_piechart_data.csv")
-                                  }
-                                  }>Download CSV</MenuItem>
-                                </DropdownButton>
-                              </div>
-                              <PieChart data={this.props.promotion.promo_prod_data.pie_chart}
-                                        id="piechart3"/>
-                            </div>
-                          );
-                        }
-                        else {
-                          return (
+                            if (this.props.promotion.promo_prod_data && this.props.promotion.productsCountSplitSpinnerSuccess) {
+                              console.log("pie chart promo_products data", this.props.promotion.promo_prod_data.pie_chart);
+                              return (
+                                <div>
+                                  <div style={{float: "right", marginTop: "60px"}}>
+                                    <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                                      backgroundColor: "transparent",
+                                      borderColor: "transparent",
+                                      color: "#00539f"
+                                    }} id="dropButtonId">
+                                      <MenuItem onClick={() => {
+                                        saveImage(document.getElementById('piechart3' + '_svg'), "promo_products_piechart")
+                                      }
+                                      }>Save As JPEG</MenuItem>
+                                      <MenuItem onClick={() => {
+                                        saveDataAsCSV(this.props.promotion.promo_prod_data.pie_chart, "promo_products_piechart_data.csv")
+                                      }
+                                      }>Download CSV</MenuItem>
+                                    </DropdownButton>
+                                  </div>
+                                  <PieChart data={this.props.promotion.promo_prod_data.pie_chart}
+                                            id="piechart3"/>
+                                </div>
+                              );
+                            }
+                            else {
+                              return (
 
-                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+                                <div className="text-center"><Spinner />Please Wait a Moment....!</div>
 
-                          );
-                        }
-                      })()}
+                              );
+                            }
+                          })()}
 
+                        </div>
+                        <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                          {/*Nav for Promo products*/}
+                          <div className="row">
+                            <Nav bsStyle="tabs" activeKey={this.state.activeKey6} onSelect={this.handleSelect}
+                                 className="tabsCustom secondaryTabs" style={{margin: "0px"}}>
+                              <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+                                let promoTypeParam = "";
+                                this.setState({activeKey6: "1"});
+                                this.props.productsCountSplitSuccess(0);
+                                this.props.onSavePromoProdParam(promoTypeParam);
+                                this.props.loadPromoProd();
+                              }}><span className="tab_label">Total Product Count</span></NavItem>
+
+
+                              <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                                let promoTypeParam = "promo_type=Price Cut";
+                                this.setState({activeKey6: "2"});
+                                this.props.productsCountSplitSuccess(0);
+                                this.props.onSavePromoProdParam(promoTypeParam);
+                                this.props.loadPromoProd();
+                              }}><span className="tab_label">Price Cut</span></NavItem>
+
+                              <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                                this.setState({activeKey6: "3"});
+                                this.props.productsCountSplitSuccess(0);
+                                let promoTypeParam = "promo_type=Multibuy";
+                                this.props.onSavePromoProdParam(promoTypeParam);
+                                this.props.loadPromoProd();
+
+                              }}><span className="tab_label">Multibuy</span></NavItem>
+
+                              <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+                                this.setState({activeKey6: "4"});
+                                this.props.productsCountSplitSuccess(0);
+                                let promoTypeParam = "promo_type=Linksave";
+                                this.props.onSaveSalesParam(promoTypeParam);
+                                this.props.loadSales();
+
+                              }}><span className="tab_label">Linksave</span></NavItem>
+
+
+                              <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
+                                this.setState({activeKey6: "5"});
+                                this.props.productsCountSplitSuccess(0);
+                                let promoTypeParam = "promo_type=Non Promo";
+                                this.props.onSavePromoProdParam(promoTypeParam);
+                                this.props.loadPromoProd();
+                              }}><span className="tab_label">Non Promo</span></NavItem>
+                            </Nav>
+                          </div>
+                          <div className="row">
+                            {(() => {
+                              if (this.props.promotion.promo_prod_data && this.props.promotion.productsCountSplitSpinnerSuccess) {
+                                console.log("Promo Giveaway line chart data", this.props.promotion.promo_prod_data.trend);
+                                return (
+                                  <div>
+                                    <div style={{float: "right"}}>
+                                      <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                                        backgroundColor: "transparent",
+                                        borderColor: "transparent",
+                                        color: "#00539f"
+                                      }} id="dropButtonId">
+                                        <MenuItem onClick={() => {
+                                          saveImage(document.getElementById('linechart3' + '_svg'), "promo_products_trend_multilineChart")
+                                        }
+                                        }>Save As JPEG</MenuItem>
+                                        <MenuItem onClick={() => {
+                                          saveDataAsCSV(this.props.promotion.promo_prod_data.trend, "promo_products_trend_multilineChart_data.csv")
+                                        }
+                                        }>Download CSV</MenuItem>
+                                      </DropdownButton>
+                                    </div>
+                                    <MultilinePromo data={this.props.promotion.promo_prod_data.trend}
+                                                    id="linechart3" label_ty="Products on Promo TY"
+                                                    label_ly="Products on Promo LY" xaxis_title="Tesco Week"
+                                                    yaxis_title="Products on Promo" no_pref='' no_suffix=''/>
+                                  </div>
+                                );
+                              }
+                              else {
+                                return (
+
+                                  <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                                );
+                              }
+                            })()}
+                          </div>
+                        </div>
+                      </panel>
                     </div>
-                    <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                      {/*Nav for Promo products*/}
-                      <div className="row">
-                      <Nav bsStyle="tabs" activeKey={this.state.activeKey6} onSelect={this.handleSelect}
-                           className="tabsCustom secondaryTabs" style={{margin:"0px"}}>
-                        <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
-                          let promoTypeParam = "";
-                          this.setState({activeKey6: "1"});
-                          this.props.onSavePromoProdParam(promoTypeParam);
-                          this.props.loadPromoProd();
-                        }}><span className="tab_label">Total Product Count</span></NavItem>
-
-
-                        <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
-                          let promoTypeParam = "promo_type=Price Cut";
-                          this.setState({activeKey6: "2"});
-                          this.props.onSavePromoProdParam(promoTypeParam);
-                          this.props.loadPromoProd();
-                        }}><span className="tab_label">Price Cut</span></NavItem>
-
-                        <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
-                          this.setState({activeKey6: "3"});
-                          let promoTypeParam = "promo_type=Multibuy";
-                          this.props.onSavePromoProdParam(promoTypeParam);
-                          this.props.loadPromoProd();
-
-                        }}><span className="tab_label">Multibuy</span></NavItem>
-
-                        <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
-                          this.setState({activeKey6: "4"});
-                          let promoTypeParam = "promo_type=Linksave";
-                          this.props.onSaveSalesParam(promoTypeParam);
-                          this.props.loadSales();
-
-                        }}><span className="tab_label">Linksave</span></NavItem>
-
-
-
-
-                        <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
-                          this.setState({activeKey6: "5"});
-                          let promoTypeParam = "promo_type=Non Promo";
-                          this.props.onSavePromoProdParam(promoTypeParam);
-                          this.props.loadPromoProd();
-                        }}><span className="tab_label">Non Promo</span></NavItem>
-                      </Nav>
-                      </div>
-                      <div className="row">
-                      {(() => {
-                        if (this.props.promotion.promo_prod_data) {
-                          console.log("Promo Giveaway line chart data", this.props.promotion.promo_prod_data.trend);
-                          return (
-                            <div>
-                              <div style={{float:"right"}}>
-                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
-                                  <MenuItem onClick={() => {
-                                    saveImage(document.getElementById('linechart3'+'_svg'),"promo_products_trend_multilineChart")
-                                  }
-                                  }>Save As JPEG</MenuItem>
-                                  <MenuItem onClick={() => {
-                                    saveDataAsCSV(this.props.promotion.promo_prod_data.trend,"promo_products_trend_multilineChart_data.csv")
-                                  }
-                                  }>Download CSV</MenuItem>
-                                </DropdownButton>
-                              </div>
-                              <MultilinePromo data={this.props.promotion.promo_prod_data.trend}
-                                              id="linechart3" label_ty="Products on Promo TY" label_ly="Products on Promo LY"  xaxis_title="Tesco Week" yaxis_title="Products on Promo" no_pref='' no_suffix=''/>
-                            </div>
-                          );
-                        }
-                        else {
-                          return (
-
-                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
-
-                          );
-                        }
-                      })()}
-                      </div>
-                    </div>
-                  </panel>
-                </div>
 
                 {/*Row for products on participation*/}
                 <div className="row">
@@ -913,37 +1026,41 @@ export class Promotion extends React.PureComponent {
                   <panel>
                     <div className="col-xs-4">
 
-                      {(() => {
+                          {(() => {
 
-                        if (this.props.promotion.promo_part_data) {
-                          console.log("pie chart promo_products data", this.props.promotion.promo_part_data.pie_chart);
-                          return (
-                            <div>
-                              <div style={{float:"right", marginTop:"60px"}}>
-                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
-                                  <MenuItem onClick={() => {
-                                    saveImage(document.getElementById('piechart4'+'_svg'),"promo_participation_split_pieChart")
-                                  }
-                                  }>Save As JPEG</MenuItem>
-                                  <MenuItem onClick={() => {
-                                    saveDataAsCSV(this.props.promotion.promo_part_data.pie_chart,"promo_participation_split_pieChart_data.csv")
-                                  }
-                                  }>Download CSV</MenuItem>
-                                </DropdownButton>
-                              </div>
-                              <PieChart data={this.props.promotion.promo_part_data.pie_chart}
-                                        id="piechart4"/>
-                            </div>
-                          );
-                        }
-                        else {
-                          return (
+                            if (this.props.promotion.promo_part_data && this.props.promotion.promoparticipationSplitSpinnerSuccess) {
+                              console.log("pie chart promo_products data", this.props.promotion.promo_part_data.pie_chart);
+                              return (
+                                <div>
+                                  <div style={{float: "right", marginTop: "60px"}}>
+                                    <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                                      backgroundColor: "transparent",
+                                      borderColor: "transparent",
+                                      color: "#00539f"
+                                    }} id="dropButtonId">
+                                      <MenuItem onClick={() => {
+                                        saveImage(document.getElementById('piechart4' + '_svg'), "promo_participation_split_pieChart")
+                                      }
+                                      }>Save As JPEG</MenuItem>
+                                      <MenuItem onClick={() => {
+                                        saveDataAsCSV(this.props.promotion.promo_part_data.pie_chart, "promo_participation_split_pieChart_data.csv")
+                                      }
+                                      }>Download CSV</MenuItem>
+                                    </DropdownButton>
+                                  </div>
+                                  <PieChart data={this.props.promotion.promo_part_data.pie_chart}
+                                            id="piechart4"/>
+                                </div>
+                              );
+                            }
+                            else {
+                              return (
 
-                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+                                <div className="text-center"><Spinner />Please Wait a Moment....!</div>
 
-                          );
-                        }
-                      })()}
+                              );
+                            }
+                          })()}
 
                     </div>
                     <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
@@ -954,72 +1071,82 @@ export class Promotion extends React.PureComponent {
 
                         <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
-                          let promoTypeParam = "";
-                          this.setState({activeKey7: "1"});
-                          this.props.onSavePromoPartParam(promoTypeParam);
-                          this.props.loadPromoPart();
-                        }}><span className="tab_label">Total Promo Participation</span></NavItem>
+                                let promoTypeParam = "";
+                                this.setState({activeKey7: "1"});
+                                this.props.promoParticipationBySplitSuccess(0);
+                                this.props.onSavePromoPartParam(promoTypeParam);
+                                this.props.loadPromoPart();
+                              }}><span className="tab_label">Total Promo Participation</span></NavItem>
 
-                        <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                              <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
 
-                          let promoTypeParam = "promo_type=Price Cut";
-                          this.setState({activeKey7: "2"});
-                          this.props.onSavePromoPartParam(promoTypeParam);
-                          this.props.loadPromoPart();
-                        }}><span className="tab_label">Price Cut</span></NavItem>
+                                let promoTypeParam = "promo_type=Price Cut";
+                                this.setState({activeKey7: "2"});
+                                this.props.promoParticipationBySplitSuccess(0);
+                                this.props.onSavePromoPartParam(promoTypeParam);
+                                this.props.loadPromoPart();
+                              }}><span className="tab_label">Price Cut</span></NavItem>
 
-                        <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
-                          this.setState({activeKey7: "3"});
-                          let promoTypeParam = "promo_type=Multibuy";
-                          this.props.onSavePromoPartParam(promoTypeParam);
-                          this.props.loadPromoPart();
+                              <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                                this.setState({activeKey7: "3"});
+                                this.props.promoParticipationBySplitSuccess(0);
+                                let promoTypeParam = "promo_type=Multibuy";
+                                this.props.onSavePromoPartParam(promoTypeParam);
+                                this.props.loadPromoPart();
 
-                        }}><span className="tab_label">Multibuy</span></NavItem>
-                        <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
-                          this.setState({activeKey7: "4"});
-                          let promoTypeParam = "promo_type=Linksave";
-                          this.props.onSaveSalesParam(promoTypeParam);
-                          this.props.loadSales();
+                              }}><span className="tab_label">Multibuy</span></NavItem>
+                              <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+                                this.setState({activeKey7: "4"});
+                                this.props.promoParticipationBySplitSuccess(0);
+                                let promoTypeParam = "promo_type=Linksave";
+                                this.props.onSaveSalesParam(promoTypeParam);
+                                this.props.loadSales();
 
-                        }}><span className="tab_label">Linksave</span></NavItem>
+                              }}><span className="tab_label">Linksave</span></NavItem>
 
-                      </Nav>
-                      </div>
-                      <div className="row">
-                      {(() => {
-                        if (this.props.promotion.promo_part_data) {
-                          console.log("Promo Participation line chart data", this.props.promotion.promo_part_data.trend);
-                          return (
-                            <div>
-                              <div style={{float:"right"}}>
-                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
-                                  <MenuItem onClick={() => {
-                                    saveImage(document.getElementById('linechart4'+'_svg'),"promo_participation_split_multilineChart")
-                                  }
-                                  }>Save As JPEG</MenuItem>
-                                  <MenuItem onClick={() => {
-                                    saveDataAsCSV(this.props.promotion.promo_part_data.pie_chart,"promo_participation_split_multilineChart_data.csv")
-                                  }
-                                  }>Download CSV</MenuItem>
-                                </DropdownButton>
-                              </div>
-                              <MultilinePromo data={this.props.promotion.promo_part_data.trend}
-                                              id="linechart4" label_ty="Promo Participation TY" label_ly="Promo Participation LY" xaxis_title="Tesco Week" yaxis_title="Promo Participation" no_pref='' no_suffix='%'/>
-                            </div>
-                          );
-                        }
-                        else {
-                          return (
+                            </Nav>
+                          </div>
+                          <div className="row">
+                            {(() => {
+                              if (this.props.promotion.promo_part_data && this.props.promotion.promoparticipationSplitSpinnerSuccess) {
+                                console.log("Promo Participation line chart data", this.props.promotion.promo_part_data.trend);
+                                return (
+                                  <div>
+                                    <div style={{float: "right"}}>
+                                      <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                                        backgroundColor: "transparent",
+                                        borderColor: "transparent",
+                                        color: "#00539f"
+                                      }} id="dropButtonId">
+                                        <MenuItem onClick={() => {
+                                          saveImage(document.getElementById('linechart4' + '_svg'), "promo_participation_split_multilineChart")
+                                        }
+                                        }>Save As JPEG</MenuItem>
+                                        <MenuItem onClick={() => {
+                                          saveDataAsCSV(this.props.promotion.promo_part_data.pie_chart, "promo_participation_split_multilineChart_data.csv")
+                                        }
+                                        }>Download CSV</MenuItem>
+                                      </DropdownButton>
+                                    </div>
+                                    <MultilinePromo data={this.props.promotion.promo_part_data.trend}
+                                                    id="linechart4" label_ty="Promo Participation TY"
+                                                    label_ly="Promo Participation LY" xaxis_title="Tesco Week"
+                                                    yaxis_title="Promo Participation" no_pref='' no_suffix='%'/>
+                                  </div>
+                                );
+                              }
+                              else {
+                                return (
 
-                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+                                  <div className="text-center"><Spinner />Please Wait a Moment....!</div>
 
-                          );
-                        }
-                      })()}
-                      </div>
+                                );
+                              }
+                            })()}
+                          </div>
+                        </div>
+                      </panel>
                     </div>
-                  </panel>
-                </div>
 
 
               </panel>
@@ -1056,15 +1183,15 @@ export class Promotion extends React.PureComponent {
               }else {
                 return (
 
-                  <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+                          <div className="text-center"><Spinner />Please Wait a Moment....!</div>
 
-                );
-              }
+                        );
+                      }
 
-            })()}
-              </panel>
-            </div>
-          </div>
+                    })()}
+                  </panel>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1287,6 +1414,13 @@ function mapDispatchToProps(dispatch) {
     onSavePromoPartParam: (e) => dispatch(SavePromoPartParam(e)),
     onGetWeekFilter: (e) => dispatch(getWeekFilter(e)),
     onSaveWeekFilterParam: (e) => dispatch(WeekFilterParam(e)),
+
+    pieChartSuccess: (e) => dispatch(pieChartSuccess(e)),
+    promoGiveAwaySuccess: (e) => dispatch(promoGiveAwaySuccess(e)),
+    productsCountSplitSuccess: (e) => dispatch(productsCountSplitSuccess(e)),
+    promoParticipationBySplitSuccess: (e) => dispatch(promoParticipationBySplitSuccess(e)),
+    productsTableSplitSuccess: (e) => dispatch(productsTableSplitSuccess(e)),
+    kpiDataSuccess: (e) => dispatch(kpiDataSuccess(e)),
 
     dispatch,
   };
