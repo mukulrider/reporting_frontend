@@ -21,7 +21,7 @@ import {
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-const host_url = 'http://127.0.0.1:8000';
+const host_url = 'http://172.20.246.60:8001';
 // let host_url = "http://172.20.244.228:8000"
 
 
@@ -29,15 +29,15 @@ const host_url = 'http://127.0.0.1:8000';
 export function* generateSideFilter() {
   const urlName = yield select(selectProductPageDomain());
 
-  // let getCookie;
-  // getCookie = (name) => {
-  //   const value = `; ${document.cookie}`;
-  //   const parts = value.split(`; ${name}=`);
-  //   if (parts.length === 2) return parts.pop().split(';').shift();
-  // };
-  // const user_token = getCookie('token');
-  // const buyer = getCookie('buyer');
-  // const token = user_token.concat('___').concat(buyer)
+  let getCookie;
+  getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  };
+  const user_token = getCookie('token');
+  const buyer = getCookie('buyer');
+  const token = user_token.concat('___').concat(buyer)
 
   console.log('urlName for sideFilter', urlName);
   let urlParamsString = urlName.get('urlParamsString');
@@ -58,7 +58,13 @@ export function* generateSideFilter() {
     // todo: update url
 
     // const data = yield call(request, `http://172.20.244.141:8000/api/product_impact/filter_data/?${urlParamsString}`);
-    const filter_data = yield call(request, `${host_url}/api/reporting/filter_data_product/?${urlParamsString}`);
+    const filter_data = yield call(request,
+      `${host_url}/api/reporting/filter_data_product/?${urlParamsString}`,
+      {
+        headers: {
+          Authorization: token
+        }
+      });
     console.log('This is my fetched filter data', filter_data);
 
     yield put(generateSideFilterSuccess(filter_data));

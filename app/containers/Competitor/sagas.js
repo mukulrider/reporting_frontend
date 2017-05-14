@@ -22,9 +22,9 @@ import {
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-const host_url = 'http://10.1.244.154:8000';
-// const host_url = 'http://172.20.244.149:8000';
-// All sagas to be loaded
+// const host_url = 'http://10.1.244.154:8000';
+const host_url = 'http://172.20.246.60:8001';
+// Aldl sagas to be loaded
 
 // FOR COMPETITOR WATERFALL CHART
 export function* generateCompetitorWaterfallDataFetch() {
@@ -47,9 +47,9 @@ export function* generateCompetitorWaterfallDataFetch() {
   // const buyer = getCookie('buyer');
   // const token = user_token.concat('___').concat(buyer)
 
-  //
-  // //paramString = paramString + '&week=' + urlParams;
-  // paramString = paramString.replace('&', '');
+
+  //paramString = paramString + '&week=' + urlParams;
+  paramString = paramString.replace('&', '');
   const data = yield call(request,
     `${host_url}/api/reporting/competitor_price_index?${weekurlparam}&${filterurlparam}&${waterfallparam}&${weekselection}`,
     // {
@@ -217,25 +217,25 @@ export function* doCompetitorOutperformanceFetch() {
 // For generating filters
 export function* generateFilterFetch() {
   try {
-    // let getCookie;
-    // getCookie = (name) => {
-    //   const value = `; ${document.cookie}`;
-    //   const parts = value.split(`; ${name}=`);
-    //   if (parts.length === 2) return parts.pop().split(';').shift();
-    // };
-    // const user_token = getCookie('token');
-    // const buyer = getCookie('buyer');
-    // const token = user_token.concat('___').concat(buyer)
+    let getCookie;
+    getCookie = (name) => {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    };
+    const user_token = getCookie('token');
+    const buyer = getCookie('buyer');
+    const token = user_token.concat('___').concat(buyer)
 
     const urlName = yield select(selectCompetitorDomain());
     const urlParams = urlName.get('filter_selection');
     const weekurlparams = urlName.get('filter_week_selection');
     console.log(`${host_url}/api/reporting/competitor_filter_data?${urlParams}`,
-      // {
-      //   headers: {
-      //     Authorization: token,
-      //   },
-      // }
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
       );
 
     // if (urlParams==='')
@@ -243,20 +243,20 @@ export function* generateFilterFetch() {
     // }
 
     const data = yield call(request, `${host_url}/api/reporting/competitor_filter_data?${urlParams}`,
-      // {
-      //   headers: {
-      //     Authorization: token,
-      //   },
-      // }
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
       );
 
     console.log(`${host_url}/api/reporting/filter_data_week?${weekurlparams}`);
     const data2 = yield call(request, `${host_url}/api/reporting/filter_data_week?${weekurlparams}`,
-      // {
-      //   headers: {
-      //     Authorization: token,
-      //   },
-      // }
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
       );
     console.log('sagas generateFilterFetch data2', data2);
     // const data = yield call(request, `http://localhost:8090/wash/?format=json`);

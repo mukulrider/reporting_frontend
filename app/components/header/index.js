@@ -177,43 +177,19 @@ class Header extends Component {
                 )
               }
             </div>
-              {/*<div className="ui-component__header__content--right">*/}
-                {/*<RoundedIconButton icon="menu" onClick={this.handleClick} label="Menu" />*/}
-              {/*</div>*/}
+              <div className="ui-component__header__content--right">
+                <RoundedIconButton icon="menu" onClick={this.handleClick} label="Menu" />
+              </div>
               <div className="col-md-8 col-sm-8 col-xs-8">
                 <Nav bsStyle="tabs" className="tabsNavPanel" style={{marginWidth:"5%"}}>
-                  <NavItem
-                    className="tabsNavPanelList" onClick={() => {
-                      window.location = 'http://10.1.244.200:3000/sales/executive';
-                    }}
-                  >Executive View</NavItem>
-                  <NavItem
-                    className="tabsNavPanelList" onClick={() => {
-                      window.location = 'http://10.1.244.200:3000/sales/promo/';
-                    }}
-                  >Competitor View</NavItem>
-                  <NavItem
-                    className="tabsNavPanelList" onClick={() => {
-                      window.location = 'http://10.1.244.200:3000/sales/competitor/';
-                    }}
-                  >Promotions View</NavItem>
-                  <NavItem
-                    className="tabsNavPanelList" onClick={() => {
-                      window.location = 'http://10.1.244.200:3000/sales/competitor/';
-                    }}
-                  >Supplier View</NavItem>
-                  <NavItem
-                    className="tabsNavPanelList" onClick={() => {
-                      window.location = 'http://10.1.244.200:3000/sales/product/';
-                    }}
-                  >Product View</NavItem>
-                  <NavItem
-                    className="tabsNavPanelList" onClick={() => {
-                    window.location = 'http://10.1.244.200:3000/sales/dailysales/';
-                  }}
-                  >Daily Sales View</NavItem>
+                  <NavItem className="tabsNavPanelList" href="/sales/executive/">Executive View</NavItem>
+                  <NavItem className="tabsNavPanelList" href="/sales/competitor/">Competitor View</NavItem>
+                  <NavItem className="tabsNavPanelList" href="/sales/promo/">Promotions View</NavItem>
+                  <NavItem className="tabsNavPanelList" href="/sales/supplier/">Supplier View</NavItem>
+                  <NavItem className="tabsNavPanelList" href="/sales/product">Product View</NavItem>
+                  <NavItem className="tabsNavPanelList" href="/sales/dailysales/">Daily Sales View</NavItem>
                 </Nav>
-</div>
+              </div>
               <div className="col-md-2">
                 {(() => {
                   const getCookie = (name) => {
@@ -225,22 +201,22 @@ class Header extends Component {
                   };
                   const token = getCookie('token');
 
-                  return (true ?
-                    <div>
-                      <br/>
+                  return token ?
+                    <div >
+                      <br />
                       <Button
                         buttonType={'primary'}
                         style={{ minWidth: '175px',marginTop: '6px'}}
                         onClick={() => {
-                          console.log('loggingOut')
-                          document.cookie = 'token' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;Path=/;';
-                          window.location = 'http://10.1.244.200:3000/login/';
+                          const hostName = '172.20.246.60';
+                          const hostPort = '3000';
+                          document.cookie = 'token'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
+                          window.location = `http://${hostName}:${hostPort}/login/`;
                         }}
-                      >Logout</Button></div> : '')
+                      >Logout</Button></div> : '';
                 })()};
               </div>
             </div>
-
           </Grid>
         </div>
         {this.renderMobileMenu()}
