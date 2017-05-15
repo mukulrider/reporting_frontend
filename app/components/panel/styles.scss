@@ -1,11 +1,12 @@
 .ui-component__panel {
-  margin-bottom: 40px;
+  margin-bottom: 10px;
   margin-top: 24px;
+
 
   @media screen and (min-width: $bp-mobile) {
     padding: 10px 10px 10px 10px;
     //padding: 0px 0 0px 0;
-    border: 1px solid $form-panel-grey;
+    border: 1px solid #ccc !important;
     background-color: $white;
   }
 

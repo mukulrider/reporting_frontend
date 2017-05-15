@@ -77,13 +77,28 @@ import imgSunshine from './../../assets/images/sun.png';
 import imgRainfall from './../../assets/images/rain.png';
 import imgTemperature from './../../assets/images/thermometer.png';
 
+function glyphiconFormatter(cell){
+  console.log("Cell:",cell);
+  if (cell > 0) {
+    let classType = "glyphicon glyphicon-triangle-top glyphiconPositive";
+    return classType;
+  }
+  else if (cell < 0) {
+    let classType ="glyphicon glyphicon-triangle-bottom glyphiconNegative";
+    return classType;
+  } else {
+    let classType = "glyphicon glyphicon-minus-sign glyphiconNeutral";
+    return classType;
+  }
+
+}
 
 function triangleColumnFormatter(cell, row) {
   if (cell == 0) {
-    return '<i class="glyphicon glyphicon-chevron-up glyphiconPositive"></i>&nbsp;'+ cell+'%';
+    return '<i class="glyphicon glyphicon-triangle-top glyphiconPositive"></i>&nbsp;'+ cell+'%';
   }
   else if (cell < 0) {
-    return '<i class="glyphicon glyphicon-chevron-down glyphiconNegative"></i>&nbsp;'+ cell+'%';
+    return '<i class="glyphicon glyphicon-triangle-bottom glyphiconNegative"></i>&nbsp;'+ cell+'%';
   } else {
     return '<i class="glyphicon glyphicon-minus-sign glyphiconNeutral"></i>&nbsp;'+ cell+'%';
   }
@@ -810,388 +825,152 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       <div className="headerBox">
                       <h2 className="pageModuleMainTitle">Performance by KPI</h2>
                       </div>
-
                       {(() =>{
                         if(this.props.Executive.overviewKPISpinner&&this.props.Executive.overview_kpi_data){
                           return(
-                            <div className="row mainBox" style={{textAlign: 'center',backgroundColor: "white",margin: "0%",borderLeft: "1px solid #e5e8ea",borderRight: "1px solid #e5e8ea",borderBottom: "1px solid #e5e8ea"}}>
-                              {/* Box for value */}
-                              <div className="col-md-2 col-xs-12 col-lg-2" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
-                                <Panel>
-                                  <h3 className="pageModuleSubTitle"> Value </h3>
-                                  <h3>{
-                                    this.props.Executive.overview_kpi_data.kpi.value.total
+                      <div>
+                        <div className="row mainBox" style={{textAlign: 'center'}}>
+                          {/* Box for value */}
+                          <div className="col-md-3 col-xs-3" style={{backgroundColor: "#fafafa"}}>
+                            <Panel>
+                              <h3 className="pageModuleSubTitle"> Value </h3>
+                              <h3 style={{padding:"0px",margin:"0px"}}>
+                                {this.props.Executive.overview_kpi_data.kpi.value.total}
+                              </h3>
 
-                                  }</h3>
-
-
-                                  <div className="row">
-                                    <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
-
-                                      <h3></h3>
-                                    </div>
-
+                              <div className="row">
+                                  <div className="col-md-6 col-xs-12 kpiSmall">
+                                    <h4>
+                                      <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.value.var_wow)}></span>
+                                        {(this.props.Executive.overview_kpi_data.kpi.value.var_wow)+'%'}
+                                    </h4>
+                                    <h5 className="kpiSubTitle"><b>WoW</b></h5>
                                   </div>
-
-                                  <div className="row">
-                                    <div className="panel-body">
-                                      <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
-
-
-                                        <h3>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.overview_kpi_data.kpi.value.var_wow > 0)
-                              {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                              }
-                              else if (this.props.Executive.overview_kpi_data.kpi.value.var_wow < 0)
-                              {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>&nbsp;
-
-                        </span>
-
-                                          {this.props.Executive.overview_kpi_data.kpi.value.var_wow}%
-                                        </h3>
-                                        <h4 className="kpiSubTitle">WoW</h4>
-
-                                      </div>
-                                      <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
-
-                                        <h3>
-                        <span
-                          className={(() => {
-                            if (this.props.Executive.overview_kpi_data.kpi.value.var_yoy > 0)
-                            {
-                              return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                            }
-                            else if (this.props.Executive.overview_kpi_data.kpi.value.var_yoy < 0)
-                            {
-                              return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                            } else {
-                              return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                            } })()}>&nbsp;
-
-                      </span>
-                                          {this.props.Executive.overview_kpi_data.kpi.value.var_yoy}%
-                                        </h3>
-                                        <h4 className="kpiSubTitle">YoY</h4>
-
-                                      </div>
-
-                                    </div>
+                                  <div className="col-md-6 col-xs-12 kpiSmall">
+                                    <h4>
+                                      <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.value.var_yoy)}></span>
+                                        {(this.props.Executive.overview_kpi_data.kpi.value.var_yoy)+'%'}
+                                    </h4>
+                                    <h5 className="kpiSubTitle"><b>YOY</b></h5>
                                   </div>
-                                </Panel>
                               </div>
-                              {/* Box for volume */}
-                              <div className="col-md-2 col-xs-12 col-lg-2" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
-                                <Panel>
-                                  <h3 className="pageModuleSubTitle"> Volume       </h3>
-                                  <h3>
-                                    {
-                                      this.props.Executive.overview_kpi_data.kpi.volume.total
-
-                                    }
-
-                                  </h3>
-                                  <div className="row">
-                                    <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
-
-                                      <h3></h3>
-
-                                    </div>
-
+                            </Panel>
+                          </div>
+                          {/* Box for volume */}
+                          <div className="col-md-3 col-xs-3" style={{backgroundColor: "#fafafa"}}>
+                            <Panel>
+                              <h3 className="pageModuleSubTitle"> Volume</h3>
+                              <h3 style={{padding:"0px",margin:"0px"}}>
+                                {this.props.Executive.overview_kpi_data.kpi.volume.total}
+                              </h3>
+                              <div className="row">
+                                  <div className="col-md-6 col-xs-12 kpiSmall">
+                                    <h4>
+                                      <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.volume.var_wow)}></span>
+                                      {(this.props.Executive.overview_kpi_data.kpi.volume.var_wow)+'%'}
+                                    </h4>
+                                    <h5 className="kpiSubTitle"><b>WoW</b></h5>
                                   </div>
-                                  <div className="row">
-                                    <div className="panel-body">
-                                      <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
-
-
-                                        <h3>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.overview_kpi_data.kpi.volume.var_wow > 0)
-                              {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                              }
-                              else if (this.props.Executive.overview_kpi_data.kpi.volume.var_wow < 0)
-                              {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>&nbsp;
-
-                        </span>
-
-                                          {this.props.Executive.overview_kpi_data.kpi.volume.var_wow}%
-                                        </h3>
-                                        <h4 className="kpiSubTitle">WoW</h4>
-
-                                      </div>
-                                      <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
-
-                                        <h3>
-                        <span
-                          className={(() => {
-                            if (this.props.Executive.overview_kpi_data.kpi.volume.var_yoy > 0)
-                            {
-                              return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                            }
-                            else if (this.props.Executive.overview_kpi_data.kpi.volume.var_yoy < 0)
-                            {
-                              return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                            } else {
-                              return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                            } })()}>&nbsp;
-
-                      </span>
-                                          {this.props.Executive.overview_kpi_data.kpi.volume.var_yoy}%
-                                        </h3>
-                                        <h4 className="kpiSubTitle">YoY</h4>
-
-                                      </div>
-
-                                    </div>
+                                  <div className="col-md-6 col-xs-12 kpiSmall">
+                                    <h4>
+                                      <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.volume.var_yoy)}></span>
+                                      {(this.props.Executive.overview_kpi_data.kpi.volume.var_yoy)+'%'}
+                                    </h4>
+                                    <h5 className="kpiSubTitle"><b>YOY</b></h5>
                                   </div>
-                                </Panel>
                               </div>
-                              {/* Box for cogs */}
-                              <div className="col-md-2 col-xs-12 col-lg-2" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
-                                <Panel>
-                                  <h3 className="pageModuleSubTitle"> COGS  </h3>
-                                  <h3>
-                                    {
-                                      this.props.Executive.overview_kpi_data.kpi.cogs.total
-
-                                    }
-
-                                  </h3>
-                                  <div className="row">
-                                    <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
-
-                                      <h3></h3>
-                                    </div>
-
+                            </Panel>
+                          </div>
+                          {/* Box for cogs */}
+                          <div className="col-md-3 col-xs-3" style={{backgroundColor: "#fafafa"}}>
+                            <Panel>
+                              <h3 className="pageModuleSubTitle"> COGS  </h3>
+                              <h3 style={{padding:"0px",margin:"0px"}}>
+                                {this.props.Executive.overview_kpi_data.kpi.cogs.total}
+                              </h3>
+                              <div className="row">
+                                  <div className="col-md-6 col-xs-12 kpiSmall">
+                                    <h4>
+                                      <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.cogs.var_wow)}></span>
+                                      {(this.props.Executive.overview_kpi_data.kpi.cogs.var_wow)+'%'}
+                                    </h4>
+                                    <h5 className="kpiSubTitle"><b>WoW</b></h5>
                                   </div>
-                                  <div className="row">
-                                    <div className="panel-body">
-                                      <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
-
-
-                                        <h3>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.overview_kpi_data.kpi.cogs.var_wow > 0)
-                              {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                              }
-                              else if (this.props.Executive.overview_kpi_data.kpi.cogs.var_wow < 0)
-                              {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>&nbsp;
-
-                        </span>
-
-                                          {this.props.Executive.overview_kpi_data.kpi.cogs.var_wow}%
-                                        </h3>
-                                        <h4 className="kpiSubTitle">WoW</h4>
-
-                                      </div>
-                                      <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
-
-                                        <h3>
-                        <span
-                          className={(() => {
-                            if (this.props.Executive.overview_kpi_data.kpi.cogs.var_yoy > 0)
-                            {
-                              return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                            }
-                            else if (this.props.Executive.overview_kpi_data.kpi.cogs.var_yoy < 0)
-                            {
-                              return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                            } else {
-                              return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                            } })()}>&nbsp;
-
-                      </span>
-                                          {this.props.Executive.overview_kpi_data.kpi.cogs.var_yoy}%
-                                        </h3>
-                                        <h4 className="kpiSubTitle">YoY</h4>
-
-                                      </div>
-
-                                    </div>
+                                  <div className="col-md-6 col-xs-12 kpiSmall">
+                                    <h4>
+                                      <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.cogs.var_yoy)}></span>
+                                      {(this.props.Executive.overview_kpi_data.kpi.cogs.var_yoy)+'%'}
+                                    </h4>
+                                    <h5 className="kpiSubTitle"><b>YOY</b></h5>
                                   </div>
-                                </Panel>
                               </div>
-                              {/* Box for cgm */}
-                              <div className="col-md-2 col-xs-12 col-lg-2" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
-                                <Panel>
-                                  <h3 className="pageModuleSubTitle"> Profit       </h3>
-                                  <h3>
-                                    {
-                                      this.props.Executive.overview_kpi_data.kpi.cgm.total
+                            </Panel>
+                          </div>
+                          {/* Box for cgm */}
+                          <div className="col-md-3" style={{backgroundColor: "#fafafa"}}>
+                            <Panel style={{border:"1px solid #ccc"}}>
+                              <h3 className="pageModuleSubTitle"> Profit</h3>
+                              <h3 style={{padding:"0px",margin:"0px"}}>
+                                {this.props.Executive.overview_kpi_data.kpi.cgm.total}
+                              </h3>
 
-                                    }
-
-                                  </h3>
-                                  <div className="row">
-                                    <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
-
-                                      <h3></h3>
-                                    </div>
-
+                              <div className="row" >
+                                  <div className="col-md-6 col-xs-12 kpiSmall">
+                                    <h4>
+                                      <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.cgm.var_wow)}></span>
+                                      {(this.props.Executive.overview_kpi_data.kpi.cgm.var_wow)+'%'}
+                                    </h4>
+                                    <h5 className="kpiSubTitle"><b>WoW</b></h5>
                                   </div>
-                                  <div className="row">
-                                    <div className="panel-body">
-                                      <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
-
-
-                                        <h3>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.overview_kpi_data.kpi.cgm.var_wow > 0)
-                              {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                              }
-                              else if (this.props.Executive.overview_kpi_data.kpi.cgm.var_wow < 0)
-                              {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>&nbsp;
-
-                        </span>
-
-                                          {this.props.Executive.overview_kpi_data.kpi.cgm.var_wow}%
-                                        </h3>
-                                        <h4 className="kpiSubTitle">WoW</h4>
-
-                                      </div>
-                                      <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
-
-                                        <h3>
-                        <span
-                          className={(() => {
-                            if (this.props.Executive.overview_kpi_data.kpi.cgm.var_yoy > 0)
-                            {
-                              return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                            }
-                            else if (this.props.Executive.overview_kpi_data.kpi.cgm.var_yoy < 0)
-                            {
-                              return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                            } else {
-                              return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                            } })()}>&nbsp;
-
-                      </span>
-                                          {this.props.Executive.overview_kpi_data.kpi.cgm.var_yoy}%
-                                        </h3>
-                                        <h4 className="kpiSubTitle">YoY</h4>
-
-                                      </div>
-
-                                    </div>
+                                  <div className="col-md-6 col-xs-12 kpiSmall">
+                                    <h4>
+                                      <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.cgm.var_yoy)}></span>
+                                      {(this.props.Executive.overview_kpi_data.kpi.cgm.var_yoy)+'%'}
+                                    </h4>
+                                    <h5 className="kpiSubTitle"><b>YOY</b></h5>
                                   </div>
-                                </Panel>
                               </div>
-                              {/* Box for Price */}
-                              <div className="col-md-2 col-xs-12 col-lg-2" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
-                                <Panel>
-                                  <h3 className="pageModuleSubTitle"> Price
+                            </Panel>
+                          </div>
 
-                                  </h3>
-                                  <div className="row" style={{ marginTop: "80px"}}>
-                                    <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
-
-                                      <h3></h3>
-                                    </div>
-
-                                  </div>
-                                  <div className="row">
-                                    <div className="panel-body">
-                                      <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
-
-
-                                        <h3>
-
-
-                                          £ {this.props.Executive.overview_kpi_data.price.ACP}
-                                        </h3>
-                                        <h4 className="kpiSubTitle">ACP</h4>
-
-                                      </div>
-                                      <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
-
-                                        <h3>
-
-                                          £ {this.props.Executive.overview_kpi_data.price.ASP}
-                                        </h3>
-                                        <h4 className="kpiSubTitle">ASP</h4>
-
-                                      </div>
-
-                                    </div>
-                                  </div>
-                                </Panel>
+                        </div>
+                        <div className="row mainBox" style={{textAlign: 'center',backgroundColor: "#fafafa"}}>
+                          {/* Box for value */}
+                          <div className="col-md-6 col-xs-6" style={{backgroundColor: "#eee #eee #ddd"}}>
+                            <Panel>
+                              <h3 className="col-md-6 col-xs-6 pageModuleSubTitle"   style = {{marginBottom:"0px"}}> Price </h3>
+                                <div className="row">
+                                  <h4 className="col-xs-6 kpiSubTitle"><b>ACP</b></h4>
+                                  <h4 className="col-xs-6">£ {this.props.Executive.overview_kpi_data.price.ACP}</h4>
+                                </div>
+                                <div className="row">
+                                  <h4 className="col-xs-6 kpiSubTitle"><b>ASP</b></h4>
+                                  <h4 className="col-xs-6">£ {this.props.Executive.overview_kpi_data.price.ASP}</h4>
+                                </div>
+                            </Panel>
+                          </div>
+                          <div className="col-md-6 col-xs-6" style={{backgroundColor: "#eee #eee #ddd"}}>
+                            <Panel>
+                              <h3 className="col-md-6 col-xs-6 pageModuleSubTitle"   style = {{marginBottom:"0px"}}> Market Share </h3>
+                              <div className="row">
+                                <h4 className="col-xs-6 kpiSubTitle"><b>Value Share</b></h4>
+                                <h4 className="col-xs-6">{this.props.Executive.overview_kpi_data.market.share}%</h4>
                               </div>
-                              {/* Box for Market Share */}
-                              <div className="col-md-2 col-xs-12 col-lg-2" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
-                                <Panel>
-                                  <h3 className="pageModuleSubTitle"> Market Share
-
-                                  </h3>
-                                  <div className="row" style={{ marginTop: "80px"}}>
-                                    <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
-
-                                      <h3></h3>
-                                    </div>
-
-                                  </div>
-                                  <div className="row">
-                                    <div className="panel-body">
-                                      <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
-
-
-                                        <h3>
-
-
-                                          {this.props.Executive.overview_kpi_data.market.share}%
-                                        </h3>
-                                        <h4 className="kpiSubTitle">Value Share</h4>
-
-                                      </div>
-                                      <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
-
-                                        <h3>
-
-                                          {this.props.Executive.overview_kpi_data.market.opportunity}
-                                        </h3>
-                                        <h4 className="kpiSubTitle">Opportunity</h4>
-
-                                      </div>
-
-                                    </div>
-                                  </div>
-                                </Panel>
+                              <div className="row">
+                                <h4 className="col-xs-6 kpiSubTitle"><b>Opportunity</b></h4>
+                                <h4 className="col-xs-6">{this.props.Executive.overview_kpi_data.market.opportunity}</h4>
                               </div>
-
-                            </div>
-                          )
+                            </Panel>
+                          </div>
+                        </div>
+                      </div>
+                        )
                         }
                         else{
                           return(<div className="text-center"><Spinner />Please Wait a Moment....!</div>)
                         }
                         }
-                      )()}
-
-
-
+                        )()}
 
 
                       {/*Row for sales forecasting and roles and intent*/}
@@ -1481,7 +1260,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 {
                                   return(
                                     <div>
-                                      <div className="col-md-4 col-sm-12 col-xs-12 col-lg-12">
+                                      <div className="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                                         <Panel style={{marginLeft: "15px"}}>
                                           <div>
                                             {(() => {
@@ -1521,11 +1300,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             className={(() => {
                                               if (this.props.Executive.overview_drivers_internal_data.kpi.transaction_var)
                                               {
-                                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
                                               }
                                               else if (this.props.Executive.overview_drivers_internal_data.kpi.transaction_var)
                                               {
-                                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                                               } else {
                                                 return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                                               } })()}>&nbsp;
@@ -1548,11 +1327,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             className={(() => {
                                               if (this.props.Executive.overview_drivers_internal_data.kpi.item_per_basket_var)
                                               {
-                                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
                                               }
                                               else if (this.props.Executive.overview_drivers_internal_data.kpi.item_per_basket_var)
                                               {
-                                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                                               } else {
                                                 return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                                               } })()}>&nbsp;
@@ -1574,11 +1353,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             className={(() => {
                                               if (this.props.Executive.overview_drivers_internal_data.kpi.item_price_var)
                                               {
-                                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
                                               }
                                               else if (this.props.Executive.overview_drivers_internal_data.kpi.item_price_var)
                                               {
-                                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                                               } else {
                                                 return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                                               } })()}>&nbsp;
@@ -1611,7 +1390,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                           </div>
                                         </Panel>
                                       </div>
-                                      <div className="col-md-8 col-sm-12 col-xs-12">
+                                      <div className="col-md-8 col-sm-8 col-xs-12  col-lg-8">
                                         <Panel>
                                           <h4 className="pageModuleSubTitle"> Promotion Contribution to growth
                                             <div style={{float: "right"}}>
@@ -1691,11 +1470,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           className={(() => {
                             if (this.props.Executive.overview_drivers_external_data.sunshine.wow > 0)
                             {
-                              return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                              return "glyphicon glyphicon-triangle-top glyphiconPositive"
                             }
                             else if (this.props.Executive.overview_drivers_external_data.sunshine.wow  < 0)
                             {
-                              return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                              return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                             } else {
                               return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                             } })()}>&nbsp;
@@ -1714,11 +1493,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           className={(() => {
                             if (this.props.Executive.overview_drivers_external_data.sunshine.yoy > 0)
                             {
-                              return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                              return "glyphicon glyphicon-triangle-top glyphiconPositive"
                             }
                             else if (this.props.Executive.overview_drivers_external_data.sunshine.yoy< 0)
                             {
-                              return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                              return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                             } else {
                               return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                             } })()}>&nbsp;
@@ -1758,11 +1537,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           className={(() => {
                             if (this.props.Executive.overview_drivers_external_data.rainfall.wow > 0)
                             {
-                              return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                              return "glyphicon glyphicon-triangle-top glyphiconPositive"
                             }
                             else if (this.props.Executive.overview_drivers_external_data.rainfall.wow  < 0)
                             {
-                              return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                              return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                             } else {
                               return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                             } })()}>&nbsp;
@@ -1781,11 +1560,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           className={(() => {
                             if (this.props.Executive.overview_drivers_external_data.rainfall.yoy > 0)
                             {
-                              return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                              return "glyphicon glyphicon-triangle-top glyphiconPositive"
                             }
                             else if (this.props.Executive.overview_drivers_external_data.rainfall.yoy< 0)
                             {
-                              return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                              return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                             } else {
                               return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                             } })()}>&nbsp;
@@ -1825,11 +1604,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           className={(() => {
                             if (this.props.Executive.overview_drivers_external_data.temperature.wow > 0)
                             {
-                              return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                              return "glyphicon glyphicon-triangle-top glyphiconPositive"
                             }
                             else if (this.props.Executive.overview_drivers_external_data.temperature.wow  < 0)
                             {
-                              return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                              return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                             } else {
                               return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                             } })()}>&nbsp;
@@ -1848,11 +1627,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           className={(() => {
                             if (this.props.Executive.overview_drivers_external_data.temperature.yoy > 0)
                             {
-                              return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                              return "glyphicon glyphicon-triangle-top glyphiconPositive"
                             }
                             else if (this.props.Executive.overview_drivers_external_data.temperature.yoy< 0)
                             {
-                              return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                              return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                             } else {
                               return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                             } })()}>&nbsp;
@@ -1966,11 +1745,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             className={(() => {
                               if (this.props.Executive.price_kpi_data.ASPInfl_var_yoy> 0)
                               {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
                               }
                               else if (this.props.Executive.price_kpi_data.ASPInfl_var_yoy < 0)
                               {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                               } else {
                                 return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                               } })()}>&nbsp;
@@ -1988,11 +1767,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             className={(() => {
                               if (this.props.Executive.price_kpi_data.ASPInfl_var_lfl> 0)
                               {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
                               }
                               else if (this.props.Executive.price_kpi_data.ASPInfl_var_lfl < 0)
                               {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                               } else {
                                 return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                               } })()}>&nbsp;
@@ -2010,11 +1789,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             className={(() => {
                               if (this.props.Executive.price_kpi_data.ASPInfl_var_wow> 0)
                               {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
                               }
                               else if (this.props.Executive.price_kpi_data.ASPInfl_var_wow < 0)
                               {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                               } else {
                                 return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                               } })()}>&nbsp;
@@ -2054,11 +1833,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             className={(() => {
                               if (this.props.Executive.price_kpi_data.ACPInfl_var_yoy> 0)
                               {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
                               }
                               else if (this.props.Executive.price_kpi_data.ACPInfl_var_yoy < 0)
                               {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                               } else {
                                 return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                               } })()}>&nbsp;
@@ -2076,11 +1855,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             className={(() => {
                               if (this.props.Executive.price_kpi_data.ACPInfl_var_lfl> 0)
                               {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
                               }
                               else if (this.props.Executive.price_kpi_data.ACPInfl_var_lfl < 0)
                               {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                               } else {
                                 return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                               } })()}>&nbsp;
@@ -2098,11 +1877,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             className={(() => {
                               if (this.props.Executive.price_kpi_data.ACPInfl_var_wow> 0)
                               {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
                               }
                               else if (this.props.Executive.price_kpi_data.ACPInfl_var_wow < 0)
                               {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                               } else {
                                 return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                               } })()}>&nbsp;
@@ -2141,11 +1920,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                       className={(() => {
                                         if (this.props.Executive.price_kpi_data.price_index_var_wow > 0)
                                         {
-                                          return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                          return "glyphicon glyphicon-triangle-top glyphiconPositive"
                                         }
                                         else if (this.props.Executive.price_kpi_data.price_index_var_wow < 0)
                                         {
-                                          return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                          return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                                         } else {
                                           return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                                         } })()}>&nbsp;
@@ -2227,11 +2006,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             className={(() => {
                               if (this.props.Executive.kpi_boxes_data.total_value.wow > 0)
                               {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
                               }
                               else if (this.props.Executive.kpi_boxes_data.total_value.wow < 0)
                               {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                               } else {
                                 return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                               } })()}>&nbsp;
@@ -2249,11 +2028,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             className={(() => {
                               if (this.props.Executive.kpi_boxes_data.total_value.yoy > 0)
                               {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
                               }
                               else if (this.props.Executive.kpi_boxes_data.total_value.yoy < 0)
                               {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                               } else {
                                 return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                               } })()}>&nbsp;
@@ -2271,11 +2050,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             className={(() => {
                               if (this.props.Executive.kpi_boxes_data.total_value.lfl > 0)
                               {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
                               }
                               else if (this.props.Executive.kpi_boxes_data.total_value.lfl < 0)
                               {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                               } else {
                                 return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                               } })()}>&nbsp;
@@ -2324,11 +2103,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             className={(() => {
                               if (this.props.Executive.kpi_boxes_data.growth.wow > 0)
                               {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
                               }
                               else if (this.props.Executive.kpi_boxes_data.growth.wow < 0)
                               {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                               } else {
                                 return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                               } })()}>&nbsp;
@@ -2346,11 +2125,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             className={(() => {
                               if (this.props.Executive.kpi_boxes_data.growth.yoy > 0)
                               {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
                               }
                               else if (this.props.Executive.kpi_boxes_data.growth.yoy < 0)
                               {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                               } else {
                                 return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                               } })()}>&nbsp;
@@ -2368,11 +2147,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             className={(() => {
                               if (this.props.Executive.kpi_boxes_data.growth.lfl > 0)
                               {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
                               }
                               else if (this.props.Executive.kpi_boxes_data.growth.lfl < 0)
                               {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                               } else {
                                 return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                               } })()}>&nbsp;
@@ -2394,7 +2173,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                     if (this.props.Executive.kpi_param=='kpi_type=Value'||this.props.Executive.kpi_param=='kpi_type=Volume')
                                     {
                                       return (
-                                        <div className='col-md-4 col-xs-12 col-sm-12 col-lg-12' style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
+                                        <div className='col-md-4 col-xs-12 col-sm-4 col-lg-4' style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
                                           <Panel>
                                             <h3 className="pageModuleSubTitle"> Market </h3>
                                             <div style={{paddingLeft: '5%'}}>
@@ -2409,7 +2188,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                               </div>
                                               <div className="row">
                                                 <div className="panel-body">
-                                                  <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
+                                                  <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall">
 
 
                                                     <h3>
@@ -2419,7 +2198,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                     <h4 className="kpiSubTitle">Market Share</h4>
 
                                                   </div>
-                                                  <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
+                                                  <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall">
 
                                                     <h3>
 
@@ -2428,28 +2207,33 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                     <h4 className="kpiSubTitle">Opportunity</h4>
 
                                                   </div>
-                                                  <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
 
-                                                    <h3>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.kpi_boxes_data.market.outperformance > 0)
-                              {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                              }
-                              else if (this.props.Executive.kpi_boxes_data.market.outperformance < 0)
-                              {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>&nbsp;
 
-                        </span>
-                                                      {this.props.Executive.kpi_boxes_data.market.outperformance}%
-                                                    </h3>
-                                                    <h4 className="kpiSubTitle">Market Outperf.</h4>
+                                                  {/*Market outperformance*/}
+                                                  {/*<div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">*/}
 
-                                                  </div>
+                                                    {/*<h3>*/}
+                          {/*<span*/}
+                            {/*className={(() => {*/}
+                              {/*if (this.props.Executive.kpi_boxes_data.market.outperformance > 0)*/}
+                              {/*{*/}
+                                {/*return "glyphicon glyphicon-triangle-top glyphiconPositive"*/}
+                              {/*}*/}
+                              {/*else if (this.props.Executive.kpi_boxes_data.market.outperformance < 0)*/}
+                              {/*{*/}
+                                {/*return "glyphicon glyphicon-triangle-bottom glyphiconNegative"*/}
+                              {/*} else {*/}
+                                {/*return "glyphicon glyphicon-minus-sign glyphiconNeutral"*/}
+                              {/*} })()}>&nbsp;*/}
+
+                        {/*</span>*/}
+                                                      {/*{this.props.Executive.kpi_boxes_data.market.outperformance}%*/}
+                                                    {/*</h3>*/}
+                                                    {/*<h4 className="kpiSubTitle">Market Outperf.</h4>*/}
+
+                                                  {/*</div>*/}
+                                                  {/**/}
+
                                                 </div>
                                               </div>
                                             </div>
@@ -2603,11 +2387,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                         className={(() => {
                                                           if (this.props.Executive.best_info_data.yoy_var > 0)
                                                           {
-                                                            return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                                            return "glyphicon glyphicon-triangle-top glyphiconPositive"
                                                           }
                                                           else if (this.props.Executive.best_info_data.yoy_var < 0)
                                                           {
-                                                            return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                                            return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                                                           } else {
                                                             return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                                                           } })()}>&nbsp;
@@ -2624,11 +2408,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                               className={(() => {
                                                                 if (this.props.Executive.best_info_data.cont_to_grwth > 0)
                                                                 {
-                                                                  return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                                                  return "glyphicon glyphicon-triangle-top glyphiconPositive"
                                                                 }
                                                                 else if (this.props.Executive.best_info_data.cont_to_grwth < 0)
                                                                 {
-                                                                  return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                                                  return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                                                                 } else {
                                                                   return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                                                                 } })()}>&nbsp;
@@ -2830,11 +2614,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                         className={(() => {
                                                                           if (this.props.Executive.worst_info_data.yoy_var > 0)
                                                                           {
-                                                                            return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                                                            return "glyphicon glyphicon-triangle-top glyphiconPositive"
                                                                           }
                                                                           else if (this.props.Executive.worst_info_data.yoy_var < 0)
                                                                           {
-                                                                            return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                                                            return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                                                                           } else {
                                                                             return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                                                                           } })()}>&nbsp;
@@ -2851,11 +2635,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                         className={(() => {
                                                                           if (this.props.Executive.worst_info_data.cont_to_grwth > 0)
                                                                           {
-                                                                            return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                                                            return "glyphicon glyphicon-triangle-top glyphiconPositive"
                                                                           }
                                                                           else if (this.props.Executive.worst_info_data.cont_to_grwth < 0)
                                                                           {
-                                                                            return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                                                            return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                                                                           } else {
                                                                             return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                                                                           } })()}>&nbsp;
@@ -3063,8 +2847,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                       <div className="mainBox">
 
                                         <div className="row">
-                                        {/*Row for weather data*/}
-                                        <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
                                           <Nav style={{marginLeft: '1%', marginBottom: '0%'}} bsStyle="tabs" activeKey={this.state.activeKey10} onSelect={this.handleSelect} className="tabsCustom">
                                             <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
@@ -3296,7 +3078,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                         </div>
                                         </div>
-                                      </div>)
+                                      )
                                   }
                                 })()}
                               </div>
@@ -3424,11 +3206,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             className={(() => {
                               if (this.props.Executive.top_supp_info_data.yoy_var > 0)
                               {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
                               }
                               else if (this.props.Executive.top_supp_info_data.yoy_var < 0)
                               {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                               } else {
                                 return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                               } })()}>&nbsp;
@@ -3445,11 +3227,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             className={(() => {
                               if (this.props.Executive.top_supp_info_data.cont_to_grwth > 0)
                               {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
                               }
                               else if (this.props.Executive.top_supp_info_data.cont_to_grwth < 0)
                               {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                               } else {
                                 return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                               } })()}>&nbsp;
@@ -3610,11 +3392,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                     className={(() => {
                                       if (this.props.Executive.bot_supp_info_data.yoy_var > 0)
                                       {
-                                        return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                        return "glyphicon glyphicon-triangle-top glyphiconPositive"
                                       }
                                       else if (this.props.Executive.bot_supp_info_data.yoy_var < 0)
                                       {
-                                        return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                        return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                                       } else {
                                         return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                                       } })()}>&nbsp;
@@ -3632,11 +3414,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                   className={(() => {
                                     if (this.props.Executive.bot_supp_info_data.cont_to_grwth > 0)
                                     {
-                                      return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                      return "glyphicon glyphicon-triangle-top glyphiconPositive"
                                     }
                                     else if (this.props.Executive.bot_supp_info_data.cont_to_grwth < 0)
                                     {
-                                      return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                      return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                                     } else {
                                       return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                                     } })()}>&nbsp;

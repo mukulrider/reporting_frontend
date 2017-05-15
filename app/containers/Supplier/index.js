@@ -58,11 +58,11 @@ import styles from './style.scss';
 function glyphiconFormatter(cell){
   console.log("Cell:",cell);
   if (cell > 0) {
-    let classType = "glyphicon glyphicon-chevron-up glyphiconPositive";
+    let classType = "glyphicon glyphicon-triangle-top glyphiconPositive";
     return classType;
   }
   else if (cell < 0) {
-    let classType ="glyphicon glyphicon-chevron-down glyphiconNegative";
+    let classType ="glyphicon glyphicon-triangle-bottom glyphiconNegative";
     return classType;
   } else {
     let classType = "glyphicon glyphicon-minus-sign glyphiconNeutral";

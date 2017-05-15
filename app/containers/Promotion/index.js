@@ -46,12 +46,28 @@ import {
 
 } from './actions';
 
-function triangleColumnFormatter(cell, row) {
+function glyphiconFormatter(cell){
+  console.log("Cell:",cell);
   if (cell > 0) {
-    return '<i class="glyphicon glyphicon-chevron-up glyphiconPositive"></i>&nbsp;'+ cell+'%';
+    let classType = "glyphicon glyphicon-triangle-top glyphiconPositive";
+    return classType;
   }
   else if (cell < 0) {
-    return '<i class="glyphicon glyphicon-chevron-down glyphiconNegative"></i>&nbsp;'+ cell+'%';
+    let classType ="glyphicon glyphicon-triangle-bottom glyphiconNegative";
+    return classType;
+  } else {
+    let classType = "glyphicon glyphicon-minus-sign glyphiconNeutral";
+    return classType;
+  }
+
+}
+
+function triangleColumnFormatter(cell, row) {
+  if (cell > 0) {
+    return '<i class="glyphicon glyphicon-triangle-top glyphiconPositive"></i>&nbsp;'+ cell+'%';
+  }
+  else if (cell < 0) {
+    return '<i class="glyphicon glyphicon-triangle-bottom glyphiconNegative"></i>&nbsp;'+ cell+'%';
   } else {
     return '<i class="glyphicon glyphicon-minus-sign glyphiconNeutral"></i>&nbsp;'+ cell+'%';
   }
@@ -339,69 +355,28 @@ export class Promotion extends React.PureComponent {
                       <div className="col-xs-4 ">
                         <h4>
                           <span
-                            className={(() => {
-                              if (this.props.promotion.kpi_data.total.var_total_wow > 0)
-                              {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                              }
-                              else if (this.props.promotion.kpi_data.total.var_total_wow < 0)
-                              {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>&nbsp;
-                         </span>
-                          {this.props.promotion.kpi_data.total.var_total_wow}%
+                            className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_wow)}></span>
+                        {(this.props.promotion.kpi_data.total.var_total_wow)+'%'}
                         </h4>
                         <h4><b>WoW</b></h4>
-
                       </div>
-
-                      <div className="col-xs-4">
-
+                      <div className="col-xs-4 ">
                         <h4>
                           <span
-                            className={(() => {
-                              if (this.props.promotion.kpi_data.total.var_total_yoy > 0)
-                              {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                              }
-                              else if (this.props.promotion.kpi_data.total.var_total_yoy < 0)
-                              {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>&nbsp;
-
-                        </span>
-                          {this.props.promotion.kpi_data.total.var_total_yoy}%
+                            className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_yoy)}></span>
+                          {(this.props.promotion.kpi_data.total.var_total_yoy)+'%'}
                         </h4>
-                        <h4><b>YoY</b></h4>
-
+                        <h4><b>YOY</b></h4>
                       </div>
-
-                      <div className="col-xs-4">
-
+                      <div className="col-xs-4 ">
                         <h4>
                           <span
-                            className={(() => {
-                              if (this.props.promotion.kpi_data.total.var_total_lfl > 0)
-                              {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                              }
-                              else if (this.props.promotion.kpi_data.total.var_total_lfl < 0)
-                              {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>&nbsp;
-
-                        </span>
-                          {this.props.promotion.kpi_data.total.var_total_lfl}%
+                            className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_lfl)}></span>
+                          {(this.props.promotion.kpi_data.total.var_total_lfl)+'%'}
                         </h4>
                         <h4><b>LFL</b></h4>
-
                       </div>
+
                     </div>
                   </div>
 
@@ -424,71 +399,29 @@ export class Promotion extends React.PureComponent {
 
                   <div className="row">
                     <div className="panel-body">
-                      <div className="col-xs-4">
-
-
+                      <div className="col-xs-4 ">
                         <h4>
                           <span
-                            className={(() => {
-                              if (this.props.promotion.kpi_data.promo.var_promo_wow > 0)
-                              {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                              }
-                              else if (this.props.promotion.kpi_data.promo.var_promo_wow < 0)
-                              {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>&nbsp;
-
-                        </span>
-                          {this.props.promotion.kpi_data.promo.var_promo_wow}%
+                            className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_wow)}></span>
+                          {(this.props.promotion.kpi_data.promo.var_promo_wow)+'%'}
                         </h4>
                         <h4><b>WoW</b></h4>
-
                       </div>
-
-                      <div className="col-xs-4">
+                      <div className="col-xs-4 ">
                         <h4>
                           <span
-                            className={(() => {
-                              if (this.props.promotion.kpi_data.promo.var_promo_yoy > 0)
-                              {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                              }
-                              else if (this.props.promotion.kpi_data.promo.var_promo_yoy < 0)
-                              {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>&nbsp;
-                        </span>
-                          {this.props.promotion.kpi_data.promo.var_promo_yoy}%
+                            className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_yoy)}></span>
+                          {(this.props.promotion.kpi_data.promo.var_promo_yoy)+'%'}
                         </h4>
-                        <h4><b>YoY</b></h4>
-
+                        <h4><b>YOY</b></h4>
                       </div>
-
-                      <div className="col-xs-4">
+                      <div className="col-xs-4 ">
                         <h4>
                           <span
-                            className={(() => {
-                              if (this.props.promotion.kpi_data.promo.var_promo_lfl > 0)
-                              {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                              }
-                              else if (this.props.promotion.kpi_data.promo.var_promo_lfl < 0)
-                              {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>&nbsp;
-
-                        </span>
-                          {this.props.promotion.kpi_data.promo.var_promo_lfl}%
+                            className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_lfl)}></span>
+                          {(this.props.promotion.kpi_data.promo.var_promo_lfl)+'%'}
                         </h4>
                         <h4><b>LFL</b></h4>
-
                       </div>
                     </div>
                   </div>
@@ -512,70 +445,29 @@ export class Promotion extends React.PureComponent {
                   <div className="row">
                     <div className="panel-body">
 
-                      <div className="col-xs-4">
+                      <div className="col-xs-4 ">
                         <h4>
                           <span
-                            className={(() => {
-                              if (this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow > 0)
-                              {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                              }
-                              else if (this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow < 0)
-                              {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>&nbsp;
-
-                        </span>
-                          {this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow}%
+                            className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow)}></span>
+                          {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow)+'%'}
                         </h4>
                         <h4><b>WoW</b></h4>
-
                       </div>
-
-                      <div className="col-xs-4">
+                      <div className="col-xs-4 ">
                         <h4>
                           <span
-                            className={(() => {
-                              if (this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy > 0)
-                              {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                              }
-                              else if (this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy < 0)
-                              {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>&nbsp;
-
-                        </span>
-                          {this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy}%
+                            className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy)}></span>
+                          {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy)+'%'}
                         </h4>
-                        <h4><b>YoY</b></h4>
-
+                        <h4><b>YOY</b></h4>
                       </div>
-
-                      <div className="col-xs-4">
-                          <h4>
+                      <div className="col-xs-4 ">
+                        <h4>
                           <span
-                            className={(() => {
-                              if (this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl > 0)
-                              {
-                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                              }
-                              else if (this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl < 0)
-                              {
-                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>&nbsp;
-
-                        </span>
-                          {this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl}%
+                            className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl)}></span>
+                          {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl)+'%'}
                         </h4>
                         <h4><b>LFL</b></h4>
-
                       </div>
                     </div>
                   </div>

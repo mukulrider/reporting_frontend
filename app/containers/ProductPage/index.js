@@ -87,15 +87,15 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
     }
   }
 
-  diffColumnFormatter = (cell) => {
-    if (cell > 0) {
-      return '<i class="glyphicon glyphicon-chevron-up productTablePositive"></i>&nbsp' + cell + '%';
-    }
-    else if (cell < 0) {
-      return '<i class="glyphicon glyphicon-chevron-down productTableNegative"></i>&nbsp' + cell + '%';
-    } else {
-      return '<i class="glyphicon glyphicon-minus-sign productTableNeutral"></i>&nbsp' + cell + '%';
-    }
+  diffColumnFormatter=(cell)=> {
+  if (cell > 0) {
+    return '<i class="glyphicon glyphicon-triangle-top productTablePositive"></i>&nbsp'+ cell+'%';
+  }
+  else if (cell < 0) {
+    return '<i class="glyphicon glyphicon-triangle-bottom productTableNegative"></i>&nbsp'+ cell+'%';
+  } else {
+    return '<i class="glyphicon glyphicon-minus-sign productTableNeutral"></i>&nbsp'+ cell+'%';
+  }
 
   }
 
@@ -429,40 +429,41 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                                     return 'LFL: ' + (obj.metric_lfl / 1000).toFixed(0) + 'K'
 
 
-                                  } else {
-                                    return 'LFL: £ ' + (obj.metric_lfl / 1000).toFixed(0) + 'K'
-                                  }
-                                })()}
-                              </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr style={{verticalAlign: 'middle', color: '#000000', backgroundColor: '#FFFFFF'}}>
-                              <td colSpan="4"><span className={(() => {
-                                if (obj.wow_change > 0) {
-                                  return "glyphicon glyphicon-chevron-up productTablePositive"
-                                } else {
-                                  return "glyphicon glyphicon-chevron-down productTableNegative"
-                                }
-                              })()}>&nbsp;</span> <span style={{fontSize: '16px'}}>{(obj.wow_change) + '%'} </span>
-                                <br/><br/><h4 style={{color: '#00539f'}}>WOW</h4></td>
-                              <td colSpan="4"><span className={(() => {
-                                if (obj.yoy_change > 0) {
-                                  return "glyphicon glyphicon-chevron-up productTablePositive"
-                                } else {
-                                  return "glyphicon glyphicon-chevron-down productTableNegative"
-                                }
-                              })()}>&nbsp;</span> <span style={{fontSize: '16px'}}>{(obj.yoy_change) + '%'} </span>
-                                <br/><br/><h4 style={{color: '#00539f'}}>YOY</h4></td>
-                              <td colSpan="4"><span className={(() => {
-                                if (obj.lfl_change > 0) {
-                                  return "glyphicon glyphicon-chevron-up productTablePositive"
-                                } else {
-                                  return "glyphicon glyphicon-chevron-down productTableNegative"
-                                }
-                              })()}>&nbsp;</span> <span style={{fontSize: '16px'}}>{(obj.lfl_change) + '%'} </span>
-                                <br/><br/><h4 style={{color: '#00539f'}}>LFL</h4></td>
-                            </tr>
+                                        }else {
+                                          return 'LFL: £ ' + (obj.metric_lfl / 1000).toFixed(0) + 'K'
+                                        }
+                                      }
+                                    )()}
+                                  </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr style={{ verticalAlign: 'middle',color:'#000000',backgroundColor:'#FFFFFF' }}>
+                                  <td colSpan="4"><span className={(() => {
+                                    if (obj.wow_change > 0) {
+                                      return "glyphicon glyphicon-triangle-top productTablePositive"
+                                    } else {
+                                      return "glyphicon glyphicon-triangle-bottom productTableNegative"
+                                    }
+                                  })()}>&nbsp;</span> <span style={{fontSize:'16px'}}>{(obj.wow_change)+'%'} </span>
+                                    <br/><br/><h4 style={{color:'#00539f'}}>WOW</h4></td>
+                                  <td colSpan="4"><span className={(() => {
+                                    if (obj.yoy_change > 0) {
+                                      return "glyphicon glyphicon-triangle-top productTablePositive"
+                                    } else {
+                                      return "glyphicon glyphicon-triangle-bottom productTableNegative"
+                                    }
+                                  })()}>&nbsp;</span> <span style={{fontSize:'16px'}}>{(obj.yoy_change)+'%'} </span>
+                                    <br/><br/><h4 style={{color:'#00539f'}}>YOY</h4></td>
+                                  <td colSpan="4"><span className={(() => {
+                                    if (obj.lfl_change > 0) {
+                                      return "glyphicon glyphicon-triangle-top productTablePositive"
+                                    } else {
+                                      return "glyphicon glyphicon-triangle-bottom productTableNegative"
+                                    }
+                                  })()}>&nbsp;</span> <span style={{fontSize:'16px'}}>{(obj.lfl_change)+'%'} </span>
+                                    <br/><br/><h4 style={{color:'#00539f'}}>LFL</h4></td>
+                              </tr>
 
                             </tbody>
                           </table>

@@ -43,6 +43,21 @@ import {
 
 } from './actions';
 
+function glyphiconFormatter(cell){
+  console.log("Cell:",cell);
+  if (cell > 0) {
+    let classType = "glyphicon glyphicon-triangle-top glyphiconPositive";
+    return classType;
+  }
+  else if (cell < 0) {
+    let classType ="glyphicon glyphicon-triangle-bottom glyphiconNegative";
+    return classType;
+  } else {
+    let classType = "glyphicon glyphicon-minus-sign glyphiconNeutral";
+    return classType;
+  }
+
+}
 
 export class Competitor extends React.PureComponent {
   componentDidMount = () => {
@@ -358,11 +373,11 @@ export class Competitor extends React.PureComponent {
                         className={(() => {
                           if (this.props.competitor.piechart_data.tesco_share_data > 0)
                           {
-                            return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                            return "glyphicon glyphicon-triangle-top glyphiconPositive"
                           }
                           else if (this.props.competitor.piechart_data.tesco_share_data < 0)
                           {
-                            return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                            return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
                           } else {
                             return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                           } })()}>&nbsp;
