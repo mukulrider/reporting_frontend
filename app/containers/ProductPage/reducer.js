@@ -9,7 +9,7 @@ import {
   DEFAULT_ACTION,SAVE_WEEK_PARAM,SAVE_METRIC_PARAM,FETCH_SAVE_WEEK_PARAM,FETCH_SAVE_WEEK_PARAM_SUCCESS,GENERATE_SIDE_FILTER_SUCCESS,GENERATE_URL_PARAMS_STRING,
   WEEK_FILTER_FETCH_SUCCESS,
   CHECKBOX_WEEK_CHANGE,
-  WEEK,
+  WEEK, TABS_APPLY_SPINNER
 } from './constants';
 
 const initialState = fromJS({dataWeekParams:'week_flag=Latest Week',dataMetricParams:'metric_flag=Value'
@@ -53,6 +53,10 @@ function productPageReducer(state = initialState, action) {
     case WEEK:
       console.log("reducer WEEK", action.data);
       return state.set('week', action.data)
+
+ case TABS_APPLY_SPINNER:
+      console.log("TABS_APPLY_SPINNER", action.spinnerCheck);
+      return state.set('tabsApplySpinner', action.spinnerCheck)
 
     default:
       return state;

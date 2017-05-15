@@ -9,6 +9,7 @@ import React from 'react';
 import Checkbox from 'components/checkbox';
 import Button from 'components/button';
 import {Accordion, PanelGroup, Panel} from 'react-bootstrap';
+import {Modal} from 'react-bootstrap';
 import styles from './style.scss';
 
 class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -20,24 +21,34 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
 
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      alertShow: false,
+      alertmsg: "Please Select the Mandatory Filters (marked with star)."
+    };
+
+  }
+
+
   checkboxUpdate = (selection) => {
 
     let newUrl = this.props.location.pathname;
 
     let queryString = '';
     [...this.refs.selector.querySelectorAll('input')].map(obj => {
-      if (obj.checked == true){
-      let category = obj.id.split('__');
+      if (obj.checked == true) {
+        let category = obj.id.split('__');
 
-        console.log('queryString for time',queryString);
+        console.log('queryString for time', queryString);
         queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
-        console.log('queryString 2 for time',queryString);
+        console.log('queryString 2 for time', queryString);
 
       }
     });
     //
     queryString = queryString.substring(0, queryString.length - 1);
-    console.log('queryString 3 for time',queryString);
+    console.log('queryString 3 for time', queryString);
     this.props.onSaveWeek(queryString);
     // this.props.onGenerateUrlParamsString(queryString);
     // this.props.onCheckboxChange(queryString);
@@ -54,19 +65,19 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
     let queryString_without_week = '';
     let queryString_for_week_date = '';
     [...this.refs.selector.querySelectorAll('input')].map(obj => {
-      if (obj.checked == true){
+      if (obj.checked == true) {
 
         let category = obj.id.split('__');
 
-        console.log('queryString for product1',queryString);
-        console.log('match',queryString.match(/tesco_week/gi));
+        console.log('queryString for product1', queryString);
+        console.log('match', queryString.match(/tesco_week/gi));
 
         queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
-        console.log('queryString 2 for product1',queryString);
+        console.log('queryString 2 for product1', queryString);
 
         // aa
 
-        if(category[0]!=="tesco_week"&& category[0]!=="date"){
+        if (category[0] !== "tesco_week" && category[0] !== "date") {
           alert(category[0])
           queryString_without_week = queryString_without_week + `${category[0]}=${category[category.length - 1]}&`;
 
@@ -77,8 +88,7 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
     queryString = queryString.substring(0, queryString.length - 1);
     queryString_without_week = queryString_without_week.substring(0, queryString_without_week.length - 1);
     alert(queryString_without_week);
-    console.log('queryString 3 for product1',queryString_without_week);
-
+    console.log('queryString 3 for product1', queryString_without_week);
 
 
     this.props.onCheckboxWeekChange(queryString_without_week);
@@ -161,7 +171,8 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                                                   style={{fontSize: '10px'}}
                                                   checked={(() => {
                                                     if (obj2.selected) {
-                                                      {/*alert()*/}
+                                                      {/*alert()*/
+                                                      }
                                                     }
                                                     return obj2.resource.selected
                                                   })()}
@@ -241,7 +252,8 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                                                   style={{fontSize: '10px'}}
                                                   checked={(() => {
                                                     if (obj2.selected) {
-                                                      {/*alert()*/}
+                                                      {/*alert()*/
+                                                      }
                                                     }
                                                     return obj2.resource.selected
                                                   })()}
@@ -289,21 +301,77 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                   }
                 })()}
               </PanelGroup>
-              <div style={{textAlign:"center"}}>
-              <Button
-                style={{marginTop: "5px"}}
-                onClick={() => {
-                  this.applyButtonFunctionality();
-                }}>Apply Filters</Button>
 
-              <Button
-                style={{marginTop: "5px"}}
-                onClick={() => {
-                  //To un check all the buttons
-                  let selection = '';
-                  this.props.onCheckboxChange(selection);
-                  this.props.onGenerateSideFilter();
-                }}>Clear Filter Selections</Button>
+
+              <Modal show={this.state.alertShow} bsSize="large" aria-labelledby="contained-modal-title-sm">
+                <Modal.Header>
+                  <Modal.Title id="contained-modal-title-sm"
+                               style={{textAlign: 'center', fontSize: '18px'}}><span
+                    style={{textAlign: 'center', fontSize: '14px'}}><b>Mandatory Filter Selection Missing</b><span
+                    style={{textAlign: 'right', float: 'right'}}
+                    onClick={() => this.setState({alertShow: false})}><b>X</b></span></span>
+                    <div style={{textAlign: 'center'}}>
+                      <div style={{textAlign: 'right'}}>
+                      </div>
+                    </div>
+                  </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+
+                  <div className="row">
+                    <div className="col-xs-12 alertMadatoryFilter" style={{fontSize: '14px', textAlign: 'center'}}>
+                      {this.state.alertmsg}
+                    </div>
+                  </div>
+
+
+                </Modal.Body>
+                {/*<Modal.Footer>*/}
+                {/*<Button*/}
+                {/*onClick={() => {*/}
+                {/*this.setState({alertShow: false})*/}
+                {/*}}*/}
+                {/*style={{display: 'block', margin: '0 auto'}}>Close</Button>*/}
+                {/*</Modal.Footer>*/}
+              </Modal>
+
+
+              <div style={{textAlign: "center"}}>
+                <Button
+                  style={{marginTop: "5px"}}
+                  onClick={() => {
+
+                    let filterDataWeek = this.props.week;
+                    let filterData = this.props.filter_data1;
+                    console.log('filterDataWeek', filterDataWeek);
+                    if (!(typeof(filterDataWeek) == "undefined") && !(typeof(filterData) == "undefined")) {
+                      console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek, filterData);
+                      if (filterDataWeek.includes("tesco_week") && filterDataWeek.includes("date") && filterData.includes("store_type") && filterData.includes("buying_controller")
+                        ) {
+                        console.log('tesco_weeek filterDataWeek', filterDataWeek);
+                        console.log('--filterData', filterData);
+
+                        this.applyButtonFunctionality();
+
+                      }
+                      else {
+                        console.log('modal open');
+                        this.setState({alertShow: true});
+                      }
+                    } else {
+                      console.log('modal open');
+                      this.setState({alertShow: true});
+                    }
+                  }}>Apply Filters</Button>
+
+                <Button
+                  style={{marginTop: "5px"}}
+                  onClick={() => {
+                    //To un check all the buttons
+                    let selection = '';
+                    this.props.onCheckboxChange(selection);
+                    this.props.onGenerateSideFilter();
+                  }}>Clear Filter Selections</Button>
               </div>
             </div>
           )

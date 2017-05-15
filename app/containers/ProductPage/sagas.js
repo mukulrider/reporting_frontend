@@ -9,7 +9,7 @@ import {
   API_FETCH, SAVE_WEEK_PARAM, SAVE_METRIC_PARAM, GENERATE_URL_PARAMS_STRING, FETCH_FILTERED_PRODUCT_DATA, WEEK_FILTER_CONSTANT,
 } from './constants';
 import {
-  apiFetchSuccess, fetchSaveWeekParamSuccess, fetchSaveMetricParamSuccess, generateUrlParamsString, generateSideFilterSuccess, generateCascadingFilter, WeekFilterFetchSuccess,
+  apiFetchSuccess, fetchSaveWeekParamSuccess, fetchSaveMetricParamSuccess, generateUrlParamsString, generateSideFilterSuccess, generateCascadingFilter, WeekFilterFetchSuccess, tabsAndApplySpinner
 } from 'containers/ProductPage/actions';
 
 import {
@@ -21,7 +21,7 @@ import {
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-const host_url = "http://127.0.0.1:8000";
+const host_url = "http://172.20.244.150:8001";
 // let host_url = "http://172.20.244.228:8000"
 
 
@@ -127,11 +127,16 @@ export function* generateWeekFilter() {
     if (urlParams) {
       data = yield call(request, `${host_url}/api/reporting/product?${urlParams}`);
       console.log('This is my fetched drf dta', data);
+
     } else {
       data = yield call(request, `${host_url}/api/reporting/product`);
     }
     // // console.log(data);
     yield put(fetchSaveWeekParamSuccess(data));
+
+    let spinnerCheck = 1;
+    console.log('spinnerCheck in sagas else', spinnerCheck);
+    yield put(tabsAndApplySpinner(spinnerCheck));
   } catch (err) {
     // console.log(err);
   }

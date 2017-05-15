@@ -21,7 +21,7 @@ import {
   WEEK_FILTER_PARAM,
   SEND_URL_PARAMS,
   WEEK,
-  CHECKBOX_WEEK_CHANGE
+  CHECKBOX_WEEK_CHANGE,
 
 } from './constants';
 

@@ -22,3 +22,6 @@ export const WEEK_FILTER_FETCH_SUCCESS = 'app/Supplier/WEEK_FILTER_FETCH_SUCCESS
 export const CHECKBOX_WEEK_CHANGE = 'app/Supplier/CHECKBOX_WEEK_CHANGE';
 export const WEEK = 'app/Supplier/WEEK';
 
+// APPLY AND TABS CLICK SPINNER
+export const TABS_APPLY_SPINNER = 'app/Supplier/TABS_APPLY_SPINNER';
+

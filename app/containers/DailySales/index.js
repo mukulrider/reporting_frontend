@@ -3,15 +3,16 @@
  * DailySales
  *
  */
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
-import { Modal,Nav,NavItem,DropdownButton, MenuItem } from 'react-bootstrap';
-import {saveImage,saveDataAsCSV} from './../../utils/exportFunctions';
+import {Modal, Nav, NavItem, DropdownButton, MenuItem} from 'react-bootstrap';
+import {saveImage, saveDataAsCSV} from './../../utils/exportFunctions';
 import Panel from 'components/panel';
-import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
+import {FormattedMessage} from 'react-intl';
+import {createStructuredSelector} from 'reselect';
 import makeSelectDailySales from './selectors';
+import Spinner from 'components/spinner';
 import messages from './messages';
 import './style.scss';
 import PieChart from 'components/PieChart';
@@ -19,8 +20,9 @@ import CascadedFilterDSS from 'components/CascadedFilterDSS';
 import MultilinePromo from 'components/MultilinePromo';
 import LineChart from 'components/LineChart';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import {PromoGiveawayData,
-  lineChartCallAction,SaveKPIParam,generateUrlParamsString,
+import {
+  PromoGiveawayData,
+  lineChartCallAction, SaveKPIParam, generateUrlParamsString,
   SaveWeekParam, PromoKpiData,
   getFilter,
   getWeekFilter,
@@ -29,7 +31,9 @@ import {PromoGiveawayData,
   sendUrlParams,
   SaveWeek,
   checkboxChange,
-  checkboxWeekChange
+  checkboxWeekChange,
+
+
 } from './actions';
 export class DailySales extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentDidMount = () => {
@@ -45,23 +49,27 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
   componentDidUpdate = () => {
     this.props.onSendUrlParams(this.props.location.query);
   };
+
   constructor(props) {
     super(props);
     this.state = {
-      activeKey1: "1"
+      alertShow: false,
+      alertmsg: "Please Select the Mandatory Filters (marked with star)."
     };
+
   }
+
   render() {
     let kpiParmas = this.props.DailySales.kpi_param;
     return (
       <Panel>
-      <div>
-        <Helmet
-          title="DailySales"
-          meta={[
-            { name: 'description', content: 'Description of DailySales' },
-          ]}
-        />
+        <div>
+          <Helmet
+            title="DailySales"
+            meta={[
+              {name: 'description', content: 'Description of DailySales'},
+            ]}
+          />
           <div style={{
             height: '100%',
             position: 'fixed',
@@ -77,30 +85,32 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                 return (
                   <CascadedFilterDSS filter_data={this.props.DailySales.filter_data}
                     // week_data={this.props.promotion.filter_data.week_data}
-                                       DefaultLineChartCall={this.props.DefaultLineChartCall}
-                                       week_data={this.props.DailySales.week_filter_data}
-                                       location={this.props.location}
-                                       save_week={this.props.save_week}
-                                       onGenerateSideFilter={this.props.onGetFilter}
-                                       onFilterReset={this.props.onFilterReset}
-                                       onDataUrlParams={this.props.DataUrlParams}
-                                       onUrlParamsData={this.props.onUrlParamsData}
-                                       onGenerateUrlParams={this.props.onGenerateUrlParams}
-                                       onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}
-                                       onGenerateFilterParamsString={this.props.onGenerateFilterParamsString}
-                                       onGenerateUrlParamsData={this.props.onGenerateUrlParamsData}
-                                       ongenerateWeekFilter={this.props.onGetWeekFilter}
-                                       onSaveWeekFilterParam={this.props.onSaveWeekFilterParam}
-                                       loadKpi={this.props.loadKpi}
-                                       loadSales={this.props.loadSales}
-                                       loadPromoProd={this.props.loadPromoProd}
-                                       loadPromoPart={this.props.loadPromoPart}
-                                       onSendUrlParams={this.props.onSendUrlParams}
-                                       onSaveWeek={this.props.onSaveWeek}
-                                       previous_selection={this.props.DailySales.filter_selection}
-                                       previous_week_selection={this.props.DailySales.filter_week_selection}
-                                       onCheckboxChange={this.props.onCheckboxChange}
-                                       onCheckboxWeekChange = {this.props.onCheckboxWeekChange}
+                                     DefaultLineChartCall={this.props.DefaultLineChartCall}
+                                     week_data={this.props.DailySales.week_filter_data}
+                                     location={this.props.location}
+                                     save_week={this.props.save_week}
+                                     onGenerateSideFilter={this.props.onGetFilter}
+                                     onFilterReset={this.props.onFilterReset}
+                                     onDataUrlParams={this.props.DataUrlParams}
+                                     onUrlParamsData={this.props.onUrlParamsData}
+                                     onGenerateUrlParams={this.props.onGenerateUrlParams}
+                                     onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}
+                                     onGenerateFilterParamsString={this.props.onGenerateFilterParamsString}
+                                     onGenerateUrlParamsData={this.props.onGenerateUrlParamsData}
+                                     ongenerateWeekFilter={this.props.onGetWeekFilter}
+                                     onSaveWeekFilterParam={this.props.onSaveWeekFilterParam}
+                                     loadKpi={this.props.loadKpi}
+                                     loadSales={this.props.loadSales}
+                                     loadPromoProd={this.props.loadPromoProd}
+                                     loadPromoPart={this.props.loadPromoPart}
+                                     onSendUrlParams={this.props.onSendUrlParams}
+                                     onSaveWeek={this.props.onSaveWeek}
+                                     previous_selection={this.props.DailySales.filter_selection}
+                                     previous_week_selection={this.props.DailySales.filter_week_selection}
+                                     onCheckboxChange={this.props.onCheckboxChange}
+                                     onCheckboxWeekChange={this.props.onCheckboxWeekChange}
+                                     week={this.props.DailySales.week}
+                                     filter_data1={this.props.DailySales.filter_data}
                   />
                 );
               }
@@ -128,139 +138,187 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
               {/*}*/}
               {/*})()}*/}
             </div>
-          <div className="row fixingPosition" style={{marginLeft: "0%", paddingTop: "-5px", marginRight: "0px"}}>
-              <div className="row" style={{textAlign: "center", alignItems:"center"}}>
+            <div className="row fixingPosition" style={{marginLeft: "0%", paddingTop: "-5px", marginRight: "0px"}}>
+              <div className="row" style={{textAlign: "center", alignItems: "center"}}>
                 <div className="col-md-12">
-                <h4 className="pageModuleMainTitle">Overview</h4>
+                  <h4 className="pageModuleMainTitle">Overview</h4>
                 </div>
-                <div className="col-md-12" style={{textAlign: "center",marginLeft: "0.5%", align: "center",alignItems:"center", backgroundColor:"1px solid #FAFAFA"}}>
-                  <div className="col-md-12 col-sm-12 col-xs-12">
-                    <div className="col-md-4 col-sm-6 col-xs-12 overview-blk" >
-                      <Panel>
-                        <div className="panel" style={{border: '1px solid #E5E8EA'}}>
-                        <h4 className="panel-heading tesco-heading"><b>Sales</b></h4>
-                        {/*<div className="panel-body" style={{marginBottom:"5px",paddingTop:"0px"}}>*/}
-                          {/*<span className="overview-blk-value">*/}
-                                   {(() => {
-                                     if (this.props.DailySales.linechart_data) {
-                                       let a = this.props.DailySales.linechart_data.static_data;
-                                       return a.map(obj => {
-                                         return (
-                                           <div><h4>{obj.tot_sales}</h4></div>
-                                         )})}
-                                   })()}
-                                   {/*</span>*/}
-                        {/*</div>*/}
+                <div className="col-md-12" style={{
+                  textAlign: "center",
+                  marginLeft: "0.5%",
+                  align: "center",
+                  alignItems: "center",
+                  backgroundColor: "1px solid #FAFAFA"
+                }}>
+
+                  {(() => {
+                    if (this.props.DailySales.linechart_data) {
+                      return (
+                        <div className="col-md-12 col-sm-12 col-xs-12">
+                          <div className="col-md-4 col-sm-6 col-xs-12 overview-blk">
+                            <Panel>
+                              <div className="panel" style={{border: '1px solid #E5E8EA'}}>
+                                <h4 className="panel-heading tesco-heading"><b>Sales</b></h4>
+                                {/*<div className="panel-body" style={{marginBottom:"5px",paddingTop:"0px"}}>*/}
+                                {/*<span className="overview-blk-value">*/}
+                                {(() => {
+                                  if (this.props.DailySales.linechart_data) {
+                                    let a = this.props.DailySales.linechart_data.static_data;
+                                    return a.map(obj => {
+                                      return (
+                                        <div><h4>{obj.tot_sales}</h4></div>
+                                      )
+                                    })
+                                  }
+                                })()}
+                                {/*</span>*/}
+                                {/*</div>*/}
+                              </div>
+                            </Panel>
+                          </div>
+                          <div className="col-md-4 col-sm-6 col-xs-12 overview-blk">
+                            <Panel>
+                              <div className="panel" style={{border: '1px solid #E5E8EA'}}>
+                                <h4 className="tesco-heading"><b>Volume</b></h4>
+                                {/*<div className="panel-body" style={{marginBottom:"2px",paddingTop:"0px"}}>*/}
+                                {/*<span className="overview-blk-value">*/}
+                                {(() => {
+                                  if (this.props.DailySales.linechart_data) {
+                                    let a = this.props.DailySales.linechart_data.static_data;
+                                    return a.map(obj => {
+                                      return (
+                                        <div><h4>{obj.tot_vol}</h4></div>
+                                      )
+                                    })
+                                  }
+                                })()}
+                                {/*</span>*/}
+                                {/*</div>*/}
+                              </div>
+                            </Panel>
+                          </div>
+                          <div className="col-md-4 col-sm-6 col-xs-12 overview-blk">
+                            <Panel>
+                              <div className="panel" style={{border: '1px solid #E5E8EA'}}>
+                                <h4 className="panel-heading tesco-heading"
+                                    style={{marginBottom: "5px", paddingTop: "0px"}}>
+                                  <b>COGS</b>
+                                </h4>
+                                {/*<div className="panel-body">*/}
+                                {/*<span className="overview-blk-value">*/}
+                                {(() => {
+                                  if (this.props.DailySales.linechart_data) {
+                                    let a = this.props.DailySales.linechart_data.static_data;
+                                    return a.map(obj => {
+                                      return (
+                                        <div><h4>{obj.tot_cogs}</h4></div>
+                                      )
+                                    })
+                                  }
+                                })()}
+                                {/*</span>*/}
+                                {/*</div>*/}
+                              </div>
+                            </Panel>
+                          </div>
                         </div>
-                      </Panel>
-                    </div>
-                  <div className="col-md-4 col-sm-6 col-xs-12 overview-blk">
-                    <Panel>
-                      <div className="panel" style={{border: '1px solid #E5E8EA'}}>
-                        <h4 className="tesco-heading"><b>Volume</b></h4>
-                        {/*<div className="panel-body" style={{marginBottom:"2px",paddingTop:"0px"}}>*/}
-                          {/*<span className="overview-blk-value">*/}
-                            {(() => {
-                              if (this.props.DailySales.linechart_data) {
-                                let a = this.props.DailySales.linechart_data.static_data;
-                                return a.map(obj => {
-                                  return (
-                                    <div><h4>{obj.tot_vol}</h4></div>
-                                  )})}
-                            })()}
-                            {/*</span>*/}
-                        {/*</div>*/}
-                      </div>
-                    </Panel>
-                  </div>
-                  <div className="col-md-4 col-sm-6 col-xs-12 overview-blk" >
-                    <Panel>
-                      <div className="panel" style={{border: '1px solid #E5E8EA'}}>
-                        <h4 className="panel-heading tesco-heading" style={{marginBottom:"5px",paddingTop:"0px"}}>
-                          <b>COGS</b>
-                        </h4>
-                        {/*<div className="panel-body">*/}
-                          {/*<span className="overview-blk-value">*/}
-                            {(() => {
-                              if (this.props.DailySales.linechart_data) {
-                                let a = this.props.DailySales.linechart_data.static_data;
-                                return a.map(obj => {
-                                  return (
-                                    <div><h4>{obj.tot_cogs}</h4></div>
-                                  )})}
-                            })()}
-                            {/*</span>*/}
-                        {/*</div>*/}
-                      </div>
-                    </Panel>
-                  </div>
-                </div>
+                      )
+                    } else {
+                      return (
+
+                        <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                      );
+                    }
+                  })()}
                 </div>
               </div>
-              <div className ="row">
+              <div className="row">
                 <div className="col-md-12">
-                <h4 className="pageModuleMainTitle">Daily Sales Trend
-                </h4>
+                  <h4 className="pageModuleMainTitle">Daily Sales Trend
+                  </h4>
                 </div>
-                <div className="col-md-8 col-sm-8 col-xs-8" style={{background:'1px solid #FAFAFA'}}>
-                  <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect}  className="tabsCustom" style={{margin:"0px"}}>
-                    <NavItem style={{fontSize: '16px',textAlign:'center',margin:"0px"}} className="tabsCustomList" eventKey="1" onClick={() => {
-                    this.setState({activeKey1: "1"});
-                    kpiParmas = "val_type=1";
-                    this.props.onSaveKPIParam(kpiParmas);
-                    this.props.DefaultLineChartCall();
-                    }} ><span className="tab_label">Sales</span></NavItem>
-                    <NavItem style={{fontSize: '16px',textAlign:'center',margin:"0px"}} className="tabsCustomList" eventKey="2" onClick={() => {
-                    this.setState({activeKey1: "2"});
-                    kpiParmas = "val_type=2";
-                    this.props.onSaveKPIParam(kpiParmas);
-                    this.props.DefaultLineChartCall();
-                    }} ><span className="tab_label">Volume</span></NavItem>
-                    <NavItem style={{fontSize: '16px',textAlign:'center',margin:"0px"}} className="tabsCustomList" eventKey="3" onClick={() => {
-                    this.setState({activeKey1: "3"});
-                    kpiParmas = "val_type=3";
-                    this.props.onSaveKPIParam(kpiParmas);
-                    this.props.DefaultLineChartCall();
-                    }} ><span className="tab_label">COGS</span></NavItem>
-                </Nav>
+                <div className="col-md-8 col-sm-8 col-xs-8" style={{background: '1px solid #FAFAFA'}}>
+                  <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect}
+                       className="tabsCustom" style={{margin: "0px"}}>
+                    <NavItem style={{fontSize: '16px', textAlign: 'center', margin: "0px"}} className="tabsCustomList"
+                             eventKey="1" onClick={() => {
+                      this.setState({activeKey1: "1"});
+                      kpiParmas = "val_type=1";
+                      this.props.onSaveKPIParam(kpiParmas);
+                      this.props.DefaultLineChartCall();
+                    }}><span className="tab_label">Sales</span></NavItem>
+                    <NavItem style={{fontSize: '16px', textAlign: 'center', margin: "0px"}} className="tabsCustomList"
+                             eventKey="2" onClick={() => {
+                      this.setState({activeKey1: "2"});
+                      kpiParmas = "val_type=2";
+                      this.props.onSaveKPIParam(kpiParmas);
+                      this.props.DefaultLineChartCall();
+                    }}><span className="tab_label">Volume</span></NavItem>
+                    <NavItem style={{fontSize: '16px', textAlign: 'center', margin: "0px"}} className="tabsCustomList"
+                             eventKey="3" onClick={() => {
+                      this.setState({activeKey1: "3"});
+                      kpiParmas = "val_type=3";
+                      this.props.onSaveKPIParam(kpiParmas);
+                      this.props.DefaultLineChartCall();
+                    }}><span className="tab_label">COGS</span></NavItem>
+                  </Nav>
                 </div>
                 <div className="col-md-4 col-sm-4 col-xs-4">
-                  <span style={{float:"right",margin:"0px"}}>
-                      <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
+                  <span style={{float: "right", margin: "0px"}}>
+                      <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                        backgroundColor: "transparent",
+                        borderColor: "transparent",
+                        color: "#00539f"
+                      }} id="dropButtonId">
                         <MenuItem onClick={() => {
-                          saveImage(document.getElementById('sampleSvg'),"dailySales_lineChart")
+                          saveImage(document.getElementById('sampleSvg'), "dailySales_lineChart")
                         }
                         }>Save As JPEG</MenuItem>
                         <MenuItem onClick={() => {
-                          saveDataAsCSV(this.props.DailySales.linechart_data.graph_data,"dailySales_lineChart_data.csv")
+                          saveDataAsCSV(this.props.DailySales.linechart_data.graph_data, "dailySales_lineChart_data.csv")
                         }
                         }>Download CSV</MenuItem>
                       </DropdownButton>
                     </span>
                 </div>
                 {/*<div className ="col-md-12 col-sm-12">*/}
-                  <Panel className="col-md-12 col-sm-12 col-xs-12 panel-body ts-blk-proview" style={{alignItems:"center"}}>
-                      <div className="col-md-8 col-md-offset-2 col-sm-12 col-xs-12" >{(() => {
-                        if (this.props.DailySales.linechart_data)
-                        {
-                          console.log("The line chart data in Index", this.props.DailySales.linechart_data.graph_data);
-                          return(
-                            <div>
-                              <LineChart data={this.props.DailySales.linechart_data.graph_data}
-                                         y_axis="Value"
-                                         x_axis="Date"
-                              />
-                            </div>
-                          )
-                        }
-                      })()}
-                      </div>
-                  </Panel>
+
+                {(() => {
+                  if (this.props.DailySales.linechart_data) {
+                    return (
+
+                      <Panel className="col-md-12 col-sm-12 col-xs-12 panel-body ts-blk-proview"
+                             style={{alignItems: "center"}}>
+                        <div className="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">{(() => {
+                          if (this.props.DailySales.linechart_data) {
+                            console.log("The line chart data in Index", this.props.DailySales.linechart_data.graph_data);
+                            return (
+                              <div>
+                                <LineChart data={this.props.DailySales.linechart_data.graph_data}
+                                           y_axis="Value"
+                                           x_axis="Date"
+                                />
+                              </div>
+                            )
+                          }
+                        })()}
+                        </div>
+                      </Panel>
+                    )
+                  } else {
+                    return (
+
+                      <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                    );
+                  }
+                })()}
                 {/*</div>*/}
+              </div>
             </div>
+          </div>
         </div>
-      </div>
-      </div>
       </Panel>
     );
   }

@@ -25,8 +25,9 @@ import {
 } from './selectors';
 
 
-// let host_url="http://10.1.244.200:8000";
-let host_url="http://127.0.0.1:8000";
+let host_url="http://172.20.244.150:8001";
+// let host_url="http://127.0.0.1:8000";
+
 // All sagas to be loaded
 
 
@@ -76,7 +77,8 @@ export function* generateFilterFetch() {
   // const token = user_token.concat('___').concat(buyer)
 
   let urlName=yield select(selectDailySalesDomain());
-  let urlParamsString = urlName.get('filter_selection');
+  let urlParamsString = urlName.get('filter_week_selection');
+  // let urlParamsString = urlName.get('filter_selection');
   console.log('urlParamsString-> ',urlParamsString);
   if(!urlParamsString){
     urlParamsString=''
