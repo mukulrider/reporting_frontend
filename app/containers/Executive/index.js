@@ -281,6 +281,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               loadPriceKPIData = { this.props.loadPriceKPIData}
                               kpi_type = {this.props.Executive.kpi_param}
 
+                              week_filter_param = {this.props.Executive.week_filter_param}
+                              urlParamsString = {this.props.Executive.urlParamsString}
+
 
                   />
                 );
