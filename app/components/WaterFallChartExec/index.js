@@ -213,6 +213,7 @@ class WaterFallChartExec extends React.PureComponent { // eslint-disable-line re
 
     let colorArray = ['#cc3333','#58ee81', '#1d1ccc'];
     let series_type_values = ["Loss", "Gain","Net Loss/Gain"];
+    const legendWidth = frameWidth/3;
     let legend = chart.append("g")
       .attr("font-family", "Tesco")
       .attr("font-size", 10).attr("text-anchor", "start")
@@ -221,11 +222,11 @@ class WaterFallChartExec extends React.PureComponent { // eslint-disable-line re
       .enter()
       .append("g")
       .attr("transform", function (d, i) {
-        return "translate(0," + (margin.top+(i * 25)) + ")";
-        // return "translate("+margin.top+ "," + i * 25 + ")";
+        return "translate("  + (i*legendWidth) + "," + (frameWidth*0.6 - margin.bottom) + ")";
       });
     legend.append("rect")
-      .attr("x", frameWidth-90)
+      .attr("x", 25)
+      .attr("y", 25)
       .attr("width", 19)
       .attr("height", 19)
       .attr("fill", function (d, i) {
@@ -233,8 +234,8 @@ class WaterFallChartExec extends React.PureComponent { // eslint-disable-line re
         }
       );
     legend.append("text")
-      .attr("x", frameWidth-65)
-      .attr("y", 9.5)
+      .attr("x", 0)
+      .attr("y", 35)
       .attr("dy", "0.32em")
       .style("text-anchor", "start")
       .text(function (d) {

@@ -534,3 +534,72 @@ input[type=checkbox]:hover {
   //color: #666666 !important;
 }
 
+//Tabs For the Navigation Panel
+
+.tabsNavPanel1{
+  margin-top: 27px;
+}
+
+.tabsNavPanelList1 {
+  display: inline-block;
+  border-bottom: none;
+}
+
+.tabsNavPanelList1 span.tab_label {
+  padding: 12px 8px;
+  font-weight: 700;
+  font-family: Tesco;
+  color: #00539f;
+  font-size: 16px;
+  vertical-align: middle;
+}
+
+.tabsNavPanelList1.active span.tab_label {
+  border-bottom: #048EC3 solid 4px !important;
+}
+.tabsNavPanelList1 a {
+  font-weight: 700 !important;
+  font-family: 'Tesco' !important;
+  padding: 15px 15px 16px 15px !important;
+  text-decoration: none;
+  font-size: 14px;
+  background: #fff !important;
+  border:0px !important;
+  color: #00539f !important;
+}
+
+.tabsNavPanelListSupp {
+  display: inline-block !important;
+  border-bottom: none !important;
+}
+
+.tabsNavPanelListSupp span.tab_label {
+  padding: 12px 8px !important;
+  font-weight: 700 !important;
+  font-family: Tesco !important;
+  color: #00539f !important;
+  font-size: 16px !important;
+  vertical-align: middle !important;
+}
+.tabsNavPanelListSupp.active span.tab_label {
+  border-bottom: 2px solid #00539f !important;
+}
+.tabsNavPanelListSupp a {
+  font-weight: 700 !important;
+  font-family: 'Tesco' !important;
+  padding: 15px 15px 16px 15px !important;
+  text-decoration: none !important;
+  font-size: 14px !important;
+  color: #00539f !important;
+}
+
+
+.tabsNavPanelListSupp a:active
+{
+  background: #fff !important;
+  border:0px;
+  border-bottom: 2px solid #00539f !important;
+  text-decoration: none !important;
+  border-color: #008dc8 !important;
+  color: #008dc8 !important;
+}

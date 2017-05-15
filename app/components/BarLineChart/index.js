@@ -259,6 +259,7 @@ class BarLineChart extends React.PureComponent { // eslint-disable-line react/pr
     //---------- Adding the legends
 
     let dataGroup = [{"key":'Tesco Growth'},{"key":'Market Growth'},{"key":'Tesco Outperformance'}]
+    const legendWidth = frameWidth/3;
     let legend = svg.append("g")
       .attr("font-family", "sans-serif")
       .attr("font-size", 10)
@@ -268,12 +269,13 @@ class BarLineChart extends React.PureComponent { // eslint-disable-line react/pr
       .enter().append("g")
       .attr("transform", function (d, i) {
         console.log("BarLineChart  d.key",d.key)
-        return "translate(5," + i * 25 + ")";
+        return "translate(" + (i*legendWidth) + "," + (height + margin.bottom - 10) + ")"; //(i*-legendWidth)
       });
 
     let color_hash = ['green','red','steelblue'];
     legend.append("rect")
-      .attr("x", width +19)
+      .attr("x", 0)
+      .attr("y",-10)
       .attr("width", 19)
       .attr("height", 19)
       .attr("fill", function (d, i) {
@@ -281,11 +283,9 @@ class BarLineChart extends React.PureComponent { // eslint-disable-line react/pr
       });
 
     legend.append("text")
-      .attr("x", width +15)
-      .attr("y", 9.5)
+      .attr("x", 0)
       .attr("dy", "0.32em")
       .text(function (d) {
-        console.log("BarLineChart text d.key",d.key)
         return d.key;
       });
 

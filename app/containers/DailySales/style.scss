@@ -174,7 +174,7 @@
 .container-left{
   display: flex;
 }
-.pageTitle{
+/*.pageTitle{
   font-family: Tesco;
   font-size: 20px;
   margin-top: -2%;
@@ -186,7 +186,22 @@
   padding: 0px;
   color:#00294f !important;
   background-color: #e5e8ea;
+}*/
+
+.pageTitle{
+  font-family: Tesco;
+  font-size: 20px;
+  text-align: center;
+  //color: #e5e5e5;
+  //background-color: #00294f;
+  //background-color: #00539f;
+  width: 100%;
+  padding: 0px;
+
+  color:#00294f !important;
+  background-color: #e5e8ea;
 }
+
 .pageModuleMainTitle{
   width: 100%;
   line-height: 28px;

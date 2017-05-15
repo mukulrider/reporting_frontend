@@ -21,7 +21,7 @@ import {
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-const host_url = "http://172.20.244.150:8001";
+const host_url = "http://172.20.244.150:8000";
 // let host_url = "http://172.20.244.228:8000"
 
 

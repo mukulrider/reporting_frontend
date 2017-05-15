@@ -217,7 +217,7 @@ export class Promotion extends React.PureComponent {
                     this.props.loadPromoGiveaway();
                     this.props.loadPromoProd();
                     this.props.loadPromoPart();
-                  }}><span className="tab_label">Current Week</span></NavItem>
+                  }}><span className="tab_label">Selected Week</span></NavItem>
 
                   <NavItem className="tabsCustomListTime" eventKey="2" onClick={() => {
                     this.setState({activeKey1: "2"});

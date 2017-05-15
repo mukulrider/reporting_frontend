@@ -19,7 +19,7 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
     let margin = {top: 30, right: 30, bottom: 30, left: 30},
       width = frameWidth - margin.left - margin.right,
       height = frameWidth - margin.top - margin.bottom,
-      radius = Math.min(width, height) / 1.5;
+      radius = Math.min(width, height) / 2.2;
 
     let color = d3.scaleOrdinal()
       .range(["#98abc5", "#8a89a6"]);
@@ -73,11 +73,11 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
       .text(function(d) { return (d.data +'%'); });
 
 
-    let dataGroup = [{"key":'Tesco Share'},{"key":'Market Share'}]
+    let dataGroup = [{"key":'Market Share'},{"key":'Tesco Share'}]
 
 
     // Legend
-
+    const legendWidth = frameWidth/2;
     let legend = svg.append("g")
       .attr("font-family", "sans-serif")
       .attr("font-size", 14)
@@ -86,15 +86,14 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
       .data(dataGroup)
       .enter().append("g")
       .attr("transform", function (d, i) {
-        console.log("PieChart d.key",d.key)
-        return "translate(" + radius + "," + i * 25 + ")";
+        return "translate(" + (i*-legendWidth) + ",0)";
       });
 
     let color_hash = ["#98abc5", "#8a89a6"];
 
 
     legend.append("rect")
-      .attr("x", 10 ).attr("y", radius)
+      .attr("x", 140 ).attr("y", radius)
       .attr("width", 19)
       .attr("height", 19)
       .attr("fill", function (d, i) {
@@ -102,7 +101,7 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
       });
 
     legend.append("text")
-      .attr("x", 0)
+      .attr("x", 130)
       .attr("y", radius + 10)
       .attr("dy", "0.32em")
       .text(function (d) {
