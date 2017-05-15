@@ -1,19 +1,20 @@
 /**
-*
-* ExecFilter
-*
-*/
+ *
+ * ExecFilter
+ *
+ */
 
 
 import React from 'react';
 import Checkbox from 'components/checkbox';
 import RadioButton from 'components/radio_button';
-import {Accordion,PanelGroup, Panel} from 'react-bootstrap';
+import {Accordion, PanelGroup, Panel} from 'react-bootstrap';
 import Button from 'components/button';
+import {Modal} from 'react-bootstrap';
 import styles from './style.scss';
 // import styled from 'styled-components';
 
-import { FormattedMessage } from 'react-intl';
+import {FormattedMessage} from 'react-intl';
 import messages from './messages';
 
 class ExecFilter extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -21,7 +22,7 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
     let queryString = '';
     [...this.refs.selector.querySelectorAll('input')].map(obj => {
       if (obj.checked == true) {
-        console.log("Objects",obj);
+        console.log("Objects", obj);
         let category = obj.id.split('__');
 
 
@@ -60,6 +61,15 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
     // this.props.onGenerateTable();
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      alertShow: false,
+      alertmsg: "Please Select the Mandatory Filters (marked with star)."
+    };
+
+  }
+
 
 
   render() {
@@ -96,7 +106,8 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
 
                               {
                                 this.props.week_data[0].items.map(obj2 => {
-                                  {/*console.log("Cascading Filter Inside map", obj2)*/}
+                                  {/*console.log("Cascading Filter Inside map", obj2)*/
+                                  }
                                   finalCheckbox.push(
                                     <Checkbox id={obj2.name }
                                               label={obj2.name}
@@ -118,7 +129,6 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
                                                 if (previous_week_selection == selection) {
                                                   selection = '';
                                                 }
-
 
 
                                                 this.props.onSaveWeekFilterParam(selection);
@@ -182,8 +192,9 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
               <PanelGroup defaultActiveKey="1" accordion>
                 {this.props.sideFilter.checkbox_list.map((item, key) => {
                   let panelHeader = (
-                    <div  className="text-capitalize">
-                      {item.title.replace(/_/g, ' ')}&nbsp;{item.required ? <span style={{color: 'red'}}>*</span> : '' } &nbsp;
+                    <div className="text-capitalize">
+                      {item.title.replace(/_/g, ' ')}&nbsp;{item.required ?
+                      <span style={{color: 'red'}}>*</span> : '' } &nbsp;
                       <span className="accordion-toggle" style={{float: 'right'}}></span>
                     </div>
                   );
@@ -231,7 +242,8 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
                                                     isDisabled={!obj.highlighted}
                                 />
                               }
-                              return <Checkbox style="font-size:12px;" id={item.id + '__' + item.category_director + '__' + obj.title}
+                              return <Checkbox style="font-size:12px;"
+                                               id={item.id + '__' + item.category_director + '__' + obj.title}
                                                label={obj.title}
                                                valid={true}
                                                key={item.id + '__' + obj.title}
@@ -260,15 +272,16 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
                                                     isDisabled={!obj.highlighted}
                                 />
                               }
-                              return <Checkbox  style="font-size:12px,width:230px;" id={item.id + '__' + item.category_director + '__' + obj.title}
-                                                label={obj.title} valid={true}
-                                                key={item.id + '__' + obj.title}
-                                                name={obj.title.toLowerCase() }
-                                                onChange={() => {
-                                                  this.updateUrl(item.category_director)
-                                                }}
-                                                checked={obj.resource.selected}
-                                                isDisabled={!obj.highlighted}
+                              return <Checkbox style="font-size:12px,width:230px;"
+                                               id={item.id + '__' + item.category_director + '__' + obj.title}
+                                               label={obj.title} valid={true}
+                                               key={item.id + '__' + obj.title}
+                                               name={obj.title.toLowerCase() }
+                                               onChange={() => {
+                                                 this.updateUrl(item.category_director)
+                                               }}
+                                               checked={obj.resource.selected}
+                                               isDisabled={!obj.highlighted}
                               />
                             }
                           })}
@@ -278,45 +291,98 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
                   )
                 })}
               </PanelGroup>
+
+              <Modal show={this.state.alertShow} bsSize="large" aria-labelledby="contained-modal-title-sm">
+                <Modal.Header>
+                  <Modal.Title id="contained-modal-title-sm"
+                               style={{textAlign: 'center', fontSize: '18px'}}><span
+                    style={{textAlign: 'center', fontSize: '14px'}}><b>Mandatory Filter Selection Missing</b><span
+                    style={{textAlign: 'right', float: 'right'}}
+                    onClick={() => this.setState({alertShow: false})}><b>X</b></span></span>
+                    <div style={{textAlign: 'center'}}>
+                      <div style={{textAlign: 'right'}}>
+                      </div>
+                    </div>
+                  </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+
+                  <div className="row">
+                    <div className="col-xs-12 alertMadatoryFilter" style={{fontSize: '14px', textAlign: 'center'}}>
+                      {this.state.alertmsg}
+                    </div>
+                  </div>
+
+
+                </Modal.Body>
+                {/*<Modal.Footer>*/}
+                {/*<Button*/}
+                {/*onClick={() => {*/}
+                {/*this.setState({alertShow: false})*/}
+                {/*}}*/}
+                {/*style={{display: 'block', margin: '0 auto'}}>Close</Button>*/}
+                {/*</Modal.Footer>*/}
+              </Modal>
+
+
               <div className="text-center">
                 <Button onClick={() => {
+                  let filterDataWeek = this.props.week_filter_param;
+                  let filterData = this.props.urlParamsString;
+                  console.log('filterDataWeek', filterDataWeek);
+                  if (!(typeof(filterDataWeek) == "undefined") && !(typeof(filterData) == "undefined")) {
+                    console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek, filterData);
+                    if (filterDataWeek.includes("tesco_week") && filterData.includes("buying_controller")) {
+                      console.log('tesco_weeek filterDataWeek', filterDataWeek);
+                      console.log('--filterData', filterData);
 
-               {/*Load functions here*/}
-                  if (this.props.kpi_param=='kpi_type=Overview') {
-                    console.log("______________________ Only Overview function Called")
-                    this.props.loadOverviewKpi();
-                    this.props.loadOverviewKpiTrend();
-                    this.props.loadOverviewDriversInternal();
-                    this.props.loadOverviewDriversExternal();
-                    this.props.loadRolesAndIntent();
-                    this.props.loadBudgetAndForecast();
-                  }
-                  else {
-                    if(this.props.kpi_param=='kpi_type=Price')
-                    {
-                      console.log("______________________ Only Price function Called")
-                      this.props.loadPriceKPIData();
+                      {/*Load functions here*/
+                      }
+                      if (this.props.kpi_param == 'kpi_type=Overview') {
+                        console.log("______________________ Only Overview function Called")
+                        this.props.loadOverviewKpi();
+                        this.props.loadOverviewKpiTrend();
+                        this.props.loadOverviewDriversInternal();
+                        this.props.loadOverviewDriversExternal();
+                        this.props.loadRolesAndIntent();
+                        this.props.loadBudgetAndForecast();
+                      }
+                      else {
+                        if (this.props.kpi_param == 'kpi_type=Price') {
+                          console.log("______________________ Only Price function Called")
+                          this.props.loadPriceKPIData();
 
+
+                        }
+
+                        else {
+                          console.log("______________________ Only KPI functions Called")
+
+                          this.props.loadKpiBoxes();
+                          this.props.loadBestWorst();
+                          this.props.loadDriversInternalData();
+                          this.props.loadDriversExternalData();
+                        }
+
+                      }
 
                     }
-
                     else {
-                      console.log("______________________ Only KPI functions Called")
-
-                      this.props.loadKpiBoxes();
-                      this.props.loadBestWorst();
-                      this.props.loadDriversInternalData();
-                      this.props.loadDriversExternalData();
+                      console.log('modal open');
+                      this.setState({alertShow: true});
                     }
-
+                  } else {
+                    console.log('modal open');
+                    this.setState({alertShow: true});
                   }
+
                 }}>Apply</Button>
                 <div style={{height: '1%', width: '100%'}}>&nbsp;</div>
                 <Button onClick={() => {
-                  let  selection = '';
+                  let selection = '';
                   this.props.onSaveWeekFilterParam(selection);
                   this.props.ongenerateWeekFilter();
-                  let queryString='';
+                  let queryString = '';
                   this.props.onGenerateUrlParamsString(queryString);
                   this.props.generateSideFilter();
 
@@ -324,45 +390,45 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
                 <div style={{height: '1%', width: '100%'}}>&nbsp;</div>
 
                 {/*<Button onClick={() => {*/}
-                  {/*let  selection = '';*/}
-                  {/*this.props.onSaveWeekFilterParam(selection);*/}
-                  {/*this.props.ongenerateWeekFilter();*/}
-                  {/*let queryString='';*/}
-                  {/*this.props.onGenerateUrlParamsString(queryString);*/}
-                  {/*this.props.generateSideFilter();*/}
-                  {/*if (this.props.kpi_param=='kpi_type=Overview') {*/}
-                    {/*console.log("______________________ Only Overview function Called")*/}
-                    {/*this.props.loadOverviewKpi();*/}
-                    {/*this.props.loadOverviewKpiTrend();*/}
-                    {/*this.props.loadOverviewDriversInternal();*/}
-                    {/*this.props.loadOverviewDriversExternal();*/}
+                {/*let  selection = '';*/}
+                {/*this.props.onSaveWeekFilterParam(selection);*/}
+                {/*this.props.ongenerateWeekFilter();*/}
+                {/*let queryString='';*/}
+                {/*this.props.onGenerateUrlParamsString(queryString);*/}
+                {/*this.props.generateSideFilter();*/}
+                {/*if (this.props.kpi_param=='kpi_type=Overview') {*/}
+                {/*console.log("______________________ Only Overview function Called")*/}
+                {/*this.props.loadOverviewKpi();*/}
+                {/*this.props.loadOverviewKpiTrend();*/}
+                {/*this.props.loadOverviewDriversInternal();*/}
+                {/*this.props.loadOverviewDriversExternal();*/}
 
-                  {/*}*/}
-                  {/*else {*/}
-                    {/*if(this.props.Executive.kpi_param=='kpi_type=Price')*/}
-                    {/*{*/}
-                      {/*console.log("______________________ Only Price function Called")*/}
-                      {/*this.props.loadPriceKPIData();*/}
+                {/*}*/}
+                {/*else {*/}
+                {/*if(this.props.Executive.kpi_param=='kpi_type=Price')*/}
+                {/*{*/}
+                {/*console.log("______________________ Only Price function Called")*/}
+                {/*this.props.loadPriceKPIData();*/}
 
 
-                    {/*}*/}
+                {/*}*/}
 
-                    {/*else {*/}
-                      {/*console.log("______________________ Only KPI functions Called")*/}
-                      {/*this.props.loadRolesAndIntent();*/}
-                      {/*this.props.loadBudgetAndForecast();*/}
+                {/*else {*/}
+                {/*console.log("______________________ Only KPI functions Called")*/}
+                {/*this.props.loadRolesAndIntent();*/}
+                {/*this.props.loadBudgetAndForecast();*/}
 
-                      {/*this.props.loadKpiBoxes();*/}
-                      {/*this.props.loadBestWorst();*/}
-                      {/*/!*this.props.loadBestInfoData();*!/*/}
+                {/*this.props.loadKpiBoxes();*/}
+                {/*this.props.loadBestWorst();*/}
+                {/*/!*this.props.loadBestInfoData();*!/*/}
 
-                      {/*/!*this.props.loadWorstInfoData();*!/*/}
-                      {/*/!*this.props.loadSupplierInfoData();*!/*/}
-                      {/*this.props.loadDriversInternalData();*/}
-                      {/*this.props.loadDriversExternalData();*/}
-                    {/*}*/}
+                {/*/!*this.props.loadWorstInfoData();*!/*/}
+                {/*/!*this.props.loadSupplierInfoData();*!/*/}
+                {/*this.props.loadDriversInternalData();*/}
+                {/*this.props.loadDriversExternalData();*/}
+                {/*}*/}
 
-                  {/*}*/}
+                {/*}*/}
 
 
 
@@ -380,8 +446,6 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
   }
 }
 
-ExecFilter.propTypes = {
-
-};
+ExecFilter.propTypes = {};
 
 export default ExecFilter;
