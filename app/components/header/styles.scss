@@ -396,6 +396,7 @@
 
 
 //Tabs For the Navigation Panel
+
 .tabsNavPanel{
   margin-top: 27px;
 }
@@ -435,4 +436,10 @@
   text-decoration: none !important;
   border-color: #008dc8 !important;
   color: #008dc8 !important;
+}
+
+.tabsNavPanelLogoutList a:hover,
+.tabsNavPanelLogoutList a:active{
+  background: #fff !important;
+  border:0px;
 }

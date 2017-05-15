@@ -721,7 +721,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
               </Nav>
               </div>
               {(() => {
-                if (this.props.Executive.budget_forecast_data && this.props.Executive.roles_intent_data) {
+                if (this.props.Executive.kpi_param=='kpi_type=Overview') {
                   return (
                     <div className="mainBox">
 

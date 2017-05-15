@@ -201,7 +201,7 @@ export class Promotion extends React.PureComponent {
                     this.props.loadPromoPart();
                   }}><span className="tab_label">Current Week</span></NavItem>
 
-                  <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                  <NavItem className="tabsCustomListTime" eventKey="2" onClick={() => {
                     this.setState({activeKey1: "2"});
 
                     this.props.pieChartSuccess(0);
@@ -220,7 +220,7 @@ export class Promotion extends React.PureComponent {
                     this.props.loadPromoPart();
                   }}><span className="tab_label">Last 4 weeks</span></NavItem>
 
-                  <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                  <NavItem className="tabsCustomListTime" eventKey="3" onClick={() => {
                     this.setState({activeKey1: "3"});
 
                     this.props.pieChartSuccess(0);
@@ -237,7 +237,7 @@ export class Promotion extends React.PureComponent {
                     this.props.loadPromoProd();
                     this.props.loadPromoPart();
                   }}><span className="tab_label">Last 13 weeks</span></NavItem>
-                  <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+                  <NavItem className="tabsCustomListTime" eventKey="4" onClick={() => {
                     this.setState({activeKey1: "4"});
 
                     this.props.pieChartSuccess(0);
@@ -786,6 +786,7 @@ export class Promotion extends React.PureComponent {
                     <div className="col-lg-8 col-md-8 col-md-12 col-xs-8">
                       {/*Nav for Giveaway*/}
                       <div className="row">
+                        <span style={{float:"left"}}>
                       <Nav bsStyle="tabs" activeKey={this.state.activeKey5} onSelect={this.handleSelect}
                            className="tabsCustom secondaryTabs" style={{margin:"0px"}}>
                         <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
@@ -826,6 +827,23 @@ export class Promotion extends React.PureComponent {
 
 
                             </Nav>
+                        </span>
+                            <span style={{float: "right"}}>
+                              <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                                backgroundColor: "transparent",
+                                borderColor: "transparent",
+                                color: "#00539f"
+                              }} id="dropButtonId">
+                                <MenuItem onClick={() => {
+                                  saveImage(document.getElementById('linechart2' + '_svg'), "promo_giveaway_linechart")
+                                }
+                                }>Save As JPEG</MenuItem>
+                                <MenuItem onClick={() => {
+                                  saveDataAsCSV(this.props.promotion.promo_giveaway_data.trend, "promo_giveaway_linechart_data.csv")
+                                }
+                                }>Download CSV</MenuItem>
+                              </DropdownButton>
+                            </span>
                           </div>
                           <div className="row">
                             {(() => {
@@ -833,22 +851,7 @@ export class Promotion extends React.PureComponent {
                                 console.log("Promo Giveaway line chart data", this.props.promotion.promo_giveaway_data.trend);
                                 return (
                                   <div>
-                                    <div style={{float: "right"}}>
-                                      <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
-                                        backgroundColor: "transparent",
-                                        borderColor: "transparent",
-                                        color: "#00539f"
-                                      }} id="dropButtonId">
-                                        <MenuItem onClick={() => {
-                                          saveImage(document.getElementById('linechart2' + '_svg'), "promo_giveaway_linechart")
-                                        }
-                                        }>Save As JPEG</MenuItem>
-                                        <MenuItem onClick={() => {
-                                          saveDataAsCSV(this.props.promotion.promo_giveaway_data.trend, "promo_giveaway_linechart_data.csv")
-                                        }
-                                        }>Download CSV</MenuItem>
-                                      </DropdownButton>
-                                    </div>
+
                                     <MultilinePromo data={this.props.promotion.promo_giveaway_data.trend}
                                                     id="linechart2" label_ty="Promo Giveaway TY"
                                                     label_ly="Promo Giveaway LY" xaxis_title="Tesco Week"
@@ -889,7 +892,8 @@ export class Promotion extends React.PureComponent {
                               console.log("pie chart promo_products data", this.props.promotion.promo_prod_data.pie_chart);
                               return (
                                 <div>
-                                  <div style={{float: "right", marginTop: "60px"}}>
+                                  <span style={{float:"left"}}><h3 className="pageModuleSubTitle">Chart</h3></span>
+                                  <span style={{float: "right"}}>
                                     <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
                                       backgroundColor: "transparent",
                                       borderColor: "transparent",
@@ -904,7 +908,7 @@ export class Promotion extends React.PureComponent {
                                       }
                                       }>Download CSV</MenuItem>
                                     </DropdownButton>
-                                  </div>
+                                  </span>
                                   <PieChart data={this.props.promotion.promo_prod_data.pie_chart}
                                             id="piechart3"/>
                                 </div>

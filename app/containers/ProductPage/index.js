@@ -213,7 +213,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   }}
                 ><span className="tab_label">Selected Week</span></NavItem>
                 <NavItem style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
-                  className="tabsCustomList" eventKey="2" onClick={() => {
+                  className="tabsCustomListTime" eventKey="2" onClick={() => {
                   this.setState({activeKey: "2"});
                   let dataWeekParams="week_flag=4";
                   this.props.onSaveWeekParam(dataWeekParams);

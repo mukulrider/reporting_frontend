@@ -8,7 +8,7 @@ import Grid from '../grid';
 import tesco from './../../assets/images/tesco.svg';
 import { Nav } from 'react-bootstrap';
 import { NavItem } from 'react-bootstrap';
-
+import { DropdownButton, MenuItem } from 'react-bootstrap';
 
 function renderBackLink(backLink) {
   return backLink ?
@@ -168,53 +168,51 @@ class Header extends Component {
         <div className={contentClasses}>
           <Grid>
             <div className="Row" >
-            <div className="col-md-2 col-sm-2 col-sx-2">
-              {
+              <div className="col-md-2 col-sm-2 col-sx-2">
+                {
                 (logo,
                   <div className="ui-component__header__tesco-logo">
                     <Logo {...logo} id="logo" />
                   </div>
                 )
               }
-            </div>
+              </div>
               <div className="ui-component__header__content--right">
                 <RoundedIconButton icon="menu" onClick={this.handleClick} label="Menu" />
               </div>
-              <div className="col-md-8 col-sm-8 col-xs-8">
-                <Nav bsStyle="tabs" className="tabsNavPanel" style={{marginWidth:"5%"}}>
+              <div className="row">
+                <Nav bsStyle="tabs" className="tabsNavPanel" style={{ marginWidth: '5%' }}>
                   <NavItem className="tabsNavPanelList" href="/sales/executive/">Executive View</NavItem>
                   <NavItem className="tabsNavPanelList" href="/sales/competitor/">Competitor View</NavItem>
                   <NavItem className="tabsNavPanelList" href="/sales/promo/">Promotions View</NavItem>
                   <NavItem className="tabsNavPanelList" href="/sales/supplier/">Supplier View</NavItem>
                   <NavItem className="tabsNavPanelList" href="/sales/product">Product View</NavItem>
                   <NavItem className="tabsNavPanelList" href="/sales/dailysales/">Daily Sales View</NavItem>
-                </Nav>
-              </div>
-              <div className="col-md-2">
-                {(() => {
-                  const getCookie = (name) => {
-                    const value = `; ${document.cookie}`;
-                    const parts = value.split(`; ${name}=`);
-                    if (parts.length === 2) {
-                      return parts.pop().split(';').shift();
-                    }
-                  };
-                  const token = getCookie('token');
-
-                  return token ?
-                    <div >
-                      <br />
-                      <Button
-                        buttonType={'primary'}
-                        style={{ minWidth: '175px',marginTop: '6px'}}
-                        onClick={() => {
+                  <NavItem className="tabsNavPanelLogoutList" style={{ float: 'right', marginTop: '-8px' }}>
+                    <span>
+                      {/*<span style={{float:"left" }}>*/}
+                        {/*<h4> Menu </h4>*/}
+                      {/*</span>*/}
+                      <span>
+                      <DropdownButton className="	glyphicon glyphicon-user" pullRight style={{ backgroundColor: 'transparent', borderColor: 'transparent', color: '#00539f', fontSize:"18px"}}>
+                        <MenuItem style={{textDecoration:"none"}}><span ><b>Hi,User</b></span></MenuItem>
+                        <MenuItem onClick={() => {
+                          const getCookie = (name) => {
+                            const value = `; ${document.cookie}`;
+                            const parts = value.split(`; ${name}=`);
+                            if (parts.length === 2) {
+                              return parts.pop().split(';').shift();
+                            }
+                          };
+                          const token = getCookie('token');
                           const hostName = '172.20.246.60';
                           const hostPort = '3000';
                           document.cookie = 'token'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
                           window.location = `http://${hostName}:${hostPort}/login/`;
-                        }}
-                      >Logout</Button></div> : '';
-                })()};
+                        }}>Logout</MenuItem>
+                      </DropdownButton></span>
+                    </span></NavItem>
+                </Nav>
               </div>
             </div>
           </Grid>

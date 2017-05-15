@@ -19,7 +19,7 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
     let margin = {top: 120, right: 20, bottom: 30, left: 50},
       width = containerWidth - margin.left - margin.right,
       height = containerWidth - margin.top - margin.bottom,
-      radius = Math.min(width, height) / 1.5;
+      radius = Math.min(width, height) / 1.8;
     console.log("Piechart inside createChart margin",margin);
 
     let arc = d3.arc()
