@@ -8,6 +8,7 @@ import React from 'react';
 // import styled from 'styled-components';
 import Checkbox from 'components/checkbox';
 import Button from 'components/button';
+import {Modal} from 'react-bootstrap';
 import {Accordion, PanelGroup, Panel} from 'react-bootstrap';
 import styles from './style.scss';
 
@@ -29,6 +30,15 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
     // this.props.onCompetitorPriceRange();
     // this.props.onCompWaterfall();
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      alertShow: false,
+      alertmsg: "Please Select the Mandatory Filters (marked with star)."
+    };
+
+  }
 
 
   applyButtonFunctionality = () => {
@@ -82,7 +92,10 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
                     var panelHeader = (
 
                       <div className="panel-heading">Tesco Week
-                        <span style={{color: "red"}}>*</span>&nbsp;<span className="accordion-toggle" style={{float: 'right', marginRight: '-6%'}}></span></div>
+                        <span style={{color: "red"}}>*</span>&nbsp;<span className="accordion-toggle" style={{
+                          float: 'right',
+                          marginRight: '-6%'
+                        }}></span></div>
                     );
                     return (
 
@@ -260,44 +273,94 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
                 })()}
               </PanelGroup>
 
+              <Modal show={this.state.alertShow} bsSize="large" aria-labelledby="contained-modal-title-sm">
+                <Modal.Header>
+                  <Modal.Title id="contained-modal-title-sm"
+                               style={{textAlign: 'center', fontSize: '18px'}}><span
+                    style={{textAlign: 'center', fontSize: '14px'}}><b>Mandatory Filter Selection Missing</b><span
+                    style={{textAlign: 'right', float: 'right'}}
+                    onClick={() => this.setState({alertShow: false})}><b>X</b></span></span>
+                    <div style={{textAlign: 'center'}}>
+                      <div style={{textAlign: 'right'}}>
+                      </div>
+                    </div>
+                  </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
 
-              <Button style={{marginTop: "5px",marginLeft: "48px", width: "10px", "min-width": "170px", fontSize: "13px"}}
-                      onClick={() => {
+                  <div className="row">
+                    <div className="col-xs-12 alertMadatoryFilter" style={{fontSize: '14px', textAlign: 'center'}}>
+                      {this.state.alertmsg}
+                    </div>
+                  </div>
 
-                        this.props.onPieChartSpinnerSuccess(0);
-                        this.props.outPerformanceChartSuccess(0);
-                        this.props.waterChartAsdaSuccess(0);
-                        this.props.priceRangeChartSuccess(0);
 
-                        this.applyButtonFunctionality();
+                </Modal.Body>
+                {/*<Modal.Footer>*/}
+                {/*<Button*/}
+                {/*onClick={() => {*/}
+                {/*this.setState({alertShow: false})*/}
+                {/*}}*/}
+                {/*style={{display: 'block', margin: '0 auto'}}>Close</Button>*/}
+                {/*</Modal.Footer>*/}
+              </Modal>
 
-                      }}>Apply Filters</Button>
 
-              <Button style={{marginTop: "5px",marginLeft: "48px", width: "10px", "min-width": "170px", fontSize: "13px"}}
-                      onClick={() => {
-                        //To un check all the buttons
-                        let selection = '';
-                        this.props.onCheckboxChange(selection);
-                        this.props.onGenerateSideFilter();
+              <Button
+                style={{marginTop: "5px", marginLeft: "48px", width: "10px", "min-width": "170px", fontSize: "13px"}}
+                onClick={() => {
 
-                        {/*this.resetButtonFunctionality();*/
-                        }
+                  let filterDataWeek = this.props.filter_week_selection;
+                  let filterData = this.props.filter_selection;
+                  console.log('filterDataWeek', filterDataWeek);
+                  if (!(typeof(filterDataWeek) == "undefined") && !(typeof(filterData) == "undefined")) {
+                    console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek,filterData);
+                    if (filterDataWeek.includes("tesco_week") && filterData.includes("buying_controller")) {
+                      console.log('tesco_weeek filterDataWeek', filterDataWeek);
+                      console.log('--filterData', filterData);
+                      this.props.onPieChartSpinnerSuccess(0);
+                      this.props.outPerformanceChartSuccess(0);
+                      this.props.waterChartAsdaSuccess(0);
+                      this.props.priceRangeChartSuccess(0);
 
-                      }}>Clear Filters</Button>
+                      this.applyButtonFunctionality();
+                    }
+                    else {
+                      console.log('modal open');
+                      this.setState({alertShow: true});
+                  }
+                  } else {
+                    console.log('modal open');
+                    this.setState({alertShow: true});
+                  }
+                }}>Apply Filters</Button>
+
+              <Button
+                style={{marginTop: "5px", marginLeft: "48px", width: "10px", "min-width": "170px", fontSize: "13px"}}
+                onClick={() => {
+                  //To un check all the buttons
+                  let selection = '';
+                  this.props.onCheckboxChange(selection);
+                  this.props.onGenerateSideFilter();
+
+                  {/*this.resetButtonFunctionality();*/
+                  }
+
+                }}>Clear Filters</Button>
 
               {/*<Button style={{marginTop: "5px", marginLeft: "48px", width: "10px", "min-width": "170px", fontSize: "13px"}}*/}
-                      {/*onClick={() => {*/}
-                        {/*To un check all the buttons*/}
-                        {/*let selection='';*/
-                        }
-                        {/*this.props.onCheckboxChange(selection);*/
-                        }
-                        {/*this.props.onGenerateSideFilter();*/
-                        }
+              {/*onClick={() => {*/}
+              {/*To un check all the buttons*/}
+              {/*let selection='';*/
+              }
+              {/*this.props.onCheckboxChange(selection);*/
+              }
+              {/*this.props.onGenerateSideFilter();*/
+              }
 
-                        {/*this.resetButtonFunctionality();*/}
+              {/*this.resetButtonFunctionality();*/}
 
-                      {/*}}>Load Default view</Button>*/}
+              {/*}}>Load Default view</Button>*/}
             </div>
           )
         })()}

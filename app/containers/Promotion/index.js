@@ -148,6 +148,8 @@ export class Promotion extends React.PureComponent {
                                promoParticipationBySplitSuccess={this.props.promoParticipationBySplitSuccess}
                                productsTableSplitSuccess={this.props.productsTableSplitSuccess}
                                kpiDataSuccess={this.props.kpiDataSuccess}
+                               weekurlParam={this.props.promotion.weekurlParam}
+                               urlParamsString={this.props.promotion.urlParamsString}
 
                   />
                 );

@@ -1,8 +1,8 @@
 /**
-*
-* PromoFilter
-*
-*/
+ *
+ * PromoFilter
+ *
+ */
 
 
 import React from 'react';
@@ -12,6 +12,7 @@ import RadioButton from 'components/radio_button';
 // import Panel from 'components/panel';
 import {Accordion, PanelGroup, Panel} from 'react-bootstrap';
 import Button from 'components/button';
+import {Modal} from 'react-bootstrap';
 // import styled from 'styled-components';
 import styles from './style.scss';
 
@@ -59,7 +60,17 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
     // this.props.onGenerateTable();
   };
 
-  clearFilter = ()=>{
+  constructor(props) {
+    super(props);
+    this.state = {
+      alertShow: false,
+      alertmsg: "Please Select the Mandatory Filters (marked with star)."
+    };
+
+  }
+
+
+  clearFilter = () => {
     // this.props.onGenerateFilterParamsString('');
     // this.props.onGenerateUrlParamsString('');
     // this.props.onGenerateUrlParamsData();
@@ -124,7 +135,6 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
                                                 }
 
 
-
                                                 this.props.onSaveWeekFilterParam(selection);
                                                 this.props.ongenerateWeekFilter();
                                               }}
@@ -186,8 +196,9 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
               <PanelGroup defaultActiveKey="1" accordion>
                 {this.props.sideFilter.checkbox_list.map((item, key) => {
                   let panelHeader = (
-                    <div  className="text-capitalize">
-                      {item.title.replace(/_/g, ' ')}&nbsp;{item.required ? <span style={{color: 'red'}}>*</span> : '' } &nbsp;
+                    <div className="text-capitalize">
+                      {item.title.replace(/_/g, ' ')}&nbsp;{item.required ?
+                      <span style={{color: 'red'}}>*</span> : '' } &nbsp;
                       <span className="accordion-toggle" style={{float: 'right'}}></span>
                     </div>
                   );
@@ -235,7 +246,8 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
                                                     isDisabled={!obj.highlighted}
                                 />
                               }
-                              return <Checkbox style="font-size:12px;" id={item.id + '__' + item.category_director + '__' + obj.title}
+                              return <Checkbox style="font-size:12px;"
+                                               id={item.id + '__' + item.category_director + '__' + obj.title}
                                                label={obj.title}
                                                valid={true}
                                                key={item.id + '__' + obj.title}
@@ -264,15 +276,16 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
                                                     isDisabled={!obj.highlighted}
                                 />
                               }
-                              return <Checkbox  style="font-size:12px,width:230px;" id={item.id + '__' + item.category_director + '__' + obj.title}
-                                                label={obj.title} valid={true}
-                                                key={item.id + '__' + obj.title}
-                                                name={obj.title.toLowerCase() }
-                                                onChange={() => {
-                                                  this.updateUrl(item.category_director)
-                                                }}
-                                                checked={obj.resource.selected}
-                                                isDisabled={!obj.highlighted}
+                              return <Checkbox style="font-size:12px,width:230px;"
+                                               id={item.id + '__' + item.category_director + '__' + obj.title}
+                                               label={obj.title} valid={true}
+                                               key={item.id + '__' + obj.title}
+                                               name={obj.title.toLowerCase() }
+                                               onChange={() => {
+                                                 this.updateUrl(item.category_director)
+                                               }}
+                                               checked={obj.resource.selected}
+                                               isDisabled={!obj.highlighted}
                               />
                             }
                           })}
@@ -282,49 +295,102 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
                   )
                 })}
               </PanelGroup>
+
+
+              <Modal show={this.state.alertShow} bsSize="large" aria-labelledby="contained-modal-title-sm">
+                <Modal.Header>
+                  <Modal.Title id="contained-modal-title-sm"
+                               style={{textAlign: 'center', fontSize: '18px'}}><span
+                    style={{textAlign: 'center', fontSize: '14px'}}><b>Mandatory Filter Selection Missing</b><span
+                    style={{textAlign: 'right', float: 'right'}}
+                    onClick={() => this.setState({alertShow: false})}><b>X</b></span></span>
+                    <div style={{textAlign: 'center'}}>
+                      <div style={{textAlign: 'right'}}>
+                      </div>
+                    </div>
+                  </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+
+                  <div className="row">
+                    <div className="col-xs-12 alertMadatoryFilter" style={{fontSize: '14px', textAlign: 'center'}}>
+                      {this.state.alertmsg}
+                    </div>
+                  </div>
+
+
+                </Modal.Body>
+                {/*<Modal.Footer>*/}
+                {/*<Button*/}
+                {/*onClick={() => {*/}
+                {/*this.setState({alertShow: false})*/}
+                {/*}}*/}
+                {/*style={{display: 'block', margin: '0 auto'}}>Close</Button>*/}
+                {/*</Modal.Footer>*/}
+              </Modal>
+
+
               <div className="text-center">
                 <Button onClick={() => {
 
-                  this.props.pieChartSuccess(0);
-                  this.props.promoGiveAwaySuccess(0);
-                  this.props.productsCountSplitSuccess(0);
-                  this.props.promoParticipationBySplitSuccess(0);
-                  this.props.productsTableSplitSuccess(0);
-                  this.props.kpiDataSuccess(0);
-                  this.props.loadKpi();
-                  this.props.loadSales();
-                  this.props.loadPromoGiveaway();
-                  this.props.loadPromoProd();
-                  this.props.loadPromoPart();
+                  let filterDataWeek = this.props.weekurlParam;
+                  let filterData = this.props.urlParamsString;
+
+                  if (!(typeof(filterDataWeek) == "undefined") && !(typeof(filterData) == "undefined")) {
+                    console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek);
+                    if (filterDataWeek.includes("tesco_week") && filterData.includes("buying_controller")) {
+                      console.log('tesco_weeek filterDataWeek', filterDataWeek);
+                      console.log('--filterData', filterData);
+                      this.props.pieChartSuccess(0);
+                      this.props.promoGiveAwaySuccess(0);
+                      this.props.productsCountSplitSuccess(0);
+                      this.props.promoParticipationBySplitSuccess(0);
+                      this.props.productsTableSplitSuccess(0);
+                      this.props.kpiDataSuccess(0);
+                      this.props.loadKpi();
+                      this.props.loadSales();
+                      this.props.loadPromoGiveaway();
+                      this.props.loadPromoProd();
+                      this.props.loadPromoPart();
+
+                    }
+                    else {
+                      console.log('modal open');
+                      this.setState({alertShow: true});
+                    }
+                  } else {
+                    console.log('modal open');
+                    this.setState({alertShow: true});
+                  }
 
                 }}>Apply</Button>
                 <div style={{height: '1%', width: '100%'}}>&nbsp;</div>
-              <Button onClick={() => {
-               let  selection = '';
-                this.props.onSaveWeekFilterParam(selection);
-                this.props.ongenerateWeekFilter();
-                let queryString='';
-                this.props.onGenerateUrlParamsString(queryString);
-                this.props.generateSideFilter();
+                <Button onClick={() => {
+                  let selection = '';
+                  this.props.onSaveWeekFilterParam(selection);
+                  this.props.ongenerateWeekFilter();
+                  let queryString = '';
+                  this.props.onGenerateUrlParamsString(queryString);
+                  this.props.generateSideFilter();
 
-              }}>Clear filters</Button>
+                }}>Clear filters</Button>
                 <div style={{height: '1%', width: '100%'}}>&nbsp;</div>
                 {/*<Button onClick={() => {*/}
-                  {/*let  selection = '';*/}
-                  {/*this.props.onSaveWeekFilterParam(selection);*/}
-                  {/*this.props.ongenerateWeekFilter();*/}
-                  {/*let queryString='';*/}
-                  {/*this.props.onGenerateUrlParamsString(queryString);*/}
-                  {/*this.props.generateSideFilter();*/}
-                  {/*this.props.loadKpi();*/}
-                  {/*this.props.loadSales();*/}
-                  {/*this.props.loadPromoGiveaway();*/}
-                  {/*this.props.loadPromoProd();*/}
-                  {/*this.props.loadPromoPart();*/}
+                {/*let  selection = '';*/}
+                {/*this.props.onSaveWeekFilterParam(selection);*/}
+                {/*this.props.ongenerateWeekFilter();*/}
+                {/*let queryString='';*/}
+                {/*this.props.onGenerateUrlParamsString(queryString);*/}
+                {/*this.props.generateSideFilter();*/}
+                {/*this.props.loadKpi();*/}
+                {/*this.props.loadSales();*/}
+                {/*this.props.loadPromoGiveaway();*/}
+                {/*this.props.loadPromoProd();*/}
+                {/*this.props.loadPromoPart();*/}
                 {/*}}>Load default</Button>*/}
-            </div>
+              </div>
               {/*<Button onClick={() => {*/}
-                {/*/!*this.props.onFilterReset();*!/*/}
+              {/*/!*this.props.onFilterReset();*!/*/}
               {/*}}>Reset Filters</Button>&nbsp;&nbsp;*/}
             </div>
           )
@@ -334,8 +400,6 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
   }
 }
 
-PromoFilter.propTypes = {
-
-};
+PromoFilter.propTypes = {};
 
 export default PromoFilter;

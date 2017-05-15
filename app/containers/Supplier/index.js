@@ -272,6 +272,8 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                          bubbleChartSpinnerCheck={this.props.bubbleChartSpinnerCheckSuccess}
                                          tableChartSpinnerCheck={this.props.tableChartSpinnerCheckSuccess}
                                          supplierViewKpiSpinnerCheck={this.props.supplierViewKpiSpinnerCheckSuccess}
+                                         urlParamsString={this.props.supplier.urlParamsString}
+                                         filter_week_selection={this.props.supplier.filter_week_selection}
 
 
                           // onGenerateFilterParamsString={this.props.onGenerateFilterParamsString}

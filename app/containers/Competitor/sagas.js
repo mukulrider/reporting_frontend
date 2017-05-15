@@ -22,7 +22,7 @@ import {
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-const host_url = 'http://172.20.244.150:8000';
+const host_url = 'http://172.20.244.150:8001';
 // const host_url = 'http://10.1.244.154:8000';
 // All sagas to be loaded
 
@@ -100,11 +100,12 @@ export function* generateCompetitorPieChartDataFetch() {
 
   const data = yield call(request,
     `${host_url}/api/reporting/competitor_market_share?${weekurlparam}&${kpiparam}&${filterurlparam}&${weekselection}`,
-    {
-      // headers: {
-      //   Authorization: token
-      // }
-    });
+    // {
+    //   headers: {
+    //     Authorization: token
+    //   }
+    // }
+    );
   console.log('Heres the kpi data', data);
   let spinnerCheck = 1;
   yield put(CompetitorPieChartDataFetchSuccess(data));
@@ -140,9 +141,9 @@ export function* generateCompetitorPriceRangeDataFetch() {
   const data = yield call(request,
     `${host_url}/api/reporting/competitor_view_range?${weekurlparam}&${filterurlparam}&${weekselection}`,
     // {
-    //   // headers: {
-    //   //   Authorization: token
-    //   // }
+    //   headers: {
+    //     Authorization: token
+    //   }
     // }
     );
   console.log('Heres the kpi data', data);
@@ -191,9 +192,9 @@ export function* generateCompetitorOutperformance() {
   const data = yield call(request,
     `${host_url}/api/reporting/competitor_market_outperformance?${weekurlparam}&${kpiparam}&${filterurlparam}&${weekselection}`,
     // {
-    //   // headers: {
-    //   //   Authorization: token
-    //   // }
+    //   headers: {
+    //     Authorization: token
+    //   }
     // }
       );
 

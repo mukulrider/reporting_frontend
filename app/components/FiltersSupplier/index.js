@@ -9,8 +9,9 @@ import {browserHistory} from 'react-router';
 import Checkbox from 'components/checkbox';
 import RadioButton from 'components/radio_button';
 // import Panel from 'components/panel';
-import {Accordion,PanelGroup, Panel} from 'react-bootstrap';
+import {Accordion, PanelGroup, Panel} from 'react-bootstrap';
 import Button from 'components/button';
+import {Modal} from 'react-bootstrap';
 // import styled from 'styled-components';
 import styles from './style.scss';
 
@@ -42,7 +43,7 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
       }
     });
     queryString = queryString.substring(0, queryString.length - 1);
-    console.log('queryString2',queryString);
+    console.log('queryString2', queryString);
     // APPEND URL PARAMS
 
     this.props.onGenerateUrlParamsString(queryString);
@@ -64,7 +65,16 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
     // this.props.onGenerateTable();
   };
 
-  clearFilter = ()=>{
+  constructor(props) {
+    super(props);
+    this.state = {
+      alertShow: false,
+      alertmsg: "Please Select the Mandatory Filters (marked with star)."
+    };
+
+  }
+
+  clearFilter = () => {
     // this.props.onGenerateFilterParamsString('');
     // this.props.onGenerateUrlParamsString('');
     // this.props.onGenerateUrlParamsData();
@@ -86,7 +96,10 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                     var panelHeader = (
 
                       <div className="panel-heading">Tesco Week
-                        <span style={{color: "red"}}>*</span>&nbsp;<span className="accordion-toggle" style={{float: 'right', marginRight: '-6%'}}></span></div>
+                        <span style={{color: "red"}}>*</span>&nbsp;<span className="accordion-toggle" style={{
+                          float: 'right',
+                          marginRight: '-6%'
+                        }}></span></div>
                     );
                     return (
 
@@ -122,7 +135,7 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                                                 {
                                                   console.log('Cascaded Filter selection', selection);
                                                 }
-                                                if (previous_week_selection == selection ) {
+                                                if (previous_week_selection == selection) {
                                                   selection = '';
                                                   console.log('selection2 if', selection);
                                                   console.log('selection2 ifs', selection);
@@ -132,7 +145,8 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                                                 this.props.onCheckboxWeekChange(selection);
                                                 this.props.onSaveWeek(selection);
                                                 this.props.onGetFilter();
-                                                {/*this.props.onGenerateSideFilter();*/}
+                                                {/*this.props.onGenerateSideFilter();*/
+                                                }
                                               }}
 
                                               isDisabled={obj2.disabled}
@@ -192,8 +206,9 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
               <PanelGroup defaultActiveKey="1" accordion>
                 {this.props.sideFilter.checkbox_list.map((item, key) => {
                   var panelHeader = (
-                    <div  className="text-capitalize">
-                      {item.title.replace(/_/g, ' ')}&nbsp;{item.required ? <span style={{color: 'red'}}>*</span> : '' } &nbsp;
+                    <div className="text-capitalize">
+                      {item.title.replace(/_/g, ' ')}&nbsp;{item.required ?
+                      <span style={{color: 'red'}}>*</span> : '' } &nbsp;
                       <span className="accordion-toggle" style={{float: 'right'}}></span>
                     </div>
                   );
@@ -242,7 +257,8 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                                                     isDisabled={!obj.highlighted}
                                 />
                               }
-                              return <Checkbox style="font-size:12px;" id={item.id + '__' + item.category_director + '__' + obj.title}
+                              return <Checkbox style="font-size:12px;"
+                                               id={item.id + '__' + item.category_director + '__' + obj.title}
                                                label={obj.title}
                                                valid={true}
                                                key={item.id + '__' + obj.title}
@@ -271,15 +287,16 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                                                     isDisabled={!obj.highlighted}
                                 />
                               }
-                              return <Checkbox  style="font-size:12px,width:230px;" id={item.id + '__' + item.category_director + '__' + obj.title}
-                                                label={obj.title} valid={true}
-                                                key={item.id + '__' + obj.title}
-                                                name={obj.title.toLowerCase() }
-                                                onChange={() => {
-                                                  this.updateUrl(item.category_director)
-                                                }}
-                                                checked={obj.resource.selected}
-                                                isDisabled={!obj.highlighted}
+                              return <Checkbox style="font-size:12px,width:230px;"
+                                               id={item.id + '__' + item.category_director + '__' + obj.title}
+                                               label={obj.title} valid={true}
+                                               key={item.id + '__' + obj.title}
+                                               name={obj.title.toLowerCase() }
+                                               onChange={() => {
+                                                 this.updateUrl(item.category_director)
+                                               }}
+                                               checked={obj.resource.selected}
+                                               isDisabled={!obj.highlighted}
                               />
                             }
                           })}
@@ -289,42 +306,112 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                   )
                 })}
               </PanelGroup>
+
+
+              <Modal show={this.state.alertShow} bsSize="large" aria-labelledby="contained-modal-title-sm">
+                <Modal.Header>
+                  <Modal.Title id="contained-modal-title-sm"
+                               style={{textAlign: 'center', fontSize: '18px'}}><span
+                    style={{textAlign: 'center', fontSize: '14px'}}><b>Mandatory Filter Selection Missing</b><span
+                    style={{textAlign: 'right', float: 'right'}}
+                    onClick={() => this.setState({alertShow: false})}><b>X</b></span></span>
+                    <div style={{textAlign: 'center'}}>
+                      <div style={{textAlign: 'right'}}>
+                      </div>
+                    </div>
+                  </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+
+                  <div className="row">
+                    <div className="col-xs-12 alertMadatoryFilter" style={{fontSize: '14px', textAlign: 'center'}}>
+                      {this.state.alertmsg}
+                    </div>
+                  </div>
+
+
+                </Modal.Body>
+                {/*<Modal.Footer>*/}
+                {/*<Button*/}
+                {/*onClick={() => {*/}
+                {/*this.setState({alertShow: false})*/}
+                {/*}}*/}
+                {/*style={{display: 'block', margin: '0 auto'}}>Close</Button>*/}
+                {/*</Modal.Footer>*/}
+              </Modal>
+
+
               <div className="text-center">
                 <Button onClick={() => {
+
                   console.log('apply');
-                  this.props.onKPIBox();
-                  {/*this.props.onSupplierTable();*/}
-                  this.props.ontopBottomChart();
-                  this.props.onGenerateTable();
-                  this.props.onFetchGraph();
+                  let filterDataWeek = this.props.filter_week_selection;
+                  let filterData = this.props.urlParamsString;
+                  console.log('filterDataWeek', filterDataWeek);
+                  if (!(typeof(filterDataWeek) == "undefined") && !(typeof(filterData) == "undefined")) {
+                    console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek, filterData);
+                    if (filterDataWeek.includes("tesco_week") && filterData.includes("category_name") && filterData.includes("parent_supplier") && filterData.includes("&supplier")) {
+                      console.log('tesco_weeek filterDataWeek', filterDataWeek);
+                      console.log('--filterData', filterData);
+                      console.log('--SUPPLIER CHECK', filterData.includes("supplier"));
+                      this.props.onKPIBox();
+                      {/*this.props.onSupplierTable();*/
+                      }
+                      this.props.ontopBottomChart();
+                      this.props.onGenerateTable();
+                      this.props.onFetchGraph();
 
-                  this.props.barChartSpinnerCheck(0);
-                  this.props.bubbleChartSpinnerCheck(0);
-                  this.props.tableChartSpinnerCheck(0);
-                  this.props.supplierViewKpiSpinnerCheck(0);
+                      this.props.barChartSpinnerCheck(0);
+                      this.props.bubbleChartSpinnerCheck(0);
+                      this.props.tableChartSpinnerCheck(0);
+                      this.props.supplierViewKpiSpinnerCheck(0);
 
 
-                  {/*let week_no = "time_period=13_weeks";*/}
-                  {/*this.props.onWeekClick(week_no);*/}
-                  {/*this.props.onwaterfallSpinner(0);*/}
-                  {/*this.props.onwaterfallProfitSpinner(0);*/}
-                  {/*this.props.onSupplierImpactTableSpinner(0);*/}
-                  {/*this.props.onDelistProductTableSpinner(0);*/}
-                  {/*this.props.onWaterfall();*/}
+                      {/*let week_no = "time_period=13_weeks";*/
+                      }
+                      {/*this.props.onWeekClick(week_no);*/
+                      }
+                      {/*this.props.onwaterfallSpinner(0);*/
+                      }
+                      {/*this.props.onwaterfallProfitSpinner(0);*/
+                      }
+                      {/*this.props.onSupplierImpactTableSpinner(0);*/
+                      }
+                      {/*this.props.onDelistProductTableSpinner(0);*/
+                      }
+                      {/*this.props.onWaterfall();*/
+                      }
 
 
-                  {/*this.props.onApiFetch();*/}
-                  {/*this.props.ondelist();*/}
-                  {/*this.props.onApiFetch();*/}
-                  {/*this.props.ondelistTable();*/}
-                  {/*this.props.onWeekTabClick("Week: 13 weeks ");*/}
+                      {/*this.props.onApiFetch();*/
+                      }
+                      {/*this.props.ondelist();*/
+                      }
+                      {/*this.props.onApiFetch();*/
+                      }
+                      {/*this.props.ondelistTable();*/
+                      }
+                      {/*this.props.onWeekTabClick("Week: 13 weeks ");*/
+                      }
+
+                    }
+                    else {
+                      console.log('modal open');
+                      this.setState({alertShow: true});
+                    }
+                  } else {
+                    console.log('modal open');
+                    this.setState({alertShow: true});
+                  }
+
                 }}>Apply</Button></div>
               <br/>
               <div className="text-center">
                 <Button buttonType={'primary'}
-                        onClick={()=>{
+                        onClick={() => {
                           this.props.onGenerateUrlParamsString('');
-                          {/*this.updateUrl()*/}
+                          {/*this.updateUrl()*/
+                          }
 
                         }}>
                   Clear filters

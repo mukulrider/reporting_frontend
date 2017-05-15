@@ -146,6 +146,8 @@ export class Competitor extends React.PureComponent {
                     outPerformanceChartSuccess = {this.props.outPerformanceChartSuccess}
                     waterChartAsdaSuccess = {this.props.waterChartAsdaSuccess}
                     priceRangeChartSuccess = {this.props.priceRangeChartSuccess}
+                    filter_week_selection = {this.props.competitor.filter_week_selection}
+                    filter_selection = {this.props.competitor.filter_selection}
 
                   />
                 )
