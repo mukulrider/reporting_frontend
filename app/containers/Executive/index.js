@@ -65,7 +65,11 @@ import {
   spinnerOverviewInternalDrivers,
   spinnerOverviewExternalDrivers,
   spinnerInternalDrivers,
-  spinnerExternalDrivers
+  spinnerExternalDrivers,
+  spinnerOverviewKPI,
+  spinnerPriceKPI,
+  spinnerKPI,
+
 }
   from './actions.js'
 
@@ -129,22 +133,25 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
       if (this.props.Executive.kpi_param=='kpi_type=Overview') {
         console.log("______________________ Only Overview function Called")
+        this.props.spinnerRolesAndIntent(0);
+        this.props.spinnerOverviewKPI(0);
+        this.props.spinnerOverviewKPITrend(0);
+        this.props.spinnerOverviewInternalDrivers(0);
+        this.props.spinnerOverviewExternalDrivers(0);
+
         this.props.loadOverviewKpi();
         this.props.loadOverviewKpiTrend();
         this.props.loadOverviewDriversInternal();
         this.props.loadOverviewDriversExternal();
         this.props.loadRolesAndIntent();
         this.props.loadBudgetAndForecast();
-        this.props.spinnerRolesAndIntent(0);
-        this.props.spinnerOverviewKPITrend(0);
-        this.props.spinnerOverviewInternalDrivers(0);
-        this.props.spinnerOverviewExternalDrivers(0);
 
       }
       else {
         if(this.props.Executive.kpi_param=='kpi_type=Price')
         {
           console.log("______________________ Only Price function Called")
+          this.props.spinnerPriceKPI();
           this.props.loadPriceKPIData();
 
 
@@ -152,7 +159,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
         else {
           console.log("______________________ Only KPI functions Called")
-
+          this.props.spinnerInternalDrivers(0);
+          this.props.spinnerExternalDrivers(0);
+          this.props.spinnerKPI(0);
           this.props.loadKpiBoxes();
           this.props.loadBestWorst();
           // this.props.loadBestInfoData();
@@ -163,8 +172,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
           // this.props.loadBotSupplierInfoData();
           this.props.loadDriversInternalData();
           this.props.loadDriversExternalData();
-          this.props.spinnerInternalDrivers(0);
-          this.props.spinnerExternalDrivers(0);
+
         }
 
       }
@@ -298,6 +306,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               spinnerOverviewExternalDrivers = {this.props.spinnerOverviewExternalDrivers}
                               spinnerInternalDrivers = {this.props.spinnerInternalDrivers}
                               spinnerExternalDrivers = {this.props.spinnerExternalDrivers}
+                              spinnerOverviewKPI = {this.props.spinnerOverviewKPI}
+                              spinnerPriceKPi = {this.props.spinnerPriceKPI}
+                              spinnerKPI = {this.props.spinnerKPI}
 
                               week_filter_param = {this.props.Executive.week_filter_param}
                               urlParamsString = {this.props.Executive.urlParamsString}
@@ -377,22 +388,25 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   {(() => {
                     if (this.props.Executive.kpi_param=='kpi_type=Overview') {
                       console.log("______________________ Only Overview function Called")
+                      this.props.spinnerRolesAndIntent(0);
+                      this.props.spinnerOverviewKPI(0);
+                      this.props.spinnerOverviewKPITrend(0);
+                      this.props.spinnerOverviewInternalDrivers(0);
+                      this.props.spinnerOverviewExternalDrivers(0);
+
                       this.props.loadOverviewKpi();
                       this.props.loadOverviewKpiTrend();
                       this.props.loadOverviewDriversInternal();
                       this.props.loadOverviewDriversExternal();
                       this.props.loadRolesAndIntent();
                       this.props.loadBudgetAndForecast();
-                      this.props.spinnerRolesAndIntent(0);
-                      this.props.spinnerOverviewKPITrend(0);
-                      this.props.spinnerOverviewInternalDrivers(0);
-                      this.props.spinnerOverviewExternalDrivers(0);
 
                     }
                     else {
                       if(this.props.Executive.kpi_param=='kpi_type=Price')
                       {
                         console.log("______________________ Only Price function Called")
+                        this.props.spinnerPriceKPI(0);
                         this.props.loadPriceKPIData();
 
 
@@ -400,7 +414,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                       else {
                         console.log("______________________ Only KPI functions Called")
-
+                        this.props.spinnerKPI(0);
                         this.props.loadKpiBoxes();
                         this.props.loadBestWorst();
                         {/*this.props.loadBestInfoData();*/}
@@ -431,22 +445,25 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   {(() => {
                     if (this.props.Executive.kpi_param=='kpi_type=Overview') {
                       console.log("______________________ Only Overview function Called")
+                      this.props.spinnerRolesAndIntent(0);
+                      this.props.spinnerOverviewKPI(0);
+                      this.props.spinnerOverviewKPITrend(0);
+                      this.props.spinnerOverviewInternalDrivers(0);
+                      this.props.spinnerOverviewExternalDrivers(0);
+
                       this.props.loadOverviewKpi();
                       this.props.loadOverviewKpiTrend();
                       this.props.loadOverviewDriversInternal();
                       this.props.loadOverviewDriversExternal();
                       this.props.loadRolesAndIntent();
                       this.props.loadBudgetAndForecast();
-                      this.props.spinnerRolesAndIntent(0);
-                      this.props.spinnerOverviewKPITrend(0);
-                      this.props.spinnerOverviewInternalDrivers(0);
-                      this.props.spinnerOverviewExternalDrivers(0);
 
                     }
                     else {
                       if(this.props.Executive.kpi_param=='kpi_type=Price')
                       {
                         console.log("______________________ Only Price function Called")
+                        this.props.spinnerPriceKPI(0);
                         this.props.loadPriceKPIData();
 
 
@@ -454,11 +471,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                       else {
                         console.log("______________________ Only KPI functions Called")
-
+                        this.props.spinnerKPI(0);
                         this.props.loadKpiBoxes();
                         this.props.loadBestWorst();
                         {/*this.props.loadBestInfoData();*/}
-
                         {/*this.props.loadWorstInfoData();*/}
                         {/*this.props.loadSupplierInfoData();*/}
                         {/*this.props.loadTopSupplierInfoData();*/}
@@ -469,9 +485,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                         this.props.spinnerExternalDrivers(0);
                       }
 
-                        }
-                      })()
                     }
+                  })()
+                  }
 
 
                 }}> <span className="tab_label">Last 4 weeks</span></NavItem>
@@ -481,36 +497,39 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   dataWeekParam = "week_flag=13 Weeks";
                   this.props.onSaveWeekParam(dataWeekParam);
 
-                    {
-                      (() => {
-                        if (this.props.Executive.kpi_param == 'kpi_type=Overview') {
-                          console.log("______________________ Only Overview function Called")
-                          this.props.loadOverviewKpi();
-                          this.props.loadOverviewKpiTrend();
-                          this.props.loadOverviewDriversInternal();
-                          this.props.loadOverviewDriversExternal();
-                          this.props.loadRolesAndIntent();
-                          this.props.loadBudgetAndForecast();
-                          this.props.spinnerRolesAndIntent(0);
-                          this.props.spinnerOverviewKPITrend(0);
-                          this.props.spinnerOverviewInternalDrivers(0);
-                          this.props.spinnerOverviewExternalDrivers(0);
-                        }
-                        else {
-                          if (this.props.Executive.kpi_param == 'kpi_type=Price') {
-                            console.log("______________________ Only Price function Called")
-                            this.props.loadPriceKPIData();
+                  {(() => {
+                    if (this.props.Executive.kpi_param=='kpi_type=Overview') {
+                      console.log("______________________ Only Overview function Called")
+                      this.props.spinnerRolesAndIntent(0);
+                      this.props.spinnerOverviewKPI(0);
+                      this.props.spinnerOverviewKPITrend(0);
+                      this.props.spinnerOverviewInternalDrivers(0);
+                      this.props.spinnerOverviewExternalDrivers(0);
+
+                      this.props.loadOverviewKpi();
+                      this.props.loadOverviewKpiTrend();
+                      this.props.loadOverviewDriversInternal();
+                      this.props.loadOverviewDriversExternal();
+                      this.props.loadRolesAndIntent();
+                      this.props.loadBudgetAndForecast();
+
+                    }
+                    else {
+                      if(this.props.Executive.kpi_param=='kpi_type=Price')
+                      {
+                        console.log("______________________ Only Price function Called")
+                        this.props.spinnerPriceKPI(0);
+                        this.props.loadPriceKPIData();
 
 
-                          }
+                      }
 
                       else {
                         console.log("______________________ Only KPI functions Called")
-
+                        this.props.spinnerKPI(0);
                         this.props.loadKpiBoxes();
                         this.props.loadBestWorst();
                         {/*this.props.loadBestInfoData();*/}
-
                         {/*this.props.loadWorstInfoData();*/}
                         {/*this.props.loadSupplierInfoData();*/}
                         {/*this.props.loadTopSupplierInfoData();*/}
@@ -522,8 +541,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       }
 
                     }
-                  })()}
-
+                  })()
+                  }
 
 
 
@@ -534,25 +553,28 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   this.setState({activeKey1: "4"});
                   dataWeekParam = "week_flag=26 Weeks";
                   this.props.onSaveWeekParam(dataWeekParam);
-
                   {(() => {
                     if (this.props.Executive.kpi_param=='kpi_type=Overview') {
                       console.log("______________________ Only Overview function Called")
+                      this.props.spinnerRolesAndIntent(0);
+                      this.props.spinnerOverviewKPI(0);
+                      this.props.spinnerOverviewKPITrend(0);
+                      this.props.spinnerOverviewInternalDrivers(0);
+                      this.props.spinnerOverviewExternalDrivers(0);
+
                       this.props.loadOverviewKpi();
                       this.props.loadOverviewKpiTrend();
                       this.props.loadOverviewDriversInternal();
                       this.props.loadOverviewDriversExternal();
                       this.props.loadRolesAndIntent();
                       this.props.loadBudgetAndForecast();
-                      this.props.spinnerRolesAndIntent(0);
-                      this.props.spinnerOverviewKPITrend(0);
-                      this.props.spinnerOverviewInternalDrivers(0);
-                      this.props.spinnerOverviewExternalDrivers(0);
+
                     }
                     else {
                       if(this.props.Executive.kpi_param=='kpi_type=Price')
                       {
                         console.log("______________________ Only Price function Called")
+                        this.props.spinnerPriceKPI(0);
                         this.props.loadPriceKPIData();
 
 
@@ -560,11 +582,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                       else {
                         console.log("______________________ Only KPI functions Called")
-
+                        this.props.spinnerKPI(0);
                         this.props.loadKpiBoxes();
                         this.props.loadBestWorst();
                         {/*this.props.loadBestInfoData();*/}
-
                         {/*this.props.loadWorstInfoData();*/}
                         {/*this.props.loadSupplierInfoData();*/}
                         {/*this.props.loadTopSupplierInfoData();*/}
@@ -576,7 +597,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       }
 
                     }
-                  })()}
+                  })()
+                  }
 
 
 
@@ -592,21 +614,25 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   {(() => {
                     if (this.props.Executive.kpi_param=='kpi_type=Overview') {
                       console.log("______________________ Only Overview function Called")
+                      this.props.spinnerRolesAndIntent(0);
+                      this.props.spinnerOverviewKPI(0);
+                      this.props.spinnerOverviewKPITrend(0);
+                      this.props.spinnerOverviewInternalDrivers(0);
+                      this.props.spinnerOverviewExternalDrivers(0);
+
                       this.props.loadOverviewKpi();
                       this.props.loadOverviewKpiTrend();
                       this.props.loadOverviewDriversInternal();
                       this.props.loadOverviewDriversExternal();
                       this.props.loadRolesAndIntent();
                       this.props.loadBudgetAndForecast();
-                      this.props.spinnerRolesAndIntent(0);
-                      this.props.spinnerOverviewKPITrend(0);
-                      this.props.spinnerOverviewInternalDrivers(0);
-                      this.props.spinnerOverviewExternalDrivers(0);
+
                     }
                     else {
                       if(this.props.Executive.kpi_param=='kpi_type=Price')
                       {
                         console.log("______________________ Only Price function Called")
+                        this.props.spinnerPriceKPI(0);
                         this.props.loadPriceKPIData();
 
 
@@ -614,11 +640,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                       else {
                         console.log("______________________ Only KPI functions Called")
-
+                        this.props.spinnerKPI(0);
                         this.props.loadKpiBoxes();
                         this.props.loadBestWorst();
                         {/*this.props.loadBestInfoData();*/}
-
                         {/*this.props.loadWorstInfoData();*/}
                         {/*this.props.loadSupplierInfoData();*/}
                         {/*this.props.loadTopSupplierInfoData();*/}
@@ -630,8 +655,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       }
 
                     }
-                  })()}
-
+                  })()
+                  }
 
 
 
@@ -785,31 +810,35 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       <div className="headerBox">
                       <h2 className="pageModuleMainTitle">Performance by KPI</h2>
                       </div>
-                      <div className="row mainBox" style={{textAlign: 'center',backgroundColor: "white",margin: "0%",borderLeft: "1px solid #e5e8ea",borderRight: "1px solid #e5e8ea",borderBottom: "1px solid #e5e8ea"}}>
-                        {/* Box for value */}
-                        <div className="col-md-2" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
-                          <Panel>
-                            <h3 className="pageModuleSubTitle"> Value </h3>
-                            <h3>{
-                              this.props.Executive.overview_kpi_data.kpi.value.total
 
-                            }</h3>
+                      {(() =>{
+                        if(this.props.Executive.overviewKPISpinner&&this.props.Executive.overview_kpi_data){
+                          return(
+                            <div className="row mainBox" style={{textAlign: 'center',backgroundColor: "white",margin: "0%",borderLeft: "1px solid #e5e8ea",borderRight: "1px solid #e5e8ea",borderBottom: "1px solid #e5e8ea"}}>
+                              {/* Box for value */}
+                              <div className="col-md-2" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
+                                <Panel>
+                                  <h3 className="pageModuleSubTitle"> Value </h3>
+                                  <h3>{
+                                    this.props.Executive.overview_kpi_data.kpi.value.total
 
-
-                            <div className="row">
-                              <div className="col-md-12 col-xs-12">
-
-                                <h3></h3>
-                              </div>
-
-                            </div>
-
-                            <div className="row">
-                              <div className="panel-body">
-                                <div className="col-md-6 col-xs-12 kpiSmall">
+                                  }</h3>
 
 
-                                  <h3>
+                                  <div className="row">
+                                    <div className="col-md-12 col-xs-12">
+
+                                      <h3></h3>
+                                    </div>
+
+                                  </div>
+
+                                  <div className="row">
+                                    <div className="panel-body">
+                                      <div className="col-md-6 col-xs-12 kpiSmall">
+
+
+                                        <h3>
                           <span
                             className={(() => {
                               if (this.props.Executive.overview_kpi_data.kpi.value.var_wow > 0)
@@ -825,14 +854,14 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         </span>
 
-                                    {this.props.Executive.overview_kpi_data.kpi.value.var_wow}%
-                                  </h3>
-                                  <h4 className="kpiSubTitle">WoW</h4>
+                                          {this.props.Executive.overview_kpi_data.kpi.value.var_wow}%
+                                        </h3>
+                                        <h4 className="kpiSubTitle">WoW</h4>
 
-                                </div>
-                                <div className="col-md-6 col-xs-12 kpiSmall">
+                                      </div>
+                                      <div className="col-md-6 col-xs-12 kpiSmall">
 
-                                  <h3>
+                                        <h3>
                         <span
                           className={(() => {
                             if (this.props.Executive.overview_kpi_data.kpi.value.var_yoy > 0)
@@ -847,41 +876,41 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             } })()}>&nbsp;
 
                       </span>
-                                    {this.props.Executive.overview_kpi_data.kpi.value.var_yoy}%
-                                  </h3>
-                                  <h4 className="kpiSubTitle">YoY</h4>
+                                          {this.props.Executive.overview_kpi_data.kpi.value.var_yoy}%
+                                        </h3>
+                                        <h4 className="kpiSubTitle">YoY</h4>
 
-                                </div>
+                                      </div>
 
+                                    </div>
+                                  </div>
+                                </Panel>
                               </div>
-                            </div>
-                          </Panel>
-                        </div>
-                        {/* Box for volume */}
-                        <div className="col-md-2" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
-                          <Panel>
-                            <h3 className="pageModuleSubTitle"> Volume       </h3>
-                            <h3>
-                              {
-                                this.props.Executive.overview_kpi_data.kpi.volume.total
-
-                              }
-
-                            </h3>
-                            <div className="row">
-                              <div className="col-md-12 col-xs-12">
-
-                                <h3></h3>
-
-                              </div>
-
-                            </div>
-                            <div className="row">
-                              <div className="panel-body">
-                                <div className="col-md-6 col-xs-12 kpiSmall">
-
-
+                              {/* Box for volume */}
+                              <div className="col-md-2" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
+                                <Panel>
+                                  <h3 className="pageModuleSubTitle"> Volume       </h3>
                                   <h3>
+                                    {
+                                      this.props.Executive.overview_kpi_data.kpi.volume.total
+
+                                    }
+
+                                  </h3>
+                                  <div className="row">
+                                    <div className="col-md-12 col-xs-12">
+
+                                      <h3></h3>
+
+                                    </div>
+
+                                  </div>
+                                  <div className="row">
+                                    <div className="panel-body">
+                                      <div className="col-md-6 col-xs-12 kpiSmall">
+
+
+                                        <h3>
                           <span
                             className={(() => {
                               if (this.props.Executive.overview_kpi_data.kpi.volume.var_wow > 0)
@@ -897,14 +926,14 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         </span>
 
-                                    {this.props.Executive.overview_kpi_data.kpi.volume.var_wow}%
-                                  </h3>
-                                  <h4 className="kpiSubTitle">WoW</h4>
+                                          {this.props.Executive.overview_kpi_data.kpi.volume.var_wow}%
+                                        </h3>
+                                        <h4 className="kpiSubTitle">WoW</h4>
 
-                                </div>
-                                <div className="col-md-6 col-xs-12 kpiSmall">
+                                      </div>
+                                      <div className="col-md-6 col-xs-12 kpiSmall">
 
-                                  <h3>
+                                        <h3>
                         <span
                           className={(() => {
                             if (this.props.Executive.overview_kpi_data.kpi.volume.var_yoy > 0)
@@ -919,40 +948,40 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             } })()}>&nbsp;
 
                       </span>
-                                    {this.props.Executive.overview_kpi_data.kpi.volume.var_yoy}%
-                                  </h3>
-                                  <h4 className="kpiSubTitle">YoY</h4>
+                                          {this.props.Executive.overview_kpi_data.kpi.volume.var_yoy}%
+                                        </h3>
+                                        <h4 className="kpiSubTitle">YoY</h4>
 
-                                </div>
+                                      </div>
 
+                                    </div>
+                                  </div>
+                                </Panel>
                               </div>
-                            </div>
-                          </Panel>
-                        </div>
-                        {/* Box for cogs */}
-                        <div className="col-md-2" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
-                          <Panel>
-                            <h3 className="pageModuleSubTitle"> COGS  </h3>
-                            <h3>
-                              {
-                                this.props.Executive.overview_kpi_data.kpi.cogs.total
-
-                              }
-
-                            </h3>
-                            <div className="row">
-                              <div className="col-md-12 col-xs-12">
-
-                                <h3></h3>
-                              </div>
-
-                            </div>
-                            <div className="row">
-                              <div className="panel-body">
-                                <div className="col-md-6 col-xs-12 kpiSmall">
-
-
+                              {/* Box for cogs */}
+                              <div className="col-md-2" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
+                                <Panel>
+                                  <h3 className="pageModuleSubTitle"> COGS  </h3>
                                   <h3>
+                                    {
+                                      this.props.Executive.overview_kpi_data.kpi.cogs.total
+
+                                    }
+
+                                  </h3>
+                                  <div className="row">
+                                    <div className="col-md-12 col-xs-12">
+
+                                      <h3></h3>
+                                    </div>
+
+                                  </div>
+                                  <div className="row">
+                                    <div className="panel-body">
+                                      <div className="col-md-6 col-xs-12 kpiSmall">
+
+
+                                        <h3>
                           <span
                             className={(() => {
                               if (this.props.Executive.overview_kpi_data.kpi.cogs.var_wow > 0)
@@ -968,14 +997,14 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         </span>
 
-                                    {this.props.Executive.overview_kpi_data.kpi.cogs.var_wow}%
-                                  </h3>
-                                  <h4 className="kpiSubTitle">WoW</h4>
+                                          {this.props.Executive.overview_kpi_data.kpi.cogs.var_wow}%
+                                        </h3>
+                                        <h4 className="kpiSubTitle">WoW</h4>
 
-                                </div>
-                                <div className="col-md-6 col-xs-12 kpiSmall">
+                                      </div>
+                                      <div className="col-md-6 col-xs-12 kpiSmall">
 
-                                  <h3>
+                                        <h3>
                         <span
                           className={(() => {
                             if (this.props.Executive.overview_kpi_data.kpi.cogs.var_yoy > 0)
@@ -990,40 +1019,40 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             } })()}>&nbsp;
 
                       </span>
-                                    {this.props.Executive.overview_kpi_data.kpi.cogs.var_yoy}%
-                                  </h3>
-                                  <h4 className="kpiSubTitle">YoY</h4>
+                                          {this.props.Executive.overview_kpi_data.kpi.cogs.var_yoy}%
+                                        </h3>
+                                        <h4 className="kpiSubTitle">YoY</h4>
 
-                                </div>
+                                      </div>
 
+                                    </div>
+                                  </div>
+                                </Panel>
                               </div>
-                            </div>
-                          </Panel>
-                        </div>
-                        {/* Box for cgm */}
-                        <div className="col-md-2" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
-                          <Panel>
-                            <h3 className="pageModuleSubTitle"> Profit       </h3>
-                            <h3>
-                              {
-                                this.props.Executive.overview_kpi_data.kpi.cgm.total
-
-                              }
-
-                            </h3>
-                            <div className="row">
-                              <div className="col-md-12 col-xs-12">
-
-                                <h3></h3>
-                              </div>
-
-                            </div>
-                            <div className="row">
-                              <div className="panel-body">
-                                <div className="col-md-6 col-xs-12 kpiSmall">
-
-
+                              {/* Box for cgm */}
+                              <div className="col-md-2" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
+                                <Panel>
+                                  <h3 className="pageModuleSubTitle"> Profit       </h3>
                                   <h3>
+                                    {
+                                      this.props.Executive.overview_kpi_data.kpi.cgm.total
+
+                                    }
+
+                                  </h3>
+                                  <div className="row">
+                                    <div className="col-md-12 col-xs-12">
+
+                                      <h3></h3>
+                                    </div>
+
+                                  </div>
+                                  <div className="row">
+                                    <div className="panel-body">
+                                      <div className="col-md-6 col-xs-12 kpiSmall">
+
+
+                                        <h3>
                           <span
                             className={(() => {
                               if (this.props.Executive.overview_kpi_data.kpi.cgm.var_wow > 0)
@@ -1039,14 +1068,14 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         </span>
 
-                                    {this.props.Executive.overview_kpi_data.kpi.cgm.var_wow}%
-                                  </h3>
-                                  <h4 className="kpiSubTitle">WoW</h4>
+                                          {this.props.Executive.overview_kpi_data.kpi.cgm.var_wow}%
+                                        </h3>
+                                        <h4 className="kpiSubTitle">WoW</h4>
 
-                                </div>
-                                <div className="col-md-6 col-xs-12 kpiSmall">
+                                      </div>
+                                      <div className="col-md-6 col-xs-12 kpiSmall">
 
-                                  <h3>
+                                        <h3>
                         <span
                           className={(() => {
                             if (this.props.Executive.overview_kpi_data.kpi.cgm.var_yoy > 0)
@@ -1061,98 +1090,110 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             } })()}>&nbsp;
 
                       </span>
-                                    {this.props.Executive.overview_kpi_data.kpi.cgm.var_yoy}%
-                                  </h3>
-                                  <h4 className="kpiSubTitle">YoY</h4>
+                                          {this.props.Executive.overview_kpi_data.kpi.cgm.var_yoy}%
+                                        </h3>
+                                        <h4 className="kpiSubTitle">YoY</h4>
 
-                                </div>
+                                      </div>
 
+                                    </div>
+                                  </div>
+                                </Panel>
                               </div>
-                            </div>
-                          </Panel>
-                        </div>
-                        {/* Box for Price */}
-                        <div className="col-md-2" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
-                          <Panel>
-                            <h3 className="pageModuleSubTitle"> Price
+                              {/* Box for Price */}
+                              <div className="col-md-2" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
+                                <Panel>
+                                  <h3 className="pageModuleSubTitle"> Price
 
-                            </h3>
-                            <div className="row" style={{ marginTop: "80px"}}>
-                              <div className="col-md-12 col-xs-12">
+                                  </h3>
+                                  <div className="row" style={{ marginTop: "80px"}}>
+                                    <div className="col-md-12 col-xs-12">
 
-                                <h3></h3>
+                                      <h3></h3>
+                                    </div>
+
+                                  </div>
+                                  <div className="row">
+                                    <div className="panel-body">
+                                      <div className="col-md-6 col-xs-12 kpiSmall">
+
+
+                                        <h3>
+
+
+                                          £ {this.props.Executive.overview_kpi_data.price.ACP}
+                                        </h3>
+                                        <h4 className="kpiSubTitle">ACP</h4>
+
+                                      </div>
+                                      <div className="col-md-6 col-xs-12 kpiSmall">
+
+                                        <h3>
+
+                                          £ {this.props.Executive.overview_kpi_data.price.ASP}
+                                        </h3>
+                                        <h4 className="kpiSubTitle">ASP</h4>
+
+                                      </div>
+
+                                    </div>
+                                  </div>
+                                </Panel>
+                              </div>
+                              {/* Box for Market Share */}
+                              <div className="col-md-2" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
+                                <Panel>
+                                  <h3 className="pageModuleSubTitle"> Market Share
+
+                                  </h3>
+                                  <div className="row" style={{ marginTop: "80px"}}>
+                                    <div className="col-md-12 col-xs-12">
+
+                                      <h3></h3>
+                                    </div>
+
+                                  </div>
+                                  <div className="row">
+                                    <div className="panel-body">
+                                      <div className="col-md-6 col-xs-12 kpiSmall">
+
+
+                                        <h3>
+
+
+                                          {this.props.Executive.overview_kpi_data.market.share}%
+                                        </h3>
+                                        <h4 className="kpiSubTitle">Value Share</h4>
+
+                                      </div>
+                                      <div className="col-md-6 col-xs-12 kpiSmall">
+
+                                        <h3>
+
+                                          {this.props.Executive.overview_kpi_data.market.opportunity}
+                                        </h3>
+                                        <h4 className="kpiSubTitle">Opportunity</h4>
+
+                                      </div>
+
+                                    </div>
+                                  </div>
+                                </Panel>
                               </div>
 
                             </div>
-                            <div className="row">
-                              <div className="panel-body">
-                                <div className="col-md-6 col-xs-12 kpiSmall">
+                          )
+                        }
+                        else{
+                          return(<div className="text-center"><Spinner />Please Wait a Moment....!</div>)
+                        }
+                        }
+                      )()}
 
 
-                                  <h3>
 
 
-                                    £ {this.props.Executive.overview_kpi_data.price.ACP}
-                                  </h3>
-                                  <h4 className="kpiSubTitle">ACP</h4>
 
-                                </div>
-                                <div className="col-md-6 col-xs-12 kpiSmall">
-
-                                  <h3>
-
-                                    £ {this.props.Executive.overview_kpi_data.price.ASP}
-                                  </h3>
-                                  <h4 className="kpiSubTitle">ASP</h4>
-
-                                </div>
-
-                              </div>
-                            </div>
-                          </Panel>
-                        </div>
-                        {/* Box for Market Share */}
-                        <div className="col-md-2" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
-                          <Panel>
-                            <h3 className="pageModuleSubTitle"> Market Share
-
-                            </h3>
-                            <div className="row" style={{ marginTop: "80px"}}>
-                              <div className="col-md-12 col-xs-12">
-
-                                <h3></h3>
-                              </div>
-
-                            </div>
-                            <div className="row">
-                              <div className="panel-body">
-                                <div className="col-md-6 col-xs-12 kpiSmall">
-
-
-                                  <h3>
-
-
-                                    {this.props.Executive.overview_kpi_data.market.share}%
-                                  </h3>
-                                  <h4 className="kpiSubTitle">Value Share</h4>
-
-                                </div>
-                                <div className="col-md-6 col-xs-12 kpiSmall">
-
-                                  <h3>
-
-                                    {this.props.Executive.overview_kpi_data.market.opportunity}
-                                  </h3>
-                                  <h4 className="kpiSubTitle">Opportunity</h4>
-
-                                </div>
-
-                              </div>
-                            </div>
-                          </Panel>
-                        </div>
-
-                      </div>
                       {/*Row for sales forecasting and roles and intent*/}
                       <div className="headerBox">
                       <h2 className="pageModuleMainTitle">Target and Strategy</h2>
@@ -1434,41 +1475,47 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                           return(<div>
                             <div className="row mainBox">
-                              <div className="col-md-4 col-sm-12 col-xs-12">
-                                <Panel style={{marginLeft: "15px"}}>
-                                  <div>
-                                    {(() => {
-                                        if (this.props.Executive.overview_drivers_internal_data && this.props.Executive.overviewInternalDriverSpinner) {
-                                          if (this.props.Executive.overview_drivers_internal_data.kpi.data_available == 'yes') {
-                                            return (
-                                              <div>
 
-                                                <h4 className="pageModuleSubTitle"> KPI Contribution to growth </h4>
-                                                <h4 className="panel-heading tesco-heading h3" style={{textAlign: "center"}}>
-                                                  LFL Sales:
-                                                  <span
-                                                    className={(() => {
-                                                      if (this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var)
-                                                      {
-                                                        return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                                                      }
-                                                      else if (this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var)
-                                                      {
-                                                        return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                                                      } else {
-                                                        return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                                                      } })()}>&nbsp;
+                              {(() =>{
+                                if(this.props.Executive.overviewInternalDriverSpinner)
+                                {
+                                  return(
+                                    <div>
+                                      <div className="col-md-4 col-sm-12 col-xs-12">
+                                        <Panel style={{marginLeft: "15px"}}>
+                                          <div>
+                                            {(() => {
+                                                if (this.props.Executive.overview_drivers_internal_data ) {
+                                                  if (this.props.Executive.overview_drivers_internal_data.kpi.data_available == 'yes') {
+                                                    return (
+                                                      <div>
+
+                                                        <h4 className="pageModuleSubTitle"> KPI Contribution to growth </h4>
+                                                        <h4 className="panel-heading tesco-heading h3" style={{textAlign: "center"}}>
+                                                          LFL Sales:
+                                                          <span
+                                                            className={(() => {
+                                                              if (this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var)
+                                                              {
+                                                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
+                                                              }
+                                                              else if (this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var)
+                                                              {
+                                                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
+                                                              } else {
+                                                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
+                                                              } })()}>&nbsp;
 
                         </span>
-                                                  {this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var} </h4>
+                                                          {this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var} </h4>
 
-                                                <div className="row" style={{width: "480px"}}>
-                                                  <div className="col-xs-3 overview-blk" style={{marginRight: "5px"}}>
-                                                    <Panel>
-                                                      <div className="panel"
-                                                           style={{border: '1px solid #E5E8EA', width: '120px', height: '120px', textAlign:'center'}}>
-                                                        <h4 className="panel-heading tesco-heading"><b>Transactions</b></h4>
-                                                        <div className="panel-body">
+                                                        <div className="row" style={{width: "480px"}}>
+                                                          <div className="col-xs-3 overview-blk" style={{marginRight: "5px"}}>
+                                                            <Panel>
+                                                              <div className="panel"
+                                                                   style={{border: '1px solid #E5E8EA', width: '120px', height: '120px', textAlign:'center'}}>
+                                                                <h4 className="panel-heading tesco-heading"><b>Transactions</b></h4>
+                                                                <div className="panel-body">
                                             <span className="overview-blk-value">
                                           <h4> <span
                                             className={(() => {
@@ -1485,17 +1532,17 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         </span> {this.props.Executive.overview_drivers_internal_data.kpi.transaction_var}  </h4>
                                             </span>
-                                                        </div>
-                                                      </div>
-                                                    </Panel>
-                                                  </div>
-                                                  <div className="col-xs-3 overview-blk" style={{marginRight: "5px"}}>
-                                                    <Panel>
-                                                      <div className="panel"
-                                                           style={{border: '1px solid #E5E8EA', width: '120px', height: '120px', textAlign:'center'}}>
-                                                        <h4 className="panel-heading tesco-heading"><b>Items per Basket</b>
-                                                        </h4>
-                                                        <div className="panel-body">
+                                                                </div>
+                                                              </div>
+                                                            </Panel>
+                                                          </div>
+                                                          <div className="col-xs-3 overview-blk" style={{marginRight: "5px"}}>
+                                                            <Panel>
+                                                              <div className="panel"
+                                                                   style={{border: '1px solid #E5E8EA', width: '120px', height: '120px', textAlign:'center'}}>
+                                                                <h4 className="panel-heading tesco-heading"><b>Items per Basket</b>
+                                                                </h4>
+                                                                <div className="panel-body">
                                             <span className="overview-blk-value">
                                           <h4>  <span
                                             className={(() => {
@@ -1512,16 +1559,16 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         </span> {this.props.Executive.overview_drivers_internal_data.kpi.item_per_basket_var} </h4>
                                             </span>
-                                                        </div>
-                                                      </div>
-                                                    </Panel>
-                                                  </div>
-                                                  <div className="col-xs-3 overview-blk" style={{marginRight: "5px"}}>
-                                                    <Panel>
-                                                      <div className="panel"
-                                                           style={{border: '1px solid #E5E8EA', width: '120px', height: '120px', textAlign:'center'}}>
-                                                        <h4 className="panel-heading tesco-heading"><b>Item price</b></h4>
-                                                        <div className="panel-body">
+                                                                </div>
+                                                              </div>
+                                                            </Panel>
+                                                          </div>
+                                                          <div className="col-xs-3 overview-blk" style={{marginRight: "5px"}}>
+                                                            <Panel>
+                                                              <div className="panel"
+                                                                   style={{border: '1px solid #E5E8EA', width: '120px', height: '120px', textAlign:'center'}}>
+                                                                <h4 className="panel-heading tesco-heading"><b>Item price</b></h4>
+                                                                <div className="panel-body">
                                             <span className="overview-blk-value">
                                           <h4>  <span
                                             className={(() => {
@@ -1538,68 +1585,77 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         </span> {this.props.Executive.overview_drivers_internal_data.kpi.item_price_var} </h4>
                                             </span>
+                                                                </div>
+                                                              </div>
+                                                            </Panel>
+                                                          </div>
                                                         </div>
+
                                                       </div>
-                                                    </Panel>
-                                                  </div>
-                                                </div>
 
-                                              </div>
+                                                    )
+                                                  }
+                                                  else{
+                                                    return (
+                                                      <div>
+                                                        <h4 className="pageModuleSubTitle"> KPI Contribution to growth</h4>
+                                                        <h4>Data is available only from week 201702</h4></div>
+                                                    )
+                                                  }
+                                                }
 
-                                            )
-                                          }
-                                          else{
-                                            return (
-                                              <div><h3>Data is available only from week 201702</h3></div>
-                                            )
-                                          }
-                                        }
-                                        else{
-                                          return(
-                                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
-                                          )
-                                        }
-                                      }
-                                    )()}
+                                              }
+                                            )()}
 
 
-                                  </div>
-                                </Panel>
-                              </div>
-                              <div className="col-md-8 col-sm-12 col-xs-12">
-                                <Panel>
-                                  <h4 className="pageModuleSubTitle"> Promotion Contribution to growth
-                                    <div style={{float: "right"}}>
-                                      <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
-                                        <MenuItem onClick={() => {
-                                          saveImage(document.getElementById('waterfallChart_2_svg'), "overviewDriversInternalWaterfallChart")
-                                        }
-                                        }>Save As JPEG</MenuItem>
-                                        <MenuItem onClick={() => {
-                                          saveDataAsCSV(this.props.Executive.overview_drivers_internal_data.promo, "overviewDriversInternalWaterfallChart_data.csv")
-                                        }
-                                        }>Download CSV</MenuItem>
-                                      </DropdownButton>
-                                    </div>
-                                  </h4>
-                                  {(() => {
-                                      if (this.props.Executive.overview_drivers_internal_data && this.props.overviewInternalDriverSpinner)
-                                        return (
-                                          <div>
-                                            <WaterFallChartExec id="waterfallChart_2"
-                                                                yAxisName="Price Index"
-                                                                formatter="formatSales"
-                                                                positive_text='negative'
-                                                                negative_text='positive'
-                                                                total_text='total1'
-                                                                data={this.props.Executive.overview_drivers_internal_data.promo}
-                                            />
                                           </div>
-                                        )
-                                    }
-                                  )()}
-                                </Panel>
-                              </div>
+                                        </Panel>
+                                      </div>
+                                      <div className="col-md-8 col-sm-12 col-xs-12">
+                                        <Panel>
+                                          <h4 className="pageModuleSubTitle"> Promotion Contribution to growth
+                                            <div style={{float: "right"}}>
+                                              <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
+                                                <MenuItem onClick={() => {
+                                                  saveImage(document.getElementById('waterfallChart_2_svg'), "overviewDriversInternalWaterfallChart")
+                                                }
+                                                }>Save As JPEG</MenuItem>
+                                                <MenuItem onClick={() => {
+                                                  saveDataAsCSV(this.props.Executive.overview_drivers_internal_data.promo, "overviewDriversInternalWaterfallChart_data.csv")
+                                                }
+                                                }>Download CSV</MenuItem>
+                                              </DropdownButton>
+                                            </div>
+                                          </h4>
+                                          {(() => {
+                                              if (this.props.Executive.overview_drivers_internal_data)
+                                                return (
+                                                  <div>
+                                                    <WaterFallChartExec id="waterfallChart_2"
+                                                                        yAxisName="Price Index"
+                                                                        formatter="formatSales"
+                                                                        positive_text='negative'
+                                                                        negative_text='positive'
+                                                                        total_text='total1'
+                                                                        data={this.props.Executive.overview_drivers_internal_data.promo}
+                                                    />
+                                                  </div>
+                                                )
+                                            }
+                                          )()}
+                                        </Panel>
+                                      </div>
+                                    </div>
+                                  )
+                                }
+                                else{
+                                  return(
+                                    <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+                                  )
+                                }
+
+                              } )()}
+
                             </div>
                           </div>)
 
@@ -1882,27 +1938,30 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         {/*Row for price KPIS*/}
 
-                        <div className="row mainBox" style={{marginTop: '1%'}}>
-                          {/*Block for ASP*/}
+                        {(() =>{
+                            if(this.props.Executive.priceKPISpinner){
+                              return(
+                                <div className="row mainBox" style={{marginTop: '1%'}}>
+                                  {/*Block for ASP*/}
 
-                          <div className='col-md-4' style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
-                            <Panel>
-                              <h3 className="pageModuleSubTitle"> ASP </h3>
-                              <div className="row">
-                                <div className="col-md-6 col-xs-12">
+                                  <div className='col-md-4' style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
+                                    <Panel>
+                                      <h3 className="pageModuleSubTitle"> ASP </h3>
+                                      <div className="row">
+                                        <div className="col-md-6 col-xs-12">
 
-                                  <h3>Inflation  &nbsp; {this.props.Executive.price_kpi_data.ASP_abs}</h3>
-                                </div>
-                                <div className="col-md-6 col-xs-12">
-                                  <h3>Fisher Inflation &nbsp; {this.props.Executive.price_kpi_data.ASP_fisher_infl} </h3>
-                                </div>
-                              </div>
-                              <div className="row">
-                                <div className="panel-body">
-                                  <div className="col-md-3 kpiSmall">
+                                          <h3>Inflation  &nbsp; {this.props.Executive.price_kpi_data.ASP_abs}</h3>
+                                        </div>
+                                        <div className="col-md-6 col-xs-12">
+                                          <h3>Fisher Inflation &nbsp; {this.props.Executive.price_kpi_data.ASP_fisher_infl} </h3>
+                                        </div>
+                                      </div>
+                                      <div className="row">
+                                        <div className="panel-body">
+                                          <div className="col-md-3 kpiSmall">
 
 
-                                    <h3>
+                                            <h3>
                           <span
                             className={(() => {
                               if (this.props.Executive.price_kpi_data.ASPInfl_var_yoy> 0)
@@ -1917,14 +1976,14 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               } })()}>&nbsp;
 
                         </span>
-                                      {this.props.Executive.price_kpi_data.ASPInfl_var_yoy}%
-                                    </h3>
-                                    <h4 className="kpiSubTitle">YoY</h4>
+                                              {this.props.Executive.price_kpi_data.ASPInfl_var_yoy}%
+                                            </h3>
+                                            <h4 className="kpiSubTitle">YoY</h4>
 
-                                  </div>
-                                  <div className="col-md-3 kpiSmall">
+                                          </div>
+                                          <div className="col-md-3 kpiSmall">
 
-                                    <h3>
+                                            <h3>
                           <span
                             className={(() => {
                               if (this.props.Executive.price_kpi_data.ASPInfl_var_lfl> 0)
@@ -1939,14 +1998,14 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               } })()}>&nbsp;
 
                         </span>
-                                      {this.props.Executive.price_kpi_data.ASPInfl_var_lfl}%
-                                    </h3>
-                                    <h4 className="kpiSubTitle">LFL</h4>
+                                              {this.props.Executive.price_kpi_data.ASPInfl_var_lfl}%
+                                            </h3>
+                                            <h4 className="kpiSubTitle">LFL</h4>
 
-                                  </div>
-                                  <div className="col-md-6 col-xs-12 kpiSmall">
+                                          </div>
+                                          <div className="col-md-6 col-xs-12 kpiSmall">
 
-                                    <h3>
+                                            <h3>
                           <span
                             className={(() => {
                               if (this.props.Executive.price_kpi_data.ASPInfl_var_wow> 0)
@@ -1961,36 +2020,36 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               } })()}>&nbsp;
 
                         </span>
-                                      {this.props.Executive.price_kpi_data.ASPInfl_var_wow}%
-                                    </h3>
-                                    <h4 className="kpiSubTitle">WoW</h4>
+                                              {this.props.Executive.price_kpi_data.ASPInfl_var_wow}%
+                                            </h3>
+                                            <h4 className="kpiSubTitle">WoW</h4>
 
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </Panel>
                                   </div>
-                                </div>
-                              </div>
-                            </Panel>
-                          </div>
 
-                          {/*Block for ACP*/}
+                                  {/*Block for ACP*/}
 
-                          <div className='col-md-4' style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
-                            <Panel>
-                              <h3 className="pageModuleSubTitle"> ACP </h3>
-                              <div className="row">
-                                <div className="col-md-6 col-xs-12">
+                                  <div className='col-md-4' style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
+                                    <Panel>
+                                      <h3 className="pageModuleSubTitle"> ACP </h3>
+                                      <div className="row">
+                                        <div className="col-md-6 col-xs-12">
 
-                                  <h3>Inflation  &nbsp; {this.props.Executive.price_kpi_data.ACP_abs}</h3>
-                                </div>
-                                <div className="col-md-6 col-xs-12">
-                                  <h3>Fisher Inflation &nbsp; {this.props.Executive.price_kpi_data.ACP_fisher_infl} </h3>
-                                </div>
-                              </div>
-                              <div className="row">
-                                <div className="panel-body">
-                                  <div className="col-md-3 kpiSmall">
+                                          <h3>Inflation  &nbsp; {this.props.Executive.price_kpi_data.ACP_abs}</h3>
+                                        </div>
+                                        <div className="col-md-6 col-xs-12">
+                                          <h3>Fisher Inflation &nbsp; {this.props.Executive.price_kpi_data.ACP_fisher_infl} </h3>
+                                        </div>
+                                      </div>
+                                      <div className="row">
+                                        <div className="panel-body">
+                                          <div className="col-md-3 kpiSmall">
 
 
-                                    <h3>
+                                            <h3>
                           <span
                             className={(() => {
                               if (this.props.Executive.price_kpi_data.ACPInfl_var_yoy> 0)
@@ -2005,14 +2064,14 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               } })()}>&nbsp;
 
                         </span>
-                                      {this.props.Executive.price_kpi_data.ACPInfl_var_yoy}%
-                                    </h3>
-                                    <h4 className="kpiSubTitle">YoY</h4>
+                                              {this.props.Executive.price_kpi_data.ACPInfl_var_yoy}%
+                                            </h3>
+                                            <h4 className="kpiSubTitle">YoY</h4>
 
-                                  </div>
-                                  <div className="col-md-3 kpiSmall">
+                                          </div>
+                                          <div className="col-md-3 kpiSmall">
 
-                                    <h3>
+                                            <h3>
                           <span
                             className={(() => {
                               if (this.props.Executive.price_kpi_data.ACPInfl_var_lfl> 0)
@@ -2027,14 +2086,14 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               } })()}>&nbsp;
 
                         </span>
-                                      {this.props.Executive.price_kpi_data.ACPInfl_var_lfl}%
-                                    </h3>
-                                    <h4 className="kpiSubTitle">LFL</h4>
+                                              {this.props.Executive.price_kpi_data.ACPInfl_var_lfl}%
+                                            </h3>
+                                            <h4 className="kpiSubTitle">LFL</h4>
 
-                                  </div>
-                                  <div className="col-md-6 col-xs-12 kpiSmall">
+                                          </div>
+                                          <div className="col-md-6 col-xs-12 kpiSmall">
 
-                                    <h3>
+                                            <h3>
                           <span
                             className={(() => {
                               if (this.props.Executive.price_kpi_data.ACPInfl_var_wow> 0)
@@ -2049,35 +2108,35 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               } })()}>&nbsp;
 
                         </span>
-                                      {this.props.Executive.price_kpi_data.ACPInfl_var_wow}%
-                                    </h3>
-                                    <h4 className="kpiSubTitle">WoW</h4>
+                                              {this.props.Executive.price_kpi_data.ACPInfl_var_wow}%
+                                            </h3>
+                                            <h4 className="kpiSubTitle">WoW</h4>
 
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </Panel>
                                   </div>
-                                </div>
-                              </div>
-                            </Panel>
-                          </div>
 
 
-                          {/*Block for Price Index*/}
+                                  {/*Block for Price Index*/}
 
-                          <div className='col-md-4' style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
-                            <Panel>
-                              <h3 className="pageModuleSubTitle"> Price Index </h3>
-                              <div className="row">
-                                <div className="col-md-6 col-xs-12">
+                                  <div className='col-md-4' style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
+                                    <Panel>
+                                      <h3 className="pageModuleSubTitle"> Price Index </h3>
+                                      <div className="row">
+                                        <div className="col-md-6 col-xs-12">
 
-                                  <h3>vs. ASDA  &nbsp; </h3>
-                                </div>
-                                <div className="col-md-6 col-xs-12">
-                                  <h3>Index &nbsp; {this.props.Executive.price_kpi_data.price_index_cw} </h3>
-                                </div>
-                              </div>
-                              <div className="row">
-                                <div className="panel-body">
-                                  <div className="col-md-12 col-xs-12 kpiSmall">
-                                    <h3>
+                                          <h3>vs. ASDA  &nbsp; </h3>
+                                        </div>
+                                        <div className="col-md-6 col-xs-12">
+                                          <h3>Index &nbsp; {this.props.Executive.price_kpi_data.price_index_cw} </h3>
+                                        </div>
+                                      </div>
+                                      <div className="row">
+                                        <div className="panel-body">
+                                          <div className="col-md-12 col-xs-12 kpiSmall">
+                                            <h3>
                                     <span
                                       className={(() => {
                                         if (this.props.Executive.price_kpi_data.price_index_var_wow > 0)
@@ -2092,19 +2151,34 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                         } })()}>&nbsp;
 
                         </span>
-                                      {this.props.Executive.price_kpi_data.price_index_var_wow}%
-                                    </h3>
-                                    <h4 className="kpiSubTitle">WoW</h4>
+                                              {this.props.Executive.price_kpi_data.price_index_var_wow}%
+                                            </h3>
+                                            <h4 className="kpiSubTitle">WoW</h4>
 
+                                          </div>
+
+
+                                        </div>
+                                      </div>
+                                    </Panel>
                                   </div>
 
-
                                 </div>
-                              </div>
-                            </Panel>
-                          </div>
+                              )
+                            }
+                            else{
+                              return(
+                                <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+                              )
+                            }
+                          }
+                        )()}
 
-                        </div>
+
+
+
+
+
                         <div style={{height: "200px"}}></div>
                       </div>
                     )
@@ -2116,36 +2190,39 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       <div className="mainBox">
 
                         {/*Row for KPIS*/}
-                        <div className="row mainBox" style={{marginTop: '1%'}}>
-                          {/*Block for total*/}
+                        {(() =>{
+                            if(this.props.Executive.KPISpinner){
+                              return(
+                                <div className="row mainBox" style={{marginTop: '1%'}}>
+                                  {/*Block for total*/}
 
-                          <div className={(() => {
-                            if (this.props.Executive.kpi_param=='kpi_type=Value'||this.props.Executive.kpi_param=='kpi_type=Volume')
-                            {
-                              return "col-md-4"
-                            }
-                            else
-                            {
-                              return "col-md-6"
-                            }  })()} style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
-                            <Panel>
-                              <h3 className="pageModuleSubTitle"> Total {this.props.Executive.kpi_boxes_data.kpi_name} </h3>
-                              <div style={{paddingLeft: '5%'}}>
-                                <div className="row" style={{paddingRight: '15%'}}>
-                                  <div className="col-md-6 col-xs-12" style={{textAlign: 'center'}}>
+                                  <div className={(() => {
+                                    if (this.props.Executive.kpi_param=='kpi_type=Value'||this.props.Executive.kpi_param=='kpi_type=Volume')
+                                    {
+                                      return "col-md-4"
+                                    }
+                                    else
+                                    {
+                                      return "col-md-6"
+                                    }  })()} style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
+                                    <Panel>
+                                      <h3 className="pageModuleSubTitle"> Total {this.props.Executive.kpi_boxes_data.kpi_name} </h3>
+                                      <div style={{paddingLeft: '5%'}}>
+                                        <div className="row" style={{paddingRight: '15%'}}>
+                                          <div className="col-md-6 col-xs-12" style={{textAlign: 'center'}}>
 
-                                    <h3>{this.props.Executive.kpi_boxes_data.total_value.total}</h3>
-                                  </div>
-                                  <div className="col-md-6 col-xs-12" style={{textAlign: 'center'}}>
-                                    <h3>LFL &nbsp; {this.props.Executive.kpi_boxes_data.total_value.total_lfl} </h3>
-                                  </div>
-                                </div>
-                                <div className="row">
-                                  <div className="panel-body">
-                                    <div className="col-md-4 kpiSmall">
+                                            <h3>{this.props.Executive.kpi_boxes_data.total_value.total}</h3>
+                                          </div>
+                                          <div className="col-md-6 col-xs-12" style={{textAlign: 'center'}}>
+                                            <h3>LFL &nbsp; {this.props.Executive.kpi_boxes_data.total_value.total_lfl} </h3>
+                                          </div>
+                                        </div>
+                                        <div className="row">
+                                          <div className="panel-body">
+                                            <div className="col-md-4 kpiSmall">
 
 
-                                      <h3>
+                                              <h3>
                           <span
                             className={(() => {
                               if (this.props.Executive.kpi_boxes_data.total_value.wow > 0)
@@ -2160,14 +2237,14 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               } })()}>&nbsp;
 
                         </span>
-                                        {this.props.Executive.kpi_boxes_data.total_value.wow}%
-                                      </h3>
-                                      <h4 className="kpiSubTitle">WoW</h4>
+                                                {this.props.Executive.kpi_boxes_data.total_value.wow}%
+                                              </h3>
+                                              <h4 className="kpiSubTitle">WoW</h4>
 
-                                    </div>
-                                    <div className="col-md-4 kpiSmall">
+                                            </div>
+                                            <div className="col-md-4 kpiSmall">
 
-                                      <h3>
+                                              <h3>
                           <span
                             className={(() => {
                               if (this.props.Executive.kpi_boxes_data.total_value.yoy > 0)
@@ -2182,14 +2259,14 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               } })()}>&nbsp;
 
                         </span>
-                                        {this.props.Executive.kpi_boxes_data.total_value.yoy}%
-                                      </h3>
-                                      <h4 className="kpiSubTitle">YoY</h4>
+                                                {this.props.Executive.kpi_boxes_data.total_value.yoy}%
+                                              </h3>
+                                              <h4 className="kpiSubTitle">YoY</h4>
 
-                                    </div>
-                                    <div className="col-md-4 kpiSmall">
+                                            </div>
+                                            <div className="col-md-4 kpiSmall">
 
-                                      <h3>
+                                              <h3>
                           <span
                             className={(() => {
                               if (this.props.Executive.kpi_boxes_data.total_value.lfl > 0)
@@ -2204,45 +2281,45 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               } })()}>&nbsp;
 
                         </span>
-                                        {this.props.Executive.kpi_boxes_data.total_value.lfl}%
-                                      </h3>
-                                      <h4 className="kpiSubTitle">LFL</h4>
+                                                {this.props.Executive.kpi_boxes_data.total_value.lfl}%
+                                              </h3>
+                                              <h4 className="kpiSubTitle">LFL</h4>
 
-                                    </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </Panel>
                                   </div>
-                                </div>
-                              </div>
-                            </Panel>
-                          </div>
 
-                          {/*Block for contribution to growth*/}
-                          <div className={(() => {
-                            if (this.props.Executive.kpi_param=='kpi_type=Value'||this.props.Executive.kpi_param=='kpi_type=Volume')
-                            {
-                              return "col-md-4"
-                            }
-                            else
-                            {
-                              return "col-md-6 col-xs-12"
-                            }  })()} style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
-                            <Panel>
-                              <h3 className="pageModuleSubTitle"> Contribution to Growth </h3>
-                              <div style={{paddingLeft: '5%'}}>
-                                <div className="row"  style={{paddingRight: '15%'}}>
-                                  <div className="col-md-6 col-xs-12" style={{textAlign: 'center'}}>
+                                  {/*Block for contribution to growth*/}
+                                  <div className={(() => {
+                                    if (this.props.Executive.kpi_param=='kpi_type=Value'||this.props.Executive.kpi_param=='kpi_type=Volume')
+                                    {
+                                      return "col-md-4"
+                                    }
+                                    else
+                                    {
+                                      return "col-md-6 col-xs-12"
+                                    }  })()} style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
+                                    <Panel>
+                                      <h3 className="pageModuleSubTitle"> Contribution to Growth </h3>
+                                      <div style={{paddingLeft: '5%'}}>
+                                        <div className="row"  style={{paddingRight: '15%'}}>
+                                          <div className="col-md-6 col-xs-12" style={{textAlign: 'center'}}>
 
-                                    <h3>{this.props.Executive.kpi_boxes_data.growth.total}</h3>
-                                  </div>
-                                  <div className="col-md-6 col-xs-12" style={{textAlign: 'center'}}>
-                                    <h3>LFL &nbsp; {this.props.Executive.kpi_boxes_data.growth.total_lfl} </h3>
-                                  </div>
-                                </div>
-                                <div className="row">
-                                  <div className="panel-body">
-                                    <div className="col-md-4 kpiSmall">
+                                            <h3>{this.props.Executive.kpi_boxes_data.growth.total}</h3>
+                                          </div>
+                                          <div className="col-md-6 col-xs-12" style={{textAlign: 'center'}}>
+                                            <h3>LFL &nbsp; {this.props.Executive.kpi_boxes_data.growth.total_lfl} </h3>
+                                          </div>
+                                        </div>
+                                        <div className="row">
+                                          <div className="panel-body">
+                                            <div className="col-md-4 kpiSmall">
 
 
-                                      <h3>
+                                              <h3>
                           <span
                             className={(() => {
                               if (this.props.Executive.kpi_boxes_data.growth.wow > 0)
@@ -2257,14 +2334,14 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               } })()}>&nbsp;
 
                         </span>
-                                        {this.props.Executive.kpi_boxes_data.growth.wow}%
-                                      </h3>
-                                      <h4 className="kpiSubTitle">WoW</h4>
+                                                {this.props.Executive.kpi_boxes_data.growth.wow}%
+                                              </h3>
+                                              <h4 className="kpiSubTitle">WoW</h4>
 
-                                    </div>
-                                    <div className="col-md-4 kpiSmall">
+                                            </div>
+                                            <div className="col-md-4 kpiSmall">
 
-                                      <h3>
+                                              <h3>
                           <span
                             className={(() => {
                               if (this.props.Executive.kpi_boxes_data.growth.yoy > 0)
@@ -2279,14 +2356,14 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               } })()}>&nbsp;
 
                         </span>
-                                        {this.props.Executive.kpi_boxes_data.growth.yoy}%
-                                      </h3>
-                                      <h4 className="kpiSubTitle">YoY</h4>
+                                                {this.props.Executive.kpi_boxes_data.growth.yoy}%
+                                              </h3>
+                                              <h4 className="kpiSubTitle">YoY</h4>
 
-                                    </div>
-                                    <div className="col-md-4 kpiSmall">
+                                            </div>
+                                            <div className="col-md-4 kpiSmall">
 
-                                      <h3>
+                                              <h3>
                           <span
                             className={(() => {
                               if (this.props.Executive.kpi_boxes_data.growth.lfl > 0)
@@ -2301,59 +2378,59 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               } })()}>&nbsp;
 
                         </span>
-                                        {this.props.Executive.kpi_boxes_data.growth.lfl}%
-                                      </h3>
-                                      <h4 className="kpiSubTitle">LFL</h4>
+                                                {this.props.Executive.kpi_boxes_data.growth.lfl}%
+                                              </h3>
+                                              <h4 className="kpiSubTitle">LFL</h4>
 
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </Panel>
-                          </div>
-
-                          {/*Block for market*/}
-                          {(() => {
-                            if (this.props.Executive.kpi_param=='kpi_type=Value'||this.props.Executive.kpi_param=='kpi_type=Volume')
-                            {
-                              return (
-                                <div className='col-md-4' style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
-                                  <Panel>
-                                    <h3 className="pageModuleSubTitle"> Market </h3>
-                                    <div style={{paddingLeft: '5%'}}>
-                                      <div className="row"  style={{paddingRight: '15%'}}>
-                                        <div className="col-md-6 col-xs-12" style={{textAlign: 'center'}}>
-
-                                          <h3>{this.props.Executive.kpi_boxes_data.market.total}</h3>
-                                        </div>
-                                        <div className="col-md-6 col-xs-12" style={{textAlign: 'center'}}>
-                                          <h3>LFL &nbsp; {this.props.Executive.kpi_boxes_data.market.total_lfl} </h3>
+                                            </div>
+                                          </div>
                                         </div>
                                       </div>
-                                      <div className="row">
-                                        <div className="panel-body">
-                                          <div className="col-md-4 kpiSmall">
+                                    </Panel>
+                                  </div>
+
+                                  {/*Block for market*/}
+                                  {(() => {
+                                    if (this.props.Executive.kpi_param=='kpi_type=Value'||this.props.Executive.kpi_param=='kpi_type=Volume')
+                                    {
+                                      return (
+                                        <div className='col-md-4' style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
+                                          <Panel>
+                                            <h3 className="pageModuleSubTitle"> Market </h3>
+                                            <div style={{paddingLeft: '5%'}}>
+                                              <div className="row"  style={{paddingRight: '15%'}}>
+                                                <div className="col-md-6 col-xs-12" style={{textAlign: 'center'}}>
+
+                                                  <h3>{this.props.Executive.kpi_boxes_data.market.total}</h3>
+                                                </div>
+                                                <div className="col-md-6 col-xs-12" style={{textAlign: 'center'}}>
+                                                  <h3>LFL &nbsp; {this.props.Executive.kpi_boxes_data.market.total_lfl} </h3>
+                                                </div>
+                                              </div>
+                                              <div className="row">
+                                                <div className="panel-body">
+                                                  <div className="col-md-4 kpiSmall">
 
 
-                                            <h3>
+                                                    <h3>
 
-                                              {this.props.Executive.kpi_boxes_data.market.share}%
-                                            </h3>
-                                            <h4 className="kpiSubTitle">Market Share</h4>
+                                                      {this.props.Executive.kpi_boxes_data.market.share}%
+                                                    </h3>
+                                                    <h4 className="kpiSubTitle">Market Share</h4>
 
-                                          </div>
-                                          <div className="col-md-4 kpiSmall">
+                                                  </div>
+                                                  <div className="col-md-4 kpiSmall">
 
-                                            <h3>
+                                                    <h3>
 
-                                              {this.props.Executive.kpi_boxes_data.market.opportunity}
-                                            </h3>
-                                            <h4 className="kpiSubTitle">Opportunity</h4>
+                                                      {this.props.Executive.kpi_boxes_data.market.opportunity}
+                                                    </h3>
+                                                    <h4 className="kpiSubTitle">Opportunity</h4>
 
-                                          </div>
-                                          <div className="col-md-4 kpiSmall">
+                                                  </div>
+                                                  <div className="col-md-4 kpiSmall">
 
-                                            <h3>
+                                                    <h3>
                           <span
                             className={(() => {
                               if (this.props.Executive.kpi_boxes_data.market.outperformance > 0)
@@ -2368,22 +2445,31 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               } })()}>&nbsp;
 
                         </span>
-                                              {this.props.Executive.kpi_boxes_data.market.outperformance}%
-                                            </h3>
-                                            <h4 className="kpiSubTitle">Market Outperf.</h4>
+                                                      {this.props.Executive.kpi_boxes_data.market.outperformance}%
+                                                    </h3>
+                                                    <h4 className="kpiSubTitle">Market Outperf.</h4>
 
-                                          </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </Panel>
                                         </div>
-                                      </div>
-                                    </div>
-                                  </Panel>
-                                </div>
 
+                                      )
+                                    }
+                                  })()}
+
+                                </div>
                               )
                             }
-                          })()}
+                            else{
+                              return(<div className="text-center"><Spinner />Please Wait a Moment....!</div>)
+                            }
+                          }
+                        )()}
 
-                        </div>
+
 
 
                         {/*Row for best and worst performances*/}
@@ -2906,7 +2992,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                               if(this.props.Executive.value_internal_tab=='kpi')
                                               {
                                                 return (
-                                                  <div className="row">
+                                                  <div className="col-md-12">
+
                                                     <h2 className="pageModuleSubTitle">KPI</h2>
 
                                                     {(() =>{
@@ -2924,7 +3011,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                           else {
                                                             return(
                                                               <div>
-                                                                <h3> Data available only for weeks from 201702</h3>
+                                                                <h4> Data is available only for weeks from 201702</h4>
                                                               </div>
                                                             )
                                                           }
@@ -2943,7 +3030,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                               }
                                               else{
                                                 return (
-                                                  <div className="row">
+                                                  <div className="col-md-12">
                                                     <h2 className="pageModuleSubTitle">Promotion</h2>
                                                     {(() =>{
                                                         if(this.props.Executive.drivers_internal_data  && this.props.Executive.internalDriverSpinner){
@@ -2973,11 +3060,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                   }
                                   else{
                                     return(
-                                      <div className="row mainBox">
+                                      <div className="mainBox">
 
-
-                                        {/*Row for weather data*/}
                                         <div className="row">
+                                        {/*Row for weather data*/}
+                                        <div className="col-md-12">
                                           <Nav style={{marginLeft: '1%', marginBottom: '0%'}} bsStyle="tabs" activeKey={this.state.activeKey10} onSelect={this.handleSelect} className="tabsCustom">
                                             <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
 
@@ -3006,11 +3093,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                           </Nav>
 
                                           {(() =>{
-
-                                              if(this.props.Executive.value_external_tab=='rainfall')
+                                              if (this.props.Executive.value_external_tab == 'rainfall'&&this.props.Executive.externalDriverSpinner)
                                               {
                                                 return(
-                                                  <div>
+                                                  <div className="row mainBox">
                                                     <h3 className="pageModuleSubTitle">Rainfall</h3>
                                                     {(() => {
                                                       if (this.props.Executive.drivers_external_data) {
@@ -3041,9 +3127,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                 )
                                               }
                                               else {
-                                                if (this.props.Executive.value_external_tab == 'sunshine') {
+                                                if (this.props.Executive.value_external_tab == 'sunshine'&&this.props.Executive.externalDriverSpinner) {
                                                   return (
-                                                    <div>
+                                                    <div  className="row mainBox">
                                                       <h3 className="pageModuleSubTitle">Sunshine</h3>
                                                       {(() => {
                                                         if (this.props.Executive.drivers_external_data) {
@@ -3079,41 +3165,52 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                   )
                                                 }
                                                 else {
-                                                  return (
-                                                    <div>
-                                                      <h3 className="pageModuleSubTitle">Temperature</h3>
-                                                      {(() => {
-                                                        if (this.props.Executive.drivers_external_data) {
-                                                          console.log("Promo Sales line chart data", this.props.Executive.drivers_external_data.temperature);
-                                                          return (
-                                                            <div>
-                                                              <div style={{float:"right"}}>
-                                                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
-                                                                  <MenuItem onClick={() => {
-                                                                    saveImage(document.getElementById('temperature_line'+'_svg'),"external_drivers_temperature")
-                                                                  }
-                                                                  }>Save As JPEG</MenuItem>
-                                                                  <MenuItem onClick={() => {
-                                                                    saveDataAsCSV(this.props.Executive.drivers_external_data.temperature,"external_drivers_temperature.csv")
-                                                                  }
-                                                                  }>Download CSV</MenuItem>
-                                                                </DropdownButton>
+                                                  if(this.props.Executive.externalDriverSpinner) {
+                                                    return (
+                                                      <div className="row mainBox">
+                                                        <h3 className="pageModuleSubTitle">Temperature</h3>
+                                                        {(() => {
+                                                          if (this.props.Executive.drivers_external_data) {
+                                                            console.log("Promo Sales line chart data", this.props.Executive.drivers_external_data.temperature);
+                                                            return (
+                                                              <div>
+                                                                <div style={{float: "right"}}>
+                                                                  <DropdownButton
+                                                                    className="glyphicon glyphicon-menu-hamburger"
+                                                                    pullRight style={{
+                                                                    backgroundColor: "transparent",
+                                                                    borderColor: "transparent",
+                                                                    color: "#00539f"
+                                                                  }} id="dropButtonId">
+                                                                    <MenuItem onClick={() => {
+                                                                      saveImage(document.getElementById('temperature_line' + '_svg'), "external_drivers_temperature")
+                                                                    }
+                                                                    }>Save As JPEG</MenuItem>
+                                                                    <MenuItem onClick={() => {
+                                                                      saveDataAsCSV(this.props.Executive.drivers_external_data.temperature, "external_drivers_temperature.csv")
+                                                                    }
+                                                                    }>Download CSV</MenuItem>
+                                                                  </DropdownButton>
+                                                                </div>
+                                                                <MultilineThree
+                                                                  data={this.props.Executive.drivers_external_data.temperature}
+                                                                  id="temperature_line" label_ty="Temperature TY"
+                                                                  label_ly="Temperature LY"
+                                                                  xaxis_title="Tesco Week" no_pref='£' no_suffix=''
+                                                                  no_pref2='' no_suffix2=''
+                                                                  yaxis_title='Value' yaxis_title2='Temperature'/>
                                                               </div>
-                                                              <MultilineThree
-                                                                data={this.props.Executive.drivers_external_data.temperature}
-                                                                id="temperature_line" label_ty="Temperature TY"
-                                                                label_ly="Temperature LY"
-                                                                xaxis_title="Tesco Week" no_pref='£' no_suffix=''
-                                                                no_pref2='' no_suffix2=''
-                                                                yaxis_title='Value' yaxis_title2='Temperature'/>
-                                                            </div>
-                                                          );
-                                                        }
-                                                      })()}
+                                                            );
+                                                          }
+                                                        })()}
 
 
-                                                    </div>
-                                                  )
+                                                      </div>
+                                                    )
+                                                  }
+                                                  else{
+                                                    return(<div className="text-center"><Spinner />Please Wait a Moment....!</div>)
+                                                  }
                                                 }
                                               }
                                             }
@@ -3126,63 +3223,78 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                         </div>
                                         {/*Row for holidays*/}
-                                        <div className="row">
+                                        <div className="col-md-12">
                                           <div className="headerBox">
                                           <h3 className="pageModuleMainTitle">Holidays</h3>
                                           </div>
-                                          {/*Holiday Table*/}
-                                          <div className="col-md-6" style={{paddingTop : "80px"}}>
+                                          {(() =>{
+                                            if(this.props.Executive.externalDriverSpinner){
+                                              return (<div className="row">
+                                                {/*Holiday Table*/}
+                                                <div className="col-md-6" style={{paddingTop : "80px"}}>
 
-                                            {(() => {
-                                              if (this.props.Executive.overview_drivers_external_data) {
-                                                return (
-                                                  <div className="promoTable">
-                                                    <BootstrapTable className="promoTable"
-                                                                    data={this.props.Executive.overview_drivers_external_data.holidays}
-                                                                    pagination = {true} options={options}
-                                                                    striped={true}
-                                                                    condensed>
+                                                  {(() => {
+                                                    if (this.props.Executive.overview_drivers_external_data) {
+                                                      return (
+                                                        <div className="promoTable">
+                                                          <BootstrapTable className="promoTable"
+                                                                          data={this.props.Executive.overview_drivers_external_data.holidays}
+                                                                          pagination = {true} options={options}
+                                                                          striped={true}
+                                                                          condensed>
 
-                                                      <TableHeaderColumn  dataAlign={"left"} dataField='tesco_week' isKey>Tesco Week</TableHeaderColumn>
-                                                      <TableHeaderColumn  dataAlign={"left"} dataField='holiday_date'>Holiday Date</TableHeaderColumn>
-                                                      <TableHeaderColumn  tdStyle={{whiteSpace:'normal'}} dataAlign={"left"} dataField='holiday_description'>Holiday Description</TableHeaderColumn>
-                                                    </BootstrapTable>
-                                                  </div>
-                                                )
-                                              }else {
-                                                return (<div>Loading</div>)
-                                              }
+                                                            <TableHeaderColumn  dataAlign={"left"} dataField='tesco_week' isKey>Tesco Week</TableHeaderColumn>
+                                                            <TableHeaderColumn  dataAlign={"left"} dataField='holiday_date'>Holiday Date</TableHeaderColumn>
+                                                            <TableHeaderColumn  tdStyle={{whiteSpace:'normal'}} dataAlign={"left"} dataField='holiday_description'>Holiday Description</TableHeaderColumn>
+                                                          </BootstrapTable>
+                                                        </div>
+                                                      )
+                                                    }else {
+                                                      return (<div>Loading</div>)
+                                                    }
 
-                                            })()}
+                                                  })()}
 
 
 
-                                          </div>
-                                          {/*Value Trend*/}
-                                          <div className="col-md-6">
-                                            {(() => {
-                                              if (this.props.Executive.overview_kpi_trend_data) {
-                                                console.log("Promo Sales line chart data", this.props.Executive.overview_kpi_trend_data.sales_trend);
-                                                return (
-                                                  <div>
-                                                    <div style={{float:"right"}}>
-                                                      <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
-                                                        <MenuItem onClick={() => {
-                                                          saveImage(document.getElementById('holiday_value_line'+'_svg'),"overview_kpi_sales_trend")
-                                                        }
-                                                        }>Save As JPEG</MenuItem>
-                                                        <MenuItem onClick={() => {
-                                                          saveDataAsCSV(this.props.Executive.overview_kpi_trend_data.sales_trend,"overview_kpi_sales_trend.csv")
-                                                        }
-                                                        }>Download CSV</MenuItem>
-                                                      </DropdownButton>
-                                                    </div>
-                                                    <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.sales_trend} id="holiday_value_line" label_ty="Sales TY" label_ly="Sales LY" xaxis_title="Tesco Week" no_pref='£' no_suffix='' yaxis_title='Value'/>
-                                                  </div>
-                                                );
-                                              }
-                                            })()}
-                                          </div>
+                                                </div>
+                                                {/*Value Trend*/}
+                                                <div className="col-md-6">
+                                                  {(() => {
+                                                    if (this.props.Executive.overview_kpi_trend_data) {
+                                                      console.log("Promo Sales line chart data", this.props.Executive.overview_kpi_trend_data.sales_trend);
+                                                      return (
+                                                        <div>
+                                                          <div style={{float:"right"}}>
+                                                            <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
+                                                              <MenuItem onClick={() => {
+                                                                saveImage(document.getElementById('holiday_value_line'+'_svg'),"overview_kpi_sales_trend")
+                                                              }
+                                                              }>Save As JPEG</MenuItem>
+                                                              <MenuItem onClick={() => {
+                                                                saveDataAsCSV(this.props.Executive.overview_kpi_trend_data.sales_trend,"overview_kpi_sales_trend.csv")
+                                                              }
+                                                              }>Download CSV</MenuItem>
+                                                            </DropdownButton>
+                                                          </div>
+                                                          <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.sales_trend} id="holiday_value_line" label_ty="Sales TY" label_ly="Sales LY" xaxis_title="Tesco Week" no_pref='£' no_suffix='' yaxis_title='Value'/>
+                                                        </div>
+                                                      );
+                                                    }
+                                                  })()}
+                                                </div>
+                                              </div>)
+                                            }
+                                            else{
+                                              return(<div></div>)
+                                            }
+
+                                          }
+
+                                            )()}
+
+
+                                        </div>
                                         </div>
                                       </div>)
                                   }
@@ -3638,11 +3750,15 @@ function mapDispatchToProps(dispatch) {
     onSaveValueExternal: (e) => dispatch(SaveValueExternal(e)),
     spinnerRolesAndIntent: (e) => dispatch(spinnerRolesAndIntent(e)),
     spinnerOverviewKPITrend: (e) => dispatch(spinnerOverviewKPITrend(e)),
+    spinnerOverviewKPI: (e) => dispatch(spinnerOverviewKPI(e)),
     spinnerOverviewInternalDrivers: (e) => dispatch(spinnerOverviewInternalDrivers(e)),
     spinnerOverviewExternalDrivers: (e) => dispatch(spinnerOverviewExternalDrivers(e)),
+    spinnerKPI: (e) => dispatch(spinnerKPI(e)),
     spinnerInternalDrivers: (e) => dispatch(spinnerInternalDrivers(e)),
     spinnerExternalDrivers: (e) => dispatch(spinnerExternalDrivers(e)),
+    spinnerPriceKPI: (e) => dispatch(spinnerPriceKPI(e)),
     dispatch,
+
   };
 }
 

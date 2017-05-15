@@ -339,22 +339,25 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
                {/*Load functions here*/}
                   if (this.props.kpi_param=='kpi_type=Overview') {
                     console.log("______________________ Only Overview function Called")
+                    this.props.spinnerRolesAndIntent(0);
+                    this.props.spinnerOverviewKPI(0);
+                    this.props.spinnerOverviewKPITrend(0);
+                    this.props.spinnerOverviewInternalDrivers(0);
+                    this.props.spinnerOverviewExternalDrivers(0);
+
                     this.props.loadOverviewKpi();
                     this.props.loadOverviewKpiTrend();
                     this.props.loadOverviewDriversInternal();
                     this.props.loadOverviewDriversExternal();
                     this.props.loadRolesAndIntent();
                     this.props.loadBudgetAndForecast();
-                    this.props.spinnerRolesAndIntent(0);
-                    this.props.spinnerOverviewKPITrend(0);
-                    this.props.spinnerOverviewInternalDrivers(0);
-                    this.props.spinnerOverviewExternalDrivers(0);
 
                   }
                   else {
                     if(this.props.kpi_param=='kpi_type=Price')
                     {
                       console.log("______________________ Only Price function Called")
+                      this.props.overviewKPI(0);
                       this.props.loadPriceKPIData();
 
 
@@ -362,13 +365,14 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
 
                         else {
                           console.log("______________________ Only KPI functions Called")
-
+                      this.props.spinnerInternalDrivers(0);
+                      this.props.spinnerExternalDrivers(0);
+                      this.props.spinnerKPI(0);
                       this.props.loadKpiBoxes();
                       this.props.loadBestWorst();
                       this.props.loadDriversInternalData();
                       this.props.loadDriversExternalData();
-                      this.props.spinnerInternalDrivers(0);
-                      this.props.spinnerExternalDrivers(0);
+
                     }
 
                       }

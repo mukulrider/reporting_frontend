@@ -56,11 +56,14 @@ import {
   SUPPLIER_NAME,
   TOP_BOT_FLAG,
   ROLES_INTENT_SPINNER_FLAG,
+  OVERVIEW_KPI_SPINNER_FLAG,
   OVERVIEW_KPI_TREND_SPINNER_FLAG,
   OVERVIEW_INTERNAL_DRIVER_SPINNER_FLAG,
   OVERVIEW_EXTERNAL_DRIVER_SPINNER_FLAG,
   INTERNAL_DRIVER_SPINNER_FLAG,
-  EXTERNAL_DRIVER_SPINNER_FLAG
+  EXTERNAL_DRIVER_SPINNER_FLAG,
+  KPI_SPINNER_FLAG,
+  PRICE_KPI_SPINNER_FLAG
 } from './constants';
 
 export function defaultAction() {
@@ -546,6 +549,16 @@ export function spinnerRolesAndIntent(spinnerCheck) {
   };
 }
 
+//SPINNER - OVERVIEW_KPI_SPINNER_FLAG
+export function spinnerOverviewKPI(spinnerCheck) {
+  console.log('spinnerOverviewKPI = actions', spinnerCheck);
+  return {
+    type: OVERVIEW_KPI_SPINNER_FLAG,
+    spinnerCheck,
+  };
+}
+
+
 //SPINNER - OVERVIEW_KPI_TREND_SPINNER_FLAG
 export function spinnerOverviewKPITrend(spinnerCheck) {
   console.log('spinneroverviewKPITrend = actions', spinnerCheck);
@@ -574,6 +587,15 @@ export function spinnerOverviewExternalDrivers(spinnerCheck) {
   };
 }
 
+//SPINNER - KPI_SPINNER_FLAG
+export function spinnerKPI(spinnerCheck) {
+  console.log('spinnerKPI = actions', spinnerCheck);
+  return {
+    type: KPI_SPINNER_FLAG,
+    spinnerCheck,
+  };
+}
+
 //SPINNER - INTERNAL DRIVERS
 export function spinnerInternalDrivers(spinnerCheck) {
   console.log('spinnerInternalDrivers = actions', spinnerCheck);
@@ -588,6 +610,15 @@ export function spinnerExternalDrivers(spinnerCheck) {
   console.log('spinnerExternalDrivers = actions', spinnerCheck);
   return {
     type: EXTERNAL_DRIVER_SPINNER_FLAG,
+    spinnerCheck,
+  };
+}
+
+//SPINNER - PRICE_KPI_SPINNER_FLAG
+export function spinnerPriceKPI(spinnerCheck) {
+  console.log('spinnerPriceKPI = actions', spinnerCheck);
+  return {
+    type: PRICE_KPI_SPINNER_FLAG,
     spinnerCheck,
   };
 }

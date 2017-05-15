@@ -19,6 +19,9 @@ import {
   DRIVERS_INTERNAL_CONSTANT,
   DRIVERS_EXTERNAL_CONSTANT,
   PRICE_KPI_CONSTANT,
+  OVERVIEW_KPI_SPINNER_FLAG,
+  PRICE_KPI_SPINNER_FLAG,
+  KPI_SPINNER_FLAG
 } from './constants';
 
 
@@ -43,11 +46,15 @@ import {OverviewKpiDataFetchSuccess,
   WeekFilterFetchSuccess,
   FilterFetchSuccess,
   spinnerRolesAndIntent,
+  spinnerOverviewKPI,
   spinnerOverviewKPITrend,
   spinnerOverviewInternalDrivers,
   spinnerOverviewExternalDrivers,
+  spinnerKPI,
   spinnerInternalDrivers,
-  spinnerExternalDrivers
+  spinnerExternalDrivers,
+  spinnerPriceKPI,
+
 }
   from 'containers/Executive/actions';
 
@@ -102,7 +109,8 @@ export function* generateOverviewKpiDataFetch() {
     host_url+`/api/reporting/exec_overview_kpis?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + weekselection);
   console.log("Heres the generateOverviewKpiDataFetch data",data);
   yield put(OverviewKpiDataFetchSuccess(data));
-
+  let spinnerFlag = 1;
+  yield put(spinnerOverviewKPI(spinnerFlag));
   // } catch (err) {
   //   // console.log(err);
   // }
@@ -356,7 +364,8 @@ export function* generateKpiBoxesDataFetch() {
     host_url+`/api/reporting/exec_kpi?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + kpiparam +  '&' + weekselection);
   console.log("Heres the generateKpiBoxesDataFetch data",data);
   yield put(KpiBoxesDataFetchSuccess(data));
-
+  let spinnerFlag = 1;
+  yield put(spinnerKPI(spinnerFlag));
   // } catch (err) {
   //   // console.log(err);
   // }
@@ -792,7 +801,8 @@ export function* generatePriceKPIFetch() {
     host_url+`/api/reporting/exec_pricing?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + kpiparam +  '&' + weekselection);
   console.log("Heres the generatePriceKPIFetch data",data);
   yield put(PriceKPIDataFetchSuccess(data));
-
+  let spinnerFlag = 1;
+  yield put(spinnerPriceKPI(spinnerFlag));
   // } catch (err) {
   //   // console.log(err);
   // }

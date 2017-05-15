@@ -56,12 +56,19 @@ import {
   BOT_SELECTED_NAME,
   SUPPLIER_NAME,
   TOP_BOT_FLAG,
+
+  //Spinner Flag Constants
+
+
   ROLES_INTENT_SPINNER_FLAG,
+  OVERVIEW_KPI_SPINNER_FLAG,
   OVERVIEW_KPI_TREND_SPINNER_FLAG,
   OVERVIEW_INTERNAL_DRIVER_SPINNER_FLAG,
   OVERVIEW_EXTERNAL_DRIVER_SPINNER_FLAG,
+  KPI_SPINNER_FLAG,
   INTERNAL_DRIVER_SPINNER_FLAG,
-  EXTERNAL_DRIVER_SPINNER_FLAG
+  EXTERNAL_DRIVER_SPINNER_FLAG,
+  PRICE_KPI_SPINNER_FLAG
 } from './constants';
 
 
@@ -79,38 +86,7 @@ const initialState = fromJS({
   value_internal_tab: 'kpi',
   value_external_tab: 'sunshine',
   //Initial Data
-  overview_kpi_data: {
-    "price": {
-      "ACP": 0,
-      "ASP": 0
-    },
-    "market": {
-      "share": "0",
-      "outperformance": "0"
-    },
-    "kpi": {
-      "volume": {
-        "var_wow": "0",
-        "total": "0",
-        "var_yoy": "0"
-      },
-      "cogs": {
-        "var_wow": "0",
-        "total": "0",
-        "var_yoy": "0"
-      },
-      "cgm": {
-        "var_wow": "0",
-        "total": "0",
-        "var_yoy": "0"
-      },
-      "value": {
-        "var_wow": "0",
-        "total": "0",
-        "var_yoy": "0"
-      }
-    }
-  },
+
   overview_drivers_external_data: {
     "rainfall": {
       "wow": "0",
@@ -387,6 +363,10 @@ function executiveReducer(state = initialState, action) {
       console.log("reducer OVERVIEW_KPI_TREND_SPINNER_FLAG",action.spinnerCheck);
       return state.set('overviewKPITrendSpinner',action.spinnerCheck);
 
+    case OVERVIEW_KPI_SPINNER_FLAG:
+      console.log("reducer OVERVIEW_KPI_SPINNER_FLAG",action.spinnerCheck);
+      return state.set('overviewKPISpinner',action.spinnerCheck);
+
     case OVERVIEW_INTERNAL_DRIVER_SPINNER_FLAG:
       console.log("reducer OVERVIEW_INTERNAL_DRIVER_SPINNER_FLAG",action.spinnerCheck);
       return state.set('overviewInternalDriverSpinner',action.spinnerCheck);
@@ -395,6 +375,10 @@ function executiveReducer(state = initialState, action) {
       console.log("reducer OVERVIEW_EXTERNAL_DRIVER_SPINNER_FLAG",action.spinnerCheck);
       return state.set('overviewExternalDriverSpinner',action.spinnerCheck);
 
+    case KPI_SPINNER_FLAG:
+      console.log("reducer KPI_SPINNER_FLAG",action.spinnerCheck);
+      return state.set('KPISpinner',action.spinnerCheck);
+
     case INTERNAL_DRIVER_SPINNER_FLAG:
       console.log("reducer INTERNAL_DRIVER_SPINNER_FLAG",action.spinnerCheck);
       return state.set('internalDriverSpinner',action.spinnerCheck);
@@ -402,6 +386,10 @@ function executiveReducer(state = initialState, action) {
     case EXTERNAL_DRIVER_SPINNER_FLAG:
       console.log("reducer EXTERNAL_DRIVER_SPINNER_FLAG",action.spinnerCheck);
       return state.set('externalDriverSpinner',action.spinnerCheck);
+
+    case PRICE_KPI_SPINNER_FLAG:
+      console.log("reducer PRICE_KPI_SPINNER_FLAG",action.spinnerCheck);
+      return state.set('priceKPISpinner',action.spinnerCheck);
 
     default:
       return state;
