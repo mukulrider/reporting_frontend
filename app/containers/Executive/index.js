@@ -720,6 +720,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   this.props.onSaveTopName(topName);
                   this.props.onSaveBotName(botName);
                   this.props.onSaveSupplierName(suppName);
+                  this.props.spinnerKPI(0);
+                  this.props.spinnerInternalDrivers(0);
+                  this.props.spinnerExternalDrivers(0);
 
 
                   this.props.loadKpiBoxes();
@@ -729,22 +732,26 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   {/*this.props.loadSupplierInfoData();*/}
                   this.props.loadDriversInternalData();
                   this.props.loadDriversExternalData();
-                  this.props.spinnerInternalDrivers(0);
-                  this.props.spinnerExternalDrivers(0);
 
 
                 }}><span className="tab_label">Value</span></NavItem>
 
-                <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                <NavItem className="tabsNavPanelList1" eventKey="3" onClick={() => {
                   kpiparam = "kpi_type=Volume";
                   this.setState({activeKey2: "3"});
                   this.props.onSaveKPIParam(kpiparam);
                   topName = 'None';
                   suppName = 'None';
                   botName = 'None';
+
                   this.props.onSaveTopName(topName);
                   this.props.onSaveBotName(botName);
                   this.props.onSaveSupplierName(suppName);
+
+                  this.props.spinnerKPI(0);
+                  this.props.spinnerInternalDrivers(0);
+                  this.props.spinnerExternalDrivers(0);
+
                   this.props.loadKpiBoxes();
                   this.props.loadBestWorst();
                   {/*this.props.loadWorstInfoData();*/}
@@ -752,11 +759,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   {/*this.props.loadSupplierInfoData();*/}
                   {/*this.props.loadTopSupplierInfoData();*/}
                   {/*this.props.loadBotSupplierInfoData();*/}
-                  this.props.spinnerInternalDrivers(0);
-                  this.props.spinnerExternalDrivers(0);
                 }}><span className="tab_label">Volume</span></NavItem>
 
-                <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+                <NavItem className="tabsNavPanelList1" eventKey="4" onClick={() => {
                   kpiparam = "kpi_type=COGS";
                   this.setState({activeKey2: "4"});
                   this.props.onSaveKPIParam(kpiparam);
@@ -766,6 +771,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   this.props.onSaveTopName(topName);
                   this.props.onSaveBotName(botName);
                   this.props.onSaveSupplierName(suppName);
+                  this.props.spinnerKPI(0);
+                  this.props.spinnerInternalDrivers(0);
+                  this.props.spinnerExternalDrivers(0);
+
                   this.props.loadKpiBoxes();
                   this.props.loadBestWorst();
                   {/*this.props.loadWorstInfoData();*/}
@@ -773,12 +782,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   {/*this.props.loadSupplierInfoData();*/}
                   {/*this.props.loadTopSupplierInfoData();*/}
                   {/*this.props.loadBotSupplierInfoData();*/}
-                  this.props.spinnerInternalDrivers(0);
-                  this.props.spinnerExternalDrivers(0);
 
                 }}><span className="tab_label">COGS</span></NavItem>
 
-                <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
+                <NavItem className="tabsNavPanelList1" eventKey="5" onClick={() => {
                   kpiparam = "kpi_type=Profit";
                   this.setState({activeKey2: "5"});
                   this.props.onSaveKPIParam(kpiparam);
@@ -788,6 +795,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   this.props.onSaveTopName(topName);
                   this.props.onSaveBotName(botName);
                   this.props.onSaveSupplierName(suppName);
+                  this.props.spinnerKPI(0);
+                  this.props.spinnerInternalDrivers(0);
+                  this.props.spinnerExternalDrivers(0);
+
                   this.props.loadKpiBoxes();
                   this.props.loadBestWorst();
                   {/*this.props.loadWorstInfoData();*/}
@@ -795,12 +806,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   {/*this.props.loadSupplierInfoData();*/}
                   {/*this.props.loadTopSupplierInfoData();*/}
                   {/*this.props.loadBotSupplierInfoData();*/}
-                  this.props.spinnerInternalDrivers(0);
-                  this.props.spinnerExternalDrivers(0);
 
                 }}><span className="tab_label">Profit</span></NavItem>
 
-                <NavItem className="tabsCustomList" eventKey="6" onClick={() => {
+                <NavItem className="tabsNavPanelList1" eventKey="6" onClick={() => {
                   kpiparam = "kpi_type=Price";
                   this.setState({activeKey2: "6"});
                   this.props.onSaveKPIParam(kpiparam);
@@ -810,6 +819,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   this.props.onSaveTopName(topName);
                   this.props.onSaveBotName(botName);
                   this.props.onSaveSupplierName(suppName);
+                  this.props.spinnerPriceKPI(0);
                   this.props.loadPriceKPIData();
                 }}><span className="tab_label">Price</span></NavItem>
 
@@ -1723,7 +1733,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 <div className="row mainBox" style={{marginTop: '1%'}}>
                                   {/*Block for ASP*/}
 
-                                  <div className='col-md-4 col-xs-12 col-sm-12 col-lg-12' style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
+                                  <div className='col-md-4 col-xs-12 col-sm-4 col-lg-4' style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
                                     <Panel>
                                       <h3 className="pageModuleSubTitle"> ASP </h3>
                                       <div className="row">
@@ -1811,7 +1821,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                   {/*Block for ACP*/}
 
-                                  <div className='col-md-4 col-xs-12 col-sm-12 col-lg-12' style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
+                                  <div className='col-md-4 col-xs-12 col-sm-4 col-lg-4' style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
                                     <Panel>
                                       <h3 className="pageModuleSubTitle"> ACP </h3>
                                       <div className="row">
@@ -1900,7 +1910,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                   {/*Block for Price Index*/}
 
-                                  <div className='col-md-4 col-xs-12 col-sm-12 col-lg-12' style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
+                                  <div className='col-md-4 col-xs-12 col-sm-4 col-lg-4' style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
                                     <Panel>
                                       <h3 className="pageModuleSubTitle"> Price Index </h3>
                                       <div className="row">

@@ -20,8 +20,10 @@ import {
   WEEK_FILTER_FETCH_SUCCESS,
   WEEK_FILTER_PARAM,
   SEND_URL_PARAMS,
+  DS_VIEW_KPI_SPINNER,
+  LINE_CHART_SPINNER,
   WEEK,
-  CHECKBOX_WEEK_CHANGE,
+  CHECKBOX_WEEK_CHANGE
 
 } from './constants';
 
@@ -185,4 +187,24 @@ export function checkboxWeekChange(data) {
     type: CHECKBOX_WEEK_CHANGE,
     data
   };
+}
+
+//SPINNER FOR DS VIEW KPI
+
+export function DSViewKpiSpinnerCheckSuccess(DSViewKpiSpinnerCheck) {
+  console.log('DSViewKpiSpinnerCheck', DSViewKpiSpinnerCheck);
+  return {
+    type: DS_VIEW_KPI_SPINNER,
+    DSViewKpiSpinnerCheck
+  }
+}
+
+//SPINNER FOR LINE CHART
+
+export function LineChartSpinnerCheckSuccess(LineChartSpinnerCheck) {
+  console.log('LineChartSpinnerCheckSuccess', LineChartSpinnerCheck);
+  return {
+    type: LINE_CHART_SPINNER,
+    LineChartSpinnerCheck
+  }
 }

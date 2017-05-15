@@ -600,3 +600,37 @@
   text-align: center;
   padding-left: 1%;
 }
+
+//Tabs For the Navigation Panel
+
+.tabsNavPanel1{
+  margin-top: 27px;
+}
+
+.tabsNavPanelList1 {
+  display: inline-block;
+  border-bottom: none;
+}
+
+.tabsNavPanelList1 span.tab_label {
+  padding: 12px 8px;
+  font-weight: 700;
+  font-family: Tesco;
+  color: #00539f;
+  font-size: 16px;
+  vertical-align: middle;
+}
+
+.tabsNavPanelList1.active span.tab_label {
+  border-bottom: #048EC3 solid 4px !important;
+}
+.tabsNavPanelList1 a {
+  font-weight: 700 !important;
+  font-family: 'Tesco' !important;
+  padding: 15px 15px 16px 15px !important;
+  text-decoration: none;
+  font-size: 14px;
+  background: #fff !important;
+  border:0px !important;
+  color: #00539f !important;
+}

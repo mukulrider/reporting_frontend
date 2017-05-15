@@ -10,7 +10,7 @@ import messages from './messages';
 import Button from 'components/button';
 import * as d3 from 'd3';
 class LineChart extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  created3Graph = (data,y_axis) => {
+  created3Graph = (data,y_axis, x_axis) => {
     // console.log("This is my line chart data:",data);
     // let data1 = [
     //   {
@@ -85,6 +85,7 @@ class LineChart extends React.PureComponent { // eslint-disable-line react/prefe
     y.domain(d3.extent(data1, function (d) {
       return d.tot_val;
     }));
+
     g.append("g")
       .attr("transform", "translate(0," + height + ")")      //Shift entire axis
       .call(d3.axisBottom(x).tickFormat(
@@ -114,6 +115,20 @@ class LineChart extends React.PureComponent { // eslint-disable-line react/prefe
     g.append("g")
       .attr("transform", "translate(0,0)")     //Shift Y axis
       .call(d3.axisLeft(y));
+
+    // g.append("g")
+    //   .call(d3.axisLeft(x))
+    //   .append("text")
+    //   .attr("fill", "#000")
+    //   // .attr("transform", "translate(0,0)rotate(-90)")     //change
+    //   .attr("dx", "1.30em")
+    //   .attr("text-anchor", "end")
+    //   .text(this.props.x_axis)
+    // //.selectAll();
+    // g.append("g")
+    //   // .attr("transform", "translate(0,0)")     //Shift Y axis
+    //   .call(d3.axisLeft(x));
+
     g.append("path")
       .datum(data1)
       .attr("transform","translate(0,0)rotate(0)")      //Change
@@ -126,12 +141,12 @@ class LineChart extends React.PureComponent { // eslint-disable-line react/prefe
   }
   componentDidMount = () => {
     console.log("Line Chart Data",this.props.data)
-    this.created3Graph(this.props.data)
+    this.created3Graph(this.props.data,this.props.y_axis)
     console.log("Line Chart Props",this.props.y_axis)
   };
   componentDidUpdate = () => {
     console.log("updated.. line chart", this.props.data)
-    this.created3Graph(this.props.data)
+    this.created3Graph(this.props.data, this.props.y_axis)
   };
   render() {
     return (

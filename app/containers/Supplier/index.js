@@ -454,7 +454,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                         }}><span className="tab_label">Value</span>
                         </NavItem>
 
-                        <NavItem eventKey="2" className="tabsNavPanelListSupp" onClick={() => {
+                        <NavItem eventKey="2" className="tabsNavPanelList1" onClick={() => {
                           this.setState({activeKey2: "2"});
                           this.props.supplierViewKpiSpinnerCheckSuccess(0);
                           this.props.barChartSpinnerCheckSuccess(0);
@@ -467,7 +467,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                           this.props.ontopBottomChart();
                         }}><span className="tab_label">Volume</span></NavItem>
 
-                        <NavItem eventKey="3" className="tabsNavPanelListSupp" onClick={() => {
+                        <NavItem eventKey="3" className="tabsNavPanelList1" onClick={() => {
                           this.setState({activeKey2: "3"});
                           this.props.supplierViewKpiSpinnerCheckSuccess(0);
                           this.props.barChartSpinnerCheckSuccess(0);
@@ -480,7 +480,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                           this.props.ontopBottomChart();
                         }}><span className="tab_label">COGS</span></NavItem>
 
-                        <NavItem eventKey="4" className="tabsNavPanelListSupp" onClick={() => {
+                        <NavItem eventKey="4" className="tabsNavPanelList1" onClick={() => {
                           this.setState({activeKey2: "4"});
                           this.props.supplierViewKpiSpinnerCheckSuccess(0);
                           this.props.barChartSpinnerCheckSuccess(0);
@@ -494,7 +494,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                           this.props.ontopBottomChart();
                         }}><span className="tab_label">CGM</span></NavItem>
 
-                        <NavItem eventKey="5" className="tabsNavPanelListSupp" onClick={() => {
+                        <NavItem eventKey="5" className="tabsNavPanelList1" onClick={() => {
                           this.setState({activeKey2: "5"});
                           this.props.supplierViewKpiSpinnerCheckSuccess(0);
                           this.props.barChartSpinnerCheckSuccess(0);
@@ -507,7 +507,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                           this.props.ontopBottomChart();
                         }}><span className="tab_label">ASP</span></NavItem>
 
-                        <NavItem eventKey="6" className="tabsNavPanelListSupp" onClick={() => {
+                        <NavItem eventKey="6" className="tabsNavPanelList1" onClick={() => {
                           this.setState({activeKey2: "6"});
                           this.props.supplierViewKpiSpinnerCheckSuccess(0);
                           this.props.barChartSpinnerCheckSuccess(0);
@@ -520,7 +520,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                           this.props.ontopBottomChart();
                         }}><span className="tab_label">Supplier Funding(exc VAT)</span></NavItem>
 
-                        <NavItem eventKey="7" className="tabsNavPanelListSupp" onClick={() => {
+                        <NavItem eventKey="7" className="tabsNavPanelList1" onClick={() => {
                           this.setState({activeKey2: "7"});
                           this.props.supplierViewKpiSpinnerCheckSuccess(0);
                           this.props.barChartSpinnerCheckSuccess(0);

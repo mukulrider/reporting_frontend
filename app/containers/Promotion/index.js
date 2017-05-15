@@ -302,6 +302,7 @@ export class Promotion extends React.PureComponent {
                     this.props.onSaveKPIParam(kpiParam);
                     this.props.loadKpi();
                     this.props.loadSales();
+                    this.props.loadPromoPart();
 
 
                   }}><span className="tab_label">Value</span></NavItem>
@@ -312,7 +313,7 @@ export class Promotion extends React.PureComponent {
                     this.props.onSaveKPIParam(kpiParam);
                     this.props.loadKpi();
                     this.props.loadSales();
-
+                    this.props.loadPromoPart();
                   }}><span className="tab_label">Volume</span></NavItem>
                   <span className="glyphicon glyphicon-info-sign pull-right"
                         style={{right: '4px', fontSize: '15px', top: '8px', color: "#00539f", fontWeight: "bold"}}

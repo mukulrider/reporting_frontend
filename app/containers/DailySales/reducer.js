@@ -21,6 +21,8 @@ import {
   WEEK_FILTER_FETCH_SUCCESS,
   WEEK_FILTER_PARAM,
   GENERATE_URL_PARAMS,
+  DS_VIEW_KPI_SPINNER,
+  LINE_CHART_SPINNER,
   WEEK,
   CHECKBOX_CHANGE,
   CHECKBOX_WEEK_CHANGE
@@ -34,6 +36,7 @@ const initialState = fromJS({
   giveaway_param: '',
   promo_prod_param: '',
   promo_part_param: '',
+  DSViewKpiSpinner: '',
   weekurlParam: '',
   kpi_data: {
     "asp": {
@@ -72,7 +75,7 @@ function dailySalesReducer(state = initialState, action) {
     case DEFAULT_ACTION:
       return state.set('linechart_data', action.data);
     case LINECHART_FETCH_SUCCESS:
-       console.log("reducer LINECHART_FETCH_SUCCESS", action.data)
+      console.log("reducer LINECHART_FETCH_SUCCESS", action.data)
       return state.set('linechart_data', action.data);
     case KPI_PARAM:
       console.log("reducer KPI_PARAM",action.data);
@@ -95,6 +98,16 @@ function dailySalesReducer(state = initialState, action) {
     case WEEK_FILTER_PARAM:
       console.log("reducer WEEK_FILTER_PARAM", action.data);
       return state.set('weekurlParam', action.data);
+
+    //SPINNER FOR DS VIEW KPI
+    case DS_VIEW_KPI_SPINNER:
+      console.log("DS_VIEW_KPI_SPINNER", action.DSViewKpiSpinnerCheck);
+      return state.set('DSViewKpiSpinner', action.DSViewKpiSpinnerCheck)
+
+    //SPINNER FOR LINE CHART
+    case LINE_CHART_SPINNER:
+      console.log("LINE_CHART_SPINNER", action.LineChartSpinnerCheck);
+      return state.set('LineChartSpinnerCheck', action.LineChartSpinnerCheck)
 
     //FOR FILTERS
     case GENERATE_URL_PARAMS:

@@ -43,3 +43,8 @@ export const CHECKBOX_WEEK_CHANGE = 'app/DailySales/CHECKBOX_WEEK_CHANGE';
 
 //Constant to store Tesco Week in
 export const WEEK = 'app/Competitor/WEEK';
+
+//DAILYSALES VIEW KPI SPINNER
+export const DS_VIEW_KPI_SPINNER = 'app/DailySales/DS_VIEW_KPI_SPINNER';
+//LINE CHART SPINNER
+export const LINE_CHART_SPINNER = 'app/DailySales/LINE_CHART_SPINNER';

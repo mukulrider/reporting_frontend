@@ -11,8 +11,8 @@ import {
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-import {lineChartCallAction,LineChartDataFetchSuccess,
-  PromoKpiDataFetchSuccess, FilterFetchSuccess, WeekFilterFetchSuccess}
+import {lineChartCallAction,LineChartDataFetchSuccess,LineChartSpinnerCheckSuccess,
+  PromoKpiDataFetchSuccess, FilterFetchSuccess, WeekFilterFetchSuccess,DSViewKpiSpinnerCheckSuccess}
   from './actions';
 
 // import { take, call, put, select } from 'redux-saga/effects';
@@ -25,9 +25,8 @@ import {
 } from './selectors';
 
 
+// let host_url="http://10.1.244.200:8000";
 let host_url="http://172.20.244.150:8000";
-// let host_url="http://127.0.0.1:8000";
-
 // All sagas to be loaded
 
 
@@ -50,6 +49,9 @@ export function* LineChartData_pull() {
   console.log("Line chart fetched data",data);
   console.log("Along with the URL",host_url+"/api/reporting/daily_sales?"+'&'+kpiparam+'&'+filter+'&'+week_filter);
   yield put(LineChartDataFetchSuccess(data));
+
+  let LineChartSpinnerCheck = 1;
+  yield put(LineChartSpinnerCheckSuccess(LineChartSpinnerCheck));
 
 }
 
@@ -94,7 +96,7 @@ export function* generateFilterFetch() {
       //     Authorization: token
       //   }
       // }
-      );
+    );
     // const data = yield call(request, host_url+'/api/reporting/filter_data?' + urlParamsString);
 
     // console.log(host_url+'/api/reporting/filter_data_week?');
@@ -103,6 +105,9 @@ export function* generateFilterFetch() {
     // const filter_data = {"filter_data": data, "week_data": data2 }
     console.log("Filter data",data);
     yield put(FilterFetchSuccess(data));
+
+    let DSViewKpiSpinnerCheck = 1;
+    yield put(DSViewKpiSpinnerCheckSuccess(DSViewKpiSpinnerCheck));
   } catch (err) {
     console.log(err);
   }

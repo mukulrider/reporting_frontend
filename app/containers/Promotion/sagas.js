@@ -46,7 +46,7 @@ import {
 } from 'containers/Promotion/selectors';
 
 
-let host_url = "http://172.20.244.150:8000";
+let host_url = "http://172.20.246.11:8000";
 // let host_url="http://172.20.246.13:8000";
 // All sagas to be loaded
 
@@ -262,10 +262,10 @@ export function* generatePromoPartDataFetch() {
   // const kpiparam = urlName.get('kpi_param');
   console.log("sagas Week parameter", weekurlparam);
 //  console.log("Filter parameter", filterurlparam);
-
-  console.log("sagas generatePromoPartDataFetch url",host_url+`/api/reporting/promo_part/?`+ weekurlparam + '&' + urlParamsString + '&' + promopartparam+ '&' + weekselection);
+  const kpiparam = urlName.get('kpi_param');
+  console.log("sagas generatePromoPartDataFetch url",host_url+`/api/reporting/promo_part/?`+ weekurlparam + '&' + urlParamsString + '&' + promopartparam+ '&' + weekselection + '&' + kpiparam);
   const data = yield call(request,
-    host_url+`/api/reporting/promo_part/?` + weekurlparam + '&' + urlParamsString + '&' + promopartparam+ '&' + weekselection);
+    host_url+`/api/reporting/promo_part/?` + weekurlparam + '&' + urlParamsString + '&' + promopartparam+ '&' + weekselection+ '&' + kpiparam);
   console.log("Heres the promo sales data",data);
   console.log("sagas generatePromoPartDataFetch ",data)
   yield put(PromoPartDataFetchSuccess(data));
