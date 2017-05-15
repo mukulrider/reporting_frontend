@@ -41,8 +41,8 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
       .sort(null)
       .value(function(d) { return d.value; });
     var color = d3.scaleOrdinal()
-      .range(["#f6eff7","#d0d1e6","#a6bddb","#67a9cf","#3690c0","#02818a","#016450"]);
-    let color_hash = ["#f6eff7","#d0d1e6","#a6bddb","#67a9cf","#3690c0","#02818a","#016450"];
+      .range(["#c1c1c1","#d0d1e6","#a6bddb","#67a9cf","#3690c0","#02818a","#016450"]);
+    let color_hash = ["#c1c1c1","#d0d1e6","#a6bddb","#67a9cf","#3690c0","#02818a","#016450"];
     let svg = d3.select(`#${id}`);
     svg.selectAll("*").remove();
     console.log("Inside pie chart check 3",data);

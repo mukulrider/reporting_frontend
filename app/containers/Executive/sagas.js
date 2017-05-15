@@ -73,7 +73,7 @@ import {
 } from 'containers/Executive/selectors';
 
 
-let host_url="http://172.20.246.11:8000";
+let host_url="http://172.20.244.150:8000";
 
 // All sagas to be loaded
 

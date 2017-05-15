@@ -69,8 +69,8 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
 
     g.append("text")
       .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
-      .attr("dy", ".45em")
-      .text(function(d) { return d.data; });
+      .attr("dy", ".35em")
+      .text(function(d) { return (d.data +'%'); });
 
 
     let dataGroup = [{"key":'Tesco Share'},{"key":'Market Share'}]

@@ -198,10 +198,10 @@ console.log("MultilineOrdinalChartId:",chart_id);
       svg.selectAll("*").remove();
       let chart = svg
         .attr("width", containerWidth)
-        .attr("height", containerWidth*0.25)
+        .attr("height", containerWidth*0.3 + margin.bottom)
         //responsive SVG needs these 2 attributes and no width and height attr
         .attr("preserveAspectRatio", "xMinYMin meet")
-        .attr("viewBox", "0 0 " + containerWidth + " " + containerWidth*0.25)
+        .attr("viewBox", "0 0 " + containerWidth + " " + (containerWidth*0.25 + margin.bottom))
         //class to make it responsive
         .classed("svg-content-responsive", true)
         .append("g")
@@ -264,7 +264,7 @@ console.log("MultilineOrdinalChartId:",chart_id);
 
 
       //---------- Adding the legends
-
+      let legendWidth = width/6;
         let legend = chart.append("g")
             .attr("font-family", "sans-serif")
             .attr("font-size", 10)
@@ -273,11 +273,11 @@ console.log("MultilineOrdinalChartId:",chart_id);
             .data(series_type_values)
             .enter().append("g")
             .attr("transform", function (d, i) {
-                return "translate(0," + i * 25 + ")";
+                return "translate(" + (-width + (i * legendWidth)) + "," + (height + 50) +")";
             });
 
         legend.append("rect")
-            .attr("x", width - 19)
+            .attr("x", width - margin.right)
             .attr("width", 19)
             .attr("height", 19)
             .attr("fill", function (d, i) {
@@ -285,7 +285,7 @@ console.log("MultilineOrdinalChartId:",chart_id);
             });
 
         legend.append("text")
-            .attr("x", width - 24)
+            .attr("x", width - margin.right -10)
             .attr("y", 9.5)
             .attr("dy", "0.32em")
             .text(function (d) {

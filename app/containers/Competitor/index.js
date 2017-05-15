@@ -524,7 +524,8 @@ export class Competitor extends React.PureComponent {
 
 
             <div className="row">
-              <div className="col-xs-6 panel-body ts-blk-proview">
+              <div className="col-md-6 col-sm-12 col-sm-12">
+              <div className="col-md-12 col-sm-12 panel-body ts-blk-proview" style={{background:"#fff"}}>
                 <div className="col-md-9 col-sm-9 col-xs-9">
                   <h4 className="pageModuleSubTitle"><b>Asda</b></h4>
                 </div>
@@ -566,8 +567,9 @@ export class Competitor extends React.PureComponent {
                   }
                 })()}
               </div>
-
-              <div className="col-xs-6 panel-body ts-blk-proview">
+              </div>
+              <div className="col-md-6 col-sm-12 col-xs-12">
+              <div className="col-md-12 col-sm-12  panel-body ts-blk-proview" style={{background:"#fff"}}>
                 <div className="col-md-9 col-sm-9 col-xs-9">
                   <h4 className="pageModuleSubTitle"><b>JS</b></h4>
                 </div>
@@ -611,9 +613,10 @@ export class Competitor extends React.PureComponent {
                 })()}
               </div>
             </div>
-
-            <div className="row">
-              <div className="col-xs-6 panel-body">
+            </div>
+            <div className="row" style={{marginTop:"20px"}}>
+              <div className="col-md-6 col-sm-12 col-xs-12">
+                <div className="col-md-12 col-sm-12 col-xs-12 panel-body" style={{background:"#fff"}}>
                 <div className="col-md-9 col-sm-9 col-xs-9">
                 <h4 className="pageModuleSubTitle"><b>Morrisons</b></h4>
                 </div>
@@ -645,15 +648,17 @@ export class Competitor extends React.PureComponent {
                   }
                   else {
                     return (
-
-                      <div className="text-center"><Spinner />Please Wait a Moment....!</div>
-
+                    <div class="row">
+                      <div className="text-center"><Spinner/>Please Wait a Moment....!</div>
+                    </div>
                     );
                   }
                 })()}
               </div>
+              </div>
+              <div className="col-md-6 col-sm-12 col-xs-12">
+              <div className="col-md-12 col-sm-12 col-xs-12 panel-body" style={{background:"#fff"}}>
 
-              <div className="col-xs-6 panel-body">
                 <div className="col-md-9 col-sm-9 col-xs-9">
                   <h4 className="pageModuleSubTitle"><b>Aldi</b></h4>
                 </div>
@@ -693,6 +698,7 @@ export class Competitor extends React.PureComponent {
                     );
                   }
                 })()}
+              </div>
               </div>
             </div>
 

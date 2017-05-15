@@ -36,7 +36,7 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
     var x = d3.scaleBand().rangeRound([0, width]).padding(0.3),
       y = d3.scaleLinear().rangeRound([height, 0]);
     svg
-      .attr("height",height+margin.top +margin.bottom)
+      .attr("height",height+margin.top +margin.bottom*2)
       .attr("width",width+ margin.right + margin.left)
       // .attr("preserveAspectRatio", "xMinYMin meet")
       // .attr("viewBox", "0 0 600 400")
@@ -113,7 +113,7 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
         return color_hash[i];
       });
 
-
+    let legendWidth = containerWidth/4;
     let legend = svg.append("svg")
       .attr("font-family", "Tesco")
       .attr("font-size", 12).attr("text-anchor", "start")
@@ -121,10 +121,11 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
       .data(data_label)
       .enter().append("g")
       .attr("transform", function (d, i) {
-        return "translate(0," + i * 25 + ")";
+        return "translate(" + (-i * legendWidth + margin.left + margin.right) + "," + (height + margin.bottom) + ")";
       });
     legend.append("rect")
-      .attr("x", containerWidth-margin.right-20)
+      .attr("x", 20)
+      .attr("y", 0)
       .attr("width", 19)
       .attr("height", 19)
       .attr("fill", function (d, i) {
@@ -132,8 +133,8 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
       });
 
     legend.append("text")
-      .attr("x", containerWidth-margin.right)
-      .attr("y", 9.5)
+      .attr("x", 40)
+      .attr("y", 10)
       .attr("dy", "0.32em")
       .text(function (d) {
         return d.label;

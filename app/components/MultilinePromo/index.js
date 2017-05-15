@@ -274,7 +274,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
 
 
     //Legend
-
+    let legendWidth = width/3;
     let data_label = [{"label":label_ty},{"label":label_ly}]
 
     let legend = svg.append("svg")
@@ -287,7 +287,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
       .enter().append("g")
       .attr("transform", function (d, i) {
         console.log("Multiline ---- d.label",d.label)
-        return "translate(0," + i * 25 + ")";
+        return "translate(" + (-legendWidth*i -(width/2)) +  "," + (height + margin.top + margin.bottom) + ")";
       });
 
     let color_hash = ["steelblue","red"];
