@@ -55,6 +55,12 @@ import {
   BOT_SELECTED_NAME,
   SUPPLIER_NAME,
   TOP_BOT_FLAG,
+  ROLES_INTENT_SPINNER_FLAG,
+  OVERVIEW_KPI_TREND_SPINNER_FLAG,
+  OVERVIEW_INTERNAL_DRIVER_SPINNER_FLAG,
+  OVERVIEW_EXTERNAL_DRIVER_SPINNER_FLAG,
+  INTERNAL_DRIVER_SPINNER_FLAG,
+  EXTERNAL_DRIVER_SPINNER_FLAG
 } from './constants';
 
 export function defaultAction() {
@@ -527,5 +533,61 @@ export function SaveTopBotFlag(data) {
   return {
     type: TOP_BOT_FLAG,
     data,
+  };
+}
+
+
+//SPINNER - ROLES & INTENT
+export function spinnerRolesAndIntent(spinnerCheck) {
+  console.log('spinnerRolesAndIntent = actions', spinnerCheck);
+  return {
+    type: ROLES_INTENT_SPINNER_FLAG,
+    spinnerCheck,
+  };
+}
+
+//SPINNER - OVERVIEW_KPI_TREND_SPINNER_FLAG
+export function spinnerOverviewKPITrend(spinnerCheck) {
+  console.log('spinneroverviewKPITrend = actions', spinnerCheck);
+  return {
+    type: OVERVIEW_KPI_TREND_SPINNER_FLAG,
+    spinnerCheck,
+  };
+}
+
+
+//SPINNER - OVERVIEW INTERNAL DRIVERS
+export function spinnerOverviewInternalDrivers(spinnerCheck) {
+  console.log('spinnerOverviewInternalDrivers = actions', spinnerCheck);
+  return {
+    type: OVERVIEW_INTERNAL_DRIVER_SPINNER_FLAG,
+    spinnerCheck,
+  };
+}
+
+//SPINNER - OVERVIEW EXTERNAL DRIVERS
+export function spinnerOverviewExternalDrivers(spinnerCheck) {
+  console.log('spinnerOverviewExternalDrivers = actions', spinnerCheck);
+  return {
+    type: OVERVIEW_EXTERNAL_DRIVER_SPINNER_FLAG,
+    spinnerCheck,
+  };
+}
+
+//SPINNER - INTERNAL DRIVERS
+export function spinnerInternalDrivers(spinnerCheck) {
+  console.log('spinnerInternalDrivers = actions', spinnerCheck);
+  return {
+    type: INTERNAL_DRIVER_SPINNER_FLAG,
+    spinnerCheck,
+  };
+}
+
+//SPINNER - EXTERNAL DRIVERS
+export function spinnerExternalDrivers(spinnerCheck) {
+  console.log('spinnerExternalDrivers = actions', spinnerCheck);
+  return {
+    type: EXTERNAL_DRIVER_SPINNER_FLAG,
+    spinnerCheck,
   };
 }

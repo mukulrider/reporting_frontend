@@ -55,9 +55,13 @@ import {
   TOP_SELECTED_NAME,
   BOT_SELECTED_NAME,
   SUPPLIER_NAME,
-  TOP_BOT_FLAG
-
-
+  TOP_BOT_FLAG,
+  ROLES_INTENT_SPINNER_FLAG,
+  OVERVIEW_KPI_TREND_SPINNER_FLAG,
+  OVERVIEW_INTERNAL_DRIVER_SPINNER_FLAG,
+  OVERVIEW_EXTERNAL_DRIVER_SPINNER_FLAG,
+  INTERNAL_DRIVER_SPINNER_FLAG,
+  EXTERNAL_DRIVER_SPINNER_FLAG
 } from './constants';
 
 
@@ -216,14 +220,7 @@ const initialState = fromJS({
 
     "fetch": "fail"
   },
-  budget_forecast_data: {
-    "budget_data": [
-      {"label": "Budget", "value": 600},
-      {"label": "Sales", "value": 500}],
-    "forecast_data": [
-      {"label": "Forecast", "value": 600},
-      {"label": "Sales", "value": 500}],
-  },
+
 
 
 
@@ -381,6 +378,31 @@ function executiveReducer(state = initialState, action) {
     case TOP_BOT_FLAG:
       console.log("reducer TOP_BOT_FLAG",action.data);
       return state.set('top_bot_flag',action.data);
+
+    case ROLES_INTENT_SPINNER_FLAG:
+    console.log("reducer ROLES_INTENT_SPINNER_FLAG",action.spinnerCheck);
+    return state.set('rolesIntentSpinner',action.spinnerCheck);
+
+    case OVERVIEW_KPI_TREND_SPINNER_FLAG:
+      console.log("reducer OVERVIEW_KPI_TREND_SPINNER_FLAG",action.spinnerCheck);
+      return state.set('overviewKPITrendSpinner',action.spinnerCheck);
+
+    case OVERVIEW_INTERNAL_DRIVER_SPINNER_FLAG:
+      console.log("reducer OVERVIEW_INTERNAL_DRIVER_SPINNER_FLAG",action.spinnerCheck);
+      return state.set('overviewInternalDriverSpinner',action.spinnerCheck);
+
+    case OVERVIEW_EXTERNAL_DRIVER_SPINNER_FLAG:
+      console.log("reducer OVERVIEW_EXTERNAL_DRIVER_SPINNER_FLAG",action.spinnerCheck);
+      return state.set('overviewExternalDriverSpinner',action.spinnerCheck);
+
+    case INTERNAL_DRIVER_SPINNER_FLAG:
+      console.log("reducer INTERNAL_DRIVER_SPINNER_FLAG",action.spinnerCheck);
+      return state.set('internalDriverSpinner',action.spinnerCheck);
+
+    case EXTERNAL_DRIVER_SPINNER_FLAG:
+      console.log("reducer EXTERNAL_DRIVER_SPINNER_FLAG",action.spinnerCheck);
+      return state.set('externalDriverSpinner',action.spinnerCheck);
+
     default:
       return state;
   }

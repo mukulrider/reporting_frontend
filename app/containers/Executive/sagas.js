@@ -41,7 +41,13 @@ import {OverviewKpiDataFetchSuccess,
   DriversExternalDataFetchSuccess,
   PriceKPIDataFetchSuccess,
   WeekFilterFetchSuccess,
-  FilterFetchSuccess
+  FilterFetchSuccess,
+  spinnerRolesAndIntent,
+  spinnerOverviewKPITrend,
+  spinnerOverviewInternalDrivers,
+  spinnerOverviewExternalDrivers,
+  spinnerInternalDrivers,
+  spinnerExternalDrivers
 }
   from 'containers/Executive/actions';
 
@@ -60,7 +66,7 @@ import {
 } from 'containers/Executive/selectors';
 
 
-let host_url="http://172.20.244.150:8000";
+let host_url="http://172.20.246.11:8000";
 
 // All sagas to be loaded
 
@@ -136,6 +142,9 @@ export function* generateRolesAndIntentDataFetch() {
     host_url+`/api/reporting/exec_roles_and_intent?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + weekselection);
   console.log("Heres the generateRolesAndIntentDataFetch data",data);
   yield put(RolesAndIntentDataFetchSuccess(data));
+
+  let spinnerFlag = 1;
+  yield put(spinnerRolesAndIntent(spinnerFlag));
 
   // } catch (err) {
   //   // console.log(err);
@@ -218,6 +227,9 @@ export function* generateOverviewKPITrendDataFetch() {
   console.log("Heres the generateOverviewKPITrendDataFetch data",data);
   yield put(OverviewKpiTrendDataFetchSuccess(data));
 
+  let spinnerflag = 1
+  yield put(spinnerOverviewKPITrend(spinnerflag));
+
   // } catch (err) {
   //   // console.log(err);
   // }
@@ -258,6 +270,9 @@ export function* generateOverviewDriversInternalDataFetch() {
   console.log("Heres the generateOverviewDriversInternalDataFetch data",data);
   yield put(OverviewDriversInternalDataFetchSuccess(data));
 
+  let spinnerflag = 1
+  yield put(spinnerOverviewInternalDrivers(spinnerflag));
+
   // } catch (err) {
   //   // console.log(err);
   // }
@@ -297,6 +312,10 @@ export function* generateOverviewDriversExternalDataFetch() {
     host_url+`/api/reporting/exec_overview_drivers_external?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + weekselection);
   console.log("Heres the generateOverviewDriversExternalDataFetch data",data);
   yield put(OverviewDriversExternalDataFetchSuccess(data));
+
+  let spinnerflag = 1
+  yield put(spinnerOverviewExternalDrivers(spinnerflag));
+
 
   // } catch (err) {
   //   // console.log(err);
@@ -683,6 +702,12 @@ export function* generateDriversInternalFetch() {
   console.log("Heres the generateDriversInternalFetch data",data);
   yield put(DriversInternalDataFetchSuccess(data));
 
+
+  let spinnerflag = 1
+  yield put(spinnerInternalDrivers(spinnerflag));
+
+
+
   // } catch (err) {
   //   // console.log(err);
   // }
@@ -723,6 +748,11 @@ export function* generateDriversExternalFetch() {
   console.log("Heres the generateDriversExternalFetch data",data);
   yield put(DriversExternalDataFetchSuccess(data));
 
+
+  let spinnerflag = 1
+  yield put(spinnerExternalDrivers(spinnerflag));
+
+
   // } catch (err) {
   //   // console.log(err);
   // }
@@ -757,9 +787,9 @@ export function* generatePriceKPIFetch() {
   const kpiparam = urlName.get('kpi_param');
 
 
-  console.log("sagas generatePriceKPIFetch url",host_url+`/api/reporting/exec_price_kpi?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection)
+  console.log("sagas generatePriceKPIFetch url",host_url+`/api/reporting/exec_pricing?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection)
   const data = yield call(request,
-    host_url+`/api/reporting/exec_price_kpi?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + kpiparam +  '&' + weekselection);
+    host_url+`/api/reporting/exec_pricing?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + kpiparam +  '&' + weekselection);
   console.log("Heres the generatePriceKPIFetch data",data);
   yield put(PriceKPIDataFetchSuccess(data));
 

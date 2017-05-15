@@ -59,7 +59,13 @@ import {
   SaveSupplierName,
   SaveTopBotFlag,
   SaveValueInternal,
-  SaveValueExternal
+  SaveValueExternal,
+  spinnerRolesAndIntent,
+  spinnerOverviewKPITrend,
+  spinnerOverviewInternalDrivers,
+  spinnerOverviewExternalDrivers,
+  spinnerInternalDrivers,
+  spinnerExternalDrivers
 }
   from './actions.js'
 
@@ -129,6 +135,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
         this.props.loadOverviewDriversExternal();
         this.props.loadRolesAndIntent();
         this.props.loadBudgetAndForecast();
+        this.props.spinnerRolesAndIntent(0);
+        this.props.spinnerOverviewKPITrend(0);
+        this.props.spinnerOverviewInternalDrivers(0);
+        this.props.spinnerOverviewExternalDrivers(0);
 
       }
       else {
@@ -153,6 +163,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
           // this.props.loadBotSupplierInfoData();
           this.props.loadDriversInternalData();
           this.props.loadDriversExternalData();
+          this.props.spinnerInternalDrivers(0);
+          this.props.spinnerExternalDrivers(0);
         }
 
       }
@@ -280,6 +292,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               loadDriversExternalData = { this.props.loadDriversExternalData}
                               loadPriceKPIData = { this.props.loadPriceKPIData}
                               kpi_type = {this.props.Executive.kpi_param}
+                              spinnerRolesAndIntent = {this.props.spinnerRolesAndIntent}
+                              spinnerOverviewKPITrend = {this.props.spinnerOverviewKPITrend}
+                              spinnerOverviewInternalDrivers = {this.props.spinnerOverviewInternalDrivers}
+                              spinnerOverviewExternalDrivers = {this.props.spinnerOverviewExternalDrivers}
+                              spinnerInternalDrivers = {this.props.spinnerInternalDrivers}
+                              spinnerExternalDrivers = {this.props.spinnerExternalDrivers}
 
                               week_filter_param = {this.props.Executive.week_filter_param}
                               urlParamsString = {this.props.Executive.urlParamsString}
@@ -365,6 +383,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       this.props.loadOverviewDriversExternal();
                       this.props.loadRolesAndIntent();
                       this.props.loadBudgetAndForecast();
+                      this.props.spinnerRolesAndIntent(0);
+                      this.props.spinnerOverviewKPITrend(0);
+                      this.props.spinnerOverviewInternalDrivers(0);
+                      this.props.spinnerOverviewExternalDrivers(0);
 
                     }
                     else {
@@ -388,6 +410,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                         {/*this.props.loadBotSupplierInfoData();*/}
                         this.props.loadDriversInternalData();
                         this.props.loadDriversExternalData();
+                        this.props.spinnerInternalDrivers(0);
+                        this.props.spinnerExternalDrivers(0);
                       }
 
                         }
@@ -413,6 +437,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       this.props.loadOverviewDriversExternal();
                       this.props.loadRolesAndIntent();
                       this.props.loadBudgetAndForecast();
+                      this.props.spinnerRolesAndIntent(0);
+                      this.props.spinnerOverviewKPITrend(0);
+                      this.props.spinnerOverviewInternalDrivers(0);
+                      this.props.spinnerOverviewExternalDrivers(0);
 
                     }
                     else {
@@ -437,6 +465,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                         {/*this.props.loadBotSupplierInfoData();*/}
                         this.props.loadDriversInternalData();
                         this.props.loadDriversExternalData();
+                        this.props.spinnerInternalDrivers(0);
+                        this.props.spinnerExternalDrivers(0);
                       }
 
                         }
@@ -461,7 +491,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           this.props.loadOverviewDriversExternal();
                           this.props.loadRolesAndIntent();
                           this.props.loadBudgetAndForecast();
-
+                          this.props.spinnerRolesAndIntent(0);
+                          this.props.spinnerOverviewKPITrend(0);
+                          this.props.spinnerOverviewInternalDrivers(0);
+                          this.props.spinnerOverviewExternalDrivers(0);
                         }
                         else {
                           if (this.props.Executive.kpi_param == 'kpi_type=Price') {
@@ -484,6 +517,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                         {/*this.props.loadBotSupplierInfoData();*/}
                         this.props.loadDriversInternalData();
                         this.props.loadDriversExternalData();
+                        this.props.spinnerInternalDrivers(0);
+                        this.props.spinnerExternalDrivers(0);
                       }
 
                     }
@@ -509,7 +544,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       this.props.loadOverviewDriversExternal();
                       this.props.loadRolesAndIntent();
                       this.props.loadBudgetAndForecast();
-
+                      this.props.spinnerRolesAndIntent(0);
+                      this.props.spinnerOverviewKPITrend(0);
+                      this.props.spinnerOverviewInternalDrivers(0);
+                      this.props.spinnerOverviewExternalDrivers(0);
                     }
                     else {
                       if(this.props.Executive.kpi_param=='kpi_type=Price')
@@ -533,6 +571,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                         {/*this.props.loadBotSupplierInfoData();*/}
                         this.props.loadDriversInternalData();
                         this.props.loadDriversExternalData();
+                        this.props.spinnerInternalDrivers(0);
+                        this.props.spinnerExternalDrivers(0);
                       }
 
                     }
@@ -558,7 +598,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       this.props.loadOverviewDriversExternal();
                       this.props.loadRolesAndIntent();
                       this.props.loadBudgetAndForecast();
-
+                      this.props.spinnerRolesAndIntent(0);
+                      this.props.spinnerOverviewKPITrend(0);
+                      this.props.spinnerOverviewInternalDrivers(0);
+                      this.props.spinnerOverviewExternalDrivers(0);
                     }
                     else {
                       if(this.props.Executive.kpi_param=='kpi_type=Price')
@@ -582,6 +625,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                         {/*this.props.loadBotSupplierInfoData();*/}
                         this.props.loadDriversInternalData();
                         this.props.loadDriversExternalData();
+                        this.props.spinnerInternalDrivers(0);
+                        this.props.spinnerExternalDrivers(0);
                       }
 
                     }
@@ -593,6 +638,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                 }}><span className="tab_label">YTD</span></NavItem>
               </Nav>
               </div>
+              <div className="mainBox">
               <div style={{borderRight: '1%'}}>
               {/*Nav for kpi type*/}
               <Nav  style={{marginLeft: '1%'}} bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect} className="tabsCustom  mainTab">
@@ -614,8 +660,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   this.props.loadOverviewDriversExternal();
                   this.props.loadRolesAndIntent();
                   this.props.loadBudgetAndForecast();
-
-
+                  this.props.spinnerRolesAndIntent(0);
+                  this.props.spinnerOverviewKPITrend(0);
+                  this.props.spinnerOverviewInternalDrivers(0);
+                  this.props.spinnerOverviewExternalDrivers(0);
 
 
 
@@ -641,6 +689,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   {/*this.props.loadSupplierInfoData();*/}
                   this.props.loadDriversInternalData();
                   this.props.loadDriversExternalData();
+                  this.props.spinnerInternalDrivers(0);
+                  this.props.spinnerExternalDrivers(0);
 
 
                 }}><span className="tab_label">Value</span></NavItem>
@@ -662,7 +712,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   {/*this.props.loadSupplierInfoData();*/}
                   {/*this.props.loadTopSupplierInfoData();*/}
                   {/*this.props.loadBotSupplierInfoData();*/}
-
+                  this.props.spinnerInternalDrivers(0);
+                  this.props.spinnerExternalDrivers(0);
                 }}><span className="tab_label">Volume</span></NavItem>
 
                 <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
@@ -682,7 +733,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   {/*this.props.loadSupplierInfoData();*/}
                   {/*this.props.loadTopSupplierInfoData();*/}
                   {/*this.props.loadBotSupplierInfoData();*/}
-
+                  this.props.spinnerInternalDrivers(0);
+                  this.props.spinnerExternalDrivers(0);
 
                 }}><span className="tab_label">COGS</span></NavItem>
 
@@ -703,7 +755,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   {/*this.props.loadSupplierInfoData();*/}
                   {/*this.props.loadTopSupplierInfoData();*/}
                   {/*this.props.loadBotSupplierInfoData();*/}
-
+                  this.props.spinnerInternalDrivers(0);
+                  this.props.spinnerExternalDrivers(0);
 
                 }}><span className="tab_label">Profit</span></NavItem>
 
@@ -1106,7 +1159,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       </div>
 
                       {(() => {
-                        if (this.props.Executive.budget_forecast_data && this.props.Executive.roles_intent_data) {
+                        if (this.props.Executive.budget_forecast_data && this.props.Executive.roles_intent_data && this.props.Executive.rolesIntentSpinner) {
                           return (
                             <div className="row mainBox">
                               {/*Block for bar charts*/}
@@ -1186,7 +1239,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               </div>
                             </div>
                           )
-                        } else {
+                        }
+                        else {
                           return (
 
                             <div className="text-center"><Spinner />Please Wait a Moment....!</div>
@@ -1202,7 +1256,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       </div>
 
                       {(() => {
-                        if (this.props.Executive.overview_kpi_trend_data) {
+                        if (this.props.Executive.overview_kpi_trend_data && this.props.Executive.overviewKPITrendSpinner) {
                           return (
                             <div className="mainBox">
                               {/*Row for value and volume*/}
@@ -1384,7 +1438,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 <Panel style={{marginLeft: "15px"}}>
                                   <div>
                                     {(() => {
-                                        if (this.props.Executive.overview_drivers_internal_data) {
+                                        if (this.props.Executive.overview_drivers_internal_data && this.props.Executive.overviewInternalDriverSpinner) {
                                           if (this.props.Executive.overview_drivers_internal_data.kpi.data_available == 'yes') {
                                             return (
                                               <div>
@@ -1502,7 +1556,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                         }
                                         else{
                                           return(
-                                            <div></div>
+                                            <div className="text-center"><Spinner />Please Wait a Moment....!</div>
                                           )
                                         }
                                       }
@@ -1529,7 +1583,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                     </div>
                                   </h4>
                                   {(() => {
-                                      if (this.props.Executive.overview_drivers_internal_data)
+                                      if (this.props.Executive.overview_drivers_internal_data && this.props.overviewInternalDriverSpinner)
                                         return (
                                           <div>
                                             <WaterFallChartExec id="waterfallChart_2"
@@ -1771,7 +1825,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           {/*Block for holidays table*/}
                           <div className="col-md-6">
                           {(() => {
-                            if (this.props.Executive.overview_drivers_external_data) {
+                            if (this.props.Executive.overview_drivers_external_data && this.props.Executive.overviewExternalDriverSpinner) {
                               return (
                                 <div className="promoTable">
 
@@ -1789,7 +1843,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 </div>
                               )
                             }else {
-                              return (<div>Loading</div>)
+                              return (<div className="text-center"><Spinner />Please Wait a Moment....!</div>)
                             }
 
                           })()}
@@ -1797,7 +1851,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           {/*Block for sales trend value*/}
                           <div className="col-md-6">
                           {(() => {
-                            if (this.props.Executive.overview_kpi_trend_data) {
+                            if (this.props.Executive.overview_kpi_trend_data && this.props.Executive.overviewKPITrendSpinner) {
                               console.log("Promo Sales line chart data", this.props.Executive.overview_kpi_trend_data.sales_trend);
                               return (
                                 <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.sales_trend} id="overview_holiday_value_line" label_ty="Sales TY" label_ly="Sales LY" xaxis_title="Tesco Week" no_pref='£' no_suffix='' yaxis_title='Value'/>
@@ -2856,7 +2910,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                     <h2 className="pageModuleSubTitle">KPI</h2>
 
                                                     {(() =>{
-                                                        if(this.props.Executive.drivers_internal_data){
+                                                        if(this.props.Executive.drivers_internal_data && this.props.Executive.internalDriverSpinner){
                                                           if(this.props.Executive.drivers_internal_data.kpi_data_available_flag=='yes')
                                                           {
                                                             return(
@@ -2876,6 +2930,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                           }
 
                                                         }
+                                                        else{
+                                                          return(<div className="text-center"><Spinner />Please Wait a Moment....!</div>)
+                                                        }
                                                       }
 
                                                     )()}
@@ -2889,12 +2946,15 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                   <div className="row">
                                                     <h2 className="pageModuleSubTitle">Promotion</h2>
                                                     {(() =>{
-                                                        if(this.props.Executive.drivers_internal_data){
+                                                        if(this.props.Executive.drivers_internal_data  && this.props.Executive.internalDriverSpinner){
                                                           return(
                                                             <StackedChart id="stackedChartPromotion" data= {this.props.Executive.drivers_internal_data.promo}
                                                                           col_label = {this.props.Executive.drivers_internal_data.promo_col_label}
                                                                           legend_label ={this.props.Executive.drivers_internal_data.promo_legend_label}/>
                                                           )
+                                                        }
+                                                        else{
+                                                          return(<div className="text-center"><Spinner />Please Wait a Moment....!</div>)
                                                         }
                                                       }
 
@@ -3145,6 +3205,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                 }
               })()}
+            </div>
             </div>
 
           </div>
@@ -3575,6 +3636,12 @@ function mapDispatchToProps(dispatch) {
     onSaveTopBotFlag: (e) => dispatch(SaveTopBotFlag(e)),
     onSaveValueInternal: (e) => dispatch(SaveValueInternal(e)),
     onSaveValueExternal: (e) => dispatch(SaveValueExternal(e)),
+    spinnerRolesAndIntent: (e) => dispatch(spinnerRolesAndIntent(e)),
+    spinnerOverviewKPITrend: (e) => dispatch(spinnerOverviewKPITrend(e)),
+    spinnerOverviewInternalDrivers: (e) => dispatch(spinnerOverviewInternalDrivers(e)),
+    spinnerOverviewExternalDrivers: (e) => dispatch(spinnerOverviewExternalDrivers(e)),
+    spinnerInternalDrivers: (e) => dispatch(spinnerInternalDrivers(e)),
+    spinnerExternalDrivers: (e) => dispatch(spinnerExternalDrivers(e)),
     dispatch,
   };
 }
