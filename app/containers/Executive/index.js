@@ -1286,21 +1286,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                         <h4 className="pageModuleSubTitle"> KPI Contribution to growth </h4>
                                                         <h4 className="panel-heading tesco-heading h3" style={{textAlign: "center"}}>
                                                           LFL Sales:
-                                                          <span
-                                                            className={(() => {
-                                                              if (this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var)
-                                                              {
-                                                                return "glyphicon glyphicon-chevron-up glyphiconPositive"
-                                                              }
-                                                              else if (this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var)
-                                                              {
-                                                                return "glyphicon glyphicon-chevron-down glyphiconNegative"
-                                                              } else {
-                                                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                                                              } })()}>
-
-                        </span>
-                                                          {this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var} </h4>
+                                                          <span className={glyphiconFormatter(this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var)}>
+                                                          </span>{this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var}
+                                                        </h4>
 
                                                         <div className="row" style={{width: "480px"}}>
                                                           <div className="col-xs-3 overview-blk" style={{marginRight: "5px"}}>
@@ -1309,22 +1297,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                    style={{border: '1px solid #E5E8EA', width: '120px', height: '120px', textAlign:'center'}}>
                                                                 <h4 className="panel-heading tesco-heading"><b>Transactions</b></h4>
                                                                 <div className="panel-body">
-                                            <span className="overview-blk-value">
-                                          <h4> <span
-                                            className={(() => {
-                                              if (this.props.Executive.overview_drivers_internal_data.kpi.transaction_var)
-                                              {
-                                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                                              }
-                                              else if (this.props.Executive.overview_drivers_internal_data.kpi.transaction_var)
-                                              {
-                                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                                              } else {
-                                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                                              } })()}>
-
-                        </span> {this.props.Executive.overview_drivers_internal_data.kpi.transaction_var}  </h4>
-                                            </span>
+                                                                  <span className="overview-blk-value">
+                                                                    <h4>
+                                                                      <span className={glyphiconFormatter(this.props.Executive.overview_drivers_internal_data.kpi.transaction_var)}>
+                                                                      </span> {this.props.Executive.overview_drivers_internal_data.kpi.transaction_var}
+                                                                    </h4>
+                                                                  </span>
                                                                 </div>
                                                               </div>
                                                             </Panel>
@@ -1336,22 +1314,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                 <h4 className="panel-heading tesco-heading"><b>Items per Basket</b>
                                                                 </h4>
                                                                 <div className="panel-body">
-                                            <span className="overview-blk-value">
-                                          <h4>  <span
-                                            className={(() => {
-                                              if (this.props.Executive.overview_drivers_internal_data.kpi.item_per_basket_var)
-                                              {
-                                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                                              }
-                                              else if (this.props.Executive.overview_drivers_internal_data.kpi.item_per_basket_var)
-                                              {
-                                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                                              } else {
-                                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                                              } })()}>
-
-                        </span> {this.props.Executive.overview_drivers_internal_data.kpi.item_per_basket_var} </h4>
-                                            </span>
+                                                                  <span className="overview-blk-value">
+                                                                    <h4>
+                                                                      <span className={glyphiconFormatter(this.props.Executive.overview_drivers_internal_data.kpi.item_per_basket_var)}>
+                                                                      </span> {this.props.Executive.overview_drivers_internal_data.kpi.item_per_basket_var}
+                                                                    </h4>
+                                                                  </span>
                                                                 </div>
                                                               </div>
                                                             </Panel>
@@ -1362,22 +1330,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                    style={{border: '1px solid #E5E8EA', width: '120px', height: '120px', textAlign:'center'}}>
                                                                 <h4 className="panel-heading tesco-heading"><b>Item price</b></h4>
                                                                 <div className="panel-body">
-                                            <span className="overview-blk-value">
-                                          <h4>  <span
-                                            className={(() => {
-                                              if (this.props.Executive.overview_drivers_internal_data.kpi.item_price_var)
-                                              {
-                                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                                              }
-                                              else if (this.props.Executive.overview_drivers_internal_data.kpi.item_price_var)
-                                              {
-                                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                                              } else {
-                                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                                              } })()}>
-
-                        </span> {this.props.Executive.overview_drivers_internal_data.kpi.item_price_var} </h4>
-                                            </span>
+                                                                  <span className="overview-blk-value">
+                                                                    <h4>
+                                                                      <span className={glyphiconFormatter(this.props.Executive.overview_drivers_internal_data.kpi.item_price_var)}>
+                                                                      </span>{this.props.Executive.overview_drivers_internal_data.kpi.item_price_var}
+                                                                    </h4>
+                                                                  </span>
                                                                 </div>
                                                               </div>
                                                             </Panel>
@@ -1474,52 +1432,25 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                           }</h3>
                           </div>
+
                           <div className="row">
-                          <div className="panel-body cardPanel">
-                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
+                            <div className="panel-body cardPanel">
+                              <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
+                                <h4>
+                                  <span className={glyphiconFormatter(this.props.Executive.overview_drivers_external_data.sunshine.wow)}>
+                                  </span>{this.props.Executive.overview_drivers_external_data.sunshine.wow }%
+                                </h4>
+                                <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                              </div>
 
-
-                          <h4>
-                          <span
-                          className={(() => {
-                            if (this.props.Executive.overview_drivers_external_data.sunshine.wow > 0)
-                            {
-                              return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                            }
-                            else if (this.props.Executive.overview_drivers_external_data.sunshine.wow  < 0)
-                            {
-                              return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                            } else {
-                              return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                            } })()}></span>
-
-                          {this.props.Executive.overview_drivers_external_data.sunshine.wow }%
-                          </h4>
-                          <h5 className="kpiSubTitle"><b>WoW</b></h5>
-
-                          </div>
-                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
-
-                          <h4>
-                          <span
-                          className={(() => {
-                            if (this.props.Executive.overview_drivers_external_data.sunshine.yoy > 0)
-                            {
-                              return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                            }
-                            else if (this.props.Executive.overview_drivers_external_data.sunshine.yoy< 0)
-                            {
-                              return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                            } else {
-                              return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                            } })()}></span>
-                          {this.props.Executive.overview_drivers_external_data.sunshine.yoy}%
-                          </h4>
-                          <h5 className="kpiSubTitle"><b>YoY</b></h5>
-
-                          </div>
-
-                          </div>
+                              <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
+                                <h4>
+                                  <span className={glyphiconFormatter(this.props.Executive.overview_drivers_external_data.sunshine.yoy)}>
+                                  </span>{this.props.Executive.overview_drivers_external_data.sunshine.yoy}%
+                                </h4>
+                                <h5 className="kpiSubTitle"><b>YoY</b></h5>
+                              </div>
+                            </div>
                           </div>
                           </Panel>
                           </div>
@@ -1527,7 +1458,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
                           <Panel>
                           <h3 className="pageModuleSubTitle"> Rainfall
-
                           </h3>
                           {/* Image here*/}
                           <img style = {{height: 100, width: 100,marginLeft:'32%'}}  src={imgRainfall}/>
@@ -1538,115 +1468,56 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           }</h3>
                           </div>
                           <div className="row">
-                          <div className="panel-body cardPanel">
-                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
-
-
-                          <h4>
-                          <span
-                          className={(() => {
-                            if (this.props.Executive.overview_drivers_external_data.rainfall.wow > 0)
-                            {
-                              return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                            }
-                            else if (this.props.Executive.overview_drivers_external_data.rainfall.wow  < 0)
-                            {
-                              return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                            } else {
-                              return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                            } })()}></span>
-
-                          {this.props.Executive.overview_drivers_external_data.rainfall.wow }%
-                          </h4>
-                          <h5 className="kpiSubTitle"><b>WoW</b></h5>
-
-                          </div>
-                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
-
-                          <h4>
-                          <span
-                          className={(() => {
-                            if (this.props.Executive.overview_drivers_external_data.rainfall.yoy > 0)
-                            {
-                              return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                            }
-                            else if (this.props.Executive.overview_drivers_external_data.rainfall.yoy< 0)
-                            {
-                              return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                            } else {
-                              return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                            } })()}></span>
-                          {this.props.Executive.overview_drivers_external_data.rainfall.yoy}%
-                          </h4>
-                          <h5 className="kpiSubTitle"><b>YoY</b></h5>
-
-                          </div>
-
-                          </div>
+                            <div className="panel-body cardPanel">
+                              <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
+                                <h4>
+                                  <span className={glyphiconFormatter(this.props.Executive.overview_drivers_external_data.rainfall.wow)}>
+                                  </span>{this.props.Executive.overview_drivers_external_data.rainfall.wow }%
+                                </h4>
+                                <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                              </div>
+                              <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
+                                <h4>
+                                  <span className={glyphiconFormatter(this.props.Executive.overview_drivers_external_data.rainfall.yoy)}>
+                                  </span>{this.props.Executive.overview_drivers_external_data.rainfall.yoy}%
+                                </h4>
+                                <h5 className="kpiSubTitle"><b>YoY</b></h5>
+                              </div>
+                            </div>
                           </div>
                           </Panel>
                           </div>
                           {/*Block for temperature*/}
                           <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
                           <Panel>
-                          <h3 className="pageModuleSubTitle"> Temperature
+                            <h3 className="pageModuleSubTitle"> Temperature
+                            </h3>
+                            {/* Image here*/}
+                            <img style = {{height: 100, width: 100,marginLeft:'32%'}}  src={imgTemperature}/>
+                            <div className="row">
+                              <h3 style={{ textAlign : "center"}}>{this.props.Executive.overview_drivers_external_data.temperature.avg}</h3>
+                            </div>
+                            <div className="row">
+                              <div className="panel-body cardPanel">
 
-                          </h3>
-                          {/* Image here*/}
-                          <img style = {{height: 100, width: 100,marginLeft:'32%'}}  src={imgTemperature}/>
-                          <div className="row">
-                          <h3 style={{ textAlign : "center"}}>{
-                            this.props.Executive.overview_drivers_external_data.temperature.avg
+                                <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
+                                  <h4>
+                                    <span className={glyphiconFormatter(this.props.Executive.overview_drivers_external_data.temperature.wow)}>
+                                    </span>{this.props.Executive.overview_drivers_external_data.temperature.wow }%
+                                  </h4>
+                                  <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                </div>
 
-                          }</h3>
-                          </div>
-                          <div className="row">
-                          <div className="panel-body cardPanel">
-                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
+                                <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
+                                  <h4>
+                                    <span className={glyphiconFormatter(this.props.Executive.overview_drivers_external_data.temperature.yoy)}>
+                                    </span>{this.props.Executive.overview_drivers_external_data.temperature.yoy}%
+                                  </h4>
+                                  <h5 className="kpiSubTitle"><b>YoY</b></h5>
+                                </div>
 
-
-                          <h4>
-                          <span
-                          className={(() => {
-                            if (this.props.Executive.overview_drivers_external_data.temperature.wow > 0)
-                            {
-                              return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                            }
-                            else if (this.props.Executive.overview_drivers_external_data.temperature.wow  < 0)
-                            {
-                              return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                            } else {
-                              return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                            } })()}></span>
-
-                          {this.props.Executive.overview_drivers_external_data.temperature.wow }%
-                          </h4>
-                          <h5 className="kpiSubTitle"><b>WoW</b></h5>
-
-                          </div>
-                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
-
-                          <h4>
-                          <span
-                          className={(() => {
-                            if (this.props.Executive.overview_drivers_external_data.temperature.yoy > 0)
-                            {
-                              return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                            }
-                            else if (this.props.Executive.overview_drivers_external_data.temperature.yoy< 0)
-                            {
-                              return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                            } else {
-                              return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                            } })()}></span>
-                          {this.props.Executive.overview_drivers_external_data.temperature.yoy}%
-                          </h4>
-                          <h5 className="kpiSubTitle"><b>YoY</b></h5>
-
-                          </div>
-
-                          </div>
-                          </div>
+                              </div>
+                            </div>
                           </Panel>
                           </div>
 
@@ -1740,66 +1611,29 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                       <div className="row">
                                         <div className="panel-body cardPanel">
                                           <div className="col-md-3 kpiSmall">
-
-
                                             <h4>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.price_kpi_data.ASPInfl_var_yoy> 0)
-                              {
-                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                              }
-                              else if (this.props.Executive.price_kpi_data.ASPInfl_var_yoy < 0)
-                              {
-                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}></span>
-                                              {this.props.Executive.price_kpi_data.ASPInfl_var_yoy}%
+                                              <span className={glyphiconFormatter(this.props.Executive.price_kpi_data.ASPInfl_var_yoy)}>
+                                              </span>{this.props.Executive.price_kpi_data.ASPInfl_var_yoy}%
                                             </h4>
                                             <h5 className="kpiSubTitle"><b>YoY</b></h5>
-
                                           </div>
-                                          <div className="col-md-3 kpiSmall">
 
+                                          <div className="col-md-3 kpiSmall">
                                             <h4>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.price_kpi_data.ASPInfl_var_lfl> 0)
-                              {
-                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                              }
-                              else if (this.props.Executive.price_kpi_data.ASPInfl_var_lfl < 0)
-                              {
-                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}></span>
-                                              {this.props.Executive.price_kpi_data.ASPInfl_var_lfl}%
+                                              <span className={glyphiconFormatter(this.props.Executive.price_kpi_data.ASPInfl_var_lfl)}>
+                                              </span>{this.props.Executive.price_kpi_data.ASPInfl_var_lfl}%
                                             </h4>
                                             <h5 className="kpiSubTitle"><b>LFL</b></h5>
-
                                           </div>
-                                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
 
+                                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
                                             <h4>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.price_kpi_data.ASPInfl_var_wow> 0)
-                              {
-                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                              }
-                              else if (this.props.Executive.price_kpi_data.ASPInfl_var_wow < 0)
-                              {
-                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}></span>
-                                              {this.props.Executive.price_kpi_data.ASPInfl_var_wow}%
+                                              <span className={glyphiconFormatter(this.props.Executive.price_kpi_data.ASPInfl_var_wow)}>
+                                              </span>{this.props.Executive.price_kpi_data.ASPInfl_var_wow}%
                                             </h4>
                                             <h5 className="kpiSubTitle"><b>WoW</b></h5>
-
                                           </div>
+
                                         </div>
                                       </div>
                                     </Panel>
@@ -1971,7 +1805,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                     else
                                     {
                                       return "col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                    }  })()} style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
+                                    }  })()} style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea",paddingLeft:'15px',paddingRight:'15px'}}>
                                     <Panel>
                                       <h3 className="pageModuleSubTitle"> Total {this.props.Executive.kpi_boxes_data.kpi_name} </h3>
                                       <div>
@@ -1987,77 +1821,31 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                         <div className="row">
                                           <div className="panel-body cardPanel">
                                             <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
-
-
                                               <h4>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.kpi_boxes_data.total_value.wow > 0)
-                              {
-                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                              }
-                              else if (this.props.Executive.kpi_boxes_data.total_value.wow < 0)
-                              {
-                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>
-
-                        </span>
-                                                {this.props.Executive.kpi_boxes_data.total_value.wow}%
+                                                <span className={glyphiconFormatter(this.props.Executive.kpi_boxes_data.total_value.wow)}>
+                                                </span>{this.props.Executive.kpi_boxes_data.total_value.wow}%
                                               </h4>
                                               <h5 className="kpiSubTitle"><b>WoW</b></h5>
-
                                             </div>
                                             <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
-
                                               <h4>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.kpi_boxes_data.total_value.yoy > 0)
-                              {
-                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                              }
-                              else if (this.props.Executive.kpi_boxes_data.total_value.yoy < 0)
-                              {
-                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>
-
-                        </span>
-                                                {this.props.Executive.kpi_boxes_data.total_value.yoy}%
+                                                <span className={glyphiconFormatter(this.props.Executive.kpi_boxes_data.total_value.yoy)}>
+                                                </span>{this.props.Executive.kpi_boxes_data.total_value.yoy}%
                                               </h4>
                                               <h5 className="kpiSubTitle"><b>YoY</b></h5>
-
                                             </div>
                                             <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
-
                                               <h4>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.kpi_boxes_data.total_value.lfl > 0)
-                              {
-                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                              }
-                              else if (this.props.Executive.kpi_boxes_data.total_value.lfl < 0)
-                              {
-                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>
-
-                        </span>
-                                                {this.props.Executive.kpi_boxes_data.total_value.lfl}%
+                                                <span className={glyphiconFormatter(this.props.Executive.kpi_boxes_data.total_value.lfl)}>
+                                                </span>{this.props.Executive.kpi_boxes_data.total_value.lfl}%
                                               </h4>
                                               <h5 className="kpiSubTitle"><b>LFL</b></h5>
-
                                             </div>
                                           </div>
                                         </div>
                                       </div>
                                     </Panel>
-</div>
+                                  </div>
 
                                   {/*Block for contribution to growth*/}
                                   <div className={(() => {
@@ -2068,13 +1856,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                     else
                                     {
                                       return "col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                    }  })()} style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
+                                    }  })()} style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea",paddingLeft:'15px',paddingRight:'15px'}}>
                                     <Panel>
                                       <h3 className="pageModuleSubTitle"> Contribution to Growth </h3>
                                       <div>
                                         <div className="row">
                                           <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6" style={{textAlign: 'center'}}>
-
                                             <h3 style={{padding:"0px",margin:"0px"}}>{this.props.Executive.kpi_boxes_data.growth.total}</h3>
                                           </div>
                                           <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6" style={{textAlign: 'center'}}>
@@ -2083,73 +1870,31 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                         </div>
                                         <div className="row">
                                           <div className="panel-body cardPanel">
+
                                             <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
-
-
                                               <h4>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.kpi_boxes_data.growth.wow > 0)
-                              {
-                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                              }
-                              else if (this.props.Executive.kpi_boxes_data.growth.wow < 0)
-                              {
-                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>
-
-                        </span>
-                                                {this.props.Executive.kpi_boxes_data.growth.wow}%
+                                                <span className={glyphiconFormatter(this.props.Executive.kpi_boxes_data.growth.wow)}>
+                                                </span>{this.props.Executive.kpi_boxes_data.growth.wow}%
                                               </h4>
                                               <h5 className="kpiSubTitle"><b>WoW</b></h5>
-
                                             </div>
+
                                             <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
-
                                               <h4>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.kpi_boxes_data.growth.yoy > 0)
-                              {
-                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                              }
-                              else if (this.props.Executive.kpi_boxes_data.growth.yoy < 0)
-                              {
-                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>
-
-                        </span>
-                                                {this.props.Executive.kpi_boxes_data.growth.yoy}%
+                                                <span className={glyphiconFormatter(this.props.Executive.kpi_boxes_data.growth.yoy)}>
+                                                </span>{this.props.Executive.kpi_boxes_data.growth.yoy}%
                                               </h4>
                                               <h5 className="kpiSubTitle"><b>YoY</b></h5>
-
                                             </div>
+
                                             <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
-
                                               <h4>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.kpi_boxes_data.growth.lfl > 0)
-                              {
-                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                              }
-                              else if (this.props.Executive.kpi_boxes_data.growth.lfl < 0)
-                              {
-                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>
-
-                        </span>
-                                                {this.props.Executive.kpi_boxes_data.growth.lfl}%
+                                                <span className={glyphiconFormatter(this.props.Executive.kpi_boxes_data.growth.lfl)}>
+                                                </span>{this.props.Executive.kpi_boxes_data.growth.lfl}%
                                               </h4>
                                               <h5 className="kpiSubTitle"><b>LFL</b></h5>
-
                                             </div>
+
                                           </div>
                                         </div>
                                       </div>
@@ -2348,84 +2093,55 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                                       }}>Supplier Info</Button>
                                                     </span>
-                                                  <span style={{float:"right"}}>
-                                                  <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
-                                                    <MenuItem onClick={() => {
-                                                      saveImage(document.getElementById('top_trend'),"botSupplierTrendMultiline_chart")
-                                                    }
-                                                    }>Save As JPEG</MenuItem>
-                                                    <MenuItem onClick={() => {
-                                                      saveDataAsCSV(this.props.Executive.best_info_data.multiline_trend,"botSupplierTrendMultiline_chart.csv")
-                                                    }
-                                                    }>Download CSV</MenuItem>
-                                                  </DropdownButton>
-                                                </span>
-                                              </div>
-                                        {(() => {
-                                          if (this.props.Executive.best_info_data.fetch=='success') {
-                                            return (
-                                              <div>
+                                                    <span style={{float:"right"}}>
+                                                      <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
+                                                        <MenuItem onClick={() => {
+                                                          saveImage(document.getElementById('top_trend'),"botSupplierTrendMultiline_chart")
+                                                        }
+                                                        }>Save As JPEG</MenuItem>
+                                                        <MenuItem onClick={() => {
+                                                          saveDataAsCSV(this.props.Executive.best_info_data.multiline_trend,"botSupplierTrendMultiline_chart.csv")
+                                                        }
+                                                        }>Download CSV</MenuItem>
+                                                      </DropdownButton>
+                                                    </span>
+                                                  </div>
+                                                  {(() => {
+                                                    if (this.props.Executive.best_info_data.fetch=='success') {
+                                                      return (
+                                                        <div>
 
-                                                {/*Row for KPIs*/}
-                                                <div className="row">
-                                                  <div className="panel-body cardPanel">
-                                                    <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall" style={{borderRight: "1px solid rgb(229, 232, 234)", padding:"0", textalign:"center"}}>
-                                                      <h4 style={{fontWeight:"700"}}>
-                                                      <span
-                                                        className={(() => {
-                                                          if (this.props.Executive.best_info_data.yoy_var > 0)
-                                                          {
-                                                            return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                                                          }
-                                                          else if (this.props.Executive.best_info_data.yoy_var < 0)
-                                                          {
-                                                            return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                                                          } else {
-                                                            return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                                                          } })()}>
+                                                          {/*Row for KPIs*/}
+                                                          <div className="row">
+                                                            <div className="panel-body cardPanel">
 
-                                                    </span>{this.props.Executive.best_info_data.yoy_var}%
-                                                      </h4>
-                                                      <h5 className="kpiSubTitle"><b>YoY</b></h5>
+                                                              <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall" style={{borderRight: "1px solid rgb(229, 232, 234)", padding:"0", textalign:"center"}}>
+                                                                <h4 style={{fontWeight:"700"}}>
+                                                                  <span className={glyphiconFormatter(this.props.Executive.best_info_data.yoy_var)}>
+                                                                  </span>{this.props.Executive.best_info_data.yoy_var}%
+                                                                </h4>
+                                                                <h5 className="kpiSubTitle"><b>YoY</b></h5>
+                                                              </div>
 
-                                                    </div>
-                                                    <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall" style={{borderRight: "1px solid rgb(229, 232, 234)", padding:"0", textalign:"center"}}>
+                                                              <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall" style={{borderRight: "1px solid rgb(229, 232, 234)", padding:"0", textalign:"center"}}>
+                                                                <h4 style={{fontWeight:"700"}}>
+                                                                  <span className={glyphiconFormatter(this.props.Executive.best_info_data.cont_to_grwth)}>
+                                                                  </span>{this.props.Executive.best_info_data.cont_to_grwth}%
+                                                                </h4>
+                                                                <h4 className="kpiSubTitle">Contri to growth</h4>
+                                                              </div>
 
-                                                      <h4 style={{fontWeight:"700"}}>
-                                                            <span
-                                                              className={(() => {
-                                                                if (this.props.Executive.best_info_data.cont_to_grwth > 0)
-                                                                {
-                                                                  return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                                                                }
-                                                                else if (this.props.Executive.best_info_data.cont_to_grwth < 0)
-                                                                {
-                                                                  return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                                                                } else {
-                                                                  return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                                                                } })()}>
-
-                                                          </span>
-                                                        {this.props.Executive.best_info_data.cont_to_grwth}%
-                                                      </h4>
-                                                      <h4 className="kpiSubTitle">Contri to growth</h4>
-
-                                                    </div>
-                                                    <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
-
-                                                      <h4 style={{fontWeight:"700"}}>
-
-                                                        {this.props.Executive.best_info_data.sales_share}%
-                                                      </h4>
-                                                      <h4 className="kpiSubTitle">Sales Share</h4>
-
-                                                    </div>
+                                                              <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
+                                                                <h4 style={{fontWeight:"700"}}>
+                                                                  {this.props.Executive.best_info_data.sales_share}%
+                                                                </h4>
+                                                                <h4 className="kpiSubTitle">Sales Share</h4>
+                                                              </div>
                                                             </div>
                                                           </div>
-                                                          {/*Row for Multiline Chart*/}
+                                                                    {/*Row for Multiline Chart*/}
                                                           <div className="row">
                                                             <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
-
                                                               <ExecTopbotMultiline data={this.props.Executive.best_info_data.multiline_trend}
                                                                                    id="top_trend" label_ty={this.props.Executive.best_info_data.legend1} label_ly={this.props.Executive.best_info_data.legend2}
                                                                                    xaxis_title="Tesco Week" no_pref={this.props.Executive.best_info_data.no_pref} no_suffix=''
@@ -2433,29 +2149,30 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                             </div>
                                                           </div>
                                                         </div>
+                                                        )
+                                                      }
+                                                    })()}
+                                                  </div>
+                                                        )
+                                                      }
+                                                      else
+                                                      {
+                                                        return(
+                                                          <div><h3>Old data present</h3></div>
+                                                        )
+                                                      }
+
+                                                    }
+                                                    else
+                                                    {
+                                                      console.log("Executive.top_name == Not None");
+                                                      return(
+                                                        <div>
+                                                          <h3> Please select an option to view performance</h3>
+                                                        </div>
                                                       )
                                                     }
-                                                  })()}
-                                                </div>
-                                              )
-                                            }
-                                            else
-                                            {
-                                              return(
-                                                <div><h3>Old data present</h3></div>
-                                              )
-                                            }
-
-                                          }
-                                          else
-                                          {
-                                            console.log("Executive.top_name == Not None");
-                                            return(
-                                              <div>
-                                                <h3> Please select an option to view performance</h3>
-                                              </div>
-                                            )
-                                          } })()}
+                                        })()}
                                       </div>
                                     </div>
                                   </div>
@@ -2598,55 +2315,27 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                             <div className="panel-body cardPanel">
                                                               <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall" style={{borderRight: "1px solid rgb(229, 232, 234)", padding:"0", textalign:"center"}}>
                                                                 <h4 style={{fontWeight:"700"}}>
-                                                                    <span
-                                                                        className={(() => {
-                                                                          if (this.props.Executive.worst_info_data.yoy_var > 0)
-                                                                          {
-                                                                            return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                                                                          }
-                                                                          else if (this.props.Executive.worst_info_data.yoy_var < 0)
-                                                                          {
-                                                                            return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                                                                          } else {
-                                                                            return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                                                                          } })()}>
+                                                                  <span className={glyphiconFormatter(this.props.Executive.worst_info_data.yoy_var)}>
+                                                                  </span>{this.props.Executive.worst_info_data.yoy_var}%
+                                                                </h4>
+                                                                <h4 className="kpiSubTitle"><b>YoY</b></h4>
+                                                              </div>
 
-                                                                    </span>{this.props.Executive.worst_info_data.yoy_var}%
-                                                                      </h4>
-                                                                      <h4 className="kpiSubTitle"><b>YoY</b></h4>
-
-                                                                    </div>
-                                                                    <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall" style={{borderRight: "1px solid rgb(229, 232, 234)", padding:"0", textalign:"center"}}>
-
-                                                                      <h4 style={{fontWeight:"700"}}>
-                                                                      <span
-                                                                        className={(() => {
-                                                                          if (this.props.Executive.worst_info_data.cont_to_grwth > 0)
-                                                                          {
-                                                                            return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                                                                          }
-                                                                          else if (this.props.Executive.worst_info_data.cont_to_grwth < 0)
-                                                                          {
-                                                                            return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                                                                          } else {
-                                                                            return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                                                                          } })()}>
-
-                                                                    </span>
-                                                                  {this.props.Executive.worst_info_data.cont_to_grwth}%
+                                                              <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall" style={{borderRight: "1px solid rgb(229, 232, 234)", padding:"0", textalign:"center"}}>
+                                                                <h4 style={{fontWeight:"700"}}>
+                                                                  <span className={glyphiconFormatter(this.props.Executive.worst_info_data.cont_to_grwth)}>
+                                                                  </span>{this.props.Executive.worst_info_data.cont_to_grwth}%
                                                                 </h4>
                                                                 <h4 className="kpiSubTitle">Contri to growth</h4>
-
                                                               </div>
+
                                                               <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
-
                                                                 <h4 style={{fontWeight:"700"}}>
-
                                                                   {this.props.Executive.worst_info_data.sales_share}%
                                                                 </h4>
                                                                 <h4 className="kpiSubTitle">Sales Share</h4>
-
                                                               </div>
+
                                                             </div>
                                                           </div>
                                                           {/*Row for Multiline Chart*/}
@@ -3187,60 +2876,30 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             <div className="row">
                               <div className="panel-body cardPanel">
                                 <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall" style={{borderRight: "1px solid rgb(229, 232, 234)", padding:"0", textalign:"center"}}>
-
-
                                   <h4>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.top_supp_info_data.yoy_var > 0)
-                              {
-                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                              }
-                              else if (this.props.Executive.top_supp_info_data.yoy_var < 0)
-                              {
-                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>
-
-                        </span>{this.props.Executive.top_supp_info_data.yoy_var}%
+                                    <span className={glyphiconFormatter(this.props.Executive.top_supp_info_data.yoy_var)}>
+                                    </span>{this.props.Executive.top_supp_info_data.yoy_var}%
                                   </h4>
                                   <h4 className="kpiSubTitle"><b>YoY</b></h4>
-
                                 </div>
+
                                 <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall" style={{borderRight: "1px solid rgb(229, 232, 234)", padding:"0", textalign:"center"}}>
-
                                   <h4>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.top_supp_info_data.cont_to_grwth > 0)
-                              {
-                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                              }
-                              else if (this.props.Executive.top_supp_info_data.cont_to_grwth < 0)
-                              {
-                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}>
-
-                        </span>
-                                    {this.props.Executive.top_supp_info_data.cont_to_grwth}%
+                                    <span className={glyphiconFormatter(this.props.Executive.top_supp_info_data.cont_to_grwth)}>
+                                    </span>{this.props.Executive.top_supp_info_data.cont_to_grwth}%
                                   </h4>
                                   <h4 className="kpiSubTitle">Contri to growth</h4>
-
                                 </div>
+
                                 <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
-
-                                  <h4>
-
-                                    {this.props.Executive.top_supp_info_data.sales_share}%
+                                  <h4>{this.props.Executive.top_supp_info_data.sales_share}%
                                   </h4>
                                   <h4 className="kpiSubTitle">Sales Share</h4>
-
                                 </div>
+
                               </div>
                             </div>
+
                             {/*Row for Gauge Charts*/}
                             <div className="row">
                               <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6" style={{fontSize:"10px",textAlign:"center"}}>
@@ -3263,11 +2922,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                     }
                     else{
                       return(
-
-
-
-
-
                         <div>
                           <h3>
                             Select a supplier to view information
@@ -3277,7 +2931,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                     }
                   })()}
                 </div>
-
               </div>
 
             </Modal.Body>
@@ -3376,58 +3029,30 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               <div className="panel-body cardPanel">
                                 <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
                                   <h4>
-                                  <span
-                                    className={(() => {
-                                      if (this.props.Executive.bot_supp_info_data.yoy_var > 0)
-                                      {
-                                        return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                                      }
-                                      else if (this.props.Executive.bot_supp_info_data.yoy_var < 0)
-                                      {
-                                        return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                                      } else {
-                                        return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                                      } })()}>
-
-                                    </span>
-                                    {this.props.Executive.bot_supp_info_data.yoy_var}%
+                                    <span className={glyphiconFormatter(this.props.Executive.bot_supp_info_data.yoy_var)}>
+                                    </span>{this.props.Executive.bot_supp_info_data.yoy_var}%
                                   </h4>
                                   <h4 className="kpiSubTitle"><b>YoY</b></h4>
-
                                 </div>
+
                                 <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
-
                                   <h4>
-                                <span
-                                  className={(() => {
-                                    if (this.props.Executive.bot_supp_info_data.cont_to_grwth > 0)
-                                    {
-                                      return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                                    }
-                                    else if (this.props.Executive.bot_supp_info_data.cont_to_grwth < 0)
-                                    {
-                                      return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                                    } else {
-                                      return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                                    } })()}>
-
-                              </span>
-                                    {this.props.Executive.bot_supp_info_data.cont_to_grwth}%
+                                    <span className={glyphiconFormatter(this.props.Executive.bot_supp_info_data.cont_to_grwth)}>
+                                    </span>{this.props.Executive.bot_supp_info_data.cont_to_grwth}%
                                   </h4>
                                   <h4 className="kpiSubTitle">Contri to growth</h4>
-
                                 </div>
+
                                 <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
-
                                   <h4>sales_share
-
                                     {this.props.Executive.bot_supp_info_data.sales_share}%
                                   </h4>
                                   <h4 className="kpiSubTitle">Sales Share</h4>
-
                                 </div>
+
                               </div>
                             </div>
+
                             {/*Row for Gauge Charts*/}
                             <div className="row">
                               <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6" style={{fontSize:"10px",textAlign:"center"}}>
@@ -3448,8 +3073,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                     }
                     else{
                       return(
-
-
                         <div>
                           <h3>
                             Select a supplier to view information
