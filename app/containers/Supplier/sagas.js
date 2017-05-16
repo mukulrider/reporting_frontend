@@ -34,7 +34,7 @@ import {
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-let host_url = "http://172.20.244.150:8000"
+let host_url = "http://127.0.0.1:8000"
 // let host_url = "http://172.20.244.149:8000"
 // FOR SUPPLIER POPUP TABLE
 export function* generateDataFetch( ) {

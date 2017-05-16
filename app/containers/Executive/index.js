@@ -918,7 +918,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           </div>
                           {/* Box for cgm */}
                           <div className="col-md-3" style={{backgroundColor: "#fafafa"}}>
-                            <Panel style={{border:"1px solid #ccc"}}>
+                            <Panel>
                               <h3 className="pageModuleSubTitle"> Profit</h3>
                               <h3 style={{padding:"0px",margin:"0px"}}>
                                 {this.props.Executive.overview_kpi_data.kpi.cgm.total}
@@ -1582,31 +1582,31 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   {
 
                     return (
-                      <div className="coverBox" >
+                      <div>
 
                         {/*Row for price KPIS*/}
 
                         {(() =>{
                             if(this.props.Executive.priceKPISpinner){
                               return(
-                                <div className="row mainBox" style={{marginTop: '1%'}}>
-                                  {/*Block for ASP*/}
-
-                                  <div className='col-md-4 col-xs-12 col-sm-4 col-lg-4' style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
+                                <div className="row mainBox" style={{textAlign: 'center'}}>
+                                  {/* Box for ASP */}
+                                  <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4" style={{backgroundColor: "#fafafa"}}>
                                     <Panel>
                                       <h3 className="pageModuleSubTitle"> ASP </h3>
+
                                       <div className="row">
                                         <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
-
                                           <h3 style={{margin:"0"}}>Inflation  &nbsp; {this.props.Executive.price_kpi_data.ASP_abs}</h3>
                                         </div>
                                         <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
-                                          <h3 style={{margin:"0"}}>Fisher Inflation &nbsp; {this.props.Executive.price_kpi_data.ASP_fisher_infl} </h3>
+                                          <h3 style={{margin:"0"}}>Fisher Infl. &nbsp; {this.props.Executive.price_kpi_data.ASP_fisher_infl} </h3>
                                         </div>
                                       </div>
+
                                       <div className="row">
                                         <div className="panel-body cardPanel">
-                                          <div className="col-md-3 kpiSmall">
+                                          <div className="col-md-4 kpiSmall">
                                             <h4>
                                               <span className={glyphiconFormatter(this.props.Executive.price_kpi_data.ASPInfl_var_yoy)}>
                                               </span>{this.props.Executive.price_kpi_data.ASPInfl_var_yoy}%
@@ -1614,7 +1614,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             <h5 className="kpiSubTitle"><b>YoY</b></h5>
                                           </div>
 
-                                          <div className="col-md-3 kpiSmall">
+                                          <div className="col-md-4 kpiSmall">
                                             <h4>
                                               <span className={glyphiconFormatter(this.props.Executive.price_kpi_data.ASPInfl_var_lfl)}>
                                               </span>{this.props.Executive.price_kpi_data.ASPInfl_var_lfl}%
@@ -1622,36 +1622,34 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             <h5 className="kpiSubTitle"><b>LFL</b></h5>
                                           </div>
 
-                                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
+                                          <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpiSmall">
                                             <h4>
                                               <span className={glyphiconFormatter(this.props.Executive.price_kpi_data.ASPInfl_var_wow)}>
                                               </span>{this.props.Executive.price_kpi_data.ASPInfl_var_wow}%
                                             </h4>
                                             <h5 className="kpiSubTitle"><b>WoW</b></h5>
                                           </div>
-
                                         </div>
                                       </div>
+
                                     </Panel>
                                   </div>
-
-                                  {/*Block for ACP*/}
-
-                                  <div className='col-md-4 col-xs-12 col-sm-4 col-lg-4' style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
+                                  {/* Box for ACP */}
+                                  <div className='col-md-4 col-xs-12 col-sm-4 col-lg-4' style={{backgroundColor: "#fafafa"}}>
                                     <Panel>
                                       <h3 className="pageModuleSubTitle"> ACP </h3>
                                       <div className="row">
                                         <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
-
-                                          <h3>Inflation  &nbsp; {this.props.Executive.price_kpi_data.ACP_abs}</h3>
+                                          <h3 style={{margin:"0"}}>Inflation  &nbsp; {this.props.Executive.price_kpi_data.ACP_abs}</h3>
                                         </div>
                                         <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
-                                          <h3>Fisher Inflation &nbsp; {this.props.Executive.price_kpi_data.ACP_fisher_infl} </h3>
+                                          <h3 style={{margin:"0"}}>Fisher Infl. &nbsp; {this.props.Executive.price_kpi_data.ACP_fisher_infl} </h3>
                                         </div>
                                       </div>
+
                                       <div className="row">
                                         <div className="panel-body cardPanel">
-                                          <div className="col-md-3 kpiSmall">
+                                          <div className="col-md-4 kpiSmall">
                                             <h4>
                                               <span className={glyphiconFormatter(this.props.Executive.price_kpi_data.ACPInfl_var_yoy)}>
                                               </span>{this.props.Executive.price_kpi_data.ACPInfl_var_yoy}%
@@ -1659,7 +1657,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             <h5 className="kpiSubTitle"><b>YoY</b></h5>
                                           </div>
 
-                                          <div className="col-md-3 kpiSmall">
+                                          <div className="col-md-4 kpiSmall">
                                             <h4>
                                               <span className={glyphiconFormatter(this.props.Executive.price_kpi_data.ACPInfl_var_lfl)}>
                                               </span>{this.props.Executive.price_kpi_data.ACPInfl_var_lfl}%
@@ -1667,7 +1665,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             <h5 className="kpiSubTitle"><b>LFL</b></h5>
                                           </div>
 
-                                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
+                                          <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpiSmall">
                                             <h4>
                                               <span className={glyphiconFormatter(this.props.Executive.price_kpi_data.ACPInfl_var_wow)}>
                                               </span>{this.props.Executive.price_kpi_data.ACPInfl_var_wow}%
@@ -1679,45 +1677,28 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                       </div>
                                     </Panel>
                                   </div>
-
-
-                                  {/*Block for Price Index*/}
-
-                                  <div className='col-md-4 col-xs-12 col-sm-4 col-lg-4' style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
+                                  {/* Box for Price Index */}
+                                  <div className='col-md-4 col-xs-12 col-sm-4 col-lg-4' style={{backgroundColor: "#fafafa"}}>
                                     <Panel>
                                       <h3 className="pageModuleSubTitle"> Price Index </h3>
                                       <div className="row">
                                         <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
-
-                                          <h3>vs. ASDA  &nbsp; </h3>
+                                          <h3 style={{margin:"0"}}>vs ASDA  &nbsp; </h3>
                                         </div>
                                         <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
-                                          <h3>Index &nbsp; {this.props.Executive.price_kpi_data.price_index_cw} </h3>
+                                          <h3 style={{margin:"0"}}>Index &nbsp; {this.props.Executive.price_kpi_data.price_index_cw} </h3>
                                         </div>
                                       </div>
+
                                       <div className="row">
                                         <div className="panel-body cardPanel">
                                           <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12 kpiSmall">
                                             <h4>
-                                    <span
-                                      className={(() => {
-                                        if (this.props.Executive.price_kpi_data.price_index_var_wow > 0)
-                                        {
-                                          return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                                        }
-                                        else if (this.props.Executive.price_kpi_data.price_index_var_wow < 0)
-                                        {
-                                          return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                                        } else {
-                                          return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                                        } })()}></span>
-                                              {this.props.Executive.price_kpi_data.price_index_var_wow}%
+                                              <span className={glyphiconFormatter(this.props.Executive.price_kpi_data.price_index_var_wow)}>
+                                              </span>{this.props.Executive.price_kpi_data.price_index_var_wow}%
                                             </h4>
                                             <h5 className="kpiSubTitle"><b>WoW</b></h5>
-
                                           </div>
-
-
                                         </div>
                                       </div>
                                     </Panel>
@@ -1733,16 +1714,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             }
                           }
                         )()}
-
-
-
-
-
-
-                        <div style={{height: "200px"}}></div>
                       </div>
                     )
-
                   }
 
                   else {
