@@ -170,7 +170,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                     {/*<div className="panel-body" style={{marginBottom:"5px",paddingTop:"0px"}}>*/}
                                     {/*<span className="overview-blk-value">*/}
                                     {(() => {
-                                      if (this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) {
+                                      if ((this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) || kpiParmas =="val_type=2" || kpiParmas =="val_type=3" ) {
                                         let a = this.props.DailySales.linechart_data.static_data;
                                         return a.map(obj => {
                                           return (
@@ -195,7 +195,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                     {/*<div className="panel-body" style={{marginBottom:"2px",paddingTop:"0px"}}>*/}
                                     {/*<span className="overview-blk-value">*/}
                                     {(() => {
-                                      if (this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) {
+                                      if ((this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) || kpiParmas =="val_type=2" || kpiParmas =="val_type=3") {
                                         let a = this.props.DailySales.linechart_data.static_data;
                                         return a.map(obj => {
                                           return (
@@ -222,7 +222,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                     {/*<div className="panel-body">*/}
                                     {/*<span className="overview-blk-value">*/}
                                     {(() => {
-                                      if (this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) {
+                                      if ((this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) || kpiParmas =="val_type=2" || kpiParmas =="val_type=3") {
                                         let a = this.props.DailySales.linechart_data.static_data;
                                         return a.map(obj => {
                                           return (

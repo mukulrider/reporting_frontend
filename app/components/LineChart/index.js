@@ -56,6 +56,8 @@ class LineChart extends React.PureComponent { // eslint-disable-line react/prefe
     let  margin = {top: 20, right: 20, bottom: 60, left: 50};
     let  width = +svg.attr("width") - margin.left - margin.right;
     let  height = +svg.attr("height") - margin.top - margin.bottom;
+    console.log("Height:",height);
+    console.log("Width:",width);
     let  g = svg.append("g").attr("transform", "translate(100," + margin.top + ")");
 
     //.attr("transform",'translate(300,0)');
@@ -70,7 +72,16 @@ class LineChart extends React.PureComponent { // eslint-disable-line react/prefe
       .rangeRound([height, 0]);
     let line = d3.line()
       .x(function (d) {return x(d.calendar_date)})
-      .y(function (d) {return y(d.tot_val)});
+      .y(function (d) {console.log("Y Axis Values:",d,d.tot_val,y(d.tot_val)); return y(d.tot_val)});
+
+    const xAxis = d3.axisBottom(x)
+      .tickFormat(
+      function(data){
+        var dateObj = new Date(data);
+        console.log("date", dateObj);
+        return dateObj.getDate() + '-' + dateObj.toLocaleString("en", { month: "short"  }) })
+      .ticks(d3.timeDay.every(1));
+
     let formatTime = d3.timeFormat("%d %b");
     // console.log("Parsed Value", formatTime(parseTime("June 30, 2015")));
     data1.forEach((d) => {
@@ -84,18 +95,13 @@ class LineChart extends React.PureComponent { // eslint-disable-line react/prefe
     x.domain(d3.extent(data1, function (d) {
       return d.calendar_date;
     }));
-    y.domain(d3.extent(data1, function (d) {
+    y.domain([0,d3.max(data1, function (d) {
       return d.tot_val;
-    }));
+    })]);
 
     g.append("g")
       .attr("transform", "translate(0," + height + ")")      //Shift entire axis
-      .call(d3.axisBottom(x).tickFormat(
-        function(data){
-          var dateObj = new Date(data);
-          console.log("date", dateObj);
-          return dateObj.getDate() + '-' + dateObj.toLocaleString("en", { month: "short"  }) }).ticks(7)
-      ).selectAll("text")
+      .call(xAxis).selectAll("text")
       .attr("transform","translate(0,0)rotate(0)")        //Shift axis labels
       .attr("width",1)
       .append("text")
@@ -107,18 +113,19 @@ class LineChart extends React.PureComponent { // eslint-disable-line react/prefe
 
     let a = 0;
 
+    let format = d3.format(',');
+
     let yAxis = d3.axisLeft(y)
       .tickFormat(function(d) {
-        if(d>1000) {
-          console.log("---------------------Y axis d",d);
-          a = d/ 1000;
-          a=a+'K';
-          console.log("---------------------Y axis a",a);
+        if ((d / 1000) >= 1 || (d / 1000) <= -1) {
+          d = d / 1000;
         }
-        else{
-          a = d;
+        if (y_axis == "Volume") {
+          return `${format(d)} K`;
         }
-        return (a);
+        else {
+          return `£ ${format(d)} K`;
+        }
       });
 
     //Axis Title
