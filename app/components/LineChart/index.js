@@ -9,6 +9,8 @@ import {FormattedMessage} from 'react-intl';
 import messages from './messages';
 import Button from 'components/button';
 import * as d3 from 'd3';
+import './style.scss';
+
 class LineChart extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   created3Graph = (data,y_axis, x_axis) => {
     // console.log("This is my line chart data:",data);
@@ -91,7 +93,7 @@ class LineChart extends React.PureComponent { // eslint-disable-line react/prefe
       .call(d3.axisBottom(x).tickFormat(
         function(data){
           var dateObj = new Date(data);
-          console.log("Raunak's date", dateObj);
+          console.log("date", dateObj);
           return dateObj.getDate() + '-' + dateObj.toLocaleString("en", { month: "short"  }) }).ticks(7)
       ).selectAll("text")
       .attr("transform","translate(0,0)rotate(0)")        //Shift axis labels
@@ -102,9 +104,26 @@ class LineChart extends React.PureComponent { // eslint-disable-line react/prefe
       .text("Testing");
     //.select(".domain")
     //.remove();
+
+    let a = 0;
+
+    let yAxis = d3.axisLeft(y)
+      .tickFormat(function(d) {
+        if(d>1000) {
+          console.log("---------------------Y axis d",d);
+          a = d/ 1000;
+          a=a+'K';
+          console.log("---------------------Y axis a",a);
+        }
+        else{
+          a = d;
+        }
+        return (a);
+      });
+
     //Axis Title
     g.append("g")
-      .call(d3.axisLeft(y))
+      .call(yAxis)
       .append("text")
       .attr("fill", "#000")
       .attr("transform", "translate(0,0)rotate(-90)")     //change
@@ -114,23 +133,25 @@ class LineChart extends React.PureComponent { // eslint-disable-line react/prefe
     //.selectAll();
     g.append("g")
       .attr("transform", "translate(0,0)")     //Shift Y axis
-      .call(d3.axisLeft(y));
+      .call(yAxis);
 
-    // g.append("g")
-    //   .call(d3.axisLeft(x))
+    //X axis title
+    // g.append("text")
+    //   .call(d3.axisBottom(x).tickFormat(
+    //     function(data){
+    //       var dateObj = new Date(data);
+    //       console.log("date", dateObj);
+    //       return dateObj.getDate() + '-' + dateObj.toLocaleString("en", { month: "short"  }) }).ticks(7)
+    //   ).selectAll("text")
     //   .append("text")
-    //   .attr("fill", "#000")
-    //   // .attr("transform", "translate(0,0)rotate(-90)")     //change
-    //   .attr("dx", "1.30em")
-    //   .attr("text-anchor", "end")
-    //   .text(this.props.x_axis)
-    // //.selectAll();
-    // g.append("g")
-    //   // .attr("transform", "translate(0,0)")     //Shift Y axis
-    //   .call(d3.axisLeft(x));
+    //   .attr("transform","translate(" + (width/2) + " ," +(height + margin.top+(margin.bottom/1.5))+")")
+    //   .style("text-anchor", "middle")
+    //   .text(this.props.x_axis);
 
+    //line of graph
     g.append("path")
       .datum(data1)
+      .attr("class","line")
       .attr("transform","translate(0,0)rotate(0)")      //Change
       .attr("fill", "none")
       .attr("stroke", "steelblue")
@@ -141,12 +162,12 @@ class LineChart extends React.PureComponent { // eslint-disable-line react/prefe
   }
   componentDidMount = () => {
     console.log("Line Chart Data",this.props.data)
-    this.created3Graph(this.props.data,this.props.y_axis)
+    this.created3Graph(this.props.data,this.props.y_axis,this.props.x_axis)
     console.log("Line Chart Props",this.props.y_axis)
   };
   componentDidUpdate = () => {
     console.log("updated.. line chart", this.props.data)
-    this.created3Graph(this.props.data, this.props.y_axis)
+    this.created3Graph(this.props.data, this.props.y_axis,this.props.x_axis)
   };
   render() {
     return (

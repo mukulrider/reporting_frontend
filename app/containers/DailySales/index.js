@@ -56,7 +56,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
   constructor(props) {
     super(props);
     this.state = {
-      activeKey1: "1"
+      activeKey1: "1",
+      y_axis: "Sales Value"
     };
 
   }
@@ -154,127 +155,132 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                         }
                       })()}
                     </div>
-                    <div className="row fixingPosition" style={{marginLeft: "0%", paddingTop: "-5px", marginRight: "0px"}}>
-                      <div className="row" style={{textAlign: "center", alignItems:"center"}}>
-                        <div className="col-md-12">
-                          <h4 className="pageModuleMainTitle">Overview</h4>
-                        </div>
-                        <div className="col-md-12" style={{textAlign: "center",marginLeft: "0.5%", align: "center",alignItems:"center", backgroundColor:"1px solid #FAFAFA"}}>
-                          <div className="col-md-12 col-sm-12 col-xs-12">
-                            <div className="col-md-4 col-sm-6 col-xs-12 overview-blk" >
-                              <Panel>
-                                <div className="panel" style={{border: '1px solid #E5E8EA'}}>
-                                  <h4 className="tesco-heading"><b>Sales</b></h4>
-                                  {/*<div className="panel-body" style={{marginBottom:"5px",paddingTop:"0px"}}>*/}
-                                  {/*<span className="overview-blk-value">*/}
-                                  {(() => {
-                                    if (this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) {
-                                      let a = this.props.DailySales.linechart_data.static_data;
-                                      return a.map(obj => {
+                    <div className="mainBox">
+                      <div className="row fixingPosition" style={{marginLeft: "0%", paddingTop: "-5px", marginRight: "0px"}}>
+                        <div className="row" style={{textAlign: "center", alignItems:"center"}}>
+                          <div className="col-md-12">
+                            <h4 className="pageModuleMainTitle">Overview</h4>
+                          </div>
+                          <div className="col-md-12" style={{textAlign: "center",marginLeft: "0.5%", align: "center",alignItems:"center", backgroundColor:"1px solid #FAFAFA"}}>
+                            <div className="col-md-12 col-sm-12 col-xs-12">
+                              <div className="col-md-4 col-sm-6 col-xs-12 overview-blk" >
+                                <Panel>
+                                  <div className="panel" style={{border: '1px solid #ccc'}}>
+                                    <h4 className="tesco-heading"><b>Sales</b></h4>
+                                    {/*<div className="panel-body" style={{marginBottom:"5px",paddingTop:"0px"}}>*/}
+                                    {/*<span className="overview-blk-value">*/}
+                                    {(() => {
+                                      if (this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) {
+                                        let a = this.props.DailySales.linechart_data.static_data;
+                                        return a.map(obj => {
+                                          return (
+                                            <div><h4>{obj.tot_sales}</h4></div>
+                                          )})}
+                                      else {
                                         return (
-                                          <div><h4>{obj.tot_sales}</h4></div>
-                                        )})}
-                                    else {
-                                      return (
-                                        <div className="row spinnerPositionLineChart"><Spinner /><h2>Please Wait a
-                                          Moment....!</h2></div>
-                                      )
-                                    }
-                                  })()}
-                                  {/*</span>*/}
-                                  {/*</div>*/}
-                                </div>
-                              </Panel>
-                            </div>
-                            <div className="col-md-4 col-sm-6 col-xs-12 overview-blk">
-                              <Panel>
-                                <div className="panel" style={{border: '1px solid #E5E8EA'}}>
-                                  <h4 className="tesco-heading"><b>Volume</b></h4>
-                                  {/*<div className="panel-body" style={{marginBottom:"2px",paddingTop:"0px"}}>*/}
-                                  {/*<span className="overview-blk-value">*/}
-                                  {(() => {
-                                    if (this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) {
-                                      let a = this.props.DailySales.linechart_data.static_data;
-                                      return a.map(obj => {
+                                          <div className="row spinnerPositionLineChart"><Spinner /><h2>Please Wait a
+                                            Moment....!</h2></div>
+                                        )
+                                      }
+                                    })()}
+                                    {/*</span>*/}
+                                    {/*</div>*/}
+                                  </div>
+                                </Panel>
+                              </div>
+                              <div className="col-md-4 col-sm-6 col-xs-12 overview-blk">
+                                <Panel>
+                                  <div className="panel" style={{border: '1px solid #ccc'}}>
+                                    <h4 className="tesco-heading"><b>Volume</b></h4>
+                                    {/*<div className="panel-body" style={{marginBottom:"2px",paddingTop:"0px"}}>*/}
+                                    {/*<span className="overview-blk-value">*/}
+                                    {(() => {
+                                      if (this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) {
+                                        let a = this.props.DailySales.linechart_data.static_data;
+                                        return a.map(obj => {
+                                          return (
+                                            <div><h4>{obj.tot_vol}</h4></div>
+                                          )})}
+                                      else {
                                         return (
-                                          <div><h4>{obj.tot_vol}</h4></div>
-                                        )})}
-                                    else {
-                                      return (
-                                        <div className="row spinnerPositionLineChart"><Spinner /><h2>Please Wait a
-                                          Moment....!</h2></div>
-                                      )
-                                    }
-                                  })()}
-                                  {/*</span>*/}
-                                  {/*</div>*/}
-                                </div>
-                              </Panel>
-                            </div>
-                            <div className="col-md-4 col-sm-6 col-xs-12 overview-blk" >
-                              <Panel>
-                                <div className="panel" style={{border: '1px solid #E5E8EA'}}>
-                                  <h4 className="panel-heading tesco-heading" style={{marginBottom:"5px",paddingTop:"0px"}}>
-                                    <b>COGS</b>
-                                  </h4>
-                                  {/*<div className="panel-body">*/}
-                                  {/*<span className="overview-blk-value">*/}
-                                  {(() => {
-                                    if (this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) {
-                                      let a = this.props.DailySales.linechart_data.static_data;
-                                      return a.map(obj => {
+                                          <div className="row spinnerPositionLineChart"><Spinner /><h2>Please Wait a
+                                            Moment....!</h2></div>
+                                        )
+                                      }
+                                    })()}
+                                    {/*</span>*/}
+                                    {/*</div>*/}
+                                  </div>
+                                </Panel>
+                              </div>
+                              <div className="col-md-4 col-sm-6 col-xs-12 overview-blk" >
+                                <Panel>
+                                  <div className="panel" style={{border: '1px solid #ccc'}}>
+                                    <h4 className="panel-heading tesco-heading" style={{marginBottom:"5px",paddingTop:"0px"}}>
+                                      <b>COGS</b>
+                                    </h4>
+                                    {/*<div className="panel-body">*/}
+                                    {/*<span className="overview-blk-value">*/}
+                                    {(() => {
+                                      if (this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) {
+                                        let a = this.props.DailySales.linechart_data.static_data;
+                                        return a.map(obj => {
+                                          return (
+                                            <div><h4>{obj.tot_cogs}</h4></div>
+                                          )})}
+                                      else {
                                         return (
-                                          <div><h4>{obj.tot_cogs}</h4></div>
-                                        )})}
-                                    else {
-                                      return (
-                                        <div className="row spinnerPositionLineChart"><Spinner /><h2>Please Wait a
-                                          Moment....!</h2></div>
-                                      )
-                                    }
-                                  })()}
-                                  {/*</span>*/}
-                                  {/*</div>*/}
-                                </div>
-                              </Panel>
+                                          <div className="row spinnerPositionLineChart"><Spinner /><h2>Please Wait a
+                                            Moment....!</h2></div>
+                                        )
+                                      }
+                                    })()}
+                                    {/*</span>*/}
+                                    {/*</div>*/}
+                                  </div>
+                                </Panel>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div className ="row">
-                        <div className="col-md-12">
-                          <h4 className="pageModuleMainTitle">Daily Sales Trend
-                          </h4>
-                        </div>
-                        <div className="col-md-8 col-sm-8 col-xs-8" style={{background:'1px solid #FAFAFA'}}>
-                          <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect}  className="tabsCustom" >
-                            <NavItem style={{fontSize: '16px',textAlign:'center',margin:"0px"}} className="tabsCustomList" eventKey="1" onClick={() => {
-                              this.setState({activeKey1: "1"});
-                              kpiParmas = "val_type=1";
-                              this.props.onSaveKPIParam(kpiParmas);
-                              this.props.DefaultLineChartCall();
-                              this.props.DSViewKpiSpinnerCheckSuccess(0);
-                              this.props.LineChartSpinnerCheckSuccess(0);
-                            }} ><span className="tab_label">Sales</span></NavItem>
-                            <NavItem style={{fontSize: '16px',textAlign:'center',margin:"0px"}} className="tabsCustomList" eventKey="2" onClick={() => {
-                              this.setState({activeKey1: "2"});
-                              kpiParmas = "val_type=2";
-                              this.props.onSaveKPIParam(kpiParmas);
-                              this.props.DefaultLineChartCall();
-                              this.props.DSViewKpiSpinnerCheckSuccess(0);
-                              this.props.LineChartSpinnerCheckSuccess(0);
-                            }} ><span className="tab_label">Volume</span></NavItem>
-                            <NavItem style={{fontSize: '16px',textAlign:'center',margin:"0px"}} className="tabsCustomList" eventKey="3" onClick={() => {
-                              this.setState({activeKey1: "3"});
-                              kpiParmas = "val_type=3";
-                              this.props.onSaveKPIParam(kpiParmas);
-                              this.props.DefaultLineChartCall();
-                              this.props.DSViewKpiSpinnerCheckSuccess(0);
-                              this.props.LineChartSpinnerCheckSuccess(0);
-                            }} ><span className="tab_label">COGS</span></NavItem>
-                          </Nav>
-                        </div>
-                        <div className="col-md-4 col-sm-4 col-xs-4">
+                        <div className ="row" style={{marginLeft:'5px', marginRight:'5px'}}>
+                          <div className="col-md-12">
+                            <h4 className="pageModuleMainTitle">Daily Sales Trend
+                            </h4>
+                          </div>
+                          <div className="col-md-8 col-sm-8 col-xs-8" style={{background:'1px solid #FAFAFA'}}>
+                            <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect}  className="tabsCustom">
+                              <NavItem style={{fontSize: '16px',textAlign:'center',margin:"0px"}} className="tabsCustomList" eventKey="1" onClick={() => {
+                                this.setState({activeKey1: "1",
+                                  y_axis: "Sales Value"});
+                                kpiParmas = "val_type=1";
+                                this.props.onSaveKPIParam(kpiParmas);
+                                this.props.DefaultLineChartCall();
+                                this.props.DSViewKpiSpinnerCheckSuccess(0);
+                                this.props.LineChartSpinnerCheckSuccess(0);
+                              }} ><span className="tab_label">Sales</span></NavItem>
+                              <NavItem style={{fontSize: '16px',textAlign:'center',margin:"0px"}} className="tabsCustomList" eventKey="2" onClick={() => {
+                                this.setState({activeKey1: "2",
+                                  y_axis: "Volume"});
+                                kpiParmas = "val_type=2";
+                                this.props.onSaveKPIParam(kpiParmas);
+                                this.props.DefaultLineChartCall();
+                                this.props.DSViewKpiSpinnerCheckSuccess(0);
+                                this.props.LineChartSpinnerCheckSuccess(0);
+                              }} ><span className="tab_label">Volume</span></NavItem>
+                              <NavItem style={{fontSize: '16px',textAlign:'center',margin:"0px"}} className="tabsCustomList" eventKey="3" onClick={() => {
+                                this.setState({activeKey1: "3",
+                                  y_axis: "COGS"});
+                                kpiParmas = "val_type=3";
+                                this.props.onSaveKPIParam(kpiParmas);
+                                this.props.DefaultLineChartCall();
+                                this.props.DSViewKpiSpinnerCheckSuccess(0);
+                                this.props.LineChartSpinnerCheckSuccess(0);
+                              }} ><span className="tab_label">COGS</span></NavItem>
+                            </Nav>
+                          </div>
+                          <div className="col-md-12 col-xs-12 col-sm-10 col-lg-10" style={{background:"#fff", width:'95%' , border: "1px solid #ccc", marginLeft:"5px"}}>
+                            <div className="col-md-4 col-sm-4 col-xs-4" style={{float:"right"}}>
                   <span style={{float:"right",margin:"0px"}}>
                       <DropdownButton className="glyphicon glyphicon-menu-hamburger"
                                       pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}}
@@ -289,33 +295,35 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                         }>Download CSV</MenuItem>
                       </DropdownButton>
                     </span>
-                        </div>
-                        {/*<div className ="col-md-12 col-sm-12">*/}
-                        <Panel className="col-md-12 col-sm-8 col-xs-8 panel-body ts-blk-proview" style={{alignItems:"center"}}>
-                          <div className="col-md-8 col-md-offset-2 col-sm-8 col-xs-8" >
-                            {(() => {
-                              if (this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0)
-                              {
-                                console.log("The line chart data in Index", this.props.DailySales.linechart_data.graph_data);
-                                return(
-                                  <div>
-                                    <LineChart data={this.props.DailySales.linechart_data.graph_data}
-                                      // y_axis={this.props.DailySales.linechart_data.y_axis}
-                                               y_axis="Value"
-                                               x_axis="Date"
-                                    />
-                                  </div>
-                                )
-                              }else {
-                                return (
-                                  <div className="row spinnerPositionLineChart"><Spinner /><h2>Please Wait a
-                                    Moment....!</h2></div>
-                                )
-                              }
-                            })()}
+                            </div>
+                            {/*<div className ="col-md-12 col-sm-12">*/}
+                            <Panel className="col-md-6 col-xs-12 col-sm-6 col-lg-6 panel-body ts-blk-proview" style={{alignItems:"center"}}>
+                              <div className="col-md-9 col-xs-12 col-sm-9 col-lg-9" >
+                                {(() => {
+                                  if (this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0)
+                                  {
+                                    console.log("The line chart data in Index", this.props.DailySales.linechart_data.graph_data);
+                                    return(
+                                      <div>
+                                        <LineChart data={this.props.DailySales.linechart_data.graph_data}
+                                                   y_axis={this.state.y_axis}
+                                          //          y_axis="Value"
+                                                   x_axis="Date"
+                                        />
+                                      </div>
+                                    )
+                                  }else {
+                                    return (
+                                      <div className="row spinnerPositionLineChart"><Spinner /><h2>Please Wait a
+                                        Moment....!</h2></div>
+                                    )
+                                  }
+                                })()}
+                              </div>
+                            </Panel>
                           </div>
-                        </Panel>
-                        {/*</div>*/}
+                          {/*</div>*/}
+                        </div>
                       </div>
                     </div>
                   </div>
