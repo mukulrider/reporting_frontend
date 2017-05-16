@@ -357,7 +357,7 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
                     if(this.props.kpi_param=='kpi_type=Price')
                     {
                       console.log("______________________ Only Price function Called")
-                      this.props.overviewKPI(0);
+                      this.props.spinnerPriceKPI(0);
                       this.props.loadPriceKPIData();
 
 
