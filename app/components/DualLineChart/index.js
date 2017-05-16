@@ -161,15 +161,15 @@ class DualLineChart extends React.PureComponent { // eslint-disable-line react/p
       .style('font', '12px sans-serif');
 
     legend.append('rect')
-      .attr('x', width / 2 + 3 * (margin.left))
-      .attr('y',  margin.top/2)
+      .attr('x', width / 2 + 2 * (margin.left))
+      .attr('y',  0)
       .attr('width', 25)
       .attr('height', 2.5)
       .attr('fill', z);
 
     legend.append('text')
-      .attr('x', width / 2 +4 * (margin.left))
-      .attr('y', margin.top/2)
+      .attr('x', width / 2 +3 * (margin.left))
+      .attr('y', 0)
       .attr('dy', '.35em')
       .attr('text-anchor', 'middle')
       .text((d) => {

@@ -328,152 +328,144 @@ export class Promotion extends React.PureComponent {
 
             {/* Promo KPI Boxes */}
 
-            <div className="row" style={{textAlign: 'center',backgroundColor: "white",margin: "0%",borderLeft: "1px solid #e5e8ea",borderRight: "1px solid #e5e8ea",borderBottom: "1px solid #e5e8ea"}}>
+            <div className="row" style={{textAlign: 'center'}}>
 
                   {(() => {
                     if (this.props.promotion.kpi_data && this.props.promotion.kpiSpinnerSuccess) {
                       return (
-                      <div>
+                      <div className="row mainBox">
 
-              <div className="col-xs-4" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
-                <Panel>
+                        <div className="col-md-4 col-xs-4" style={{backgroundColor: "#fafafa",paddingLeft:'15px',paddingRight:'15px'}}>
+                          <Panel>
+                            <h3 className="pageModuleSubTitle"> Total {this.props.promotion.kpi_data.kpi_name} </h3>
 
-                  <h3 className="pageModuleSubTitle"> Total {this.props.promotion.kpi_data.kpi_name} </h3>
+                            <div className="row">
+                              <div className="col-md-6 col-xs-6">
+                                <h3 style={{padding:"0px", margin:"0px"}}>{this.props.promotion.kpi_data.total.total}</h3>
+                              </div>
+                              <div className="col-md-6 col-xs-6">
+                                <h3 style={{padding:"0px", margin:"0px"}}>LFL&nbsp; {this.props.promotion.kpi_data.total.total_lfl} </h3>
+                              </div>
+                            </div>
 
-                  <div className="row">
-                    <div className="col-xs-6">
+                            <div className="row">
+                              <div className="panel-body cardPanel">
+                                <div className="col-md-4 col-xs-4 ">
+                                  <h4>
+                                    <span className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_wow)}>
+                                    </span>{(this.props.promotion.kpi_data.total.var_total_wow)+'%'}
+                                  </h4>
+                                  <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                </div>
+                                <div className="col-md-4 col-xs-4 ">
+                                  <h4>
+                                    <span className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_yoy)}>
+                                    </span>{(this.props.promotion.kpi_data.total.var_total_yoy)+'%'}
+                                  </h4>
+                                  <h5 className="kpiSubTitle"><b>YOY</b></h5>
+                                </div>
+                                <div className="col-md-4 col-xs-4 ">
+                                  <h4>
+                                    <span className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_lfl)}>
+                                    </span>{(this.props.promotion.kpi_data.total.var_total_lfl)+'%'}
+                                  </h4>
+                                  <h5 className="kpiSubTitle"><b>LFL</b></h5>
+                                </div>
+                              </div>
+                            </div>
+                          </Panel>
+                        </div>
 
-                      <h3 style={{padding:"0px", margin:"0px"}}>{this.props.promotion.kpi_data.total.total}</h3>
-                    </div>
-                    <div className="col-xs-6">
-                      <h3 style={{padding:"0px", margin:"0px"}}>LFL&nbsp; {this.props.promotion.kpi_data.total.total_lfl} </h3>
-                    </div>
-                  </div>
+                        <div className="col-md-4 col-xs-4" style={{backgroundColor: "#fafafa",paddingLeft:'15px',paddingRight:'15px'}}>
+                          <Panel>
+                            <h3 className="pageModuleSubTitle"> Promo {this.props.promotion.kpi_data.kpi_name} </h3>
 
-                  <div className="row">
-                    <div className="panel-body cardPanel">
+                            <div className="row">
+                              <div className="col-md-6 col-xs-6">
 
-                      <div className="col-xs-4 ">
-                        <h4>
-                          <span
-                            className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_wow)}></span>
-                        {(this.props.promotion.kpi_data.total.var_total_wow)+'%'}
-                        </h4>
-                        <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                      </div>
-                      <div className="col-xs-4 ">
-                        <h4>
-                          <span
-                            className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_yoy)}></span>
-                          {(this.props.promotion.kpi_data.total.var_total_yoy)+'%'}
-                        </h4>
-                        <h5 className="kpiSubTitle"><b>YOY</b></h5>
-                      </div>
-                      <div className="col-xs-4 ">
-                        <h4>
-                          <span
-                            className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_lfl)}></span>
-                          {(this.props.promotion.kpi_data.total.var_total_lfl)+'%'}
-                        </h4>
-                        <h5 className="kpiSubTitle"><b>LFL</b></h5>
-                      </div>
+                                <h3 style={{padding:"0px", margin:"0px"}}> {this.props.promotion.kpi_data.promo.promo} </h3>
+                              </div>
+                              <div className="col-md-6 col-xs-6">
+                                <h3 style={{padding:"0px", margin:"0px"}}>LFL&nbsp;{this.props.promotion.kpi_data.promo.promo_lfl} </h3>
+                              </div>
+                            </div>
 
-                    </div>
-                  </div>
+                            <div className="row">
+                              <div className="panel-body cardPanel">
+                                <div className="col-md-4 col-xs-4 ">
+                                  <h4>
+                                    <span
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_wow)}></span>
+                                    {(this.props.promotion.kpi_data.promo.var_promo_wow)+'%'}
+                                  </h4>
+                                  <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                </div>
+                                <div className="col-md-4 col-xs-4 ">
+                                  <h4>
+                                    <span
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_yoy)}></span>
+                                    {(this.props.promotion.kpi_data.promo.var_promo_yoy)+'%'}
+                                  </h4>
+                                  <h5 className="kpiSubTitle"><b>YOY</b></h5>
+                                </div>
+                                <div className="col-md-4 col-xs-4 ">
+                                  <h4>
+                                    <span
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_lfl)}></span>
+                                    {(this.props.promotion.kpi_data.promo.var_promo_lfl)+'%'}
+                                  </h4>
+                                  <h5 className="kpiSubTitle"><b>LFL</b></h5>
+                                </div>
+                              </div>
+                            </div>
+                          </Panel>
+                        </div>
 
-                </Panel>
-              </div>
+                        <div className="col-md-4 col-xs-4" style={{backgroundColor: "#fafafa",paddingLeft:'15px',paddingRight:'15px'}}>
+                          <Panel>
+                            <h3 className="pageModuleSubTitle"> Non Promo {this.props.promotion.kpi_data.kpi_name} </h3>
 
-              <div className="col-xs-4" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
-                <Panel>
-                  <h3 className="pageModuleSubTitle"> Promo {this.props.promotion.kpi_data.kpi_name} </h3>
+                            <div className="row">
+                              <div className="col-md-6 col-xs-6">
 
-                  <div className="row">
-                    <div className="col-xs-6">
+                                <h3 style={{padding:"0px", margin:"0px"}}>  {this.props.promotion.kpi_data.nonpromo.nonpromo} </h3>
+                              </div>
+                              <div className="col-md-6 col-xs-6">
+                                <h3 style={{padding:"0px", margin:"0px"}}>LFL&nbsp;    {this.props.promotion.kpi_data.nonpromo.nonpromo_lfl} </h3>
+                              </div>
+                            </div>
 
-                      <h3 style={{padding:"0px", margin:"0px"}}> {this.props.promotion.kpi_data.promo.promo} </h3>
-                    </div>
-                    <div className="col-xs-6">
-                      <h3 style={{padding:"0px", margin:"0px"}}>LFL&nbsp;{this.props.promotion.kpi_data.promo.promo_lfl} </h3>
-                    </div>
-                  </div>
+                            <div className="row">
+                              <div className="panel-body cardPanel">
 
-                  <div className="row">
-                    <div className="panel-body cardPanel">
-                      <div className="col-xs-4 ">
-                        <h4>
-                          <span
-                            className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_wow)}></span>
-                          {(this.props.promotion.kpi_data.promo.var_promo_wow)+'%'}
-                        </h4>
-                        <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                      </div>
-                      <div className="col-xs-4 ">
-                        <h4>
-                          <span
-                            className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_yoy)}></span>
-                          {(this.props.promotion.kpi_data.promo.var_promo_yoy)+'%'}
-                        </h4>
-                        <h5 className="kpiSubTitle"><b>YOY</b></h5>
-                      </div>
-                      <div className="col-xs-4 ">
-                        <h4>
-                          <span
-                            className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_lfl)}></span>
-                          {(this.props.promotion.kpi_data.promo.var_promo_lfl)+'%'}
-                        </h4>
-                        <h5 className="kpiSubTitle"><b>LFL</b></h5>
-                      </div>
-                    </div>
-                  </div>
-                </Panel>
-              </div>
-
-              <div className="col-xs-4" style={{backgroundColor: "#eee #eee #ddd"}}>
-                <Panel>
-                  <h3 className="pageModuleSubTitle"> Non Promo {this.props.promotion.kpi_data.kpi_name} </h3>
-
-                  <div className="row">
-                    <div className="col-xs-6">
-
-                      <h3 style={{padding:"0px", margin:"0px"}}>  {this.props.promotion.kpi_data.nonpromo.nonpromo} </h3>
-                    </div>
-                    <div className="col-xs-6">
-                      <h3 style={{padding:"0px", margin:"0px"}}>LFL&nbsp;    {this.props.promotion.kpi_data.nonpromo.nonpromo_lfl} </h3>
-                    </div>
-                  </div>
-
-                  <div className="row">
-                    <div className="panel-body cardPanel">
-
-                      <div className="col-xs-4 ">
-                        <h4>
-                          <span
-                            className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow)}></span>
-                          {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow)+'%'}
-                        </h4>
-                        <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                      </div>
-                      <div className="col-xs-4 ">
-                        <h4>
-                          <span
-                            className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy)}></span>
-                          {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy)+'%'}
-                        </h4>
-                        <h5 className="kpiSubTitle"><b>YOY</b></h5>
-                      </div>
-                      <div className="col-xs-4 ">
-                        <h4>
-                          <span
-                            className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl)}></span>
-                          {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl)+'%'}
-                        </h4>
-                        <h5 className="kpiSubTitle"><b>LFL</b></h5>
-                      </div>
-                    </div>
-                  </div>
-                </Panel>
-              </div>
+                                <div className="col-md-4 col-xs-4 ">
+                                  <h4>
+                                    <span
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow)}></span>
+                                    {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow)+'%'}
+                                  </h4>
+                                  <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                </div>
+                                <div className="col-md-4 col-xs-4 ">
+                                  <h4>
+                                    <span
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy)}></span>
+                                    {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy)+'%'}
+                                  </h4>
+                                  <h5 className="kpiSubTitle"><b>YOY</b></h5>
+                                </div>
+                                <div className="col-md-4 col-xs-4 ">
+                                  <h4>
+                                    <span
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl)}></span>
+                                    {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl)+'%'}
+                                  </h4>
+                                  <h5 className="kpiSubTitle"><b>LFL</b></h5>
+                                </div>
+                              </div>
+                            </div>
+                          </Panel>
+                        </div>
 
             </div>
                       )

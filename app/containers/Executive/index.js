@@ -80,17 +80,13 @@ import imgTemperature from './../../assets/images/thermometer.png';
 function glyphiconFormatter(cell){
   console.log("Cell:",cell);
   if (cell > 0) {
-    let classType = "glyphicon glyphicon-triangle-top glyphiconPositive";
-    return classType;
+    return "glyphicon glyphicon-triangle-top glyphiconPositive";
   }
   else if (cell < 0) {
-    let classType ="glyphicon glyphicon-triangle-bottom glyphiconNegative";
-    return classType;
+    return "glyphicon glyphicon-triangle-bottom glyphiconNegative";
   } else {
-    let classType = "glyphicon glyphicon-minus-sign glyphiconNeutral";
-    return classType;
+    return "glyphicon glyphicon-minus-sign glyphiconNeutral";
   }
-
 }
 
 function triangleColumnFormatter(cell, row) {
