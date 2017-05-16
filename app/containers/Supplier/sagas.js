@@ -34,8 +34,31 @@ import {
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
+
+let gettingUserDetails = () =>{
+  //function to get values from cookie
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+      return parts.pop().split(';').shift();
+    }
+  };
+  //fetching values from cookie
+  const userId = getCookie('token');
+  const userName = getCookie('user');
+  const designation = getCookie('designation');
+  const buyingController = getCookie('buying_controller');
+  const buyer = getCookie('buyer');
+
+  const cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}&buyer_header=${buyer}`;
+  return (cookieParams);
+};
+
+const userParamsAuth = gettingUserDetails();
+
 // let host_url = "127.0.0.1:3000"
-let host_url = "http://172.20.244.150:8000"
+let host_url = "http://172.20.244.150:8001"
 // FOR SUPPLIER POPUP TABLE
 export function* generateDataFetch( ) {
   console.log('inside kpi');
@@ -131,23 +154,37 @@ export function* generateDataFetch( ) {
     console.log("weekurlparam urlParams else", urlParams);
   }
 
+  console.log('userParamsAuth for supp',userParamsAuth);
+
   if (!(urlParams == "")) {
-    urlParams = '?' + urlParams
+    urlParams = '?' + urlParams + '&' + userParamsAuth;
     urlParams = urlParams.replace('&', '');
+  } else {
+    urlParams = '?' + userParamsAuth
   }
+
   console.log('final param kpi', urlParams);
 
   try {
+
+    console.log('filter url', host_url + `/api/reporting/supplier_view_kpi` + urlParams);
     const data = yield call(request,
-      host_url + `/api/reporting/supplier_view_kpi` + urlParams,
+      host_url + `/api/reporting/supplier_view_kpi` + urlParams);
       // {
       //   headers: {
       //     Authorization: token
       //   }
       // }
-      );
-    // const data = yield call(request, host_url + `/api/reporting/supplier_view_kpi?` + weekurlparam + '&' + kpiparam);
 
+
+    // http://172.20.244.150:8001/api/reporting/supplier_view_kpi?
+      // tesco_week=201705&category_name=Frozen
+    // &parent_supplier=10397.%20-%20KARRO%20FOODS&supplier=14215.%20-%20EUROSTOCK%20FOODS%20HINDLEY%20LTD(MP
+    // &user_id=581677099185b02c5ad4b0e8e67605d9d109c004
+    // &user_name=harmanjeet.singh@mu-sigma.com
+    // &designation=Buyer
+    // &buying_controller_header=Meat%20Fish%20and%20Veg
+    // &buyer_header=Meat%20and%20Poultry
     yield put(kpiboxDataFetchSucess(data));
 
     let supplierViewKpiSpinnerCheck = 1;
@@ -264,13 +301,15 @@ export function* generateDataFetch4() {
   if (!(urlParams == "")) {
     urlParams = '?' + urlParams
     // urlParams = urlParams.replace('&', '');
+  } else {
+    urlParams = '?';
   }
   console.log('final param', urlParams);
 
 
 
   try {
-    const data = yield call(request, host_url + `/api/reporting/supplier_view_sku_rsp?` + urlParams);
+    const data = yield call(request, host_url + `/api/reporting/supplier_view_sku_rsp?` + urlParams  + '&' + userParamsAuth.replace('&', ''));
     // const data = yield call(request, host_url + `/api/reporting/supplier_view_sku_rsp?` + weekurlparam + '&' + kpiparam);
     console.log("Heres the kpi ASP data", data);
     yield put(kpiboxAspDataFetchSucess(data));
@@ -403,12 +442,14 @@ export function* generateDataFetch3() {
   if (!(urlParams == "")) {
     urlParams = '?' + urlParams
     urlParams = urlParams.replace('&', '');
+  } else {
+    urlParams = '?';
   }
   console.log('final param', urlParams);
 
   try {
     const topbot_data = yield call(request,
-      host_url + `/api/reporting/supplier_view_top_bottom`  + urlParams);
+      host_url + `/api/reporting/supplier_view_top_bottom`  + urlParams  + '&' + userParamsAuth.replace('&', ''));
     // host_url + `/api/reporting/supplier_view_top_bottom?` + weekurlparam + '&' + topbottomkpi + '&' + kpiparam);
     console.log("generateDataFetch3 sagas.js", topbot_data);
     yield put(topBottomChartFetchSuccess(topbot_data));
@@ -428,8 +469,11 @@ export function* doSupplierTopBotFetch() {
 
 //FOR GETTING FILTERS DATA
 export function* generateSideFilter() {
+  console.log('in bigger fn');
   let urlName = yield select(selectSupplierDomain());
+  console.log('in bigger urlName',urlName);
   let urlParamsString = urlName.get('urlParamsString');
+  console.log('in bigger urlParamsString',urlParamsString);
   // let getCookie;
   // getCookie = (name) => {
   //   const value = `; ${document.cookie}`;
@@ -451,14 +495,24 @@ export function* generateSideFilter() {
     }
   }
 
+  if (!(urlParamsString == "")) {
+    urlParamsString = '?' + urlParamsString;
+  } else {
+    urlParamsString = '?';
+  }
+  console.log('in bigger before try',urlParamsString);
+  console.log('calling url',host_url + `/api/reporting/filter_supplier` + urlParamsString + '&' + userParamsAuth.replace('&', ''));
+
   try {
     const filter_data = yield call(request,
-      host_url + `/api/reporting/filter_supplier?${urlParamsString}`/*,
+      host_url + `/api/reporting/filter_supplier` + urlParamsString + '&' + userParamsAuth);
+
+      /*,
       {
         headers: {
           Authorization: token
         }
-      }*/);
+      }*/
     console.log('filter_data', filter_data);
     yield put(generateSideFilterSuccess(filter_data));
   } catch (err) {
@@ -468,6 +522,7 @@ export function* generateSideFilter() {
 
 //FOR GETTING FILTERS DATA
 export function* doGenerateSideFilter() {
+  console.log('filters prod called');
   const watcher = yield takeLatest(GENERATE_URL_PARAMS_STRING, generateSideFilter);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
@@ -502,7 +557,7 @@ export function* generateWeekFilterFetch() {
       filter_week_selection = '?' + filter_week_selection;
       // console.log("filter_week_selection", filter_week_selection);
     } else {
-      filter_week_selection = "";
+      filter_week_selection = "?";
     }
 
     // if (!(filter_week_selection == "")) {
@@ -684,7 +739,7 @@ export function* generateTable() {
 
     console.log('entered urlParams', urlParams);
     console.log('entered ajaxselection', ajaxSelection);
-    const data = yield call(request,host_url + `/api/reporting/supplier_view_table_bubble` + urlParams
+    const data = yield call(request,host_url + `/api/reporting/supplier_view_table_bubble` + urlParams  + '&' + userParamsAuth
       )
     ;
 
@@ -698,9 +753,10 @@ export function* generateTable() {
   else {
     console.log('data12');
     // urlParams = '?' + urlParams;
-    const data = yield call(request, host_url + `/api/reporting/supplier_view_table_bubble` + urlParams);
+    let userParamsAuthNew = '?' + userParamsAuth;
+    const data = yield call(request, host_url + `/api/reporting/supplier_view_table_bubble` + userParamsAuthNew + '&'  + urlParams);
 
-    console.log(host_url + `/api/reporting/supplier_view_table_bubble` + urlParams);
+    console.log(host_url + `/api/reporting/supplier_view_table_bubble` + urlParams  + '&' + userParamsAuthNew);
     console.log('data11', data);
     yield put(generateTableSuccess(data));
 
@@ -852,7 +908,7 @@ export function* generateGraph() {
     console.log('entered urlParams', urlParams);
     const data = yield call(request,
 
-        host_url + `/api/reporting/supplier_view_chart_bubble` + urlParams
+        host_url + `/api/reporting/supplier_view_chart_bubble` + urlParams  + '&' + userParamsAuth
       )
     ;
     // const data = yield call(request, `http://172.20.244.223:8000/api/nego_chart?` + urlParams +"&"+ ajaxSelection);
@@ -872,9 +928,11 @@ export function* generateGraph() {
     if (!(urlParams == "")) {
       urlParams = '?' + urlParams
       urlParams = urlParams.replace('&', '');
+    } else {
+      urlParams = '?';
     }
     console.log('final param', urlParams);
-    const data = yield call(request, host_url + `/api/reporting/supplier_view_chart_bubble` + urlParams);
+    const data = yield call(request, host_url + `/api/reporting/supplier_view_chart_bubble` + urlParams  + '&' + userParamsAuth);
     // const data = yield call(request, `http://172.20.244.223:8000/api/nego_chart?`+urlParams );
     console.log('fff', data);
     yield put(fetchGraphSuccess(data));

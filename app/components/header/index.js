@@ -205,8 +205,8 @@ class Header extends Component {
                             }
                           };
                           const token = getCookie('token');
-                          const hostName = '172.20.246.60';
-                          const hostPort = '3000';
+                          const hostName = '172.20.247.1';
+                          const hostPort = '3003';
                           document.cookie = 'token'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
                           window.location = `http://${hostName}:${hostPort}/login/`;
                         }}>Logout</MenuItem>

@@ -46,7 +46,31 @@ import {
 } from 'containers/Promotion/selectors';
 
 
-let host_url = "http://127.0.0.1:8000";
+let gettingUserDetails = () =>{
+  //function to get values from cookie
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+      return parts.pop().split(';').shift();
+    }
+  };
+  //fetching values from cookie
+  const userId = getCookie('token');
+  const userName = getCookie('user');
+  const designation = getCookie('designation');
+  const buyingController = getCookie('buying_controller');
+  const buyer = getCookie('buyer');
+
+  const cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}&buyer_header=${buyer}`;
+  return (cookieParams);
+};
+
+const userParams = gettingUserDetails();
+
+
+
+let host_url = "http://172.20.246.11:8000";
 // let host_url="http://172.20.246.13:8000";
 // All sagas to be loaded
 
@@ -73,9 +97,9 @@ export function* generatePromoKpiDataFetch() {
   console.log("sagas Week parameter", weekurlparam);
 //  console.log("Filter parameter", filterurlparam);
   console.log("sagas kpiparam ", kpiparam);
-  console.log("sagas kpiparam url",host_url+`/api/reporting/promo_kpi?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam+ '&' + weekselection)
+  console.log("sagas kpiparam url",host_url+`/api/reporting/promo_kpi?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam+ '&' + weekselection + '&' + userParams)
   const data = yield call(request,
-    host_url+`/api/reporting/promo_kpi?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam+ '&' + weekselection);
+    host_url+`/api/reporting/promo_kpi?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam + '&' + weekselection + '&' + userParams);
   console.log("Heres the kpi data",data);
   yield put(PromoKpiDataFetchSuccess(data));
 
@@ -118,14 +142,15 @@ export function* generatePromoSalesDataFetch() {
   console.log("sagas Week parameter", weekurlparam);
 //  console.log("Filter parameter", filterurlparam);
   console.log("sagas promo_sales ", kpiparam);
-  console.log("sagas promo_sales url",host_url+`/api/reporting/promo_sales?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam+'&'+salesparam+ '&' + weekselection)
+  console.log("sagas promo_sales url",host_url+`/api/reporting/promo_sales?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam+'&'+salesparam+ '&' + weekselection + '&' + userParams)
   const data = yield call(request,
-    host_url+`/api/reporting/promo_sales?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam+'&'+salesparam+ '&' + weekselection);
+    host_url+`/api/reporting/promo_sales?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam+'&'+salesparam+ '&' + weekselection + '&' + userParams);
   console.log("Heres the promo sales data",data);
   yield put(PromoSalesDataFetchSuccess(data));
 
   let spinnerCheck = 1;
   yield put(pieChartSuccess(spinnerCheck))
+
 
   let spinnerCheckTable = 1;
   yield put(productsTableSplitSuccess(spinnerCheckTable));
@@ -167,9 +192,9 @@ export function* generatePromoGiveawayDataFetch() {
   console.log("sagas Week parameter", weekurlparam);
 //  console.log("Filter parameter", filterurlparam);
 
-  console.log("sagas generatePromoGiveawayDataFetch url",host_url+`/api/reporting/promo_giveaway/?`+ weekurlparam + '&' + urlParamsString +'&'+giveawayparam+ '&' + weekselection)
+  console.log("sagas generatePromoGiveawayDataFetch url",host_url+`/api/reporting/promo_giveaway/?`+ weekurlparam + '&' + urlParamsString +'&'+giveawayparam+ '&' + weekselection + '&' + userParams)
   const data = yield call(request,
-    host_url+`/api/reporting/promo_giveaway/?` + weekurlparam + '&' + urlParamsString +'&'+giveawayparam+ '&' + weekselection );
+    host_url+`/api/reporting/promo_giveaway/?` + weekurlparam + '&' + urlParamsString +'&'+giveawayparam+ '&' + weekselection  + '&' + userParams);
   console.log("Heres the promo sales data",data);
   console.log("sagas generatePromoGiveawayDataFetch ",data)
   yield put(PromoGiveawayDataFetchSuccess(data));
@@ -216,9 +241,9 @@ export function* generatePromoProdDataFetch() {
   console.log("sagas Week parameter", weekurlparam);
 //  console.log("Filter parameter", filterurlparam);
 
-  console.log("sagas generatePromoProdDataFetch url",host_url+`/api/reporting/promo_prod/?`+ weekurlparam + '&' + urlParamsString + '&' + promoprodparam+ '&' + weekselection )
+  console.log("sagas generatePromoProdDataFetch url",host_url+`/api/reporting/promo_prod/?`+ weekurlparam + '&' + urlParamsString + '&' + promoprodparam+ '&' + weekselection  + '&' + userParams)
   const data = yield call(request,
-    host_url+`/api/reporting/promo_prod/?` + weekurlparam + '&' + urlParamsString + '&' + promoprodparam+ '&' + weekselection);
+    host_url+`/api/reporting/promo_prod/?` + weekurlparam + '&' + urlParamsString + '&' + promoprodparam+ '&' + weekselection + '&' + userParams);
   console.log("Heres the promo sales data",data);
   console.log("sagas generatePromoProdDataFetch ",data)
   yield put(PromoProdDataFetchSuccess(data));
@@ -263,9 +288,9 @@ export function* generatePromoPartDataFetch() {
   console.log("sagas Week parameter", weekurlparam);
 //  console.log("Filter parameter", filterurlparam);
   const kpiparam = urlName.get('kpi_param');
-  console.log("sagas generatePromoPartDataFetch url",host_url+`/api/reporting/promo_part/?`+ weekurlparam + '&' + urlParamsString + '&' + promopartparam+ '&' + weekselection + '&' + kpiparam);
+  console.log("sagas generatePromoPartDataFetch url",host_url+`/api/reporting/promo_part/?`+ weekurlparam + '&' + urlParamsString + '&' + promopartparam+ '&' + weekselection + '&' + kpiparam + '&' + userParams);
   const data = yield call(request,
-    host_url+`/api/reporting/promo_part/?` + weekurlparam + '&' + urlParamsString + '&' + promopartparam+ '&' + weekselection+ '&' + kpiparam);
+    host_url+`/api/reporting/promo_part/?` + weekurlparam + '&' + urlParamsString + '&' + promopartparam+ '&' + weekselection+ '&' + kpiparam + '&' + userParams);
   console.log("Heres the promo sales data",data);
   console.log("sagas generatePromoPartDataFetch ",data)
   yield put(PromoPartDataFetchSuccess(data));
@@ -323,7 +348,7 @@ export function* generateFilterFetch() {
       }
     }
     const data = yield call(request,
-      host_url+'/api/reporting/promo_filter_data?' + urlParamsString,
+      host_url+'/api/reporting/promo_filter_data?' + urlParamsString + '&' + userParams,
       // {
       //   headers: {
       //     Authorization: token

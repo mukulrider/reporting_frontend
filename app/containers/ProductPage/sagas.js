@@ -40,7 +40,7 @@ let gettingUserDetails = () =>{
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-const host_url = "http://127.0.0.1:8000";
+const host_url = "http://172.20.244.150:8001";
 // let host_url = "http://172.20.244.228:8000"
 
 

@@ -76,7 +76,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
           {(() => {
             if (this.props.DailySales.DSViewKpiSpinner != 1 && this.props.DailySales.DSViewKpiSpinner == 11) {
               return (
-                <div className="row spinnerPosition"><Spinner /><h2>Please Wait a Moment....!</h2></div>
+                <div className="row spinnerPosition"><Spinner /><h4>Please Wait a Moment....!</h4></div>
               )
             } else {
               return (
@@ -128,11 +128,13 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                              onCheckboxWeekChange = {this.props.onCheckboxWeekChange}
                                              DSViewKpiSpinnerCheck={this.props.DSViewKpiSpinnerCheckSuccess}
                                              LineChartSpinnerCheck={this.props.LineChartSpinnerCheckSuccess}
+
+                                             week={this.props.DailySales.week}
                           />
                         );
                       }
                       else {
-                        return (<div className="text-center"><Spinner />Please Wait a Moment....!</div>);
+                        return (<div className="text-center"><Spinner /><h4>Please Wait a Moment....!</h4></div>);
                       }
                     })()}
                   </div>
@@ -178,8 +180,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                           )})}
                                       else {
                                         return (
-                                          <div className="row spinnerPositionLineChart"><Spinner /><h2>Please Wait a
-                                            Moment....!</h2></div>
+                                          <div className="row spinnerPositionLineChart"><Spinner /><h4>Please Wait a
+                                            Moment....!</h4></div>
                                         )
                                       }
                                     })()}
@@ -203,8 +205,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                           )})}
                                       else {
                                         return (
-                                          <div className="row spinnerPositionLineChart"><Spinner /><h2>Please Wait a
-                                            Moment....!</h2></div>
+                                          <div className="row spinnerPositionLineChart"><Spinner /><h4>Please Wait a
+                                            Moment....!</h4></div>
                                         )
                                       }
                                     })()}
@@ -230,8 +232,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                           )})}
                                       else {
                                         return (
-                                          <div className="row spinnerPositionLineChart"><Spinner /><h2>Please Wait a
-                                            Moment....!</h2></div>
+                                          <div className="row spinnerPositionLineChart"><Spinner /><h4>Please Wait a
+                                            Moment....!</h4></div>
                                         )
                                       }
                                     })()}
@@ -314,8 +316,9 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                     )
                                   }else {
                                     return (
-                                      <div className="row spinnerPositionLineChart"><Spinner /><h2>Please Wait a
-                                        Moment....!</h2></div>
+                                      <div className="row">
+                                        <div className="col-md-9 col-sm-9 col-xs-9 text-center"><Spinner /><h4>Please Wait a Moment....!</h4></div>
+                                      </div>
                                     )
                                   }
                                 })()}

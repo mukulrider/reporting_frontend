@@ -44,6 +44,28 @@ export default class App extends React.PureComponent { // eslint-disable-line re
     }
   };
 
+  componentWillMount() {
+    const hostName = '172.20.247.1';
+    const hostPort = '3003';
+    let getCookie;
+    getCookie = (name) => {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) {
+        return parts.pop().split(';').shift();
+      } else {
+        return 0
+      }
+    };
+    const token = getCookie('token');
+    if (token && this.props.location.pathname.includes('login')) {
+      window.location = `http://${hostName}:${hostPort}/`;
+    }
+    if (!token && !this.props.location.pathname.includes('login')) {
+      window.location = `http://${hostName}:${hostPort}/login/`;
+    }
+  };
+
   render() {
     return (
       <div>

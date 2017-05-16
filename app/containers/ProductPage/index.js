@@ -175,6 +175,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                                   urlParamsString={this.props.ProductPage.urlParamsString}
                                   tabsAndApplySpinner={this.props.tabsAndApplySpinner}
 
+
                   />
                 )
               } else {
@@ -473,7 +474,9 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                     } else {
                       return (
 
-                        <div className="text-center" colSpan="11"><Spinner />Please Wait a Moment....!</div>
+                        <div className="row">
+                          <div className="col-md-9 col-sm-9 col-xs-9 text-center" style={{marginTop: '-17%'}}><Spinner />Please Wait a Moment....!</div>
+                        </div>
 
                       );
                     }
@@ -514,7 +517,9 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                     } else {
                       return (
 
-                        <div className="text-center" colSpan="11"><Spinner />Please Wait a Moment....!</div>
+                        <div className="row">
+                          <div className="col-md-9 col-sm-9 col-xs-9 text-center" style={{marginTop: '6%'}}><Spinner />Please Wait a Moment....!</div>
+                        </div>
 
                       );
                     }

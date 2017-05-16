@@ -22,7 +22,30 @@ import {
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-const host_url = 'http://172.20.244.150:8000';
+
+let gettingUserDetails = () =>{
+  //function to get values from cookie
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+      return parts.pop().split(';').shift();
+    }
+  };
+  //fetching values from cookie
+  const userId = getCookie('token');
+  const userName = getCookie('user');
+  const designation = getCookie('designation');
+  const buyingController = getCookie('buying_controller');
+  const buyer = getCookie('buyer');
+
+  const cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}&buyer_header=${buyer}`;
+  return (cookieParams);
+};
+
+const userParams = gettingUserDetails();
+
+const host_url = 'http://172.20.244.150:8001';
 // const host_url = 'http://10.1.244.154:8000';
 // All sagas to be loaded
 
@@ -51,7 +74,7 @@ export function* generateCompetitorWaterfallDataFetch() {
   // //paramString = paramString + '&week=' + urlParams;
   // paramString = paramString.replace('&', '');
   const data = yield call(request,
-    `${host_url}/api/reporting/competitor_price_index?${weekurlparam}&${filterurlparam}&${waterfallparam}&${weekselection}`,
+    `${host_url}/api/reporting/competitor_price_index?${weekurlparam}&${filterurlparam}&${waterfallparam}&${weekselection}&${userParams}`,
     // {
     //   headers: {
     //     Authorization: token
@@ -86,7 +109,7 @@ export function* generateCompetitorPieChartDataFetch() {
 
   console.log('Week parameter', weekurlparam);
   console.log('Filter parameter', filterurlparam);
-  console.log(`Pie Chart sagas.js${host_url}/api/reporting/competitor_market_share?${weekurlparam}&${kpiparam}&${filterurlparam}&${weekselection}`);
+  console.log(`Pie Chart sagas.js${host_url}/api/reporting/competitor_market_share?${weekurlparam}&${kpiparam}&${filterurlparam}&${weekselection}&${userParams}`);
 
   // let getCookie;
   // getCookie = (name) => {
@@ -99,7 +122,7 @@ export function* generateCompetitorPieChartDataFetch() {
   // const token = user_token.concat('___').concat(buyer)
 
   const data = yield call(request,
-    `${host_url}/api/reporting/competitor_market_share?${weekurlparam}&${kpiparam}&${filterurlparam}&${weekselection}`,
+    `${host_url}/api/reporting/competitor_market_share?${weekurlparam}&${kpiparam}&${filterurlparam}&${weekselection}&${userParams}`,
     // {
     //   headers: {
     //     Authorization: token
@@ -126,7 +149,7 @@ export function* generateCompetitorPriceRangeDataFetch() {
   const filterurlparam = urlName.get('filter_selection');
   const weekselection = urlName.get('filter_week_selection');
   // console.log("inside sagas.js", urlParams);
-  console.log('generateCompetitorPriceRangeDataFetch sagas.js', `${host_url}/api/reporting/competitor_view_range?${weekurlparam}&${filterurlparam}&${weekselection}`);
+  console.log('generateCompetitorPriceRangeDataFetch sagas.js', `${host_url}/api/reporting/competitor_view_range?${weekurlparam}&${filterurlparam}&${weekselection}&${userParams}`);
 
   // let getCookie;
   // getCookie = (name) => {
@@ -139,7 +162,7 @@ export function* generateCompetitorPriceRangeDataFetch() {
   // const token = user_token.concat('___').concat(buyer)
 
   const data = yield call(request,
-    `${host_url}/api/reporting/competitor_view_range?${weekurlparam}&${filterurlparam}&${weekselection}`,
+    `${host_url}/api/reporting/competitor_view_range?${weekurlparam}&${filterurlparam}&${weekselection}&${userParams}`,
     // {
     //   headers: {
     //     Authorization: token
@@ -190,7 +213,7 @@ export function* generateCompetitorOutperformance() {
 
   try {
   const data = yield call(request,
-    `${host_url}/api/reporting/competitor_market_outperformance?${weekurlparam}&${kpiparam}&${filterurlparam}&${weekselection}`,
+    `${host_url}/api/reporting/competitor_market_outperformance?${weekurlparam}&${kpiparam}&${filterurlparam}&${weekselection}&${userParams}`,
     // {
     //   headers: {
     //     Authorization: token
@@ -248,7 +271,7 @@ export function* generateFilterFetch() {
     // {urlParams='default'
     // }
 
-    const data = yield call(request, `${host_url}/api/reporting/competitor_filter_data?${urlParams}`,
+    const data = yield call(request, `${host_url}/api/reporting/competitor_filter_data?${urlParams}&${userParams}`,
       // {
       //   headers: {
       //     Authorization: token,
