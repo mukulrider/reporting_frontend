@@ -271,7 +271,7 @@ export class Competitor extends React.PureComponent {
                 }}><span className="tab_label" >YTD</span></NavItem>
               </Nav>
               <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect}  className="tabsCustom">
-                <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+                <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
                   this.setState({activeKey2: "1"});
                   this.props.onPieChartSpinnerSuccess(0);
                   this.props.outPerformanceChartSuccess(0);
@@ -280,7 +280,7 @@ export class Competitor extends React.PureComponent {
                   this.props.onCompetitorPieChart();
                   this.props.onCompetitorOutperformance();
                 }}><span className="tab_label" >Value</span></NavItem>
-                <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
                   this.setState({activeKey2: "2"});
                   this.props.onPieChartSpinnerSuccess(0);
                   this.props.outPerformanceChartSuccess(0);
@@ -327,7 +327,7 @@ export class Competitor extends React.PureComponent {
             </span> </h4>
 
             <div className="row">
-              <div className="col-xs-4 panel-body ts-blk-proview">
+              <div className="col-xs-4 panel-body ts-blk-proview" style={{backgroundColor: "#fff", border: "1px solid #ccc" }}>
                 <div className="col-md-9 col-sm-9 col-xs-9">
                   <h4 className="pageModuleSubTitle"><b>Market Share</b></h4>
                 </div>
@@ -416,7 +416,7 @@ export class Competitor extends React.PureComponent {
                   if (this.props.competitor.outperformance_data && (this.props.competitor.outperformanceChartSpinnerSuccess == 1)) {
                     console.log("Outperformance data", this.props.competitor.outperformance_data);
                     return (
-                      <div>
+                      <div style={{backgroundColor: "#fff" , border: "1px solid #ccc"}}>
                         <BarLineChart data={this.props.competitor.outperformance_data} id="barline" ref="competitorOutperformComp" series_col_name= 'id'/>
                       </div>
                     )
@@ -468,7 +468,7 @@ export class Competitor extends React.PureComponent {
             </span> </h4>
 
             <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect} className="tabsCustom">
-              <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+              <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
                 console.log("Price/Promo button pressed");
                 this.setState({activeKey3: "1"});
                 this.props.waterChartAsdaSuccess(0);
@@ -476,7 +476,7 @@ export class Competitor extends React.PureComponent {
                 this.props.onSavePriceIndexParam(dataPriceIndexParam);
                 this.props.onCompWaterfall();
               }}><span className="tab_label" >Price/Promo</span></NavItem>
-              <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+              <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
                 this.setState({activeKey3: "2"});
                 this.props.waterChartAsdaSuccess(0);
                 console.log("Own label/Brand button pressed");
@@ -485,7 +485,7 @@ export class Competitor extends React.PureComponent {
                 this.props.onSavePriceIndexParam(dataPriceIndexParam);
                 this.props.onCompWaterfall();
               }}><span className="tab_label" >Own Label/Brand</span></NavItem>
-              <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+              <NavItem className="tabsNavPanelList1" eventKey="3" onClick={() => {
                 this.setState({activeKey3: "3"});
                 this.props.waterChartAsdaSuccess(0);
                 console.log("Basket button pressed");
@@ -525,7 +525,7 @@ export class Competitor extends React.PureComponent {
 
             <div className="row">
               <div className="col-md-6 col-sm-12 col-sm-12">
-              <div className="col-md-12 col-sm-12 panel-body ts-blk-proview" style={{background:"#fff"}}>
+              <div className="col-md-12 col-sm-12 panel-body ts-blk-proview" style={{background:"#fff" , border: "1px solid #ccc"}}>
                 <div className="col-md-9 col-sm-9 col-xs-9">
                   <h4 className="pageModuleSubTitle"><b>Asda</b></h4>
                 </div>
@@ -569,7 +569,7 @@ export class Competitor extends React.PureComponent {
               </div>
               </div>
               <div className="col-md-6 col-sm-12 col-xs-12">
-              <div className="col-md-12 col-sm-12  panel-body ts-blk-proview" style={{background:"#fff"}}>
+              <div className="col-md-12 col-sm-12  panel-body ts-blk-proview" style={{background:"#fff" , border: "1px solid #ccc"}}>
                 <div className="col-md-9 col-sm-9 col-xs-9">
                   <h4 className="pageModuleSubTitle"><b>JS</b></h4>
                 </div>
@@ -616,7 +616,7 @@ export class Competitor extends React.PureComponent {
             </div>
             <div className="row" style={{marginTop:"20px"}}>
               <div className="col-md-6 col-sm-12 col-xs-12">
-                <div className="col-md-12 col-sm-12 col-xs-12 panel-body" style={{background:"#fff"}}>
+                <div className="col-md-12 col-sm-12 col-xs-12 panel-body" style={{background:"#fff", border: "1px solid #ccc"}}>
                 <div className="col-md-9 col-sm-9 col-xs-9">
                 <h4 className="pageModuleSubTitle"><b>Morrisons</b></h4>
                 </div>
@@ -657,7 +657,7 @@ export class Competitor extends React.PureComponent {
               </div>
               </div>
               <div className="col-md-6 col-sm-12 col-xs-12">
-              <div className="col-md-12 col-sm-12 col-xs-12 panel-body" style={{background:"#fff"}}>
+              <div className="col-md-12 col-sm-12 col-xs-12 panel-body" style={{background:"#fff", border: "1px solid #ccc"}}>
 
                 <div className="col-md-9 col-sm-9 col-xs-9">
                   <h4 className="pageModuleSubTitle"><b>Aldi</b></h4>
@@ -738,7 +738,7 @@ export class Competitor extends React.PureComponent {
                 if (this.props.competitor.pricerange_data && (this.props.competitor.priceRangeChartSpinnerSuccess)) {
                   console.log("---------------------check---------  ", this.props.competitor.pricerange_data);
                   return (
-                    <div>
+                    <div style={{background:"#fff", border: "1px solid #ccc"}}>
                       <div style={{float:"right"}}>
                         <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                           <MenuItem onClick={() => {

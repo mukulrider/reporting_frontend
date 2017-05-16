@@ -199,7 +199,7 @@ export class Promotion extends React.PureComponent {
                 }
               })()}
             </div>
-          <div className="col-md-12 content-wrap">
+          <div className="col-md-12 content-wrap" style={{background:"#fafafa"}}>
               <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom">
               <NavItem className="tabsCustomListTime" eventKey="1" onClick={() => {
 
@@ -295,7 +295,7 @@ export class Promotion extends React.PureComponent {
 
                 <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect}
                      className="tabsCustom" style={{margin: "0px"}}>
-                  <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+                  <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
                     this.setState({activeKey2: "1"});
                     this.props.kpiDataSuccess(0);
                     kpiParam = "kpi_type=value";
@@ -306,7 +306,7 @@ export class Promotion extends React.PureComponent {
 
 
                   }}><span className="tab_label">Value</span></NavItem>
-                  <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                  <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
                     this.setState({activeKey2: "2"});
                     this.props.kpiDataSuccess(0);
                     kpiParam = "kpi_type=volume";
@@ -338,20 +338,20 @@ export class Promotion extends React.PureComponent {
               <div className="col-xs-4" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
                 <Panel>
 
-                  <h4 className="pageModuleMainTitle"> Total {this.props.promotion.kpi_data.kpi_name} </h4>
+                  <h3 className="pageModuleSubTitle"> Total {this.props.promotion.kpi_data.kpi_name} </h3>
 
                   <div className="row">
                     <div className="col-xs-6">
 
-                      <h4 className="panel-heading tesco-heading">{this.props.promotion.kpi_data.total.total}</h4>
+                      <h3 style={{padding:"0px", margin:"0px"}}>{this.props.promotion.kpi_data.total.total}</h3>
                     </div>
                     <div className="col-xs-6">
-                      <h4 className="panel-heading tesco-heading">LFL &nbsp; {this.props.promotion.kpi_data.total.total_lfl} </h4>
+                      <h3 style={{padding:"0px", margin:"0px"}}>LFL&nbsp; {this.props.promotion.kpi_data.total.total_lfl} </h3>
                     </div>
                   </div>
 
                   <div className="row">
-                    <div className="panel-body">
+                    <div className="panel-body cardPanel">
 
                       <div className="col-xs-4 ">
                         <h4>
@@ -359,7 +359,7 @@ export class Promotion extends React.PureComponent {
                             className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_wow)}></span>
                         {(this.props.promotion.kpi_data.total.var_total_wow)+'%'}
                         </h4>
-                        <h4><b>WoW</b></h4>
+                        <h5 className="kpiSubTitle"><b>WoW</b></h5>
                       </div>
                       <div className="col-xs-4 ">
                         <h4>
@@ -367,7 +367,7 @@ export class Promotion extends React.PureComponent {
                             className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_yoy)}></span>
                           {(this.props.promotion.kpi_data.total.var_total_yoy)+'%'}
                         </h4>
-                        <h4><b>YOY</b></h4>
+                        <h5 className="kpiSubTitle"><b>YOY</b></h5>
                       </div>
                       <div className="col-xs-4 ">
                         <h4>
@@ -375,7 +375,7 @@ export class Promotion extends React.PureComponent {
                             className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_lfl)}></span>
                           {(this.props.promotion.kpi_data.total.var_total_lfl)+'%'}
                         </h4>
-                        <h4><b>LFL</b></h4>
+                        <h5 className="kpiSubTitle"><b>LFL</b></h5>
                       </div>
 
                     </div>
@@ -386,27 +386,27 @@ export class Promotion extends React.PureComponent {
 
               <div className="col-xs-4" style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
                 <Panel>
-                  <h4 className="pageModuleMainTitle"> Promo {this.props.promotion.kpi_data.kpi_name} </h4>
+                  <h3 className="pageModuleSubTitle"> Promo {this.props.promotion.kpi_data.kpi_name} </h3>
 
                   <div className="row">
                     <div className="col-xs-6">
 
-                      <h4 className="panel-heading tesco-heading"> {this.props.promotion.kpi_data.promo.promo} </h4>
+                      <h3 style={{padding:"0px", margin:"0px"}}> {this.props.promotion.kpi_data.promo.promo} </h3>
                     </div>
                     <div className="col-xs-6">
-                      <h4  className="panel-heading tesco-heading">LFL &nbsp;{this.props.promotion.kpi_data.promo.promo_lfl} </h4>
+                      <h3 style={{padding:"0px", margin:"0px"}}>LFL&nbsp;{this.props.promotion.kpi_data.promo.promo_lfl} </h3>
                     </div>
                   </div>
 
                   <div className="row">
-                    <div className="panel-body">
+                    <div className="panel-body cardPanel">
                       <div className="col-xs-4 ">
                         <h4>
                           <span
                             className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_wow)}></span>
                           {(this.props.promotion.kpi_data.promo.var_promo_wow)+'%'}
                         </h4>
-                        <h4><b>WoW</b></h4>
+                        <h5 className="kpiSubTitle"><b>WoW</b></h5>
                       </div>
                       <div className="col-xs-4 ">
                         <h4>
@@ -414,7 +414,7 @@ export class Promotion extends React.PureComponent {
                             className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_yoy)}></span>
                           {(this.props.promotion.kpi_data.promo.var_promo_yoy)+'%'}
                         </h4>
-                        <h4><b>YOY</b></h4>
+                        <h5 className="kpiSubTitle"><b>YOY</b></h5>
                       </div>
                       <div className="col-xs-4 ">
                         <h4>
@@ -422,7 +422,7 @@ export class Promotion extends React.PureComponent {
                             className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_lfl)}></span>
                           {(this.props.promotion.kpi_data.promo.var_promo_lfl)+'%'}
                         </h4>
-                        <h4><b>LFL</b></h4>
+                        <h5 className="kpiSubTitle"><b>LFL</b></h5>
                       </div>
                     </div>
                   </div>
@@ -431,20 +431,20 @@ export class Promotion extends React.PureComponent {
 
               <div className="col-xs-4" style={{backgroundColor: "#eee #eee #ddd"}}>
                 <Panel>
-                  <h4 className="pageModuleMainTitle"> Non Promo {this.props.promotion.kpi_data.kpi_name} </h4>
+                  <h3 className="pageModuleSubTitle"> Non Promo {this.props.promotion.kpi_data.kpi_name} </h3>
 
                   <div className="row">
                     <div className="col-xs-6">
 
-                      <h4 className="panel-heading tesco-heading">  {this.props.promotion.kpi_data.nonpromo.nonpromo} </h4>
+                      <h3 style={{padding:"0px", margin:"0px"}}>  {this.props.promotion.kpi_data.nonpromo.nonpromo} </h3>
                     </div>
                     <div className="col-xs-6">
-                      <h4  className="panel-heading tesco-heading">LFL &nbsp;    {this.props.promotion.kpi_data.nonpromo.nonpromo_lfl} </h4>
+                      <h3 style={{padding:"0px", margin:"0px"}}>LFL&nbsp;    {this.props.promotion.kpi_data.nonpromo.nonpromo_lfl} </h3>
                     </div>
                   </div>
 
                   <div className="row">
-                    <div className="panel-body">
+                    <div className="panel-body cardPanel">
 
                       <div className="col-xs-4 ">
                         <h4>
@@ -452,7 +452,7 @@ export class Promotion extends React.PureComponent {
                             className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow)}></span>
                           {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow)+'%'}
                         </h4>
-                        <h4><b>WoW</b></h4>
+                        <h5 className="kpiSubTitle"><b>WoW</b></h5>
                       </div>
                       <div className="col-xs-4 ">
                         <h4>
@@ -460,7 +460,7 @@ export class Promotion extends React.PureComponent {
                             className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy)}></span>
                           {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy)+'%'}
                         </h4>
-                        <h4><b>YOY</b></h4>
+                        <h5 className="kpiSubTitle"><b>YOY</b></h5>
                       </div>
                       <div className="col-xs-4 ">
                         <h4>
@@ -468,7 +468,7 @@ export class Promotion extends React.PureComponent {
                             className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl)}></span>
                           {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl)+'%'}
                         </h4>
-                        <h4><b>LFL</b></h4>
+                        <h5 className="kpiSubTitle"><b>LFL</b></h5>
                       </div>
                     </div>
                   </div>
@@ -546,7 +546,7 @@ export class Promotion extends React.PureComponent {
                         <span style={{float:"left"}}>
                       <Nav bsStyle="tabs" activeKey={this.state.activeKey4} onSelect={this.handleSelect}
                            className="tabsCustom secondaryTabs" style={{margin:"0px"}}>
-                        <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+                        <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
 
                          let promoTypeParam = "";
                           this.setState({activeKey4: "1"});
@@ -555,7 +555,7 @@ export class Promotion extends React.PureComponent {
                           this.props.loadSales();
                         }}><span className="tab_label">Total Sales</span></NavItem>
 
-                        <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                        <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
 
                                 let promoTypeParam = "promo_type=Price Cut";
                                 this.setState({activeKey4: "2"});
@@ -564,7 +564,7 @@ export class Promotion extends React.PureComponent {
                                 this.props.loadSales();
                               }}><span className="tab_label">Price Cut</span></NavItem>
 
-                              <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                              <NavItem className="tabsNavPanelList1" eventKey="3" onClick={() => {
                                 this.setState({activeKey4: "3"});
                                 this.props.pieChartSuccess(0);
                                 let promoTypeParam = "promo_type=Multibuy";
@@ -573,7 +573,7 @@ export class Promotion extends React.PureComponent {
 
                               }}><span className="tab_label">Multibuy</span></NavItem>
 
-                              <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+                              <NavItem className="tabsNavPanelList1" eventKey="4" onClick={() => {
                                 this.setState({activeKey4: "4"});
                                 this.props.pieChartSuccess(0);
                                 let promoTypeParam = "promo_type=Linksave";
@@ -582,7 +582,7 @@ export class Promotion extends React.PureComponent {
 
                               }}><span className="tab_label">Linksave</span></NavItem>
 
-                              <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
+                              <NavItem className="tabsNavPanelList1" eventKey="5" onClick={() => {
                                 this.setState({activeKey4: "5"});
                                 this.props.pieChartSuccess(0);
                                 let promoTypeParam = "promo_type=Non Promo";
@@ -695,7 +695,7 @@ export class Promotion extends React.PureComponent {
                         <span style={{float:"left"}}>
                       <Nav bsStyle="tabs" activeKey={this.state.activeKey5} onSelect={this.handleSelect}
                            className="tabsCustom secondaryTabs" style={{margin:"0px"}}>
-                        <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+                        <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
 
                                 let promoTypeParam = "";
                                 this.setState({activeKey5: "1"});
@@ -704,7 +704,7 @@ export class Promotion extends React.PureComponent {
                                 this.props.loadPromoGiveaway();
                               }}><span className="tab_label">Total Giveaway</span></NavItem>
 
-                              <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                              <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
 
                                 let promoTypeParam = "promo_type=Price Cut";
                                 this.setState({activeKey5: "2"});
@@ -713,7 +713,7 @@ export class Promotion extends React.PureComponent {
                                 this.props.loadPromoGiveaway();
                               }}><span className="tab_label">Price Cut</span></NavItem>
 
-                              <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                              <NavItem className="tabsNavPanelList1" eventKey="3" onClick={() => {
                                 this.setState({activeKey5: "3"});
                                 this.props.promoGiveAwaySuccess(0);
                                 let promoTypeParam = "promo_type=Multibuy";
@@ -722,7 +722,7 @@ export class Promotion extends React.PureComponent {
 
                               }}><span className="tab_label">Multibuy</span></NavItem>
 
-                              <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+                              <NavItem className="tabsNavPanelList1" eventKey="4" onClick={() => {
                                 this.setState({activeKey5: "4"});
                                 this.props.promoGiveAwaySuccess(0);
                                 let promoTypeParam = "promo_type=Linksave";
@@ -836,7 +836,7 @@ export class Promotion extends React.PureComponent {
                             <span style={{float:"left"}}>
                             <Nav bsStyle="tabs" activeKey={this.state.activeKey6} onSelect={this.handleSelect}
                                  className="tabsCustom secondaryTabs" style={{margin: "0px"}}>
-                              <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+                              <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
                                 let promoTypeParam = "";
                                 this.setState({activeKey6: "1"});
                                 this.props.productsCountSplitSuccess(0);
@@ -845,7 +845,7 @@ export class Promotion extends React.PureComponent {
                               }}><span className="tab_label">Total Product Count</span></NavItem>
 
 
-                              <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                              <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
                                 let promoTypeParam = "promo_type=Price Cut";
                                 this.setState({activeKey6: "2"});
                                 this.props.productsCountSplitSuccess(0);
@@ -853,7 +853,7 @@ export class Promotion extends React.PureComponent {
                                 this.props.loadPromoProd();
                               }}><span className="tab_label">Price Cut</span></NavItem>
 
-                              <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                              <NavItem className="tabsNavPanelList1" eventKey="3" onClick={() => {
                                 this.setState({activeKey6: "3"});
                                 this.props.productsCountSplitSuccess(0);
                                 let promoTypeParam = "promo_type=Multibuy";
@@ -862,7 +862,7 @@ export class Promotion extends React.PureComponent {
 
                               }}><span className="tab_label">Multibuy</span></NavItem>
 
-                              <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+                              <NavItem className="tabsNavPanelList1" eventKey="4" onClick={() => {
                                 this.setState({activeKey6: "4"});
                                 this.props.productsCountSplitSuccess(0);
                                 let promoTypeParam = "promo_type=Linksave";
@@ -872,7 +872,7 @@ export class Promotion extends React.PureComponent {
                               }}><span className="tab_label">Linksave</span></NavItem>
 
 
-                              <NavItem className="tabsCustomList" eventKey="5" onClick={() => {
+                              <NavItem className="tabsNavPanelList1" eventKey="5" onClick={() => {
                                 this.setState({activeKey6: "5"});
                                 this.props.productsCountSplitSuccess(0);
                                 let promoTypeParam = "promo_type=Non Promo";
@@ -982,7 +982,7 @@ export class Promotion extends React.PureComponent {
                       <Nav bsStyle="tabs" activeKey={this.state.activeKey7} onSelect={this.handleSelect}
                            className="tabsCustom secondaryTabs" style={{margin:"0px"}}>
 
-                        <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+                        <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
 
                                 let promoTypeParam = "";
                                 this.setState({activeKey7: "1"});
@@ -991,7 +991,7 @@ export class Promotion extends React.PureComponent {
                                 this.props.loadPromoPart();
                               }}><span className="tab_label">Total Promo Participation</span></NavItem>
 
-                              <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                              <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
 
                                 let promoTypeParam = "promo_type=Price Cut";
                                 this.setState({activeKey7: "2"});
@@ -1000,7 +1000,7 @@ export class Promotion extends React.PureComponent {
                                 this.props.loadPromoPart();
                               }}><span className="tab_label">Price Cut</span></NavItem>
 
-                              <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                              <NavItem className="tabsNavPanelList1" eventKey="3" onClick={() => {
                                 this.setState({activeKey7: "3"});
                                 this.props.promoParticipationBySplitSuccess(0);
                                 let promoTypeParam = "promo_type=Multibuy";
@@ -1008,7 +1008,7 @@ export class Promotion extends React.PureComponent {
                                 this.props.loadPromoPart();
 
                               }}><span className="tab_label">Multibuy</span></NavItem>
-                              <NavItem className="tabsCustomList" eventKey="4" onClick={() => {
+                              <NavItem className="tabsNavPanelList1" eventKey="4" onClick={() => {
                                 this.setState({activeKey7: "4"});
                                 this.props.promoParticipationBySplitSuccess(0);
                                 let promoTypeParam = "promo_type=Linksave";

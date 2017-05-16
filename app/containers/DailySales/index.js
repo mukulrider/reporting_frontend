@@ -3,25 +3,26 @@
  * DailySales
  *
  */
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
-import { Modal,Nav,NavItem,DropdownButton, MenuItem } from 'react-bootstrap';
-import {saveImage,saveDataAsCSV} from './../../utils/exportFunctions';
+import {Modal, Nav, NavItem, DropdownButton, MenuItem} from 'react-bootstrap';
+import {saveImage, saveDataAsCSV} from './../../utils/exportFunctions';
 import Panel from 'components/panel';
-import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
+import {FormattedMessage} from 'react-intl';
+import {createStructuredSelector} from 'reselect';
 import makeSelectDailySales from './selectors';
+import Spinner from 'components/spinner';
 import messages from './messages';
 import './style.scss';
 import PieChart from 'components/PieChart';
 import CascadedFilterDSS from 'components/CascadedFilterDSS';
 import MultilinePromo from 'components/MultilinePromo';
 import LineChart from 'components/LineChart';
-import Spinner from 'components/spinner';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import {PromoGiveawayData,
-  lineChartCallAction,SaveKPIParam,generateUrlParamsString,
+import {
+  PromoGiveawayData,
+  lineChartCallAction, SaveKPIParam, generateUrlParamsString,
   SaveWeekParam, PromoKpiData,
   getFilter,
   getWeekFilter,
@@ -32,7 +33,9 @@ import {PromoGiveawayData,
   DSViewKpiSpinnerCheckSuccess,
   LineChartSpinnerCheckSuccess,
   checkboxChange,
-  checkboxWeekChange
+  checkboxWeekChange,
+
+
 } from './actions';
 export class DailySales extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentDidMount = () => {
@@ -49,16 +52,18 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
   componentDidUpdate = () => {
     this.props.onSendUrlParams(this.props.location.query);
   };
+
   constructor(props) {
     super(props);
     this.state = {
       activeKey1: "1"
     };
+
   }
   render() {
     let kpiParmas = this.props.DailySales.kpi_param;
     return (
-      <Panel>
+      <Panel  style={{background:"#fafafa"}}>
         <div>
           <Helmet
             title="DailySales"

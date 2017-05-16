@@ -19,7 +19,7 @@ class BarLineChart extends React.PureComponent { // eslint-disable-line react/pr
     console.log("Inside BarLineChart ------", data);
     let margin = {top: 20, right: 40, bottom: 60, left: 60},
       width = frameWidth - margin.left - margin.right,
-      height = frameWidth*0.7 - margin.top - margin.bottom;
+      height = frameWidth*0.4 - margin.top - margin.bottom;
 
     let x = d3.scaleBand()
       .rangeRound([0, width], .1)

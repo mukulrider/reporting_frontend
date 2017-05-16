@@ -312,7 +312,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                   <div className="row" style={{marginLeft: "0%", marginRight: "0px", paddingTop: "-5px"}}>
 
-                    <div className="col-md-12 content-wrap">
+                    <div className="col-md-12 content-wrap" style={{backgroundColor: "#f5f5f5"}}>
 
                       <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect}
                            className="tabsCustom">
@@ -563,38 +563,37 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                         borderBottom: "1px solid #e5e8ea"
                                       }}>
                                         <Panel>
-                                          <h4 className="pageModuleMainTitle"> {obj.title} </h4>
+                                          <h3 className="pageModuleSubTitle"> {obj.title} </h3>
                                           <div className="row">
                                             <div className="col-xs-6">
 
-                                              <h4
-                                                className="panel-heading tesco-heading">  {obj.sales} </h4>
+                                              <h3 style={{padding:"0px", margin:"0px"}}>  {obj.sales} </h3>
                                             </div>
                                             <div className="col-xs-6">
 
-                                              <h4 className="panel-heading tesco-heading">
-                                                LFL: {obj.sales_lfl} </h4>
+                                              <h3 style={{padding:"0px", margin:"0px"}}>
+                                                LFL: {obj.sales_lfl} </h3>
                                             </div>
                                           </div>
                                           <div className="row">
-                                            <div className="panel-body">
+                                            <div className="panel-body cardPanel">
                                               <div className="col-xs-4">
                                                 <h4><span
                                                   className={glyphiconFormatter(obj.sales_var_week)}></span>{(obj.sales_var_week)+'%'}
                                                 </h4>
-                                                <h4><b> {'WoW'} </b></h4>
+                                                <h5 className="kpiSubTitle"><b> {'WoW'} </b></h5>
                                               </div>
                                               <div className="col-xs-4">
                                                 <h4><span
                                                   className={glyphiconFormatter(obj.sales_var_year)}></span>{(obj.sales_var_year)+'%'}
                                                 </h4>
-                                                <h4><b> {'YOY'} </b></h4>
+                                                <h5 className="kpiSubTitle"><b> {'YoY'} </b></h5>
                                               </div>
                                               <div className="col-xs-4">
                                                 <h4><span
                                                   className={glyphiconFormatter(obj.sales_var_year_lfl)}></span>{(obj.sales_var_year_lfl)+'%'}
                                                 </h4>
-                                                <h4><b>{'LFL'}</b></h4>
+                                                <h5 className="kpiSubTitle"><b>{'LFL'}</b></h5>
                                               </div>
                                             </div>
                                           </div>
@@ -615,34 +614,33 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                       }}>
 
                                         <Panel>
-                                          <h4 className="pageModuleMainTitle"> Contribution to Growth </h4>
+                                          <h3 className="pageModuleSubTitle"> Contribution to Growth </h3>
                                           <div className="row">
                                             <div className="col-xs-6" style={{textAlign: "center"}}>
-                                              <h4
-                                                className="panel-heading tesco-heading">  {obj.sales} </h4>
+                                              <h3 style={{padding:"0px", margin:"0px"}}>  {obj.sales} </h3>
                                             </div>
                                             <div className="col-xs-6" style={{textAlign: "center"}}>
 
-                                              <h4 className="panel-heading tesco-heading">
-                                                LFL: {obj.sales_lfl} </h4>
+                                              <h3 style={{padding:"0px", margin:"0px"}}>
+                                                LFL: {obj.sales_lfl} </h3>
                                             </div>
                                           </div>
                                           <div className="row">
-                                            <div className="panel-body">
+                                            <div className="panel-body cardPanel">
                                               <div className="col-xs-4">
                                                 <h4><span className={glyphiconFormatter(obj.sales_growth_wow_1)}></span>&nbsp;{(obj.sales_growth_wow_1)+' % '}
                                                   of <span className={glyphiconFormatter(obj.sales_growth_wow_2)}></span>{(obj.sales_growth_wow_2)+' % '} </h4>
-                                                <h4><b>{'WoW'}</b></h4>
+                                                <h5 className="kpiSubTitle"><b>{'WoW'}</b></h5>
                                               </div>
                                               <div className="col-xs-4">
                                                 <h4> <span className={glyphiconFormatter(obj.sales_growth_yoy_1)}></span>&nbsp;{(obj.sales_growth_yoy_1)+' % '}
                                                   of <span className={glyphiconFormatter(obj.sales_growth_yoy_2)}></span>{(obj.sales_growth_yoy_2)+' % '} </h4>
-                                                <h4><b>{'YoY'}</b></h4>
+                                                <h5 className="kpiSubTitle"><b>{'YoY'}</b></h5>
                                               </div>
                                               <div className="col-xs-4">
                                                 <h4> <span className={glyphiconFormatter(obj.sales_growth_yoy_lfl_1)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_1)+' % '}
                                                   of <span className={glyphiconFormatter(obj.sales_growth_yoy_lfl_2)}></span>{(obj.sales_growth_yoy_lfl_2)+' % '} </h4>
-                                                <h4><b>{'LFL'}</b></h4>
+                                                <h5 className="kpiSubTitle"><b>{'LFL'}</b></h5>
                                               </div>
                                             </div>
                                           </div>
@@ -671,8 +669,8 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                     borderRight: "1px solid #e5e8ea",
                                                     borderBottom: "1px solid #e5e8ea"
                                                   }}>
-                                                  <h4 className="pageModuleMainTitle"> Parent Supplier's value share in
-                                                    Category</h4>
+                                                  <h3 className="pageModuleSubTitle"> Parent Supplier's value share in
+                                                    Category</h3>
                                                   <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
                                                   <GaugeChart2 data={[obj.supp_imp_cat_sales]}
                                                                id="gauge1"/>
@@ -707,8 +705,8 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                     borderRight: "1px solid #e5e8ea",
                                                     borderBottom: "1px solid #e5e8ea"
                                                   }}>
-                                                  <h4 className="pageModuleMainTitle"> Category's value share to Parent
-                                                    Supplier </h4>
+                                                  <h3 className="pageModuleSubTitle"> Category's value share to Parent
+                                                    Supplier </h3>
                                                   <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
                                                   <GaugeChart2 data={[obj.cat_imp_supp_sales]}
                                                                id="gauge2"/>
@@ -770,7 +768,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                         <div>
                           <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect}>
-                            <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+                            <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
                               this.setState({activeKey3: "1"});
                               this.props.barChartSpinnerCheckSuccess(0);
                               TopBottomKpi = "top_bottom_kpi=part_by_val";
@@ -779,7 +777,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                             }}><span className="tab_label">{this.state.paticipationByTab}</span>
                             </NavItem>
 
-                            <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                            <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
                               this.setState({activeKey3: "2"});
                               this.props.barChartSpinnerCheckSuccess(0);
                               TopBottomKpi = "top_bottom_kpi=value_growth";
@@ -787,7 +785,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                               this.props.ontopBottomChart();
                             }}><span className="tab_label">{this.state.GrowthTab}</span></NavItem>
 
-                            <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+                            <NavItem className="tabsNavPanelList1" eventKey="3" onClick={() => {
                               this.setState({activeKey3: "3"});
                               this.props.barChartSpinnerCheckSuccess(0);
                               TopBottomKpi = "top_bottom_kpi=value_contribution";
@@ -800,8 +798,8 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                         <panel>
 
-                          <div className="col-md-6 col-sm-12 col-xs-12 panel-body">
-                            <h4 className="pageModuleMainTitle"> Top Parent Suppliers</h4>
+                          <div className="col-md-6 col-sm-12 col-xs-12 panel-body" style={{backgroundColor: "#f5f5f5"}}>
+                            <h3 className="pageModuleSubTitle"> Top Parent Suppliers</h3>
                             {(() => {
                               if (this.props.supplier.topBotData && this.props.supplier.barChartSpinnerCheck != 0) {
 
@@ -832,8 +830,8 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                             })()}
 
                           </div>
-                          <div className="col-md-6 col-sm-12 col-xs-12 panel-body">
-                            <h4 className="pageModuleMainTitle"> Bottom Parent Suppliers </h4>
+                          <div className="col-md-6 col-sm-12 col-xs-12 panel-body" style={{backgroundColor: "#f5f5f5"}}>
+                            <h3 className="pageModuleSubTitle"> Bottom Parent Suppliers </h3>
                             {(() => {
                               if (this.props.supplier.topBotData && this.props.supplier.barChartSpinnerCheck != 0) {
 
@@ -899,9 +897,9 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                       </div>
                       <div className="row" style={{marginLeft: "0px", marginRight: "0px"}}>
                         <div className="col-md-12 content-wrap">
-                          <Nav bsStyle="tabs" className="tabsCustom" activeKey={this.state.activeKey4}
+                          <Nav bsStyle="tabs" className="tabsNavPanelList1" activeKey={this.state.activeKey4}
                                onSelect={this.handleSelect}>
-                            <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+                            <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
                               this.setState({activeKey4: "1"});
                               this.props.bubbleChartSpinnerCheckSuccess(0);
                               this.props.tableChartSpinnerCheckSuccess(0);
@@ -910,7 +908,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                               this.props.onFetchGraph();
                               this.props.onGenerateTable();
                             }}><span className="tab_label">Main Estate</span></NavItem>
-                            <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                            <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
                               this.setState({activeKey4: "2"});
                               this.props.bubbleChartSpinnerCheckSuccess(0);
                               this.props.tableChartSpinnerCheckSuccess(0);

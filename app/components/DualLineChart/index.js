@@ -210,7 +210,7 @@ class DualLineChart extends React.PureComponent { // eslint-disable-line react/p
 
   render() {
     return (
-      <div id="sample_div_container">
+      <div id="sample_div_container"  style={{background:"#fff", border: "1px solid #ccc"}}>
         <svg id="sample" ref="image" fontFamily="sans-serif" fontSize="10"> </svg>
       </div>
     );
