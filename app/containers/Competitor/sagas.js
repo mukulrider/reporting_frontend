@@ -203,7 +203,6 @@ export function* generateCompetitorOutperformance() {
     yield put(CompetitorOutpermanceFetchSuccess(data));
     yield put(outPerformanceChartSuccess(spinnerCheck));
 
-
   } catch (err) {
     // console.log(err);
   }
@@ -229,15 +228,21 @@ export function* generateFilterFetch() {
     // const token = user_token.concat('___').concat(buyer)
 
     const urlName = yield select(selectCompetitorDomain());
-    const urlParams = urlName.get('filter_selection');
     const weekurlparams = urlName.get('filter_week_selection');
-    console.log(`${host_url}/api/reporting/competitor_filter_data?${urlParams}`,
+    let urlParams = urlName.get('filter_selection');
+
+    if (!(typeof(urlParams) == "undefined") && !(urlParams == "")) {
+      let urlParamsStringCheck = urlParams.substring(0, 2);
+      if (urlParamsStringCheck == 20) {
+        urlParams = urlParams.substring(14, urlParamsString.length);
+      }
+    }
       // {
       //   headers: {
       //     Authorization: token,
       //   },
       // }
-      );
+
 
     // if (urlParams==='')
     // {urlParams='default'

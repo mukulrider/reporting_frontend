@@ -121,7 +121,7 @@ function competitorReducer(state = initialState, action) {
       return state.set('filter_data', action.data)
 
     case CHECKBOX_CHANGE:
-      // console.log(CHECKBOX_CHANGE, 'reducer', action);
+      console.log('CHECKBOX_CHANGE--', action.data);
       return state.set('filter_selection', action.data);
 
     case CHECKBOX_WEEK_CHANGE:

@@ -178,7 +178,7 @@ export function FilterFetchSuccess(data)
 }
 
 export function checkboxChange(data) {
-  // console.log("Selection in reducer" + data);
+  console.log("Selection in reducer" + data);
   return {
 
     type: CHECKBOX_CHANGE,

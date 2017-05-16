@@ -297,13 +297,13 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
               </PanelGroup>
 
 
-              <Modal show={this.state.alertShow} bsSize="large" aria-labelledby="contained-modal-title-sm">
+              <Modal show={this.state.alertShow} bsSize="sm" aria-labelledby="contained-modal-title-sm" style={{marginTop: '10%'}}>
                 <Modal.Header>
                   <Modal.Title id="contained-modal-title-sm"
                                style={{textAlign: 'center', fontSize: '18px'}}><span
-                    style={{textAlign: 'center', fontSize: '14px'}}><b>Mandatory Filter Selection Missing</b><span
-                    style={{textAlign: 'right', float: 'right'}}
-                    onClick={() => this.setState({alertShow: false})}><b>X</b></span></span>
+                    style={{textAlign: 'center', fontSize: '14px'}}><b>Mandatory Filter Selection Missing</b></span><span
+                    style={{textAlign: 'right', float: 'right' , marginTop: '1.1%'}}
+                    onClick={() => this.setState({alertShow: false})} className="glyphicon glyphicon-remove-sign"></span>
                     <div style={{textAlign: 'center'}}>
                       <div style={{textAlign: 'right'}}>
                       </div>

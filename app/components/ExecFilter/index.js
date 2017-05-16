@@ -23,6 +23,7 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
     [...this.refs.selector.querySelectorAll('input')].map(obj => {
       if (obj.checked == true) {
         console.log("Objects", obj);
+        console.log("Objects -- queryString", queryString);
         let category = obj.id.split('__');
 
 
@@ -37,6 +38,7 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
       }
     });
     queryString = queryString.substring(0, queryString.length - 1);
+    console.log("Objects2 -- queryString2", queryString);
     // alert(queryString);
     // APPEND URL PARAMS
     // this.props.onGenerateUrlParamsString(queryString);
@@ -242,6 +244,7 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
                                                     isDisabled={!obj.highlighted}
                                 />
                               }
+
                               return <Checkbox style="font-size:12px;"
                                                id={item.id + '__' + item.category_director + '__' + obj.title}
                                                label={obj.title}
@@ -249,6 +252,8 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
                                                key={item.id + '__' + obj.title}
                                                name={obj.title.toLowerCase()}
                                                onChange={() => {
+                                                 console.log('item.id for exec',item);
+                                                 console.log('item.id for exec',obj);
                                                  this.updateUrl(item.id)
                                                }}
                                                checked={obj.resource.selected}
@@ -292,13 +297,14 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
                 })}
               </PanelGroup>
 
-              <Modal show={this.state.alertShow} bsSize="large" aria-labelledby="contained-modal-title-sm">
+              <Modal show={this.state.alertShow}  bsSize="sm" aria-labelledby="contained-modal-title-sm" style={{marginTop: '10%'}}>
+
                 <Modal.Header>
                   <Modal.Title id="contained-modal-title-sm"
                                style={{textAlign: 'center', fontSize: '18px'}}><span
-                    style={{textAlign: 'center', fontSize: '14px'}}><b>Mandatory Filter Selection Missing</b><span
-                    style={{textAlign: 'right', float: 'right'}}
-                    onClick={() => this.setState({alertShow: false})}><b>X</b></span></span>
+                    style={{textAlign: 'center', fontSize: '14px'}}><b> Mandatory Filter Selection Missing</b></span><span
+                    style={{textAlign: 'right', float: 'right', marginTop: '1.1%'}}
+                    onClick={() => this.setState({alertShow: false})} className="glyphicon glyphicon-remove-sign"></span>
                     <div style={{textAlign: 'center'}}>
                       <div style={{textAlign: 'right'}}>
                       </div>

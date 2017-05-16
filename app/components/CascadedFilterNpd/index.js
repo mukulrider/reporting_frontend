@@ -41,6 +41,37 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
   }
 
 
+  updateUrl = (category) => {
+    let queryString = '';
+    [...this.refs.selector.querySelectorAll('input')].map(obj => {
+      if (obj.checked == true) {
+        console.log("Objects", obj);
+        console.log("Objects category", category);
+        let category = obj.id.split('__');
+        // let category = category.split('__');
+
+        // if (category[0] === 'buying_controller') {
+        //   this.props.onGenerateBuyingController(category[category.length - 1])
+        // }
+        // if (category[1] === 'category_director') {
+        //   // this.props.onGenerateBuyingController(category[category.length - 1])
+        //   this.props.onGenerateCategoryDirector(category[category.length - 2])
+        // }
+        queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
+      }
+    });
+
+    queryString = queryString.substring(0, queryString.length - 1);
+    console.log('queryString for prod',queryString);
+    queryString = queryString.substring(14, queryString.length);
+    console.log('queryString for prod',queryString);
+
+
+    this.props.onCheckboxChange(queryString);
+    this.props.onGenerateSideFilter();
+  };
+
+
   applyButtonFunctionality = () => {
     let newUrl = this.props.location.pathname;
     let x = '';
@@ -50,7 +81,6 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
       let split = obj.id.split('__');
 
       x = x + split[1] + "=" + split[0] + "&";
-
 
     });
     //
@@ -62,7 +92,7 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
     this.props.onCompetitorPieChart(urlParams);
     this.props.onCompetitorPriceRange();
     this.props.onCompWaterfall();
-
+    this.props.onCompetitorOutperformance();
 
   };
 
@@ -195,7 +225,8 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
                       this.props.filter_data.map((obj, key) => {
                         let panelHeader = (
                           <div className="text-capitalize">
-                            {obj.name.replace(/_/g, ' ')}&nbsp;<span style={{color: "red"}}>*</span>&nbsp;
+                            {obj.name.replace(/_/g, ' ')}&nbsp;{obj.required ?
+                            <span style={{color: 'red'}}>*</span> : '' } &nbsp;
                             <span className="accordion-toggle" style={{float: 'right'}}></span>
                           </div>
                         );
@@ -215,7 +246,7 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
                                   {
                                     obj.items.map(obj2 => {
                                       finalCheckbox.push(
-                                        <Checkbox id={obj2.name + '__' + obj.name}
+                                        <Checkbox id={obj.name  + '__' + obj2.name}
                                                   label={obj2.name}
                                                   style={{fontSize: '10px'}}
                                                   checked={(() => {
@@ -224,17 +255,24 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
                                                   onChange={() => {
 
                                                     let previous_selection = this.props.previous_selection;
-                                                    let selection = obj.name + "=" + obj2.name;
+                                                    {/*let selection = obj.name + "=" + obj2.name;*/}
+                                                    let selection = obj.name + "__" + obj2.name;
                                                     //For enabling un checking
-                                                    {/*console.log('previous_selection',previous_selection);*/
-                                                    }
-                                                    {/*console.log('selection',selection);*/
-                                                    }
+
                                                     if (previous_selection == selection) {
                                                       selection = '';
                                                     }
-                                                    this.props.onCheckboxChange(selection);
-                                                    this.props.onGenerateSideFilter();
+                                                    console.log('obj for comp', obj);
+                                                    console.log('obj2 for comp', obj2);
+                                                    let abc = obj.name+"__"+obj2.name;
+                                                    console.log('obj3 for comp', abc);
+
+                                                    this.updateUrl(selection)
+
+
+                                                    {/*this.updateUrl(obj.name+"__"+obj2.name)*/}
+                                                    {/*this.props.onCheckboxChange(selection);*/}
+                                                    {/*this.props.onGenerateSideFilter();*/}
                                                   }}
                                                   isDisabled={obj2.disabled}
                                                   valid={true}
@@ -273,13 +311,13 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
                 })()}
               </PanelGroup>
 
-              <Modal show={this.state.alertShow} bsSize="large" aria-labelledby="contained-modal-title-sm">
+              <Modal show={this.state.alertShow} bsSize="sm" aria-labelledby="contained-modal-title-sm" style={{marginTop: '10%'}}>
                 <Modal.Header>
                   <Modal.Title id="contained-modal-title-sm"
                                style={{textAlign: 'center', fontSize: '18px'}}><span
-                    style={{textAlign: 'center', fontSize: '14px'}}><b>Mandatory Filter Selection Missing</b><span
-                    style={{textAlign: 'right', float: 'right'}}
-                    onClick={() => this.setState({alertShow: false})}><b>X</b></span></span>
+                    style={{textAlign: 'center', fontSize: '14px'}}><b>Mandatory Filter Selection Missing</b></span><span
+                    style={{textAlign: 'right', float: 'right', marginTop: '1.1%'}}
+                    onClick={() => this.setState({alertShow: false})}  className="glyphicon glyphicon-remove-sign"></span>
                     <div style={{textAlign: 'center'}}>
                       <div style={{textAlign: 'right'}}>
                       </div>
