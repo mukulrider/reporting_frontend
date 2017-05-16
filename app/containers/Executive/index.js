@@ -829,7 +829,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
               {(() => {
                 if (this.props.Executive.kpi_param=='kpi_type=Overview') {
                   return (
-                    <div className="mainBox">
+                    <div className="coverBox">
 
                       {/*Row for overview KPI Boxes */}
                       <div className="headerBox">
@@ -996,7 +996,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               <div className="col-md-8 ">
                                 <div className="row">
                                   {/*BarChart for Forecast*/}
-                                  <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
+                                  <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6" style={{background:"#fff", border: "1px solid #ccc"}}>
                                     <class className="col-md-9 col-xs-12 col-sm-9 col-lg-9">
                                       <h2 className="pageModuleSubTitle">Value vs. Forecast</h2>
                                     </class>
@@ -1023,7 +1023,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               </BarChartSimple>
                             </div>
 
-                            <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
+                            <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6" style={{background:"#fff", border: "1px solid #ccc"}}>
                               <class className="col-md-9 col-xs-12 col-sm-9 col-lg-9">
                                 <h2 className="pageModuleSubTitle">Value vs. Budget</h2>
                               </class>
@@ -1493,7 +1493,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                           {this.props.Executive.overview_drivers_external_data.sunshine.wow }%
                           </h3>
-                          <h4 className="kpiSubTitle">WoW</h4>
+                          <h4 className="kpiSubTitle"><b>WoW</b></h4>
 
                           </div>
                           <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
@@ -1560,7 +1560,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                           {this.props.Executive.overview_drivers_external_data.rainfall.wow }%
                           </h3>
-                          <h4 className="kpiSubTitle">WoW</h4>
+                          <h4 className="kpiSubTitle"><b>WoW</b></h4>
 
                           </div>
                           <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
@@ -1627,7 +1627,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                           {this.props.Executive.overview_drivers_external_data.temperature.wow }%
                           </h3>
-                          <h4 className="kpiSubTitle">WoW</h4>
+                          <h4 className="kpiSubTitle"><b>WoW</b></h4>
 
                           </div>
                           <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
@@ -1723,7 +1723,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   {
 
                     return (
-                      <div className="mainBox" >
+                      <div className="coverBox" >
 
                         {/*Row for price KPIS*/}
 
@@ -1976,7 +1976,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                   else {
                     return (
-                      <div className="mainBox">
+                      <div className="coverBox">
 
                         {/*Row for KPIS*/}
                         {(() =>{
@@ -1994,6 +1994,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                     {
                                       return "col-md-6 col-xs-12 col-sm-6 col-lg-6"
                                     }  })()} style={{backgroundColor: "#eee #eee #ddd",borderRight: "1px solid #e5e8ea"}}>
+
                                     <Panel>
                                       <h3 className="pageModuleSubTitle"> Total {this.props.Executive.kpi_boxes_data.kpi_name} </h3>
                                       <div style={{paddingLeft: '5%'}}>
@@ -2011,7 +2012,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
 
 
-                                              <h3>
+                                              <h4>
                           <span
                             className={(() => {
                               if (this.props.Executive.kpi_boxes_data.total_value.wow > 0)
@@ -2027,13 +2028,13 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         </span>
                                                 {this.props.Executive.kpi_boxes_data.total_value.wow}%
-                                              </h3>
-                                              <h4 className="kpiSubTitle">WoW</h4>
+                                              </h4>
+                                              <h5 className="kpiSubTitle"><b>WoW</b></h5>
 
                                             </div>
                                             <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
 
-                                              <h3>
+                                              <h4>
                           <span
                             className={(() => {
                               if (this.props.Executive.kpi_boxes_data.total_value.yoy > 0)
@@ -2049,13 +2050,13 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         </span>
                                                 {this.props.Executive.kpi_boxes_data.total_value.yoy}%
-                                              </h3>
-                                              <h4 className="kpiSubTitle">YoY</h4>
+                                              </h4>
+                                              <h5 className="kpiSubTitle"><b>YOY</b></h5>
 
                                             </div>
                                             <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
 
-                                              <h3>
+                                              <h4>
                           <span
                             className={(() => {
                               if (this.props.Executive.kpi_boxes_data.total_value.lfl > 0)
@@ -2071,15 +2072,15 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         </span>
                                                 {this.props.Executive.kpi_boxes_data.total_value.lfl}%
-                                              </h3>
-                                              <h4 className="kpiSubTitle">LFL</h4>
+                                              </h4>
+                                              <h5 className="kpiSubTitle">LFL</h5>
 
                                             </div>
                                           </div>
                                         </div>
                                       </div>
                                     </Panel>
-                                  </div>
+</div>
 
                                   {/*Block for contribution to growth*/}
                                   <div className={(() => {
@@ -2108,7 +2109,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
 
 
-                                              <h3>
+                                              <h4>
                           <span
                             className={(() => {
                               if (this.props.Executive.kpi_boxes_data.growth.wow > 0)
@@ -2124,13 +2125,13 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         </span>
                                                 {this.props.Executive.kpi_boxes_data.growth.wow}%
-                                              </h3>
-                                              <h4 className="kpiSubTitle">WoW</h4>
+                                              </h4>
+                                              <h5 className="kpiSubTitle"><b>WoW</b></h5>
 
                                             </div>
                                             <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
 
-                                              <h3>
+                                              <h4>
                           <span
                             className={(() => {
                               if (this.props.Executive.kpi_boxes_data.growth.yoy > 0)
@@ -2146,13 +2147,13 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         </span>
                                                 {this.props.Executive.kpi_boxes_data.growth.yoy}%
-                                              </h3>
-                                              <h4 className="kpiSubTitle">YoY</h4>
+                                              </h4>
+                                              <h5 className="kpiSubTitle"><b>YOY</b></h5>
 
                                             </div>
                                             <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
 
-                                              <h3>
+                                              <h4>
                           <span
                             className={(() => {
                               if (this.props.Executive.kpi_boxes_data.growth.lfl > 0)
@@ -2168,8 +2169,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         </span>
                                                 {this.props.Executive.kpi_boxes_data.growth.lfl}%
-                                              </h3>
-                                              <h4 className="kpiSubTitle">LFL</h4>
+                                              </h4>
+                                              <h5 className="kpiSubTitle"><b>LFL</b></h5>
 
                                             </div>
                                           </div>

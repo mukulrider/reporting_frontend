@@ -58,7 +58,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
   render() {
     let kpiParmas = this.props.DailySales.kpi_param;
     return (
-      <Panel>
+      <Panel  style={{background:"#fafafa"}}>
         <div>
           <Helmet
             title="DailySales"

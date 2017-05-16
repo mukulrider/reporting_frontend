@@ -327,7 +327,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
   render() {
 
     return (
-      <div id={this.props.id}>
+      <div style={{background:"#fff", border: "1px solid #ccc"}} id={this.props.id}>
       </div>
     );
   }

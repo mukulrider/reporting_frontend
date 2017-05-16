@@ -327,7 +327,7 @@ export class Competitor extends React.PureComponent {
             </span> </h4>
 
             <div className="row">
-              <div className="col-xs-4 panel-body ts-blk-proview">
+              <div className="col-xs-4 panel-body ts-blk-proview" style={{backgroundColor: "#fff", border: "1px solid #ccc" }}>
                 <div className="col-md-9 col-sm-9 col-xs-9">
                   <h4 className="pageModuleSubTitle"><b>Market Share</b></h4>
                 </div>
@@ -416,7 +416,7 @@ export class Competitor extends React.PureComponent {
                   if (this.props.competitor.outperformance_data && (this.props.competitor.outperformanceChartSpinnerSuccess == 1)) {
                     console.log("Outperformance data", this.props.competitor.outperformance_data);
                     return (
-                      <div>
+                      <div style={{backgroundColor: "#fff" , border: "1px solid #ccc"}}>
                         <BarLineChart data={this.props.competitor.outperformance_data} id="barline" ref="competitorOutperformComp" series_col_name= 'id'/>
                       </div>
                     )
@@ -525,7 +525,7 @@ export class Competitor extends React.PureComponent {
 
             <div className="row">
               <div className="col-md-6 col-sm-12 col-sm-12">
-              <div className="col-md-12 col-sm-12 panel-body ts-blk-proview" style={{background:"#fff"}}>
+              <div className="col-md-12 col-sm-12 panel-body ts-blk-proview" style={{background:"#fff" , border: "1px solid #ccc"}}>
                 <div className="col-md-9 col-sm-9 col-xs-9">
                   <h4 className="pageModuleSubTitle"><b>Asda</b></h4>
                 </div>
@@ -569,7 +569,7 @@ export class Competitor extends React.PureComponent {
               </div>
               </div>
               <div className="col-md-6 col-sm-12 col-xs-12">
-              <div className="col-md-12 col-sm-12  panel-body ts-blk-proview" style={{background:"#fff"}}>
+              <div className="col-md-12 col-sm-12  panel-body ts-blk-proview" style={{background:"#fff" , border: "1px solid #ccc"}}>
                 <div className="col-md-9 col-sm-9 col-xs-9">
                   <h4 className="pageModuleSubTitle"><b>JS</b></h4>
                 </div>
@@ -616,7 +616,7 @@ export class Competitor extends React.PureComponent {
             </div>
             <div className="row" style={{marginTop:"20px"}}>
               <div className="col-md-6 col-sm-12 col-xs-12">
-                <div className="col-md-12 col-sm-12 col-xs-12 panel-body" style={{background:"#fff"}}>
+                <div className="col-md-12 col-sm-12 col-xs-12 panel-body" style={{background:"#fff", border: "1px solid #ccc"}}>
                 <div className="col-md-9 col-sm-9 col-xs-9">
                 <h4 className="pageModuleSubTitle"><b>Morrisons</b></h4>
                 </div>
@@ -657,7 +657,7 @@ export class Competitor extends React.PureComponent {
               </div>
               </div>
               <div className="col-md-6 col-sm-12 col-xs-12">
-              <div className="col-md-12 col-sm-12 col-xs-12 panel-body" style={{background:"#fff"}}>
+              <div className="col-md-12 col-sm-12 col-xs-12 panel-body" style={{background:"#fff", border: "1px solid #ccc"}}>
 
                 <div className="col-md-9 col-sm-9 col-xs-9">
                   <h4 className="pageModuleSubTitle"><b>Aldi</b></h4>
@@ -738,7 +738,7 @@ export class Competitor extends React.PureComponent {
                 if (this.props.competitor.pricerange_data && (this.props.competitor.priceRangeChartSpinnerSuccess)) {
                   console.log("---------------------check---------  ", this.props.competitor.pricerange_data);
                   return (
-                    <div>
+                    <div style={{background:"#fff", border: "1px solid #ccc"}}>
                       <div style={{float:"right"}}>
                         <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                           <MenuItem onClick={() => {

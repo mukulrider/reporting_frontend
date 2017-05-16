@@ -199,7 +199,7 @@ export class Promotion extends React.PureComponent {
                 }
               })()}
             </div>
-          <div className="col-md-12 content-wrap">
+          <div className="col-md-12 content-wrap" style={{background:"#fafafa"}}>
               <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom">
               <NavItem className="tabsCustomListTime" eventKey="1" onClick={() => {
 

@@ -16,7 +16,7 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
   {
     // let data = [10, 20];
     let frameWidth = document.getElementById(id).clientWidth;
-    let margin = {top: 30, right: 30, bottom: 30, left: 30},
+    let margin = {top: 20, right: 30, bottom: 5, left: 30},
       width = frameWidth - margin.left - margin.right,
       height = frameWidth - margin.top - margin.bottom,
       radius = Math.min(width, height) / 2.2;
@@ -41,7 +41,7 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
 
      let svg = d3.select("#" + id + '_svg')
        .attr("width", frameWidth)
-       .attr("height", frameWidth*0.8)
+       .attr("height", frameWidth*0.2)
        //responsive SVG needs these 2 attributes and no width and height attr
        .attr("preserveAspectRatio", "xMinYMin meet")
        .attr("viewBox", "0 0 400 400")
