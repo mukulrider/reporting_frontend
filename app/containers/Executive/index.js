@@ -1656,66 +1656,29 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                       <div className="row">
                                         <div className="panel-body cardPanel">
                                           <div className="col-md-3 kpiSmall">
-
-
                                             <h4>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.price_kpi_data.ACPInfl_var_yoy> 0)
-                              {
-                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                              }
-                              else if (this.props.Executive.price_kpi_data.ACPInfl_var_yoy < 0)
-                              {
-                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}></span>
-                                              {this.props.Executive.price_kpi_data.ACPInfl_var_yoy}%
+                                              <span className={glyphiconFormatter(this.props.Executive.price_kpi_data.ACPInfl_var_yoy)}>
+                                              </span>{this.props.Executive.price_kpi_data.ACPInfl_var_yoy}%
                                             </h4>
                                             <h5 className="kpiSubTitle"><b>YoY</b></h5>
-
                                           </div>
-                                          <div className="col-md-3 kpiSmall">
 
+                                          <div className="col-md-3 kpiSmall">
                                             <h4>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.price_kpi_data.ACPInfl_var_lfl> 0)
-                              {
-                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                              }
-                              else if (this.props.Executive.price_kpi_data.ACPInfl_var_lfl < 0)
-                              {
-                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}></span>
-                                              {this.props.Executive.price_kpi_data.ACPInfl_var_lfl}%
+                                              <span className={glyphiconFormatter(this.props.Executive.price_kpi_data.ACPInfl_var_lfl)}>
+                                              </span>{this.props.Executive.price_kpi_data.ACPInfl_var_lfl}%
                                             </h4>
                                             <h5 className="kpiSubTitle"><b>LFL</b></h5>
-
                                           </div>
-                                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
 
+                                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
                                             <h4>
-                          <span
-                            className={(() => {
-                              if (this.props.Executive.price_kpi_data.ACPInfl_var_wow> 0)
-                              {
-                                return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                              }
-                              else if (this.props.Executive.price_kpi_data.ACPInfl_var_wow < 0)
-                              {
-                                return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                              } else {
-                                return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                              } })()}></span>
-                                              {this.props.Executive.price_kpi_data.ACPInfl_var_wow}%
+                                              <span className={glyphiconFormatter(this.props.Executive.price_kpi_data.ACPInfl_var_wow)}>
+                                              </span>{this.props.Executive.price_kpi_data.ACPInfl_var_wow}%
                                             </h4>
                                             <h5 className="kpiSubTitle"><b>WoW</b></h5>
-
                                           </div>
+
                                         </div>
                                       </div>
                                     </Panel>
