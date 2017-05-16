@@ -73,7 +73,7 @@ import {
 } from 'containers/Executive/selectors';
 
 
-let host_url="http://127.0.0.1:8000";
+let host_url="http://172.20.246.11:8000";
 
 // All sagas to be loaded
 
@@ -235,7 +235,7 @@ export function* generateOverviewKPITrendDataFetch() {
   console.log("Heres the generateOverviewKPITrendDataFetch data",data);
   yield put(OverviewKpiTrendDataFetchSuccess(data));
 
-  let spinnerflag = 1
+  let spinnerflag = 1;
   yield put(spinnerOverviewKPITrend(spinnerflag));
 
   // } catch (err) {
@@ -278,7 +278,7 @@ export function* generateOverviewDriversInternalDataFetch() {
   console.log("Heres the generateOverviewDriversInternalDataFetch data",data);
   yield put(OverviewDriversInternalDataFetchSuccess(data));
 
-  let spinnerflag = 1
+  let spinnerflag = 1;
   yield put(spinnerOverviewInternalDrivers(spinnerflag));
 
   // } catch (err) {
@@ -321,7 +321,7 @@ export function* generateOverviewDriversExternalDataFetch() {
   console.log("Heres the generateOverviewDriversExternalDataFetch data",data);
   yield put(OverviewDriversExternalDataFetchSuccess(data));
 
-  let spinnerflag = 1
+  let spinnerflag = 1;
   yield put(spinnerOverviewExternalDrivers(spinnerflag));
 
 
@@ -712,7 +712,7 @@ export function* generateDriversInternalFetch() {
   yield put(DriversInternalDataFetchSuccess(data));
 
 
-  let spinnerflag = 1
+  let spinnerflag = 1;
   yield put(spinnerInternalDrivers(spinnerflag));
 
 
@@ -758,7 +758,7 @@ export function* generateDriversExternalFetch() {
   yield put(DriversExternalDataFetchSuccess(data));
 
 
-  let spinnerflag = 1
+  let spinnerflag = 1;
   yield put(spinnerExternalDrivers(spinnerflag));
 
 

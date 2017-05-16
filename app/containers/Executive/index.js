@@ -849,14 +849,42 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               </h3>
 
                               <div className="row">
-                                  <div className="col-md-6 col-xs-12 kpiSmall">
-                                    <h4>
-                                      <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.value.var_wow)}></span>
-                                        {(this.props.Executive.overview_kpi_data.kpi.value.var_wow)+'%'}
-                                    </h4>
-                                    <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                                  </div>
-                                  <div className="col-md-6 col-xs-12 kpiSmall">
+                                {(() =>{
+                                    if(this.props.Executive.week_param=='week_flag=Current Week')
+                                    {
+                                      return(
+                                        <div className="col-md-6 col-xs-12 kpiSmall">
+                                          <h4>
+                                            <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.value.var_wow)}></span>
+                                            {(this.props.Executive.overview_kpi_data.kpi.value.var_wow)+'%'}
+                                          </h4>
+                                          <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                        </div>
+                                      )
+                                    }
+
+
+                                  }
+
+                                )()}
+
+
+
+                                  <div className={(() =>{
+                                      if(this.props.Executive.week_param=='week_flag=Current Week')
+                                      {
+                                        return(
+                                          "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                        )
+                                      }
+                                      else{
+                                        return(
+                                          "col-md-12 col-xs-12 col-sm-12 col-lg-12 kpismall"
+                                        )
+                                      }
+                                    }
+
+                                  )()}>
                                     <h4>
                                       <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.value.var_yoy)}></span>
                                         {(this.props.Executive.overview_kpi_data.kpi.value.var_yoy)+'%'}
@@ -874,14 +902,43 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 {this.props.Executive.overview_kpi_data.kpi.volume.total}
                               </h3>
                               <div className="row">
-                                  <div className="col-md-6 col-xs-12 kpiSmall">
-                                    <h4>
-                                      <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.volume.var_wow)}></span>
-                                      {(this.props.Executive.overview_kpi_data.kpi.volume.var_wow)+'%'}
-                                    </h4>
-                                    <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                                  </div>
-                                  <div className="col-md-6 col-xs-12 kpiSmall">
+
+                                {(() =>{
+                                    if(this.props.Executive.week_param=='week_flag=Current Week')
+                                    {
+                                      return(
+                                        <div className="col-md-6 col-xs-12 kpiSmall">
+                                          <h4>
+                                            <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.volume.var_wow)}></span>
+                                            {(this.props.Executive.overview_kpi_data.kpi.volume.var_wow)+'%'}
+                                          </h4>
+                                          <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                        </div>
+                                      )
+                                    }
+
+
+                                  }
+
+                                )()}
+
+
+
+                                  <div className={(() =>{
+                                      if(this.props.Executive.week_param=='week_flag=Current Week')
+                                      {
+                                        return(
+                                          "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                        )
+                                      }
+                                      else{
+                                        return(
+                                          "col-md-12 col-xs-12 col-sm-12 col-lg-12 kpismall"
+                                        )
+                                      }
+                                    }
+
+                                  )()}>
                                     <h4>
                                       <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.volume.var_yoy)}></span>
                                       {(this.props.Executive.overview_kpi_data.kpi.volume.var_yoy)+'%'}
@@ -899,14 +956,43 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 {this.props.Executive.overview_kpi_data.kpi.cogs.total}
                               </h3>
                               <div className="row">
-                                  <div className="col-md-6 col-xs-12 kpiSmall">
-                                    <h4>
-                                      <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.cogs.var_wow)}></span>
-                                      {(this.props.Executive.overview_kpi_data.kpi.cogs.var_wow)+'%'}
-                                    </h4>
-                                    <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                                  </div>
-                                  <div className="col-md-6 col-xs-12 kpiSmall">
+                                {(() =>{
+                                    if(this.props.Executive.week_param=='week_flag=Current Week')
+                                    {
+                                      return(
+                                        <div className="col-md-6 col-xs-12 kpiSmall">
+                                          <h4>
+                                            <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.cogs.var_wow)}></span>
+                                            {(this.props.Executive.overview_kpi_data.kpi.cogs.var_wow)+'%'}
+                                          </h4>
+                                          <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                        </div>
+                                      )
+                                    }
+
+
+                                  }
+
+                                )()}
+
+
+
+
+                                  <div className={(() =>{
+                                      if(this.props.Executive.week_param=='week_flag=Current Week')
+                                      {
+                                        return(
+                                          "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                        )
+                                      }
+                                      else{
+                                        return(
+                                          "col-md-12 col-xs-12 col-sm-12 col-lg-12 kpismall"
+                                        )
+                                      }
+                                    }
+
+                                  )()}>
                                     <h4>
                                       <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.cogs.var_yoy)}></span>
                                       {(this.props.Executive.overview_kpi_data.kpi.cogs.var_yoy)+'%'}
@@ -925,14 +1011,43 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               </h3>
 
                               <div className="row" >
-                                  <div className="col-md-6 col-xs-12 kpiSmall">
-                                    <h4>
-                                      <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.cgm.var_wow)}></span>
-                                      {(this.props.Executive.overview_kpi_data.kpi.cgm.var_wow)+'%'}
-                                    </h4>
-                                    <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                                  </div>
-                                  <div className="col-md-6 col-xs-12 kpiSmall">
+                                {(() =>{
+                                    if(this.props.Executive.week_param=='week_flag=Current Week')
+                                    {
+                                      return(
+                                        <div className="col-md-6 col-xs-12 kpiSmall">
+                                          <h4>
+                                            <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.cgm.var_wow)}></span>
+                                            {(this.props.Executive.overview_kpi_data.kpi.cgm.var_wow)+'%'}
+                                          </h4>
+                                          <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                        </div>
+                                      )
+                                    }
+
+
+                                  }
+
+                                )()}
+
+
+
+
+                                  <div className={(() =>{
+                                      if(this.props.Executive.week_param=='week_flag=Current Week')
+                                      {
+                                        return(
+                                          "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                        )
+                                      }
+                                      else{
+                                        return(
+                                          "col-md-12 col-xs-12 col-sm-12 col-lg-12 kpismall"
+                                        )
+                                      }
+                                    }
+
+                                  )()}>
                                     <h4>
                                       <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.cgm.var_yoy)}></span>
                                       {(this.props.Executive.overview_kpi_data.kpi.cgm.var_yoy)+'%'}
@@ -945,7 +1060,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         </div>
                         <div className="row mainBox" style={{textAlign: 'center',backgroundColor: "#fafafa"}}>
-                          {/* Box for value */}
+                          {/* Box for price */}
                           <div className="col-md-6 col-xs-6" style={{backgroundColor: "#eee #eee #ddd"}}>
                             <Panel>
                               <h3 className="col-md-6 col-xs-6 pageModuleSubTitle"   style = {{marginBottom:"0px"}}> Price </h3>
@@ -1431,15 +1546,41 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                           <div className="row">
                             <div className="panel-body cardPanel">
-                              <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
-                                <h4>
+
+                              {(() =>{
+                                  if(this.props.Executive.week_param=='week_flag=Current Week')
+                                  {
+                                    return(
+                                      <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall"  style={{ textAlign : "center"}}>
+                                        <h4>
                                   <span className={glyphiconFormatter(this.props.Executive.overview_drivers_external_data.sunshine.wow)}>
                                   </span>{this.props.Executive.overview_drivers_external_data.sunshine.wow }%
-                                </h4>
-                                <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                              </div>
+                                        </h4>
+                                        <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                      </div>
+                                    )
+                                  }
 
-                              <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
+
+                                }
+
+                              )()}
+
+
+
+
+                              <div className={(() =>{
+                                if(this.props.Executive.week_param=='week_flag=Current Week')
+                                {
+                                  return(
+                                    "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                  )
+                                }
+                                else{
+                                return(
+                                  "col-md-12 col-xs-12 col-sm-12 col-lg-12"
+                                )}
+                              }  )()} style={{ textAlign : "center"}}>
                                 <h4>
                                   <span className={glyphiconFormatter(this.props.Executive.overview_drivers_external_data.sunshine.yoy)}>
                                   </span>{this.props.Executive.overview_drivers_external_data.sunshine.yoy}%
@@ -1465,14 +1606,39 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           </div>
                           <div className="row">
                             <div className="panel-body cardPanel">
-                              <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
-                                <h4>
+                              {(() =>{
+                                  if(this.props.Executive.week_param=='week_flag=Current Week')
+                                  {
+                                    return(
+                                      <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall"  style={{ textAlign : "center"}}>
+                                        <h4>
                                   <span className={glyphiconFormatter(this.props.Executive.overview_drivers_external_data.rainfall.wow)}>
                                   </span>{this.props.Executive.overview_drivers_external_data.rainfall.wow }%
-                                </h4>
-                                <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                              </div>
-                              <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
+                                        </h4>
+                                        <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                      </div>
+                                    )
+                                  }
+
+
+                                }
+
+                              )()}
+
+
+
+                              <div className={(() =>{
+                                if(this.props.Executive.week_param=='week_flag=Current Week')
+                                {
+                                  return(
+                                    "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                  )
+                                }
+                                else{
+                                  return(
+                                    "col-md-12 col-xs-12 col-sm-12 col-lg-12"
+                                  )}
+                              } )()}  style={{ textAlign : "center"}}>
                                 <h4>
                                   <span className={glyphiconFormatter(this.props.Executive.overview_drivers_external_data.rainfall.yoy)}>
                                   </span>{this.props.Executive.overview_drivers_external_data.rainfall.yoy}%
@@ -1496,15 +1662,40 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             <div className="row">
                               <div className="panel-body cardPanel">
 
-                                <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
-                                  <h4>
+                                {(() =>{
+                                    if(this.props.Executive.week_param=='week_flag=Current Week')
+                                    {
+                                      return(
+                                        <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall"  style={{ textAlign : "center"}}>
+                                          <h4>
                                     <span className={glyphiconFormatter(this.props.Executive.overview_drivers_external_data.temperature.wow)}>
                                     </span>{this.props.Executive.overview_drivers_external_data.temperature.wow }%
-                                  </h4>
-                                  <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                                </div>
+                                          </h4>
+                                          <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                        </div>
+                                      )
+                                    }
 
-                                <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
+
+                                  }
+
+                                )()}
+
+
+
+
+                                <div className={(() =>{
+                                  if(this.props.Executive.week_param=='week_flag=Current Week')
+                                  {
+                                    return(
+                                      "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                    )
+                                  }
+                                  else{
+                                    return(
+                                      "col-md-12 col-xs-12 col-sm-12 col-lg-12"
+                                    )}
+                                } )()}  style={{ textAlign : "center"}}>
                                   <h4>
                                     <span className={glyphiconFormatter(this.props.Executive.overview_drivers_external_data.temperature.yoy)}>
                                     </span>{this.props.Executive.overview_drivers_external_data.temperature.yoy}%
@@ -1606,7 +1797,21 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                       </div>
                                       <div className="row">
                                         <div className="panel-body cardPanel">
-                                          <div className="col-md-3 kpiSmall">
+                                          <div className={(() =>{
+                                              if(this.props.Executive.week_param=='week_flag=Current Week')
+                                              {
+                                                return(
+                                                  "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
+                                                )
+                                              }
+                                              else{
+                                                return(
+                                                  "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                                )
+                                              }
+                                            }
+
+                                          )()}>
                                             <h4>
                                               <span className={glyphiconFormatter(this.props.Executive.price_kpi_data.ASPInfl_var_yoy)}>
                                               </span>{this.props.Executive.price_kpi_data.ASPInfl_var_yoy}%
@@ -1614,7 +1819,21 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             <h5 className="kpiSubTitle"><b>YoY</b></h5>
                                           </div>
 
-                                          <div className="col-md-3 kpiSmall">
+                                          <div className={(() =>{
+                                              if(this.props.Executive.week_param=='week_flag=Current Week')
+                                              {
+                                                return(
+                                                  "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
+                                                )
+                                              }
+                                              else{
+                                                return(
+                                                  "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                                )
+                                              }
+                                            }
+
+                                          )()}>
                                             <h4>
                                               <span className={glyphiconFormatter(this.props.Executive.price_kpi_data.ASPInfl_var_lfl)}>
                                               </span>{this.props.Executive.price_kpi_data.ASPInfl_var_lfl}%
@@ -1622,13 +1841,26 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             <h5 className="kpiSubTitle"><b>LFL</b></h5>
                                           </div>
 
-                                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
-                                            <h4>
+                                          {(() =>{
+                                              if(this.props.Executive.week_param=='week_flag=Current Week')
+                                              {
+                                                return(
+                                                  <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpiSmall">
+                                                    <h4>
                                               <span className={glyphiconFormatter(this.props.Executive.price_kpi_data.ASPInfl_var_wow)}>
                                               </span>{this.props.Executive.price_kpi_data.ASPInfl_var_wow}%
-                                            </h4>
-                                            <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                                          </div>
+                                                    </h4>
+                                                    <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                                  </div>
+                                                )
+                                              }
+
+                                            }
+
+                                          )()}
+
+
+
 
                                         </div>
                                       </div>
@@ -1651,7 +1883,21 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                       </div>
                                       <div className="row">
                                         <div className="panel-body cardPanel">
-                                          <div className="col-md-3 kpiSmall">
+                                          <div  className={(() =>{
+                                              if(this.props.Executive.week_param=='week_flag=Current Week')
+                                              {
+                                                return(
+                                                  "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
+                                                )
+                                              }
+                                              else{
+                                                return(
+                                                  "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                                )
+                                              }
+                                            }
+
+                                          )()}>
                                             <h4>
                                               <span className={glyphiconFormatter(this.props.Executive.price_kpi_data.ACPInfl_var_yoy)}>
                                               </span>{this.props.Executive.price_kpi_data.ACPInfl_var_yoy}%
@@ -1659,7 +1905,21 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             <h5 className="kpiSubTitle"><b>YoY</b></h5>
                                           </div>
 
-                                          <div className="col-md-3 kpiSmall">
+                                          <div  className={(() =>{
+                                              if(this.props.Executive.week_param=='week_flag=Current Week')
+                                              {
+                                                return(
+                                                  "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
+                                                )
+                                              }
+                                              else{
+                                                return(
+                                                  "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                                )
+                                              }
+                                            }
+
+                                          )()}>
                                             <h4>
                                               <span className={glyphiconFormatter(this.props.Executive.price_kpi_data.ACPInfl_var_lfl)}>
                                               </span>{this.props.Executive.price_kpi_data.ACPInfl_var_lfl}%
@@ -1667,13 +1927,26 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             <h5 className="kpiSubTitle"><b>LFL</b></h5>
                                           </div>
 
-                                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall">
-                                            <h4>
+                                          {(() =>{
+                                              if(this.props.Executive.week_param=='week_flag=Current Week')
+                                              {
+                                                return(
+                                                  <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpiSmall">
+                                                    <h4>
                                               <span className={glyphiconFormatter(this.props.Executive.price_kpi_data.ACPInfl_var_wow)}>
                                               </span>{this.props.Executive.price_kpi_data.ACPInfl_var_wow}%
-                                            </h4>
-                                            <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                                          </div>
+                                                    </h4>
+                                                    <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                                  </div>
+                                                )
+                                              }
+
+
+                                            }
+
+                                          )()}
+
+
 
                                         </div>
                                       </div>
@@ -1697,8 +1970,13 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                       </div>
                                       <div className="row">
                                         <div className="panel-body cardPanel">
-                                          <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12 kpiSmall">
-                                            <h4>
+
+                                          {(() =>{
+                                              if(this.props.Executive.week_param=='week_flag=Current Week')
+                                              {
+                                                return(
+                                                  <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12 kpiSmall">
+                                                    <h4>
                                     <span
                                       className={(() => {
                                         if (this.props.Executive.price_kpi_data.price_index_var_wow > 0)
@@ -1711,11 +1989,21 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                         } else {
                                           return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                                         } })()}></span>
-                                              {this.props.Executive.price_kpi_data.price_index_var_wow}%
-                                            </h4>
-                                            <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                                      {this.props.Executive.price_kpi_data.price_index_var_wow}%
+                                                    </h4>
+                                                    <h5 className="kpiSubTitle"><b>WoW</b></h5>
 
-                                          </div>
+                                                  </div>
+                                                )
+                                              }
+
+
+                                            }
+
+                                          )()}
+
+
+
 
 
                                         </div>
@@ -1779,21 +2067,63 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                         </div>
                                         <div className="row">
                                           <div className="panel-body cardPanel">
-                                            <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
-                                              <h4>
+
+                                            {(() =>{
+                                                if(this.props.Executive.week_param=='week_flag=Current Week')
+                                                {
+                                                  return(
+                                                    <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
+                                                      <h4>
                                                 <span className={glyphiconFormatter(this.props.Executive.kpi_boxes_data.total_value.wow)}>
                                                 </span>{this.props.Executive.kpi_boxes_data.total_value.wow}%
-                                              </h4>
-                                              <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                                            </div>
-                                            <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
+                                                      </h4>
+                                                      <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                                    </div>
+                                                  )
+                                                }
+
+                                              }
+
+                                            )()}
+
+
+
+                                            <div className={(() =>{
+                                              if(this.props.Executive.week_param=='week_flag=Current Week')
+                                              {
+                                                return(
+                                                  "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
+                                                )
+                                              }
+                                              else{
+                                                return(
+                                                  "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                                )
+                                              }
+                                              }
+
+                                            )()}>
                                               <h4>
                                                 <span className={glyphiconFormatter(this.props.Executive.kpi_boxes_data.total_value.yoy)}>
                                                 </span>{this.props.Executive.kpi_boxes_data.total_value.yoy}%
                                               </h4>
                                               <h5 className="kpiSubTitle"><b>YoY</b></h5>
                                             </div>
-                                            <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
+                                            <div className={(() =>{
+                                                if(this.props.Executive.week_param=='week_flag=Current Week')
+                                                {
+                                                  return(
+                                                    "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
+                                                  )
+                                                }
+                                                else{
+                                                  return(
+                                                    "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                                  )
+                                                }
+                                              }
+
+                                            )()}>
                                               <h4>
                                                 <span className={glyphiconFormatter(this.props.Executive.kpi_boxes_data.total_value.lfl)}>
                                                 </span>{this.props.Executive.kpi_boxes_data.total_value.lfl}%
@@ -1830,15 +2160,43 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                         <div className="row">
                                           <div className="panel-body cardPanel">
 
-                                            <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
-                                              <h4>
+                                            {(() =>{
+                                                if(this.props.Executive.week_param=='week_flag=Current Week')
+                                                {
+                                                  return(
+                                                    <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
+                                                      <h4>
                                                 <span className={glyphiconFormatter(this.props.Executive.kpi_boxes_data.growth.wow)}>
                                                 </span>{this.props.Executive.kpi_boxes_data.growth.wow}%
-                                              </h4>
-                                              <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                                            </div>
+                                                      </h4>
+                                                      <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                                    </div>
+                                                  )
+                                                }
 
-                                            <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
+                                              }
+
+                                            )()}
+
+
+
+
+
+                                            <div className={(() =>{
+                                                if(this.props.Executive.week_param=='week_flag=Current Week')
+                                                {
+                                                  return(
+                                                    "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
+                                                  )
+                                                }
+                                                else{
+                                                  return(
+                                                    "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                                  )
+                                                }
+                                              }
+
+                                            )()}>
                                               <h4>
                                                 <span className={glyphiconFormatter(this.props.Executive.kpi_boxes_data.growth.yoy)}>
                                                 </span>{this.props.Executive.kpi_boxes_data.growth.yoy}%
@@ -1846,7 +2204,21 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                               <h5 className="kpiSubTitle"><b>YoY</b></h5>
                                             </div>
 
-                                            <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
+                                            <div className={(() =>{
+                                                if(this.props.Executive.week_param=='week_flag=Current Week')
+                                                {
+                                                  return(
+                                                    "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
+                                                  )
+                                                }
+                                                else{
+                                                  return(
+                                                    "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                                  )
+                                                }
+                                              }
+
+                                            )()}>
                                               <h4>
                                                 <span className={glyphiconFormatter(this.props.Executive.kpi_boxes_data.growth.lfl)}>
                                                 </span>{this.props.Executive.kpi_boxes_data.growth.lfl}%
@@ -2411,6 +2783,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                           {(() =>{
                                               if(this.props.Executive.value_internal_tab=='kpi')
                                               {
+                                                console.log("KPI div")
                                                 return (
                                                   <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
 
