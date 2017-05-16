@@ -198,8 +198,10 @@ const initialState = fromJS({
   },
 
 
-
-
+ promo_stack_key_list:
+   ["0","fs_cont_to_growth", "trade_plan_cont_to_growth", "shelf_cont_to_growth", "base_cont_to_growth","event_cont_to_growth"],
+  kpi_stack_key_list:
+    ["0","item_price_var", "transaction_var", "items_per_basket_var"]
 
 });
 

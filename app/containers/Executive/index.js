@@ -2313,7 +2313,21 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                         <h2 className="pageModuleMainTitle">Best and Worst Performances</h2>
                         </div>
                         <div className="row mainBox">
-                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
+                          <div className= {(() =>{
+                              if(this.props.Executive.best_worst_data.Choose_filters=='no') {
+
+                                if (this.props.Executive.best_worst_data.length_less_than_five == 'yes') {
+                                  return ("col-md-12 col-xs-12 col-sm-12 col-lg-12")
+                                }
+                                else {
+                                  return("col-md-6 col-xs-12 col-sm-6 col-lg-6")
+                                }
+                              }
+                              else{
+                                return("col-md-6 col-xs-12 col-sm-6 col-lg-6")
+                              }
+                            }
+                          )()}>
 
 
 
@@ -2511,203 +2525,260 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                           </div>
-                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
-
-                            {(() => {
-                              if (this.props.Executive.best_worst_data.Choose_filters == 'no')
-                              {
-
-                                console.log("Choose_filters is no");
-                                return (
-                                  <div>
-                                    <h2 className="pageModuleSubTitle">Bot 5 {this.props.Executive.best_worst_data.level} by {this.props.Executive.best_worst_data.kpi_type} Share</h2>
-                                    {/*Navs here */}
-                                    <div className="row">
-                                      <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4">
-                                        <Nav bsStyle="tabs" activeKey={this.state.activeKey7} onSelect={this.handleSelect} className="tabsCustom2">
-                                          <NavItem className="tabsCustomList2" eventKey="1" onClick={() => {
-                                            botName = this.props.Executive.best_worst_data.bot_5[0].name;
-                                            botName = "selected_level="+botName;
-                                            this.props.onSaveBotName(botName);
-                                            topbotflag = 'bot';
-                                            this.props.onSaveTopBotFlag(topbotflag);
-                                            console.log("botName1",botName);
-                                            this.setState({activeKey7: "1"});
-                                            this.props.loadWorstInfoData();
-
-                                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                                            <b style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.bot_5[0].name}</b></NavItem>
-                                          <NavItem className="tabsCustomList2" eventKey="2" onClick={() => {
-                                            botName = this.props.Executive.best_worst_data.bot_5[1].name;
-                                            botName = "selected_level="+botName;
-                                            console.log("botName2",botName);
-                                            this.props.onSaveBotName(botName);
-                                            topbotflag = 'bot';
-                                            this.props.onSaveTopBotFlag(topbotflag);
-                                            this.setState({activeKey7: "2"});
-                                            this.props.loadWorstInfoData();
-
-                                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                                            style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.bot_5[1].name}</b></NavItem>
-
-                                          <NavItem className="tabsCustomList2" eventKey="3" onClick={() => {
-                                            botName = this.props.Executive.best_worst_data.bot_5[2].name;
-                                            botName = "selected_level="+botName;
-                                            console.log("botName3",botName);
-                                            this.props.onSaveBotName(botName);
-                                            topbotflag = 'bot';
-                                            this.props.onSaveTopBotFlag(topbotflag);
-                                            this.setState({activeKey7: "3"});
-                                            this.props.loadWorstInfoData();
-                                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                                            style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.bot_5[2].name}</b></NavItem>
-
-                                          <NavItem className="tabsCustomList2" eventKey="4" onClick={() => {
-                                            botName = this.props.Executive.best_worst_data.bot_5[3].name;
-                                            botName = "selected_level="+botName;
-                                            topbotflag = 'bot';
-                                            this.props.onSaveTopBotFlag(topbotflag);
-                                            console.log("botName4",botName);
-                                            this.props.onSaveBotName(botName);
-                                            this.setState({activeKey7: "4"});
-                                            this.props.loadWorstInfoData();
 
 
-                                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                                            style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.bot_5[3].name}</b></NavItem>
 
-                                          <NavItem className="tabsCustomList2" eventKey="5" onClick={() => {
-                                            botName = this.props.Executive.best_worst_data.bot_5[4].name;
-                                            botName = "selected_level="+botName;
-                                            console.log("botName5",botName);
-                                            this.props.onSaveBotName(botName);
-                                            topbotflag = 'bot';
-                                            this.props.onSaveTopBotFlag(topbotflag);
-                                            this.setState({activeKey7: "5"});
-                                            this.props.loadWorstInfoData();
-                                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                                            style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.bot_5[4].name}</b></NavItem>
+                                  {(() => {
+                                    if (this.props.Executive.best_worst_data.Choose_filters == 'no')
+                                    {
 
-                                        </Nav>
-                                      </div>
-                                      <div className="col-md-8 col-xs-12 col-sm-8 col-lg-8">
+                                      console.log("Choose_filters is no");
+                                      if(this.props.Executive.best_worst_data.length_less_than_five=='no') {
 
-                                        {(() => {
-                                          if (this.props.Executive.worst_info_data.fetch=="success")
-                                          {
-                                            console.log("this.props.Executive.worst_info_data exists");
-                                            if(this.props.Executive.bot_name!='None')
 
-                                            {
-                                              return(
-                                                <div className="row" style={{paddingTop:"15px"}}>
-                                                  <div className="row">
-                                                  <span style={{float:"left"}}>
+                                        return (
+                                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
+                                            <h2 className="pageModuleSubTitle">Bot
+                                              5 {this.props.Executive.best_worst_data.level}
+                                              by {this.props.Executive.best_worst_data.kpi_type} Share</h2>
+                                            {/*Navs here */}
+                                            <div className="row">
+                                              <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4">
+                                                <Nav bsStyle="tabs" activeKey={this.state.activeKey7}
+                                                     onSelect={this.handleSelect} className="tabsCustom2">
+                                                  <NavItem className="tabsCustomList2" eventKey="1" onClick={() => {
+                                                    botName = this.props.Executive.best_worst_data.bot_5[0].name;
+                                                    botName = "selected_level=" + botName;
+                                                    this.props.onSaveBotName(botName);
+                                                    topbotflag = 'bot';
+                                                    this.props.onSaveTopBotFlag(topbotflag);
+                                                    console.log("botName1", botName);
+                                                    this.setState({activeKey7: "1"});
+                                                    this.props.loadWorstInfoData();
+
+                                                  }} style={{
+                                                    fontSize: '20px',
+                                                    fontFamily: 'Tesco',
+                                                    textDecoration: 'none'
+                                                  }}>
+                                                    <b
+                                                      style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.bot_5[0].name}</b></NavItem>
+                                                  <NavItem className="tabsCustomList2" eventKey="2" onClick={() => {
+                                                    botName = this.props.Executive.best_worst_data.bot_5[1].name;
+                                                    botName = "selected_level=" + botName;
+                                                    console.log("botName2", botName);
+                                                    this.props.onSaveBotName(botName);
+                                                    topbotflag = 'bot';
+                                                    this.props.onSaveTopBotFlag(topbotflag);
+                                                    this.setState({activeKey7: "2"});
+                                                    this.props.loadWorstInfoData();
+
+                                                  }} style={{
+                                                    fontSize: '20px',
+                                                    fontFamily: 'Tesco',
+                                                    textDecoration: 'none'
+                                                  }}><b
+                                                    style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.bot_5[1].name}</b></NavItem>
+
+                                                  <NavItem className="tabsCustomList2" eventKey="3" onClick={() => {
+                                                    botName = this.props.Executive.best_worst_data.bot_5[2].name;
+                                                    botName = "selected_level=" + botName;
+                                                    console.log("botName3", botName);
+                                                    this.props.onSaveBotName(botName);
+                                                    topbotflag = 'bot';
+                                                    this.props.onSaveTopBotFlag(topbotflag);
+                                                    this.setState({activeKey7: "3"});
+                                                    this.props.loadWorstInfoData();
+                                                  }} style={{
+                                                    fontSize: '20px',
+                                                    fontFamily: 'Tesco',
+                                                    textDecoration: 'none'
+                                                  }}><b
+                                                    style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.bot_5[2].name}</b></NavItem>
+
+                                                  <NavItem className="tabsCustomList2" eventKey="4" onClick={() => {
+                                                    botName = this.props.Executive.best_worst_data.bot_5[3].name;
+                                                    botName = "selected_level=" + botName;
+                                                    topbotflag = 'bot';
+                                                    this.props.onSaveTopBotFlag(topbotflag);
+                                                    console.log("botName4", botName);
+                                                    this.props.onSaveBotName(botName);
+                                                    this.setState({activeKey7: "4"});
+                                                    this.props.loadWorstInfoData();
+
+
+                                                  }} style={{
+                                                    fontSize: '20px',
+                                                    fontFamily: 'Tesco',
+                                                    textDecoration: 'none'
+                                                  }}><b
+                                                    style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.bot_5[3].name}</b></NavItem>
+
+                                                  <NavItem className="tabsCustomList2" eventKey="5" onClick={() => {
+                                                    botName = this.props.Executive.best_worst_data.bot_5[4].name;
+                                                    botName = "selected_level=" + botName;
+                                                    console.log("botName5", botName);
+                                                    this.props.onSaveBotName(botName);
+                                                    topbotflag = 'bot';
+                                                    this.props.onSaveTopBotFlag(topbotflag);
+                                                    this.setState({activeKey7: "5"});
+                                                    this.props.loadWorstInfoData();
+                                                  }} style={{
+                                                    fontSize: '20px',
+                                                    fontFamily: 'Tesco',
+                                                    textDecoration: 'none'
+                                                  }}><b
+                                                    style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.bot_5[4].name}</b></NavItem>
+
+                                                </Nav>
+                                              </div>
+                                              <div className="col-md-8 col-xs-12 col-sm-8 col-lg-8">
+
+                                                {(() => {
+                                                  if (this.props.Executive.worst_info_data.fetch == "success") {
+                                                    console.log("this.props.Executive.worst_info_data exists");
+                                                    if (this.props.Executive.bot_name != 'None') {
+                                                      return (
+                                                        <div className="row" style={{paddingTop: "15px"}}>
+                                                          <div className="row">
+                                                  <span style={{float: "left"}}>
                                                       <Button onClick={() => {
-                                                        suppName='None';
+                                                        suppName = 'None';
                                                         this.props.onSaveSupplierName(suppName);
                                                         this.setState({topsuppInfo: true});
-                                                        {/*Load functions here*/}
+                                                        {/*Load functions here*/
+                                                        }
 
                                                       }}>Supplier Info</Button>
                                                   </span>
-                                                  <span style={{float:"right"}}>
-                                                    <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
+                                                            <span style={{float: "right"}}>
+                                                    <DropdownButton className="glyphicon glyphicon-menu-hamburger"
+                                                                    pullRight style={{
+                                                      backgroundColor: "transparent",
+                                                      borderColor: "transparent",
+                                                      color: "#00539f"
+                                                    }} id="dropButtonId">
                                                       <MenuItem onClick={() => {
-                                                        saveImage(document.getElementById('bot_trend'),"botSupplierTrendMultiline_chart")
+                                                        saveImage(document.getElementById('bot_trend'), "botSupplierTrendMultiline_chart")
                                                       }
                                                       }>Save As JPEG</MenuItem>
                                                       <MenuItem onClick={() => {
-                                                        saveDataAsCSV(this.props.Executive.worst_info_data.multiline_trend,"botSupplierTrendMultiline_chart.csv")
+                                                        saveDataAsCSV(this.props.Executive.worst_info_data.multiline_trend, "botSupplierTrendMultiline_chart.csv")
                                                       }
                                                       }>Download CSV</MenuItem>
                                                     </DropdownButton>
                                                   </span>
-                                                  </div>
-                                                  {(() => {
-                                                    if (this.props.Executive.worst_info_data.fetch=='success') {
-                                                      return (
-                                                        <div>
+                                                          </div>
+                                                          {(() => {
+                                                            if (this.props.Executive.worst_info_data.fetch == 'success') {
+                                                              return (
+                                                                <div>
 
-                                                          {/*Row for KPIs*/}
-                                                          <div className="row">
-                                                            <div className="panel-body cardPanel">
-                                                              <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall" style={{borderRight: "1px solid rgb(229, 232, 234)", padding:"0", textalign:"center"}}>
-                                                                <h4 style={{fontWeight:"700"}}>
-                                                                  <span className={glyphiconFormatter(this.props.Executive.worst_info_data.yoy_var)}>
+                                                                  {/*Row for KPIs*/}
+                                                                  <div className="row">
+                                                                    <div className="panel-body cardPanel">
+                                                                      <div
+                                                                        className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
+                                                                        style={{
+                                                                          borderRight: "1px solid rgb(229, 232, 234)",
+                                                                          padding: "0",
+                                                                          textalign: "center"
+                                                                        }}>
+                                                                        <h4 style={{fontWeight: "700"}}>
+                                                                  <span
+                                                                    className={glyphiconFormatter(this.props.Executive.worst_info_data.yoy_var)}>
                                                                   </span>{this.props.Executive.worst_info_data.yoy_var}%
-                                                                </h4>
-                                                                <h4 className="kpiSubTitle"><b>YoY</b></h4>
-                                                              </div>
+                                                                        </h4>
+                                                                        <h4 className="kpiSubTitle"><b>YoY</b></h4>
+                                                                      </div>
 
-                                                              <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall" style={{borderRight: "1px solid rgb(229, 232, 234)", padding:"0", textalign:"center"}}>
-                                                                <h4 style={{fontWeight:"700"}}>
-                                                                  <span className={glyphiconFormatter(this.props.Executive.worst_info_data.cont_to_grwth)}>
+                                                                      <div
+                                                                        className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
+                                                                        style={{
+                                                                          borderRight: "1px solid rgb(229, 232, 234)",
+                                                                          padding: "0",
+                                                                          textalign: "center"
+                                                                        }}>
+                                                                        <h4 style={{fontWeight: "700"}}>
+                                                                  <span
+                                                                    className={glyphiconFormatter(this.props.Executive.worst_info_data.cont_to_grwth)}>
                                                                   </span>{this.props.Executive.worst_info_data.cont_to_grwth}%
-                                                                </h4>
-                                                                <h4 className="kpiSubTitle">Contri to growth</h4>
-                                                              </div>
+                                                                        </h4>
+                                                                        <h4 className="kpiSubTitle">Contri to
+                                                                          growth</h4>
+                                                                      </div>
 
-                                                              <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
-                                                                <h4 style={{fontWeight:"700"}}>
-                                                                  {this.props.Executive.worst_info_data.sales_share}%
-                                                                </h4>
-                                                                <h4 className="kpiSubTitle">Sales Share</h4>
-                                                              </div>
+                                                                      <div
+                                                                        className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
+                                                                        <h4 style={{fontWeight: "700"}}>
+                                                                          {this.props.Executive.worst_info_data.sales_share}%
+                                                                        </h4>
+                                                                        <h4 className="kpiSubTitle">Sales Share</h4>
+                                                                      </div>
 
-                                                            </div>
-                                                          </div>
-                                                          {/*Row for Multiline Chart*/}
-                                                          <div className="row">
-                                                            <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
-                                                              <ExecTopbotMultiline data={this.props.Executive.worst_info_data.multiline_trend}
-                                                                                   id="bot_trend" label_ty={this.props.Executive.worst_info_data.legend1} label_ly={this.props.Executive.worst_info_data.legend2}
-                                                                                   xaxis_title="Tesco Week" no_pref={this.props.Executive.worst_info_data.no_pref} no_suffix=''
-                                                                                   yaxis_title={this.props.Executive.worst_info_data.kpi_type} />
-                                                            </div>
-                                                          </div>
+                                                                    </div>
+                                                                  </div>
+                                                                  {/*Row for Multiline Chart*/}
+                                                                  <div className="row">
+                                                                    <div
+                                                                      className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+                                                                      <ExecTopbotMultiline
+                                                                        data={this.props.Executive.worst_info_data.multiline_trend}
+                                                                        id="bot_trend"
+                                                                        label_ty={this.props.Executive.worst_info_data.legend1}
+                                                                        label_ly={this.props.Executive.worst_info_data.legend2}
+                                                                        xaxis_title="Tesco Week"
+                                                                        no_pref={this.props.Executive.worst_info_data.no_pref}
+                                                                        no_suffix=''
+                                                                        yaxis_title={this.props.Executive.worst_info_data.kpi_type}/>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                              )
+                                                            }
+                                                          })()}
+
+
                                                         </div>
                                                       )
                                                     }
-                                                  })()}
 
+                                                    else {
+                                                      console.log("this.props.Executive.worst_info_data exists");
+                                                      return (
+                                                        <div><h3>Old data present</h3></div>
+                                                      )
+                                                    }
+                                                  }
+                                                  else {
 
-                                                </div>
-                                              )
-                                            }
-
-                                            else{
-                                              console.log("this.props.Executive.worst_info_data exists");
-                                              return (
-                                                <div><h3>Old data present</h3></div>
-                                              )
-                                            }
-                                          }
-                                          else
-                                          {
-
-                                            return(
-                                              <div>
-                                                <h3> Please select an option to view performance</h3>
+                                                    return (
+                                                      <div>
+                                                        <h3> Please select an option to view performance</h3>
+                                                      </div>
+                                                    )
+                                                  }
+                                                })()}
                                               </div>
-                                            )
-                                          } })()}
-                                      </div>
-                                    </div>
-                                  </div>
-                                )
-                              }
-                              else
-                              {
-                                return (
-                                  <div>
-                                    <h3>Please select filter till Buying controller to view bottom performing subgroups</h3>
-                                  </div>
-                                )
+                                            </div>
+                                          </div>
+                                        )
+                                      }
 
-                              }
-                            })()}
-                          </div>
+                                    }
+                                    else
+                                    {
+                                      return (
+                                        <div>
+                                          <h3>Please select filter till Buying controller to view bottom performing subgroups</h3>
+                                        </div>
+                                      )
+
+                                    }
+                                  })()}
+
+
+
                         </div>
 
                         {/*Row for Drivers of sales*/}
@@ -2781,10 +2852,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                         if(this.props.Executive.drivers_internal_data && this.props.Executive.internalDriverSpinner){
                                                           if(this.props.Executive.drivers_internal_data.kpi_data_available_flag=='yes')
                                                           {
+                                                            console.log("kpi_data_flag is available")
                                                             return(
-                                                              <StackedChart data= {this.props.drivers_internal_data.kpi}
+                                                              <StackedChart id="stackedChartKPI" data= {this.props.Executive.drivers_internal_data.kpi}
                                                                             col_label = {this.props.Executive.drivers_internal_data.kpi_col_label}
-                                                                            legend_label ={this.props.Executive.drivers_internal_data.kpi_legend_label}/>
+                                                                            legend_label ={this.props.Executive.drivers_internal_data.kpi_legend_label}
+                                                                            key_list = {this.props.Executive.kpi_stack_key_list}/>
 
                                                             )
 
@@ -2818,7 +2891,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                           return(
                                                             <StackedChart id="stackedChartPromotion" data= {this.props.Executive.drivers_internal_data.promo}
                                                                           col_label = {this.props.Executive.drivers_internal_data.promo_col_label}
-                                                                          legend_label ={this.props.Executive.drivers_internal_data.promo_legend_label}/>
+                                                                          legend_label ={this.props.Executive.drivers_internal_data.promo_legend_label}
+                                                                          key_list = {this.props.Executive.promo_stack_key_list}/>
                                                           )
                                                         }
                                                         else{

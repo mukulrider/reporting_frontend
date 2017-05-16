@@ -9,7 +9,7 @@ import * as d3 from 'd3';
 import { FormattedMessage } from 'react-intl';
 
 class StackedChart extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  createStackedBarChart = (data,chart_id,label_ty,label_ly,xaxis_title,yaxis_title,no_pref,no_suffix,legend_text) => {
+  createStackedBarChart = (data,chart_id,label_ty,label_ly,xaxis_title,yaxis_title,no_pref,no_suffix,legend_text,key_list) => {
     console.log("---insde the createStackedBarChart----",data);
     console.log("========= XAxis ",xaxis_title);
     console.log("========= YAxis",yaxis_title);
@@ -64,7 +64,8 @@ class StackedChart extends React.PureComponent { // eslint-disable-line react/pr
 
 
     var series = d3.stack()
-      .keys(["0","fs_cont_to_growth", "trade_plan_cont_to_growth", "shelf_cont_to_growth", "base_cont_to_growth","event_cont_to_growth"])
+//      .keys(["0","fs_cont_to_growth", "trade_plan_cont_to_growth", "shelf_cont_to_growth", "base_cont_to_growth","event_cont_to_growth"])
+      .keys(key_list)
       .offset(stackOffsetDiverging)
       (data);
     console.log("Stackedbarline series",series);
@@ -94,7 +95,8 @@ class StackedChart extends React.PureComponent { // eslint-disable-line react/pr
 
 
     let svg = d3.select('#'+this.props.id + '_svg');
-    //svg.selectAll("*").remove();
+    svg.selectAll("*").remove();
+
     svg
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
@@ -202,11 +204,11 @@ class StackedChart extends React.PureComponent { // eslint-disable-line react/pr
   }
 
   componentDidMount = () => {
-    this.createStackedBarChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly,this.props.xaxis_title,this.props.yaxis_title,this.props.no_pref,this.props.no_suffix,this.props.legend_label);
+    this.createStackedBarChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly,this.props.xaxis_title,this.props.yaxis_title,this.props.no_pref,this.props.no_suffix,this.props.legend_label,this.props.key_list);
   };
 
   componentDidUpdate = () => {
-    this.createStackedBarChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly,this.props.xaxis_title,this.props.yaxis_title,this.props.no_pref,this.props.no_suffix,this.props.legend_label);
+    this.createStackedBarChart(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly,this.props.xaxis_title,this.props.yaxis_title,this.props.no_pref,this.props.no_suffix,this.props.legend_label,this.props.key_list);
   };
 
 
