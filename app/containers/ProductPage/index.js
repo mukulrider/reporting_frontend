@@ -269,7 +269,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
               <Nav bsStyle="tabs" className="tabsCustom tabsCustomInner" activeKey={this.state.activeKey2}
                    onSelect={this.handleSelect}>
                 <NavItem style={{fontSize: '16px'}}
-                         eventKey="7" className="tabsCustomList" onClick={() => {
+                         eventKey="7" className="tabsNavPanelList1" onClick={() => {
                   this.setState({
                     activeKey2: "7",
                     ty_text: "Sales TY in £",
@@ -283,7 +283,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                 }}
                 ><span className="tab_label">Value</span></NavItem>
                 <NavItem style={{fontSize: '16px'}}
-                         eventKey="8" className="tabsCustomList" onClick={() => {
+                         eventKey="8" className="tabsNavPanelList1" onClick={() => {
                   this.setState({
                     activeKey2: "8",
                     ty_text: "Volume TY in units",

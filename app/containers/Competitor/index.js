@@ -271,7 +271,7 @@ export class Competitor extends React.PureComponent {
                 }}><span className="tab_label" >YTD</span></NavItem>
               </Nav>
               <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect}  className="tabsCustom">
-                <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+                <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
                   this.setState({activeKey2: "1"});
                   this.props.onPieChartSpinnerSuccess(0);
                   this.props.outPerformanceChartSuccess(0);
@@ -280,7 +280,7 @@ export class Competitor extends React.PureComponent {
                   this.props.onCompetitorPieChart();
                   this.props.onCompetitorOutperformance();
                 }}><span className="tab_label" >Value</span></NavItem>
-                <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+                <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
                   this.setState({activeKey2: "2"});
                   this.props.onPieChartSpinnerSuccess(0);
                   this.props.outPerformanceChartSuccess(0);
@@ -468,7 +468,7 @@ export class Competitor extends React.PureComponent {
             </span> </h4>
 
             <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect} className="tabsCustom">
-              <NavItem className="tabsCustomList" eventKey="1" onClick={() => {
+              <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
                 console.log("Price/Promo button pressed");
                 this.setState({activeKey3: "1"});
                 this.props.waterChartAsdaSuccess(0);
@@ -476,7 +476,7 @@ export class Competitor extends React.PureComponent {
                 this.props.onSavePriceIndexParam(dataPriceIndexParam);
                 this.props.onCompWaterfall();
               }}><span className="tab_label" >Price/Promo</span></NavItem>
-              <NavItem className="tabsCustomList" eventKey="2" onClick={() => {
+              <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
                 this.setState({activeKey3: "2"});
                 this.props.waterChartAsdaSuccess(0);
                 console.log("Own label/Brand button pressed");
@@ -485,7 +485,7 @@ export class Competitor extends React.PureComponent {
                 this.props.onSavePriceIndexParam(dataPriceIndexParam);
                 this.props.onCompWaterfall();
               }}><span className="tab_label" >Own Label/Brand</span></NavItem>
-              <NavItem className="tabsCustomList" eventKey="3" onClick={() => {
+              <NavItem className="tabsNavPanelList1" eventKey="3" onClick={() => {
                 this.setState({activeKey3: "3"});
                 this.props.waterChartAsdaSuccess(0);
                 console.log("Basket button pressed");

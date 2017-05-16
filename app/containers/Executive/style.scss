@@ -48,7 +48,9 @@
   margin-top: 15px;
 }
 
-
+.cardPanel {
+  padding:0px !important;
+}
 
 //TABS
 //.tabsCustomList {
@@ -249,6 +251,16 @@
 
 //For the small wow,yoy,lfl boxes in the kpi boxes
 .kpiSmall{
+  padding: 0;
+  text-align: center;
+}
+
+div.col-md-4.col-xs-12.col-sm-4.col-lg-4.kpismall{
+  padding: 0;
+  text-align: center;
+}
+
+div.col-md-6.col-xs-12.col-sm-6.col-lg-6{
   padding: 0;
   text-align: center;
 }
@@ -494,7 +506,7 @@
 }
 
 .glyphicon-triangle-top {
-  //font-size: 12px;
+  font-size: 12px;
   color: #8bc249;
 }
 .glyphicon-triangle-bottom {
@@ -608,6 +620,7 @@
   text-align: center;
   padding-left: 1%;
 }
+
 
 //Tabs For the Navigation Panel
 
