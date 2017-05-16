@@ -162,7 +162,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
         {
           text: '50', value: 50
         }], // you can change the dropdown list for size per page
-      sizePerPage: 15,  // which size per page you want to locate as default
+      sizePerPage: 5,  // which size per page you want to locate as default
       pageStartIndex: 1, // where to start counting the pages
       paginationSize: 3,  // the pagination bar size.
       prePage: 'Prev', // Previous page button text
@@ -240,7 +240,6 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                   height: '80%',
                   position: 'fixed',
                   width: '20%',
-                  marginTop: '-2%',
                   /* padding-right: 5px; */
                   overflowX: 'hidden',
                   overflowY: 'scroll',
@@ -603,28 +602,30 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                 LFL: {obj.sales_lfl} </h3>
                                             </div>
                                           </div>
+                                          <br></br>
                                           <div className="row">
                                             <div className="panel-body cardPanel">
                                               <div className="col-xs-4">
                                                 <h4><span className={glyphiconFormatter(obj.sales_growth_wow_1)}></span>&nbsp;{(obj.sales_growth_wow_1)+' % '}
                                                   of <span className={glyphiconFormatter(obj.sales_growth_wow_2)}></span>{(obj.sales_growth_wow_2)+' % '}
                                                 </h4>
-                                                <h5 className="kpiSubTitle"><b>{'WoW'}</b></h5>
+                                                <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'WoW'}</b></h5>
                                               </div>
                                               <div className="col-xs-4">
                                                 <h4> <span className={glyphiconFormatter(obj.sales_growth_yoy_1)}></span>&nbsp;{(obj.sales_growth_yoy_1)+' % '}
                                                   of <span className={glyphiconFormatter(obj.sales_growth_yoy_2)}></span>{(obj.sales_growth_yoy_2)+' % '}
                                                 </h4>
-                                                <h5 className="kpiSubTitle"><b>{'YoY'}</b></h5>
+                                                <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'YoY'}</b></h5>
                                               </div>
                                               <div className="col-xs-4">
                                                 <h4> <span className={glyphiconFormatter(obj.sales_growth_yoy_lfl_1)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_1)+' % '}
                                                   of <span className={glyphiconFormatter(obj.sales_growth_yoy_lfl_2)}></span>{(obj.sales_growth_yoy_lfl_2)+' % '}
                                                 </h4>
-                                                <h5 className="kpiSubTitle"><b>{'LFL'}</b></h5>
+                                                <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'LFL'}</b></h5>
                                               </div>
                                             </div>
                                           </div>
+
                                         </Panel>
                                     </div>
                                   </div>
