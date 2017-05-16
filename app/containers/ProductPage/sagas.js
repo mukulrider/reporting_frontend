@@ -17,6 +17,25 @@ import {
 } from './selectors';
 // 1. our worker saga
 
+let gettingUserDetails = () =>{
+  //function to get values from cookie
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+      return parts.pop().split(';').shift();
+    }
+  };
+  //fetching values from cookie
+  const userId = getCookie('token');
+  const userName = getCookie('user');
+  const designation = getCookie('designation');
+  const buyingController = getCookie('buying_controller');
+  const buyer = getCookie('buyer');
+
+  const cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}&buyer_header=${buyer}`;
+  return (cookieParams);
+};
 
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
@@ -28,7 +47,7 @@ const host_url = "http://127.0.0.1:8000";
 /* GENERATE SIDE FILTER*/
 export function* generateSideFilter() {
   const urlName = yield select(selectProductPageDomain());
-
+  const userParams = gettingUserDetails();
   // let getCookie;
   // getCookie = (name) => {
   //   const value = `; ${document.cookie}`;
@@ -59,7 +78,7 @@ export function* generateSideFilter() {
 
     // const data = yield call(request, `http://172.20.244.141:8000/api/product_impact/filter_data/?${urlParamsString}`);
     const filter_data = yield call(request,
-      `${host_url}/api/reporting/filter_data_product/?${urlParamsString}`,
+      `${host_url}/api/reporting/filter_data_product/?${urlParamsString}&${userParams}`,
       // {
       //   headers: {
       //     Authorization: token
@@ -86,6 +105,7 @@ export function* generateWeekFilter() {
   console.log('urlName', urlName);
   const urlParamsWeekFlag = urlName.get('dataWeekParams');
   const urlParamsMetricFlag = urlName.get('dataMetricParams');
+  const userParams = gettingUserDetails();
 //  const urlParamsWeekFilter = urlName.get('filter_week_selection');
 
   let urlParams = `${urlParamsWeekFlag}&${urlParamsMetricFlag}`;
@@ -125,7 +145,7 @@ export function* generateWeekFilter() {
   try {
     let data = '';
     if (urlParams) {
-      data = yield call(request, `${host_url}/api/reporting/product?${urlParams}`);
+      data = yield call(request, `${host_url}/api/reporting/product?${urlParams}&${userParams}`);
       console.log('This is my fetched drf dta', data);
 
     } else {
