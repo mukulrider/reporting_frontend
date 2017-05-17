@@ -200,7 +200,7 @@ export class Promotion extends React.PureComponent {
               })()}
             </div>
           <div className="col-md-12 content-wrap" style={{background:"#fafafa"}}>
-              <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom">
+              <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect} className="tabsCustom" style={{marginLeft: '1%', marginBottom: '0%'}}>
               <NavItem className="tabsCustomListTime" eventKey="1" onClick={() => {
 
                     dataWeekParam = "week_flag=Current Week";
@@ -324,7 +324,7 @@ export class Promotion extends React.PureComponent {
 
             </span>
             </Nav>
-          </div>
+
         </div>
 
 
@@ -333,7 +333,7 @@ export class Promotion extends React.PureComponent {
             <div className="headerBox">
               <h2 className="pageModuleMainTitle">Promotion Performance</h2>
             </div>
-            <div className="row" style={{textAlign: 'center'}}>
+            <div style={{textAlign: 'center'}}>
 
                   {(() => {
                     if (this.props.promotion.kpi_data && this.props.promotion.kpiSpinnerSuccess) {
@@ -607,19 +607,23 @@ export class Promotion extends React.PureComponent {
                     }
                   })()}
             </div>
-          </div>
+
             <div>
               <panel>
                 {/*Row for sales */}
                 <div className="row">
-                  <h2 className="pageModuleMainTitle">Total &nbsp; {this.props.promotion.kpi_data.kpi_name} &nbsp; Split by Promo Type       <span className="glyphicon glyphicon-info-sign pull-right"
+                  <div className="headerBox">
+                    <h2 className="pageModuleMainTitle">Total &nbsp; {this.props.promotion.kpi_data.kpi_name} &nbsp; Split by Promo Type       <span className="glyphicon glyphicon-info-sign pull-right"
                                                                                                   style={{right: '4px', fontSize: '15px', top: '8px'}}
                                                                                                   onClick={() => {
                                                                                                     this.setState({promoSalesInfo: true});
                                                                                                   }}>
 
                   </span>
-                  </h2>
+                    </h2>
+                  </div>
+              <div>
+                <div className="mainBox">
                   <panel>
                     <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 
@@ -662,7 +666,7 @@ export class Promotion extends React.PureComponent {
 
                     </div>
                     <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                      <div className="row">
+                      <div className="col-md-12 col-sm-12">
                         {/*Nav for Sales data*/}
                         <span style={{float:"left"}}>
                       <Nav bsStyle="tabs" activeKey={this.state.activeKey4} onSelect={this.handleSelect}
@@ -730,7 +734,7 @@ export class Promotion extends React.PureComponent {
                         </span>
                           </div>
 
-                          <div className="row">
+                          <div>
                             {(() => {
                               if (this.props.promotion.sales_data && this.props.promotion.pieChartSpinnerSuccess) {
                                 console.log("Promo Sales line chart data", this.props.promotion.sales_data.promo_sales.trend);
@@ -756,9 +760,12 @@ export class Promotion extends React.PureComponent {
 
                         </div>
                       </panel>
-                    </div>
+
+                  </div>
+                </div>
+                </div>
                     {/*Row for giveaway*/}
-                    <div className="row">
+                    <div className="col-md-12 col-sm-12">
                       <h2 className="pageModuleMainTitle">Promotion Giveaway Split By Promo Type
                         <span
                         className="glyphicon glyphicon-info-sign pull-right"
@@ -812,7 +819,7 @@ export class Promotion extends React.PureComponent {
                     </div>
                     <div className="col-lg-8 col-md-8 col-md-12 col-xs-8">
                       {/*Nav for Giveaway*/}
-                      <div className="row">
+                      <div className="col-md-12 col-sm-12">
                         <span style={{float:"left"}}>
                       <Nav bsStyle="tabs" activeKey={this.state.activeKey5} onSelect={this.handleSelect}
                            className="tabsCustom secondaryTabs" style={{margin:"0px"}}>
@@ -900,7 +907,7 @@ export class Promotion extends React.PureComponent {
                     </div>
 
                 {/*Row for Promo Products*/}
-                <div className="row">
+                <div className="col-md-12 col-sm-12">
                   <h2 className="pageModuleMainTitle">Products Count Split By Promo Type
                     <span className="glyphicon glyphicon-info-sign pull-right"
                           style={{right: '4px', fontSize: '15px', top: '8px'}}
@@ -953,7 +960,7 @@ export class Promotion extends React.PureComponent {
                         </div>
                         <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                           {/*Nav for Promo products*/}
-                          <div className="row">
+                          <div className="col-md-12 col-sm-12">
                             <span style={{float:"left"}}>
                             <Nav bsStyle="tabs" activeKey={this.state.activeKey6} onSelect={this.handleSelect}
                                  className="tabsCustom secondaryTabs" style={{margin: "0px"}}>
@@ -1046,7 +1053,7 @@ export class Promotion extends React.PureComponent {
                     </div>
 
                 {/*Row for products on participation*/}
-                <div className="row">
+                <div className="col-md-12 col-sm-12">
                   <h2 className="pageModuleMainTitle">Promotion Participation Split By Promo Type
                     <span className="glyphicon glyphicon-info-sign pull-right"
                           style={{right: '4px', fontSize: '15px', top: '8px'}}
@@ -1098,7 +1105,7 @@ export class Promotion extends React.PureComponent {
                     </div>
                     <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                       {/*Nav for Promo Participation*/}
-                      <div className="row">
+                      <div className="col-md-12 col-sm-12">
                         <span style={{float:"left"}}>
                       <Nav bsStyle="tabs" activeKey={this.state.activeKey7} onSelect={this.handleSelect}
                            className="tabsCustom secondaryTabs" style={{margin:"0px"}}>
@@ -1157,7 +1164,7 @@ export class Promotion extends React.PureComponent {
                           </DropdownButton>
                         </span>
                           </div>
-                          <div className="row">
+                          <div className="col-md-12 col-sm-12">
                             {(() => {
                               if (this.props.promotion.promo_part_data && this.props.promotion.promoparticipationSplitSpinnerSuccess) {
                                 console.log("Promo Participation line chart data", this.props.promotion.promo_part_data.trend);
@@ -1187,6 +1194,7 @@ export class Promotion extends React.PureComponent {
               </panel>
             </div>
             <div className="row">
+              <div className="col-md-12 col-sm-12">
             <h2 className="pageModuleMainTitle">Top 25 Products On Promotion
               <span className="glyphicon glyphicon-info-sign pull-right"
                     style={{right: '4px', fontSize: '15px', top: '8px'}}
@@ -1195,7 +1203,7 @@ export class Promotion extends React.PureComponent {
                     }}>
 
                     </span>
-            </h2>
+            </h2></div>
               <panel>
             {/*Promo top 25 table            */}
             {(() => {
@@ -1419,8 +1427,9 @@ export class Promotion extends React.PureComponent {
         </Modal>
 
 
-
+        </div>
       </div>
+    </div>
     );
   }
 }

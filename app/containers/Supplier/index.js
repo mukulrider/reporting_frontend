@@ -600,12 +600,12 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                           <h3 className="pageModuleSubTitle"> Contribution to Growth </h3>
                                           <div className="row">
                                             <div className="col-xs-6" style={{textAlign: "center"}}>
-                                              <h3 style={{padding:"0px", margin:"0px"}}>  {obj.sales} </h3>
+                                              <h3 style={{padding:"0px", margin:"0px"}}>  {obj.cw_sales_exclu_sup} </h3>
                                             </div>
                                             <div className="col-xs-6" style={{textAlign: "center"}}>
 
                                               <h3 style={{padding:"0px", margin:"0px"}}>
-                                                LFL: {obj.sales_lfl} </h3>
+                                                LFL: {obj.cw_sales_exclu_sup_lfl } </h3>
                                             </div>
                                           </div>
                                           <br></br>
@@ -754,7 +754,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                   this.setState({suppTopBottombar: true});
                                 }}></span>
                         </div>
-                      <div className="mainBox">
+                      <div className="row mainBox">
                         <div>
                           <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect} className="tabsCustom  mainTab">
                             <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {

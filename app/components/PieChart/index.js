@@ -90,7 +90,7 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
       .data(data)
       .enter().append("g")
       .attr("transform", function (d, i) {
-        return "translate(" + (i*-legendWidth) + "," + (radius*1.4) + ")";
+        return "translate(" + (i*legendWidth -containerWidth + margin.left) + "," + (radius*1.4) + ")";
       });
 
     // let color_hash = ["#f6eff7","#d0d1e6","#a6bddb","#67a9cf","#3690c0","#02818a","#016450"];
