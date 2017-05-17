@@ -31,9 +31,19 @@ let gettingUserDetails = () =>{
   const userName = getCookie('user');
   const designation = getCookie('designation');
   const buyingController = getCookie('buying_controller');
-  const buyer = getCookie('buyer');
+  let buyer = getCookie('buyer');
+  let cookieParams= "";
 
-  const cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}&buyer_header=${buyer}`;
+  if ((typeof(buyer) == "undefined") || (buyer == "")) {
+    buyer = "";
+    cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}`;
+    console.log('buyer empty', buyer);
+  } else {
+    cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}&buyer_header=${buyer}`;
+    console.log('buyer non - empty', buyer);
+  }
+
+  // const cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}&buyer_header=${buyer}`;
   return (cookieParams);
 };
 
@@ -71,21 +81,40 @@ export function* generateSideFilter() {
     }
   }
 
-  console.log('My urlParamsString for SideFilter', urlParamsString);
-  // alert(urlParamsString);
+  let urlAppends = "";
+
+  if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+    urlAppends = urlAppends + '&' + urlParamsString;
+    console.log('urlAppends2', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends + '&' + userParams;
+    console.log('urlAppends2', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {
+    urlAppends = urlAppends.replace('&', '');
+  }
+  console.log('urlAppends6', urlAppends);
+
+
   try {
     // todo: update url
 
     // const data = yield call(request, `http://172.20.244.141:8000/api/product_impact/filter_data/?${urlParamsString}`);
     const filter_data = yield call(request,
-      `${host_url}/api/reporting/filter_data_product/?${urlParamsString}&${userParams}`,
+      `${host_url}/api/reporting/filter_data_product?` + urlAppends,
       // {
       //   headers: {
       //     Authorization: token
       //   }
       // }
       );
-    console.log('This is my fetched filter data', filter_data);
 
     yield put(generateSideFilterSuccess(filter_data));
   } catch (err) {
@@ -142,6 +171,8 @@ export function* generateWeekFilter() {
     paramString += `&${obj}=${urlParams[obj]}`
   });
   paramString = paramString.replace('&', '');*/
+
+
   try {
     let data = '';
     if (urlParams) {

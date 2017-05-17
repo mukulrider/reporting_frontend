@@ -350,7 +350,7 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                   console.log('filterDataWeek', filterDataWeek);
                   if (!(typeof(filterDataWeek) == "undefined") && !(typeof(filterData) == "undefined")) {
                     console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek, filterData);
-                    if (filterDataWeek.includes("tesco_week") && filterData.includes("category_name") && filterData.includes("parent_supplier") && filterData.includes("&supplier")) {
+                    if (filterDataWeek.includes("tesco_week=") && filterData.includes("category_name=") && filterData.includes("parent_supplier=") && filterData.includes("&supplier=")) {
                       console.log('tesco_weeek filterDataWeek', filterDataWeek);
                       console.log('--filterData', filterData);
                       console.log('--SUPPLIER CHECK', filterData.includes("supplier"));

@@ -79,15 +79,7 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
       <div ref={'selector'}>
         {(() => {
           return (
-            <div id="style-7" style={{
-              height: '100%',
-              width: '17%',
-              position: 'fixed',
-              /* padding-right: 5px; */
-              overflowX: 'hidden',
-              overflowY: 'scroll',
-              borderTop: '1px solid #ccc',
-            }}>
+            <div id="style-7">
               <PanelGroup defaultActiveKey="0" accordion>
                 {(() => {
                   if (this.props.week_data) {
@@ -312,7 +304,7 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
                   console.log('filterDataWeek', filterDataWeek);
                   if (!(typeof(filterDataWeek) == "undefined") && !(typeof(filterData) == "undefined")) {
                     console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek, filterData);
-                    if (filterDataWeek.includes("tesco_week") && filterData.includes("buying_controller")) {
+                    if (filterDataWeek.includes("tesco_week=") && filterData.includes("buying_controller=")) {
                       console.log('tesco_weeek filterDataWeek', filterDataWeek);
                       console.log('--filterData', filterData);
 

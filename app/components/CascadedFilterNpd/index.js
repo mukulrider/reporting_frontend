@@ -353,7 +353,7 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
                   console.log('filterDataWeek', filterDataWeek);
                   if (!(typeof(filterDataWeek) == "undefined") && !(typeof(filterData) == "undefined")) {
                     console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek,filterData);
-                    if (filterDataWeek.includes("tesco_week") && filterData.includes("buying_controller")) {
+                    if (filterDataWeek.includes("tesco_week") && filterData.includes("buying_controller=")) {
                       console.log('tesco_weeek filterDataWeek', filterDataWeek);
                       console.log('--filterData', filterData);
                       this.props.onPieChartSpinnerSuccess(0);

@@ -60,9 +60,19 @@ let gettingUserDetails = () =>{
   const userName = getCookie('user');
   const designation = getCookie('designation');
   const buyingController = getCookie('buying_controller');
-  const buyer = getCookie('buyer');
+  let buyer = getCookie('buyer');
+  let cookieParams= "";
 
-  const cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}&buyer_header=${buyer}`;
+  if ((typeof(buyer) == "undefined") || (buyer == "")) {
+    buyer = "";
+    cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}`;
+    console.log('buyer empty', buyer);
+  } else {
+    cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}&buyer_header=${buyer}`;
+    console.log('buyer non - empty', buyer);
+  }
+
+  // const cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}&buyer_header=${buyer}`;
   return (cookieParams);
 };
 
@@ -94,13 +104,59 @@ export function* generatePromoKpiDataFetch() {
     }
   }
   const kpiparam = urlName.get('kpi_param');
-  console.log("sagas Week parameter", weekurlparam);
-//  console.log("Filter parameter", filterurlparam);
-  console.log("sagas kpiparam ", kpiparam);
+
   console.log("sagas kpiparam url",host_url+`/api/reporting/promo_kpi?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam+ '&' + weekselection + '&' + userParams)
+
+  // ADDING PARAMETERS TO 1 VARIABLE FOR APPENDING IN THE URL
+
+  let urlAppends = ""
+  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+    urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1 1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+    urlAppends = urlAppends + '&' + urlParamsString;
+    console.log('urlAppends1 2', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
+    urlAppends = urlAppends + '&' + kpiparam;
+    console.log('urlAppends1 3', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+    urlAppends = urlAppends + '&' + weekselection;
+    console.log('urlAppends1 4', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends + '&' + userParams;
+    console.log('urlAppends1 5', urlAppends);
+  } else {
+
+  }
+
+  console.log('urlAppends1 6', urlAppends);
+
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends.replace('&', '');
+  }
+
+  console.log('urlAppends1 7', urlAppends);
+
   const data = yield call(request,
-    host_url+`/api/reporting/promo_kpi?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam + '&' + weekselection + '&' + userParams);
-  console.log("Heres the kpi data",data);
+    host_url+`/api/reporting/promo_kpi?`+ urlAppends);
+    // host_url+`/api/reporting/promo_kpi?`+ weekurlparam + '&' + urlParamsString + '&' + kpiparam + '&' + weekselection + '&' + userParams);
+
   yield put(PromoKpiDataFetchSuccess(data));
 
   let spinnerCheck = 1;

@@ -86,12 +86,21 @@ let gettingUserDetails = () =>{
   const userName = getCookie('user');
   const designation = getCookie('designation');
   const buyingController = getCookie('buying_controller');
-  const buyer = getCookie('buyer');
+  let buyer = getCookie('buyer');
+  let cookieParams= "";
 
-  const cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}&buyer_header=${buyer}`;
+  if ((typeof(buyer) == "undefined") || (buyer == "")) {
+    buyer = "";
+    cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}`;
+    console.log('buyer empty', buyer);
+  } else {
+    cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}&buyer_header=${buyer}`;
+    console.log('buyer non - empty', buyer);
+  }
+
+  // const cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}&buyer_header=${buyer}`;
   return (cookieParams);
 };
-
 const userParams = gettingUserDetails();
 
 let host_url="http://172.20.246.11:8000";

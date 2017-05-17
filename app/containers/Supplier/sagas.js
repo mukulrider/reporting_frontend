@@ -49,9 +49,19 @@ let gettingUserDetails = () =>{
   const userName = getCookie('user');
   const designation = getCookie('designation');
   const buyingController = getCookie('buying_controller');
-  const buyer = getCookie('buyer');
+  let buyer = getCookie('buyer');
+  let cookieParams= "";
 
-  const cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}&buyer_header=${buyer}`;
+  if ((typeof(buyer) == "undefined") || (buyer == "")) {
+    buyer = "";
+    cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}`;
+    console.log('buyer empty', buyer);
+  } else {
+    cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}&buyer_header=${buyer}`;
+    console.log('buyer non - empty', buyer);
+  }
+
+  // const cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}&buyer_header=${buyer}`;
   return (cookieParams);
 };
 
@@ -60,12 +70,11 @@ const userParamsAuth = gettingUserDetails();
 // let host_url = "127.0.0.1:3000"
 let host_url = "http://172.20.244.150:8001"
 // FOR SUPPLIER POPUP TABLE
-export function* generateDataFetch( ) {
+export function* generateDataFetch() {
   console.log('inside kpi');
   const urlName = yield select(selectSupplierDomain());
   // const weekurlparam = urlName.get('week_param');
   // const kpiparam = urlName.get('kpi_param');
-
 
 
   // CREATING 1 PARAMETER FOR APPENDING TO URL
@@ -78,7 +87,7 @@ export function* generateDataFetch( ) {
   filter_week_selection = urlName.get('filter_week_selection');
 
   if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
-    filter_week_selection = urlName.get('filter_week_selection') ;
+    filter_week_selection = urlName.get('filter_week_selection');
     console.log("filter_week_selection if", filter_week_selection);
   } else {
     filter_week_selection = "";
@@ -101,7 +110,7 @@ export function* generateDataFetch( ) {
     urlParamsString = "";
   } else {
     let urlParamsStringCheck = urlParamsString.substring(0, 2);
-    if (urlParamsStringCheck==20) {
+    if (urlParamsStringCheck == 20) {
       urlParamsString = urlParamsString.substring(14, urlParamsString.length);
     }
   }
@@ -154,31 +163,33 @@ export function* generateDataFetch( ) {
     console.log("weekurlparam urlParams else", urlParams);
   }
 
-  console.log('userParamsAuth for supp',userParamsAuth);
+  console.log('userParamsAuth for supp', userParamsAuth);
 
-  if (!(urlParams == "")) {
-    urlParams = '?' + urlParams + '&' + userParamsAuth;
-    urlParams = urlParams.replace('&', '');
+  if (!(typeof(userParamsAuth) == "undefined") && !(userParamsAuth == "")) {
+    urlParams = urlParams + "&" + userParamsAuth;
   } else {
-    urlParams = '?' + userParamsAuth
+  }
+
+  if (!(typeof(urlParams) == "undefined") && !(urlParams == "")) {
+    urlParams = urlParams.replace('&', '');
   }
 
   console.log('final param kpi', urlParams);
 
   try {
 
-    console.log('filter url', host_url + `/api/reporting/supplier_view_kpi` + urlParams);
+    console.log('filter url', host_url + `/api/reporting/supplier_view_kpi?` + urlParams);
     const data = yield call(request,
-      host_url + `/api/reporting/supplier_view_kpi` + urlParams);
-      // {
-      //   headers: {
-      //     Authorization: token
-      //   }
-      // }
+      host_url + `/api/reporting/supplier_view_kpi?` + urlParams);
+    // {
+    //   headers: {
+    //     Authorization: token
+    //   }
+    // }
 
 
     // http://172.20.244.150:8001/api/reporting/supplier_view_kpi?
-      // tesco_week=201705&category_name=Frozen
+    // tesco_week=201705&category_name=Frozen
     // &parent_supplier=10397.%20-%20KARRO%20FOODS&supplier=14215.%20-%20EUROSTOCK%20FOODS%20HINDLEY%20LTD(MP
     // &user_id=581677099185b02c5ad4b0e8e67605d9d109c004
     // &user_name=harmanjeet.singh@mu-sigma.com
@@ -212,7 +223,6 @@ export function* generateDataFetch4() {
   // const kpiparam = urlName.get('kpi_param');
 
 
-
   // CREATING 1 PARAMETER FOR APPENDING TO URL
 
   let urlParams = "";
@@ -223,15 +233,7 @@ export function* generateDataFetch4() {
   filter_week_selection = urlName.get('filter_week_selection');
 
   if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
-    filter_week_selection = urlName.get('filter_week_selection');
-    console.log("filter_week_selection if", filter_week_selection);
-  } else {
-    filter_week_selection = "";
-    console.log("filter_week_selection else", filter_week_selection);
-  }
-
-  if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
-    urlParams = filter_week_selection;
+    urlParams = urlParams + '&' + filter_week_selection;
     console.log("filter_week_selection urlParams if", urlParams);
   } else {
     console.log("filter_week_selection urlParams else", urlParams);
@@ -265,14 +267,6 @@ export function* generateDataFetch4() {
   kpiparam = urlName.get('kpi_param');
 
   if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
-    kpiparam = urlName.get('kpi_param');
-    console.log("urlParams if", urlParams);
-  } else {
-    kpiparam = "";
-    console.log("kpiparam else", kpiparam);
-  }
-
-  if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
     urlParams = urlParams + "&" + kpiparam;
     console.log("urlParams urlParams if", urlParams);
   } else {
@@ -284,34 +278,28 @@ export function* generateDataFetch4() {
   weekurlparam = urlName.get('week_param');
 
   if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
-    weekurlparam = urlName.get('week_param');
-    console.log("weekurlparam if", weekurlparam);
-  } else {
-    weekurlparam = "";
-    console.log("weekurlparam else", weekurlparam);
-  }
-
-  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
     urlParams = urlParams + "&" + weekurlparam;
     console.log("weekurlparam urlParams if", urlParams);
   } else {
     console.log("weekurlparam urlParams else", urlParams);
   }
 
-  if (!(urlParams == "")) {
-    urlParams = '?' + urlParams
-    // urlParams = urlParams.replace('&', '');
+  if (!(typeof(userParamsAuth) == "undefined") && !(userParamsAuth == "")) {
+    urlParams = urlParams + "&" + userParamsAuth;
   } else {
-    urlParams = '?';
-  }
-  console.log('final param', urlParams);
 
+  }
+
+  if (!(typeof(urlParams) == "undefined") && !(urlParams == "")) {
+    urlParams = urlParams.replace('&', '');
+  }
+
+  console.log('urlParams1', urlParams);
 
 
   try {
-    const data = yield call(request, host_url + `/api/reporting/supplier_view_sku_rsp?` + urlParams  + '&' + userParamsAuth.replace('&', ''));
-    // const data = yield call(request, host_url + `/api/reporting/supplier_view_sku_rsp?` + weekurlparam + '&' + kpiparam);
-    console.log("Heres the kpi ASP data", data);
+    const data = yield call(request, host_url + `/api/reporting/supplier_view_sku_rsp?` + urlParams);
+
     yield put(kpiboxAspDataFetchSucess(data));
 
   } catch (err) {
@@ -344,21 +332,13 @@ export function* generateDataFetch3() {
   let filter_week_selection = "";
   filter_week_selection = urlName.get('filter_week_selection');
 
-  if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
-    filter_week_selection = urlName.get('filter_week_selection');
-    console.log("filter_week_selection if", filter_week_selection);
-  } else {
-    filter_week_selection = "";
-    console.log("filter_week_selection else", filter_week_selection);
-  }
 
   if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
-    urlParams = filter_week_selection + '&';
+    urlParams = urlParams + '&' + filter_week_selection;
     console.log("filter_week_selection urlParams if", urlParams);
   } else {
-    console.log("filter_week_selection urlParams else", urlParams);
-  }
 
+  }
 
   // FOR OTHER FILTERS EXCEPT TESCO WEEK
 
@@ -367,7 +347,7 @@ export function* generateDataFetch3() {
     urlParamsString = "";
   } else {
     let urlParamsStringCheck = urlParamsString.substring(0, 2);
-    if (urlParamsStringCheck==20) {
+    if (urlParamsStringCheck == 20) {
       urlParamsString = urlParamsString.substring(14, urlParamsString.length);
     }
   }
@@ -387,14 +367,6 @@ export function* generateDataFetch3() {
   kpiparam = urlName.get('kpi_param');
 
   if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
-    kpiparam = urlName.get('kpi_param');
-    console.log("urlParams if", urlParams);
-  } else {
-    kpiparam = "";
-    console.log("kpiparam else", kpiparam);
-  }
-
-  if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
     urlParams = urlParams + "&" + kpiparam;
     console.log("urlParams urlParams if", urlParams);
   } else {
@@ -404,14 +376,6 @@ export function* generateDataFetch3() {
 //*********************** TOP BOTTOM KPI PARAMETERS *********************************
   let topbottomkpi = "";
   topbottomkpi = urlName.get('top_bottom_kpi');
-
-  if (!(typeof(topbottomkpi) == "undefined") && !(topbottomkpi == "")) {
-    topbottomkpi = urlName.get('top_bottom_kpi');
-    console.log("topbottomkpi if", topbottomkpi);
-  } else {
-    topbottomkpi = "";
-    console.log("topbottomkpi else", topbottomkpi);
-  }
 
   if (!(typeof(topbottomkpi) == "undefined") && !(topbottomkpi == "")) {
     urlParams = urlParams + "&" + topbottomkpi;
@@ -425,33 +389,30 @@ export function* generateDataFetch3() {
   weekurlparam = urlName.get('week_param');
 
   if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
-    weekurlparam = urlName.get('week_param');
-    console.log("weekurlparam if", weekurlparam);
-  } else {
-    weekurlparam = "";
-    console.log("weekurlparam else", weekurlparam);
-  }
-
-  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
     urlParams = urlParams + "&" + weekurlparam;
     console.log("weekurlparam urlParams if", urlParams);
   } else {
     console.log("weekurlparam urlParams else", urlParams);
   }
 
-  if (!(urlParams == "")) {
-    urlParams = '?' + urlParams
-    urlParams = urlParams.replace('&', '');
+  if (!(typeof(userParamsAuth) == "undefined") && !(userParamsAuth == "")) {
+    urlParams = urlParams + "&" + userParamsAuth;
+    console.log("userParamsAuth if", urlParams);
   } else {
-    urlParams = '?';
+    console.log("userParamsAuth else", urlParams);
   }
-  console.log('final param', urlParams);
+
+  if (!(typeof(urlParams) == "undefined") && !(urlParams == "")) {
+    urlParams = urlParams.replace('&', '');
+  }
+
+  console.log('urlParams2', urlParams);
 
   try {
     const topbot_data = yield call(request,
-      host_url + `/api/reporting/supplier_view_top_bottom`  + urlParams  + '&' + userParamsAuth.replace('&', ''));
+      host_url + `/api/reporting/supplier_view_top_bottom?` + urlParams);
     // host_url + `/api/reporting/supplier_view_top_bottom?` + weekurlparam + '&' + topbottomkpi + '&' + kpiparam);
-    console.log("generateDataFetch3 sagas.js", topbot_data);
+
     yield put(topBottomChartFetchSuccess(topbot_data));
     let barChartSpinnerCheck = 1;
     yield put(barChartSpinnerCheckSuccess(barChartSpinnerCheck));
@@ -471,9 +432,9 @@ export function* doSupplierTopBotFetch() {
 export function* generateSideFilter() {
   console.log('in bigger fn');
   let urlName = yield select(selectSupplierDomain());
-  console.log('in bigger urlName',urlName);
+  console.log('in bigger urlName', urlName);
   let urlParamsString = urlName.get('urlParamsString');
-  console.log('in bigger urlParamsString',urlParamsString);
+  console.log('in bigger urlParamsString', urlParamsString);
   // let getCookie;
   // getCookie = (name) => {
   //   const value = `; ${document.cookie}`;
@@ -500,19 +461,19 @@ export function* generateSideFilter() {
   } else {
     urlParamsString = '?';
   }
-  console.log('in bigger before try',urlParamsString);
-  console.log('calling url',host_url + `/api/reporting/filter_supplier` + urlParamsString + '&' + userParamsAuth.replace('&', ''));
+  console.log('in bigger before try', urlParamsString);
+  console.log('calling url', host_url + `/api/reporting/filter_supplier` + urlParamsString + '&' + userParamsAuth.replace('&', ''));
 
   try {
     const filter_data = yield call(request,
       host_url + `/api/reporting/filter_supplier` + urlParamsString + '&' + userParamsAuth);
 
-      /*,
-      {
-        headers: {
-          Authorization: token
-        }
-      }*/
+    /*,
+     {
+     headers: {
+     Authorization: token
+     }
+     }*/
     console.log('filter_data', filter_data);
     yield put(generateSideFilterSuccess(filter_data));
   } catch (err) {
@@ -604,7 +565,7 @@ export function* generateTable() {
 
   let urlName = yield select(selectSupplierDomain());
   //  Getting the url parameters for filters
-  console.log('bbb');
+
   // let urlParams = urlName.get('urlParamsString');
 
   let weekParams = urlName.get('week_param');
@@ -660,20 +621,11 @@ export function* generateTable() {
   filter_week_selection = urlName.get('filter_week_selection');
 
   if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
-    filter_week_selection = urlName.get('filter_week_selection');
-    console.log("filter_week_selection if", filter_week_selection);
-  } else {
-    filter_week_selection = "";
-    console.log("filter_week_selection else", filter_week_selection);
-  }
-
-  if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
     urlParams = filter_week_selection + '&';
     console.log("filter_week_selection urlParams if", urlParams);
   } else {
     console.log("filter_week_selection urlParams else", urlParams);
   }
-
 
   // FOR OTHER FILTERS EXCEPT TESCO WEEK
 
@@ -683,7 +635,7 @@ export function* generateTable() {
     urlParamsString = "";
   } else {
     let urlParamsStringCheck = urlParamsString.substring(0, 2);
-    if (urlParamsStringCheck==20) {
+    if (urlParamsStringCheck == 20) {
       urlParamsString = urlParamsString.substring(14, urlParamsString.length);
     }
   }
@@ -703,45 +655,43 @@ export function* generateTable() {
   weekurlparam = urlName.get('week_param');
 
   if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
-    weekurlparam = urlName.get('week_param');
-    console.log("weekurlparam if", weekurlparam);
-  } else {
-    weekurlparam = "";
-    console.log("weekurlparam else", weekurlparam);
-  }
-
-  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
     urlParams = urlParams + "&" + weekurlparam;
-    console.log("weekurlparam urlParams if", urlParams);
   } else {
-    console.log("weekurlparam urlParams else", urlParams);
+
   }
 
-  if (!(urlParams == "")) {
-    urlParams = '?' + urlParams
-    urlParams = urlParams.replace('&', '');
-  }
-  console.log('final param', urlParams);
-
+  // if (!(urlParams == "")) {
+  //   urlParams = '?' + urlParams
+  //   urlParams = urlParams.replace('&', '');
+  // }
+  // console.log('final param', urlParams);
+  //
 
 
   let ajaxSelection = '';
 
-  ajaxSelection = SelectionState.replace('&', '');
+  ajaxSelection = SelectionState;
+  // ajaxSelection = SelectionState.replace('&', '');
 
   console.log('ddd', ajaxSelection);
 
   if (!(typeof(ajaxSelection) == "undefined") && !(ajaxSelection == "")) {
-    // ajaxSelection = '?' + ajaxSelection;
+    urlParams = urlParams + '&' + ajaxSelection;
 
-    urlParams = urlParams + '&' + ajaxSelection ;
-    // urlParams = '?' + urlParams.replace('&', '');
+    if (!(typeof(userParamsAuth) == "undefined") && !(userParamsAuth == "")) {
+      urlParams = urlParams + "&" + userParamsAuth;
+    } else {
 
-    console.log('entered urlParams', urlParams);
-    console.log('entered ajaxselection', ajaxSelection);
-    const data = yield call(request,host_url + `/api/reporting/supplier_view_table_bubble` + urlParams  + '&' + userParamsAuth
-      )
-    ;
+    }
+
+    if (!(typeof(urlParams) == "undefined") && !(urlParams == "")) {
+      urlParams = urlParams.replace('&', '');
+    }
+
+    console.log('urlParams 7', urlParams);
+
+
+    const data = yield call(request, host_url + `/api/reporting/supplier_view_table_bubble?` + urlParams);
 
     yield put(generateTableSuccess(data));
 
@@ -752,20 +702,27 @@ export function* generateTable() {
 
   else {
     console.log('data12');
-    // urlParams = '?' + urlParams;
-    let userParamsAuthNew = '?' + userParamsAuth;
-    const data = yield call(request, host_url + `/api/reporting/supplier_view_table_bubble` + userParamsAuthNew + '&'  + urlParams);
 
-    console.log(host_url + `/api/reporting/supplier_view_table_bubble` + urlParams  + '&' + userParamsAuthNew);
-    console.log('data11', data);
+    if (!(typeof(userParamsAuth) == "undefined") && !(userParamsAuth == "")) {
+      urlParams = urlParams + "&" + userParamsAuth;
+    } else {
+
+    }
+
+    if (!(typeof(urlParams) == "undefined") && !(urlParams == "")) {
+      urlParams = urlParams.replace('&', '');
+    }
+
+    console.log('urlParams 7', urlParams);
+
+    const data = yield call(request, host_url + `/api/reporting/supplier_view_table_bubble?` + urlParams);
+
     yield put(generateTableSuccess(data));
 
     let tableChartSpinnerCheck = 1;
     yield put(tableChartSpinnerCheckSuccess(tableChartSpinnerCheck));
 
   }
-
-
 
 
 }
@@ -806,17 +763,14 @@ export function* generateGraph() {
   if (storeParams !== '') {
 
     SelectionState = SelectionState + '&' + storeParams
-    console.log('storeparams', SelectionState);
 
   }
 
   if (performanceParams !== '') {
 
     SelectionState = SelectionState + '&' + performanceParams
-    console.log('performanceparams', SelectionState);
   }
 
-  console.log('ccc', SelectionState);
 
   // CREATING 1 PARAMETER FOR APPENDING TO URL
 
@@ -828,20 +782,10 @@ export function* generateGraph() {
   filter_week_selection = urlName.get('filter_week_selection');
 
   if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
-    filter_week_selection = urlName.get('filter_week_selection');
-    console.log("filter_week_selection if", filter_week_selection);
+    urlParams = urlParams + "&" + filter_week_selection;
   } else {
-    filter_week_selection = "";
-    console.log("filter_week_selection else", filter_week_selection);
-  }
 
-  if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
-    urlParams = filter_week_selection + "&" + urlParams;
-    console.log("filter_week_selection urlParams if", urlParams);
-  } else {
-    console.log("filter_week_selection urlParams else", urlParams);
   }
-
 
   // FOR OTHER FILTERS EXCEPT TESCO WEEK
 
@@ -851,13 +795,13 @@ export function* generateGraph() {
     urlParamsString = "";
   } else {
     let urlParamsStringCheck = urlParamsString.substring(0, 2);
-    if (urlParamsStringCheck==20) {
+    if (urlParamsStringCheck == 20) {
       urlParamsString = urlParamsString.substring(14, urlParamsString.length);
     }
   }
 
   if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
-    urlParams = urlParams  + "&" + urlParamsString;
+    urlParams = urlParams + "&" + urlParamsString;
     console.log("urlParamsString urlParams if", urlParams);
 
   } else {
@@ -870,71 +814,63 @@ export function* generateGraph() {
   let weekurlparam = "";
   weekurlparam = urlName.get('week_param');
 
-
-  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
-    weekurlparam = urlName.get('week_param');
-    console.log("weekurlparam if", weekurlparam);
-  } else {
-    weekurlparam = "";
-    console.log("weekurlparam else", weekurlparam);
-  }
-
   if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
     urlParams = urlParams + "&" + weekurlparam;
-    console.log("weekurlparam urlParams if", urlParams);
   } else {
-    console.log("weekurlparam urlParams else", urlParams);
+
   }
 
   // if (!(urlParams == "")) {
   //   urlParams = '?' + urlParams
   //   // urlParams = urlParams.replace('&', '');
   // }
-  console.log('final param', urlParams);
-
-
 
   let ajaxSelection = '';
 
   ajaxSelection = SelectionState;
-  ajaxSelection = SelectionState.replace('&', '');
+  // ajaxSelection = SelectionState.replace('&', '');
 
-  console.log('ddd', ajaxSelection);
 
   if (!(typeof(ajaxSelection) == "undefined") && !(ajaxSelection == "")) {
-    urlParams = urlParams + '&' + ajaxSelection ;
-    urlParams = '?' + urlParams.replace('&', '');
+    urlParams = urlParams + '&' + ajaxSelection;
 
-    console.log('entered urlParams', urlParams);
-    const data = yield call(request,
+    if (!(typeof(userParamsAuth) == "undefined") && !(userParamsAuth == "")) {
+      urlParams = urlParams + '&' + userParamsAuth;
+      console.log('urlParams 5', urlParams);
+    } else {
 
-        host_url + `/api/reporting/supplier_view_chart_bubble` + urlParams  + '&' + userParamsAuth
-      )
-    ;
-    // const data = yield call(request, `http://172.20.244.223:8000/api/nego_chart?` + urlParams +"&"+ ajaxSelection);
+    }
 
-    console.log('eee', data);
+    if (!(typeof(urlParams) == "undefined") && !(urlParams == "")) {
+      urlParams = urlParams.replace('&', '');
+    }
+
+    console.log('urlParams 7', urlParams);
+
+    const data = yield call(request, host_url + `/api/reporting/supplier_view_chart_bubble?` + urlParams);
 
     yield put(fetchGraphSuccess(data));
 
     let bubbleChartSpinnerCheck = 1;
     yield put(bubbleChartSpinnerCheckSuccess(bubbleChartSpinnerCheck));
-
-
   }
 
   else {
-    // const data = yield call(request, `http:// 172.20.244.223:8000/ranging/nego_bubble_chart?`+urlParams );
-    if (!(urlParams == "")) {
-      urlParams = '?' + urlParams
-      urlParams = urlParams.replace('&', '');
+
+    if (!(typeof(userParamsAuth) == "undefined") && !(userParamsAuth == "")) {
+      urlParams = urlParams + '&' + userParamsAuth;
+      console.log('urlParams 5', urlParams);
     } else {
-      urlParams = '?';
+
     }
-    console.log('final param', urlParams);
-    const data = yield call(request, host_url + `/api/reporting/supplier_view_chart_bubble` + urlParams  + '&' + userParamsAuth);
-    // const data = yield call(request, `http://172.20.244.223:8000/api/nego_chart?`+urlParams );
-    console.log('fff', data);
+
+    if (!(typeof(urlParams) == "undefined") && !(urlParams == "")) {
+      urlParams = urlParams.replace('&', '');
+    }
+
+    console.log('urlParams 7', urlParams);
+    const data = yield call(request, host_url + `/api/reporting/supplier_view_chart_bubble?` + urlParams);
+
     yield put(fetchGraphSuccess(data));
 
     let bubbleChartSpinnerCheck = 1;

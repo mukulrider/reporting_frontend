@@ -1,17 +1,22 @@
-
 import {
   WATERFALL_CONSTANT, PIECHART_CONSTANT, PRICE_RANGE_CONSTANT, FILTER_CONSTANT, OUTPERFORMANCE_CONSTANT,
 } from './constants';
 import {
-  CompetitorWaterfallDataFetchSuccess, CompetitorPieChartDataFetchSuccess, CompetitorPriceRangeDataFetchSuccess,
-  FilterFetchSuccess, CompetitorOutpermanceFetchSuccess,onPieChartSpinnerSuccess, outPerformanceChartSuccess,waterChartAsdaSuccess,
+  CompetitorWaterfallDataFetchSuccess,
+  CompetitorPieChartDataFetchSuccess,
+  CompetitorPriceRangeDataFetchSuccess,
+  FilterFetchSuccess,
+  CompetitorOutpermanceFetchSuccess,
+  onPieChartSpinnerSuccess,
+  outPerformanceChartSuccess,
+  waterChartAsdaSuccess,
   priceRangeChartSuccess
 } from 'containers/Competitor/actions';
 
 
 // import { take, call, put, select } from 'redux-saga/effects';
-import { take, call, put, select, cancel, takeLatest } from 'redux-saga/effects';
-import { LOCATION_CHANGE } from 'react-router-redux';
+import {take, call, put, select, cancel, takeLatest} from 'redux-saga/effects';
+import {LOCATION_CHANGE} from 'react-router-redux';
 import request from 'utils/request';
 // Individual exports for testing
 import {
@@ -37,12 +42,21 @@ let gettingUserDetails = () =>{
   const userName = getCookie('user');
   const designation = getCookie('designation');
   const buyingController = getCookie('buying_controller');
-  const buyer = getCookie('buyer');
+  let buyer = getCookie('buyer');
+  let cookieParams= "";
 
-  const cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}&buyer_header=${buyer}`;
+  if ((typeof(buyer) == "undefined") || (buyer == "")) {
+    buyer = "";
+    cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}`;
+    console.log('buyer empty', buyer);
+  } else {
+    cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}&buyer_header=${buyer}`;
+    console.log('buyer non - empty', buyer);
+  }
+
+  // const cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}&buyer_header=${buyer}`;
   return (cookieParams);
 };
-
 const userParams = gettingUserDetails();
 
 const host_url = 'http://172.20.244.150:8001';
@@ -73,14 +87,52 @@ export function* generateCompetitorWaterfallDataFetch() {
   //
   // //paramString = paramString + '&week=' + urlParams;
   // paramString = paramString.replace('&', '');
+  let urlAppends = ""
+  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+    urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(filterurlparam) == "undefined") && !(filterurlparam == "")) {
+    urlAppends = urlAppends + '&' + filterurlparam;
+    console.log('urlAppends2', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(waterfallparam) == "undefined") && !(waterfallparam == "")) {
+    urlAppends = urlAppends + '&' + waterfallparam;
+    console.log('urlAppends3', urlAppends);
+  } else {
+
+  }
+
+
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends + '&' + userParams;
+    console.log('urlAppends4', urlAppends);
+  } else {
+
+  }
+
+  console.log('urlAppends5', urlAppends);
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends.replace('&', '');
+  }
+  console.log('urlAppends6', urlAppends);
+
   const data = yield call(request,
-    `${host_url}/api/reporting/competitor_price_index?${weekurlparam}&${filterurlparam}&${waterfallparam}&${weekselection}&${userParams}`,
+    `${host_url}/api/reporting/competitor_price_index?` + urlAppends,
+    // `${host_url}/api/reporting/competitor_price_index?${weekurlparam}&${filterurlparam}&${waterfallparam}&${weekselection}&${userParams}`,
+
     // {
     //   headers: {
     //     Authorization: token
     //   }
     // }
-    );
+  );
   console.log('Heres the kpi data', data);
   let spinnerCheck = 1;
   yield put(CompetitorWaterfallDataFetchSuccess(data));
@@ -121,14 +173,59 @@ export function* generateCompetitorPieChartDataFetch() {
   // const buyer = getCookie('buyer');
   // const token = user_token.concat('___').concat(buyer)
 
+
+  let urlAppends = ""
+  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+    urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1 2', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
+    urlAppends = urlAppends + '&' + kpiparam;
+    console.log('urlAppends2 2', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(filterurlparam) == "undefined") && !(filterurlparam == "")) {
+    urlAppends = urlAppends + '&' + filterurlparam;
+    console.log('urlAppends3 2', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+    urlAppends = urlAppends + '&' + weekselection;
+    console.log('urlAppends4 2', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends + '&' + userParams;
+    console.log('urlAppends5 2', urlAppends);
+  } else {
+
+  }
+
+  console.log('urlAppends6 2', urlAppends);
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends.replace('&', '');
+  }
+  console.log('urlAppends7 2', urlAppends);
+
+
   const data = yield call(request,
-    `${host_url}/api/reporting/competitor_market_share?${weekurlparam}&${kpiparam}&${filterurlparam}&${weekselection}&${userParams}`,
+    `${host_url}/api/reporting/competitor_market_share?` + urlAppends,
+    // `${host_url}/api/reporting/competitor_market_share?${weekurlparam}&${kpiparam}&${filterurlparam}&${weekselection}&${userParams}`,
     // {
     //   headers: {
     //     Authorization: token
     //   }
     // }
-    );
+  );
   console.log('Heres the kpi data', data);
   let spinnerCheck = 1;
   yield put(CompetitorPieChartDataFetchSuccess(data));
@@ -161,14 +258,53 @@ export function* generateCompetitorPriceRangeDataFetch() {
   // const buyer = getCookie('buyer');
   // const token = user_token.concat('___').concat(buyer)
 
+  let urlAppends = ""
+  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+    urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1 3', urlAppends);
+  } else {
+
+  }
+
+if (!(typeof(filterurlparam) == "undefined") && !(filterurlparam == "")) {
+    urlAppends = urlAppends + '&' + filterurlparam;
+    console.log('urlAppends2 3', urlAppends);
+  } else {
+
+  }
+
+if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+    urlAppends = urlAppends + '&' + weekselection;
+    console.log('urlAppends3 3', urlAppends);
+  } else {
+
+  }
+
+if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends + '&' + userParams;
+    console.log('urlAppends4 3', urlAppends);
+  } else {
+
+  }
+
+
+  console.log('urlAppends5 3', urlAppends);
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends.replace('&', '');
+  }
+
+  console.log('urlAppends6 3', urlAppends);
+
+
   const data = yield call(request,
-    `${host_url}/api/reporting/competitor_view_range?${weekurlparam}&${filterurlparam}&${weekselection}&${userParams}`,
+    `${host_url}/api/reporting/competitor_view_range?` + urlAppends,
+    // `${host_url}/api/reporting/competitor_view_range?${weekurlparam}&${filterurlparam}&${weekselection}&${userParams}`,
     // {
     //   headers: {
     //     Authorization: token
     //   }
     // }
-    );
+  );
   console.log('Heres the kpi data', data);
 
   let spinnerCheck = 1;
@@ -211,17 +347,63 @@ export function* generateCompetitorOutperformance() {
   // const token = user_token.concat('___').concat(buyer)
 
 
-  try {
-  const data = yield call(request,
-    `${host_url}/api/reporting/competitor_market_outperformance?${weekurlparam}&${kpiparam}&${filterurlparam}&${weekselection}&${userParams}`,
-    // {
-    //   headers: {
-    //     Authorization: token
-    //   }
-    // }
-      );
+  let urlAppends = ""
+  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+    urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1 4', urlAppends);
+  } else {
 
-  console.log('generateCompetitorOutperformance', data);
+  }
+
+ if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
+    urlAppends = urlAppends + '&' + kpiparam;
+    console.log('urlAppends2 4', urlAppends);
+  } else {
+
+  }
+
+ if (!(typeof(filterurlparam) == "undefined") && !(filterurlparam == "")) {
+    urlAppends = urlAppends + '&' + filterurlparam;
+    console.log('urlAppends3 4', urlAppends);
+  } else {
+
+  }
+
+ if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+    urlAppends = urlAppends + '&' + weekselection;
+    console.log('urlAppends3 4', urlAppends);
+  } else {
+
+  }
+
+ if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends + '&' + userParams;
+    console.log('urlAppends3 4', urlAppends);
+  } else {
+
+  }
+
+  console.log('urlAppends4 4', urlAppends);
+
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends.replace('&', '');
+  }
+
+  console.log('urlAppends4 5', urlAppends);
+
+
+  try {
+    const data = yield call(request,
+      `${host_url}/api/reporting/competitor_market_outperformance?` + urlAppends,
+      // `${host_url}/api/reporting/competitor_market_outperformance?${weekurlparam}&${kpiparam}&${filterurlparam}&${weekselection}&${userParams}`,
+      // {
+      //   headers: {
+      //     Authorization: token
+      //   }
+      // }
+    );
+
+    console.log('generateCompetitorOutperformance', data);
     let spinnerCheck = 1;
     yield put(CompetitorOutpermanceFetchSuccess(data));
     yield put(outPerformanceChartSuccess(spinnerCheck));
@@ -260,11 +442,11 @@ export function* generateFilterFetch() {
         urlParams = urlParams.substring(14, urlParamsString.length);
       }
     }
-      // {
-      //   headers: {
-      //     Authorization: token,
-      //   },
-      // }
+    // {
+    //   headers: {
+    //     Authorization: token,
+    //   },
+    // }
 
 
     // if (urlParams==='')
@@ -277,7 +459,7 @@ export function* generateFilterFetch() {
       //     Authorization: token,
       //   },
       // }
-      );
+    );
 
     console.log(`${host_url}/api/reporting/filter_data_week?${weekurlparams}`);
     const data2 = yield call(request, `${host_url}/api/reporting/filter_data_week?${weekurlparams}`,
@@ -286,11 +468,11 @@ export function* generateFilterFetch() {
       //     Authorization: token,
       //   },
       // }
-      );
+    );
     console.log('sagas generateFilterFetch data2', data2);
     // const data = yield call(request, `http://localhost:8090/wash/?format=json`);
     // const data = yield call(request, `http://10.1.161.82:8000/ranging/npd_view/filter_data?`);
-    const filter_data = { filter_data: data, week_data: data2 };
+    const filter_data = {filter_data: data, week_data: data2};
     // // //console.log(data);
     yield put(FilterFetchSuccess(filter_data));
   } catch (err) {
