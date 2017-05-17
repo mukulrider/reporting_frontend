@@ -87,7 +87,7 @@ export function* generateCompetitorWaterfallDataFetch() {
   //
   // //paramString = paramString + '&week=' + urlParams;
   // paramString = paramString.replace('&', '');
-  let urlAppends = ""
+  let urlAppends = "";
   if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
     urlAppends = urlAppends + '&' + weekurlparam;
     console.log('urlAppends1', urlAppends);
@@ -118,6 +118,7 @@ export function* generateCompetitorWaterfallDataFetch() {
   }
 
   console.log('urlAppends5', urlAppends);
+
   if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
     urlAppends = urlAppends.replace('&', '');
   }
