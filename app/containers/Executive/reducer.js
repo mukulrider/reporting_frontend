@@ -123,7 +123,9 @@ const initialState = fromJS({
       "wow": "0",
       "yoy": "0",
       "lfl": "0",
-
+      "of_wow": "0",
+      "of_yoy": "0",
+      "of_lfl": "0",
     },
     "market": {
       "total": "0",

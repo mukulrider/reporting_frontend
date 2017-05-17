@@ -38,8 +38,8 @@ import {
 } from './constants';
 
 const initialState = fromJS({
-  week_param: '',
-  kpi_param: '',
+  week_param :'week_flag=Current Week',
+  kpi_param :'',
   urlParamsString: '',
   sales_param: '',
   giveaway_param: '',
