@@ -292,9 +292,10 @@ export class Promotion extends React.PureComponent {
                     this.props.loadPromoPart();
                   }}><span className="tab_label">YTD</span></NavItem>
                 </Nav>
-
+            <div>
+              <div className="mainBox">
                 <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect}
-                     className="tabsCustom" style={{margin: "0px"}}>
+                     className="tabsCustom mainTab" style={{margin: "0px"}}>
                   <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
                     this.setState({activeKey2: "1"});
                     this.props.kpiDataSuccess(0);
@@ -323,11 +324,15 @@ export class Promotion extends React.PureComponent {
 
             </span>
             </Nav>
-
+          </div>
+        </div>
 
 
             {/* Promo KPI Boxes */}
-
+          <div className="coverBox">
+            <div className="headerBox">
+              <h2 className="pageModuleMainTitle">Promotion Performance</h2>
+            </div>
             <div className="row" style={{textAlign: 'center'}}>
 
                   {(() => {
@@ -602,7 +607,7 @@ export class Promotion extends React.PureComponent {
                     }
                   })()}
             </div>
-
+          </div>
             <div>
               <panel>
                 {/*Row for sales */}

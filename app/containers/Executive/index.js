@@ -16,7 +16,7 @@ import './style.scss';
 import { createStructuredSelector } from 'reselect';
 import makeSelectExecutive from './selectors';
 import Button from 'components/button';
-import ButtonSmall from 'components/ButtonSmall';
+//import ButtonSmall from 'components/ButtonSmall';
 import messages from './messages';
 import WaterFallChartExec from 'components/WaterFallChartExec'
 //For Filter

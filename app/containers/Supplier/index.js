@@ -313,8 +313,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                     <div className="col-md-12 content-wrap" style={{backgroundColor: "#f5f5f5"}}>
 
-                      <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect}
-                           className="tabsCustom">
+                      <Nav style={{marginLeft: '1%', marginBottom: '0%'}}bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect}  className="tabsCustom mainTab">
                         <NavItem className="tabsCustomListTime" eventKey="1" onClick={() => {
                           this.setState({activeKey1: "1"});
                           this.props.supplierViewKpiSpinnerCheckSuccess(0);
@@ -437,7 +436,10 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                              this.setState({suppKPIbar: true});
                            }}>
                         </span>
-                      <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect} class="tabsNavPanelListSupp">
+
+                        <div className="mainBox">
+                          <div style={{borderRight: '1%'}}>
+                      <Nav bsStyle="tabs" style={{marginLeft: '1%'}} activeKey={this.state.activeKey2} onSelect={this.handleSelect}className="tabsCustom  mainTab">
 
                         <NavItem eventKey="1" className="tabsNavPanelList1" onClick={() => {
                           this.setState({activeKey2: "1"});
@@ -535,8 +537,12 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                       </Nav>
                       </div>
 
+                      </div>
 
-                      <div className="row">
+                      <div className="coverBox">
+                        <div className="headerBox">
+                          <h2 className="pageModuleMainTitle">Performance by KPI</h2>
+                        </div>
                         {(() => {
                           if (this.props.supplier.supplierViewKpiSpinner != 1) {
                             return (
@@ -631,8 +637,8 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                   </div>
 
                                   <panel>
-                                    <div className="row">
-                                      <div className="col-md-6 col-sm-12">
+                                    <div className="row mainBox">
+                                      <div className="col-md-6 col-sm-6" style={{backgroundColor: "#fafafa"}}>
 
 
                                           {(() => {
@@ -640,7 +646,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                                               return (
                                                 <div>
-                                                  <div className="col-md-12 col-sm-12 panel-body" style={{
+                                                  <div className="col-md-12 col-sm-6" style={{
                                                     textAlign: 'center',
                                                     borderTop: "1px solid #e5e8ea",
                                                     backgroundColor: "white",
@@ -667,7 +673,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                           })()}
 
                                       </div>
-                                      <div className="col-md-6 col-sm-12">
+                                      <div className="col-md-6 col-sm-6" style={{backgroundColor: "#fafafa"}}>
 
 
                                           {(() => {
@@ -675,7 +681,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                                               return (
                                                 <div>
-                                                  <div className="col-md-12 col-sm-12 col-xs-12 panel-body" style={{
+                                                  <div className="col-md-12 col-sm-6 col-xs-12" style={{
                                                     textAlign: 'center',
                                                     borderTop: "1px solid #e5e8ea",
                                                     float: 'right',
@@ -712,7 +718,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                           }
                         })()}
 
-                      </div>
+
                       <Modal show={this.state.suppTopBottombar} bsSize="lg"
                              aria-labelledby="contained-modal-title-lg"
                       >
@@ -729,6 +735,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                           </Modal.Title>
 
                         </Modal.Header>
+
                         <Modal.Body style={{fontSize: '14px'}}>
                           A comparison of suppliers based on various metric is pivotal to improved buyer- supplier negotiations. Empowered with data regarding how different suppliers offer similar products at varying prices, a buyer can make more informed decisions to grow his portfolio. The list of top and bottom suppliers will help critically evaluate engagements with buyers.
                         </Modal.Body>
@@ -736,18 +743,20 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                       <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
 
-                      <div className="row">
+
                         <div className="pageTitle" style={{marginBottom:"20px"}}>
-                          <span>Assess Performance by Parent Supplier</span>
+                          <div className="headerBox">
+                            <h2 className="pageModuleMainTitle">Assess performance by parent supplier</h2>
+                          </div>
                           <span className="glyphicon glyphicon-info-sign pull-right"
                                 style={{right: '4px', fontSize: '15px', top: '8px'}}
                                 onClick={() => {
                                   this.setState({suppTopBottombar: true});
                                 }}></span>
                         </div>
-
+                      <div className="mainBox">
                         <div>
-                          <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect}>
+                          <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect} className="tabsCustom  mainTab">
                             <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
                               this.setState({activeKey3: "1"});
                               this.props.barChartSpinnerCheckSuccess(0);
@@ -774,8 +783,10 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                             }}><span className="tab_label">{this.state.ContributionToGrowthTab}</span></NavItem>
                           </Nav>
                         </div>
+                      </div>
 
-
+                    <div>
+                      <div className="row mainBox">
                         <panel>
 
                           <div className="col-md-6 col-sm-12 col-xs-12 panel-body" style={{backgroundColor: "#f5f5f5"}}>
@@ -843,8 +854,9 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                             {/*<SampleBarChart/>*/}
                           </div>
                         </panel>
-
                       </div>
+                    </div>
+
                       <Modal show={this.state.suppNegotiationbar} bsSize="lg"
                              aria-labelledby="contained-modal-title-lg"
                       >
@@ -868,7 +880,9 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                       </Modal>
 
                       <div className="pageTitle">
-                        <span>Negotiation Opportunity</span>
+                        <div className="headerBox">
+                          <h2 className="pageModuleMainTitle">Negotiation Opportunity</h2>
+                        </div>
                               <span className="glyphicon glyphicon-info-sign pull-right"
                                     style={{right: '4px', fontSize: '15px', top: '8px'}}
                                     onClick={() => {
@@ -876,9 +890,9 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                     }}></span>
                       </div>
                       <div className="row" style={{marginLeft: "0px", marginRight: "0px"}}>
-                        <div className="col-md-12 content-wrap">
+                        <div className="mainBox">
                           <Nav bsStyle="tabs" className="tabsNavPanelList1" activeKey={this.state.activeKey4}
-                               onSelect={this.handleSelect}>
+                               onSelect={this.handleSelect} >
                             <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
                               this.setState({activeKey4: "1"});
                               this.props.bubbleChartSpinnerCheckSuccess(0);
@@ -906,7 +920,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                         {/*------Performance quartile---- */}
 
                         {/*Header row*/}
-                        <div className="col-md-12 col-sm-12 negoHeading" style={{marginTop:'20px'}}>
+                        <div className="col-md-12 col-sm-12 pageModuleSubTitle" style={{marginTop:'20px'}}>
                           <div style={{textAlign:"center"}}> Please select a negotiation strategy below to filter 'Negotiation Opportunity' chart and table
                           </div>
                         </div>
@@ -1231,7 +1245,8 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                         {/*-----Bubble chart-----*/}
 
-                        <div className="row">
+                        <div>
+                          <div className="mainBox">
                           {(() => {
                             if (this.props.supplier.bubbleChartSpinnerCheck != 1) {
                               return (
@@ -1479,7 +1494,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                             {/*</div>*/}
 
                           {/*</div>*/}
-                        </div>
+
 
                         {/*-----Bubble table-----*/}
 
@@ -1542,11 +1557,15 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
 
                       </div>
-
+                      </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+              </div>
+              </div>
+
 
           )
           }

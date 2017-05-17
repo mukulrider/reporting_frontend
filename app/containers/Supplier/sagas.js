@@ -68,7 +68,7 @@ let gettingUserDetails = () =>{
 const userParamsAuth = gettingUserDetails();
 
 // let host_url = "127.0.0.1:3000"
-let host_url = "http://172.20.244.150:8001"
+let host_url = "http://10.1.161.82:8004"
 // FOR SUPPLIER POPUP TABLE
 export function* generateDataFetch() {
   console.log('inside kpi');

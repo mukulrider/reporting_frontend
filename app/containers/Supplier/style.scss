@@ -212,8 +212,8 @@ th {
 }
 
 .tabsCustom {
-  margin-top: 2px;
-  margin-bottom: 5px;
+  margin-top: 2px !important;
+  margin-bottom: 3px !important;
 }
 
 .tabsCustomInner {
@@ -299,7 +299,7 @@ th {
 
 
 .content-wrap {
-  background: #fff;
+  background: #fff !important;
 }
 
 //
@@ -532,7 +532,7 @@ input[type=checkbox]:hover {
 .negoHeading{
   width: 100%;
   line-height: 28px;
-  font-size: 22px;
+  font-size: 18px;
   height: 28px;
   color: #00539f !important;
   font:Tesco;
@@ -570,7 +570,7 @@ input[type=checkbox]:hover {
   padding: 15px 15px 16px 15px !important;
   text-decoration: none;
   font-size: 14px;
-  background: #fff !important;
+  background: #f5f5f5 !important;
   border:0px !important;
   color: #00539f !important;
 }
@@ -655,3 +655,15 @@ input[type=checkbox]:hover {
     font-size: 12px;
     color: #FFA626;
   }
+.mainTab{
+  margin-left: 1% !important;
+  margin-bottom: 0%;
+  margin-top: 2%;
+}
+.coverBox{
+  margin-left: 1% !important;
+  margin-right: 1% !important;
+  border: 1px solid #e5e8ea;
+  background-color: white;
+}
+
