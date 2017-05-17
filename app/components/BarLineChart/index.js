@@ -17,9 +17,9 @@ class BarLineChart extends React.PureComponent { // eslint-disable-line react/pr
   createChart = (data, id,series_col_name) => {
     let frameWidth = document.getElementById(id).clientWidth;
     console.log("Inside BarLineChart ------", data);
-    let margin = {top: 20, right: 40, bottom: 60, left: 60},
+    let margin = {top: 20, right: 40, bottom: 80, left: 60},
       width = frameWidth - margin.left - margin.right,
-      height = frameWidth*0.4 - margin.top - margin.bottom;
+      height = frameWidth*0.6 - margin.top - margin.bottom;
 
     let x = d3.scaleBand()
       .rangeRound([0, width], .1)
@@ -47,7 +47,7 @@ class BarLineChart extends React.PureComponent { // eslint-disable-line react/pr
       .attr("height", height + margin.top + margin.bottom)
       //responsive SVG needs these 2 attributes and no width and height attr
       .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 " + (width + margin.left + margin.right)  + " " + (height + margin.top + margin.bottom))
+      .attr("viewBox", "0 0 " + (width + margin.left + margin.right)  + " " + (height + margin.top + margin.bottom + 20))
       //class to make it responsive
       .classed("svg-content-responsive", true)
       .append("g")

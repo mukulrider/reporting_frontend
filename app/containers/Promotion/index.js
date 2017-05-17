@@ -194,7 +194,7 @@ export class Promotion extends React.PureComponent {
                   )
                 } else {
                   return (
-                    <span>Promotions View - 201652  </span>
+                    <span>Promotions View - 201711  </span>
                   )
                 }
               })()}
@@ -678,7 +678,7 @@ export class Promotion extends React.PureComponent {
                           this.props.pieChartSuccess(0);
                           this.props.onSaveSalesParam(promoTypeParam);
                           this.props.loadSales();
-                        }}><span className="tab_label">Total Sales</span></NavItem>
+                        }}><span className="tab_label">Total</span></NavItem>
 
                         <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
 
@@ -830,7 +830,7 @@ export class Promotion extends React.PureComponent {
                                 this.props.promoGiveAwaySuccess(0);
                                 this.props.onSaveGiveawayParam(promoTypeParam);
                                 this.props.loadPromoGiveaway();
-                              }}><span className="tab_label">Total Giveaway</span></NavItem>
+                              }}><span className="tab_label">Total</span></NavItem>
 
                               <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
 
@@ -970,7 +970,7 @@ export class Promotion extends React.PureComponent {
                                 this.props.productsCountSplitSuccess(0);
                                 this.props.onSavePromoProdParam(promoTypeParam);
                                 this.props.loadPromoProd();
-                              }}><span className="tab_label">Total Product Count</span></NavItem>
+                              }}><span className="tab_label">Total</span></NavItem>
 
 
                               <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
@@ -1117,7 +1117,7 @@ export class Promotion extends React.PureComponent {
                                 this.props.promoParticipationBySplitSuccess(0);
                                 this.props.onSavePromoPartParam(promoTypeParam);
                                 this.props.loadPromoPart();
-                              }}><span className="tab_label">Total Promo Participation</span></NavItem>
+                              }}><span className="tab_label">Total</span></NavItem>
 
                               <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
 

@@ -16,10 +16,10 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
   {
     // let data = [10, 20];
     let frameWidth = document.getElementById(id).clientWidth;
-    let margin = {top: 20, right: 30, bottom: 5, left: 30},
+    let margin = {top: 20, right: 30, bottom: 10, left: 30},
       width = frameWidth - margin.left - margin.right,
       height = frameWidth - margin.top - margin.bottom,
-      radius = Math.min(width, height) / 2.2;
+      radius = Math.min(width, height) / 2;
 
     let color = d3.scaleOrdinal()
       .range(["#98abc5", "#8a89a6"]);
@@ -36,34 +36,31 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
       .sort(null)
       .value(function(d) { return d; });
 
-
-
-
      let svg = d3.select("#" + id + '_svg')
-       .attr("width", frameWidth)
-       .attr("height", frameWidth*0.8)
+       .attr("width", 300)
+       .attr("height", 300)
        //responsive SVG needs these 2 attributes and no width and height attr
-       .attr("preserveAspectRatio", "xMinYMin meet")
-       .attr("viewBox", "0 0" + (frameWidth) + " " + (frameWidth*0.8))
+       // .attr("preserveAspectRatio", "xMinYMin meet")
+       // .attr("viewBox", "0 0" + (frameWidth) + " " + (frameWidth))
        //class to make it responsive
        .classed("svg-content-responsive", true)
       .append("g")
      //  .attr("transform", "translate(" + margin.left+ "," + margin.top + ")");
-      .attr("transform", "translate(" + radius + " " + radius+ ")");
+      .attr("transform", "translate(" + (radius + margin.left) + " " + (radius + margin.top)+ ")");
 
-    setTimeout(function(){
-      d3.select('#'+id+'_svg').attr("width",null).attr("height",null)
-    },100)
+    // setTimeout(function(){
+    //   d3.select('#'+id+'_svg').attr("width",null).attr("height",null)
+    // },100)
     let g = svg.selectAll(".arc")
       .data(pie(data))
       .enter().append("g")
-      .attr("x", 55)
+      .attr("x", frameWidth/2)
       .attr("y", 55)
       .attr("class", "arc");
 
     g.append("path")
       .attr("d", arc)
-      .attr("x", 55)
+      .attr("x", frameWidth/2)
       .attr("y", 55)
       .style("fill", function(d) { return color(d.data); });
 
