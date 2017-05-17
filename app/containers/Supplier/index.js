@@ -303,7 +303,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                         )
                       } else {
                         return (
-                          <span>Supplier View - 201652  </span>
+                          <span>Supplier View - 201711  </span>
                         )
                       }
                     })()}

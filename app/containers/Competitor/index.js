@@ -184,7 +184,7 @@ export class Competitor extends React.PureComponent {
                     )
                   } else {
                     return (
-                      <span>Competitor View - 201652  </span>
+                      <span>Competitor View - 201709  </span>
                     )
                   }
                 })()}

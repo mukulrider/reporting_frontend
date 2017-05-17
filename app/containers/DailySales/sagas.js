@@ -24,9 +24,40 @@ import {
   selectDailySalesDomain
 } from './selectors';
 
+let gettingUserDetails = () =>{
+  //function to get values from cookie
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+      return parts.pop().split(';').shift();
+    }
+  };
+  //fetching values from cookie
+  const userId = getCookie('token');
+  const userName = getCookie('user');
+  const designation = getCookie('designation');
+  const buyingController = getCookie('buying_controller');
+  let buyer = getCookie('buyer');
+  let cookieParams= "";
+
+  if ((typeof(buyer) == "undefined") || (buyer == "")) {
+    buyer = "";
+    cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}`;
+    console.log('buyer empty', buyer);
+  } else {
+    cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}&buyer_header=${buyer}`;
+    console.log('buyer non - empty', buyer);
+  }
+
+  // const cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}&buyer_header=${buyer}`;
+  return (cookieParams);
+};
+const userParams = gettingUserDetails();
+
 
 // let host_url="http://10.1.244.200:8000";
-let host_url="http://172.20.244.150:8000";
+let host_url="http://10.1.244.151:8004";
 // All sagas to be loaded
 
 
@@ -45,9 +76,9 @@ export function* LineChartData_pull() {
   const week_filter = urlName.get('filter_week_selection');
   const filter = urlName.get('filter_selection');
 
-  const data = yield call(request,host_url+"/api/reporting/daily_sales?"+'&'+kpiparam+'&'+filter+'&'+week_filter);
+  const data = yield call(request,host_url+"/api/reporting/daily_sales?"+'&'+kpiparam+'&'+filter+'&'+week_filter + '&'+ userParams);
   console.log("Line chart fetched data",data);
-  console.log("Along with the URL",host_url+"/api/reporting/daily_sales?"+'&'+kpiparam+'&'+filter+'&'+week_filter);
+  console.log("Along with the URL",host_url+"/api/reporting/daily_sales?"+'&'+kpiparam+'&'+filter+'&'+week_filter + '&'+ userParams);
   yield put(LineChartDataFetchSuccess(data));
 
   let LineChartSpinnerCheck = 1;
@@ -87,10 +118,10 @@ export function* generateFilterFetch() {
   }
 
   if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
-    urlParamsString = '?' + urlParamsString;
+    // urlParamsString = '?' + urlParamsString;
   }
   try {
-    const data = yield call(request, host_url+'/api/reporting/filter_daily_sales' + urlParamsString,
+    const data = yield call(request, host_url+'/api/reporting/filter_daily_sales?' + urlParamsString + '&'+ userParams,
       // {
       //   headers: {
       //     Authorization: token
