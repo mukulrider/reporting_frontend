@@ -308,6 +308,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                       }
                     })()}
                   </div>
+                  </div>
 
                   <div className="row" style={{marginLeft: "0%", marginRight: "0px", paddingTop: "-5px"}}>
 
@@ -1261,7 +1262,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                   <div style={{float:"right"}}>
                                     <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                                       <MenuItem onClick={() => {
-                                        saveImage(this.refs.bubbleChartComp.refs.svgBubble,"bubble_chart")
+                                        saveImage(document.getElementById("bubbleChart2"+"_svg"),"bubble_chart")
                                       }
                                       }>Save As JPEG</MenuItem>
                                       <MenuItem onClick={() => {
@@ -1562,7 +1563,6 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                     </div>
                   </div>
                 </div>
-              </div>
               </div>
               </div>
 

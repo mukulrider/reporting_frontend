@@ -12,9 +12,15 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
 class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  createChart = (data,id) =>
+  createChart = (pieChartData,id) =>
   {
-    // let data = [10, 20];
+    //transform data
+    let data = pieChartData.map(function(row){
+        return row.pie_chart_value;
+    })
+
+    console.log("PieChart Data" , data)
+
     let frameWidth = document.getElementById(id).clientWidth;
     let margin = {top: 20, right: 30, bottom: 10, left: 30},
       width = frameWidth - margin.left - margin.right,
