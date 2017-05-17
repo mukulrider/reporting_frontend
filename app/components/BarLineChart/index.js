@@ -47,7 +47,7 @@ class BarLineChart extends React.PureComponent { // eslint-disable-line react/pr
       .attr("height", height + margin.top + margin.bottom)
       //responsive SVG needs these 2 attributes and no width and height attr
       .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 " + (frameWidth+100)  + " " + (frameWidth*0.7))
+      .attr("viewBox", "0 0 " + (width + margin.left + margin.right)  + " " + (height + margin.top + margin.bottom))
       //class to make it responsive
       .classed("svg-content-responsive", true)
       .append("g")

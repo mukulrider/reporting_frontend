@@ -251,9 +251,9 @@ class WaterFallChart2 extends React.PureComponent { // eslint-disable-line react
 
     chart = d3.select(`#${id + '_svg'}`)
       .attr('width', frameWidth)
-      .attr('height', frameWidth*0.3)
+      .attr('height', frameWidth*0.6)
       .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 " + (frameWidth + 100) + " " + (frameWidth*0.4 + 100))
+      .attr("viewBox", "0 0 " + (frameWidth) + " " + (frameWidth*0.6))
       //class to make it responsive
       .classed("svg-content-responsive", true)
       .append('g')
