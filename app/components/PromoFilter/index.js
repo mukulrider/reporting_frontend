@@ -338,7 +338,7 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
 
                   if (!(typeof(filterDataWeek) == "undefined") && !(typeof(filterData) == "undefined")) {
                     console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek);
-                    if (filterDataWeek.includes("tesco_week") && filterData.includes("buying_controller")) {
+                    if (filterDataWeek.includes("tesco_week") && filterData.includes("buying_controller=")) {
                       console.log('tesco_weeek filterDataWeek', filterDataWeek);
                       console.log('--filterData', filterData);
                       this.props.pieChartSuccess(0);

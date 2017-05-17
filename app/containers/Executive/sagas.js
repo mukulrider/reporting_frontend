@@ -25,9 +25,8 @@ import {
 } from './constants';
 
 
-
-
-import {OverviewKpiDataFetchSuccess,
+import {
+  OverviewKpiDataFetchSuccess,
   RolesAndIntentDataFetchSuccess,
   BudgetAndForecastDataFetchSuccess,
   OverviewKpiTrendDataFetchSuccess,
@@ -72,7 +71,7 @@ import {
   selectExecutiveDomain
 } from 'containers/Executive/selectors';
 
-let gettingUserDetails = () =>{
+let gettingUserDetails = () => {
   //function to get values from cookie
   const getCookie = (name) => {
     const value = `; ${document.cookie}`;
@@ -87,7 +86,7 @@ let gettingUserDetails = () =>{
   const designation = getCookie('designation');
   const buyingController = getCookie('buying_controller');
   let buyer = getCookie('buyer');
-  let cookieParams= "";
+  let cookieParams = "";
 
   if ((typeof(buyer) == "undefined") || (buyer == "")) {
     buyer = "";
@@ -103,7 +102,7 @@ let gettingUserDetails = () =>{
 };
 const userParams = gettingUserDetails();
 
-let host_url="http://172.20.246.11:8000";
+let host_url = "http://172.20.246.11:8000";
 
 // All sagas to be loaded
 
@@ -117,11 +116,11 @@ export function* defaultSaga() {
 export function* generateOverviewKpiDataFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
-  let urlParamsString =urlName.get('urlParamsString');
-  let weekParamString =urlName.get('week_filter_param');
-  let weekselection =urlName.get('weekurlParam');
-  if(!urlParamsString){
-    urlParamsString=''
+  let urlParamsString = urlName.get('urlParamsString');
+  let weekParamString = urlName.get('week_filter_param');
+  let weekselection = urlName.get('weekurlParam');
+  if (!urlParamsString) {
+    urlParamsString = ''
   }
   if (typeof(urlParamsString) == "undefined") {
     urlParamsString = "";
@@ -134,10 +133,50 @@ export function* generateOverviewKpiDataFetch() {
   // const kpiparam = urlName.get('kpi_param');
 
 
-  console.log("sagas generateOverviewKpiDataFetch url",host_url+`/api/reporting/exec_overview_kpis?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection + '&' + userParams)
-  const data = yield call(request,
-    host_url+`/api/reporting/exec_overview_kpis?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + weekselection + '&' + userParams);
-  console.log("Heres the generateOverviewKpiDataFetch data",data);
+  let urlAppends = "";
+  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+    urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+    urlAppends = urlAppends + '&' + urlParamsString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekParamString) == "undefined") && !(weekParamString == "")) {
+    urlAppends = urlAppends + '&' + weekParamString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+    urlAppends = urlAppends + '&' + weekselection;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends + '&' + userParams;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {
+    urlAppends = urlAppends.replace('&', '');
+  }
+  console.log('urlAppends6', urlAppends);
+
+  const data = yield call(request, host_url + `/api/reporting/exec_overview_kpis?` + urlAppends);
+  // const data = yield call(request,host_url + `/api/reporting/exec_overview_kpis?` + weekurlparam + '&' + urlParamsString + '&' + weekParamString + '&' + weekselection + '&' + userParams);
+
   yield put(OverviewKpiDataFetchSuccess(data));
   let spinnerFlag = 1;
   yield put(spinnerOverviewKPI(spinnerFlag));
@@ -147,7 +186,7 @@ export function* generateOverviewKpiDataFetch() {
 }
 
 export function* doPromoOverviewKpiFetch() {
-  console.log('sagas doPromoOverviewKpiFetch ',OVERVIEW_KPI_CONSTANT);
+  console.log('sagas doPromoOverviewKpiFetch ', OVERVIEW_KPI_CONSTANT);
   const watcher = yield takeLatest(OVERVIEW_KPI_CONSTANT, generateOverviewKpiDataFetch);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
@@ -158,11 +197,11 @@ export function* doPromoOverviewKpiFetch() {
 export function* generateRolesAndIntentDataFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
-  let urlParamsString =urlName.get('urlParamsString');
-  let weekParamString =urlName.get('week_filter_param');
-  let weekselection =urlName.get('weekurlParam');
-  if(!urlParamsString){
-    urlParamsString=''
+  let urlParamsString = urlName.get('urlParamsString');
+  let weekParamString = urlName.get('week_filter_param');
+  let weekselection = urlName.get('weekurlParam');
+  if (!urlParamsString) {
+    urlParamsString = ''
   }
   if (typeof(urlParamsString) == "undefined") {
     urlParamsString = "";
@@ -175,10 +214,53 @@ export function* generateRolesAndIntentDataFetch() {
   // const kpiparam = urlName.get('kpi_param');
 
 
-  console.log("sagas generateRolesAndIntentDataFetch url",host_url+`/api/reporting/exec_roles_and_intent?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection + '&' + userParams)
-  const data = yield call(request,
-    host_url+`/api/reporting/exec_roles_and_intent?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + weekselection + '&' + userParams);
-  console.log("Heres the generateRolesAndIntentDataFetch data",data);
+  console.log("sagas generateRolesAndIntentDataFetch url", host_url + `/api/reporting/exec_roles_and_intent?` + weekurlparam + '&' + urlParamsString + weekParamString + '&' + weekselection + '&' + userParams)
+
+  let urlAppends = "";
+  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+    urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+    urlAppends = urlAppends + '&' + urlParamsString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekParamString) == "undefined") && !(weekParamString == "")) {
+    urlAppends = urlAppends + '&' + weekParamString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+    urlAppends = urlAppends + '&' + weekselection;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends + '&' + userParams;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {
+    urlAppends = urlAppends.replace('&', '');
+  }
+  console.log('urlAppends6', urlAppends);
+
+
+  const data = yield call(request, host_url + `/api/reporting/exec_roles_and_intent?` + urlAppends);
+  // const data = yield call(request,host_url + `/api/reporting/exec_roles_and_intent?` + weekurlparam + '&' + urlParamsString + '&' + weekParamString + '&' + weekselection + '&' + userParams);
+
   yield put(RolesAndIntentDataFetchSuccess(data));
 
   let spinnerFlag = 1;
@@ -190,7 +272,7 @@ export function* generateRolesAndIntentDataFetch() {
 }
 
 export function* doRolesAndIntentFetch() {
-  console.log('sagas doRolesAndIntentFetch ',ROLES_INTENT_CONSTANT);
+  console.log('sagas doRolesAndIntentFetch ', ROLES_INTENT_CONSTANT);
   const watcher = yield takeLatest(ROLES_INTENT_CONSTANT, generateRolesAndIntentDataFetch);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
@@ -201,11 +283,11 @@ export function* doRolesAndIntentFetch() {
 export function* generateBudgetForecastDataFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
-  let urlParamsString =urlName.get('urlParamsString');
-  let weekParamString =urlName.get('week_filter_param');
-  let weekselection =urlName.get('weekurlParam');
-  if(!urlParamsString){
-    urlParamsString=''
+  let urlParamsString = urlName.get('urlParamsString');
+  let weekParamString = urlName.get('week_filter_param');
+  let weekselection = urlName.get('weekurlParam');
+  if (!urlParamsString) {
+    urlParamsString = ''
   }
   if (typeof(urlParamsString) == "undefined") {
     urlParamsString = "";
@@ -217,11 +299,52 @@ export function* generateBudgetForecastDataFetch() {
   }
   // const kpiparam = urlName.get('kpi_param');
 
+  console.log("sagas generateBudgetForecastDataFetch url", host_url + `/api/reporting/exec_budget_forecast?` + weekurlparam + '&' + urlParamsString + weekParamString + '&' + weekselection + '&' + userParams)
 
-  console.log("sagas generateBudgetForecastDataFetch url",host_url+`/api/reporting/exec_budget_forecast?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection + '&' + userParams)
-  const data = yield call(request,
-    host_url+`/api/reporting/exec_budget_forecast?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + weekselection + '&' + userParams);
-  console.log("Heres the generateBudgetForecastDataFetch data",data);
+  let urlAppends = "";
+  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+    urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+    urlAppends = urlAppends + '&' + urlParamsString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekParamString) == "undefined") && !(weekParamString == "")) {
+    urlAppends = urlAppends + '&' + weekParamString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+    urlAppends = urlAppends + '&' + weekselection;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends + '&' + userParams;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {
+    urlAppends = urlAppends.replace('&', '');
+  }
+  console.log('urlAppends6', urlAppends);
+
+  const data = yield call(request, host_url + `/api/reporting/exec_budget_forecast?` + urlAppends);
+  // const data = yield call(request,host_url + `/api/reporting/exec_budget_forecast?` + weekurlparam + '&' + urlParamsString + '&' + weekParamString + '&' + weekselection + '&' + userParams);
+
   yield put(BudgetAndForecastDataFetchSuccess(data));
 
   // } catch (err) {
@@ -231,7 +354,7 @@ export function* generateBudgetForecastDataFetch() {
 
 
 export function* doBudgetForecastFetch() {
-  console.log('sagas doBudgetForecastFetch ',BUDGET_FORECAST_CONSTANT);
+  console.log('sagas doBudgetForecastFetch ', BUDGET_FORECAST_CONSTANT);
   const watcher = yield takeLatest(BUDGET_FORECAST_CONSTANT, generateBudgetForecastDataFetch);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
@@ -242,11 +365,11 @@ export function* doBudgetForecastFetch() {
 export function* generateOverviewKPITrendDataFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
-  let urlParamsString =urlName.get('urlParamsString');
-  let weekParamString =urlName.get('week_filter_param');
-  let weekselection =urlName.get('weekurlParam');
-  if(!urlParamsString){
-    urlParamsString=''
+  let urlParamsString = urlName.get('urlParamsString');
+  let weekParamString = urlName.get('week_filter_param');
+  let weekselection = urlName.get('weekurlParam');
+  if (!urlParamsString) {
+    urlParamsString = ''
   }
   if (typeof(urlParamsString) == "undefined") {
     urlParamsString = "";
@@ -258,11 +381,53 @@ export function* generateOverviewKPITrendDataFetch() {
   }
   // const kpiparam = urlName.get('kpi_param');
 
+  console.log("sagas generateOverviewKPITrendDataFetch url", host_url + `/api/reporting/exec_overview_kpitrends?` + weekurlparam + '&' + urlParamsString + weekParamString + '&' + weekselection + '&' + userParams)
 
-  console.log("sagas generateOverviewKPITrendDataFetch url",host_url+`/api/reporting/exec_overview_kpitrends?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection + '&' + userParams)
-  const data = yield call(request,
-    host_url+`/api/reporting/exec_overview_kpitrends?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + weekselection + '&' + userParams);
-  console.log("Heres the generateOverviewKPITrendDataFetch data",data);
+  let urlAppends = "";
+  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+    urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+    urlAppends = urlAppends + '&' + urlParamsString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekParamString) == "undefined") && !(weekParamString == "")) {
+    urlAppends = urlAppends + '&' + weekParamString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+    urlAppends = urlAppends + '&' + weekselection;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends + '&' + userParams;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+
+  if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {
+    urlAppends = urlAppends.replace('&', '');
+  }
+  console.log('urlAppends6', urlAppends);
+
+  const data = yield call(request, host_url + `/api/reporting/exec_overview_kpitrends?` + urlAppends);
+  // const data = yield call(request, host_url + `/api/reporting/exec_overview_kpitrends?` + weekurlparam + '&' + urlParamsString + '&' + weekParamString + '&' + weekselection + '&' + userParams);
+
   yield put(OverviewKpiTrendDataFetchSuccess(data));
 
   let spinnerflag = 1;
@@ -274,7 +439,7 @@ export function* generateOverviewKPITrendDataFetch() {
 }
 
 export function* doOverviewKPITrendFetch() {
-  console.log('sagas doOverviewTrendFetch ',OVERVIEW_KPI_TREND_CONSTANT);
+  console.log('sagas doOverviewTrendFetch ', OVERVIEW_KPI_TREND_CONSTANT);
   const watcher = yield takeLatest(OVERVIEW_KPI_TREND_CONSTANT, generateOverviewKPITrendDataFetch);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
@@ -285,11 +450,11 @@ export function* doOverviewKPITrendFetch() {
 export function* generateOverviewDriversInternalDataFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
-  let urlParamsString =urlName.get('urlParamsString');
-  let weekParamString =urlName.get('week_filter_param');
-  let weekselection =urlName.get('weekurlParam');
-  if(!urlParamsString){
-    urlParamsString=''
+  let urlParamsString = urlName.get('urlParamsString');
+  let weekParamString = urlName.get('week_filter_param');
+  let weekselection = urlName.get('weekurlParam');
+  if (!urlParamsString) {
+    urlParamsString = ''
   }
   if (typeof(urlParamsString) == "undefined") {
     urlParamsString = "";
@@ -301,11 +466,49 @@ export function* generateOverviewDriversInternalDataFetch() {
   }
   // const kpiparam = urlName.get('kpi_param');
 
+  let urlAppends = "";
+  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+    urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
 
-  console.log("sagas generateOverviewDriversInternalDataFetch url",host_url+`/api/reporting/exec_overview_drivers_internal?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection + '&' + userParams)
-  const data = yield call(request,
-    host_url+`/api/reporting/exec_overview_drivers_internal?`+ weekurlparam + '&' + urlParamsString + '&' +weekParamString +  '&' + weekselection + '&' + userParams);
-  console.log("Heres the generateOverviewDriversInternalDataFetch data",data);
+  }
+
+  if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+    urlAppends = urlAppends + '&' + urlParamsString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekParamString) == "undefined") && !(weekParamString == "")) {
+    urlAppends = urlAppends + '&' + weekParamString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+    urlAppends = urlAppends + '&' + weekselection;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends + '&' + userParams;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {
+    urlAppends = urlAppends.replace('&', '');
+  }
+  console.log('urlAppends6', urlAppends);
+
+  const data = yield call(request, host_url + `/api/reporting/exec_overview_drivers_internal?` + urlAppends);
+
   yield put(OverviewDriversInternalDataFetchSuccess(data));
 
   let spinnerflag = 1;
@@ -317,7 +520,7 @@ export function* generateOverviewDriversInternalDataFetch() {
 }
 
 export function* doOverviewDriversInternalFetch() {
-  console.log('sagas doOverviewDriversInternalFetch ',OVERVIEW_DRIVERS_INTERNAL_CONSTANT);
+  console.log('sagas doOverviewDriversInternalFetch ', OVERVIEW_DRIVERS_INTERNAL_CONSTANT);
   const watcher = yield takeLatest(OVERVIEW_DRIVERS_INTERNAL_CONSTANT, generateOverviewDriversInternalDataFetch);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
@@ -328,11 +531,11 @@ export function* doOverviewDriversInternalFetch() {
 export function* generateOverviewDriversExternalDataFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
-  let urlParamsString =urlName.get('urlParamsString');
-  let weekParamString =urlName.get('week_filter_param');
-  let weekselection =urlName.get('weekurlParam');
-  if(!urlParamsString){
-    urlParamsString=''
+  let urlParamsString = urlName.get('urlParamsString');
+  let weekParamString = urlName.get('week_filter_param');
+  let weekselection = urlName.get('weekurlParam');
+  if (!urlParamsString) {
+    urlParamsString = ''
   }
   if (typeof(urlParamsString) == "undefined") {
     urlParamsString = "";
@@ -344,11 +547,48 @@ export function* generateOverviewDriversExternalDataFetch() {
   }
   // const kpiparam = urlName.get('kpi_param');
 
+  let urlAppends = "";
+  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+    urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
 
-  console.log("sagas generateOverviewDriversExternalDataFetch url",host_url+`/api/reporting/exec_overview_drivers_external?`+ weekurlparam + '&' + urlParamsString + weekParamString +  '&' + weekselection + '&' + userParams)
-  const data = yield call(request,
-    host_url+`/api/reporting/exec_overview_drivers_external?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + weekselection + '&' + userParams);
-  console.log("Heres the generateOverviewDriversExternalDataFetch data",data);
+  }
+
+  if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+    urlAppends = urlAppends + '&' + urlParamsString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekParamString) == "undefined") && !(weekParamString == "")) {
+    urlAppends = urlAppends + '&' + weekParamString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+    urlAppends = urlAppends + '&' + weekselection;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends + '&' + userParams;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {
+    urlAppends = urlAppends.replace('&', '');
+  }
+  console.log('urlAppends6', urlAppends);
+
+  const data = yield call(request, host_url + `/api/reporting/exec_overview_drivers_external?` + urlAppends);
   yield put(OverviewDriversExternalDataFetchSuccess(data));
 
   let spinnerflag = 1;
@@ -361,7 +601,7 @@ export function* generateOverviewDriversExternalDataFetch() {
 }
 
 export function* doOverviewDriversExternalFetch() {
-  console.log('sagas doOverviewDriversExternalFetch ',OVERVIEW_DRIVERS_EXTERNAL_CONSTANT);
+  console.log('sagas doOverviewDriversExternalFetch ', OVERVIEW_DRIVERS_EXTERNAL_CONSTANT);
   const watcher = yield takeLatest(OVERVIEW_DRIVERS_EXTERNAL_CONSTANT, generateOverviewDriversExternalDataFetch);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
@@ -372,11 +612,11 @@ export function* doOverviewDriversExternalFetch() {
 export function* generateKpiBoxesDataFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
-  let urlParamsString =urlName.get('urlParamsString');
-  let weekParamString =urlName.get('week_filter_param');
-  let weekselection =urlName.get('weekurlParam');
-  if(!urlParamsString){
-    urlParamsString=''
+  let urlParamsString = urlName.get('urlParamsString');
+  let weekParamString = urlName.get('week_filter_param');
+  let weekselection = urlName.get('weekurlParam');
+  if (!urlParamsString) {
+    urlParamsString = ''
   }
   if (typeof(urlParamsString) == "undefined") {
     urlParamsString = "";
@@ -388,11 +628,51 @@ export function* generateKpiBoxesDataFetch() {
   }
   const kpiparam = urlName.get('kpi_param');
 
+  let urlAppends = "";
+  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+    urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
 
-  console.log("sagas generateKpiBoxesDataFetch url",host_url+`/api/reporting/exec_kpi?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection + '&' + userParams)
-  const data = yield call(request,
-    host_url+`/api/reporting/exec_kpi?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + kpiparam +  '&' + weekselection + '&' + userParams);
-  console.log("Heres the generateKpiBoxesDataFetch data",data);
+  }
+
+  if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+    urlAppends = urlAppends + '&' + urlParamsString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekParamString) == "undefined") && !(weekParamString == "")) {
+    urlAppends = urlAppends + '&' + weekParamString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
+    urlAppends = urlAppends + '&' + kpiparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+    urlAppends = urlAppends + '&' + weekselection;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {
+    urlAppends = urlAppends + '&' + userParams;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  const data = yield call(request, host_url + `/api/reporting/exec_kpi?` + urlAppends);
+
   yield put(KpiBoxesDataFetchSuccess(data));
   let spinnerFlag = 1;
   yield put(spinnerKPI(spinnerFlag));
@@ -402,7 +682,7 @@ export function* generateKpiBoxesDataFetch() {
 }
 
 export function* doKpiBoxesFetch() {
-  console.log('sagas doKpiBoxesFetch ',KPI_BOXES_CONSTANT);
+  console.log('sagas doKpiBoxesFetch ', KPI_BOXES_CONSTANT);
   const watcher = yield takeLatest(KPI_BOXES_CONSTANT, generateKpiBoxesDataFetch);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
@@ -413,11 +693,11 @@ export function* doKpiBoxesFetch() {
 export function* generateBestWorstFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
-  let urlParamsString =urlName.get('urlParamsString');
-  let weekParamString =urlName.get('week_filter_param');
-  let weekselection =urlName.get('weekurlParam');
-  if(!urlParamsString){
-    urlParamsString=''
+  let urlParamsString = urlName.get('urlParamsString');
+  let weekParamString = urlName.get('week_filter_param');
+  let weekselection = urlName.get('weekurlParam');
+  if (!urlParamsString) {
+    urlParamsString = ''
   }
   if (typeof(urlParamsString) == "undefined") {
     urlParamsString = "";
@@ -429,11 +709,57 @@ export function* generateBestWorstFetch() {
   }
   const kpiparam = urlName.get('kpi_param');
 
+  let urlAppends = "";
+  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+    urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
 
-  console.log("sagas generateBestWorstFetch url",host_url+`/api/reporting/exec_best_worst?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection + '&' + userParams)
-  const data = yield call(request,
-    host_url+`/api/reporting/exec_best_worst?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + kpiparam +  '&' + weekselection + '&' + userParams);
-  console.log("Heres the generateBestWorstFetch data",data);
+  }
+
+  if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+    urlAppends = urlAppends + '&' + urlParamsString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekParamString) == "undefined") && !(weekParamString == "")) {
+    urlAppends = urlAppends + '&' + weekParamString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+
+  if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
+    urlAppends = urlAppends + '&' + kpiparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+    urlAppends = urlAppends + '&' + weekselection;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends + '&' + userParams;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {
+    urlAppends = urlAppends.replace('&', '');
+  }
+  console.log('urlAppends6', urlAppends);
+
+  const data = yield call(request, host_url + `/api/reporting/exec_best_worst?` + urlAppends);
+  console.log("Heres the generateBestWorstFetch data", data);
   yield put(BestWorstDataFetchSuccess(data));
 
   // } catch (err) {
@@ -442,7 +768,7 @@ export function* generateBestWorstFetch() {
 }
 
 export function* doBestWorstFetch() {
-  console.log('sagas doBestWorstFetch ',BEST_WORST_CONSTANT);
+  console.log('sagas doBestWorstFetch ', BEST_WORST_CONSTANT);
   const watcher = yield takeLatest(BEST_WORST_CONSTANT, generateBestWorstFetch);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
@@ -453,11 +779,11 @@ export function* doBestWorstFetch() {
 export function* generateBestInfoFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
-  let urlParamsString =urlName.get('urlParamsString');
-  let weekParamString =urlName.get('week_filter_param');
-  let weekselection =urlName.get('weekurlParam');
-  if(!urlParamsString){
-    urlParamsString=''
+  let urlParamsString = urlName.get('urlParamsString');
+  let weekParamString = urlName.get('week_filter_param');
+  let weekselection = urlName.get('weekurlParam');
+  if (!urlParamsString) {
+    urlParamsString = ''
   }
   if (typeof(urlParamsString) == "undefined") {
     urlParamsString = "";
@@ -470,14 +796,67 @@ export function* generateBestInfoFetch() {
   let kpiparam = urlName.get('kpi_param');
 
   let selected = urlName.get('top_name');
-  if (selected == 'None')
-  {
-    selected='';
+  if (selected == 'None') {
+    selected = '';
   }
-  console.log("sagas generateBestInfoFetch url",host_url+`/api/reporting/exec_best_info?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection + '&' + selected + '&' + userParams)
-  const data = yield call(request,
-    host_url+`/api/reporting/exec_best_info?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + kpiparam +  '&' + weekselection+ '&' + selected + '&' + userParams);
-  console.log("Heres the generateBestInfoFetch data",data);
+
+  let urlAppends = "";
+  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+    urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+    urlAppends = urlAppends + '&' + urlParamsString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekParamString) == "undefined") && !(weekParamString == "")) {
+    urlAppends = urlAppends + '&' + weekParamString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
+    urlAppends = urlAppends + '&' + kpiparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+    urlAppends = urlAppends + '&' + weekselection;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(selected) == "undefined") && !(selected == "")) {
+    urlAppends = urlAppends + '&' + selected;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends + '&' + selected;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {
+    urlAppends = urlAppends.replace('&', '');
+  }
+  console.log('urlAppends6', urlAppends);
+
+  const data = yield call(request, host_url + `/api/reporting/exec_best_info?` + urlAppends);
+
   yield put(BestInfoDataFetchSuccess(data));
 
   // } catch (err) {
@@ -486,7 +865,7 @@ export function* generateBestInfoFetch() {
 }
 
 export function* doBestInfoFetch() {
-  console.log('sagas doBestInfoFetch ',BEST_INFO_CONSTANT);
+  console.log('sagas doBestInfoFetch ', BEST_INFO_CONSTANT);
   const watcher = yield takeLatest(BEST_INFO_CONSTANT, generateBestInfoFetch);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
@@ -497,11 +876,11 @@ export function* doBestInfoFetch() {
 export function* generateWorstInfoFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
-  let urlParamsString =urlName.get('urlParamsString');
-  let weekParamString =urlName.get('week_filter_param');
-  let weekselection =urlName.get('weekurlParam');
-  if(!urlParamsString){
-    urlParamsString=''
+  let urlParamsString = urlName.get('urlParamsString');
+  let weekParamString = urlName.get('week_filter_param');
+  let weekselection = urlName.get('weekurlParam');
+  if (!urlParamsString) {
+    urlParamsString = ''
   }
   if (typeof(urlParamsString) == "undefined") {
     urlParamsString = "";
@@ -513,14 +892,67 @@ export function* generateWorstInfoFetch() {
   }
   const kpiparam = urlName.get('kpi_param');
   let selected = urlName.get('bot_name');
-  if (selected == 'None')
-  {
-    selected='';
+  if (selected == 'None') {
+    selected = '';
   }
-  console.log("sagas generateWorstInfoFetch url",host_url+`/api/reporting/exec_worst_info?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection + '&' + selected + '&' + userParams)
-  const data = yield call(request,
-    host_url+`/api/reporting/exec_worst_info?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + kpiparam +  '&' + weekselection+'&'+selected + '&' + userParams);
-  console.log("Heres the generateWorstInfoFetch data",data);
+
+  let urlAppends = "";
+  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+    urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+    urlAppends = urlAppends + '&' + urlParamsString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekParamString) == "undefined") && !(weekParamString == "")) {
+    urlAppends = urlAppends + '&' + weekParamString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
+    urlAppends = urlAppends + '&' + kpiparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+    urlAppends = urlAppends + '&' + weekselection;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(selected) == "undefined") && !(selected == "")) {
+    urlAppends = urlAppends + '&' + selected;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends + '&' + userParams;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {
+    urlAppends = urlAppends.replace('&', '');
+  }
+  console.log('urlAppends6', urlAppends);
+
+  const data = yield call(request, host_url + `/api/reporting/exec_worst_info?` + urlAppends);
+
   yield put(WorstInfoDataFetchSuccess(data));
   // } catch (err) {
   //   // console.log(err);
@@ -528,7 +960,7 @@ export function* generateWorstInfoFetch() {
 }
 
 export function* doWorstInfoFetch() {
-  console.log('sagas doWorstInfoFetch ',WORST_INFO_CONSTANT);
+  console.log('sagas doWorstInfoFetch ', WORST_INFO_CONSTANT);
   const watcher = yield takeLatest(WORST_INFO_CONSTANT, generateWorstInfoFetch);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
@@ -539,11 +971,11 @@ export function* doWorstInfoFetch() {
 export function* generateSupplierInfoFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
-  let urlParamsString =urlName.get('urlParamsString');
-  let weekParamString =urlName.get('week_filter_param');
-  let weekselection =urlName.get('weekurlParam');
-  if(!urlParamsString){
-    urlParamsString=''
+  let urlParamsString = urlName.get('urlParamsString');
+  let weekParamString = urlName.get('week_filter_param');
+  let weekselection = urlName.get('weekurlParam');
+  if (!urlParamsString) {
+    urlParamsString = ''
   }
   if (typeof(urlParamsString) == "undefined") {
     urlParamsString = "";
@@ -557,34 +989,96 @@ export function* generateSupplierInfoFetch() {
 
 
   let selected_supplier = urlName.get('supplier_name');
-  if (selected_supplier == 'None')
-  {
-    selected_supplier='';
+  if (selected_supplier == 'None') {
+    selected_supplier = '';
   }
   let topbotflag = urlName.get('top_bot_flag');
-  console.log("generateSupplierInfoFetch topbotflag",topbotflag);
-  let selected='';
-  if (topbotflag == 'top')
-  {
+  console.log("generateSupplierInfoFetch topbotflag", topbotflag);
+  let selected = '';
+  if (topbotflag == 'top') {
     selected = urlName.get('top_name');
-    console.log("generateSupplierInfoFetch top_name",selected)
+    console.log("generateSupplierInfoFetch top_name", selected)
   }
-  else
-  {
+  else {
     selected = urlName.get('bot_name');
-    console.log("generateSupplierInfoFetch bot_name",selected)
+    console.log("generateSupplierInfoFetch bot_name", selected)
   }
 
-  if (selected == 'None')
-  {
-    selected='';
+  if (selected == 'None') {
+    selected = '';
   }
 
+  let urlAppends = "";
+  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+    urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
 
-  console.log("sagas generateSupplierInfoFetch url",host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier + '&' + userParams)
-  const data = yield call(request,
-    host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier + '&' + userParams);
-  console.log("Heres the generateSupplierInfoFetch data",data);
+  }
+
+  if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+    urlAppends = urlAppends + '&' + urlParamsString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekParamString) == "undefined") && !(weekParamString == "")) {
+    urlAppends = urlAppends + '&' + weekParamString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
+    urlAppends = urlAppends + '&' + kpiparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+    urlAppends = urlAppends + '&' + weekselection;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+    urlAppends = urlAppends + '&' + weekselection;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(selected) == "undefined") && !(selected == "")) {
+    urlAppends = urlAppends + '&' + selected;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(selected_supplier) == "undefined") && !(selected_supplier == "")) {
+    urlAppends = urlAppends + '&' + selected_supplier;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends + '&' + userParams;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {
+    urlAppends = urlAppends.replace('&', '');
+  }
+  console.log('urlAppends6', urlAppends);
+
+  const data = yield call(request, host_url + `/api/reporting/exec_supp_info?` + urlAppends);
+
   yield put(SupplierInfoDataFetchSuccess(data));
 
   // } catch (err) {
@@ -593,7 +1087,7 @@ export function* generateSupplierInfoFetch() {
 }
 
 export function* doSupplierInfoFetch() {
-  console.log('sagas doSupplierInfoFetch ',SUPPLIER_INFO_CONSTANT);
+  console.log('sagas doSupplierInfoFetch ', SUPPLIER_INFO_CONSTANT);
   const watcher = yield takeLatest(SUPPLIER_INFO_CONSTANT, generateSupplierInfoFetch);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
@@ -605,11 +1099,11 @@ export function* doSupplierInfoFetch() {
 export function* generateTopSupplierInfoFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
-  let urlParamsString =urlName.get('urlParamsString');
-  let weekParamString =urlName.get('week_filter_param');
-  let weekselection =urlName.get('weekurlParam');
-  if(!urlParamsString){
-    urlParamsString=''
+  let urlParamsString = urlName.get('urlParamsString');
+  let weekParamString = urlName.get('week_filter_param');
+  let weekselection = urlName.get('weekurlParam');
+  if (!urlParamsString) {
+    urlParamsString = ''
   }
   if (typeof(urlParamsString) == "undefined") {
     urlParamsString = "";
@@ -623,22 +1117,79 @@ export function* generateTopSupplierInfoFetch() {
 
 
   let selected_supplier = urlName.get('supplier_name');
-  if (selected_supplier == 'None')
-  {
-    selected_supplier='';
+  if (selected_supplier == 'None') {
+    selected_supplier = '';
   }
   let selected = urlName.get('top_name');
 
-  if (selected == 'None')
-  {
-    selected='';
+  if (selected == 'None') {
+    selected = '';
   }
 
+  let urlAppends = "";
+  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+    urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
 
-  console.log("sagas generateTopSupplierInfoFetch url",host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier + '&' + userParams)
-  const data = yield call(request,
-    host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + '&' +  weekParamString +  '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier + '&' + userParams);
-  console.log("Heres the generateTopSupplierInfoFetch data",data);
+  }
+
+  if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+    urlAppends = urlAppends + '&' + urlParamsString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekParamString) == "undefined") && !(weekParamString == "")) {
+    urlAppends = urlAppends + '&' + weekParamString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
+    urlAppends = urlAppends + '&' + kpiparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+    urlAppends = urlAppends + '&' + weekselection;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(selected) == "undefined") && !(selected == "")) {
+    urlAppends = urlAppends + '&' + selected;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(selected_supplier) == "undefined") && !(selected_supplier == "")) {
+    urlAppends = urlAppends + '&' + selected_supplier;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends + '&' + userParams;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {
+    urlAppends = urlAppends.replace('&', '');
+  }
+  console.log('urlAppends6', urlAppends);
+
+  const data = yield call(request, host_url + `/api/reporting/exec_supp_info?` + urlAppends);
+
   yield put(TopSupplierInfoDataFetchSuccess(data));
 
   // } catch (err) {
@@ -647,7 +1198,7 @@ export function* generateTopSupplierInfoFetch() {
 }
 
 export function* doTopSupplierInfoFetch() {
-  console.log('sagas doSupplierInfoFetch ',TOP_SUPPLIER_INFO_CONSTANT);
+  console.log('sagas doSupplierInfoFetch ', TOP_SUPPLIER_INFO_CONSTANT);
   const watcher = yield takeLatest(TOP_SUPPLIER_INFO_CONSTANT, generateTopSupplierInfoFetch);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
@@ -659,11 +1210,11 @@ export function* doTopSupplierInfoFetch() {
 export function* generateBotSupplierInfoFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
-  let urlParamsString =urlName.get('urlParamsString');
-  let weekParamString =urlName.get('week_filter_param');
-  let weekselection =urlName.get('weekurlParam');
-  if(!urlParamsString){
-    urlParamsString=''
+  let urlParamsString = urlName.get('urlParamsString');
+  let weekParamString = urlName.get('week_filter_param');
+  let weekselection = urlName.get('weekurlParam');
+  if (!urlParamsString) {
+    urlParamsString = ''
   }
   if (typeof(urlParamsString) == "undefined") {
     urlParamsString = "";
@@ -677,22 +1228,80 @@ export function* generateBotSupplierInfoFetch() {
 
 
   let selected_supplier = urlName.get('supplier_name');
-  if (selected_supplier == 'None')
-  {
-    selected_supplier='';
+  if (selected_supplier == 'None') {
+    selected_supplier = '';
   }
   let selected = urlName.get('bot_name');
 
-  if (selected == 'None')
-  {
-    selected='';
+  if (selected == 'None') {
+    selected = '';
   }
 
 
-  console.log("sagas generateBotSupplierInfoFetch url",host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier + '&' + userParams)
-  const data = yield call(request,
-    host_url+`/api/reporting/exec_supp_info?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + kpiparam +  '&' + weekselection+'&'+selected+'&'+selected_supplier + '&' + userParams);
-  console.log("Heres the generateBotSupplierInfoFetch data",data);
+  let urlAppends = "";
+  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+    urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+    urlAppends = urlAppends + '&' + urlParamsString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekParamString) == "undefined") && !(weekParamString == "")) {
+    urlAppends = urlAppends + '&' + weekParamString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
+    urlAppends = urlAppends + '&' + kpiparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+    urlAppends = urlAppends + '&' + weekselection;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(selected) == "undefined") && !(selected == "")) {
+    urlAppends = urlAppends + '&' + selected;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(selected_supplier) == "undefined") && !(selected_supplier == "")) {
+    urlAppends = urlAppends + '&' + selected_supplier;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends + '&' + userParams;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {
+    urlAppends = urlAppends.replace('&', '');
+  }
+  console.log('urlAppends6', urlAppends);
+
+  const data = yield call(request, host_url + `/api/reporting/exec_supp_info?` + urlAppends);
+
   yield put(BotSupplierInfoDataFetchSuccess(data));
 
   // } catch (err) {
@@ -701,28 +1310,22 @@ export function* generateBotSupplierInfoFetch() {
 }
 
 export function* doBotSupplierInfoFetch() {
-  console.log('sagas doBotSupplierInfoFetch ',BOT_SUPPLIER_INFO_CONSTANT);
+  console.log('sagas doBotSupplierInfoFetch ', BOT_SUPPLIER_INFO_CONSTANT);
   const watcher = yield takeLatest(BOT_SUPPLIER_INFO_CONSTANT, generateBotSupplierInfoFetch);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
 }
 
 
-
-
-
-
-
-
 // For Drivers Internal
 export function* generateDriversInternalFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
-  let urlParamsString =urlName.get('urlParamsString');
-  let weekParamString =urlName.get('week_filter_param');
-  let weekselection =urlName.get('weekurlParam');
-  if(!urlParamsString){
-    urlParamsString=''
+  let urlParamsString = urlName.get('urlParamsString');
+  let weekParamString = urlName.get('week_filter_param');
+  let weekselection = urlName.get('weekurlParam');
+  if (!urlParamsString) {
+    urlParamsString = ''
   }
   if (typeof(urlParamsString) == "undefined") {
     urlParamsString = "";
@@ -735,16 +1338,61 @@ export function* generateDriversInternalFetch() {
   const kpiparam = urlName.get('kpi_param');
 
 
-  console.log("sagas generateDriversInternalFetch url",host_url+`/api/reporting/exec_drivers_internal?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection + '&' + userParams)
-  const data = yield call(request,
-    host_url+`/api/reporting/exec_drivers_internal?`+ weekurlparam + '&' + urlParamsString + '&' +  weekParamString +  '&' + kpiparam +  '&' + weekselection + '&' + userParams);
-  console.log("Heres the generateDriversInternalFetch data",data);
+  let urlAppends = "";
+  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+    urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+    urlAppends = urlAppends + '&' + urlParamsString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekParamString) == "undefined") && !(weekParamString == "")) {
+    urlAppends = urlAppends + '&' + weekParamString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
+    urlAppends = urlAppends + '&' + kpiparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+    urlAppends = urlAppends + '&' + weekselection;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends + '&' + userParams;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {
+    urlAppends = urlAppends.replace('&', '');
+  }
+  console.log('urlAppends6', urlAppends);
+
+  const data = yield call(request, host_url + `/api/reporting/exec_drivers_internal?` + urlAppends);
+
   yield put(DriversInternalDataFetchSuccess(data));
 
 
   let spinnerflag = 1;
   yield put(spinnerInternalDrivers(spinnerflag));
-
 
 
   // } catch (err) {
@@ -753,7 +1401,7 @@ export function* generateDriversInternalFetch() {
 }
 
 export function* doDriversInternalFetch() {
-  console.log('sagas doDriversInternalFetch ',DRIVERS_INTERNAL_CONSTANT);
+  console.log('sagas doDriversInternalFetch ', DRIVERS_INTERNAL_CONSTANT);
   const watcher = yield takeLatest(DRIVERS_INTERNAL_CONSTANT, generateDriversInternalFetch);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
@@ -764,11 +1412,11 @@ export function* doDriversInternalFetch() {
 export function* generateDriversExternalFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
-  let urlParamsString =urlName.get('urlParamsString');
-  let weekParamString =urlName.get('week_filter_param');
-  let weekselection =urlName.get('weekurlParam');
-  if(!urlParamsString){
-    urlParamsString=''
+  let urlParamsString = urlName.get('urlParamsString');
+  let weekParamString = urlName.get('week_filter_param');
+  let weekselection = urlName.get('weekurlParam');
+  if (!urlParamsString) {
+    urlParamsString = ''
   }
   if (typeof(urlParamsString) == "undefined") {
     urlParamsString = "";
@@ -780,13 +1428,59 @@ export function* generateDriversExternalFetch() {
   }
   const kpiparam = urlName.get('kpi_param');
 
+  let urlAppends = "";
+  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+    urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
 
-  console.log("sagas generateDriversExternalFetch url",host_url+`/api/reporting/exec_drivers_external?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection + '&' + userParams)
-  const data = yield call(request,
-    host_url+`/api/reporting/exec_drivers_external?`+ weekurlparam + '&' + urlParamsString + '&' +  weekParamString +  '&' + kpiparam +  '&' + weekselection + '&' + userParams);
-  console.log("Heres the generateDriversExternalFetch data",data);
+  }
+
+  if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+    urlAppends = urlAppends + '&' + urlParamsString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekParamString) == "undefined") && !(weekParamString == "")) {
+    urlAppends = urlAppends + '&' + weekParamString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
+    urlAppends = urlAppends + '&' + kpiparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+    urlAppends = urlAppends + '&' + weekselection;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends + '&' + userParams;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {
+    urlAppends = urlAppends.replace('&', '');
+  }
+  console.log('urlAppends6', urlAppends);
+
+
+
+  const data = yield call(request,host_url + `/api/reporting/exec_drivers_external?` + urlAppends);
+
   yield put(DriversExternalDataFetchSuccess(data));
-
 
   let spinnerflag = 1;
   yield put(spinnerExternalDrivers(spinnerflag));
@@ -798,7 +1492,7 @@ export function* generateDriversExternalFetch() {
 }
 
 export function* doDriversExternalFetch() {
-  console.log('sagas doDriversExternalFetch ',DRIVERS_EXTERNAL_CONSTANT);
+  console.log('sagas doDriversExternalFetch ', DRIVERS_EXTERNAL_CONSTANT);
   const watcher = yield takeLatest(DRIVERS_EXTERNAL_CONSTANT, generateDriversExternalFetch);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
@@ -809,11 +1503,11 @@ export function* doDriversExternalFetch() {
 export function* generatePriceKPIFetch() {
   const urlName = yield select(selectExecutiveDomain());
   const weekurlparam = urlName.get('week_param');
-  let urlParamsString =urlName.get('urlParamsString');
-  let weekParamString =urlName.get('week_filter_param');
-  let weekselection =urlName.get('weekurlParam');
-  if(!urlParamsString){
-    urlParamsString=''
+  let urlParamsString = urlName.get('urlParamsString');
+  let weekParamString = urlName.get('week_filter_param');
+  let weekselection = urlName.get('weekurlParam');
+  if (!urlParamsString) {
+    urlParamsString = ''
   }
   if (typeof(urlParamsString) == "undefined") {
     urlParamsString = "";
@@ -826,10 +1520,56 @@ export function* generatePriceKPIFetch() {
   const kpiparam = urlName.get('kpi_param');
 
 
-  console.log("sagas generatePriceKPIFetch url",host_url+`/api/reporting/exec_pricing?`+ weekurlparam + '&' + urlParamsString + weekParamString + '&' + kpiparam +  '&' + weekselection + '&' + userParams)
-  const data = yield call(request,
-    host_url+`/api/reporting/exec_pricing?`+ weekurlparam + '&' + urlParamsString + '&' + weekParamString +  '&' + kpiparam +  '&' + weekselection + '&' + userParams);
-  console.log("Heres the generatePriceKPIFetch data",data);
+  let urlAppends = "";
+  if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+    urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+    urlAppends = urlAppends + '&' + urlParamsString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekParamString) == "undefined") && !(weekParamString == "")) {
+    urlAppends = urlAppends + '&' + weekParamString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
+    urlAppends = urlAppends + '&' + kpiparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+    urlAppends = urlAppends + '&' + weekselection;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends + '&' + userParams;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {
+    urlAppends = urlAppends.replace('&', '');
+  }
+  console.log('urlAppends6', urlAppends);
+
+  const data = yield call(request,host_url + `/api/reporting/exec_pricing?` + urlAppends);
+
   yield put(PriceKPIDataFetchSuccess(data));
   let spinnerFlag = 1;
   yield put(spinnerPriceKPI(spinnerFlag));
@@ -839,7 +1579,7 @@ export function* generatePriceKPIFetch() {
 }
 
 export function* doPriceKPIFetch() {
-  console.log('sagas doPriceKPIFetch ',PRICE_KPI_CONSTANT);
+  console.log('sagas doPriceKPIFetch ', PRICE_KPI_CONSTANT);
   const watcher = yield takeLatest(PRICE_KPI_CONSTANT, generatePriceKPIFetch);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
@@ -849,33 +1589,24 @@ export function* doPriceKPIFetch() {
 // FOR PROMO FILTER DATA
 export function* generateFilterFetch() {
 
-  // let getCookie;
-  // getCookie = (name) => {
-  //   const value = `; ${document.cookie}`;
-  //   const parts = value.split(`; ${name}=`);
-  //   if (parts.length === 2) return parts.pop().split(';').shift();
-  // };
-  // const user_token = getCookie('token');
-  // const buyer = getCookie('buyer');
-  // const token = user_token.concat('___').concat(buyer)
 
   try {
     // todo: update url
 
     console.log("Inside generateFilterFetch")
-    let urlName=yield select(selectExecutiveDomain());
+    let urlName = yield select(selectExecutiveDomain());
     // let urlParams = urlName.get('filter_selection');
     // let weekurlparams = urlName.get('filter_week_selection');
-    console.log(host_url+'/api/reporting/exec_filter_data?');
+    console.log(host_url + '/api/reporting/exec_filter_data?');
 
     // if (urlParams==='')
     // {urlParams='default'
     // }
-    let urlParamsString =urlName.get('urlParamsString');
+    let urlParamsString = urlName.get('urlParamsString');
 // let weekParamString =urlName.get('week_filter_param');
 
-    if(!urlParamsString){
-      urlParamsString=''
+    if (!urlParamsString) {
+      urlParamsString = ''
     }
     if (typeof(urlParamsString) == "undefined") {
       urlParamsString = "";
@@ -885,22 +1616,29 @@ export function* generateFilterFetch() {
         urlParamsString = urlParamsString.substring(14, urlParamsString.length);
       }
     }
-    const data = yield call(request,
-      host_url+'/api/reporting/exec_filter_data?' + urlParamsString + '&' + userParams
-      // {
-      //   headers: {
-      //     Authorization: token
-      //   }
-      // }
-      );
 
-    // console.log(host_url+'/api/reporting/filter_data_week?');
-    // const data2 = yield call(request, host_url+'/api/reporting/filter_data_week?' );
-    // console.log("sagas generateFilterFetch data2",data2)
-    // const data = yield call(request, `http://localhost:8090/wash/?format=json`);
-    // const data = yield call(request, `http://10.1.161.82:8000/ranging/npd_view/filter_data?`);
-    // const filter_data = {"filter_data": data, "week_data": data2 }
-    // // //console.log(data);
+    let urlAppends = "";
+
+    if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+      urlAppends = urlAppends + '&' + urlParamsString;
+      console.log('urlAppends1', urlAppends);
+    } else {
+
+    }
+
+    if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+      urlAppends = urlAppends + '&' + userParams;
+      console.log('urlAppends1', urlAppends);
+    } else {
+
+    }
+
+    if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {
+      urlAppends = urlAppends.replace('&', '');
+    }
+    console.log('urlAppends6', urlAppends);
+    const data = yield call(request,host_url + '/api/reporting/exec_filter_data?' + urlAppends);
+
     yield put(FilterFetchSuccess(data));
   } catch (err) {
     // //console.log(err);
@@ -908,7 +1646,7 @@ export function* generateFilterFetch() {
 }
 
 export function* doFilterFetch() {
-  console.log('sagas doFilterFetch ',FILTER_CONSTANT);
+  console.log('sagas doFilterFetch ', FILTER_CONSTANT);
   const watcher = yield takeLatest(FILTER_CONSTANT, generateFilterFetch);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
@@ -920,7 +1658,7 @@ export function* generateWeekFilterFetch() {
   try {
     // todo: update url
     console.log("Inside generateWeekFilterFetch")
-    let urlName=yield select(selectExecutiveDomain());
+    let urlName = yield select(selectExecutiveDomain());
     let weekurlparams = urlName.get('week_filter_param');
 
 
@@ -933,14 +1671,14 @@ export function* generateWeekFilterFetch() {
     //   urlParamsString=''
     // }
 
-    const data = yield call(request, host_url+'/api/reporting/week_exec_filter_data?' + weekurlparams);
+    const data = yield call(request, host_url + '/api/reporting/week_exec_filter_data?' + weekurlparams);
     // const data = yield call(request, host_url+'/api/reporting/week_exec_filter_data?' + weekurlparams + '&' + userParams);
 
-    console.log(host_url+'/api/reporting/week_exec_filter_data?'+ weekurlparams);
+    console.log(host_url + '/api/reporting/week_exec_filter_data?' + weekurlparams);
 
     // const data = yield call(request, `http://10.1.161.82:8000/ranging/npd_view/filter_data?`);
 
-    console.log("Filter week data",data);
+    console.log("Filter week data", data);
     yield put(WeekFilterFetchSuccess(data));
   } catch (err) {
     console.log(err);
@@ -948,7 +1686,7 @@ export function* generateWeekFilterFetch() {
 }
 
 export function* doWeekFilterFetch() {
-  console.log('sagas doFilterFetch ',WEEK_FILTER_CONSTANT);
+  console.log('sagas doFilterFetch ', WEEK_FILTER_CONSTANT);
   const watcher = yield takeLatest(WEEK_FILTER_CONSTANT, generateWeekFilterFetch);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
