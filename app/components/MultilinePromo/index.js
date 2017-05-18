@@ -149,20 +149,14 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
   // set the dimensions and margins of the graph
 
     let frameWidth = document.getElementById(chart_id).clientWidth;
-
-    console.log("Multiline Promo Frame Width",frameWidth);
-    let margin = {top: 20, right: 10, bottom: 60, left: 100};
+    let margin = {top: 20, right: 100, bottom: 100, left: 100};
      width = frameWidth - margin.left - margin.right;
     let height = frameWidth*0.5 - margin.top - margin.bottom;
-
-    console.log("MultilinePromo width",width);
-    console.log("MultilinePromo height",height);
     // set the ranges
     let x = d3.scalePoint().range([0, width]);
     let y = d3.scaleLinear().range([height, 0]);
 
     // Scale the range of the data
-    console.log('Output for Extent',data.map(function(d) { return d.tesco_week; }))
     x.domain(data.map(function(d) { return d.tesco_week.toString(); }));
     y.domain([0, d3.max(data, function(d) {
       return Math.max(+d.value_ty, +d.value_ly); })]);
@@ -184,14 +178,12 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
     let yAxis = d3.axisLeft(y)
       .tickFormat(function(d) {
         if(d>1000) {
-          console.log("---------------------Y axis d",d);
-        a = d/ 1000;
+          a = d/ 1000;
           a=a+'K';
-          console.log("---------------------Y axis a",a);
         }
         else
           a = d;
-        a = no_pref + a + no_suffix;
+          a = no_pref + a + no_suffix;
         return (a);
       });
 
@@ -216,7 +208,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 " + frameWidth*1.3 + " " + frameWidth*0.6)
+      .attr("viewBox", "0 0 " + (width + margin.left + margin.right +10) + " " + (height + margin.top + margin.bottom + 20))
        //class to make it responsive
       .classed("svg-content-responsive", true)
       .append("g")
@@ -280,14 +272,14 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
     let legend = svg.append("svg")
       .attr("font-family", "sans-serif")
       .attr("x", -100 )
+      .attr("y",-1*margin.bottom + 20)
       .attr("font-size", 10)
       .attr("text-anchor", "end")
       .selectAll("g")
       .data(data_label)
       .enter().append("g")
       .attr("transform", function (d, i) {
-        console.log("Multiline ---- d.label",d.label)
-        return "translate(" + (-legendWidth*i -(width/2)) +  "," + (height + margin.top + margin.bottom) + ")";
+        return "translate(" + (legendWidth*i - width) +  "," + (height + margin.top + margin.bottom) + ")";
       });
 
     let color_hash = ["steelblue","red"];
@@ -305,7 +297,6 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
       .attr("y", 9.5)
       .attr("dy", "0.32em")
       .text(function (d) {
-        console.log("Multiline text d.label",d.label)
         return d.label;
       });
 

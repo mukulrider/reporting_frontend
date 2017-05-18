@@ -340,7 +340,7 @@ export class Promotion extends React.PureComponent {
                       return (
                       <div className="row mainBox">
 
-                        <div className="col-md-4 col-xs-4" style={{backgroundColor: "#fafafa",paddingLeft:'15px',paddingRight:'15px'}}>
+                        <div className="col-md-4 col-sm-12 col-xs-12" style={{backgroundColor: "#fafafa",paddingLeft:'15px',paddingRight:'15px'}}>
                           <Panel>
                             <h3 className="pageModuleSubTitle"> Total {this.props.promotion.kpi_data.kpi_name} </h3>
 
@@ -421,7 +421,7 @@ export class Promotion extends React.PureComponent {
                           </Panel>
                         </div>
 
-                        <div className="col-md-4 col-xs-4" style={{backgroundColor: "#fafafa",paddingLeft:'15px',paddingRight:'15px'}}>
+                        <div className="col-md-4 col-sm-12 col-xs-12" style={{backgroundColor: "#fafafa",paddingLeft:'15px',paddingRight:'15px'}}>
                           <Panel>
                             <h3 className="pageModuleSubTitle"> Promo {this.props.promotion.kpi_data.kpi_name} </h3>
 
@@ -510,7 +510,7 @@ export class Promotion extends React.PureComponent {
                           </Panel>
                         </div>
 
-                        <div className="col-md-4 col-xs-4" style={{backgroundColor: "#fafafa",paddingLeft:'15px',paddingRight:'15px'}}>
+                        <div className="col-md-4 col-sm-12 col-xs-12" style={{backgroundColor: "#fafafa",paddingLeft:'15px',paddingRight:'15px'}}>
                           <Panel>
                             <h3 className="pageModuleSubTitle"> Non Promo {this.props.promotion.kpi_data.kpi_name} </h3>
 
@@ -612,7 +612,7 @@ export class Promotion extends React.PureComponent {
               <panel>
                 {/*Row for sales */}
                 <div className="row">
-                  <div className="headerBox">
+                  <div className="headerBox col-md-12 col-sm-12 col-xs-12">
                     <h2 className="pageModuleMainTitle">Total &nbsp; {this.props.promotion.kpi_data.kpi_name} &nbsp; Split by Promo Type       <span className="glyphicon glyphicon-info-sign pull-right"
                                                                                                   style={{right: '4px', fontSize: '15px', top: '8px'}}
                                                                                                   onClick={() => {
@@ -632,10 +632,10 @@ export class Promotion extends React.PureComponent {
                               console.log("pie chart data", this.props.promotion.sales_data.promo_sales.pie_chart);
                               return (
                                 <div style={{background:"#f5f5f5",borderRadius:"4px"}}>
-                                  <div className="col-md-9 col-sm-9 col-xs-9" style={{textAlign:"center"}}>
+                                  <div className="col-md-9 col-sm-12 col-xs-12" style={{textAlign:"center"}}>
                                     <h3 className="pageModuleSubTitle" style={{marginTop:"12px"}}>Share by Promo Type</h3>
                                   </div>
-                                  <div className="col-md-3 col-sm-3 col-xs-3" style={{ marginTop: "8px"}}>
+                                  <div className="col-md-3 col-sm-12 col-xs-12" style={{ marginTop: "8px"}}>
                                     <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
                                       backgroundColor: "transparent",
                                       borderColor: "transparent",
@@ -817,7 +817,7 @@ export class Promotion extends React.PureComponent {
                           })()}
 
                     </div>
-                    <div className="col-lg-8 col-md-8 col-md-12 col-xs-8">
+                    <div className="col-lg-8 col-md-8 col-md-12 col-xs-12">
                       {/*Nav for Giveaway*/}
                       <div className="col-md-12 col-sm-12">
                         <span style={{float:"left"}}>
@@ -960,7 +960,7 @@ export class Promotion extends React.PureComponent {
                         </div>
                         <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                           {/*Nav for Promo products*/}
-                          <div className="col-md-12 col-sm-12">
+                          <div className="row">
                             <span style={{float:"left"}}>
                             <Nav bsStyle="tabs" activeKey={this.state.activeKey6} onSelect={this.handleSelect}
                                  className="tabsCustom secondaryTabs" style={{margin: "0px"}}>
@@ -1063,16 +1063,16 @@ export class Promotion extends React.PureComponent {
                     </span>
                   </h2>
                   <panel>
-                    <div className="col-xs-4">
+                    <div className="col-md-4 col-sm-12 col-xs-12">
                           {(() => {
                             if (this.props.promotion.promo_part_data && this.props.promotion.promoparticipationSplitSpinnerSuccess) {
                               console.log("pie chart promo_products data", this.props.promotion.promo_part_data.pie_chart);
                               return (
                                 <div style={{background:"#f5f5f5",borderRadius:"4px"}}>
-                                  <div className="col-md-9 col-sm-9 col-xs-9" style={{textAlign:"center"}}>
+                                  <div className="col-md-9 col-sm-12 col-xs-12" style={{textAlign:"center"}}>
                                     <h3 className="pageModuleSubTitle" style={{marginTop:"12px"}}>Promo value participation</h3>
                                   </div>
-                                  <div className="col-md-3 col-sm-3 col-xs-3" style={{ marginTop: "8px"}}>
+                                  <div className="col-md-3 col-sm-12 col-xs-12" style={{ marginTop: "8px"}}>
                                     <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
                                       backgroundColor: "transparent",
                                       borderColor: "transparent",

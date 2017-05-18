@@ -14,13 +14,12 @@ import * as d3          from 'd3';
 
 class GaugeChart2 extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   createChart = (a,id,colors) => {
-    console.log("Inside createchart of GaugeChart2")
     var containerWidth = document.getElementById(id).clientWidth;
     let margin = {top: 20, right: 40, bottom: 50, left: 40};
 
     let width = containerWidth*0.75;
     let height = containerWidth*0.5;
-    console.log("GaugeChart2 X :",containerWidth)
+    let radius = height/2;
     let svg = d3.select("#"+id )
       .append( "svg" )
       .attr("id",id +"_svg")
@@ -35,8 +34,8 @@ class GaugeChart2 extends React.PureComponent { // eslint-disable-line react/pre
     svg.append('text').attr('x',width/2 + 20 - 80).attr('y',height/2 + 10).text("0.0")
     svg.append('text').attr('x',width/2 + 20 +80).attr('y',height/2 + 10).text("100.0%")
     let arc = d3.arc()
-      .innerRadius( 50 )
-      .outerRadius( 80 )
+      .innerRadius( radius-50 )
+      .outerRadius( radius )
       .cornerRadius( 0 )
       .padAngle( 0 );
 
@@ -68,7 +67,7 @@ class GaugeChart2 extends React.PureComponent { // eslint-disable-line react/pre
       .append( 'path' )
       .attr( "d", arc )
 
-      .attr( "transform", "translate(" + (width/2 + 30) + ",100)" )
+      .attr( "transform", "translate(" + (width/2 + 30) + "," + radius + ")" )
       .style( "fill", function( d, i ) {
         return colors[i]
       } );
@@ -79,7 +78,7 @@ class GaugeChart2 extends React.PureComponent { // eslint-disable-line react/pre
       .enter()
       .append( 'line' )
       .attr( "x1", 0 )
-      .attr( "x2", -65 )
+      .attr( "x2", -1*(radius-30) )
       .attr( "y1", 0 )
       .attr( "y2", 0 )
       .classed("needle", true)
@@ -87,31 +86,21 @@ class GaugeChart2 extends React.PureComponent { // eslint-disable-line react/pre
       .attr( "transform", function( d ) {
         return " translate(" + 20 + ",100) rotate(" + (d) + ")"
       } );
-//
-//     // a = 50
-//     console.log(svg.selectAll( ".needle" ))
     svg.selectAll( ".needle" ).data( [a] )
       .transition()
       .ease( d3.easeElasticOut )
       .duration( 2000 )
       .attr( "transform", function( d ) {
-        return "translate(" + (width/2 + 30)+ ",100) rotate(" + (d*1.8) + ")"
+        return "translate(" + (width/2 + 30)+ "," + radius +") rotate(" + (d*1.8) + ")"
       });
-
-
-
-
-
   }
 
   componentDidMount = () =>{
-    console.log("Inside gauge barchart------",this.props)
     this.createChart(this.props.data[0],this.props.id,[ "#8a89a6", "#8a89a6", "#8a89a6" ]);
   };
 
   componentDidUpdate= () => {
   };
-
     render() {
     return (
       <div>

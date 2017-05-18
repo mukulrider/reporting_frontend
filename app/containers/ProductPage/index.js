@@ -43,13 +43,9 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
   componentDidMount = () => {
     let dataWeekParams = this.props.ProductPage.dataWeekParams;
     let dataMetricParams = this.props.ProductPage.dataMetricParams;
-    console.log('dataWeekParams', dataWeekParams);
-    console.log('dataMetricParams', dataMetricParams);
     this.props.onGetFilter();
     this.props.onSaveMetricParam(dataMetricParams);
     this.props.onGenerateUrlParamsString();
-
-    console.log('Function called from index');
 
   };
 
@@ -138,7 +134,6 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
       // withFirstAndLast: false > Hide the going to First and Last page button
     };
 
-    console.log('this.props',this.props);
     return (
       <Panel>
         <Helmet

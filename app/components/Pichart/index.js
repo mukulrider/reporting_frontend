@@ -89,7 +89,7 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
       .data(dataGroup)
       .enter().append("g")
       .attr("transform", function (d, i) {
-        return "translate(" + (i*-legendWidth) + ",0)";
+        return "translate(" + (i*legendWidth - width + margin.left + 10) + ",0)";
       });
 
     let color_hash = ["#98abc5", "#8a89a6"];

@@ -56,7 +56,6 @@ import {
 import styles from './style.scss';
 
 function glyphiconFormatter(cell){
-  console.log("Cell:",cell);
   if (cell > 0) {
     let classType = "glyphicon glyphicon-triangle-top glyphiconPositive";
     return classType;
@@ -115,12 +114,10 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
   }
 
   inputUpdate = (checked, base_product_number) => {
-    console.log('inputupdate', base_product_number);
     this.props.onGenerateCheckedList(checked, base_product_number)
   };
 
   tableProductUpdate = (checked, base_product_number) => {
-    console.log("printing the product selected", base_product_number);
     let deselectBub = [];
     let deselectBubFlag = 0;
 
@@ -195,12 +192,6 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
       } else {
         return (Math.round(cell));
       }
-    }
-
-
-
-    {
-      console.log('this.propss', this.props)
     }
     let dataWeekUrlParams = this.props.supplier.week_param;
     let kpiParams = this.props.supplier.kpi_param;
@@ -310,7 +301,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                   </div>
                   </div>
 
-                  <div className="row" style={{marginLeft: "0%", marginRight: "0px", paddingTop: "-5px"}}>
+                  <div className="row" style={{marginLeft: "0%", marginRight: "0px", paddingTop: "-5px",width: '78%', marginLeft: '22%'}}>
 
                     <div className="col-md-12 content-wrap" style={{backgroundColor: "#f5f5f5"}}>
 
@@ -431,16 +422,15 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                       </Modal>
 
                       <div>
-                        <span className="glyphicon glyphicon-info-sign pull-right"
-                           style={{right: '4px', fontSize: '15px', top: '8px'}}
-                           onClick={() => {
-                             this.setState({suppKPIbar: true});
-                           }}>
-                        </span>
-
                         <div className="mainBox">
-                          <div style={{borderRight: '1%'}}>
-                      <Nav bsStyle="tabs" style={{marginLeft: '1%'}} activeKey={this.state.activeKey2} onSelect={this.handleSelect}className="tabsCustom  mainTab">
+                        <span className="glyphicon glyphicon-info-sign pull-right"
+                                style={{marginRight: '10px', fontSize: '15px', marginTop: '10px'}}
+                                onClick={() => {
+                                  this.setState({suppKPIbar: true});
+                                }}>
+                        </span>
+                        <div style={{borderRight: '1%'}}>
+                        <Nav bsStyle="tabs" style={{marginLeft: '1%'}} activeKey={this.state.activeKey2} onSelect={this.handleSelect}className="tabsCustom  mainTab">
 
                         <NavItem eventKey="1" className="tabsNavPanelList1" onClick={() => {
                           this.setState({activeKey2: "1"});
@@ -682,7 +672,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                                               return (
                                                 <div>
-                                                  <div className="col-md-12 col-sm-6 col-xs-12" style={{
+                                                  <div className="col-md-12 col-sm-12 col-xs-12" style={{
                                                     textAlign: 'center',
                                                     borderTop: "1px solid #e5e8ea",
                                                     float: 'right',
@@ -749,13 +739,15 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                           <div className="headerBox">
                             <h2 className="pageModuleMainTitle">Assess performance by parent supplier</h2>
                           </div>
-                          <span className="glyphicon glyphicon-info-sign pull-right"
-                                style={{right: '4px', fontSize: '15px', top: '8px'}}
-                                onClick={() => {
-                                  this.setState({suppTopBottombar: true});
-                                }}></span>
+
                         </div>
                       <div className="row mainBox">
+                        <span className="glyphicon glyphicon-info-sign pull-right"
+                              style={{marginRight: '10px', fontSize: '15px', marginTop: '10px'}}
+                              onClick={() => {
+                                this.setState({suppTopBottombar: true});
+                              }}>
+                        </span>
                         <div>
                           <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect} className="tabsCustom  mainTab">
                             <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
@@ -884,14 +876,15 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                         <div className="headerBox">
                           <h2 className="pageModuleMainTitle">Negotiation Opportunity</h2>
                         </div>
-                              <span className="glyphicon glyphicon-info-sign pull-right"
-                                    style={{right: '4px', fontSize: '15px', top: '8px'}}
-                                    onClick={() => {
-                                      this.setState({suppNegotiationbar: true});
-                                    }}></span>
+
                       </div>
                       <div className="row" style={{marginLeft: "0px", marginRight: "0px"}}>
                         <div className="mainBox">
+                          <span className="glyphicon glyphicon-info-sign pull-right"
+                                style={{marginRight: '10px', fontSize: '15px', marginTop: '10px'}}
+                                onClick={() => {
+                                  this.setState({suppNegotiationbar: true});
+                          }}></span>
                           <Nav bsStyle="tabs" className="tabsNavPanelList1" activeKey={this.state.activeKey4}
                                onSelect={this.handleSelect} >
                             <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
