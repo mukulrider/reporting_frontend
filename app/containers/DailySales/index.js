@@ -98,7 +98,6 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                   }}>
                     {(() => {
                       if (this.props.DailySales.week_filter_data && this.props.DailySales.filter_data) {
-                        console.log("Calling Filter index.js", this.props.DailySales.filter_data);
                         return (
                           <CascadedFilterDSS filter_data={this.props.DailySales.filter_data}
                             // week_data={this.props.promotion.filter_data.week_data}
@@ -157,7 +156,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                         }
                       })()}
                     </div>
-                    <div className="mainBox">
+                    <div>
                       <div className="row fixingPosition" style={{marginLeft: "0%", paddingTop: "-5px", marginRight: "0px"}}>
                         <div className="row" style={{textAlign: "center", alignItems:"center"}}>
                           <div className="col-md-12">
@@ -167,16 +166,29 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                             <div className="col-md-12 col-sm-12 col-xs-12">
                               <div className="col-md-4 col-sm-6 col-xs-12 overview-blk" >
                                 <Panel>
-                                  <div className="panel" style={{border: '1px solid #ccc'}}>
+                                  <div className="panel" style={{border: '1px solid #ccc',textAlign:"center"}}>
                                     <h4 className="tesco-heading"><b>Sales</b></h4>
-                                    {/*<div className="panel-body" style={{marginBottom:"5px",paddingTop:"0px"}}>*/}
-                                    {/*<span className="overview-blk-value">*/}
                                     {(() => {
                                       if ((this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) || kpiParmas =="val_type=2" || kpiParmas =="val_type=3" ) {
                                         let a = this.props.DailySales.linechart_data.static_data;
                                         return a.map(obj => {
                                           return (
-                                            <div><h4>{obj.tot_sales}</h4></div>
+                                            <div className="row">
+                                              <h4>{obj.tot_sales}</h4>
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                10%
+                                                <h5 className="tesco-heading"><b>WoW</b></h5>
+                                              </div>
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                10%
+                                                <h5 className="tesco-heading"><b>YoY</b></h5>
+                                              </div>
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                10%
+                                                <h5 className="tesco-heading"><b>LFL</b></h5>
+                                              </div>
+                                            </div>
+
                                           )})}
                                       else {
                                         return (
@@ -185,6 +197,10 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                         )
                                       }
                                     })()}
+
+                                    {/*<div className="panel-body" style={{marginBottom:"5px",paddingTop:"0px"}}>*/}
+                                    {/*<span className="overview-blk-value">*/}
+
                                     {/*</span>*/}
                                     {/*</div>*/}
                                   </div>
@@ -201,7 +217,21 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                         let a = this.props.DailySales.linechart_data.static_data;
                                         return a.map(obj => {
                                           return (
-                                            <div><h4>{obj.tot_vol}</h4></div>
+                                            <div className="row">
+                                              <h4>{obj.tot_vol}</h4>
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                10%
+                                                <h5 className="tesco-heading"><b>WoW</b></h5>
+                                              </div>
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                10%
+                                                <h5 className="tesco-heading"><b>YoY</b></h5>
+                                              </div>
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                10%
+                                                <h5 className="tesco-heading"><b>LFL</b></h5>
+                                              </div>
+                                            </div>
                                           )})}
                                       else {
                                         return (
@@ -210,6 +240,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                         )
                                       }
                                     })()}
+
+
                                     {/*</span>*/}
                                     {/*</div>*/}
                                   </div>
@@ -228,7 +260,21 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                         let a = this.props.DailySales.linechart_data.static_data;
                                         return a.map(obj => {
                                           return (
-                                            <div><h4>{obj.tot_cogs}</h4></div>
+                                            <div className="row">
+                                              <h4>{obj.tot_cogs}</h4>
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                10%
+                                                <h5 className="tesco-heading"><b>WoW</b></h5>
+                                              </div>
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                10%
+                                                <h5 className="tesco-heading"><b>YoY</b></h5>
+                                              </div>
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                10%
+                                                <h5 className="tesco-heading"><b>LFL</b></h5>
+                                              </div>
+                                            </div>
                                           )})}
                                       else {
                                         return (
@@ -237,6 +283,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                         )
                                       }
                                     })()}
+
+
                                     {/*</span>*/}
                                     {/*</div>*/}
                                   </div>
@@ -245,7 +293,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                             </div>
                           </div>
                         </div>
-                        <div className ="row" style={{marginLeft:'5px', marginRight:'5px'}}>
+                        <div className ="col-md-12 col-sm-12">
                           <div className="col-md-12">
                             <h4 className="pageModuleMainTitle">Daily Sales Trend
                             </h4>
@@ -281,30 +329,29 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                               }} ><span className="tab_label">COGS</span></NavItem>
                             </Nav>
                           </div>
-                          <div className="col-md-12 col-xs-12 col-sm-10 col-lg-10" style={{background:"#fff", width:'95%' , border: "1px solid #ccc", marginLeft:"5px"}}>
-                            <div className="col-md-4 col-sm-4 col-xs-4" style={{float:"right"}}>
-                  <span style={{float:"right",margin:"0px"}}>
-                      <DropdownButton className="glyphicon glyphicon-menu-hamburger"
-                                      pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}}
-                                      id="dropButtonId">
-                        <MenuItem onClick={() => {
-                          saveImage(document.getElementById('sampleSvg'),"dailySales_lineChart")
-                        }
-                        }>Save As JPEG</MenuItem>
-                        <MenuItem onClick={() => {
-                          saveDataAsCSV(this.props.DailySales.linechart_data.graph_data,"dailySales_lineChart_data.csv")
-                        }
-                        }>Download CSV</MenuItem>
-                      </DropdownButton>
-                    </span>
-                            </div>
-                            {/*<div className ="col-md-12 col-sm-12">*/}
-                            <Panel className="col-md-6 col-xs-12 col-sm-6 col-lg-6 panel-body ts-blk-proview" style={{alignItems:"center"}}>
-                              <div className="col-md-9 col-xs-12 col-sm-9 col-lg-9" >
+                          <div className="col-md-4 col-sm-4 col-xs-4">
+                            <span style={{float:"right",margin:"0px"}}>
+                              <DropdownButton className="glyphicon glyphicon-menu-hamburger"
+                                              pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}}
+                                              id="dropButtonId">
+                                <MenuItem onClick={() => {
+                                  saveImage(document.getElementById('sampleSvg'),"dailySales_lineChart")
+                                }
+                                }>Save As JPEG</MenuItem>
+                                <MenuItem onClick={() => {
+                                  saveDataAsCSV(this.props.DailySales.linechart_data.graph_data,"dailySales_lineChart_data.csv")
+                                }
+                                }>Download CSV</MenuItem>
+                              </DropdownButton>
+                            </span>
+                          </div>
+                          <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12" >
+                            <div className ="col-md-12 col-sm-12">
+                            <Panel className="col-md-6 col-xs-12 col-sm-12 col-lg-6 panel-body ts-blk-proview" style={{alignItems:"center"}}>
+                              <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12" style={{border: "1px solid #ccc", marginLeft:"5px"}}>
                                 {(() => {
                                   if (this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0)
                                   {
-                                    console.log("The line chart data in Index", this.props.DailySales.linechart_data.graph_data);
                                     return(
                                       <div>
                                         <LineChart data={this.props.DailySales.linechart_data.graph_data}
@@ -325,7 +372,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                               </div>
                             </Panel>
                           </div>
-                          {/*</div>*/}
+                          </div>
                         </div>
                       </div>
                     </div>

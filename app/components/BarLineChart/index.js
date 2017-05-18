@@ -269,7 +269,7 @@ class BarLineChart extends React.PureComponent { // eslint-disable-line react/pr
       .enter().append("g")
       .attr("transform", function (d, i) {
         console.log("BarLineChart  d.key",d.key)
-        return "translate(" + (i*legendWidth) + "," + (height + margin.bottom - 10) + ")"; //(i*-legendWidth)
+        return "translate(" + (i*legendWidth + margin.left) + "," + (height + margin.bottom - 10) + ")"; //(i*-legendWidth)
       });
 
     let color_hash = ['green','red','steelblue'];

@@ -330,7 +330,7 @@ export class Competitor extends React.PureComponent {
             </span></h4>
 
                 <div className="row">
-                  <div className="col-xs-4 panel-body ts-blk-proview">
+                  <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12 panel-body ts-blk-proview">
                     <div className="col-md-12 col-sm-12" style={{backgroundColor: "#fff", border: "1px solid #ccc"}}>
                     <div className="col-md-9 col-sm-9 col-xs-9">
                       <h4 className="pageModuleSubTitle"><b>Market Share</b></h4>
@@ -408,7 +408,7 @@ export class Competitor extends React.PureComponent {
                     </div>
                   </div>
                 </div>
-                  <div className="col-xs-8 panel-body ts-blk-proview">
+                  <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12 panel-body ts-blk-proview">
                     <div className="col-md-9 col-sm-9 col-xs-9">
                       <h4 className="pageModuleSubTitle"><b>Outperformance</b></h4>
                     </div>

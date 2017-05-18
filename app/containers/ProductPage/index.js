@@ -37,19 +37,15 @@ import {
 
 import styles from './style.scss';
 
-var dataWeekParams = this.props.ProductPage.dataWeekParams;
-var dataMetricParams = this.props.ProductPage.dataMetricParams;
+
 export class ProductPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   componentDidMount = () => {
-
-    console.log('dataWeekParams', dataWeekParams);
-    console.log('dataMetricParams', dataMetricParams);
+    let dataWeekParams = this.props.ProductPage.dataWeekParams;
+    let dataMetricParams = this.props.ProductPage.dataMetricParams;
     this.props.onGetFilter();
     this.props.onSaveMetricParam(dataMetricParams);
     this.props.onGenerateUrlParamsString();
-
-    console.log('Function called from index');
 
   };
 
@@ -138,7 +134,6 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
       // withFirstAndLast: false > Hide the going to First and Last page button
     };
 
-    console.log('this.props',this.props);
     return (
       <Panel>
         <Helmet
@@ -208,7 +203,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                          className=" tabsCustomList" eventKey="1" onClick={() => {
                   this.setState({activeKey: "1"});
                   this.props.tabsAndApplySpinner(0);
-                  dataWeekParams = "week_flag=Latest Week";
+                  let dataWeekParams = "week_flag=Latest Week";
                   this.props.onSaveWeekParam(dataWeekParams);
                   /*
                    let week_no = "time_period=13_weeks";
@@ -223,7 +218,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                          className="tabsCustomListTime" eventKey="2" onClick={() => {
                   this.setState({activeKey: "2"});
                   this.props.tabsAndApplySpinner(0);
-                  dataWeekParams = "week_flag=4";
+                  let dataWeekParams = "week_flag=4";
                   this.props.onSaveWeekParam(dataWeekParams);
                   /*
                    let week_no = "time_period=26_weeks";
@@ -238,7 +233,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                          className="tabsCustomListTime" eventKey="3" onClick={() => {
                   this.setState({activeKey: "3"});
                   this.props.tabsAndApplySpinner(0);
-                  dataWeekParams = "week_flag=13";
+                  let dataWeekParams = "week_flag=13";
                   this.props.onSaveWeekParam(dataWeekParams);
                 }}
                 ><span className="tab_label">Last 13 Weeks</span></NavItem>
@@ -254,7 +249,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                          className="tabsCustomListTime" eventKey="5" onClick={() => {
                   this.setState({activeKey: "5"});
                   this.props.tabsAndApplySpinner(0);
-                  dataWeekParams = "week_flag=YTD";
+                  let dataWeekParams = "week_flag=YTD";
                   this.props.onSaveWeekParam(dataWeekParams);
                 }}
                 ><span className="tab_label">YTD</span></NavItem>
@@ -280,7 +275,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                     page_title: "Value Performance"
                   });
                   this.props.tabsAndApplySpinner(0);
-                  dataMetricParams = "metric_flag=Value";
+                  let dataMetricParams = "metric_flag=Value";
                   this.props.onSaveMetricParam(dataMetricParams);
                 }}
                 ><span className="tab_label">Value</span></NavItem>
@@ -294,7 +289,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                     page_title: "Volume Performance"
                   });
                   this.props.tabsAndApplySpinner(0);
-                  dataMetricParams = "metric_flag=Volume";
+                  let dataMetricParams = "metric_flag=Volume";
 
                   this.props.onSaveMetricParam(dataMetricParams);
                 }}
@@ -309,7 +304,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                     page_title: "COGS Performance"
                   });
                   this.props.tabsAndApplySpinner(0);
-                  dataMetricParams = "metric_flag=cogs";
+                  let dataMetricParams = "metric_flag=cogs";
                   this.props.onSaveMetricParam(dataMetricParams);
                 }}
                 ><span className="tab_label">COGS</span></NavItem>
@@ -323,7 +318,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                     page_title: "Profit Performance"
                   });
                   this.props.tabsAndApplySpinner(0);
-                  dataMetricParams = "metric_flag=cgm";
+                  let dataMetricParams = "metric_flag=cgm";
                   this.props.onSaveMetricParam(dataMetricParams);
                 }}
                 ><span className="tab_label">CGM</span></NavItem>
@@ -337,7 +332,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                     page_title: "Waste Performance"
                   });
                   this.props.tabsAndApplySpinner(0);
-                  dataMetricParams = "metric_flag=Waste";
+                  let dataMetricParams = "metric_flag=Waste";
                   this.props.onSaveMetricParam(dataMetricParams);
                 }}
                 ><span className="tab_label">Waste</span></NavItem>

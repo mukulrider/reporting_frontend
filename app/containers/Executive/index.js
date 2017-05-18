@@ -1109,7 +1109,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           return (
                             <div className="row mainBox">
                               {/*Block for bar charts*/}
-                              <div className="col-md-8 ">
+                              <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div className="row">
                                   {/*BarChart for Forecast*/}
                                   <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6" style={{background:"#fff", border: "1px solid #ccc"}}>
@@ -1163,7 +1163,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                           </div>
                         </div>
                         {/*Block for roles and intent*/}
-                        <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4" style={{marginTop:"80px"}}>
+                        <div className="col-lg-12 col-md-12  col-sm-12 col-xs-12" style={{paddingTop:"20px",paddingBottom:"20px",background:"#fff"}}>
 
                           {(() => {
                               if (this.props.Executive.roles_intent_data) {
@@ -1210,7 +1210,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 {/*Value Trend*/}
                                 <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
                                   <h3 className="pageModuleSubTitle"> Value
-                                    <div style={{float: "right"}}>
+                                    <div style={{float: "right",paddingRight:"5px"}}>
                                       <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
                                         backgroundColor: "transparent",
                                         borderColor: "transparent",
@@ -1232,7 +1232,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             if (this.props.Executive.overview_kpi_trend_data) {
                               console.log("overview_kpi_trend_data value line chart data", this.props.Executive.overview_kpi_trend_data.sales_trend);
                               return (
-                                <div>
+                                <div className="col-md-12 col-sm-12 col-xs-12">
                                   <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.sales_trend} id="overview_value_line" label_ty="Sales TY" label_ly="Sales LY" xaxis_title="Tesco Week" no_pref='£' no_suffix='' yaxis_title='Value' chart_width="600" legend_width="450" legend_text_width="445" />
                                 </div>
                               );
@@ -1241,7 +1241,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                         </div>
                         {/*Volume Trend*/}
                         <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
-                          <h3 className="pageModuleSubTitle"> Volume<div style={{float:"right"}}>
+                          <h3 className="pageModuleSubTitle"> Volume<div style={{float:"right",paddingRight:"5px"}}>
                             <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                               <MenuItem onClick={() => {
                                 saveImage(document.getElementById('overview_volume_line'),"kpiSalesVolumeTrend")
@@ -1257,7 +1257,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             if (this.props.Executive.overview_kpi_trend_data) {
                               console.log("overview_kpi_trend_data volume line chart data", this.props.Executive.overview_kpi_trend_data.volume_trend);
                               return (
-                                <div>
+                                <div className="col-md-12 col-sm-12 col-xs-12">
                                   <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.volume_trend} id="overview_volume_line" label_ty="Volume TY" label_ly="Volume LY" xaxis_title="Tesco Week" no_pref='' no_suffix='' yaxis_title='Volume' chart_width="600" legend_width="450" legend_text_width="445"/>
                                 </div>
                               );
@@ -1272,7 +1272,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 {/*COGS Trend*/}
                                 <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
                                   <h3 className="pageModuleSubTitle"> COGS
-                                    <div style={{float: "right"}}>
+                                    <div style={{float: "right",paddingRight:"5px"}}>
                                       <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
                                         backgroundColor: "transparent",
                                         borderColor: "transparent",
@@ -1293,7 +1293,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                     if (this.props.Executive.overview_kpi_trend_data) {
                                       console.log("overview_kpi_trend_data COGS line chart data", this.props.Executive.overview_kpi_trend_data.cogs_trend);
                                       return (
-                                        <div>
+                                        <div className="col-md-12 col-sm-12 col-xs-12">
                                           <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.cogs_trend}
                                                           id="overview_cogs_line" label_ty="COGS TY" label_ly="COGS LY"
                                                           xaxis_title="Tesco Week" no_pref='£' no_suffix=''
@@ -1307,7 +1307,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 {/*CGM Trend*/}
                                 <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
                                   <h3 className="pageModuleSubTitle"> Profit
-                                    <div style={{float: "right"}}>
+                                    <div style={{float: "right",paddingRight:"5px"}}>
                                       <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
                                         backgroundColor: "transparent",
                                         borderColor: "transparent",
@@ -1328,7 +1328,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                     if (this.props.Executive.overview_kpi_trend_data) {
                                       console.log("overview_kpi_trend_data profit line chart data", this.props.Executive.overview_kpi_trend_data.cgm_trend);
                                       return (
-                                        <div>
+                                        <div className="col-md-12 col-sm-12 col-xs-12">
                                           <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.cgm_trend}
                                                           id="overview_cgm_line" label_ty="Profit TY"
                                                           label_ly="Profit LY" xaxis_title="Tesco Week" no_pref='£'

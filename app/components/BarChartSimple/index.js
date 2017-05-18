@@ -26,13 +26,7 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
 
     var margin = {top: 20, right: 70, bottom: 50, left: 50},
       width = containerWidth - margin.right - margin.left,
-      height = containerWidth*0.8 - margin.top - margin.bottom;
-      // width = containerWidth - margin.right*2 - margin.left*2,
-      // height = containerWidth*0.8 - margin.top - margin.bottom;
-
-      console.log(width);
-      console.log(height);
-
+      height = containerWidth*0.5 - margin.top - margin.bottom;
     var x = d3.scaleBand().rangeRound([0, width]).padding(0.3),
       y = d3.scaleLinear().rangeRound([height, 0]);
     svg
@@ -79,16 +73,6 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
     let a = 0;
     g.append("g")
       .call(d3.axisLeft(y).tickFormat(function(d) {
-        // if(d>1000) {
-        //   console.log("---------------------Y axis d",d);
-        //   a = d/ 1000;
-        //   a=a+'K';
-        //   console.log("---------------------Y axis a",a);
-        // }
-        // else
-        //   a = d;
-        // a = no_pref + a + no_suffix;
-        // return (a);
         return formatVolume(d);
 
       }))
@@ -113,7 +97,7 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
         return color_hash[i];
       });
 
-    let legendWidth = containerWidth/4;
+    let legendWidth = containerWidth/3;
     let legend = svg.append("svg")
       .attr("font-family", "Tesco")
       .attr("font-size", 12).attr("text-anchor", "start")
@@ -121,7 +105,7 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
       .data(data_label)
       .enter().append("g")
       .attr("transform", function (d, i) {
-        return "translate(" + (-i * legendWidth + margin.left + margin.right) + "," + (height + margin.bottom) + ")";
+        return "translate(" + (i*legendWidth + margin.left) + "," + (height + margin.bottom) + ")";
       });
     legend.append("rect")
       .attr("x", 20)

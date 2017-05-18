@@ -109,7 +109,7 @@ class SampleBarChart extends React.PureComponent { // eslint-disable-line react/
   render() {
     return (
         <div id={this.props.id} style={{backgroundColor: "#fff", border:"1px solid #ccc"}}>
-          <svg id={this.props.id + '_svg'}> ref="barChart" </svg>
+          <svg id={this.props.id +'_svg'} ref="barChart"> </svg>
         </div>
     );
   }
