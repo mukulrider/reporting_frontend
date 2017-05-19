@@ -47,17 +47,15 @@ export function defaultAction() {
   };
 }
 //For KPI BOXES
-export function PromoKpiData()
-{
+export function PromoKpiData() {
   console.log('actions.js KPI_CONSTANT CONSTANT');
   return {
     type: KPI_CONSTANT,
   };
 }
 
-export function PromoKpiDataFetchSuccess(data)
-{
-  console.log('PromoKpiDataFetchSuccess actions',data)
+export function PromoKpiDataFetchSuccess(data) {
+  console.log('PromoKpiDataFetchSuccess actions', data)
   return {
     type: KPI_FETCH_SUCCESS,
     data,
@@ -66,17 +64,15 @@ export function PromoKpiDataFetchSuccess(data)
 
 // FOR FETCHING SALES DATA
 
-export function PromoSalesData()
-{
+export function PromoSalesData() {
   console.log('actions.js SALES_CONSTANT CONSTANT');
   return {
     type: SALES_CONSTANT,
   };
 }
 
-export function PromoSalesDataFetchSuccess(data)
-{
-  console.log('PromoSalesDataFetchSuccess(data) actions',data)
+export function PromoSalesDataFetchSuccess(data) {
+  console.log('PromoSalesDataFetchSuccess(data) actions', data)
   return {
     type: SALES_FETCH_SUCCESS,
     data,
@@ -85,17 +81,15 @@ export function PromoSalesDataFetchSuccess(data)
 
 // FOR FETCHING PROMO GIVEAWAY
 
-export function PromoGiveawayData()
-{
+export function PromoGiveawayData() {
   console.log('actions.js PromoGiveawayData PROMO_GIVEAWAY_CONSTANT');
   return {
     type: PROMO_GIVEAWAY_CONSTANT,
   };
 }
 
-export function PromoGiveawayDataFetchSuccess(data)
-{
-  console.log('PromoGiveawayDataFetchSuccess(data) PROMO_GIVEAWAY_FETCH_SUCCESS actions',data)
+export function PromoGiveawayDataFetchSuccess(data) {
+  console.log('PromoGiveawayDataFetchSuccess(data) PROMO_GIVEAWAY_FETCH_SUCCESS actions', data)
   return {
     type: PROMO_GIVEAWAY_FETCH_SUCCESS,
     data,
@@ -104,17 +98,15 @@ export function PromoGiveawayDataFetchSuccess(data)
 
 // FOR FETCHING PROMO PROD
 
-export function PromoProdData()
-{
+export function PromoProdData() {
   console.log('actions.js PromoProdData PROMO_PROD_CONSTANT');
   return {
     type: PROMO_PROD_CONSTANT,
   };
 }
 
-export function PromoProdDataFetchSuccess(data)
-{
-  console.log('PromoProdDataFetchSuccess(data) PROMO_PROD_FETCH_SUCCESS actions',data)
+export function PromoProdDataFetchSuccess(data) {
+  console.log('PromoProdDataFetchSuccess(data) PROMO_PROD_FETCH_SUCCESS actions', data)
   return {
     type: PROMO_PROD_FETCH_SUCCESS,
     data,
@@ -124,17 +116,15 @@ export function PromoProdDataFetchSuccess(data)
 
 // FOR FETCHING PROMO PART
 
-export function PromoPartData()
-{
+export function PromoPartData() {
   console.log('actions.js PromoPartData PROMO_PART_CONSTANT');
   return {
     type: PROMO_PART_CONSTANT,
   };
 }
 
-export function PromoPartDataFetchSuccess(data)
-{
-  console.log('PromoPartDataFetchSuccess(data) PROMO_PART_FETCH_SUCCESS actions',data)
+export function PromoPartDataFetchSuccess(data) {
+  console.log('PromoPartDataFetchSuccess(data) PROMO_PART_FETCH_SUCCESS actions', data)
   return {
     type: PROMO_PART_FETCH_SUCCESS,
     data,
@@ -144,8 +134,7 @@ export function PromoPartDataFetchSuccess(data)
 
 //FOR SAVING WEEK PARAM (triggered by Week Buttons)
 
-export function SaveWeekParam(data)
-{
+export function SaveWeekParam(data) {
   console.log('SaveWeekParam = actions', data);
   return {
     type: WEEK_PARAM,
@@ -198,17 +187,15 @@ export function SavePromoPartParam(data) {
 //--------------------- FILTER DATA -------------------------------
 
 
-export function getFilter()
-{
-  console.log('actions.js Get Filter',FILTER_CONSTANT);
+export function getFilter() {
+  console.log('actions.js Get Filter', FILTER_CONSTANT);
   return {
     type: FILTER_CONSTANT,
   };
 }
 
 
-export function FilterFetchSuccess(data)
-{
+export function FilterFetchSuccess(data) {
   console.log('PromoFilterFetchSuccess = actions', data);
   return {
     type: FILTER_FETCH_SUCCESS,
@@ -217,8 +204,7 @@ export function FilterFetchSuccess(data)
 }
 
 
-export function generateUrlParamsString(data)
-{
+export function generateUrlParamsString(data) {
   console.log('PromoFilterFetchSuccess = actions', data);
   return {
     type: GENERATE_FILTER_PARAMS_STRING,
@@ -228,24 +214,21 @@ export function generateUrlParamsString(data)
 //Week Filter
 
 
-export function getWeekFilter()
-{
-  console.log('actions.js getWeekFilter',WEEK_FILTER_CONSTANT);
+export function getWeekFilter() {
+  console.log('actions.js getWeekFilter', WEEK_FILTER_CONSTANT);
   return {
     type: WEEK_FILTER_CONSTANT,
   };
 }
 
-export function WeekFilterFetchSuccess(data)
-{
+export function WeekFilterFetchSuccess(data) {
   console.log('WeekFilterFetchSuccess = actions', data);
   return {
     type: WEEK_FILTER_FETCH_SUCCESS,
     data,
   };
 }
-export function WeekFilterParam(data)
-{
+export function WeekFilterParam(data) {
   console.log('WeekFilterParam = actions', data);
   return {
     type: WEEK_FILTER_PARAM,
@@ -256,7 +239,7 @@ export function WeekFilterParam(data)
 
 //PIE CHART SPINNER
 export function pieChartSuccess(spinnerCheck) {
-  console.log('pieChartSuccess',spinnerCheck);
+  console.log('pieChartSuccess', spinnerCheck);
   return {
     type: PIE_CHART_SPINNER_SUCCESS,
     spinnerCheck
@@ -265,7 +248,7 @@ export function pieChartSuccess(spinnerCheck) {
 
 //MULTI LINE PROMO CHART SPINNER
 export function promoGiveAwaySuccess(spinnerCheck) {
-  console.log('promoGiveAwaySuccess',spinnerCheck);
+  console.log('promoGiveAwaySuccess', spinnerCheck);
   return {
     type: PROMO_GIVE_AWAY_SPINNER_SUCCESS,
     spinnerCheck
@@ -274,7 +257,7 @@ export function promoGiveAwaySuccess(spinnerCheck) {
 
 //productsCountSplitSuccess SPINNER
 export function productsCountSplitSuccess(spinnerCheck) {
-  console.log('productsCountSplitSuccess',spinnerCheck);
+  console.log('productsCountSplitSuccess', spinnerCheck);
   return {
     type: PRODUCTS_COUNT_SPILT_SPINNER_SUCCESS,
     spinnerCheck
@@ -283,7 +266,7 @@ export function productsCountSplitSuccess(spinnerCheck) {
 
 //promoParticipationBySplitSuccess SPINNER
 export function promoParticipationBySplitSuccess(spinnerCheck) {
-  console.log('promoParticipationBySplitSuccess',spinnerCheck);
+  console.log('promoParticipationBySplitSuccess', spinnerCheck);
   return {
     type: PROMO_PARTICIPATION_SPILT_SPINNER_SUCCESS,
     spinnerCheck
@@ -292,7 +275,7 @@ export function promoParticipationBySplitSuccess(spinnerCheck) {
 
 //promoParticipationBySplitSuccess SPINNER
 export function productsTableSplitSuccess(spinnerCheck) {
-  console.log('productsTableSplitSuccess',spinnerCheck);
+  console.log('productsTableSplitSuccess', spinnerCheck);
   return {
     type: PRODUCTS_TABLE_SPINNER_SUCCESS,
     spinnerCheck
@@ -301,13 +284,10 @@ export function productsTableSplitSuccess(spinnerCheck) {
 
 //kpiDataSuccess SPINNER
 export function kpiDataSuccess(spinnerCheck) {
-  console.log('kpiDataSuccess',spinnerCheck);
+  console.log('kpiDataSuccess', spinnerCheck);
   return {
     type: KPI_SPINNER_SUCCESS,
     spinnerCheck
   }
 }
-
-
-
 

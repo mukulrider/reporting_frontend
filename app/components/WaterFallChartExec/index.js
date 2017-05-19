@@ -29,13 +29,27 @@ class WaterFallChartExec extends React.PureComponent { // eslint-disable-line re
 
     const xAxis = d3.axisBottom(x);
 
+    //FUNCTION FOR ADDING COMMA, POUND SYMBOL
+
+    const formatSales = (i) => {
+        if (i >= 1000 || i <= -1000) {
+          const rounded = Math.round(i / 1000);
+          let a = `£ ${rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}K`;
+          // alert("if greater than 0")
+          // alert(a);
+          return (`£ ${rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}K`);
+        } else {
+          // alert("else less than 0");
+          let b = `£ ${Math.round(i)}`;
+          // alert(b);
+          return (`${Math.round(i)}`);
+        }
+
+    };
+
     const yAxis = d3.axisLeft(y)
-      .tickFormat(function(d) {
-        if(d>1000)
-          return (d/1000) + 'K'
-        else
-          return d
-      })
+      .tickFormat((d) => (formatSales(d)))
+      // .tickFormat(formatSales(d));
 
     let chart = d3.select(`#${id + '_svg'}`);
     chart.selectAll("*").remove();

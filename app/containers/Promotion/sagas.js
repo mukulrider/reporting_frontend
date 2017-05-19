@@ -78,10 +78,9 @@ let gettingUserDetails = () => {
 const userParams = gettingUserDetails();
 
 
-let host_url = "http://127.0.0.1:8000";
+let host_url = "http://172.20.181.92:8000";
 // let host_url="http://172.20.246.13:8000";
 // All sagas to be loaded
-
 
 // FOR PROMO BOXES
 export function* generatePromoKpiDataFetch() {
@@ -247,11 +246,13 @@ export function* generatePromoSalesDataFetch() {
   yield put(PromoSalesDataFetchSuccess(data));
 
   let spinnerCheck = 1;
+  console.log('spinnerCheck for pie',spinnerCheck);
   yield put(pieChartSuccess(spinnerCheck))
 
 
   let spinnerCheckTable = 1;
-  yield put(productsTableSplitSuccess(spinnerCheckTable));
+  console.log('spinnerCheck for pie2',spinnerCheckTable);
+  yield put(productsCountSplitSuccess(spinnerCheckTable));
 
   // } catch (err) {
   //   // console.log(err);
@@ -419,6 +420,7 @@ export function* generatePromoProdDataFetch() {
   // const data = yield call(request,host_url + `/api/reporting/promo_prod/?` + weekurlparam + '&' + urlParamsString + '&' + promoprodparam + '&' + weekselection + '&' + userParams);
 
   yield put(PromoProdDataFetchSuccess(data));
+
 
   let spinnerCheck = 1;
   console.log('spinnerCheck');
