@@ -241,7 +241,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                          className="tabsCustomListTime" eventKey="4" onClick={() => {
                   this.setState({activeKey: "4"});
                   this.props.tabsAndApplySpinner(0);
-                  dataWeekParams = "week_flag=26";
+                  let dataWeekParams = "week_flag=26";
                   this.props.onSaveWeekParam(dataWeekParams);
                 }}
                 ><span className="tab_label">Last 26 Weeks</span></NavItem>

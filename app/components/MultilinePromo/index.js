@@ -215,11 +215,11 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     //Removing the height and width property for preserveAspectRatio
-    setTimeout(function(){
-      d3.select('#'+chart_id + '_svg')
-        .attr("height",null)
-        .attr("width",null);
-    },200)
+    // setTimeout(function(){
+    //   d3.select('#'+chart_id + '_svg')
+    //     .attr("height",null)
+    //     .attr("width",null);
+    // },200)
 
     // Add the valueline path.
     svg.append("path")

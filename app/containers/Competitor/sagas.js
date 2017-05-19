@@ -59,7 +59,8 @@ let gettingUserDetails = () =>{
 };
 const userParams = gettingUserDetails();
 
-const host_url = 'http://127.0.0.1:8000';
+// const host_url = 'http://172.20.244.150:8001';
+const host_url = 'http://dvcmpapp00001uk.dev.global.tesco.org';
 // const host_url = 'http://10.1.244.154:8000';
 // All sagas to be loaded
 
@@ -74,17 +75,6 @@ export function* generateCompetitorWaterfallDataFetch() {
   console.log('Filter parameter', filterurlparam);
   console.log('Waterfall param', waterfallparam);
 
-  // let getCookie;
-  // getCookie = (name) => {
-  //   const value = `; ${document.cookie}`;
-  //   const parts = value.split(`; ${name}=`);
-  //   if (parts.length === 2) return parts.pop().split(';').shift();
-  // };
-  // const user_token = getCookie('token');
-  // const buyer = getCookie('buyer');
-  // const token = user_token.concat('___').concat(buyer)
-
-  //
   // //paramString = paramString + '&week=' + urlParams;
   // paramString = paramString.replace('&', '');
   let urlAppends = "";
@@ -125,14 +115,7 @@ export function* generateCompetitorWaterfallDataFetch() {
   console.log('urlAppends6', urlAppends);
 
   const data = yield call(request,
-    `${host_url}/api/reporting/competitor_price_index?` + urlAppends,
-    // `${host_url}/api/reporting/competitor_price_index?${weekurlparam}&${filterurlparam}&${waterfallparam}&${weekselection}&${userParams}`,
-
-    // {
-    //   headers: {
-    //     Authorization: token
-    //   }
-    // }
+    `${host_url}/api/reporting/competitor_price_index?` + urlAppends
   );
   console.log('Heres the kpi data', data);
   let spinnerCheck = 1;
@@ -219,13 +202,7 @@ export function* generateCompetitorPieChartDataFetch() {
 
 
   const data = yield call(request,
-    `${host_url}/api/reporting/competitor_market_share?` + urlAppends,
-    // `${host_url}/api/reporting/competitor_market_share?${weekurlparam}&${kpiparam}&${filterurlparam}&${weekselection}&${userParams}`,
-    // {
-    //   headers: {
-    //     Authorization: token
-    //   }
-    // }
+    `${host_url}/api/reporting/competitor_market_share?` + urlAppends
   );
   console.log('Heres the kpi data', data);
   let spinnerCheck = 1;
@@ -248,16 +225,6 @@ export function* generateCompetitorPriceRangeDataFetch() {
   const weekselection = urlName.get('filter_week_selection');
   // console.log("inside sagas.js", urlParams);
   console.log('generateCompetitorPriceRangeDataFetch sagas.js', `${host_url}/api/reporting/competitor_view_range?${weekurlparam}&${filterurlparam}&${weekselection}&${userParams}`);
-
-  // let getCookie;
-  // getCookie = (name) => {
-  //   const value = `; ${document.cookie}`;
-  //   const parts = value.split(`; ${name}=`);
-  //   if (parts.length === 2) return parts.pop().split(';').shift();
-  // };
-  // const user_token = getCookie('token');
-  // const buyer = getCookie('buyer');
-  // const token = user_token.concat('___').concat(buyer)
 
   let urlAppends = ""
   if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
@@ -298,13 +265,7 @@ if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
 
 
   const data = yield call(request,
-    `${host_url}/api/reporting/competitor_view_range?` + urlAppends,
-    // `${host_url}/api/reporting/competitor_view_range?${weekurlparam}&${filterurlparam}&${weekselection}&${userParams}`,
-    // {
-    //   headers: {
-    //     Authorization: token
-    //   }
-    // }
+    `${host_url}/api/reporting/competitor_view_range?` + urlAppends
   );
   console.log('Heres the kpi data', data);
 
@@ -394,15 +355,9 @@ export function* generateCompetitorOutperformance() {
 
 
   try {
-    const data = yield call(request,
-      `${host_url}/api/reporting/competitor_market_outperformance?` + urlAppends,
-      // `${host_url}/api/reporting/competitor_market_outperformance?${weekurlparam}&${kpiparam}&${filterurlparam}&${weekselection}&${userParams}`,
-      // {
-      //   headers: {
-      //     Authorization: token
-      //   }
-      // }
-    );
+  const data = yield call(request,
+    `${host_url}/api/reporting/competitor_market_outperformance?` + urlAppends
+      );
 
     console.log('generateCompetitorOutperformance', data);
     let spinnerCheck = 1;
@@ -437,16 +392,11 @@ export function* generateFilterFetch() {
     const weekurlparams = urlName.get('filter_week_selection');
     let urlParams = urlName.get('filter_selection');
 
-    if (!(typeof(urlParams) == "undefined") && !(urlParams == "")) {
-      let urlParamsStringCheck = urlParams.substring(0, 2);
-      if (urlParamsStringCheck == 20) {
-        urlParams = urlParams.substring(14, urlParamsString.length);
-      }
-    }
-    // {
-    //   headers: {
-    //     Authorization: token,
-    //   },
+    // if (!(typeof(urlParams) == "undefined") && !(urlParams == "")) {
+    //   let urlParamsStringCheck = urlParams.substring(0, 2);
+    //   if (urlParamsStringCheck == 20) {
+    //     urlParams = urlParams.substring(14, urlParamsString.length);
+    //   }
     // }
 
 
@@ -454,21 +404,11 @@ export function* generateFilterFetch() {
     // {urlParams='default'
     // }
 
-    const data = yield call(request, `${host_url}/api/reporting/competitor_filter_data?${urlParams}&${userParams}`,
-      // {
-      //   headers: {
-      //     Authorization: token,
-      //   },
-      // }
+    const data = yield call(request, `${host_url}/api/reporting/competitor_filter_data?${urlParams}&${userParams}`
     );
 
     console.log(`${host_url}/api/reporting/filter_data_week?${weekurlparams}`);
-    const data2 = yield call(request, `${host_url}/api/reporting/filter_data_week?${weekurlparams}`,
-      // {
-      //   headers: {
-      //     Authorization: token,
-      //   },
-      // }
+    const data2 = yield call(request, `${host_url}/api/reporting/filter_data_week?${weekurlparams}`
     );
     console.log('sagas generateFilterFetch data2', data2);
     // const data = yield call(request, `http://localhost:8090/wash/?format=json`);

@@ -250,9 +250,9 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
     });
 
     // Remove the width height property from svg
-    setTimeout(function(){
-      d3.select('#' + chart_id + '_svg').attr("height",null).attr("width",null);
-    },200)
+    // setTimeout(function(){
+    //   d3.select('#' + chart_id + '_svg').attr("height",null).attr("width",null);
+    // },200)
     // Add the valueline path.
     svg.append("path")
       .data([data])

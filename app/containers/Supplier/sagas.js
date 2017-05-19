@@ -68,7 +68,7 @@ let gettingUserDetails = () =>{
 const userParamsAuth = gettingUserDetails();
 
 // let host_url = "127.0.0.1:3000"
-let host_url = "http://127.0.0.1:8000";
+let host_url = "http://dvcmpapp00001uk.dev.global.tesco.org";
 // FOR SUPPLIER POPUP TABLE
 export function* generateDataFetch() {
   console.log('inside kpi');
@@ -181,12 +181,6 @@ export function* generateDataFetch() {
     console.log('filter url', host_url + `/api/reporting/supplier_view_kpi?` + urlParams);
     const data = yield call(request,
       host_url + `/api/reporting/supplier_view_kpi?` + urlParams);
-    // {
-    //   headers: {
-    //     Authorization: token
-    //   }
-    // }
-
 
     // http://172.20.244.150:8001/api/reporting/supplier_view_kpi?
     // tesco_week=201705&category_name=Frozen
@@ -435,16 +429,6 @@ export function* generateSideFilter() {
   console.log('in bigger urlName', urlName);
   let urlParamsString = urlName.get('urlParamsString');
   console.log('in bigger urlParamsString', urlParamsString);
-  // let getCookie;
-  // getCookie = (name) => {
-  //   const value = `; ${document.cookie}`;
-  //   const parts = value.split(`; ${name}=`);
-  //   if (parts.length === 2) return parts.pop().split(';').shift();
-  // };
-  // const user_token = getCookie('token');
-  // console.log('user_token',user_token);
-  // const buyer = getCookie('buyer');
-  // const token = user_token.concat('___')
 
   if (typeof(urlParamsString) == "undefined") {
     urlParamsString = "";
@@ -467,13 +451,6 @@ export function* generateSideFilter() {
   try {
     const filter_data = yield call(request,
       host_url + `/api/reporting/filter_supplier` + urlParamsString + '&' + userParamsAuth);
-
-    /*,
-     {
-     headers: {
-     Authorization: token
-     }
-     }*/
     console.log('filter_data', filter_data);
     yield put(generateSideFilterSuccess(filter_data));
   } catch (err) {
@@ -538,7 +515,7 @@ export function* generateWeekFilterFetch() {
     // }
 
 
-    const data = yield call(request, host_url + '/api/reporting/filter_data_week' + filter_week_selection);
+    const data = yield call(request, host_url + '/api/reporting/supplier_filter_data_week' + filter_week_selection);
 
     // console.log(host_url + '/api/reporting/filter_data_week' + filter_week_selection);
 

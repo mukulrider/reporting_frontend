@@ -1402,11 +1402,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                           </span>{this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var}
                                                         </h4>
 
-                                                        <div className="row" style={{width: "480px"}}>
-                                                          <div className="col-xs-3 overview-blk" style={{marginRight: "5px"}}>
+                                                        <div className="row">
+                                                          <div className="col-xs-12" style={{marginRight: "5px",textAlign:'center'}}>
                                                             <Panel>
-                                                              <div className="panel"
-                                                                   style={{border: '1px solid #E5E8EA', width: '120px', height: '120px', textAlign:'center'}}>
+
                                                                 <h4 className="panel-heading tesco-heading"><b>Transactions</b></h4>
                                                                 <div className="panel-body">
                                                                   <span className="overview-blk-value">
@@ -1416,14 +1415,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                     </h4>
                                                                   </span>
                                                                 </div>
-                                                              </div>
                                                             </Panel>
                                                           </div>
-                                                          <div className="col-xs-3 overview-blk" style={{marginRight: "5px"}}>
+                                                          <div className="col-xs-12" style={{marginRight: "5px",textAlign:'center'}}>
                                                             <Panel>
-                                                              <div className="panel"
-                                                                   style={{border: '1px solid #E5E8EA', width: '120px', height: '120px', textAlign:'center'}}>
-                                                                <h4 className="panel-heading tesco-heading"><b>Items per Basket</b>
+                                                                                                                          <h4 className="panel-heading tesco-heading"><b>Items per Basket</b>
                                                                 </h4>
                                                                 <div className="panel-body">
                                                                   <span className="overview-blk-value">
@@ -1433,13 +1429,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                     </h4>
                                                                   </span>
                                                                 </div>
-                                                              </div>
+
                                                             </Panel>
                                                           </div>
-                                                          <div className="col-xs-3 overview-blk" style={{marginRight: "5px"}}>
+                                                          <div className="col-xs-12" style={{marginRight: "5px",textAlign:'center'}}>
                                                             <Panel>
-                                                              <div className="panel"
-                                                                   style={{border: '1px solid #E5E8EA', width: '120px', height: '120px', textAlign:'center'}}>
+
                                                                 <h4 className="panel-heading tesco-heading"><b>Item price</b></h4>
                                                                 <div className="panel-body">
                                                                   <span className="overview-blk-value">
@@ -1449,7 +1444,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                     </h4>
                                                                   </span>
                                                                 </div>
-                                                              </div>
                                                             </Panel>
                                                           </div>
                                                         </div>
@@ -1750,7 +1744,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             if (this.props.Executive.overview_kpi_trend_data && this.props.Executive.overviewKPITrendSpinner) {
                               console.log("Promo Sales line chart data", this.props.Executive.overview_kpi_trend_data.sales_trend);
                               return (
+                                <div className="col-md-12 col-sm-12">
                                 <MultilinePromo data={this.props.Executive.overview_kpi_trend_data.sales_trend} id="overview_holiday_value_line" label_ty="Sales TY" label_ly="Sales LY" xaxis_title="Tesco Week" no_pref='£' no_suffix='' yaxis_title='Value'/>
+                                </div>
                               );
                             }
                           })()}

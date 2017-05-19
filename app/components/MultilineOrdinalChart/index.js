@@ -210,9 +210,9 @@ console.log("MultilineOrdinalChartId:",chart_id);
 
 
       //--------- Removing Height and Width property from svg
-      setTimeout(function(){
-        d3.select('#'+chart_id).attr("width",null).attr("height",null)
-      },100)
+      // setTimeout(function(){
+      //   d3.select('#'+chart_id).attr("width",null).attr("height",null)
+      // },100)
       //---------- Adding the axis
       chart.append("g")
             .attr("transform", "translate(0," + height + ")")

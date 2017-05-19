@@ -258,11 +258,11 @@ class WaterFallChart2 extends React.PureComponent { // eslint-disable-line react
       .classed("svg-content-responsive", true)
       .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
-    setTimeout(function(){
-      console.log("Waterfall removing height : " + id)
-      d3.select(`#${id + '_svg'}`).attr("height",null)
-        .attr("width",null)
-    },200)
+    // setTimeout(function(){
+    //   console.log("Waterfall removing height : " + id)
+    //   d3.select(`#${id + '_svg'}`).attr("height",null)
+    //     .attr("width",null)
+    // },200)
     let yaxis_title = yAxisName;
 
     let xaxis_title = xAxisName;

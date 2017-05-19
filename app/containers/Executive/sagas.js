@@ -102,7 +102,8 @@ let gettingUserDetails = () => {
 };
 const userParams = gettingUserDetails();
 
-let host_url = "http://127.0.0.1:8000";
+// let host_url="http://172.20.246.11:8000";
+let host_url="http://dvcmpapp00001uk.dev.global.tesco.org";
 
 // All sagas to be loaded
 
@@ -844,11 +845,12 @@ export function* generateBestInfoFetch() {
   }
 
   if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
-    urlAppends = urlAppends + '&' + selected;
+    urlAppends = urlAppends + '&' + userParams;
     console.log('urlAppends1', urlAppends);
   } else {
 
   }
+
 
   if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {
     urlAppends = urlAppends.replace('&', '');
@@ -945,6 +947,14 @@ export function* generateWorstInfoFetch() {
   } else {
 
   }
+
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+    urlAppends = urlAppends + '&' + userParams;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
 
   if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {
     urlAppends = urlAppends.replace('&', '');
@@ -1044,12 +1054,6 @@ export function* generateSupplierInfoFetch() {
 
   }
 
-  if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
-    urlAppends = urlAppends + '&' + weekselection;
-    console.log('urlAppends1', urlAppends);
-  } else {
-
-  }
 
   if (!(typeof(selected) == "undefined") && !(selected == "")) {
     urlAppends = urlAppends + '&' + selected;
