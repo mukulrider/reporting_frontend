@@ -1207,7 +1207,7 @@ export class Promotion extends React.PureComponent {
               <panel>
             {/*Promo top 25 table            */}
             {(() => {
-              if (this.props.promotion.sales_data) {
+              if (this.props.promotion.sales_data && this.props.promotion.productsCountSplitSpinnerSuccess) {
                 return (
                   <div className="promoTable">
                   <BootstrapTable className="promoTable"
