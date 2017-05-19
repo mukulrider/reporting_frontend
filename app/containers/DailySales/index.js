@@ -129,6 +129,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                              LineChartSpinnerCheck={this.props.LineChartSpinnerCheckSuccess}
 
                                              week={this.props.DailySales.week}
+                                             urlParamsString={this.props.DailySales.filter_week_selection}
+
                           />
                         );
                       }
