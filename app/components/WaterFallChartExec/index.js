@@ -19,7 +19,8 @@ class WaterFallChartExec extends React.PureComponent { // eslint-disable-line re
     let frameWidth = document.getElementById(id).clientWidth;
     let margin = {top: 100, right: 130, bottom: 40, left: 50},
       width = frameWidth - margin.left - margin.right,
-      height = frameWidth*0.6 - margin.top - margin.bottom;
+      height = frameWidth*0.6 - margin.top;
+      // height = frameWidth*0.6 - margin.top - margin.bottom;
 
     const x = d3.scaleBand()
       .rangeRound([0, width]);
@@ -221,7 +222,8 @@ class WaterFallChartExec extends React.PureComponent { // eslint-disable-line re
     bar.append('text')
       .attr('x', (x.bandwidth() / 2 - margin.right / 4))
       .attr('y', (d) =>{ return (y((((d.end - d.start > 0 )? d.end:d.start )))-5)})
-      .text((d,i) => (formatText(i,d)))
+      .text((d,i) => ((d)))
+      // .text((d,i) => (formatText(i,d)))
       .style("font-size", "10px")
       .style('fill', 'black');
 
@@ -239,7 +241,7 @@ class WaterFallChartExec extends React.PureComponent { // eslint-disable-line re
         return "translate("  + (i*legendWidth) + "," + (frameWidth*0.6 - margin.bottom) + ")";
       });
     legend.append("rect")
-      .attr("x", 25)
+      .attr("x", 45)
       .attr("y", 25)
       .attr("width", 19)
       .attr("height", 19)
@@ -247,9 +249,10 @@ class WaterFallChartExec extends React.PureComponent { // eslint-disable-line re
           return colorArray[i];
         }
       );
+
     legend.append("text")
-      .attr("x", 0)
-      .attr("y", 35)
+      .attr("x", 40)
+      .attr("y", 55)
       .attr("dy", "0.32em")
       .style("text-anchor", "start")
       .text(function (d) {

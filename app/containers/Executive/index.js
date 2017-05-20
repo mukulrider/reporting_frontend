@@ -1386,8 +1386,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 {
                                   return(
                                     <div>
-                                      <div className="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                                        <Panel style={{marginLeft: "15px"}}>
+                                      <div className="col-md-5 col-sm-5 col-xs-5 col-lg-5">
+                                        <Panel style={{marginLeft: "15px", minHeight: "430px"}}>
+                                        <div style={{marginLeft: "15px", minHeight: "390px"}}>
+
                                           <div>
                                             {(() => {
                                                 if (this.props.Executive.overview_drivers_internal_data ) {
@@ -1402,9 +1404,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                           </span>{this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var}
                                                         </h4>
 
-                                                        <div className="row" style={{width: "480px"}}>
+                                                        <div className="row" style={{width: "390px", marginTop:'20%'}}>
                                                           <div className="col-xs-3 overview-blk" style={{marginRight: "5px"}}>
-                                                            <Panel>
+
                                                               <div className="panel"
                                                                    style={{border: '1px solid #E5E8EA', width: '120px', height: '120px', textAlign:'center'}}>
                                                                 <h4 className="panel-heading tesco-heading"><b>Transactions</b></h4>
@@ -1417,10 +1419,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                   </span>
                                                                 </div>
                                                               </div>
-                                                            </Panel>
+
                                                           </div>
                                                           <div className="col-xs-3 overview-blk" style={{marginRight: "5px"}}>
-                                                            <Panel>
                                                               <div className="panel"
                                                                    style={{border: '1px solid #E5E8EA', width: '120px', height: '120px', textAlign:'center'}}>
                                                                 <h4 className="panel-heading tesco-heading"><b>Items per Basket</b>
@@ -1434,10 +1435,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                   </span>
                                                                 </div>
                                                               </div>
-                                                            </Panel>
                                                           </div>
                                                           <div className="col-xs-3 overview-blk" style={{marginRight: "5px"}}>
-                                                            <Panel>
                                                               <div className="panel"
                                                                    style={{border: '1px solid #E5E8EA', width: '120px', height: '120px', textAlign:'center'}}>
                                                                 <h4 className="panel-heading tesco-heading"><b>Item price</b></h4>
@@ -1450,10 +1449,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                   </span>
                                                                 </div>
                                                               </div>
-                                                            </Panel>
                                                           </div>
                                                         </div>
-
                                                       </div>
 
                                                     )
@@ -1469,12 +1466,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                               }
                                             )()}
-
-
                                           </div>
+
+                                        </div>
                                         </Panel>
                                       </div>
-                                      <div className="col-md-8 col-sm-8 col-xs-12  col-lg-8">
+                                      <div className="col-md-7 col-sm-7 col-xs-7 col-lg-7">
                                         <Panel>
                                           <h4 className="pageModuleSubTitle"> Promotion Contribution to growth
                                             <div style={{float: "right"}}>
@@ -1490,6 +1487,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                               </DropdownButton>
                                             </div>
                                           </h4>
+
                                           {(() => {
                                               if (this.props.Executive.overview_drivers_internal_data)
                                                 return (

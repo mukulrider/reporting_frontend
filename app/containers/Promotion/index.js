@@ -376,35 +376,35 @@ export class Promotion extends React.PureComponent {
                                   <div className="row">
                                     <div className="panel-body cardPanel">
                                       {(() => {
-                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                            return (
-                                              <div className="col-md-4 col-xs-4 ">
-                                                <h4>
+                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                          return (
+                                            <div className="col-md-4 col-xs-4 ">
+                                              <h4>
                                     <span
                                       className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_wow)}>
                                     </span>{(this.props.promotion.kpi_data.total.var_total_wow) + '%'}
-                                                </h4>
-                                                <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                                              </div>
-                                            )
-                                          }
+                                              </h4>
+                                              <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                            </div>
+                                          )
+                                        }
 
-                                        })()}
+                                      })()}
 
 
                                       <div className={(() => {
-                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                            return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                          return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
 
-                                            )
-                                          }
-                                          else {
-                                            return (
-                                              "col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                            )
-                                          }
+                                          )
+                                        }
+                                        else {
+                                          return (
+                                            "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                          )
+                                        }
 
-                                        })()}>
+                                      })()}>
                                         <h4>
                                     <span
                                       className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_yoy)}>
@@ -413,18 +413,18 @@ export class Promotion extends React.PureComponent {
                                         <h5 className="kpiSubTitle"><b>YOY</b></h5>
                                       </div>
                                       <div className={(() => {
-                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                            return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                          return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
 
-                                            )
-                                          }
-                                          else {
-                                            return (
-                                              "col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                            )
-                                          }
+                                          )
+                                        }
+                                        else {
+                                          return (
+                                            "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                          )
+                                        }
 
-                                        })()}>
+                                      })()}>
                                         <h4>
                                     <span
                                       className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_lfl)}>
@@ -461,39 +461,39 @@ export class Promotion extends React.PureComponent {
                                     <div className="panel-body cardPanel">
 
                                       {(() => {
-                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                            console.log("week param is current week");
-                                            return (
-                                              <div className="col-md-4 col-xs-4 ">
-                                                <h4>
+                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                          console.log("week param is current week");
+                                          return (
+                                            <div className="col-md-4 col-xs-4 ">
+                                              <h4>
                                     <span
                                       className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_wow)}></span>
-                                                  {(this.props.promotion.kpi_data.promo.var_promo_wow) + '%'}
-                                                </h4>
-                                                <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                                              </div>
-                                            )
-                                          }
+                                                {(this.props.promotion.kpi_data.promo.var_promo_wow) + '%'}
+                                              </h4>
+                                              <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                            </div>
+                                          )
+                                        }
 
 
-                                        })()}
+                                      })()}
 
 
                                       <div className={(() => {
-                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                            console.log("week param is current week");
-                                            return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                          console.log("week param is current week");
+                                          return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
 
-                                            )
-                                          }
-                                          else {
-                                            console.log("week param is not current week");
-                                            return (
-                                              "col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                            )
-                                          }
+                                          )
+                                        }
+                                        else {
+                                          console.log("week param is not current week");
+                                          return (
+                                            "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                          )
+                                        }
 
-                                        })()}>
+                                      })()}>
                                         <h4>
                                     <span
                                       className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_yoy)}></span>
@@ -502,18 +502,18 @@ export class Promotion extends React.PureComponent {
                                         <h5 className="kpiSubTitle"><b>YOY</b></h5>
                                       </div>
                                       <div className={(() => {
-                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                            return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                          return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
 
-                                            )
-                                          }
-                                          else {
-                                            return (
-                                              "col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                            )
-                                          }
+                                          )
+                                        }
+                                        else {
+                                          return (
+                                            "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                          )
+                                        }
 
-                                        })()}>
+                                      })()}>
                                         <h4>
                                     <span
                                       className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_lfl)}></span>
@@ -550,36 +550,36 @@ export class Promotion extends React.PureComponent {
                                     <div className="panel-body cardPanel">
 
                                       {(() => {
-                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                            return (
-                                              <div className="col-md-4 col-xs-4 ">
-                                                <h4>
+                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                          return (
+                                            <div className="col-md-4 col-xs-4 ">
+                                              <h4>
                                     <span
                                       className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow)}></span>
-                                                  {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow) + '%'}
-                                                </h4>
-                                                <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                                              </div>
-                                            )
-                                          }
+                                                {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow) + '%'}
+                                              </h4>
+                                              <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                            </div>
+                                          )
+                                        }
 
 
-                                        })()}
+                                      })()}
 
 
                                       <div className={(() => {
-                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                            return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                          return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
 
-                                            )
-                                          }
-                                          else {
-                                            return (
-                                              "col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                            )
-                                          }
+                                          )
+                                        }
+                                        else {
+                                          return (
+                                            "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                          )
+                                        }
 
-                                        })()}>
+                                      })()}>
                                         <h4>
                                     <span
                                       className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy)}></span>
@@ -588,18 +588,18 @@ export class Promotion extends React.PureComponent {
                                         <h5 className="kpiSubTitle"><b>YOY</b></h5>
                                       </div>
                                       <div className={(() => {
-                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                            return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                          return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
 
-                                            )
-                                          }
-                                          else {
-                                            return (
-                                              "col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                            )
-                                          }
+                                          )
+                                        }
+                                        else {
+                                          return (
+                                            "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                          )
+                                        }
 
-                                        })()}>
+                                      })()}>
                                         <h4>
                                     <span
                                       className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl)}></span>
@@ -643,13 +643,21 @@ export class Promotion extends React.PureComponent {
                           <div>
                             <div className="mainBox">
                               <panel>
-                                <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                <div className="col-lg-3 col-md-4 col-sm-12 col-xs-12"
+                                     style={{
+                                       minHeight: '450px',
+                                       borderRadius: '1px',
+                                       border: '1px solid rgb(204, 204, 204)',
+                                       float: 'left',
+                                       width: '31%',
+                                       marginLeft: '1%'
+                                     }}>
 
                                   {(() => {
                                     if (this.props.promotion.sales_data && this.props.promotion.pieChartSpinnerSuccess) {
                                       console.log("pie chart data", this.props.promotion.sales_data.promo_sales.pie_chart);
                                       return (
-                                        <div style={{background: "#f5f5f5", borderRadius: "4px"}}>
+                                        <div style={{background: "#f5f5f5"}}>
                                           <div className="col-md-9 col-sm-12 col-xs-12" style={{textAlign: "center"}}>
                                             <h3 className="pageModuleSubTitle" style={{marginTop: "12px"}}>Share by
                                               Promo Type</h3>
@@ -797,14 +805,21 @@ export class Promotion extends React.PureComponent {
                               }}></span>
                           </h2>
                           <panel>
-                            <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <div className="col-lg-3 col-md-4 col-sm-12 col-xs-12" style={{
+                              minHeight: '450px',
+                              borderRadius: '1px',
+                              border: '1px solid rgb(204, 204, 204)',
+                              float: 'left',
+                              width: '31%',
+                              marginLeft: '1%'
+                            }}>
 
                               {(() => {
 
                                 if (this.props.promotion.promo_giveaway_data && this.props.promotion.promoGiveAwaySpinnerSuccess) {
                                   console.log("pie chart promo_giveaway data", this.props.promotion.promo_giveaway_data.pie_chart);
                                   return (
-                                    <div style={{background: "#f5f5f5", borderRadius: "4px"}}>
+                                    <div style={{background: "#f5f5f5"}}>
                                       <div className="col-md-9 col-sm-9 col-xs-9" style={{textAlign: "center"}}>
                                         <h3 className="pageModuleSubTitle" style={{marginTop: "12px"}}>Share by Promo
                                           Type</h3>
@@ -826,8 +841,10 @@ export class Promotion extends React.PureComponent {
                                           }>Download CSV</MenuItem>
                                         </DropdownButton>
                                       </div>
-                                      <PieChart data={this.props.promotion.promo_giveaway_data.pie_chart}
-                                                id="piechart2"/>
+                                      <div style={{border: '0px'}}>
+                                        <PieChart data={this.props.promotion.promo_giveaway_data.pie_chart}
+                                                  id="piechart2"/>
+                                      </div>
                                     </div>
                                   );
                                 }
@@ -841,7 +858,7 @@ export class Promotion extends React.PureComponent {
                               })()}
 
                             </div>
-                            <div className="col-lg-8 col-md-8 col-md-12 col-xs-12">
+                            <div className="col-lg-8 col-md-8 col-md-12 col-xs-12" style={{float: 'right'}}>
                               {/*Nav for Giveaway*/}
                               <div className="col-md-12 col-sm-12">
                         <span style={{float: "left"}}>
@@ -942,7 +959,14 @@ export class Promotion extends React.PureComponent {
                     </span>
                           </h2>
                           <panel>
-                            <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <div className="col-lg-3 col-md-4 col-sm-12 col-xs-12" style={{
+                              minHeight: '455px',
+                              borderRadius: '1px',
+                              border: '1px solid rgb(204, 204, 204)',
+                              float: 'left',
+                              width: '31%',
+                              marginLeft: '1%'
+                            }}>
 
                               {(() => {
 
@@ -984,7 +1008,7 @@ export class Promotion extends React.PureComponent {
                               })()}
 
                             </div>
-                            <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                            <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12" style={{float: 'right'}}>
                               {/*Nav for Promo products*/}
                               <div className="row">
                             <span style={{float: "left"}}>
@@ -1089,7 +1113,14 @@ export class Promotion extends React.PureComponent {
                     </span>
                           </h2>
                           <panel>
-                            <div className="col-md-4 col-sm-12 col-xs-12">
+                            <div className="col-lg-3 col-md-4 col-sm-12 col-xs-12" style={{
+                              minHeight: '455px',
+                              borderRadius: '1px',
+                              border: '1px solid rgb(204, 204, 204)',
+                              float: 'left',
+                              width: '31%',
+                              marginLeft: '1%'
+                            }}>
                               {(() => {
                                 if (this.props.promotion.promo_part_data && this.props.promotion.promoparticipationSplitSpinnerSuccess) {
                                   console.log("pie chart promo_products data", this.props.promotion.promo_part_data.pie_chart);
@@ -1131,9 +1162,9 @@ export class Promotion extends React.PureComponent {
                               })()}
 
                             </div>
-                            <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                            <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12" style={{float: 'right'}}>
                               {/*Nav for Promo Participation*/}
-                              <div className="col-md-12 col-sm-12">
+                              <div className="row">
                         <span style={{float: "left"}}>
                       <Nav bsStyle="tabs" activeKey={this.state.activeKey7} onSelect={this.handleSelect}
                            className="tabsCustom secondaryTabs" style={{margin: "0px"}}>
@@ -1192,7 +1223,7 @@ export class Promotion extends React.PureComponent {
                           </DropdownButton>
                         </span>
                               </div>
-                              <div className="col-md-12 col-sm-12">
+                              <div className="row">
                                 {(() => {
                                   if (this.props.promotion.promo_part_data && this.props.promotion.promoparticipationSplitSpinnerSuccess) {
                                     console.log("Promo Participation line chart data", this.props.promotion.promo_part_data.trend);
