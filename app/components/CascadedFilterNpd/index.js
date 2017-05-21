@@ -111,7 +111,7 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
     return (
 
 
-      <div className="row" ref={'selector'}>
+      <div ref={'selector'}>
         {(() => {
           return (
             <div id="style-7">
@@ -119,13 +119,13 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
                 {(() => {
                   if (this.props.week_data) {
                     console.log("Cascading filter - week", this.props.week_data);
-                    var panelHeader = (
+                    let panelHeader = (
 
-                      <div className="panel-heading">Tesco Week
+                      <div className=" ">Tesco Week
                         <span style={{color: "red"}}>*</span>&nbsp;<span className="accordion-toggle" style={{
-                          float: 'right',
-                          marginRight: '-6%'
-                        }}></span></div>
+                          float: 'right'
+                        }}></span>
+                      </div>
                     );
                     return (
 

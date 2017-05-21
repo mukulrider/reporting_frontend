@@ -125,7 +125,6 @@ export class Competitor extends React.PureComponent {
               height: '100%',
               position: 'fixed',
               width: '20%',
-              paddingRight: '1%',
               overflowX: 'hidden',
               overflowY: 'scroll',
               borderTop: '1px solid #ccc'
@@ -190,7 +189,7 @@ export class Competitor extends React.PureComponent {
                 })()}
               </div>
 
-              <div className="row fixingPosition" style={{marginLeft: "0%", paddingTop: "-5px", marginRightt: "0px"}}>
+              <div className="row fixingPosition" style={{marginLeft: "0%", paddingTop: "-5px", marginRight: "0px"}}>
                 <div className="col-md-12 content-wrap">
 
                   <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect}

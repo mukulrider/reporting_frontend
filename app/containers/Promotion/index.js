@@ -138,7 +138,7 @@ export class Promotion extends React.PureComponent {
             height: '100%',
             position: 'fixed',
             width: '20%',
-            /* padding-right: 5px; */
+            paddingRight: '5px',
             overflowX: 'hidden',
             overflowY: 'scroll',
             borderTop: '1px solid #ccc'

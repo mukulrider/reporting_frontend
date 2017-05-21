@@ -8,7 +8,9 @@ import {
   DEFAULT_ACTION,
   FILTER_CONSTANT,
   FILTER_FETCH_SUCCESS,
-  CHECKBOX_CHANGE,
+  CHECKBOX_CHANGE,GENERATE_BEST_WORST_PERFORMANCE_SUCCESS,
+  GENERATE_BEST_WORST_PERFORMANCE_TABLE,
+  GENERATE_BEST_WORST_PERFORMANCE_TABLE_SUCCESS,
   WEEK_FILTER_CONSTANT,
   WEEK_FILTER_FETCH_SUCCESS,
   WEEK_FILTER_PARAM,
@@ -63,7 +65,7 @@ import {
   INTERNAL_DRIVER_SPINNER_FLAG,
   EXTERNAL_DRIVER_SPINNER_FLAG,
   KPI_SPINNER_FLAG,
-  PRICE_KPI_SPINNER_FLAG
+  PRICE_KPI_SPINNER_FLAG, GENERATE_BEST_WORST_PERFORMANCE
 } from './constants';
 
 export function defaultAction() {
@@ -622,3 +624,44 @@ export function spinnerPriceKPI(spinnerCheck) {
     spinnerCheck,
   };
 }
+
+
+//SPINNER - PRICE_KPI_SPINNER_FLAG
+export function generateBestWorstPerformance(data) {
+  console.log('spinnerPriceKPI = actions', data);
+  return {
+    type: GENERATE_BEST_WORST_PERFORMANCE,
+    data,
+  };
+}
+
+
+//SPINNER - PRICE_KPI_SPINNER_FLAG
+export function generateBestWorstPerformanceSuccess(data) {
+  console.log('spinnerPriceKPI = actions', data);
+  return {
+    type: GENERATE_BEST_WORST_PERFORMANCE_SUCCESS,
+    data,
+  };
+}
+
+
+// //SPINNER - PRICE_KPI_SPINNER_FLAG
+export function generateBestWorstPerformanceTable(data) {
+  console.log('spinnerPriceKPI = actions', data);
+  return {
+    type: GENERATE_BEST_WORST_PERFORMANCE,
+    data,
+  };
+}
+
+
+//SPINNER - PRICE_KPI_SPINNER_FLAG
+export function generateBestWorstPerformanceTableSuccess(data) {
+  console.log('spinnerPriceKPI = actions', data);
+  return {
+    type: GENERATE_BEST_WORST_PERFORMANCE_TABLE_SUCCESS,
+    data,
+  };
+}
+
