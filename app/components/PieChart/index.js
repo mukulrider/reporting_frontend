@@ -97,7 +97,7 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
 
 
     legend.append("rect")
-      .attr("x", 150 )
+      .attr("x", 100 )
       .attr("y", -20 )
       .attr("width", 19)
       .attr("height", 19)
@@ -106,8 +106,9 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
       });
 
     legend.append("text")
-      .attr("x", 190) // + legendWidth/2)
+      .attr("x", 120) // + legendWidth/2)
       .attr("y", 10)
+      .attr("dx", "0.52em")
       .attr("dy", "0.32em")
       .text(function (d) {
         console.log("PieChart text d.key",d.label)
@@ -130,7 +131,8 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
 
   render() {
     return (
-      <div style={{background:"#fff", border: "1px solid #ccc"}} className="pieContainer" id = {this.props.id}>
+      <div style={{background:"#fff"}} className="pieContainer" id = {this.props.id}>
+      {/*<div style={{background:"#fff", border: "1px solid #ccc"}} className="pieContainer" id = {this.props.id}>*/}
       </div>
     );
   }

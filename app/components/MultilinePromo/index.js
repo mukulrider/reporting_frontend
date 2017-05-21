@@ -286,15 +286,17 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
 
     legend.append("rect")
       .attr("x", frameWidth )
+      .attr("y", 12)
       .attr("width", 19)
       .attr("height", 19)
       .attr("fill", function (d, i) {
         return color_hash[i];
       });
 
+
     legend.append("text")
       .attr("x", frameWidth-5)
-      .attr("y", 9.5)
+      .attr("y", 14.5)
       .attr("dy", "0.32em")
       .text(function (d) {
         return d.label;

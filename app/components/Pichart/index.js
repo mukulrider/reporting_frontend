@@ -20,23 +20,25 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
     })
 
     console.log("PieChart Data" , data)
-
     let frameWidth = document.getElementById(id).clientWidth;
-    let margin = {top: 20, right: 30, bottom: 10, left: 30},
+    let margin = {top: 20, right: frameWidth/30, bottom: 10, left: frameWidth/30},
+    // let margin = {top: 20, right: 30, bottom: 10, left: 30},
       width = frameWidth - margin.left - margin.right,
       height = frameWidth - margin.top - margin.bottom,
       radius = Math.min(width, height) / 2;
+
+    // alert(radius);
 
     let color = d3.scaleOrdinal()
       .range(["#98abc5", "#8a89a6"]);
 
     let arc = d3.arc()
-      .outerRadius(radius - 10)
+      .outerRadius(radius - 40)
       .innerRadius(0);
 
     let labelArc = d3.arc()
-      .outerRadius(radius - 40)
-      .innerRadius(radius - 40);
+      .outerRadius(radius - 60)
+      .innerRadius(radius - 60);
 
     let pie = d3.pie()
       .sort(null)
@@ -44,7 +46,8 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
 
      let svg = d3.select("#" + id + '_svg')
        .attr("width", 300)
-       .attr("height", 300)
+       .attr("height", height + height/4)
+       // .attr("height", 405)
        //responsive SVG needs these 2 attributes and no width and height attr
        // .attr("preserveAspectRatio", "xMinYMin meet")
        // .attr("viewBox", "0 0" + (frameWidth) + " " + (frameWidth))
@@ -60,7 +63,7 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
     let g = svg.selectAll(".arc")
       .data(pie(data))
       .enter().append("g")
-      .attr("x", frameWidth/2)
+      .attr("x", frameWidth/2 + frameWidth/8)
       .attr("y", 55)
       .attr("class", "arc");
 
@@ -89,7 +92,7 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
       .data(dataGroup)
       .enter().append("g")
       .attr("transform", function (d, i) {
-        return "translate(" + (i*legendWidth - width + margin.left + 10) + ",0)";
+        return "translate(" + (i*legendWidth - width + margin.left + 125) + ",0)";
       });
 
     let color_hash = ["#98abc5", "#8a89a6"];
