@@ -648,9 +648,9 @@ export function generateBestWorstPerformanceSuccess(data) {
 
 // //SPINNER - PRICE_KPI_SPINNER_FLAG
 export function generateBestWorstPerformanceTable(data) {
-  console.log('spinnerPriceKPI = actions', data);
+  console.log('--------------------------------', data);
   return {
-    type: GENERATE_BEST_WORST_PERFORMANCE,
+    type: GENERATE_BEST_WORST_PERFORMANCE_TABLE,
     data,
   };
 }

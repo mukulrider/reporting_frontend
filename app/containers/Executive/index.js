@@ -133,6 +133,7 @@ function columnClassNameFormat(fieldValue, row, rowIdx, colIdx) {
 import MultilineThree from 'components/MultilineThree';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table.min.css';
+import {generateBestWorstPerformanceTable} from "./actions";
 
 export class Executive extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentDidMount = () => {
@@ -269,7 +270,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
             // this.props.onSaveSupplierName(suppName);
             // this.setState({botsuppInfo: true});
             suppName = 'None';
-            this.props.onSaveSupplierName(suppName);
+            this.props.onGenerateBestWorstPerformanceTable(row);
             this.setState({topsuppInfo: true});
           }}>Show info</button>
         </div>
@@ -422,7 +423,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
               <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12 ">
                 {/*Nav for time period*/}
-                <div className="row" style={{borderRight: '0%'}}>
+                <div className="" style={{borderRight: '0%'}}>
 
                   <Nav style={{marginLeft: '0%', marginBottom: '0%'}} bsStyle="tabs" activeKey={this.state.activeKey1}
                        onSelect={this.handleSelect} className="tabsCustom  mainTab">
@@ -2454,55 +2455,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 }
                               })()}>
 
-                                {(() => {
-                                  if (this.props.Executive.bestWorstPerformance && this.props.Executive.bestWorstPerformance) {
-                                    // return <table>
-                                    //   {this.props.Executive.best_info_data.top_5_supp.map(obj=>{
-                                    //     return (
-                                    //       <td>
-                                    //         <tr>{obj.parent_supplier}</tr>
-                                    //         <tr>{obj.grouped_ty}</tr>
-                                    //         <tr>{obj.cont_to_grwth}</tr>
-                                    //         <tr>{obj.grouped_ly}</tr>
-                                    //       </td>
-                                    //     )
-                                    //   })}
-                                    // </table>
-                                    return (
-                                      <BootstrapTable data={this.props.Executive.bestWorstPerformance}
-                                                      exportCSV={ true }
-                                                      search={ true }
-                                                      pagination striped hover condensed>
-                                        <TableHeaderColumn dataField='junior_buyer'
-                                                           dataAlign='center' isKey
-                                                           thStyle={{whiteSpace: 'normal'}}>parent_supplier</TableHeaderColumn>
-                                        <TableHeaderColumn dataField='sales_share'
-                                                           dataAlign='center'
-                                                           thStyle={{whiteSpace: 'normal'}}>grouped_ty</TableHeaderColumn>
-                                        <TableHeaderColumn dataField='cont_to_grwth'
-                                                           dataAlign='center'
-                                                           thStyle={{whiteSpace: 'normal'}}>cont_to_grwth</TableHeaderColumn>
-                                        <TableHeaderColumn dataField='yoy_var'
-                                                           dataAlign='center'
-                                                           thStyle={{whiteSpace: 'normal'}}>grouped_ly</TableHeaderColumn>
-                                        <TableHeaderColumn dataField='value_ly'
-                                                           dataAlign='center'
-                                                           thStyle={{whiteSpace: 'normal'}}>grouped_ly</TableHeaderColumn>
-                                        <TableHeaderColumn dataField='value_ty'
-                                                           dataAlign='center'
-                                                           thStyle={{whiteSpace: 'normal'}}>grouped_ly</TableHeaderColumn>
-                                        <TableHeaderColumn  dataField='index' dataFormat={cellButton}
-                                                           dataAlign='center'
-                                                           thStyle={{whiteSpace: 'normal'}}>grouped_ly</TableHeaderColumn>
-                                        <TableHeaderColumn dataField='index' dataFormat={cellButton2}
-                                                           dataAlign='center'
-                                                           thStyle={{whiteSpace: 'normal'}}>grouped_ly</TableHeaderColumn>
-                                      </BootstrapTable>
-                                    )
-                                  }
-                                })()}
-
-
                                 <Modal show={this.state.lgValidation} bsSize="large"
                                        aria-labelledby="contained-modal-title-sm"
                                        onHide={() => {
@@ -2660,21 +2612,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                             <div
                                                               className="col-md-3 col-xs-12 col-sm-3 col-lg-3 kpismall"
                                                               style={{padding: '3%'}}>
-                                                              <button
-                                                                type="button"
-                                                                className="btn btn-primary"
-                                                                onClick={() => {
-                                                                  suppName = 'None';
-                                                                  this.props.onSaveSupplierName(suppName);
-                                                                  this.setState({topsuppInfo: true});
-                                                                  {/*Load functions here*/
-                                                                  }
-
-                                                                }}
-                                                              >
-                                                                Supplier Info
-                                                              </button>
-
 
                                                             </div>
                                                           </div>
@@ -2852,516 +2789,82 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                   </Modal.Body>
                                 </Modal>
 
-                                <div>
-                                  {(() => {
-                                    if (this.props.Executive.best_worst_data.Choose_filters == 'no') {
-                                      console.log("Choose_filters is no");
-                                      return (
-                                        <div>
-                                          <h2 className="pageModuleSubTitle">Top
-                                            5 {this.props.Executive.best_worst_data.level}
-                                            by {this.props.Executive.best_worst_data.kpi_type} Share</h2>
-                                          {/*Navs here */}
-                                          {/*<Button buttonType={'primary'} onClick={()=>{this.setState({lgValidation: true})}}>Click Me!</Button>*/}
-                                          <div className="row">
-                                            <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4">
-                                              <Nav bsStyle="tabs" activeKey={this.state.activeKey5}
-                                                   onSelect={this.handleSelect} className="tabsCustom2">
-                                                <NavItem className="tabsCustomList2" eventKey="1"
-                                                         onClick={() => {
-                                                           topName = this.props.Executive.best_worst_data.top_5[0].name;
-                                                           topName = "selected_level=" + topName;
-                                                           this.props.onSaveTopName(topName);
-                                                           topbotflag = 'top';
-                                                           this.props.onSaveTopBotFlag(topbotflag);
-                                                           console.log("topName1", topName);
-                                                           this.setState({activeKey5: "1"});
-                                                           this.props.loadBestInfoData();
-                                                           this.setState({lgValidation: true})
-                                                         }}
-                                                         style={{
-                                                           fontSize: '20px',
-                                                           fontFamily: 'Tesco',
-                                                           textDecoration: 'none'
-                                                         }}>
-                                                  <b style={{textDecoration: 'none'}}>
-                                                    {this.props.Executive.best_worst_data.top_5[0].name}
-                                                  </b>
-                                                </NavItem>
-                                                <NavItem className="tabsCustomList2" eventKey="2" onClick={() => {
-                                                  topName = this.props.Executive.best_worst_data.top_5[1].name;
-                                                  topName = "selected_level=" + topName;
-                                                  console.log("topName2", topName);
-                                                  this.props.onSaveTopName(topName);
-                                                  topbotflag = 'top';
-                                                  this.props.onSaveTopBotFlag(topbotflag);
-                                                  this.setState({activeKey5: "2"});
-                                                  this.props.loadBestInfoData();
-                                                  this.setState({lgValidation: true})
-
-                                                }} style={{
-                                                  fontSize: '20px',
-                                                  fontFamily: 'Tesco',
-                                                  textDecoration: 'none'
-                                                }}><b
-                                                  style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.top_5[1].name}</b></NavItem>
-
-                                                <NavItem className="tabsCustomList2" eventKey="3" onClick={() => {
-                                                  topName = this.props.Executive.best_worst_data.top_5[2].name;
-                                                  topName = "selected_level=" + topName;
-                                                  console.log("topName3", topName);
-                                                  this.props.onSaveTopName(topName);
-                                                  topbotflag = 'top';
-                                                  this.props.onSaveTopBotFlag(topbotflag);
-                                                  this.setState({activeKey5: "3"});
-                                                  this.props.loadBestInfoData();
-                                                }} style={{
-                                                  fontSize: '20px',
-                                                  fontFamily: 'Tesco',
-                                                  textDecoration: 'none'
-                                                }}><b
-                                                  style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.top_5[2].name}</b></NavItem>
-
-                                                <NavItem className="tabsCustomList2" eventKey="4" onClick={() => {
-                                                  topName = this.props.Executive.best_worst_data.top_5[3].name;
-                                                  topName = "selected_level=" + topName;
-                                                  console.log("topName4", topName);
-                                                  this.props.onSaveTopName(topName);
-                                                  topbotflag = 'top';
-                                                  this.props.onSaveTopBotFlag(topbotflag);
-                                                  this.setState({activeKey5: "4"});
-                                                  this.props.loadBestInfoData();
-
-
-                                                }} style={{
-                                                  fontSize: '20px',
-                                                  fontFamily: 'Tesco',
-                                                  textDecoration: 'none'
-                                                }}><b
-                                                  style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.top_5[3].name}</b></NavItem>
-
-                                                <NavItem className="tabsCustomList2" eventKey="5" onClick={() => {
-                                                  topName = this.props.Executive.best_worst_data.top_5[4].name;
-                                                  topName = "selected_level=" + topName;
-                                                  console.log("topName5", topName);
-                                                  this.props.onSaveTopName(topName);
-                                                  topbotflag = 'top';
-                                                  this.props.onSaveTopBotFlag(topbotflag);
-                                                  this.setState({activeKey5: "5"});
-                                                  this.props.loadBestInfoData();
-                                                }} style={{
-                                                  fontSize: '20px',
-                                                  fontFamily: 'Tesco',
-                                                  textDecoration: 'none'
-                                                }}><b
-                                                  style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.top_5[4].name}</b></NavItem>
-
-                                              </Nav>
-                                            </div>
-                                            <div className="col-md-8 col-xs-12 col-sm-8 col-lg-8">
-
-                                              {(() => {
-                                                if (this.props.Executive.best_info_data.fetch == "success") {
-                                                  console.log("Executive.top_name == 'None");
-                                                  if (this.props.Executive.top_name != 'None') {
-                                                    return (
-                                                      <div className="row" style={{paddingTop: "15px"}}>
-
-                                                        {(() => {
-                                                          if (this.props.Executive.best_info_data.fetch == 'success') {
-                                                            return (
-                                                              <div>
-
-
-                                                                {/*Row for Multiline Chart*/}
-                                                                <div className="row">
-                                                                  <div
-                                                                    className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
-                                                                    <MultilinePromo
-                                                                      data={this.props.Executive.best_info_data.multiline_trend}
-                                                                      id="top_trend"
-                                                                      label_ty={this.props.Executive.best_info_data.legend1}
-                                                                      label_ly={this.props.Executive.best_info_data.legend2}
-                                                                      xaxis_title="Tesco Week"
-                                                                      no_pref={this.props.Executive.best_info_data.no_pref}
-                                                                      no_suffix=''
-                                                                      yaxis_title={this.props.Executive.best_info_data.kpi_type}/>
-
-
-                                                                  </div>
-                                                                </div>
-                                                                {/*Row for KPIs*/}
-                                                                <div className="row">
-                                                                  <div className="panel-body cardPanel">
-                                                                    <div
-                                                                      className="col-sm-12 col-md-12 col-xs-12-lg-12">
-                                                                      <div
-                                                                        className="col-md-3 col-xs-12 col-sm-3 col-lg-3 kpismall"
-                                                                        style={{
-                                                                          borderRight: "1px solid rgb(229, 232, 234)",
-                                                                          padding: "0",
-                                                                          textAlign: "center"
-                                                                        }}>
-                                                                        <h4 style={{fontWeight: "700"}}>
-                                                                  <span
-                                                                    className={glyphiconFormatter(this.props.Executive.best_info_data.yoy_var)}>
-                                                                  </span>{this.props.Executive.best_info_data.yoy_var}%
-                                                                        </h4>
-                                                                        <h5 className="kpiSubTitle"><b>YoY</b></h5>
-                                                                      </div>
-
-                                                                      <div
-                                                                        className="col-md-3 col-xs-12 col-sm-3 col-lg-3 kpismall"
-                                                                        style={{
-                                                                          borderRight: "1px solid rgb(229, 232, 234)",
-                                                                          padding: "0",
-                                                                          textAlign: "center"
-                                                                        }}>
-                                                                        <h4 style={{fontWeight: "700"}}>
-                                                                  <span
-                                                                    className={glyphiconFormatter(this.props.Executive.best_info_data.cont_to_grwth)}>
-                                                                  </span>{this.props.Executive.best_info_data.cont_to_grwth}%
-                                                                        </h4>
-                                                                        <h4 className="kpiSubTitle">Contri to
-                                                                          growth</h4>
-                                                                      </div>
-
-                                                                      <div
-                                                                        className="col-md-3 col-xs-12 col-sm-3 col-lg-3 kpismall"
-                                                                        style={{
-                                                                          borderRight: "1px solid rgb(229, 232, 234)",
-                                                                          padding: "0",
-                                                                          textAlign: "center"
-                                                                        }}>
-                                                                        <h4 style={{fontWeight: "700"}}>
-                                                                          {this.props.Executive.best_info_data.sales_share}%
-                                                                        </h4>
-                                                                        <h4 className="kpiSubTitle">Sales Share</h4>
-                                                                      </div>
-
-                                                                      <div
-                                                                        className="col-md-3 col-xs-12 col-sm-3 col-lg-3 kpismall"
-                                                                        style={{padding: '3%'}}>
-                                                                        <button
-                                                                          type="button"
-                                                                          className="btn btn-primary"
-                                                                          onClick={() => {
-                                                                            suppName = 'None';
-                                                                            this.props.onSaveSupplierName(suppName);
-                                                                            this.setState({topsuppInfo: true});
-                                                                            {/*Load functions here*/
-                                                                            }
-
-                                                                          }}
-                                                                        >
-                                                                          Supplier Info
-                                                                        </button>
-
-
-                                                                      </div>
-                                                                    </div>
-                                                                  </div>
-                                                                </div>
-
-
-                                                              </div>
-                                                            )
-                                                          }
-                                                        })()}
-
-                                                      </div>
-                                                    )
-                                                  }
-                                                  else {
-                                                    return (
-                                                      <div><h3>Old data present</h3></div>
-                                                    )
-                                                  }
-
-                                                }
-                                                else {
-                                                  console.log("Executive.top_name == Not None");
-                                                  return (
-                                                    <div>
-                                                      <h3> Please select an option to view performance</h3>
-                                                    </div>
-                                                  )
-                                                }
-                                              })()}
-
-                                            </div>
-                                          </div>
-                                        </div>
-                                      )
-                                    }
-                                    else {
-                                      return (
-                                        <div>
-                                          <h3>Please select filter till Buying controller to view top performing
-                                            subgroups</h3>
-                                        </div>
-                                      )
-
-                                    }
-                                  })()}
-                                </div>
-
                               </div>
 
 
                               {(() => {
-                                if (this.props.Executive.best_worst_data.Choose_filters == 'no') {
-
-                                  console.log("Choose_filters is no");
-                                  if (this.props.Executive.best_worst_data.length_less_than_five == 'no') {
-
-
-                                    return (
-                                      <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
-                                        <h2 className="pageModuleSubTitle">Bot
-                                          5 {this.props.Executive.best_worst_data.level}
-                                          by {this.props.Executive.best_worst_data.kpi_type} Share</h2>
-                                        {/*Navs here */}
-                                        <div className="row">
-                                          <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4">
-                                            <Nav bsStyle="tabs" activeKey={this.state.activeKey7}
-                                                 onSelect={this.handleSelect} className="tabsCustom2">
-                                              <NavItem className="tabsCustomList2" eventKey="1" onClick={() => {
-                                                botName = this.props.Executive.best_worst_data.bot_5[0].name;
-                                                botName = "selected_level=" + botName;
-                                                this.props.onSaveBotName(botName);
-                                                topbotflag = 'bot';
-                                                this.props.onSaveTopBotFlag(topbotflag);
-                                                console.log("botName1", botName);
-                                                this.setState({activeKey7: "1"});
-                                                this.props.loadWorstInfoData();
-
-                                              }} style={{
-                                                fontSize: '20px',
-                                                fontFamily: 'Tesco',
-                                                textDecoration: 'none'
-                                              }}>
-                                                <b
-                                                  style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.bot_5[0].name}</b></NavItem>
-                                              <NavItem className="tabsCustomList2" eventKey="2" onClick={() => {
-                                                botName = this.props.Executive.best_worst_data.bot_5[1].name;
-                                                botName = "selected_level=" + botName;
-                                                console.log("botName2", botName);
-                                                this.props.onSaveBotName(botName);
-                                                topbotflag = 'bot';
-                                                this.props.onSaveTopBotFlag(topbotflag);
-                                                this.setState({activeKey7: "2"});
-                                                this.props.loadWorstInfoData();
-
-                                              }} style={{
-                                                fontSize: '20px',
-                                                fontFamily: 'Tesco',
-                                                textDecoration: 'none'
-                                              }}><b
-                                                style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.bot_5[1].name}</b></NavItem>
-
-                                              <NavItem className="tabsCustomList2" eventKey="3" onClick={() => {
-                                                botName = this.props.Executive.best_worst_data.bot_5[2].name;
-                                                botName = "selected_level=" + botName;
-                                                console.log("botName3", botName);
-                                                this.props.onSaveBotName(botName);
-                                                topbotflag = 'bot';
-                                                this.props.onSaveTopBotFlag(topbotflag);
-                                                this.setState({activeKey7: "3"});
-                                                this.props.loadWorstInfoData();
-                                              }} style={{
-                                                fontSize: '20px',
-                                                fontFamily: 'Tesco',
-                                                textDecoration: 'none'
-                                              }}><b
-                                                style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.bot_5[2].name}</b></NavItem>
-
-                                              <NavItem className="tabsCustomList2" eventKey="4" onClick={() => {
-                                                botName = this.props.Executive.best_worst_data.bot_5[3].name;
-                                                botName = "selected_level=" + botName;
-                                                topbotflag = 'bot';
-                                                this.props.onSaveTopBotFlag(topbotflag);
-                                                console.log("botName4", botName);
-                                                this.props.onSaveBotName(botName);
-                                                this.setState({activeKey7: "4"});
-                                                this.props.loadWorstInfoData();
-
-
-                                              }} style={{
-                                                fontSize: '20px',
-                                                fontFamily: 'Tesco',
-                                                textDecoration: 'none'
-                                              }}><b
-                                                style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.bot_5[3].name}</b></NavItem>
-
-                                              <NavItem className="tabsCustomList2" eventKey="5" onClick={() => {
-                                                botName = this.props.Executive.best_worst_data.bot_5[4].name;
-                                                botName = "selected_level=" + botName;
-                                                console.log("botName5", botName);
-                                                this.props.onSaveBotName(botName);
-                                                topbotflag = 'bot';
-                                                this.props.onSaveTopBotFlag(topbotflag);
-                                                this.setState({activeKey7: "5"});
-                                                this.props.loadWorstInfoData();
-                                              }} style={{
-                                                fontSize: '20px',
-                                                fontFamily: 'Tesco',
-                                                textDecoration: 'none'
-                                              }}><b
-                                                style={{textDecoration: 'none'}}>{this.props.Executive.best_worst_data.bot_5[4].name}</b></NavItem>
-
-                                            </Nav>
-                                          </div>
-                                          <div className="col-md-8 col-xs-12 col-sm-8 col-lg-8">
-
-                                            {(() => {
-                                              if (this.props.Executive.worst_info_data.fetch == "success") {
-                                                console.log("this.props.Executive.worst_info_data exists");
-                                                if (this.props.Executive.bot_name != 'None') {
-                                                  return (
-                                                    <div className="row" style={{paddingTop: "15px"}}>
-
-                                                      {(() => {
-                                                        if (this.props.Executive.worst_info_data.fetch == 'success') {
-                                                          return (
-                                                            <div>
-
-                                                              {/*Row for Multiline Chart*/}
-                                                              <div className="row">
-                                                                <div
-                                                                  className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
-                                                                  <MultilinePromo
-                                                                    data={this.props.Executive.worst_info_data.multiline_trend}
-                                                                    id="bot_trend"
-                                                                    label_ty={this.props.Executive.worst_info_data.legend1}
-                                                                    label_ly={this.props.Executive.worst_info_data.legend2}
-                                                                    xaxis_title="Tesco Week"
-                                                                    no_pref={this.props.Executive.worst_info_data.no_pref}
-                                                                    no_suffix=''
-                                                                    yaxis_title={this.props.Executive.worst_info_data.kpi_type}/>
-                                                                </div>
-                                                              </div>
-                                                              {/*Row for KPIs*/}
-
-                                                              <div className="row">
-                                                                <div className="panel-body cardPanel">
-                                                                  <div
-                                                                    className="col-md-3 col-xs-12 col-sm-3 col-lg-3 kpismall"
-                                                                    style={{
-                                                                      borderRight: "1px solid rgb(229, 232, 234)",
-                                                                      padding: "0",
-                                                                      textAlign: "center"
-                                                                    }}>
-                                                                    <h4 style={{fontWeight: "700"}}>
-                                                                  <span
-                                                                    className={glyphiconFormatter(this.props.Executive.worst_info_data.yoy_var)}>
-                                                                  </span>{this.props.Executive.worst_info_data.yoy_var}%
-                                                                    </h4>
-                                                                    <h4 className="kpiSubTitle"><b>YoY</b></h4>
-                                                                  </div>
-
-                                                                  <div
-                                                                    className="col-md-3 col-xs-12 col-sm-3 col-lg-3 kpismall"
-                                                                    style={{
-                                                                      borderRight: "1px solid rgb(229, 232, 234)",
-                                                                      padding: "0",
-                                                                      textAlign: "center"
-                                                                    }}>
-                                                                    <h4 style={{fontWeight: "700"}}>
-                                                                  <span
-                                                                    className={glyphiconFormatter(this.props.Executive.worst_info_data.cont_to_grwth)}>
-                                                                  </span>{this.props.Executive.worst_info_data.cont_to_grwth}%
-                                                                    </h4>
-                                                                    <h4 className="kpiSubTitle">Contri to
-                                                                      growth</h4>
-                                                                  </div>
-
-                                                                  <div
-                                                                    className="col-md-3 col-xs-12 col-sm-3 col-lg-3 kpismall"
-                                                                    style={{
-                                                                      borderRight: "1px solid rgb(229, 232, 234)",
-                                                                      padding: "0",
-                                                                      textAlign: "center"
-                                                                    }}>
-                                                                    <h4 style={{fontWeight: "700"}}>
-                                                                      {this.props.Executive.worst_info_data.sales_share}%
-                                                                    </h4>
-                                                                    <h4 className="kpiSubTitle">Sales Share</h4>
-                                                                  </div>
-
-                                                                  <div
-                                                                    className="col-md-3 col-xs-12 col-sm-3 col-lg-3 kpismall">
-                                                                    <div
-                                                                      className="col-md-3 col-xs-12 col-sm-3 col-lg-3 kpismall"
-                                                                      style={{
-
-                                                                        padding: "3%",
-
-                                                                      }}>
-                                                                      <button
-                                                                        type="button"
-                                                                        className="btn btn-primary"
-                                                                        onClick={() => {
-                                                                          suppName = 'None';
-                                                                          this.props.onSaveSupplierName(suppName);
-                                                                          this.setState({botsuppInfo: true});
-                                                                          {/*Load functions here*/
-                                                                          }
-
-                                                                        }}
-                                                                      >
-                                                                        Supplier Info
-                                                                      </button>
-
-
-                                                                    </div>
-
-                                                                  </div>
-                                                                </div>
-                                                              </div>
-                                                            </div>
-                                                          )
-                                                        }
-                                                      })()}
-
-
-                                                    </div>
-                                                  )
-                                                }
-
-                                                else {
-                                                  console.log("this.props.Executive.worst_info_data exists");
-                                                  return (
-                                                    <div><h3>Old data present</h3></div>
-                                                  )
-                                                }
-                                              }
-                                              else {
-
-                                                return (
-                                                  <div>
-                                                    <h3> Please select an option to view performance</h3>
-                                                  </div>
-                                                )
-                                              }
-                                            })()}
-                                          </div>
-                                        </div>
-                                      </div>
-                                    )
-                                  }
-
-                                }
-                                else {
+                                if (this.props.Executive.bestWorstPerformance && this.props.Executive.bestWorstPerformance) {
+                                  // return <table>
+                                  //   {this.props.Executive.best_info_data.top_5_supp.map(obj=>{
+                                  //     return (
+                                  //       <td>
+                                  //         <tr>{obj.parent_supplier}</tr>
+                                  //         <tr>{obj.grouped_ty}</tr>
+                                  //         <tr>{obj.cont_to_grwth}</tr>
+                                  //         <tr>{obj.grouped_ly}</tr>
+                                  //       </td>
+                                  //     )
+                                  //   })}
+                                  // </table>
+                                  return (
+                                    <BootstrapTable data={this.props.Executive.bestWorstPerformance}
+                                                    exportCSV={ true }
+                                                    search={ true }
+                                                    pagination striped hover condensed>
+                                      <TableHeaderColumn dataField='junior_buyer'
+                                                         dataAlign='center' isKey
+                                                         thStyle={{whiteSpace: 'normal'}}>Parent Supplier</TableHeaderColumn>
+                                      <TableHeaderColumn dataField='sales_share'
+                                                         dataAlign='center'
+                                                         thStyle={{whiteSpace: 'normal'}}>Sales Share</TableHeaderColumn>
+                                      <TableHeaderColumn dataField='cont_to_grwth'
+                                                         dataAlign='center'
+                                                         thStyle={{whiteSpace: 'normal'}}>Contribution to Growth</TableHeaderColumn>
+                                      <TableHeaderColumn dataField='yoy_var'
+                                                         dataAlign='center'
+                                                         thStyle={{whiteSpace: 'normal'}}>YoY variation</TableHeaderColumn>
+                                      <TableHeaderColumn dataField='value_ly'
+                                                         dataAlign='center'
+                                                         thStyle={{whiteSpace: 'normal'}}>Value LY</TableHeaderColumn>
+                                      <TableHeaderColumn  dataField='junior_buyer' dataFormat={cellButton}
+                                                          dataAlign='center'
+                                                          thStyle={{whiteSpace: 'normal'}}>Junior Buyer</TableHeaderColumn>
+                                      <TableHeaderColumn dataField='index' dataFormat={cellButton2}
+                                                         dataAlign='center'
+                                                         thStyle={{whiteSpace: 'normal'}}>grouped_ly</TableHeaderColumn>
+                                    </BootstrapTable>
+                                  )
+                                }else{
                                   return (
                                     <div>
                                       <h3>Please select filter till Buying controller to view bottom performing
                                         subgroups</h3>
                                     </div>
                                   )
-
                                 }
                               })()}
+
+                              {/*{(() => {*/}
+                                {/*if (this.props.Executive.best_worst_data.Choose_filters == 'no') {*/}
+
+                                  {/*console.log("Choose_filters is no");*/}
+                                  {/*if (this.props.Executive.best_worst_data.length_less_than_five == 'no') {*/}
+                                    {/*return (*/}
+                                      {/*<div></div>*/}
+                                    {/*)*/}
+                                  {/*}*/}
+
+                                {/*}*/}
+                                {/*else {*/}
+                                  {/*return (*/}
+                                    {/*<div>*/}
+                                      {/*<h3>Please select filter till Buying controller to view bottom performing*/}
+                                        {/*subgroups</h3>*/}
+                                    {/*</div>*/}
+                                  {/*)*/}
+
+                                {/*}*/}
+                              {/*})()}*/}
 
 
                             </div>
@@ -3823,157 +3326,36 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
             </Modal.Header>
             <Modal.Body style={{fontSize: '14px'}}>
-              <div className="row">
-                <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4">
-                  {(() => {
-                    if (this.props.Executive.top_name != 'None') {
-                      return (
-                        <Nav bsStyle="tabs" activeKey={this.state.activeKey6} onSelect={this.handleSelect}
-                             className="tabsCustom2">
-                          <NavItem className="tabsCustomList2" eventKey="1" onClick={() => {
-                            suppName = this.props.Executive.best_info_data.top_5_supp[0].parent_supplier;
-                            suppName = "selected_supplier=" + suppName;
-                            this.props.onSaveSupplierName(suppName);
-                            this.setState({activeKey6: "1"});
-                            this.props.loadTopSupplierInfoData();
+              {/*{this.props.Executive.bestWorstPerformanceTable}*/}
+              <BootstrapTable className="promoTable"
+                              data={this.props.Executive.bestWorstPerformanceTable}
+                              pagination={true} options={options}
+                              striped={true}
+                              condensed>
 
-
-                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                            <b
-                              style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[0].parent_supplier}</b></NavItem>
-
-                          <NavItem className="tabsCustomList2" eventKey="2" onClick={() => {
-                            suppName = this.props.Executive.best_info_data.top_5_supp[1].parent_supplier;
-                            suppName = "selected_supplier=" + suppName;
-                            this.props.onSaveSupplierName(suppName);
-                            this.setState({activeKey6: "2"});
-                            this.props.loadTopSupplierInfoData();
-
-                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                            style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[1].parent_supplier}</b></NavItem>
-
-                          <NavItem className="tabsCustomList2" eventKey="3" onClick={() => {
-                            suppName = this.props.Executive.best_info_data.top_5_supp[2].parent_supplier;
-                            suppName = "selected_supplier=" + suppName;
-                            this.props.onSaveSupplierName(suppName);
-                            this.setState({activeKey6: "3"});
-                            this.props.loadTopSupplierInfoData();
-                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                            style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[2].parent_supplier}</b></NavItem>
-
-                          <NavItem className="tabsCustomList2" eventKey="4" onClick={() => {
-                            suppName = this.props.Executive.best_info_data.top_5_supp[3].parent_supplier;
-                            suppName = "selected_supplier=" + suppName;
-                            this.props.onSaveSupplierName(suppName);
-                            this.setState({activeKey6: "4"});
-                            this.props.loadTopSupplierInfoData();
-
-                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                            style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[3].parent_supplier}</b></NavItem>
-
-                          <NavItem className="tabsCustomList2" eventKey="5" onClick={() => {
-                            suppName = this.props.Executive.best_info_data.top_5_supp[4].parent_supplier;
-                            suppName = "selected_supplier=" + suppName;
-                            this.props.onSaveSupplierName(suppName);
-                            this.setState({activeKey6: "5"});
-                            this.props.loadTopSupplierInfoData();
-                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                            style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[4].parent_supplier}</b></NavItem>
-
-                        </Nav>
-                      );
-                    }
-                  })()}
-
-
-                </div>
-                <div className="col-md-8 col-xs-12 col-sm-8 col-lg-8">
-                  {(() => {
-                    if (this.props.Executive.top_supp_info_data) {
-                      if (this.props.Executive.supplier_name != 'None')
-
-
-                        return (
-                          <div>
-                            {/*Row for KPIs*/}
-                            <div className="row">
-                              <div className="panel-body cardPanel">
-                                <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall" style={{
-                                  borderRight: "1px solid rgb(229, 232, 234)",
-                                  padding: "0",
-                                  textAlign: "center"
-                                }}>
-                                  <h4>
-                                    <span
-                                      className={glyphiconFormatter(this.props.Executive.top_supp_info_data.yoy_var)}>
-                                    </span>{this.props.Executive.top_supp_info_data.yoy_var}%
-                                  </h4>
-                                  <h4 className="kpiSubTitle"><b>YoY</b></h4>
-                                </div>
-
-                                <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall" style={{
-                                  borderRight: "1px solid rgb(229, 232, 234)",
-                                  padding: "0",
-                                  textAlign: "center"
-                                }}>
-                                  <h4>
-                                    <span
-                                      className={glyphiconFormatter(this.props.Executive.top_supp_info_data.cont_to_grwth)}>
-                                    </span>{this.props.Executive.top_supp_info_data.cont_to_grwth}%
-                                  </h4>
-                                  <h4 className="kpiSubTitle">Contri to growth</h4>
-                                </div>
-
-                                <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall" style={{
-                                  borderRight: "1px solid rgb(229, 232, 234)",
-                                  padding: "0",
-                                  textAlign: "center"
-                                }}>
-                                  <h4>{this.props.Executive.top_supp_info_data.sales_share}%
-                                  </h4>
-                                  <h4 className="kpiSubTitle">Sales Share</h4>
-                                </div>
-
-                              </div>
-                            </div>
-                            <div style={{height: '10%', width: '100%'}}>&nbsp;</div>
-                            {/*Row for Gauge Charts*/}
-                            <div className="row">
-                              <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                   style={{fontSize: "10px", textAlign: "center"}}>
-                                <b>Importance to Supplier</b>
-                                <GaugeExec data={[this.props.Executive.top_supp_info_data.imp_to_supp]}
-                                           id="top_gauge1"/>
-                              </div>
-                              <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                   style={{fontSize: "10px", textAlign: "center"}}>
-                                <b>Importance to Category</b>
-                                <GaugeExec data={[this.props.Executive.top_supp_info_data.imp_to_categ]}
-                                           id="top_gauge2"/>
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      else {
-                        return (
-                          <div><h3>Old data is present</h3></div>
-                        );
-                      }
-
-                    }
-                    else {
-                      return (
-                        <div>
-                          <h3>
-                            Select a supplier to view information 1
-                          </h3>
-                        </div>
-                      )
-                    }
-                  })()}
-                </div>
-              </div>
-
+                <TableHeaderColumn dataAlign={"left"}
+                                   dataField='parent_supplier' isKey>Tesco
+                  Week</TableHeaderColumn>
+                <TableHeaderColumn dataAlign={"grouped_ly"}
+                                   dataField='holiday_date'>Holiday
+                  Date</TableHeaderColumn>
+                <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                   dataAlign={"left"}
+                                   dataField='imp_to_ps'>Holiday
+                  Description</TableHeaderColumn>
+                <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                   dataAlign={"left"}
+                                   dataField='value_ty'>Holiday
+                  Description</TableHeaderColumn>
+                <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                   dataAlign={"left"}
+                                   dataField='grouped_ty'>Holiday
+                  Description</TableHeaderColumn>
+                <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                   dataAlign={"left"}
+                                   dataField='yoy_var'>Holiday
+                  Description</TableHeaderColumn>
+              </BootstrapTable>
             </Modal.Body>
           </Modal>
 
@@ -4199,6 +3581,7 @@ function mapDispatchToProps(dispatch) {
     spinnerExternalDrivers: (e) => dispatch(spinnerExternalDrivers(e)),
     spinnerPriceKPI: (e) => dispatch(spinnerPriceKPI(e)),
     onGenerateBestWorstPerformance: (e) => dispatch(generateBestWorstPerformance(e)),
+    onGenerateBestWorstPerformanceTable: (e) => dispatch(generateBestWorstPerformanceTable(e)),
     dispatch,
 
   };
