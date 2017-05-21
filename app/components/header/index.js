@@ -205,9 +205,15 @@ class Header extends Component {
                             }
                           };
                           const token = getCookie('token');
-                          const hostName = '172.20.247.1';
-                          const hostPort = '3003';
+                          const hostName = '172.20.181.92';
+                          const hostPort = '3001';
                           document.cookie = 'token'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
+                          document.cookie = 'user_id'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
+                          document.cookie = 'user_name'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
+                          document.cookie = 'designation'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
+                          document.cookie = 'buying_controller'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
+                          document.cookie = 'session_id'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
+                          document.cookie = 'buyer'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
                           window.location = `http://${hostName}:${hostPort}/login/`;
                         }}>Logout</MenuItem>
                       </DropdownButton></span>

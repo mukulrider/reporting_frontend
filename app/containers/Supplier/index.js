@@ -781,135 +781,66 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                         <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
 
 
-                        <div className="pageTitle" style={{marginBottom: "20px"}}>
-                          <div className="headerBox">
-                            <h2 className="pageModuleMainTitle">Assess performance by parent supplier</h2>
-                          </div>
-
-                        </div>
-                        <div className="row mainBox">
-                        <span className="glyphicon glyphicon-info-sign pull-right"
-                              style={{marginRight: '10px', fontSize: '15px', marginTop: '10px'}}
-                              onClick={() => {
-                                this.setState({suppTopBottombar: true});
-                              }}>
+                        <div className="pageTitle" style={{marginBottom:"20px"}}>
+                          <div className="headerBox pageModuleMainTitle" >Assess performance by parent supplier
+                            {/*<h2 className="pageModuleMainTitle"></h2>*/}
+                            <span className="glyphicon glyphicon-info-sign pull-right"
+                                  style={{marginRight: '10px', fontSize: '15px', marginTop: '10px', color: 'black'}}
+                                  onClick={() => {
+                                    this.setState({suppTopBottombar: true});
+                                  }}>
                         </span>
-                          <div>
-                            <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect}
-                                 className="tabsCustom  mainTab">
-                              <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
-                                this.setState({activeKey3: "1"});
-                                this.props.barChartSpinnerCheckSuccess(0);
-                                TopBottomKpi = "top_bottom_kpi=part_by_val";
-                                this.props.onSaveTopBottomKpi(TopBottomKpi);
-                                this.props.ontopBottomChart();
-                              }}><span className="tab_label">{this.state.paticipationByTab}</span>
-                              </NavItem>
-
-                              <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
-                                this.setState({activeKey3: "2"});
-                                this.props.barChartSpinnerCheckSuccess(0);
-                                TopBottomKpi = "top_bottom_kpi=value_growth";
-                                this.props.onSaveTopBottomKpi(TopBottomKpi);
-                                this.props.ontopBottomChart();
-                              }}><span className="tab_label">{this.state.GrowthTab}</span></NavItem>
-
-                              <NavItem className="tabsNavPanelList1" eventKey="3" onClick={() => {
-                                this.setState({activeKey3: "3"});
-                                this.props.barChartSpinnerCheckSuccess(0);
-                                TopBottomKpi = "top_bottom_kpi=value_contribution";
-                                this.props.onSaveTopBottomKpi(TopBottomKpi);
-                                this.props.ontopBottomChart();
-                              }}><span className="tab_label">{this.state.ContributionToGrowthTab}</span></NavItem>
-                            </Nav>
                           </div>
+
                         </div>
+                      {/*<div className="row mainBox">*/}
+                        {/**/}
+                      {/*</div>*/}
 
                         <div>
                           <div className="row mainBox">
                             <panel>
 
-                              <div className="col-md-6 col-sm-12 col-xs-12 panel-body"
-                                   style={{backgroundColor: "#f5f5f5"}}>
-                                <h3 className="pageModuleSubTitle"> Top Parent Suppliers</h3>
-                                {(() => {
-                                  if (this.props.supplier.topBotData && this.props.supplier.barChartSpinnerCheck != 0) {
+                          <div className="col-md-12 col-sm-12 col-xs-12 panel-body" style={{backgroundColor: "#f5f5f5"}}>
+                            {(() => {
+                              if (this.props.supplier.topBotData && this.props.supplier.barChartSpinnerCheck != 0) {
 
-                                    return (
-                                      <div style={{border: '1px solid #e5e8ea'}}>
-                                        <div style={{float: "right"}}>
-                                          <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight
-                                                          style={{
-                                                            backgroundColor: "transparent",
-                                                            borderColor: "transparent",
-                                                            color: "#00539f"
-                                                          }} id="dropButtonId">
-                                            <MenuItem onClick={() => {
-                                              saveImage(document.getElementById('suppliertopchart' + '_svg'), "topSuppliers_barChart")
-                                            }
-                                            }>Save As JPEG</MenuItem>
-                                            <MenuItem onClick={() => {
-                                              saveDataAsCSV(this.props.supplier.topBotData.top_chart, "topSuppliers_barChart.csv")
-                                            }
-                                            }>Download CSV</MenuItem>
-                                          </DropdownButton>
-                                        </div>
-                                        <SampleBarChart ref="suppliertopchart"
-                                                        data={[this.props.supplier.topBotData.top_chart]}
-                                                        id="suppliertopchart"/>
-                                      </div>
-                                    )
-                                  } else {
-                                    return (
-                                      <div className="row spinnerPositionBarChart"><Spinner /><h2>Please Wait a
-                                        Moment....!</h2></div>
-                                    )
-                                  }
-                                })()}
+                                return (
 
-                              </div>
-                              <div className="col-md-6 col-sm-12 col-xs-12 panel-body"
-                                   style={{backgroundColor: "#f5f5f5"}}>
-                                <h3 className="pageModuleSubTitle"> Bottom Parent Suppliers </h3>
-                                {(() => {
-                                  if (this.props.supplier.topBotData && this.props.supplier.barChartSpinnerCheck != 0) {
+                                <div>
+                                  <BootstrapTable
+                                    data={this.props.supplier.topBotData.dataframe} options={options}
+                                    striped={true}
+                                    hover
+                                    condensed
+                                    pagination={ true }
+                                    search={true}
+                                    exportCSV={true}
+                                  >
+                                    <TableHeaderColumn dataField="parent_supplier" isKey={true}
+                                                       tdStyle={ {whiteSpace: 'normal'} } width="20%"
+                                                       dataSort={true} dataAlign="center">Parent
+                                      Supplier</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="part_by_val" dataFormat={formatSales} dataSort={true} dataAlign="center">{this.state.paticipationByTab}</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="value_growth" dataFormat={formatSales} dataSort={true} dataAlign="center">{this.state.GrowthTab}</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="value_contri" dataFormat={formatSales} dataSort={true} dataAlign="center">{this.state.ContributionToGrowthTab}</TableHeaderColumn>
+                                  </BootstrapTable>
 
-                                    return (
-                                      <div style={{border: '1px solid #e5e8ea'}}>
-                                        <div style={{float: "right"}}>
-                                          <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight
-                                                          style={{
-                                                            backgroundColor: "transparent",
-                                                            borderColor: "transparent",
-                                                            color: "#00539f"
-                                                          }} id="dropButtonId">
-                                            <MenuItem onClick={() => {
-                                              saveImage(document.getElementById('supplierbotchart' + '_svg'), "bottomSuppliers_barChart")
-                                            }
-                                            }>Save As JPEG</MenuItem>
-                                            <MenuItem onClick={() => {
-                                              saveDataAsCSV(this.props.supplier.topBotData.bottom_chart, "bottomSuppliers_barChart.csv")
-                                            }
-                                            }>Download CSV</MenuItem>
-                                          </DropdownButton>
-                                        </div>
-                                        <SampleBarChart ref="supplierbotchart"
-                                                        data={[this.props.supplier.topBotData.bottom_chart]}
-                                                        id="supplierbotchart"/>
-                                      </div>
-                                    )
-                                  } else {
-                                    return (
-                                      <div className="row spinnerPositionBarChart"><Spinner /><h2>Please Wait a
-                                        Moment....!</h2></div>
-                                    )
-                                  }
-                                })()}
-                                {/*<SampleBarChart/>*/}
-                              </div>
-                            </panel>
+                                </div>
+                                )
+                              }
+                              else {
+                                return (
+                                  <div className="row spinnerPositionBarChart"><Spinner /><h2>Please Wait a
+                                    Moment....!</h2></div>
+                                )
+                              }
+                            })()}
+
                           </div>
-                        </div>
+                        </panel>
+                      </div>
+                    </div>
 
                         <Modal show={this.state.suppNegotiationbar} bsSize="lg"
                                aria-labelledby="contained-modal-title-lg"
