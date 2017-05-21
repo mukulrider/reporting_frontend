@@ -75,8 +75,17 @@ function triangleColumnFormatter(cell, row) {
 
 export class Promotion extends React.PureComponent {
   componentDidMount = () => {
+    let defaultFilterUrlParams = localStorage.getItem('urlParams');
+    console.log('defaultFilterUrlParams', defaultFilterUrlParams);
 
-    let dataWeekParam = '';
+    if (defaultFilterUrlParams) {
+      console.log('defaultFilterUrlParams', defaultFilterUrlParams);
+      this.props.onGenerateUrlParamsString(defaultFilterUrlParams);
+    } else {
+      this.props.onGenerateUrlParamsString('');
+    }
+
+    let dataWeekParam = 'week_flag=Current Week';
     let kpiParam = 'kpi_type=value';
     this.props.onSaveKPIParam(kpiParam);
     this.props.onSaveWeekParam(dataWeekParam);
@@ -376,35 +385,35 @@ export class Promotion extends React.PureComponent {
                                   <div className="row">
                                     <div className="panel-body cardPanel">
                                       {(() => {
-                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                            return (
-                                              <div className="col-md-4 col-xs-4 ">
-                                                <h4>
+                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                          return (
+                                            <div className="col-md-4 col-xs-4 ">
+                                              <h4>
                                     <span
                                       className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_wow)}>
                                     </span>{(this.props.promotion.kpi_data.total.var_total_wow) + '%'}
-                                                </h4>
-                                                <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                                              </div>
-                                            )
-                                          }
+                                              </h4>
+                                              <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                            </div>
+                                          )
+                                        }
 
-                                        })()}
+                                      })()}
 
 
                                       <div className={(() => {
-                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                            return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                          return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
 
-                                            )
-                                          }
-                                          else {
-                                            return (
-                                              "col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                            )
-                                          }
+                                          )
+                                        }
+                                        else {
+                                          return (
+                                            "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                          )
+                                        }
 
-                                        })()}>
+                                      })()}>
                                         <h4>
                                     <span
                                       className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_yoy)}>
@@ -413,18 +422,18 @@ export class Promotion extends React.PureComponent {
                                         <h5 className="kpiSubTitle"><b>YOY</b></h5>
                                       </div>
                                       <div className={(() => {
-                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                            return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                          return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
 
-                                            )
-                                          }
-                                          else {
-                                            return (
-                                              "col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                            )
-                                          }
+                                          )
+                                        }
+                                        else {
+                                          return (
+                                            "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                          )
+                                        }
 
-                                        })()}>
+                                      })()}>
                                         <h4>
                                     <span
                                       className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_lfl)}>
@@ -461,39 +470,39 @@ export class Promotion extends React.PureComponent {
                                     <div className="panel-body cardPanel">
 
                                       {(() => {
-                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                            console.log("week param is current week");
-                                            return (
-                                              <div className="col-md-4 col-xs-4 ">
-                                                <h4>
+                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                          console.log("week param is current week");
+                                          return (
+                                            <div className="col-md-4 col-xs-4 ">
+                                              <h4>
                                     <span
                                       className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_wow)}></span>
-                                                  {(this.props.promotion.kpi_data.promo.var_promo_wow) + '%'}
-                                                </h4>
-                                                <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                                              </div>
-                                            )
-                                          }
+                                                {(this.props.promotion.kpi_data.promo.var_promo_wow) + '%'}
+                                              </h4>
+                                              <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                            </div>
+                                          )
+                                        }
 
 
-                                        })()}
+                                      })()}
 
 
                                       <div className={(() => {
-                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                            console.log("week param is current week");
-                                            return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                          console.log("week param is current week");
+                                          return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
 
-                                            )
-                                          }
-                                          else {
-                                            console.log("week param is not current week");
-                                            return (
-                                              "col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                            )
-                                          }
+                                          )
+                                        }
+                                        else {
+                                          console.log("week param is not current week");
+                                          return (
+                                            "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                          )
+                                        }
 
-                                        })()}>
+                                      })()}>
                                         <h4>
                                     <span
                                       className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_yoy)}></span>
@@ -502,18 +511,18 @@ export class Promotion extends React.PureComponent {
                                         <h5 className="kpiSubTitle"><b>YOY</b></h5>
                                       </div>
                                       <div className={(() => {
-                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                            return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                          return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
 
-                                            )
-                                          }
-                                          else {
-                                            return (
-                                              "col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                            )
-                                          }
+                                          )
+                                        }
+                                        else {
+                                          return (
+                                            "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                          )
+                                        }
 
-                                        })()}>
+                                      })()}>
                                         <h4>
                                     <span
                                       className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_lfl)}></span>
@@ -550,36 +559,36 @@ export class Promotion extends React.PureComponent {
                                     <div className="panel-body cardPanel">
 
                                       {(() => {
-                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                            return (
-                                              <div className="col-md-4 col-xs-4 ">
-                                                <h4>
+                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                          return (
+                                            <div className="col-md-4 col-xs-4 ">
+                                              <h4>
                                     <span
                                       className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow)}></span>
-                                                  {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow) + '%'}
-                                                </h4>
-                                                <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                                              </div>
-                                            )
-                                          }
+                                                {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow) + '%'}
+                                              </h4>
+                                              <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                            </div>
+                                          )
+                                        }
 
 
-                                        })()}
+                                      })()}
 
 
                                       <div className={(() => {
-                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                            return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                          return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
 
-                                            )
-                                          }
-                                          else {
-                                            return (
-                                              "col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                            )
-                                          }
+                                          )
+                                        }
+                                        else {
+                                          return (
+                                            "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                          )
+                                        }
 
-                                        })()}>
+                                      })()}>
                                         <h4>
                                     <span
                                       className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy)}></span>
@@ -588,18 +597,18 @@ export class Promotion extends React.PureComponent {
                                         <h5 className="kpiSubTitle"><b>YOY</b></h5>
                                       </div>
                                       <div className={(() => {
-                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                            return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                          return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
 
-                                            )
-                                          }
-                                          else {
-                                            return (
-                                              "col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                            )
-                                          }
+                                          )
+                                        }
+                                        else {
+                                          return (
+                                            "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                          )
+                                        }
 
-                                        })()}>
+                                      })()}>
                                         <h4>
                                     <span
                                       className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl)}></span>

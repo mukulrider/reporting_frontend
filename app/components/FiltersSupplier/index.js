@@ -18,7 +18,8 @@ import styles from './style.scss';
 class FiltersSupplier extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   updateUrl = (category) => {
     let queryString = '';
-    [...this.refs.selector.querySelectorAll('input')].map(obj => {
+    let localUrlParamsString = '';
+    [...this.refs.selector.querySelectorAll('input')].map((obj, index) => {
       if (obj.checked == true) {
         console.log(obj);
         let category = obj.id.split('__');
@@ -38,15 +39,20 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
         // }else{
         //   queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
         // }
-
+        if (['store_type','commercial_name','category_name','buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])){
+          localUrlParamsString = localUrlParamsString + `${category[0]}=${category[category.length - 1]}&`;
+        }
         queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
       }
     });
     queryString = queryString.substring(0, queryString.length - 1);
+
     console.log('queryString2', queryString);
     // APPEND URL PARAMS
 
     this.props.onGenerateUrlParamsString(queryString);
+    localStorage.setItem('urlParams', localUrlParamsString);
+
     console.log('this.props.onGenerateUrlParamsString(queryString)', this.props.onGenerateUrlParamsString(queryString));
     // this.props.onGenerateFilterParamsString(queryString);
     // this.props.onGenerateUrlParamsData();

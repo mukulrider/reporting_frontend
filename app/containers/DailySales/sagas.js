@@ -56,8 +56,8 @@ let gettingUserDetails = () =>{
 const userParams = gettingUserDetails();
 
 
-// let host_url="http://127.0.0.1:8000";
-let host_url="http://127.0.0.1:8000";
+// let host_url="http://172.20.181.92:8002";
+let host_url="http://172.20.181.92:8002";
 // All sagas to be loaded
 
 

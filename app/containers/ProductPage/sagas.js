@@ -50,8 +50,8 @@ let gettingUserDetails = () =>{
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-const host_url = "http://127.0.0.1:8000";
-// let host_url = "http://172.20.244.228:8000"
+const host_url = "http://172.20.181.92:8002";
+// let host_url = "http://172.20.244.228:8002"
 
 
 /* GENERATE SIDE FILTER*/
@@ -106,7 +106,7 @@ export function* generateSideFilter() {
   try {
     // todo: update url
 
-    // const data = yield call(request, `http://172.20.244.141:8000/api/product_impact/filter_data/?${urlParamsString}`);
+    // const data = yield call(request, `http://172.20.244.141:8002/api/product_impact/filter_data/?${urlParamsString}`);
     const filter_data = yield call(request,
       `${host_url}/api/reporting/filter_data_product?` + urlAppends,
       // {
@@ -249,7 +249,7 @@ export function* generateWeekFilterFetch() {
 
     console.log(`${host_url}/api/reporting/filter_data_week${filter_week_selection}`);
 
-    // const data = yield call(request, `http://10.1.161.82:8000/ranging/npd_view/filter_data?`);
+    // const data = yield call(request, `http://10.1.161.82:8002/ranging/npd_view/filter_data?`);
 
     console.log('Filter week data', data);
     yield put(WeekFilterFetchSuccess(data));

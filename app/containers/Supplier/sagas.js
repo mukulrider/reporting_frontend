@@ -67,8 +67,8 @@ let gettingUserDetails = () =>{
 
 const userParamsAuth = gettingUserDetails();
 
-// let host_url = "127.0.0.1:3000"
-let host_url = "http://127.0.0.1:8000";
+// let host_url = "172.20.181.92:3000"
+let host_url = "http://172.20.181.92:8002";
 // FOR SUPPLIER POPUP TABLE
 export function* generateDataFetch() {
   console.log('inside kpi');
@@ -542,7 +542,7 @@ export function* generateWeekFilterFetch() {
 
     // console.log(host_url + '/api/reporting/filter_data_week' + filter_week_selection);
 
-    // const data = yield call(request, `http://10.1.161.82:8000/ranging/npd_view/filter_data?`);
+    // const data = yield call(request, `http://10.1.161.82:8002/ranging/npd_view/filter_data?`);
 
     console.log("Filter week data", data);
     yield put(WeekFilterFetchSuccess(data));

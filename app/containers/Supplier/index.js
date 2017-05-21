@@ -55,13 +55,13 @@ import {
 } from './actions';
 import styles from './style.scss';
 
-function glyphiconFormatter(cell){
+function glyphiconFormatter(cell) {
   if (cell > 0) {
     let classType = "glyphicon glyphicon-triangle-top glyphiconPositive";
     return classType;
   }
   else if (cell < 0) {
-    let classType ="glyphicon glyphicon-triangle-bottom glyphiconNegative";
+    let classType = "glyphicon glyphicon-triangle-bottom glyphiconNegative";
     return classType;
   } else {
     let classType = "glyphicon glyphicon-minus-sign glyphiconNeutral";
@@ -72,6 +72,13 @@ function glyphiconFormatter(cell){
 export class Supplier extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   componentDidMount = () => {
+    let defaultFilterUrlParams = localStorage.getItem('urlParams');
+    if (defaultFilterUrlParams) {
+      console.log('defaultFilterUrlParams', defaultFilterUrlParams)
+      this.props.onGenerateUrlParamsString(defaultFilterUrlParams);
+    } else {
+      this.props.onGenerateUrlParamsString('');
+    }
     this.props.supplierViewKpiSpinnerCheckSuccess(0);
     this.props.onGenerateUrlParamsString();
     this.props.onGetFilter();
@@ -88,11 +95,11 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
   };
 
 
-
   constructor(props) {
     super(props);
     this.state = {
       smShow: false,
+      bubbleChartModal: false,
       lgShow: false,
       supplierImpactInfo: false,
       salesImpactVolumeInfo: false,
@@ -211,7 +218,6 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
         />
 
 
-
         {(() => {
           if (this.props.supplier.supplierViewKpiSpinner != 1 && this.props.supplier.supplierViewKpiSpinner == 11) {
             return (
@@ -299,234 +305,258 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                       }
                     })()}
                   </div>
-                  </div>
+                </div>
 
-                  <div className="row" style={{marginLeft: "0%", marginRight: "0px", paddingTop: "-5px",width: '78%', marginLeft: '22%'}}>
+                <div className="row" style={{
+                  marginLeft: "0%",
+                  marginRight: "0px",
+                  paddingTop: "-5px",
+                  width: '78%',
+                  marginLeft: '22%'
+                }}>
 
-                    <div className="col-md-12 content-wrap" style={{backgroundColor: "#f5f5f5"}}>
+                  <div className="col-md-12 content-wrap" style={{backgroundColor: "#f5f5f5"}}>
 
-                      <Nav style={{marginLeft: '1%', marginBottom: '0%'}}bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect}  className="tabsCustom mainTab">
-                        <NavItem className="tabsCustomListTime" eventKey="1" onClick={() => {
-                          this.setState({activeKey1: "1"});
-                          this.props.supplierViewKpiSpinnerCheckSuccess(0);
-                          this.props.barChartSpinnerCheckSuccess(0);
-                          this.props.bubbleChartSpinnerCheckSuccess(0);
-                          this.props.tableChartSpinnerCheckSuccess(0);
-                          dataWeekUrlParams = "week_flag=1";
-                          this.props.onSaveWeekParam(dataWeekUrlParams);
-                          this.props.onKPIBox();
-                          {/*this.props.onSupplierTable();*/
-                          }
-                          this.props.onFetchGraph();
-                          this.props.onGenerateTable();
-                          this.props.ontopBottomChart();
+                    <Nav style={{marginLeft: '1%', marginBottom: '0%'}} bsStyle="tabs" activeKey={this.state.activeKey1}
+                         onSelect={this.handleSelect} className="tabsCustom mainTab">
+                      <NavItem className="tabsCustomListTime" eventKey="1" onClick={() => {
+                        this.setState({activeKey1: "1"});
+                        this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                        this.props.barChartSpinnerCheckSuccess(0);
+                        this.props.bubbleChartSpinnerCheckSuccess(0);
+                        this.props.tableChartSpinnerCheckSuccess(0);
+                        dataWeekUrlParams = "week_flag=1";
+                        this.props.onSaveWeekParam(dataWeekUrlParams);
+                        this.props.onKPIBox();
+                        {/*this.props.onSupplierTable();*/
+                        }
+                        this.props.onFetchGraph();
+                        this.props.onGenerateTable();
+                        this.props.ontopBottomChart();
 
-                        }}>
-                          <span className="tab_label">Selected Week</span></NavItem>
+                      }}>
+                        <span className="tab_label">Selected Week</span></NavItem>
 
-                        <NavItem className="tabsCustomListTime" eventKey="2" onClick={() => {
-                          this.setState({activeKey1: "2"});
-                          this.props.supplierViewKpiSpinnerCheckSuccess(0);
-                          this.props.barChartSpinnerCheckSuccess(0);
-                          this.props.bubbleChartSpinnerCheckSuccess(0);
-                          this.props.tableChartSpinnerCheckSuccess(0);
-                          dataWeekUrlParams = "week_flag=2";
-                          this.props.onSaveWeekParam(dataWeekUrlParams);
-                          this.props.onKPIBox();
-                          {/*this.props.onSupplierTable();*/
-                          }
-                          this.props.onFetchGraph();
-                          this.props.onGenerateTable();
-                          this.props.ontopBottomChart();
+                      <NavItem className="tabsCustomListTime" eventKey="2" onClick={() => {
+                        this.setState({activeKey1: "2"});
+                        this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                        this.props.barChartSpinnerCheckSuccess(0);
+                        this.props.bubbleChartSpinnerCheckSuccess(0);
+                        this.props.tableChartSpinnerCheckSuccess(0);
+                        dataWeekUrlParams = "week_flag=2";
+                        this.props.onSaveWeekParam(dataWeekUrlParams);
+                        this.props.onKPIBox();
+                        {/*this.props.onSupplierTable();*/
+                        }
+                        this.props.onFetchGraph();
+                        this.props.onGenerateTable();
+                        this.props.ontopBottomChart();
 
-                        }}><span className="tab_label">Last 4 weeks</span></NavItem>
+                      }}><span className="tab_label">Last 4 weeks</span></NavItem>
 
-                        <NavItem className="tabsCustomListTime" eventKey="3" onClick={() => {
-                          this.setState({activeKey1: "3"});
-                          this.props.supplierViewKpiSpinnerCheckSuccess(0);
-                          this.props.barChartSpinnerCheckSuccess(0);
-                          this.props.bubbleChartSpinnerCheckSuccess(0);
-                          this.props.tableChartSpinnerCheckSuccess(0);
-                          dataWeekUrlParams = "week_flag=3";
-                          this.props.onSaveWeekParam(dataWeekUrlParams);
-                          this.props.onKPIBox();
-                          {/*this.props.onSupplierTable();*/
-                          }
-                          this.props.onFetchGraph();
-                          this.props.onGenerateTable();
-                          this.props.ontopBottomChart();
+                      <NavItem className="tabsCustomListTime" eventKey="3" onClick={() => {
+                        this.setState({activeKey1: "3"});
+                        this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                        this.props.barChartSpinnerCheckSuccess(0);
+                        this.props.bubbleChartSpinnerCheckSuccess(0);
+                        this.props.tableChartSpinnerCheckSuccess(0);
+                        dataWeekUrlParams = "week_flag=3";
+                        this.props.onSaveWeekParam(dataWeekUrlParams);
+                        this.props.onKPIBox();
+                        {/*this.props.onSupplierTable();*/
+                        }
+                        this.props.onFetchGraph();
+                        this.props.onGenerateTable();
+                        this.props.ontopBottomChart();
 
-                        }}><span className="tab_label">Last 13 weeks</span></NavItem>
-                        <NavItem className="tabsCustomListTime" eventKey="4" onClick={() => {
-                          this.setState({activeKey1: "4"});
-                          this.props.supplierViewKpiSpinnerCheckSuccess(0);
-                          this.props.barChartSpinnerCheckSuccess(0);
-                          this.props.bubbleChartSpinnerCheckSuccess(0);
-                          this.props.tableChartSpinnerCheckSuccess(0);
-                          dataWeekUrlParams = "week_flag=4";
-                          this.props.onSaveWeekParam(dataWeekUrlParams);
-                          this.props.onKPIBox();
-                          {/*this.props.onSupplierTable();*/
-                          }
-                          this.props.onFetchGraph();
-                          this.props.onGenerateTable();
-                          this.props.ontopBottomChart();
+                      }}><span className="tab_label">Last 13 weeks</span></NavItem>
+                      <NavItem className="tabsCustomListTime" eventKey="4" onClick={() => {
+                        this.setState({activeKey1: "4"});
+                        this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                        this.props.barChartSpinnerCheckSuccess(0);
+                        this.props.bubbleChartSpinnerCheckSuccess(0);
+                        this.props.tableChartSpinnerCheckSuccess(0);
+                        dataWeekUrlParams = "week_flag=4";
+                        this.props.onSaveWeekParam(dataWeekUrlParams);
+                        this.props.onKPIBox();
+                        {/*this.props.onSupplierTable();*/
+                        }
+                        this.props.onFetchGraph();
+                        this.props.onGenerateTable();
+                        this.props.ontopBottomChart();
 
-                        }}><span className="tab_label">Last 52 weeks</span></NavItem>
+                      }}><span className="tab_label">Last 52 weeks</span></NavItem>
 
-                        <NavItem className="tabsCustomListTime" eventKey="5" onClick={() => {
-                          this.setState({activeKey1: "5"});
-                          this.props.supplierViewKpiSpinnerCheckSuccess(0);
-                          this.props.barChartSpinnerCheckSuccess(0);
-                          this.props.bubbleChartSpinnerCheckSuccess(0);
-                          this.props.tableChartSpinnerCheckSuccess(0);
-                          dataWeekUrlParams = "week_flag=5";
-                          this.props.onSaveWeekParam(dataWeekUrlParams);
-                          this.props.onKPIBox();
-                          {/*this.props.onSupplierTable();*/
-                          }
-                          this.props.onFetchGraph();
-                          this.props.onGenerateTable();
-                          this.props.ontopBottomChart();
+                      <NavItem className="tabsCustomListTime" eventKey="5" onClick={() => {
+                        this.setState({activeKey1: "5"});
+                        this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                        this.props.barChartSpinnerCheckSuccess(0);
+                        this.props.bubbleChartSpinnerCheckSuccess(0);
+                        this.props.tableChartSpinnerCheckSuccess(0);
+                        dataWeekUrlParams = "week_flag=5";
+                        this.props.onSaveWeekParam(dataWeekUrlParams);
+                        this.props.onKPIBox();
+                        {/*this.props.onSupplierTable();*/
+                        }
+                        this.props.onFetchGraph();
+                        this.props.onGenerateTable();
+                        this.props.ontopBottomChart();
 
-                        }}><span className="tab_label">YTD</span></NavItem>
-                      </Nav>
+                      }}><span className="tab_label">YTD</span></NavItem>
+                    </Nav>
 
-                      <div style={{height: '0px', width: '100%'}}>&nbsp;</div>
+                    <div style={{height: '0px', width: '100%'}}>&nbsp;</div>
 
-                      <Modal show={this.state.suppKPIbar} bsSize="lg"
-                             aria-labelledby="contained-modal-title-lg"
-                      >
-                        <Modal.Header>
-                          <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
-                            style={{textAlign: 'center', fontSize: '14px'}}><b>Supplier KPIs</b><span
-                            style={{textAlign: 'right', float: 'right'}}
-                            onClick={() => this.setState({suppKPIbar: false})}><b>X</b></span></span>
-                            <div style={{textAlign: 'center'}}>
-                              <div style={{textAlign: 'right'}}>
-                              </div>
+                    <Modal show={this.state.suppKPIbar} bsSize="lg"
+                           aria-labelledby="contained-modal-title-lg"
+                    >
+                      <Modal.Header>
+                        <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
+                          style={{textAlign: 'center', fontSize: '14px'}}><b>Supplier KPIs</b><span
+                          style={{textAlign: 'right', float: 'right'}}
+                          onClick={() => this.setState({suppKPIbar: false})}><b>X</b></span></span>
+                          <div style={{textAlign: 'center'}}>
+                            <div style={{textAlign: 'right'}}>
                             </div>
-                          </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body style={{fontSize: '14px'}}>
-                          <list>
-                            <ul>        <b>Value: </b>Sales of a supplier in £ </ul>
-                            <ul>      <b> COGS: </b>Cost of goods sold (COGS) are the direct costs attributable to the production of the goods sold by a company. This amount includes the cost of the materials used in producing the goods, transportation cost, store replenishments, waste and shrinkage used to produce and getting product to store to sell. </ul>
-                            <ul>        <b>CGM (Commercial Gross Margin): </b>Scanned margin plus all other commercial income(include supplier funding) and expenses that are managed by Product </ul>
-                            <ul>        <b>Supplier fund XVAT: </b>The funding is an amount to be paid by the supplier per unit sold </ul>
-                            <ul>        <b>ASP (Average Selling Price): </b>The average price for a single product across a period of time. </ul>
-                            <ul>        <b>SKU: </b>A stock keeping unit or SKU is a distinct type of item for sale which has attributes associated with the item type that distinguish it from other item types. For a product, these attributes include, but are not limited to, manufacturer, description, material, size, colour, packaging, and warranty terms.</ul>
-                            <ul>        <b>YTD (Year to Date): </b>The cumulative total for a given measure (e.g. sales, profit) from the beginning of the financial year to the current date.​</ul>
-                          </list>
-                        </Modal.Body>
-                      </Modal>
+                          </div>
+                        </Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body style={{fontSize: '14px'}}>
+                        <list>
+                          <ul><b>Value: </b>Sales of a supplier in £</ul>
+                          <ul><b> COGS: </b>Cost of goods sold (COGS) are the direct costs attributable to the
+                            production of the goods sold by a company. This amount includes the cost of the materials
+                            used in producing the goods, transportation cost, store replenishments, waste and shrinkage
+                            used to produce and getting product to store to sell.
+                          </ul>
+                          <ul><b>CGM (Commercial Gross Margin): </b>Scanned margin plus all other commercial
+                            income(include supplier funding) and expenses that are managed by Product
+                          </ul>
+                          <ul><b>Supplier fund XVAT: </b>The funding is an amount to be paid by the supplier per unit
+                            sold
+                          </ul>
+                          <ul><b>ASP (Average Selling Price): </b>The average price for a single product across a period
+                            of time.
+                          </ul>
+                          <ul><b>SKU: </b>A stock keeping unit or SKU is a distinct type of item for sale which has
+                            attributes associated with the item type that distinguish it from other item types. For a
+                            product, these attributes include, but are not limited to, manufacturer, description,
+                            material, size, colour, packaging, and warranty terms.
+                          </ul>
+                          <ul><b>YTD (Year to Date): </b>The cumulative total for a given measure (e.g. sales, profit)
+                            from the beginning of the financial year to the current date.​
+                          </ul>
+                        </list>
+                      </Modal.Body>
+                    </Modal>
 
-                      <div>
-                        <div className="mainBox">
+                    <div>
+                      <div className="mainBox">
                         <span className="glyphicon glyphicon-info-sign pull-right"
-                                style={{marginRight: '10px', fontSize: '15px', marginTop: '10px'}}
-                                onClick={() => {
-                                  this.setState({suppKPIbar: true});
-                                }}>
+                              style={{marginRight: '10px', fontSize: '15px', marginTop: '10px'}}
+                              onClick={() => {
+                                this.setState({suppKPIbar: true});
+                              }}>
                         </span>
                         <div style={{borderRight: '1%'}}>
-                        <Nav bsStyle="tabs" style={{marginLeft: '1%'}} activeKey={this.state.activeKey2} onSelect={this.handleSelect}className="tabsCustom  mainTab">
+                          <Nav bsStyle="tabs" style={{marginLeft: '1%'}} activeKey={this.state.activeKey2}
+                               onSelect={this.handleSelect} className="tabsCustom  mainTab">
 
-                        <NavItem eventKey="1" className="tabsNavPanelList1" onClick={() => {
-                          this.setState({activeKey2: "1"});
-                          this.props.supplierViewKpiSpinnerCheckSuccess(0);
-                          this.props.barChartSpinnerCheckSuccess(0);
-                          this.setState({paticipationByTab: "Participation by Value"});
-                          this.setState({GrowthTab: "Value Growth"});
-                          this.setState({ContributionToGrowthTab: "Contribution to Value Growth"});
-                          kpiParams = "kpi_type=Value";
-                          this.props.onSaveKPIParam(kpiParams);
-                          this.props.onKPIBox();
-                          this.props.ontopBottomChart();
-                        }}><span className="tab_label">Value</span>
-                        </NavItem>
+                            <NavItem eventKey="1" className="tabsNavPanelList1" onClick={() => {
+                              this.setState({activeKey2: "1"});
+                              this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                              this.props.barChartSpinnerCheckSuccess(0);
+                              this.setState({paticipationByTab: "Participation by Value"});
+                              this.setState({GrowthTab: "Value Growth"});
+                              this.setState({ContributionToGrowthTab: "Contribution to Value Growth"});
+                              kpiParams = "kpi_type=Value";
+                              this.props.onSaveKPIParam(kpiParams);
+                              this.props.onKPIBox();
+                              this.props.ontopBottomChart();
+                            }}><span className="tab_label">Value</span>
+                            </NavItem>
 
-                        <NavItem eventKey="2" className="tabsNavPanelList1" onClick={() => {
-                          this.setState({activeKey2: "2"});
-                          this.props.supplierViewKpiSpinnerCheckSuccess(0);
-                          this.props.barChartSpinnerCheckSuccess(0);
-                          this.setState({paticipationByTab: "Participation by Volume"});
-                          this.setState({GrowthTab: "Volume Growth"});
-                          this.setState({ContributionToGrowthTab: "Contribution to Volume Growth"});
-                          kpiParams = "kpi_type=Volume";
-                          this.props.onSaveKPIParam(kpiParams);
-                          this.props.onKPIBox();
-                          this.props.ontopBottomChart();
-                        }}><span className="tab_label">Volume</span></NavItem>
+                            <NavItem eventKey="2" className="tabsNavPanelList1" onClick={() => {
+                              this.setState({activeKey2: "2"});
+                              this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                              this.props.barChartSpinnerCheckSuccess(0);
+                              this.setState({paticipationByTab: "Participation by Volume"});
+                              this.setState({GrowthTab: "Volume Growth"});
+                              this.setState({ContributionToGrowthTab: "Contribution to Volume Growth"});
+                              kpiParams = "kpi_type=Volume";
+                              this.props.onSaveKPIParam(kpiParams);
+                              this.props.onKPIBox();
+                              this.props.ontopBottomChart();
+                            }}><span className="tab_label">Volume</span></NavItem>
 
-                        <NavItem eventKey="3" className="tabsNavPanelList1" onClick={() => {
-                          this.setState({activeKey2: "3"});
-                          this.props.supplierViewKpiSpinnerCheckSuccess(0);
-                          this.props.barChartSpinnerCheckSuccess(0);
-                          this.setState({paticipationByTab: "Participation by COGS"});
-                          this.setState({GrowthTab: "COGS Growth"});
-                          this.setState({ContributionToGrowthTab: "Contribution to COGS Growth"});
-                          kpiParams = "kpi_type=COGS";
-                          this.props.onSaveKPIParam(kpiParams);
-                          this.props.onKPIBox();
-                          this.props.ontopBottomChart();
-                        }}><span className="tab_label">COGS</span></NavItem>
+                            <NavItem eventKey="3" className="tabsNavPanelList1" onClick={() => {
+                              this.setState({activeKey2: "3"});
+                              this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                              this.props.barChartSpinnerCheckSuccess(0);
+                              this.setState({paticipationByTab: "Participation by COGS"});
+                              this.setState({GrowthTab: "COGS Growth"});
+                              this.setState({ContributionToGrowthTab: "Contribution to COGS Growth"});
+                              kpiParams = "kpi_type=COGS";
+                              this.props.onSaveKPIParam(kpiParams);
+                              this.props.onKPIBox();
+                              this.props.ontopBottomChart();
+                            }}><span className="tab_label">COGS</span></NavItem>
 
-                        <NavItem eventKey="4" className="tabsNavPanelList1" onClick={() => {
-                          this.setState({activeKey2: "4"});
-                          this.props.supplierViewKpiSpinnerCheckSuccess(0);
-                          this.props.barChartSpinnerCheckSuccess(0);
-                          this.setState({paticipationByTab: "Participation by CGM"});
-                          this.setState({GrowthTab: "CGM Growth"});
-                          this.setState({ContributionToGrowthTab: "Contribution to CGM Growth"});
+                            <NavItem eventKey="4" className="tabsNavPanelList1" onClick={() => {
+                              this.setState({activeKey2: "4"});
+                              this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                              this.props.barChartSpinnerCheckSuccess(0);
+                              this.setState({paticipationByTab: "Participation by CGM"});
+                              this.setState({GrowthTab: "CGM Growth"});
+                              this.setState({ContributionToGrowthTab: "Contribution to CGM Growth"});
 
-                          kpiParams = "kpi_type=CGM";
-                          this.props.onSaveKPIParam(kpiParams);
-                          this.props.onKPIBox();
-                          this.props.ontopBottomChart();
-                        }}><span className="tab_label">CGM</span></NavItem>
+                              kpiParams = "kpi_type=CGM";
+                              this.props.onSaveKPIParam(kpiParams);
+                              this.props.onKPIBox();
+                              this.props.ontopBottomChart();
+                            }}><span className="tab_label">CGM</span></NavItem>
 
-                        <NavItem eventKey="5" className="tabsNavPanelList1" onClick={() => {
-                          this.setState({activeKey2: "5"});
-                          this.props.supplierViewKpiSpinnerCheckSuccess(0);
-                          this.props.barChartSpinnerCheckSuccess(0);
-                          this.setState({paticipationByTab: "Participation by ASP"});
-                          this.setState({GrowthTab: "ASP Growth"});
-                          this.setState({ContributionToGrowthTab: "Contribution to ASP Growth"});
-                          kpiParams = "kpi_type=ASP";
-                          this.props.onSaveKPIParam(kpiParams);
-                          this.props.onKPIBox();
-                          this.props.ontopBottomChart();
-                        }}><span className="tab_label">ASP</span></NavItem>
+                            <NavItem eventKey="5" className="tabsNavPanelList1" onClick={() => {
+                              this.setState({activeKey2: "5"});
+                              this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                              this.props.barChartSpinnerCheckSuccess(0);
+                              this.setState({paticipationByTab: "Participation by ASP"});
+                              this.setState({GrowthTab: "ASP Growth"});
+                              this.setState({ContributionToGrowthTab: "Contribution to ASP Growth"});
+                              kpiParams = "kpi_type=ASP";
+                              this.props.onSaveKPIParam(kpiParams);
+                              this.props.onKPIBox();
+                              this.props.ontopBottomChart();
+                            }}><span className="tab_label">ASP</span></NavItem>
 
-                        <NavItem eventKey="6" className="tabsNavPanelList1" onClick={() => {
-                          this.setState({activeKey2: "6"});
-                          this.props.supplierViewKpiSpinnerCheckSuccess(0);
-                          this.props.barChartSpinnerCheckSuccess(0);
-                          this.setState({paticipationByTab: "Participation by Supplier Funding(exc VAT)"});
-                          this.setState({GrowthTab: "Supplier Funding(exc VAT) Growth"});
-                          this.setState({ContributionToGrowthTab: "Contribution to Supplier Funding(exc VAT) Growth"});
-                          kpiParams = "kpi_type=Supp_Fund";
-                          this.props.onSaveKPIParam(kpiParams);
-                          this.props.onKPIBox();
-                          this.props.ontopBottomChart();
-                        }}><span className="tab_label">Supplier Funding(exc VAT)</span></NavItem>
+                            <NavItem eventKey="6" className="tabsNavPanelList1" onClick={() => {
+                              this.setState({activeKey2: "6"});
+                              this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                              this.props.barChartSpinnerCheckSuccess(0);
+                              this.setState({paticipationByTab: "Participation by Supplier Funding(exc VAT)"});
+                              this.setState({GrowthTab: "Supplier Funding(exc VAT) Growth"});
+                              this.setState({ContributionToGrowthTab: "Contribution to Supplier Funding(exc VAT) Growth"});
+                              kpiParams = "kpi_type=Supp_Fund";
+                              this.props.onSaveKPIParam(kpiParams);
+                              this.props.onKPIBox();
+                              this.props.ontopBottomChart();
+                            }}><span className="tab_label">Supplier Funding(exc VAT)</span></NavItem>
 
-                        <NavItem eventKey="7" className="tabsNavPanelList1" onClick={() => {
-                          this.setState({activeKey2: "7"});
-                          this.props.supplierViewKpiSpinnerCheckSuccess(0);
-                          this.props.barChartSpinnerCheckSuccess(0);
-                          this.setState({paticipationByTab: "Participation by SKU"});
-                          this.setState({GrowthTab: "SKU Growth"});
-                          this.setState({ContributionToGrowthTab: "Contribution to SKU Growth"});
-                          kpiParams = "kpi_type=SKU";
-                          this.props.onSaveKPIParam(kpiParams);
-                          this.props.onKPIBox();
-                          this.props.ontopBottomChart();
-                        }}><span className="tab_label">SKUs</span></NavItem>
+                            <NavItem eventKey="7" className="tabsNavPanelList1" onClick={() => {
+                              this.setState({activeKey2: "7"});
+                              this.props.supplierViewKpiSpinnerCheckSuccess(0);
+                              this.props.barChartSpinnerCheckSuccess(0);
+                              this.setState({paticipationByTab: "Participation by SKU"});
+                              this.setState({GrowthTab: "SKU Growth"});
+                              this.setState({ContributionToGrowthTab: "Contribution to SKU Growth"});
+                              kpiParams = "kpi_type=SKU";
+                              this.props.onSaveKPIParam(kpiParams);
+                              this.props.onKPIBox();
+                              this.props.ontopBottomChart();
+                            }}><span className="tab_label">SKUs</span></NavItem>
 
-                      </Nav>
-                      </div>
+                          </Nav>
+                        </div>
 
                       </div>
 
@@ -540,90 +570,99 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                               <div className="row spinnerPosition spinnerPositionFix"><Spinner /><h2>Please Wait a
                                 Moment....!</h2></div>
                             )
-                          } else  {
+                          } else {
                             return this.props.supplier.reducer1.map((obj) => {
                               return (
                                 <div>
                                   <div className="row mainBox" style={{textAlign: 'center'}}>
                                     <div className="col-md-6 col-sm-12" style={{backgroundColor: "#fafafa"}}>
-                                        <Panel>
-                                          <h3 className="pageModuleSubTitle"> {obj.title} </h3>
-                                          <div className="row">
-                                            <div className="col-xs-6">
-                                              <h3 style={{padding:"0px", margin:"0px"}}>  {obj.sales} </h3>
-                                            </div>
-                                            <div className="col-xs-6">
-                                              <h3 style={{padding:"0px", margin:"0px"}}>
-                                                LFL: {obj.sales_lfl} </h3>
-                                            </div>
+                                      <Panel>
+                                        <h3 className="pageModuleSubTitle"> {obj.title} </h3>
+                                        <div className="row">
+                                          <div className="col-xs-6">
+                                            <h3 style={{padding: "0px", margin: "0px"}}>  {obj.sales} </h3>
                                           </div>
+                                          <div className="col-xs-6">
+                                            <h3 style={{padding: "0px", margin: "0px"}}>
+                                              LFL: {obj.sales_lfl} </h3>
+                                          </div>
+                                        </div>
 
-                                          <div className="row">
-                                            <div className="panel-body cardPanel">
-                                              <div className="col-xs-4">
-                                                <h4>
+                                        <div className="row">
+                                          <div className="panel-body cardPanel">
+                                            <div className="col-xs-4">
+                                              <h4>
                                                   <span className={glyphiconFormatter(obj.sales_var_week)}>
-                                                  </span>{(obj.sales_var_week)+'%'}
-                                                </h4><br></br>
-                                                <h5 className="kpiSubTitle"><b> {'WoW'} </b></h5>
-                                              </div>
-                                              <div className="col-xs-4">
-                                                <h4>
+                                                  </span>{(obj.sales_var_week) + '%'}
+                                              </h4><br></br>
+                                              <h5 className="kpiSubTitle"><b> {'WoW'} </b></h5>
+                                            </div>
+                                            <div className="col-xs-4">
+                                              <h4>
                                                   <span className={glyphiconFormatter(obj.sales_var_year)}>
-                                                  </span>{(obj.sales_var_year)+'%'}
-                                                </h4><br></br>
-                                                <h5 className="kpiSubTitle"><b> {'YoY'} </b></h5>
-                                              </div>
-                                              <div className="col-xs-4">
-                                                <h4>
+                                                  </span>{(obj.sales_var_year) + '%'}
+                                              </h4><br></br>
+                                              <h5 className="kpiSubTitle"><b> {'YoY'} </b></h5>
+                                            </div>
+                                            <div className="col-xs-4">
+                                              <h4>
                                                   <span className={glyphiconFormatter(obj.sales_var_year_lfl)}>
-                                                  </span>{(obj.sales_var_year_lfl)+'%'}
-                                                </h4><br></br>
-                                                <h5 className="kpiSubTitle"><b>{'LFL'}</b></h5>
-                                              </div>
+                                                  </span>{(obj.sales_var_year_lfl) + '%'}
+                                              </h4><br></br>
+                                              <h5 className="kpiSubTitle"><b>{'LFL'}</b></h5>
                                             </div>
                                           </div>
+                                        </div>
 
-                                        </Panel>
+                                      </Panel>
                                     </div>
                                     <div className="col-md-6 col-sm-12" style={{backgroundColor: "#fafafa"}}>
-                                        <Panel>
-                                          <h3 className="pageModuleSubTitle"> Contribution to Growth </h3>
-                                          <div className="row">
-                                            <div className="col-xs-6" style={{textAlign: "center"}}>
-                                              <h3 style={{padding:"0px", margin:"0px"}}>  {obj.cw_sales_exclu_sup} </h3>
-                                            </div>
-                                            <div className="col-xs-6" style={{textAlign: "center"}}>
+                                      <Panel>
+                                        <h3 className="pageModuleSubTitle"> Contribution to Growth </h3>
+                                        <div className="row">
+                                          <div className="col-xs-6" style={{textAlign: "center"}}>
+                                            <h3 style={{padding: "0px", margin: "0px"}}>  {obj.cw_sales_exclu_sup} </h3>
+                                          </div>
+                                          <div className="col-xs-6" style={{textAlign: "center"}}>
 
-                                              <h3 style={{padding:"0px", margin:"0px"}}>
-                                                LFL: {obj.cw_sales_exclu_sup_lfl } </h3>
+                                            <h3 style={{padding: "0px", margin: "0px"}}>
+                                              LFL: {obj.cw_sales_exclu_sup_lfl } </h3>
+                                          </div>
+                                        </div>
+                                        <br></br>
+                                        <div className="row">
+                                          <div className="panel-body cardPanel">
+                                            <div className="col-xs-4">
+                                              <h4><span
+                                                className={glyphiconFormatter(obj.sales_growth_wow_1)}></span>&nbsp;{(obj.sales_growth_wow_1) + ' % '}
+                                                of <span
+                                                  className={glyphiconFormatter(obj.sales_growth_wow_2)}></span>{(obj.sales_growth_wow_2) + ' % '}
+                                              </h4>
+                                              <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'WoW'}</b>
+                                              </h5>
+                                            </div>
+                                            <div className="col-xs-4">
+                                              <h4><span
+                                                className={glyphiconFormatter(obj.sales_growth_yoy_1)}></span>&nbsp;{(obj.sales_growth_yoy_1) + ' % '}
+                                                of <span
+                                                  className={glyphiconFormatter(obj.sales_growth_yoy_2)}></span>{(obj.sales_growth_yoy_2) + ' % '}
+                                              </h4>
+                                              <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'YoY'}</b>
+                                              </h5>
+                                            </div>
+                                            <div className="col-xs-4">
+                                              <h4><span
+                                                className={glyphiconFormatter(obj.sales_growth_yoy_lfl_1)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_1) + ' % '}
+                                                of <span
+                                                  className={glyphiconFormatter(obj.sales_growth_yoy_lfl_2)}></span>{(obj.sales_growth_yoy_lfl_2) + ' % '}
+                                              </h4>
+                                              <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'LFL'}</b>
+                                              </h5>
                                             </div>
                                           </div>
-                                          <br></br>
-                                          <div className="row">
-                                            <div className="panel-body cardPanel">
-                                              <div className="col-xs-4">
-                                                <h4><span className={glyphiconFormatter(obj.sales_growth_wow_1)}></span>&nbsp;{(obj.sales_growth_wow_1)+' % '}
-                                                  of <span className={glyphiconFormatter(obj.sales_growth_wow_2)}></span>{(obj.sales_growth_wow_2)+' % '}
-                                                </h4>
-                                                <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'WoW'}</b></h5>
-                                              </div>
-                                              <div className="col-xs-4">
-                                                <h4> <span className={glyphiconFormatter(obj.sales_growth_yoy_1)}></span>&nbsp;{(obj.sales_growth_yoy_1)+' % '}
-                                                  of <span className={glyphiconFormatter(obj.sales_growth_yoy_2)}></span>{(obj.sales_growth_yoy_2)+' % '}
-                                                </h4>
-                                                <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'YoY'}</b></h5>
-                                              </div>
-                                              <div className="col-xs-4">
-                                                <h4> <span className={glyphiconFormatter(obj.sales_growth_yoy_lfl_1)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_1)+' % '}
-                                                  of <span className={glyphiconFormatter(obj.sales_growth_yoy_lfl_2)}></span>{(obj.sales_growth_yoy_lfl_2)+' % '}
-                                                </h4>
-                                                <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'LFL'}</b></h5>
-                                              </div>
-                                            </div>
-                                          </div>
+                                        </div>
 
-                                        </Panel>
+                                      </Panel>
                                     </div>
                                   </div>
 
@@ -632,20 +671,20 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                       <div className="col-md-6 col-sm-6" style={{backgroundColor: "#fafafa"}}>
 
 
-                                          {(() => {
-                                            if (obj.supp_imp_cat_sales != "---") {
+                                        {(() => {
+                                          if (obj.supp_imp_cat_sales != "---") {
 
-                                              return (
-                                                <div>
-                                                  <div className="col-md-12 col-sm-6" style={{
-                                                    textAlign: 'center',
-                                                    borderTop: "1px solid #e5e8ea",
-                                                    backgroundColor: "white",
-                                                    margin: "0%",
-                                                    borderLeft: "1px solid #e5e8ea",
-                                                    borderRight: "1px solid #e5e8ea",
-                                                    borderBottom: "1px solid #e5e8ea"
-                                                  }}>
+                                            return (
+                                              <div>
+                                                <div className="col-md-12 col-sm-6" style={{
+                                                  textAlign: 'center',
+                                                  borderTop: "1px solid #e5e8ea",
+                                                  backgroundColor: "white",
+                                                  margin: "0%",
+                                                  borderLeft: "1px solid #e5e8ea",
+                                                  borderRight: "1px solid #e5e8ea",
+                                                  borderBottom: "1px solid #e5e8ea"
+                                                }}>
                                                   <h3 className="pageModuleSubTitle"> Parent Supplier's value share in
                                                     Category</h3>
                                                   <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
@@ -659,29 +698,29 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                   </div>
                                                 </div>
                                               </div>
-                                              )
-                                            }
-                                          })()}
+                                            )
+                                          }
+                                        })()}
 
                                       </div>
                                       <div className="col-md-6 col-sm-6" style={{backgroundColor: "#fafafa"}}>
 
 
-                                          {(() => {
-                                            if (obj.cat_imp_supp_sales != "---") {
+                                        {(() => {
+                                          if (obj.cat_imp_supp_sales != "---") {
 
-                                              return (
-                                                <div>
-                                                  <div className="col-md-12 col-sm-12 col-xs-12" style={{
-                                                    textAlign: 'center',
-                                                    borderTop: "1px solid #e5e8ea",
-                                                    float: 'right',
-                                                    backgroundColor: "white",
-                                                    margin: "0%",
-                                                    borderLeft: "1px solid #e5e8ea",
-                                                    borderRight: "1px solid #e5e8ea",
-                                                    borderBottom: "1px solid #e5e8ea"
-                                                  }}>
+                                            return (
+                                              <div>
+                                                <div className="col-md-12 col-sm-12 col-xs-12" style={{
+                                                  textAlign: 'center',
+                                                  borderTop: "1px solid #e5e8ea",
+                                                  float: 'right',
+                                                  backgroundColor: "white",
+                                                  margin: "0%",
+                                                  borderLeft: "1px solid #e5e8ea",
+                                                  borderRight: "1px solid #e5e8ea",
+                                                  borderBottom: "1px solid #e5e8ea"
+                                                }}>
                                                   <h3 className="pageModuleSubTitle"> Category's value share to Parent
                                                     Supplier </h3>
                                                   <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
@@ -694,11 +733,11 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                     </div>
                                                   </div>
                                                 </div>
-                                               </div>
-                                              )
-                                            }
-                                          })()}
-                                          {/*<SampleBarChart/>*/}
+                                              </div>
+                                            )
+                                          }
+                                        })()}
+                                        {/*<SampleBarChart/>*/}
 
                                       </div>
                                     </div>
@@ -710,857 +749,917 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                         })()}
 
 
-                      <Modal show={this.state.suppTopBottombar} bsSize="lg"
-                             aria-labelledby="contained-modal-title-lg"
-                      >
-                        <Modal.Header>
+                        <Modal show={this.state.suppTopBottombar} bsSize="lg"
+                               aria-labelledby="contained-modal-title-lg"
+                        >
+                          <Modal.Header>
 
-                          <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
-                            style={{textAlign: 'center', fontSize: '14px'}}><b>Assess Performance by Parent Supplier</b><span
-                            style={{textAlign: 'right', float: 'right'}}
-                            onClick={() => this.setState({suppTopBottombar: false})}><b>X</b></span></span>
-                            <div style={{textAlign: 'center'}}>
-                              <div style={{textAlign: 'right'}}>
+                            <Modal.Title id="contained-modal-title-sm"
+                                         style={{textAlign: 'center', fontSize: '14px'}}><span
+                              style={{
+                                textAlign: 'center',
+                                fontSize: '14px'
+                              }}><b>Assess Performance by Parent Supplier</b><span
+                              style={{textAlign: 'right', float: 'right'}}
+                              onClick={() => this.setState({suppTopBottombar: false})}><b>X</b></span></span>
+                              <div style={{textAlign: 'center'}}>
+                                <div style={{textAlign: 'right'}}>
+                                </div>
                               </div>
-                            </div>
-                          </Modal.Title>
+                            </Modal.Title>
 
-                        </Modal.Header>
+                          </Modal.Header>
 
-                        <Modal.Body style={{fontSize: '14px'}}>
-                          A comparison of suppliers based on various metric is pivotal to improved buyer- supplier negotiations. Empowered with data regarding how different suppliers offer similar products at varying prices, a buyer can make more informed decisions to grow his portfolio. The list of top and bottom suppliers will help critically evaluate engagements with buyers.
-                        </Modal.Body>
-                      </Modal>
+                          <Modal.Body style={{fontSize: '14px'}}>
+                            A comparison of suppliers based on various metric is pivotal to improved buyer- supplier
+                            negotiations. Empowered with data regarding how different suppliers offer similar products
+                            at varying prices, a buyer can make more informed decisions to grow his portfolio. The list
+                            of top and bottom suppliers will help critically evaluate engagements with buyers.
+                          </Modal.Body>
+                        </Modal>
 
-                      <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
+                        <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
 
 
-                        <div className="pageTitle" style={{marginBottom:"20px"}}>
+                        <div className="pageTitle" style={{marginBottom: "20px"}}>
                           <div className="headerBox">
                             <h2 className="pageModuleMainTitle">Assess performance by parent supplier</h2>
                           </div>
 
                         </div>
-                      <div className="row mainBox">
+                        <div className="row mainBox">
                         <span className="glyphicon glyphicon-info-sign pull-right"
                               style={{marginRight: '10px', fontSize: '15px', marginTop: '10px'}}
                               onClick={() => {
                                 this.setState({suppTopBottombar: true});
                               }}>
                         </span>
+                          <div>
+                            <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect}
+                                 className="tabsCustom  mainTab">
+                              <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
+                                this.setState({activeKey3: "1"});
+                                this.props.barChartSpinnerCheckSuccess(0);
+                                TopBottomKpi = "top_bottom_kpi=part_by_val";
+                                this.props.onSaveTopBottomKpi(TopBottomKpi);
+                                this.props.ontopBottomChart();
+                              }}><span className="tab_label">{this.state.paticipationByTab}</span>
+                              </NavItem>
+
+                              <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
+                                this.setState({activeKey3: "2"});
+                                this.props.barChartSpinnerCheckSuccess(0);
+                                TopBottomKpi = "top_bottom_kpi=value_growth";
+                                this.props.onSaveTopBottomKpi(TopBottomKpi);
+                                this.props.ontopBottomChart();
+                              }}><span className="tab_label">{this.state.GrowthTab}</span></NavItem>
+
+                              <NavItem className="tabsNavPanelList1" eventKey="3" onClick={() => {
+                                this.setState({activeKey3: "3"});
+                                this.props.barChartSpinnerCheckSuccess(0);
+                                TopBottomKpi = "top_bottom_kpi=value_contribution";
+                                this.props.onSaveTopBottomKpi(TopBottomKpi);
+                                this.props.ontopBottomChart();
+                              }}><span className="tab_label">{this.state.ContributionToGrowthTab}</span></NavItem>
+                            </Nav>
+                          </div>
+                        </div>
+
                         <div>
-                          <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect} className="tabsCustom  mainTab">
-                            <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
-                              this.setState({activeKey3: "1"});
-                              this.props.barChartSpinnerCheckSuccess(0);
-                              TopBottomKpi = "top_bottom_kpi=part_by_val";
-                              this.props.onSaveTopBottomKpi(TopBottomKpi);
-                              this.props.ontopBottomChart();
-                            }}><span className="tab_label">{this.state.paticipationByTab}</span>
-                            </NavItem>
+                          <div className="row mainBox">
+                            <panel>
 
-                            <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
-                              this.setState({activeKey3: "2"});
-                              this.props.barChartSpinnerCheckSuccess(0);
-                              TopBottomKpi = "top_bottom_kpi=value_growth";
-                              this.props.onSaveTopBottomKpi(TopBottomKpi);
-                              this.props.ontopBottomChart();
-                            }}><span className="tab_label">{this.state.GrowthTab}</span></NavItem>
+                              <div className="col-md-6 col-sm-12 col-xs-12 panel-body"
+                                   style={{backgroundColor: "#f5f5f5"}}>
+                                <h3 className="pageModuleSubTitle"> Top Parent Suppliers</h3>
+                                {(() => {
+                                  if (this.props.supplier.topBotData && this.props.supplier.barChartSpinnerCheck != 0) {
 
-                            <NavItem className="tabsNavPanelList1" eventKey="3" onClick={() => {
-                              this.setState({activeKey3: "3"});
-                              this.props.barChartSpinnerCheckSuccess(0);
-                              TopBottomKpi = "top_bottom_kpi=value_contribution";
-                              this.props.onSaveTopBottomKpi(TopBottomKpi);
-                              this.props.ontopBottomChart();
-                            }}><span className="tab_label">{this.state.ContributionToGrowthTab}</span></NavItem>
-                          </Nav>
-                        </div>
-                      </div>
+                                    return (
+                                      <div style={{border: '1px solid #e5e8ea'}}>
+                                        <div style={{float: "right"}}>
+                                          <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight
+                                                          style={{
+                                                            backgroundColor: "transparent",
+                                                            borderColor: "transparent",
+                                                            color: "#00539f"
+                                                          }} id="dropButtonId">
+                                            <MenuItem onClick={() => {
+                                              saveImage(document.getElementById('suppliertopchart' + '_svg'), "topSuppliers_barChart")
+                                            }
+                                            }>Save As JPEG</MenuItem>
+                                            <MenuItem onClick={() => {
+                                              saveDataAsCSV(this.props.supplier.topBotData.top_chart, "topSuppliers_barChart.csv")
+                                            }
+                                            }>Download CSV</MenuItem>
+                                          </DropdownButton>
+                                        </div>
+                                        <SampleBarChart ref="suppliertopchart"
+                                                        data={[this.props.supplier.topBotData.top_chart]}
+                                                        id="suppliertopchart"/>
+                                      </div>
+                                    )
+                                  } else {
+                                    return (
+                                      <div className="row spinnerPositionBarChart"><Spinner /><h2>Please Wait a
+                                        Moment....!</h2></div>
+                                    )
+                                  }
+                                })()}
 
-                    <div>
-                      <div className="row mainBox">
-                        <panel>
-
-                          <div className="col-md-6 col-sm-12 col-xs-12 panel-body" style={{backgroundColor: "#f5f5f5"}}>
-                            <h3 className="pageModuleSubTitle"> Top Parent Suppliers</h3>
-                            {(() => {
-                              if (this.props.supplier.topBotData && this.props.supplier.barChartSpinnerCheck != 0) {
-
-                                return (
-                                  <div style={{border: '1px solid #e5e8ea'}}>
-                                    <div style={{float:"right"}}>
-                                      <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
-                                        <MenuItem onClick={() => {
-                                          saveImage(document.getElementById('suppliertopchart'+'_svg'),"topSuppliers_barChart")
-                                        }
-                                        }>Save As JPEG</MenuItem>
-                                        <MenuItem onClick={() => {
-                                          saveDataAsCSV(this.props.supplier.topBotData.top_chart,"topSuppliers_barChart.csv")
-                                        }
-                                        }>Download CSV</MenuItem>
-                                      </DropdownButton>
-                                    </div>
-                                    <SampleBarChart ref="suppliertopchart" data={[this.props.supplier.topBotData.top_chart]}
-                                                    id="suppliertopchart"/>
-                                  </div>
-                                )
-                              } else {
-                                return (
-                                  <div className="row spinnerPositionBarChart"><Spinner /><h2>Please Wait a
-                                    Moment....!</h2></div>
-                                )
-                              }
-                            })()}
-
-                          </div>
-                          <div className="col-md-6 col-sm-12 col-xs-12 panel-body" style={{backgroundColor: "#f5f5f5"}}>
-                            <h3 className="pageModuleSubTitle"> Bottom Parent Suppliers </h3>
-                            {(() => {
-                              if (this.props.supplier.topBotData && this.props.supplier.barChartSpinnerCheck != 0) {
-
-                                return (
-                                  <div style={{border: '1px solid #e5e8ea'}}>
-                                    <div style={{float:"right"}}>
-                                      <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
-                                        <MenuItem onClick={() => {
-                                          saveImage(document.getElementById('supplierbotchart'+'_svg'),"bottomSuppliers_barChart")
-                                        }
-                                        }>Save As JPEG</MenuItem>
-                                        <MenuItem onClick={() => {
-                                          saveDataAsCSV(this.props.supplier.topBotData.bottom_chart,"bottomSuppliers_barChart.csv")
-                                        }
-                                        }>Download CSV</MenuItem>
-                                      </DropdownButton>
-                                    </div>
-                                    <SampleBarChart ref="supplierbotchart" data={[this.props.supplier.topBotData.bottom_chart]}
-                                                    id="supplierbotchart"/>
-                                  </div>
-                                )
-                              } else {
-                                return (
-                                  <div className="row spinnerPositionBarChart"><Spinner /><h2>Please Wait a
-                                    Moment....!</h2></div>
-                                )
-                              }
-                            })()}
-                            {/*<SampleBarChart/>*/}
-                          </div>
-                        </panel>
-                      </div>
-                    </div>
-
-                      <Modal show={this.state.suppNegotiationbar} bsSize="lg"
-                             aria-labelledby="contained-modal-title-lg"
-                      >
-                        <Modal.Header>
-
-                          <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
-                            style={{textAlign: 'center', fontSize: '14px'}}><b>Negotiation Opportunity</b><span
-                            style={{textAlign: 'right', float: 'right'}}
-                            onClick={() => this.setState({suppNegotiationbar: false})}><b>X</b></span></span>
-                            <div style={{textAlign: 'center'}}>
-                              <div style={{textAlign: 'right'}}>
                               </div>
-                            </div>
-                          </Modal.Title>
+                              <div className="col-md-6 col-sm-12 col-xs-12 panel-body"
+                                   style={{backgroundColor: "#f5f5f5"}}>
+                                <h3 className="pageModuleSubTitle"> Bottom Parent Suppliers </h3>
+                                {(() => {
+                                  if (this.props.supplier.topBotData && this.props.supplier.barChartSpinnerCheck != 0) {
 
-                        </Modal.Header>
-                        <Modal.Body style={{fontSize: '14px'}}>
-                          * Both the axes are represented by percentiles.
-                          The supplier negotiation clockface is helps you decide the negotiation strategy to be employed when meeting suppliers. This strategy is decided based on the product’s importance to the customer and the profit per store that it brings in. A product with low customer priority score and low profits per store could be delisted. The size of the bubble represents the rate of sale of the product (Volume/No. of stores that the product sold in). A plausible use of this dimension is that a product could move from the ‘Opportunity’ area to the ‘High CPS/High Profit’ sector if its rate of sale is increased.
-                        </Modal.Body>
-                      </Modal>
-
-                      <div className="pageTitle">
-                        <div className="headerBox">
-                          <h2 className="pageModuleMainTitle">Negotiation Opportunity</h2>
+                                    return (
+                                      <div style={{border: '1px solid #e5e8ea'}}>
+                                        <div style={{float: "right"}}>
+                                          <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight
+                                                          style={{
+                                                            backgroundColor: "transparent",
+                                                            borderColor: "transparent",
+                                                            color: "#00539f"
+                                                          }} id="dropButtonId">
+                                            <MenuItem onClick={() => {
+                                              saveImage(document.getElementById('supplierbotchart' + '_svg'), "bottomSuppliers_barChart")
+                                            }
+                                            }>Save As JPEG</MenuItem>
+                                            <MenuItem onClick={() => {
+                                              saveDataAsCSV(this.props.supplier.topBotData.bottom_chart, "bottomSuppliers_barChart.csv")
+                                            }
+                                            }>Download CSV</MenuItem>
+                                          </DropdownButton>
+                                        </div>
+                                        <SampleBarChart ref="supplierbotchart"
+                                                        data={[this.props.supplier.topBotData.bottom_chart]}
+                                                        id="supplierbotchart"/>
+                                      </div>
+                                    )
+                                  } else {
+                                    return (
+                                      <div className="row spinnerPositionBarChart"><Spinner /><h2>Please Wait a
+                                        Moment....!</h2></div>
+                                    )
+                                  }
+                                })()}
+                                {/*<SampleBarChart/>*/}
+                              </div>
+                            </panel>
+                          </div>
                         </div>
 
-                      </div>
-                      <div className="row" style={{marginLeft: "0px", marginRight: "0px"}}>
-                        <div className="mainBox">
+                        <Modal show={this.state.suppNegotiationbar} bsSize="lg"
+                               aria-labelledby="contained-modal-title-lg"
+                        >
+                          <Modal.Header>
+
+                            <Modal.Title id="contained-modal-title-sm"
+                                         style={{textAlign: 'center', fontSize: '14px'}}><span
+                              style={{textAlign: 'center', fontSize: '14px'}}><b>Negotiation Opportunity</b><span
+                              style={{textAlign: 'right', float: 'right'}}
+                              onClick={() => this.setState({suppNegotiationbar: false})}><b>X</b></span></span>
+                              <div style={{textAlign: 'center'}}>
+                                <div style={{textAlign: 'right'}}>
+                                </div>
+                              </div>
+                            </Modal.Title>
+
+                          </Modal.Header>
+                          <Modal.Body style={{fontSize: '14px'}}>
+                            * Both the axes are represented by percentiles.
+                            The supplier negotiation clockface is helps you decide the negotiation strategy to be
+                            employed when meeting suppliers. This strategy is decided based on the product’s importance
+                            to the customer and the profit per store that it brings in. A product with low customer
+                            priority score and low profits per store could be delisted. The size of the bubble
+                            represents the rate of sale of the product (Volume/No. of stores that the product sold in).
+                            A plausible use of this dimension is that a product could move from the ‘Opportunity’ area
+                            to the ‘High CPS/High Profit’ sector if its rate of sale is increased.
+                          </Modal.Body>
+                        </Modal>
+
+                        <div className="pageTitle">
+                          <div className="headerBox">
+                            <h2 className="pageModuleMainTitle">Negotiation Opportunity</h2>
+                          </div>
+
+                        </div>
+                        <Modal show={this.state.bubbleChartModal} bsSize="large"
+                               aria-labelledby="contained-modal-title-sm"
+                               dialogClassName={'xlModal'}
+                               onHide={() => {
+                                 this.setState({bubbleChartModal: false})
+                               }}>
+                          <Modal.Header closeButton>
+                            <Modal.Title id="contained-modal-title-sm text-center" className="bodySubTitle">Please enter
+                              necessary details</Modal.Title>
+                          </Modal.Header>
+                          <Modal.Body>
+                            <div className="row" style={{marginLeft: "0px", marginRight: "0px"}}>
+                              <div className="mainBox">
                           <span className="glyphicon glyphicon-info-sign pull-right"
                                 style={{marginRight: '10px', fontSize: '15px', marginTop: '10px'}}
                                 onClick={() => {
                                   this.setState({suppNegotiationbar: true});
-                          }}></span>
-                          <Nav bsStyle="tabs" className="tabsNavPanelList1" activeKey={this.state.activeKey4}
-                               onSelect={this.handleSelect} >
-                            <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
-                              this.setState({activeKey4: "1"});
-                              this.props.bubbleChartSpinnerCheckSuccess(0);
-                              this.props.tableChartSpinnerCheckSuccess(0);
-                              dataStoreUrlParams = "store_type_nego=Main Estate";
-                              this.props.onSaveStoreParam(dataStoreUrlParams);
-                              this.props.onFetchGraph();
-                              this.props.onGenerateTable();
-                            }}><span className="tab_label">Main Estate</span></NavItem>
-                            <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
-                              this.setState({activeKey4: "2"});
-                              this.props.bubbleChartSpinnerCheckSuccess(0);
-                              this.props.tableChartSpinnerCheckSuccess(0);
-                              dataStoreUrlParams = "store_type_nego=Express";
-                              this.props.onSaveStoreParam(dataStoreUrlParams);
-                              this.props.onFetchGraph();
-                              this.props.onGenerateTable();
-                              // browserHistory.push(this.props.location.pathname + "?store_type=Express")
-                            }}><span className="tab_label">Express</span></NavItem>
-
-
-                          </Nav>
-                        </div>
-
-                        {/*------Performance quartile---- */}
-
-                        {/*Header row*/}
-                        <div className="col-md-12 col-sm-12 pageModuleSubTitle" style={{marginTop:'20px'}}>
-                          <div style={{textAlign:"center"}}> Please select a negotiation strategy below to filter 'Negotiation Opportunity' chart and table
-                          </div>
-                        </div>
-
-                        {/*Check box row*/}
-                        <div className="col-sm-12 col-md-12" style={{marginTop:'30px'}}>
-                          <div className="col-md-9 col-sm-9">
-                          {/*Low CPS/Low Profit*/}
-                          <div className="col-xs-2 center-this input">
-                            <label style={{fontSize:"15px",fontFamily:'tesco',color:'#c74a52',width:'100%'}}>
-                              <input type="checkbox"
-                                     id="PQ1"
-                                     style={{marginRight: '5%'}}
-                                     onChange={() => {
-                                       let pqCurrentSelection="Low CPS/Low Profit";
-                                       let deselect=0;
-                                       let pqApendUrl='';
-                                       let newSelections='';
-
-                                       if (dataPerformanceUrlParams !== '') {
-                                         dataPerformanceUrlParams = "start&" + dataPerformanceUrlParams;
-                                         let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
-
-                                         for (let i = 1; i < pqSelections.length; i++) {
-
-                                           if (pqSelections[i] !== pqCurrentSelection) {
-                                             newSelections = newSelections + "&performance_quartile=" + pqSelections[i];
-                                           } else {
-                                             deselect = 1;
-                                           }
-                                         }
-
-                                         if (deselect == 0) {
-                                           newSelections = newSelections + "&performance_quartile=" + pqCurrentSelection;
-                                         }
-
-                                         let pq_ajax_param = newSelections.replace('&', '');
-                                         this.props.onSavePFilterParam(pq_ajax_param);
-                                       }
-                                       else {
-
-                                         let pq_ajax_param = "performance_quartile=" + pqCurrentSelection;
-                                         this.props.onSavePFilterParam(pq_ajax_param);
-                                       }
-
-
-                                       this.props.bubbleChartSpinnerCheckSuccess(0);
-                                       this.props.tableChartSpinnerCheckSuccess(0);
-                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/
-                                       }
-                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
-                                       }
-
-                                       this.props.onFetchGraph();
-                                       this.props.onGenerateTable();
-
-
-                                     }}
-                              />
-                              <span className="tooltip">Delist Products</span>
-                              Low CPS/Low Profit
-                            </label>
-                          </div>
-
-                          {/*Low CPS/High Profit*/}
-                          <div className="col-xs-2 center-this input">
-                            <label style={{fontSize:"15px",fontFamily:'tesco',color:'#6e6767',width:'100%'}}>
-                              <input type="checkbox"
-                                     id="PQ2"
-                                     style={{marginRight: '5%'}}
-                                     onChange={() => {
-                                       let pqCurrentSelection = "Low CPS/High Profit";
-                                       let deselect = 0;
-                                       let pqApendUrl = '';
-                                       let newSelections = '';
-
-                                       if (dataPerformanceUrlParams !== '') {
-                                         dataPerformanceUrlParams = "start&" + dataPerformanceUrlParams;
-                                         let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
-
-                                         for (let i = 1; i < pqSelections.length; i++) {
-
-                                           if (pqSelections[i] !== pqCurrentSelection) {
-                                             newSelections = newSelections + "&performance_quartile=" + pqSelections[i];
-                                           } else {
-                                             deselect = 1;
-                                           }
-                                         }
-
-                                         if (deselect == 0) {
-                                           newSelections = newSelections + "&performance_quartile=" + pqCurrentSelection;
-                                         }
-
-                                         let pq_ajax_param = newSelections.replace('&', '');
-                                         this.props.onSavePFilterParam(pq_ajax_param);
-                                       }
-                                       else {
-
-                                         let pq_ajax_param = "performance_quartile=" + pqCurrentSelection;
-                                         this.props.onSavePFilterParam(pq_ajax_param);
-                                       }
-
-
-                                       this.props.bubbleChartSpinnerCheckSuccess(0);
-                                       this.props.tableChartSpinnerCheckSuccess(0);
-                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/
-                                       }
-                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
-                                       }
-
-                                       this.props.onFetchGraph();
-                                       this.props.onGenerateTable();
-
-
-
-                                     }}
-                              />
-                              <span className="tooltip">Hard Bargaining’ for stronger profits – Low importance to customers</span>
-                              Low CPS/High Profit
-                            </label>
-
-                          </div>
-
-                          {/*Med CPS/Med Profit*/}
-                          <div className="col-xs-2 center-this input">
-                            <label style={{fontSize:"15px",fontFamily:'tesco',color:'#ffa626',width:'100%'}}>
-                              <input type="checkbox"
-                                     id="PQ3"
-                                     style={{marginRight: '5%'}}
-                                     onChange={() => {
-                                       let pqCurrentSelection = "Med CPS/Med Profit";
-                                       let deselect = 0;
-                                       let pqApendUrl = '';
-                                       let newSelections = '';
-
-                                       if (dataPerformanceUrlParams !== '') {
-                                         dataPerformanceUrlParams = "start&" + dataPerformanceUrlParams;
-                                         let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
-
-                                         for (let i = 1; i < pqSelections.length; i++) {
-
-                                           if (pqSelections[i] !== pqCurrentSelection) {
-                                             newSelections = newSelections + "&performance_quartile=" + pqSelections[i];
-                                           } else {
-                                             deselect = 1;
-                                           }
-                                         }
-
-                                         if (deselect == 0) {
-                                           newSelections = newSelections + "&performance_quartile=" + pqCurrentSelection;
-                                         }
-
-                                         let pq_ajax_param = newSelections.replace('&', '');
-                                         this.props.onSavePFilterParam(pq_ajax_param);
-                                       }
-                                       else {
-
-                                         let pq_ajax_param = "performance_quartile=" + pqCurrentSelection;
-                                         this.props.onSavePFilterParam(pq_ajax_param);
-                                       }
-
-
-                                       this.props.bubbleChartSpinnerCheckSuccess(0);
-                                       this.props.tableChartSpinnerCheckSuccess(0);
-                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/
-                                       }
-                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
-                                       }
-
-                                       this.props.onFetchGraph();
-                                       this.props.onGenerateTable();
-
-
-
-                                     }}
-                              />
-                              <span className="tooltip">Area of opportunity. Concession trading – Subs/Ranging/Price. Reduce range to drive</span>
-                              Med CPS/Med Profit
-                            </label>
-
-                          </div>
-
-                          {/*High CPS/Low Profit*/}
-                          <div className="col-xs-2 center-this input">
-                            <label style={{fontSize:"15px",fontFamily:'tesco',color:'#69b24a',width:'100%'}}>
-                              <input type="checkbox"
-                                     id="PQ4"
-                                     style={{marginRight:'5%'}}
-                                     onChange={() => {
-                                       let pqCurrentSelection="High CPS/Low Profit";
-                                       let deselect=0;
-                                       let pqApendUrl='';
-                                       let newSelections='';
-
-                                       if(dataPerformanceUrlParams !==''){
-                                         dataPerformanceUrlParams="start&"+dataPerformanceUrlParams;
-                                         let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
-
-                                         for(let i=1;i<pqSelections.length;i++){
-
-                                           if(pqSelections[i]!==pqCurrentSelection){
-                                             newSelections=newSelections+"&performance_quartile="+pqSelections[i];
-                                           }else{
-                                             deselect=1;
-                                           }
-                                         }
-
-                                         if(deselect==0){
-                                           newSelections=newSelections+"&performance_quartile="+pqCurrentSelection;
-                                         }
-
-                                         let pq_ajax_param = newSelections.replace('&', '');
-                                         this.props.onSavePFilterParam(pq_ajax_param);
-                                       }
-                                       else {
-
-                                         let pq_ajax_param = "performance_quartile=" + pqCurrentSelection;
-                                         this.props.onSavePFilterParam(pq_ajax_param);
-                                       }
-
-
-                                       this.props.bubbleChartSpinnerCheckSuccess(0);
-                                       this.props.tableChartSpinnerCheckSuccess(0);
-                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/
-                                       }
-                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
-                                       }
-
-                                       this.props.onFetchGraph();
-                                       this.props.onGenerateTable();
-
-
-                                     }}
-                              />
-                              <span
-                                className="tooltip">Win-Win relationship with supplier to share further profit gains</span>
-                              High CPS/Low Profit
-                            </label>
-
-
-                          </div>
-
-                          {/*High CPS/High Profit*/}
-                          <div className="col-xs-2 center-this input">
-                            <label style={{fontSize:"15px",fontFamily:'tesco',color:'#2B7294',width:'100%'}}>
-                              <input type="checkbox"
-                                     id="PQ5"
-                                     style={{marginRight: '5%'}}
-                                     onChange={() => {
-                                       let pqCurrentSelection = "High CPS/High Profit";
-                                       let deselect = 0;
-                                       let pqApendUrl = '';
-                                       let newSelections = '';
-
-                                       if (dataPerformanceUrlParams !== '') {
-                                         dataPerformanceUrlParams = "start&" + dataPerformanceUrlParams;
-                                         let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
-
-                                         for (let i = 1; i < pqSelections.length; i++) {
-
-                                           if (pqSelections[i] !== pqCurrentSelection) {
-                                             newSelections = newSelections + "&performance_quartile=" + pqSelections[i];
-                                           } else {
-                                             deselect = 1;
-                                           }
-                                         }
-
-                                         if (deselect == 0) {
-                                           newSelections = newSelections + "&performance_quartile=" + pqCurrentSelection;
-                                         }
-
-                                         let pq_ajax_param = newSelections.replace('&', '');
-                                         this.props.onSavePFilterParam(pq_ajax_param);
-                                       }
-                                       else {
-
-                                         let pq_ajax_param = "performance_quartile=" + pqCurrentSelection;
-                                         this.props.onSavePFilterParam(pq_ajax_param);
-                                       }
-
-
-                                       this.props.bubbleChartSpinnerCheckSuccess(0);
-                                       this.props.tableChartSpinnerCheckSuccess(0);
-                                       {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/
-                                       }
-                                       {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
-                                       }
-
-                                       this.props.onFetchGraph();
-                                       this.props.onGenerateTable();
-
-
-
-                                     }}
-                              />
-                              <span className="tooltip">Work collaboratively to jointly solve low profitability</span>
-                              High CPS/High Profit
-                            </label>
-
-                          </div>
-                          </div>
-                          <div className="col-md-3 col-sm-3 center-this">
-                            <Button buttonType={'secondary'}
-                                    onClick={() => {
-                                      this.props.onSavePFilterParam('');
-                                      this.props.onFetchGraph();
-                                      this.props.onGenerateTable();
-
-                                      document.getElementById("PQ1").checked = false;
-                                      document.getElementById("PQ2").checked = false;
-                                      document.getElementById("PQ3").checked = false;
-                                      document.getElementById("PQ4").checked = false;
-                                      document.getElementById("PQ5").checked = false;
-
-                                    }}
-                                    style={{marginTop: '-4%', marginLeft: '-7%'}}>Reset Selections</Button>
-                          </div>
-
-
-                        </div>
-
-
-                        {/*-----Bubble chart-----*/}
-
-                        <div>
-                          <div className="mainBox">
-                          {(() => {
-                            if (this.props.supplier.bubbleChartSpinnerCheck != 1) {
-                              return (
-                                <div className="col-md-12 col-sm-12 col-xs-12 spinnerPositionWaterfall"><Spinner /><h2>Please Wait
-                                  a
-                                  Moment....!</h2></div>
-                              )
-                            } else {
-                              return (
-
-                                <div className="col-md-12 col-sm-12 col-xs-12 " style={{marginTop: '2%'}}>
-                                  <div style={{float:"right"}}>
-                                    <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
-                                      <MenuItem onClick={() => {
-                                        saveImage(document.getElementById("bubbleChart2"+"_svg"),"bubble_chart")
-                                      }
-                                      }>Save As JPEG</MenuItem>
-                                      <MenuItem onClick={() => {
-                                        saveDataAsCSV(this.props.supplier.chartData,"bubble_chart.csv")
-                                      }
-                                      }>Download CSV</MenuItem>
-                                    </DropdownButton>
+                                }}></span>
+                                <Nav bsStyle="tabs" className="tabsNavPanelList1" activeKey={this.state.activeKey4}
+                                     onSelect={this.handleSelect}>
+                                  <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
+                                    this.setState({activeKey4: "1"});
+                                    this.props.bubbleChartSpinnerCheckSuccess(0);
+                                    this.props.tableChartSpinnerCheckSuccess(0);
+                                    dataStoreUrlParams = "store_type_nego=Main Estate";
+                                    this.props.onSaveStoreParam(dataStoreUrlParams);
+                                    this.props.onFetchGraph();
+                                    this.props.onGenerateTable();
+                                  }}><span className="tab_label">Main Estate</span></NavItem>
+                                  <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
+                                    this.setState({activeKey4: "2"});
+                                    this.props.bubbleChartSpinnerCheckSuccess(0);
+                                    this.props.tableChartSpinnerCheckSuccess(0);
+                                    dataStoreUrlParams = "store_type_nego=Express";
+                                    this.props.onSaveStoreParam(dataStoreUrlParams);
+                                    this.props.onFetchGraph();
+                                    this.props.onGenerateTable();
+                                    // browserHistory.push(this.props.location.pathname + "?store_type=Express")
+                                  }}><span className="tab_label">Express</span></NavItem>
+
+
+                                </Nav>
+                              </div>
+
+                              {/*------Performance quartile---- */}
+
+                              {/*Header row*/}
+                              <div className="col-md-12 col-sm-12 pageModuleSubTitle" style={{marginTop: '20px'}}>
+                                <div style={{textAlign: "center"}}> Please select a negotiation strategy below to filter
+                                  'Negotiation Opportunity' chart and table
+                                </div>
+                              </div>
+
+                              {/*Check box row*/}
+                              <div className="col-sm-12 col-md-12" style={{marginTop: '30px'}}>
+                                <div className="col-md-9 col-sm-9">
+                                  {/*Low CPS/Low Profit*/}
+                                  <div className="col-xs-2 center-this input">
+                                    <label
+                                      style={{fontSize: "15px", fontFamily: 'tesco', color: '#c74a52', width: '100%'}}>
+                                      <input type="checkbox"
+                                             id="PQ1"
+                                             style={{marginRight: '5%'}}
+                                             onChange={() => {
+                                               let pqCurrentSelection = "Low CPS/Low Profit";
+                                               let deselect = 0;
+                                               let pqApendUrl = '';
+                                               let newSelections = '';
+
+                                               if (dataPerformanceUrlParams !== '') {
+                                                 dataPerformanceUrlParams = "start&" + dataPerformanceUrlParams;
+                                                 let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
+
+                                                 for (let i = 1; i < pqSelections.length; i++) {
+
+                                                   if (pqSelections[i] !== pqCurrentSelection) {
+                                                     newSelections = newSelections + "&performance_quartile=" + pqSelections[i];
+                                                   } else {
+                                                     deselect = 1;
+                                                   }
+                                                 }
+
+                                                 if (deselect == 0) {
+                                                   newSelections = newSelections + "&performance_quartile=" + pqCurrentSelection;
+                                                 }
+
+                                                 let pq_ajax_param = newSelections.replace('&', '');
+                                                 this.props.onSavePFilterParam(pq_ajax_param);
+                                               }
+                                               else {
+
+                                                 let pq_ajax_param = "performance_quartile=" + pqCurrentSelection;
+                                                 this.props.onSavePFilterParam(pq_ajax_param);
+                                               }
+
+
+                                               this.props.bubbleChartSpinnerCheckSuccess(0);
+                                               this.props.tableChartSpinnerCheckSuccess(0);
+                                               {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/
+                                               }
+                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
+                                               }
+
+                                               this.props.onFetchGraph();
+                                               this.props.onGenerateTable();
+
+
+                                             }}
+                                      />
+                                      <span className="tooltip">Delist Products</span>
+                                      Low CPS/Low Profit
+                                    </label>
                                   </div>
-                                  <BubbleChart2 ref="bubbleChartComp" data={this.props.supplier.chartData}
 
-                                    //Passing array which updates table
-                                                selectedBubbleTable={this.props.supplier.prodArrayTable}
-                                    //Passing array which updates opacity
-                                                selectedBubbleOpacity={this.props.supplier.prodArrayOpacity}
+                                  {/*Low CPS/High Profit*/}
+                                  <div className="col-xs-2 center-this input">
+                                    <label
+                                      style={{fontSize: "15px", fontFamily: 'tesco', color: '#6e6767', width: '100%'}}>
+                                      <input type="checkbox"
+                                             id="PQ2"
+                                             style={{marginRight: '5%'}}
+                                             onChange={() => {
+                                               let pqCurrentSelection = "Low CPS/High Profit";
+                                               let deselect = 0;
+                                               let pqApendUrl = '';
+                                               let newSelections = '';
 
-                                    //Ajax calls to save prodArrayTable in state
-                                                onSaveBubbleParam={this.props.onSaveBubbleParam}
+                                               if (dataPerformanceUrlParams !== '') {
+                                                 dataPerformanceUrlParams = "start&" + dataPerformanceUrlParams;
+                                                 let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
 
-                                    //Ajax calls to save prodArrayOpacity in state
-                                                onSaveBubbleParam2={this.props.onSaveBubbleParam2}
+                                                 for (let i = 1; i < pqSelections.length; i++) {
 
-                                    //To update graph and table
-                                                onFetchGraph={this.props.onFetchGraph}
-                                                onGenerateTable={this.props.onGenerateTable}
-                                  />
-                                  <i style={{fontSize: '12px'}}>*Size of the bubble corresponds to Rate of Sales</i>
+                                                   if (pqSelections[i] !== pqCurrentSelection) {
+                                                     newSelections = newSelections + "&performance_quartile=" + pqSelections[i];
+                                                   } else {
+                                                     deselect = 1;
+                                                   }
+                                                 }
 
-                                  {/*<div className="resetButton" onClick={() => {*/}
-                                    {/*dataPerformanceUrlParams = '';*/}
-                                    {/*this.props.onSavePageParam("page=1");*/}
-                                    {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
-                                    {/*this.props.onFetchGraph();*/}
-                                    {/*this.props.onGenerateTable();*/}
-                                    {/*this.props.onRadioChecked('6');*/}
-                                  {/*}}><p>View Selections</p></div>*/}
+                                                 if (deselect == 0) {
+                                                   newSelections = newSelections + "&performance_quartile=" + pqCurrentSelection;
+                                                 }
+
+                                                 let pq_ajax_param = newSelections.replace('&', '');
+                                                 this.props.onSavePFilterParam(pq_ajax_param);
+                                               }
+                                               else {
+
+                                                 let pq_ajax_param = "performance_quartile=" + pqCurrentSelection;
+                                                 this.props.onSavePFilterParam(pq_ajax_param);
+                                               }
+
+
+                                               this.props.bubbleChartSpinnerCheckSuccess(0);
+                                               this.props.tableChartSpinnerCheckSuccess(0);
+                                               {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/
+                                               }
+                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
+                                               }
+
+                                               this.props.onFetchGraph();
+                                               this.props.onGenerateTable();
+
+
+                                             }}
+                                      />
+                                      <span className="tooltip">Hard Bargaining’ for stronger profits – Low importance to customers</span>
+                                      Low CPS/High Profit
+                                    </label>
+
+                                  </div>
+
+                                  {/*Med CPS/Med Profit*/}
+                                  <div className="col-xs-2 center-this input">
+                                    <label
+                                      style={{fontSize: "15px", fontFamily: 'tesco', color: '#ffa626', width: '100%'}}>
+                                      <input type="checkbox"
+                                             id="PQ3"
+                                             style={{marginRight: '5%'}}
+                                             onChange={() => {
+                                               let pqCurrentSelection = "Med CPS/Med Profit";
+                                               let deselect = 0;
+                                               let pqApendUrl = '';
+                                               let newSelections = '';
+
+                                               if (dataPerformanceUrlParams !== '') {
+                                                 dataPerformanceUrlParams = "start&" + dataPerformanceUrlParams;
+                                                 let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
+
+                                                 for (let i = 1; i < pqSelections.length; i++) {
+
+                                                   if (pqSelections[i] !== pqCurrentSelection) {
+                                                     newSelections = newSelections + "&performance_quartile=" + pqSelections[i];
+                                                   } else {
+                                                     deselect = 1;
+                                                   }
+                                                 }
+
+                                                 if (deselect == 0) {
+                                                   newSelections = newSelections + "&performance_quartile=" + pqCurrentSelection;
+                                                 }
+
+                                                 let pq_ajax_param = newSelections.replace('&', '');
+                                                 this.props.onSavePFilterParam(pq_ajax_param);
+                                               }
+                                               else {
+
+                                                 let pq_ajax_param = "performance_quartile=" + pqCurrentSelection;
+                                                 this.props.onSavePFilterParam(pq_ajax_param);
+                                               }
+
+
+                                               this.props.bubbleChartSpinnerCheckSuccess(0);
+                                               this.props.tableChartSpinnerCheckSuccess(0);
+                                               {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/
+                                               }
+                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
+                                               }
+
+                                               this.props.onFetchGraph();
+                                               this.props.onGenerateTable();
+
+
+                                             }}
+                                      />
+                                      <span className="tooltip">Area of opportunity. Concession trading – Subs/Ranging/Price. Reduce range to drive</span>
+                                      Med CPS/Med Profit
+                                    </label>
+
+                                  </div>
+
+                                  {/*High CPS/Low Profit*/}
+                                  <div className="col-xs-2 center-this input">
+                                    <label
+                                      style={{fontSize: "15px", fontFamily: 'tesco', color: '#69b24a', width: '100%'}}>
+                                      <input type="checkbox"
+                                             id="PQ4"
+                                             style={{marginRight: '5%'}}
+                                             onChange={() => {
+                                               let pqCurrentSelection = "High CPS/Low Profit";
+                                               let deselect = 0;
+                                               let pqApendUrl = '';
+                                               let newSelections = '';
+
+                                               if (dataPerformanceUrlParams !== '') {
+                                                 dataPerformanceUrlParams = "start&" + dataPerformanceUrlParams;
+                                                 let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
+
+                                                 for (let i = 1; i < pqSelections.length; i++) {
+
+                                                   if (pqSelections[i] !== pqCurrentSelection) {
+                                                     newSelections = newSelections + "&performance_quartile=" + pqSelections[i];
+                                                   } else {
+                                                     deselect = 1;
+                                                   }
+                                                 }
+
+                                                 if (deselect == 0) {
+                                                   newSelections = newSelections + "&performance_quartile=" + pqCurrentSelection;
+                                                 }
+
+                                                 let pq_ajax_param = newSelections.replace('&', '');
+                                                 this.props.onSavePFilterParam(pq_ajax_param);
+                                               }
+                                               else {
+
+                                                 let pq_ajax_param = "performance_quartile=" + pqCurrentSelection;
+                                                 this.props.onSavePFilterParam(pq_ajax_param);
+                                               }
+
+
+                                               this.props.bubbleChartSpinnerCheckSuccess(0);
+                                               this.props.tableChartSpinnerCheckSuccess(0);
+                                               {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/
+                                               }
+                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
+                                               }
+
+                                               this.props.onFetchGraph();
+                                               this.props.onGenerateTable();
+
+
+                                             }}
+                                      />
+                                      <span
+                                        className="tooltip">Win-Win relationship with supplier to share further profit gains</span>
+                                      High CPS/Low Profit
+                                    </label>
+
+
+                                  </div>
+
+                                  {/*High CPS/High Profit*/}
+                                  <div className="col-xs-2 center-this input">
+                                    <label
+                                      style={{fontSize: "15px", fontFamily: 'tesco', color: '#2B7294', width: '100%'}}>
+                                      <input type="checkbox"
+                                             id="PQ5"
+                                             style={{marginRight: '5%'}}
+                                             onChange={() => {
+                                               let pqCurrentSelection = "High CPS/High Profit";
+                                               let deselect = 0;
+                                               let pqApendUrl = '';
+                                               let newSelections = '';
+
+                                               if (dataPerformanceUrlParams !== '') {
+                                                 dataPerformanceUrlParams = "start&" + dataPerformanceUrlParams;
+                                                 let pqSelections = dataPerformanceUrlParams.split('&performance_quartile=');
+
+                                                 for (let i = 1; i < pqSelections.length; i++) {
+
+                                                   if (pqSelections[i] !== pqCurrentSelection) {
+                                                     newSelections = newSelections + "&performance_quartile=" + pqSelections[i];
+                                                   } else {
+                                                     deselect = 1;
+                                                   }
+                                                 }
+
+                                                 if (deselect == 0) {
+                                                   newSelections = newSelections + "&performance_quartile=" + pqCurrentSelection;
+                                                 }
+
+                                                 let pq_ajax_param = newSelections.replace('&', '');
+                                                 this.props.onSavePFilterParam(pq_ajax_param);
+                                               }
+                                               else {
+
+                                                 let pq_ajax_param = "performance_quartile=" + pqCurrentSelection;
+                                                 this.props.onSavePFilterParam(pq_ajax_param);
+                                               }
+
+
+                                               this.props.bubbleChartSpinnerCheckSuccess(0);
+                                               this.props.tableChartSpinnerCheckSuccess(0);
+                                               {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/
+                                               }
+                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/
+                                               }
+
+                                               this.props.onFetchGraph();
+                                               this.props.onGenerateTable();
+
+
+                                             }}
+                                      />
+                                      <span
+                                        className="tooltip">Work collaboratively to jointly solve low profitability</span>
+                                      High CPS/High Profit
+                                    </label>
+
+                                  </div>
+                                </div>
+                                <div className="col-md-3 col-sm-3 center-this">
+                                  <Button buttonType={'secondary'}
+                                          onClick={() => {
+                                            this.props.onSavePFilterParam('');
+                                            this.props.onFetchGraph();
+                                            this.props.onGenerateTable();
+
+                                            document.getElementById("PQ1").checked = false;
+                                            document.getElementById("PQ2").checked = false;
+                                            document.getElementById("PQ3").checked = false;
+                                            document.getElementById("PQ4").checked = false;
+                                            document.getElementById("PQ5").checked = false;
+
+                                          }}
+                                          style={{marginTop: '-4%', marginLeft: '-7%'}}>Reset Selections</Button>
+                                </div>
+
+
+                              </div>
+
+
+                              {/*-----Bubble chart-----*/}
+
+                              <div>
+                                <div className="mainBox">
+                                  {(() => {
+                                    if (this.props.supplier.bubbleChartSpinnerCheck != 1) {
+                                      return (
+                                        <div className="col-md-12 col-sm-12 col-xs-12 spinnerPositionWaterfall">
+                                          <Spinner /><h2>Please Wait
+                                          a
+                                          Moment....!</h2></div>
+                                      )
+                                    } else {
+                                      return (
+
+                                        <div className="col-md-12 col-sm-12 col-xs-12 " style={{marginTop: '2%'}}>
+                                          <div style={{float: "right"}}>
+                                            <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight
+                                                            style={{
+                                                              backgroundColor: "transparent",
+                                                              borderColor: "transparent",
+                                                              color: "#00539f"
+                                                            }} id="dropButtonId">
+                                              <MenuItem onClick={() => {
+                                                saveImage(document.getElementById("bubbleChart2" + "_svg"), "bubble_chart")
+                                              }
+                                              }>Save As JPEG</MenuItem>
+                                              <MenuItem onClick={() => {
+                                                saveDataAsCSV(this.props.supplier.chartData, "bubble_chart.csv")
+                                              }
+                                              }>Download CSV</MenuItem>
+                                            </DropdownButton>
+                                          </div>
+                                          <BubbleChart2 ref="bubbleChartComp" data={this.props.supplier.chartData}
+
+                                            //Passing array which updates table
+                                                        selectedBubbleTable={this.props.supplier.prodArrayTable}
+                                            //Passing array which updates opacity
+                                                        selectedBubbleOpacity={this.props.supplier.prodArrayOpacity}
+
+                                            //Ajax calls to save prodArrayTable in state
+                                                        onSaveBubbleParam={this.props.onSaveBubbleParam}
+
+                                            //Ajax calls to save prodArrayOpacity in state
+                                                        onSaveBubbleParam2={this.props.onSaveBubbleParam2}
+
+                                            //To update graph and table
+                                                        onFetchGraph={this.props.onFetchGraph}
+                                                        onGenerateTable={this.props.onGenerateTable}
+                                          />
+                                          <i style={{fontSize: '12px'}}>*Size of the bubble corresponds to Rate of
+                                            Sales</i>
+
+                                          {/*<div className="resetButton" onClick={() => {*/}
+                                          {/*dataPerformanceUrlParams = '';*/}
+                                          {/*this.props.onSavePageParam("page=1");*/}
+                                          {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                                          {/*this.props.onFetchGraph();*/}
+                                          {/*this.props.onGenerateTable();*/}
+                                          {/*this.props.onRadioChecked('6');*/}
+                                          {/*}}><p>View Selections</p></div>*/}
+
+                                        </div>
+                                      )
+                                    }
+                                  })()}
+
+                                  {/*<div className="col-xs-12 col-md-4" style={{marginTop: '2%', fontSize: '14px'}}>*/}
+
+                                  {/*<h4>*/}
+                                  {/*Please select a negotiation strategy below to filter*/}
+                                  {/*'Negotiation*/}
+                                  {/*Opportunity' chart and table*/}
+                                  {/*</h4>*/}
+
+                                  {/*<div className="panel">*/}
+                                  {/*<div className="lowProfit"*/}
+                                  {/*style={{height: '35px', backgroundColor: '#c74a52', opacity: '0.8'}}>*/}
+                                  {/*<RadioButton id={'1'}*/}
+                                  {/*checked={(() => {*/}
+                                  {/*if (this.props.supplier.radioChecked === '1') {*/}
+                                  {/*return true*/}
+                                  {/*}*/}
+                                  {/*else {*/}
+                                  {/*return false*/}
+                                  {/*}*/}
+                                  {/*})()}*/}
+                                  {/*label={'Low CPS/Low Profit'}*/}
+                                  {/*valid={true}*/}
+                                  {/*onChange={() => {*/}
+                                  {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
+                                  {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
+                                  {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/}
+                                  {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+
+                                  {/*this.props.onFetchGraph();*/}
+                                  {/*this.props.onGenerateTable();*/}
+                                  {/*this.props.onRadioChecked('1');*/}
+                                  {/*}}*/}
+                                  {/*name="x"*/}
+                                  {/*/>*/}
+                                  {/*</div>*/}
+                                  {/*<div className="panel-body" style={{marginTop: '2%'}}>*/}
+                                  {/*Delist Products*/}
+                                  {/*</div>*/}
+                                  {/*</div>*/}
+                                  {/*<div className="panel panel-default">*/}
+                                  {/*<div className="default"*/}
+                                  {/*style={{*/}
+                                  {/*height: '35px',*/}
+                                  {/*backgroundColor: '#6e6767',*/}
+                                  {/*opacity: '0.8',*/}
+                                  {/*fontColor: 'white'*/}
+                                  {/*}}>*/}
+                                  {/*<RadioButton id={'2'}*/}
+                                  {/*checked={(() => {*/}
+                                  {/*if (this.props.supplier.radioChecked == '2') {*/}
+                                  {/*return true*/}
+                                  {/*}*/}
+                                  {/*else {*/}
+                                  {/*return false*/}
+                                  {/*}*/}
+                                  {/*})()}*/}
+
+                                  {/*label={'Low CPS/High Profit'}*/}
+                                  {/*valid={true}*/}
+                                  {/*onChange={() => {*/}
+                                  {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
+                                  {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
+                                  {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/High Profit";*/}
+                                  {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                                  {/*this.props.onFetchGraph();*/}
+                                  {/*this.props.onGenerateTable();*/}
+                                  {/*this.props.onRadioChecked('2');*/}
+
+                                  {/*}}*/}
+                                  {/*name="x"*/}
+                                  {/*/>*/}
+                                  {/*</div>*/}
+                                  {/*<div className="panel-body" style={{height: '65px', marginTop: '3%'}}>*/}
+                                  {/*Hard*/}
+                                  {/*Bargaining’*/}
+                                  {/*for stronger*/}
+                                  {/*profits – Low importance to customers*/}
+                                  {/*</div>*/}
+                                  {/*</div>*/}
+
+
+                                  {/*<div className="panel panel-warning">*/}
+                                  {/*<div className="medProfit"*/}
+                                  {/*style={{*/}
+                                  {/*height: '35px',*/}
+                                  {/*backgroundColor: '#ffa626',*/}
+                                  {/*opacity: '0.8',*/}
+                                  {/*fontColor: 'white'*/}
+                                  {/*}}>*/}
+                                  {/*<RadioButton id={'3'}*/}
+                                  {/*label={'Med CPS/Med Profit'}*/}
+                                  {/*valid={true}*/}
+                                  {/*checked={(() => {*/}
+                                  {/*if (this.props.supplier.radioChecked == '3') {*/}
+                                  {/*return true*/}
+                                  {/*}*/}
+                                  {/*else {*/}
+                                  {/*return false*/}
+                                  {/*}*/}
+                                  {/*})()}*/}
+                                  {/*onChange={() => {*/}
+                                  {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
+                                  {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
+                                  {/*dataPerformanceUrlParams = "performance_quartile=Med CPS/Med Profit";*/}
+                                  {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                                  {/*this.props.onFetchGraph();*/}
+                                  {/*this.props.onGenerateTable();*/}
+                                  {/*this.props.onRadioChecked('3');*/}
+
+                                  {/*}}*/}
+                                  {/*name="x"*/}
+                                  {/*/>*/}
+                                  {/*</div>*/}
+                                  {/*<div className="panel-body" style={{height: '60px', marginTop: '3%'}}>Area of*/}
+                                  {/*opportunity. Concession*/}
+                                  {/*trading – Subs/Ranging/Price. Reduce range to drive*/}
+                                  {/*volume*/}
+                                  {/*</div>*/}
+                                  {/*</div>*/}
+
+                                  {/*<div className="panel panel-success">*/}
+                                  {/*<div className="highProfit"*/}
+                                  {/*style={{*/}
+                                  {/*height: '35px',*/}
+                                  {/*backgroundColor: '#69b24a',*/}
+                                  {/*opacity: '0.8',*/}
+                                  {/*fontColor: 'white'*/}
+                                  {/*}}>*/}
+                                  {/*<RadioButton id={'4'}*/}
+                                  {/*label={'High CPS/High Profit'}*/}
+                                  {/*valid={true}*/}
+                                  {/*checked={(() => {*/}
+                                  {/*if (this.props.supplier.radioChecked == '4') {*/}
+                                  {/*return true*/}
+                                  {/*}*/}
+                                  {/*else {*/}
+                                  {/*return false*/}
+                                  {/*}*/}
+                                  {/*})()}*/}
+                                  {/*onChange={() => {*/}
+                                  {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
+                                  {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
+                                  {/*dataPerformanceUrlParams = "performance_quartile=High CPS/High Profit"*/}
+                                  {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                                  {/*this.props.onFetchGraph();*/}
+                                  {/*this.props.onGenerateTable();*/}
+                                  {/*this.props.onRadioChecked('4');*/}
+
+                                  {/*}}*/}
+                                  {/*name="x"*/}
+                                  {/*/>*/}
+                                  {/*</div>*/}
+                                  {/*<div className="panel-body" style={{height: '50px', marginTop: '3%'}}>Build*/}
+                                  {/*Win-Win*/}
+                                  {/*relationship with*/}
+                                  {/*supplier to share further profit gains*/}
+                                  {/*</div>*/}
+                                  {/*</div>*/}
+                                  {/*<div className="panel">*/}
+                                  {/*<div className="highCps" style={{height: '35px', backgroundColor: '#99d9e5'}}>*/}
+                                  {/*<RadioButton id={'5'}*/}
+                                  {/*label={'High CPS/Low Profit'}*/}
+                                  {/*valid={true}*/}
+                                  {/*checked={(() => {*/}
+                                  {/*if (this.props.supplier.radioChecked == '5') {*/}
+                                  {/*return true*/}
+                                  {/*}*/}
+                                  {/*else {*/}
+                                  {/*return false*/}
+                                  {/*}*/}
+                                  {/*})()}*/}
+                                  {/*onChange={() => {*/}
+                                  {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
+                                  {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
+                                  {/*dataPerformanceUrlParams = "performance_quartile=High CPS/Low Profit"*/}
+                                  {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                                  {/*this.props.onFetchGraph();*/}
+                                  {/*this.props.onGenerateTable();*/}
+                                  {/*this.props.onRadioChecked('5');*/}
+
+                                  {/*}}*/}
+                                  {/*name="x"*/}
+                                  {/*/>*/}
+                                  {/*</div>*/}
+                                  {/*<div className="panel-body" style={{marginTop: '5%'}}>Work*/}
+                                  {/*collaboratively to jointly*/}
+                                  {/*solve low profitability*/}
+                                  {/*</div>*/}
+                                  {/*</div>*/}
+
+                                  {/*</div>*/}
+
+
+                                  {/*-----Bubble table-----*/}
+
+                                  <Panel>
+                                    <div>
+                                      {
+                                        (() => {
+
+                                          if (this.props.supplier.data && (this.props.supplier.tableChartSpinnerCheck == 1)) {
+
+
+                                            return (
+                                              <div>
+                                                <BootstrapTable
+                                                  data={this.props.supplier.data.table_data} options={options}
+                                                  striped={true}
+                                                  hover
+                                                  condensed
+                                                  pagination={ true }
+                                                  search={true}
+                                                  exportCSV={true}
+                                                >
+                                                  <TableHeaderColumn dataField="base_product_number" isKey={true}
+                                                                     dataAlign="center" dataSort={true} width="20%">Product
+                                                    ID</TableHeaderColumn>
+                                                  <TableHeaderColumn dataField="parent_supplier"
+                                                                     tdStyle={ {whiteSpace: 'normal'} } width="20%"
+                                                                     dataSort={true} dataAlign="center">Parent
+                                                    Supplier</TableHeaderColumn>
+                                                  <TableHeaderColumn dataField="sales_ty" dataFormat={formatSales}
+                                                                     dataSort={true}
+                                                                     dataAlign="center">Sales TY</TableHeaderColumn>
+                                                  <TableHeaderColumn dataField="volume_ty" dataFormat={formatVolume}
+                                                                     dataSort={true} dataAlign="center">Volume
+                                                    TY</TableHeaderColumn>
+                                                  <TableHeaderColumn dataField="cgm_ty" dataFormat={formatSales}
+                                                                     dataSort={true}
+                                                                     dataAlign="center">CGM TY</TableHeaderColumn>
+                                                  <TableHeaderColumn dataField="pps" dataSort={true}
+                                                                     dataAlign="center">PPS</TableHeaderColumn>
+                                                  <TableHeaderColumn dataField="cps" dataSort={true}
+                                                                     dataAlign="center">CPS</TableHeaderColumn>
+                                                  <TableHeaderColumn dataField="rate_of_sale" dataSort={true}
+                                                                     dataAlign="center">Rate
+                                                    of Sale</TableHeaderColumn>
+                                                </BootstrapTable>
+
+                                              </div>
+                                            );
+
+                                          }
+                                          else {
+                                            return (
+
+                                              <div className="text-center" colSpan="11"><Spinner /><h3>Please Wait a
+                                                Moment....!</h3></div>
+
+                                            );
+                                          }
+                                        })()
+                                      }
+                                    </div>
+                                  </Panel>
+
 
                                 </div>
-                              )
-                            }
-                          })()}
-
-                          {/*<div className="col-xs-12 col-md-4" style={{marginTop: '2%', fontSize: '14px'}}>*/}
-
-                          {/*<h4>*/}
-                          {/*Please select a negotiation strategy below to filter*/}
-                          {/*'Negotiation*/}
-                          {/*Opportunity' chart and table*/}
-                          {/*</h4>*/}
-
-                          {/*<div className="panel">*/}
-                          {/*<div className="lowProfit"*/}
-                          {/*style={{height: '35px', backgroundColor: '#c74a52', opacity: '0.8'}}>*/}
-                          {/*<RadioButton id={'1'}*/}
-                          {/*checked={(() => {*/}
-                          {/*if (this.props.supplier.radioChecked === '1') {*/}
-                          {/*return true*/}
-                          {/*}*/}
-                          {/*else {*/}
-                          {/*return false*/}
-                          {/*}*/}
-                          {/*})()}*/}
-                          {/*label={'Low CPS/Low Profit'}*/}
-                          {/*valid={true}*/}
-                          {/*onChange={() => {*/}
-                          {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
-                          {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
-                          {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/}
-                          {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
-
-                                               {/*this.props.onFetchGraph();*/}
-                                               {/*this.props.onGenerateTable();*/}
-                                               {/*this.props.onRadioChecked('1');*/}
-                                             {/*}}*/}
-                                             {/*name="x"*/}
-                                {/*/>*/}
-                              {/*</div>*/}
-                              {/*<div className="panel-body" style={{marginTop: '2%'}}>*/}
-                                {/*Delist Products*/}
-                              {/*</div>*/}
-                            {/*</div>*/}
-                            {/*<div className="panel panel-default">*/}
-                              {/*<div className="default"*/}
-                                   {/*style={{*/}
-                                     {/*height: '35px',*/}
-                                     {/*backgroundColor: '#6e6767',*/}
-                                     {/*opacity: '0.8',*/}
-                                     {/*fontColor: 'white'*/}
-                                   {/*}}>*/}
-                                {/*<RadioButton id={'2'}*/}
-                                             {/*checked={(() => {*/}
-                                               {/*if (this.props.supplier.radioChecked == '2') {*/}
-                                                 {/*return true*/}
-                                               {/*}*/}
-                                               {/*else {*/}
-                                                 {/*return false*/}
-                                               {/*}*/}
-                                             {/*})()}*/}
-
-                                             {/*label={'Low CPS/High Profit'}*/}
-                                             {/*valid={true}*/}
-                                             {/*onChange={() => {*/}
-                                               {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
-                                               {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
-                                               {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/High Profit";*/}
-                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
-                                               {/*this.props.onFetchGraph();*/}
-                                               {/*this.props.onGenerateTable();*/}
-                                               {/*this.props.onRadioChecked('2');*/}
-
-                                             {/*}}*/}
-                                             {/*name="x"*/}
-                                {/*/>*/}
-                              {/*</div>*/}
-                              {/*<div className="panel-body" style={{height: '65px', marginTop: '3%'}}>*/}
-                                {/*Hard*/}
-                                {/*Bargaining’*/}
-                                {/*for stronger*/}
-                                {/*profits – Low importance to customers*/}
-                              {/*</div>*/}
-                            {/*</div>*/}
-
-
-                            {/*<div className="panel panel-warning">*/}
-                              {/*<div className="medProfit"*/}
-                                   {/*style={{*/}
-                                     {/*height: '35px',*/}
-                                     {/*backgroundColor: '#ffa626',*/}
-                                     {/*opacity: '0.8',*/}
-                                     {/*fontColor: 'white'*/}
-                                   {/*}}>*/}
-                                {/*<RadioButton id={'3'}*/}
-                                             {/*label={'Med CPS/Med Profit'}*/}
-                                             {/*valid={true}*/}
-                                             {/*checked={(() => {*/}
-                                               {/*if (this.props.supplier.radioChecked == '3') {*/}
-                                                 {/*return true*/}
-                                               {/*}*/}
-                                               {/*else {*/}
-                                                 {/*return false*/}
-                                               {/*}*/}
-                                             {/*})()}*/}
-                                             {/*onChange={() => {*/}
-                                               {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
-                                               {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
-                                               {/*dataPerformanceUrlParams = "performance_quartile=Med CPS/Med Profit";*/}
-                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
-                                               {/*this.props.onFetchGraph();*/}
-                                               {/*this.props.onGenerateTable();*/}
-                                               {/*this.props.onRadioChecked('3');*/}
-
-                                             {/*}}*/}
-                                             {/*name="x"*/}
-                                {/*/>*/}
-                              {/*</div>*/}
-                              {/*<div className="panel-body" style={{height: '60px', marginTop: '3%'}}>Area of*/}
-                                {/*opportunity. Concession*/}
-                                {/*trading – Subs/Ranging/Price. Reduce range to drive*/}
-                                {/*volume*/}
-                              {/*</div>*/}
-                            {/*</div>*/}
-
-                            {/*<div className="panel panel-success">*/}
-                              {/*<div className="highProfit"*/}
-                                   {/*style={{*/}
-                                     {/*height: '35px',*/}
-                                     {/*backgroundColor: '#69b24a',*/}
-                                     {/*opacity: '0.8',*/}
-                                     {/*fontColor: 'white'*/}
-                                   {/*}}>*/}
-                                {/*<RadioButton id={'4'}*/}
-                                             {/*label={'High CPS/High Profit'}*/}
-                                             {/*valid={true}*/}
-                                             {/*checked={(() => {*/}
-                                               {/*if (this.props.supplier.radioChecked == '4') {*/}
-                                                 {/*return true*/}
-                                               {/*}*/}
-                                               {/*else {*/}
-                                                 {/*return false*/}
-                                               {/*}*/}
-                                             {/*})()}*/}
-                                             {/*onChange={() => {*/}
-                                               {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
-                                               {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
-                                               {/*dataPerformanceUrlParams = "performance_quartile=High CPS/High Profit"*/}
-                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
-                                               {/*this.props.onFetchGraph();*/}
-                                               {/*this.props.onGenerateTable();*/}
-                                               {/*this.props.onRadioChecked('4');*/}
-
-                                             {/*}}*/}
-                                             {/*name="x"*/}
-                                {/*/>*/}
-                              {/*</div>*/}
-                              {/*<div className="panel-body" style={{height: '50px', marginTop: '3%'}}>Build*/}
-                                {/*Win-Win*/}
-                                {/*relationship with*/}
-                                {/*supplier to share further profit gains*/}
-                              {/*</div>*/}
-                            {/*</div>*/}
-                            {/*<div className="panel">*/}
-                              {/*<div className="highCps" style={{height: '35px', backgroundColor: '#99d9e5'}}>*/}
-                                {/*<RadioButton id={'5'}*/}
-                                             {/*label={'High CPS/Low Profit'}*/}
-                                             {/*valid={true}*/}
-                                             {/*checked={(() => {*/}
-                                               {/*if (this.props.supplier.radioChecked == '5') {*/}
-                                                 {/*return true*/}
-                                               {/*}*/}
-                                               {/*else {*/}
-                                                 {/*return false*/}
-                                               {/*}*/}
-                                             {/*})()}*/}
-                                             {/*onChange={() => {*/}
-                                               {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
-                                               {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
-                                               {/*dataPerformanceUrlParams = "performance_quartile=High CPS/Low Profit"*/}
-                                               {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
-                                               {/*this.props.onFetchGraph();*/}
-                                               {/*this.props.onGenerateTable();*/}
-                                               {/*this.props.onRadioChecked('5');*/}
-
-                                             {/*}}*/}
-                                             {/*name="x"*/}
-                                {/*/>*/}
-                              {/*</div>*/}
-                              {/*<div className="panel-body" style={{marginTop: '5%'}}>Work*/}
-                                {/*collaboratively to jointly*/}
-                                {/*solve low profitability*/}
-                              {/*</div>*/}
-                            {/*</div>*/}
-
-                          {/*</div>*/}
-
-
-                        {/*-----Bubble table-----*/}
-
-                        <Panel>
-                          <div>
-                            {
-                              (() => {
-
-                                if (this.props.supplier.data && (this.props.supplier.tableChartSpinnerCheck == 1)) {
-
-
-                                  return (
-                                    <div>
-                                      <BootstrapTable
-                                        data={this.props.supplier.data.table_data} options={options}
-                                        striped={true}
-                                        hover
-                                        condensed
-                                        pagination={ true }
-                                        search={true}
-                                        exportCSV={true}
-                                      >
-                                        <TableHeaderColumn dataField="base_product_number" isKey={true}
-                                                           dataAlign="center" dataSort={true} width="20%">Product
-                                          ID</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="parent_supplier"
-                                                           tdStyle={ {whiteSpace: 'normal'} } width="20%"
-                                                           dataSort={true} dataAlign="center">Parent
-                                          Supplier</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="sales_ty" dataFormat={formatSales} dataSort={true}
-                                                           dataAlign="center">Sales TY</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="volume_ty" dataFormat={formatVolume}
-                                                           dataSort={true} dataAlign="center">Volume
-                                          TY</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="cgm_ty" dataFormat={formatSales} dataSort={true}
-                                                           dataAlign="center">CGM TY</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="pps" dataSort={true}
-                                                           dataAlign="center">PPS</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="cps" dataSort={true}
-                                                           dataAlign="center">CPS</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="rate_of_sale" dataSort={true} dataAlign="center">Rate
-                                          of Sale</TableHeaderColumn>
-                                      </BootstrapTable>
-
-                                    </div>
-                                  );
-
-                                }
-                                else {
-                                  return (
-
-                                    <div className="text-center" colSpan="11"><Spinner /><h3>Please Wait a Moment....!</h3></div>
-
-                                  );
-                                }
-                              })()
-                            }
-                          </div>
-                        </Panel>
-
-
-                      </div>
-                      </div>
+                              </div>
+                            </div>
+                          </Modal.Body>
+                        </Modal>
+                        <Button buttonType={'primary'} onClick={() => {
+                          this.setState({bubbleChartModal: true})
+                        }}>Bubble Chart</Button>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              </div>
 
 
-          )
+            )
           }
         })()}
 

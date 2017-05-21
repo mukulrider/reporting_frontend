@@ -78,8 +78,8 @@ let gettingUserDetails = () => {
 const userParams = gettingUserDetails();
 
 
-let host_url = "http://172.20.181.92:8000";
-// let host_url="http://172.20.246.13:8000";
+let host_url = "http://172.20.181.92:8002";
+// let host_url="http://172.20.246.13:8002";
 // All sagas to be loaded
 
 // FOR PROMO BOXES

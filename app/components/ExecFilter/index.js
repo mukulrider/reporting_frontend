@@ -20,7 +20,9 @@ import messages from './messages';
 class ExecFilter extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   updateUrl = (category) => {
     let queryString = '';
-    [...this.refs.selector.querySelectorAll('input')].map(obj => {
+    let localUrlParamsString = '';
+
+    [...this.refs.selector.querySelectorAll('input')].map((obj,index) => {
       if (obj.checked == true) {
         console.log("Objects", obj);
         console.log("Objects -- queryString", queryString);
@@ -34,6 +36,9 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
         //   // this.props.onGenerateBuyingController(category[category.length - 1])
         //   this.props.onGenerateCategoryDirector(category[category.length - 2])
         // }
+        if (['store_type','commercial_name','category_name','buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])){
+          localUrlParamsString = localUrlParamsString + `${category[0]}=${category[category.length - 1]}&`;
+        }
         queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
       }
     });
@@ -44,6 +49,8 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
     // this.props.onGenerateUrlParamsString(queryString);
     // this.props.onGenerateUrlParamsData();
     this.props.onGenerateUrlParamsString(queryString);
+    // alert(localUrlParamsString)
+    localStorage.setItem('urlParams', localUrlParamsString);
     this.props.generateSideFilter();
     // this.props.onGenerateUrlParamsData();
     // this.updateNewState(newUrl + '?' + queryString);

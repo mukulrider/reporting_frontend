@@ -101,8 +101,9 @@ let gettingUserDetails = () => {
   return (cookieParams);
 };
 const userParams = gettingUserDetails();
+// alert(userParams)
 
-let host_url = "http://127.0.0.1:8000";
+let host_url = "http://172.20.181.92:8002";
 
 // All sagas to be loaded
 
@@ -162,7 +163,7 @@ export function* generateOverviewKpiDataFetch() {
 
   }
 
-  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+  if (userParams) {
     urlAppends = urlAppends + '&' + userParams;
     console.log('urlAppends1', urlAppends);
   } else {
@@ -843,18 +844,19 @@ export function* generateBestInfoFetch() {
 
   }
 
-  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
-    urlAppends = urlAppends + '&' + selected;
+  if (userParams) {
+    urlAppends = urlAppends + '&' + userParams;
     console.log('urlAppends1', urlAppends);
   } else {
 
   }
 
-  if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {
+  if (urlAppends) {
     urlAppends = urlAppends.replace('&', '');
   }
   console.log('urlAppends6', urlAppends);
-
+  // alert(userParams)
+  // alert(urlAppends)
   const data = yield call(request, host_url + `/api/reporting/exec_best_info?` + urlAppends);
 
   yield put(BestInfoDataFetchSuccess(data));
@@ -1637,6 +1639,8 @@ export function* generateFilterFetch() {
       urlAppends = urlAppends.replace('&', '');
     }
     console.log('urlAppends6', urlAppends);
+
+    // localStorage.setItem('urlAppends', urlAppends);
     const data = yield call(request,host_url + '/api/reporting/exec_filter_data?' + urlAppends);
 
     yield put(FilterFetchSuccess(data));
@@ -1676,7 +1680,7 @@ export function* generateWeekFilterFetch() {
 
     console.log(host_url + '/api/reporting/week_exec_filter_data?' + weekurlparams);
 
-    // const data = yield call(request, `http://10.1.161.82:8000/ranging/npd_view/filter_data?`);
+    // const data = yield call(request, `http://10.1.161.82:8002/ranging/npd_view/filter_data?`);
 
     console.log("Filter week data", data);
     yield put(WeekFilterFetchSuccess(data));
