@@ -59,8 +59,8 @@ let gettingUserDetails = () =>{
 };
 const userParams = gettingUserDetails();
 
-const host_url = 'http://172.20.181.92:8002';
-// const host_url = 'http://10.1.244.154:8002';
+const host_url = 'http://172.20.181.92:8000';
+// const host_url = 'http://10.1.244.154:8000';
 // All sagas to be loaded
 
 // FOR COMPETITOR WATERFALL CHART
@@ -102,7 +102,7 @@ export function* generateCompetitorWaterfallDataFetch() {
 
   }
 
-  if (!(typeof(waterfallparam) == "undefined") && !(waterfallparam == "")) {
+  if (!( typeof(waterfallparam) == "undefined") && !(waterfallparam == "")) {
     urlAppends = urlAppends + '&' + waterfallparam;
     console.log('urlAppends3', urlAppends);
   } else {
@@ -471,8 +471,8 @@ export function* generateFilterFetch() {
       // }
     );
     console.log('sagas generateFilterFetch data2', data2);
-    // const data = yield call(request, `http://172.20.181.92:8090/wash/?format=json`);
-    // const data = yield call(request, `http://10.1.161.82:8002/ranging/npd_view/filter_data?`);
+    // const data = yield call(request, `http://localhost:8090/wash/?format=json`);
+    // const data = yield call(request, `http://10.1.161.82:8000/ranging/npd_view/filter_data?`);
     const filter_data = {filter_data: data, week_data: data2};
     // // //console.log(data);
     yield put(FilterFetchSuccess(filter_data));

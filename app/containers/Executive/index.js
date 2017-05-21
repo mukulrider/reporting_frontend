@@ -130,6 +130,7 @@ function columnClassNameFormat(fieldValue, row, rowIdx, colIdx) {
 }
 
 
+
 import MultilineThree from 'components/MultilineThree';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table.min.css';
@@ -201,7 +202,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
     // this.props.promotion.reducer1.sales;
   };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -915,36 +915,38 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                         })()}
 
 
-                                        <div className={(() => {
-                                          if (this.props.Executive.week_param == 'week_flag=Current Week') {
-                                            return (
-                                              "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
-                                            )
-                                          }
-                                          else {
-                                            return (
-                                              "col-md-12 col-xs-12 col-sm-12 col-lg-12 kpismall"
-                                            )
-                                          }
-                                        })()}>
-                                          <h4>
-                                              <span
-                                                className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.value.var_yoy)}></span>
-                                            {(this.props.Executive.overview_kpi_data.kpi.value.var_yoy) + '%'}
-                                          </h4>
-                                          <h5 className="kpiSubTitle"><b>YOY</b></h5>
-                                        </div>
-                                      </div>
-                                    </Panel>
+                                  <div className={(() =>{
+                                      if(this.props.Executive.week_param=='week_flag=Current Week')
+                                      {
+                                        return(
+                                          "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                        )
+                                      }
+                                      else{
+                                        return(
+                                          "col-md-12 col-xs-12 col-sm-12 col-lg-12 kpismall"
+                                        )
+                                      }
+                                    }
+
+                                  )()}>
+                                    <h4>
+                                      <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.value.var_yoy)}></span>
+                                        {(this.props.Executive.overview_kpi_data.kpi.value.var_yoy)+'%'}
+                                    </h4>
+                                    <h5 className="kpiSubTitle"><b>YOY_LFL</b></h5>
                                   </div>
-                                  {/* Box for volume */}
-                                  <div className="col-md-3 col-xs-3" style={{backgroundColor: "#fafafa"}}>
-                                    <Panel>
-                                      <h3 className="pageModuleSubTitle"> Volume</h3>
-                                      <h3 style={{padding: "0px", margin: "0px"}}>
-                                        {this.props.Executive.overview_kpi_data.kpi.volume.total}
-                                      </h3>
-                                      <div className="row">
+                              </div>
+                            </Panel>
+                          </div>
+                          {/* Box for volume */}
+                          <div className="col-md-3 col-xs-3" style={{backgroundColor: "#fafafa"}}>
+                            <Panel>
+                              <h3 className="pageModuleSubTitle"> Volume</h3>
+                              <h3 style={{padding:"0px",margin:"0px"}}>
+                                {this.props.Executive.overview_kpi_data.kpi.volume.total}
+                              </h3>
+                              <div className="row">
 
                                         {(() => {
                                           if (this.props.Executive.week_param == 'week_flag=Current Week') {
@@ -964,83 +966,87 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                         })()}
 
 
-                                        <div className={(() => {
-                                          if (this.props.Executive.week_param == 'week_flag=Current Week') {
-                                            return (
-                                              "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
-                                            )
-                                          }
-                                          else {
-                                            return (
-                                              "col-md-12 col-xs-12 col-sm-12 col-lg-12 kpismall"
-                                            )
-                                          }
-                                        })()}>
-                                          <h4>
-                                              <span
-                                                className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.volume.var_yoy)}></span>
-                                            {(this.props.Executive.overview_kpi_data.kpi.volume.var_yoy) + '%'}
-                                          </h4>
-                                          <h5 className="kpiSubTitle"><b>YOY</b></h5>
-                                        </div>
-                                      </div>
-                                    </Panel>
+                                  <div className={(() =>{
+                                      if(this.props.Executive.week_param=='week_flag=Current Week')
+                                      {
+                                        return(
+                                          "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                        )
+                                      }
+                                      else{
+                                        return(
+                                          "col-md-12 col-xs-12 col-sm-12 col-lg-12 kpismall"
+                                        )
+                                      }
+                                    }
+
+                                  )()}>
+                                    <h4>
+                                      <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.volume.var_yoy)}></span>
+                                      {(this.props.Executive.overview_kpi_data.kpi.volume.var_yoy)+'%'}
+                                    </h4>
+                                    <h5 className="kpiSubTitle"><b>YOY_LFL</b></h5>
                                   </div>
-                                  {/* Box for cogs */}
-                                  <div className="col-md-3 col-xs-3" style={{backgroundColor: "#fafafa"}}>
-                                    <Panel>
-                                      <h3 className="pageModuleSubTitle"> COGS </h3>
-                                      <h3 style={{padding: "0px", margin: "0px"}}>
-                                        {this.props.Executive.overview_kpi_data.kpi.cogs.total}
-                                      </h3>
-                                      <div className="row">
-                                        {(() => {
-                                          if (this.props.Executive.week_param == 'week_flag=Current Week') {
-                                            return (
-                                              <div className="col-md-6 col-xs-12 kpiSmall">
-                                                <h4>
-                                                      <span
-                                                        className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.cogs.var_wow)}></span>
-                                                  {(this.props.Executive.overview_kpi_data.kpi.cogs.var_wow) + '%'}
-                                                </h4>
-                                                <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                                              </div>
-                                            )
-                                          }
+                              </div>
+                            </Panel>
+                          </div>
+                          {/* Box for cogs */}
+                          <div className="col-md-3 col-xs-3" style={{backgroundColor: "#fafafa"}}>
+                            <Panel>
+                              <h3 className="pageModuleSubTitle"> COGS  </h3>
+                              <h3 style={{padding:"0px",margin:"0px"}}>
+                                {this.props.Executive.overview_kpi_data.kpi.cogs.total}
+                              </h3>
+                              <div className="row">
+                                {(() =>{
+                                    if(this.props.Executive.week_param=='week_flag=Current Week')
+                                    {
+                                      return(
+                                        <div className="col-md-6 col-xs-12 kpiSmall">
+                                          <h4>
+                                            <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.cogs.var_wow)}></span>
+                                            {(this.props.Executive.overview_kpi_data.kpi.cogs.var_wow)+'%'}
+                                          </h4>
+                                          <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                        </div>
+                                      )
+                                    }
 
 
                                         })()}
 
 
-                                        <div className={(() => {
-                                          if (this.props.Executive.week_param == 'week_flag=Current Week') {
-                                            return (
-                                              "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
-                                            )
-                                          }
-                                          else {
-                                            return (
-                                              "col-md-12 col-xs-12 col-sm-12 col-lg-12 kpismall"
-                                            )
-                                          }
-                                        })()}>
-                                          <h4>
-                                              <span
-                                                className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.cogs.var_yoy)}></span>
-                                            {(this.props.Executive.overview_kpi_data.kpi.cogs.var_yoy) + '%'}
-                                          </h4>
-                                          <h5 className="kpiSubTitle"><b>YOY</b></h5>
-                                        </div>
-                                      </div>
-                                    </Panel>
+                                  <div className={(() =>{
+                                      if(this.props.Executive.week_param=='week_flag=Current Week')
+                                      {
+                                        return(
+                                          "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                        )
+                                      }
+                                      else{
+                                        return(
+                                          "col-md-12 col-xs-12 col-sm-12 col-lg-12 kpismall"
+                                        )
+                                      }
+                                    }
+
+                                  )()}>
+                                    <h4>
+                                      <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.cogs.var_yoy)}></span>
+                                      {(this.props.Executive.overview_kpi_data.kpi.cogs.var_yoy)+'%'}
+                                    </h4>
+                                    <h5 className="kpiSubTitle"><b>YOY_LFL</b></h5>
                                   </div>
-                                  {/* Box for cgm */}
-                                  <div className="col-md-3" style={{backgroundColor: "#fafafa"}}>
-                                    <Panel>
-                                      <h3 className="pageModuleSubTitle"> Profit</h3>
-                                      <h3 style={{padding: "0px", margin: "0px"}}>
-                                        {this.props.Executive.overview_kpi_data.kpi.cgm.total}
-                                      </h3>
+                              </div>
+                            </Panel>
+                          </div>
+                          {/* Box for cgm */}
+                          <div className="col-md-3" style={{backgroundColor: "#fafafa"}}>
+                            <Panel>
+                              <h3 className="pageModuleSubTitle"> Profit</h3>
+                              <h3 style={{padding:"0px",margin:"0px"}}>
+                                {this.props.Executive.overview_kpi_data.kpi.cgm.total}
+                              </h3>
 
                                       <div className="row">
                                         {(() => {
@@ -1061,28 +1067,30 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                         })()}
 
 
-                                        <div className={(() => {
-                                          if (this.props.Executive.week_param == 'week_flag=Current Week') {
-                                            return (
-                                              "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
-                                            )
-                                          }
-                                          else {
-                                            return (
-                                              "col-md-12 col-xs-12 col-sm-12 col-lg-12 kpismall"
-                                            )
-                                          }
-                                        })()}>
-                                          <h4>
-                                              <span
-                                                className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.cgm.var_yoy)}></span>
-                                            {(this.props.Executive.overview_kpi_data.kpi.cgm.var_yoy) + '%'}
-                                          </h4>
-                                          <h5 className="kpiSubTitle"><b>YOY</b></h5>
-                                        </div>
-                                      </div>
-                                    </Panel>
+                                  <div className={(() =>{
+                                      if(this.props.Executive.week_param=='week_flag=Current Week')
+                                      {
+                                        return(
+                                          "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                        )
+                                      }
+                                      else{
+                                        return(
+                                          "col-md-12 col-xs-12 col-sm-12 col-lg-12 kpismall"
+                                        )
+                                      }
+                                    }
+
+                                  )()}>
+                                    <h4>
+                                      <span className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.cgm.var_yoy)}></span>
+                                      {(this.props.Executive.overview_kpi_data.kpi.cgm.var_yoy)+'%'}
+                                    </h4>
+                                    <h5 className="kpiSubTitle"><b>YOY_LFL</b></h5>
                                   </div>
+                              </div>
+                            </Panel>
+                          </div>
 
                                 </div>
                                 <div className="row mainBox"
@@ -1634,15 +1642,15 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                       {/* Image here*/}
                                       <img style={{height: 100, width: 100, marginLeft: '32%'}} src={imgSunshine}/>
 
-                                      <div className="row">
-                                        <h3 style={{textAlign: "center"}}>{
-                                          this.props.Executive.overview_drivers_external_data.sunshine.avg
+                          <div className="row">
+                          <h3 style={{ textAlign : "center"}}>{
+                            this.props.Executive.overview_drivers_external_data.sunshine.avg
 
-                                        }</h3>
-                                      </div>
+                          }</h3>
+                          </div>
 
-                                      <div className="row">
-                                        <div className="panel-body cardPanel">
+                          <div className="row">
+                            <div className="panel-body cardPanel">
 
                                           {(() => {
                                             if (this.props.Executive.week_param == 'week_flag=Current Week') {
@@ -2352,9 +2360,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                   {/*<h4>*/}
 
-                                  {/*{this.props.Executive.kpi_boxes_data.market.opportunity}*/}
-                                  {/*</h4>*/}
-                                  {/*<h5 className="kpiSubTitle"><b>Opportunity</b></h5>*/}
+                                                      {/*{this.props.Executive.kpi_boxes_data.market.opportunity}*/}
+                                                    {/*</h4>*/}
+                                                    {/*<h5 className="kpiSubTitle"><b>Opportunity</b></h5>*/}
 
                                   {/*</div>*/}
 

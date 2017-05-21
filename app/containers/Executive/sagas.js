@@ -103,7 +103,7 @@ let gettingUserDetails = () => {
 const userParams = gettingUserDetails();
 // alert(userParams)
 
-let host_url = "http://172.20.181.92:8002";
+let host_url = "http://172.20.181.92:8000";
 
 // All sagas to be loaded
 
