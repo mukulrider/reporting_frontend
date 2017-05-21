@@ -101,10 +101,9 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                     console.log("Cascading filter - week", this.props.week_data);
                     var panelHeader = (
 
-                      <div className="panel-heading">Tesco Week
+                      <div>Tesco Week
                         <span style={{color: "red"}}>*</span>&nbsp;<span className="accordion-toggle" style={{
                           float: 'right',
-                          marginRight: '-6%'
                         }}></span></div>
                     );
                     return (
@@ -116,13 +115,10 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                             overflowX: 'hidden', fontSize: '9px'
                           }}>
                             {(() => {
-                              console.log("Cascading filter ----------")
                               let finalCheckbox = [];
-                              console.log('Cascading filter - week inside panel div', this.props.week_data);
 
                               {
                                 this.props.week_data[0].items.map(obj2 => {
-                                  console.log("Cascading Filter Inside map", obj2)
                                   finalCheckbox.push(
                                     <Checkbox id={obj2.name}
                                               label={obj2.name}

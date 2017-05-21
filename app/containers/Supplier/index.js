@@ -69,6 +69,7 @@ function glyphiconFormatter(cell) {
   }
 
 }
+
 export class Supplier extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   componentDidMount = () => {
@@ -87,10 +88,10 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
     this.props.onKPIBoxASP();
     this.props.onSaveTopBottomKpi();
 
-    //For table
-    this.props.onGenerateTable();
-    //For Bubble Graph
-    this.props.onFetchGraph();
+    // //For table
+    // this.props.onGenerateTable();
+    // //For Bubble Graph
+    // this.props.onFetchGraph();
     // this.props.supplier.reducer1.sales;
   };
 
@@ -453,7 +454,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                     <div>
                       <div className="mainBox">
                         <span className="glyphicon glyphicon-info-sign pull-right"
-                              style={{marginRight: '10px', fontSize: '15px', marginTop: '10px'}}
+                              style={{marginRight: '10px', fontSize: '15px', marginTop: '10px',color:'#00539f'}}
                               onClick={() => {
                                 this.setState({suppKPIbar: true});
                               }}>
@@ -558,9 +559,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                           </Nav>
                         </div>
 
-                      </div>
-
-                      <div className="coverBox">
+                        <div className="coverBox">
                         <div className="headerBox">
                           <h2 className="pageModuleMainTitle">Performance by KPI</h2>
                         </div>
@@ -575,7 +574,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                               return (
                                 <div>
                                   <div className="row mainBox" style={{textAlign: 'center'}}>
-                                    <div className="col-md-6 col-sm-12" style={{backgroundColor: "#fafafa"}}>
+                                    <div className="col-md-4 col-sm-12" style={{backgroundColor: "#fafafa"}}>
                                       <Panel>
                                         <h3 className="pageModuleSubTitle"> {obj.title} </h3>
                                         <div className="row">
@@ -616,7 +615,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                                       </Panel>
                                     </div>
-                                    <div className="col-md-6 col-sm-12" style={{backgroundColor: "#fafafa"}}>
+                                    <div className="col-md-4 col-sm-12" style={{backgroundColor: "#fafafa"}}>
                                       <Panel>
                                         <h3 className="pageModuleSubTitle"> Contribution to Growth </h3>
                                         <div className="row">
@@ -664,84 +663,110 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                                       </Panel>
                                     </div>
-                                  </div>
-
-                                  <panel>
-                                    <div className="row mainBox">
-                                      <div className="col-md-6 col-sm-6" style={{backgroundColor: "#fafafa"}}>
-
-
+                                    <div className="col-md-4 col-sm-12" style={{backgroundColor: "#fafafa"}}>
+                                      <Panel>
+                                        <h3 className="pageModuleSubTitle"> Parent Supplier's value share in
+                                          Category </h3>
                                         {(() => {
-                                          if (obj.supp_imp_cat_sales != "---") {
+                                        if (obj.supp_imp_cat_sales != "---") {
 
-                                            return (
-                                              <div>
-                                                <div className="col-md-12 col-sm-6" style={{
-                                                  textAlign: 'center',
-                                                  borderTop: "1px solid #e5e8ea",
-                                                  backgroundColor: "white",
-                                                  margin: "0%",
-                                                  borderLeft: "1px solid #e5e8ea",
-                                                  borderRight: "1px solid #e5e8ea",
-                                                  borderBottom: "1px solid #e5e8ea"
-                                                }}>
-                                                  <h3 className="pageModuleSubTitle"> Parent Supplier's value share in
-                                                    Category</h3>
-                                                  <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
-                                                  <GaugeChart2 data={[obj.supp_imp_cat_sales]}
-                                                               id="gauge1"/>
-                                                  <div className="row" style={{marginTop: '-11%'}}>
-                                                    <div className="col-xs-12"
-                                                         style={{fontWeight: 'bold', fontSize: '14px'}}>
-                                                      {obj.supp_imp_cat_sales}%
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            )
-                                          }
-                                        })()}
+                                        return (
+                                      <div style={{fontSize: '20px',marginTop:'-10px'}}>{obj.supp_imp_cat_sales}%</div>
+                                                      )
+                                      }
+                                      })()}
 
-                                      </div>
-                                      <div className="col-md-6 col-sm-6" style={{backgroundColor: "#fafafa"}}>
-
-
+                                        <h3 className="pageModuleSubTitle"> Category's value share to Parent
+                                          Supplier </h3>
                                         {(() => {
                                           if (obj.cat_imp_supp_sales != "---") {
 
                                             return (
-                                              <div>
-                                                <div className="col-md-12 col-sm-12 col-xs-12" style={{
-                                                  textAlign: 'center',
-                                                  borderTop: "1px solid #e5e8ea",
-                                                  float: 'right',
-                                                  backgroundColor: "white",
-                                                  margin: "0%",
-                                                  borderLeft: "1px solid #e5e8ea",
-                                                  borderRight: "1px solid #e5e8ea",
-                                                  borderBottom: "1px solid #e5e8ea"
-                                                }}>
-                                                  <h3 className="pageModuleSubTitle"> Category's value share to Parent
-                                                    Supplier </h3>
-                                                  <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
-                                                  <GaugeChart2 data={[obj.cat_imp_supp_sales]}
-                                                               id="gauge2"/>
-                                                  <div className="row" style={{marginTop: '-11%'}}>
-                                                    <div className="col-xs-12"
-                                                         style={{fontWeight: 'bold', fontSize: '14px'}}>
-                                                      {obj.cat_imp_supp_sales}%
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              </div>
+                                              <div style={{fontSize: '20px',marginTop:'-10px',marginBottom:'10px'}}>{obj.cat_imp_supp_sales}%</div>
                                             )
                                           }
                                         })()}
-                                        {/*<SampleBarChart/>*/}
 
-                                      </div>
+                                      </Panel>
                                     </div>
-                                  </panel>
+                                  </div>
+
+                                  {/*<panel>*/}
+                                    {/*<div className="row mainBox">*/}
+                                      {/*<div className="col-md-6 col-sm-6" style={{backgroundColor: "#fafafa"}}>*/}
+
+
+                                        {/*{(() => {*/}
+                                          {/*if (obj.supp_imp_cat_sales != "---") {*/}
+
+                                            {/*return (*/}
+                                              {/*<div>*/}
+                                                {/*<div className="col-md-12 col-sm-6" style={{*/}
+                                                  {/*textAlign: 'center',*/}
+                                                  {/*borderTop: "1px solid #e5e8ea",*/}
+                                                  {/*backgroundColor: "white",*/}
+                                                  {/*margin: "0%",*/}
+                                                  {/*borderLeft: "1px solid #e5e8ea",*/}
+                                                  {/*borderRight: "1px solid #e5e8ea",*/}
+                                                  {/*borderBottom: "1px solid #e5e8ea"*/}
+                                                {/*}}>*/}
+                                                  {/*<h3 className="pageModuleSubTitle"> Parent Supplier's value share in*/}
+                                                    {/*Category</h3>*/}
+                                                  {/*<div style={{height: '15%', width: '100%'}}>&nbsp;</div>*/}
+                                                  {/*<GaugeChart2 data={[obj.supp_imp_cat_sales]}*/}
+                                                               {/*id="gauge1"/>*/}
+                                                  {/*<div className="row" style={{marginTop: '-11%'}}>*/}
+                                                    {/*<div className="col-xs-12"*/}
+                                                         {/*style={{fontWeight: 'bold', fontSize: '14px'}}>*/}
+                                                      {/*{obj.supp_imp_cat_sales}%*/}
+                                                    {/*</div>*/}
+                                                  {/*</div>*/}
+                                                {/*</div>*/}
+                                              {/*</div>*/}
+                                            {/*)*/}
+                                          {/*}*/}
+                                        {/*})()}*/}
+
+                                      {/*</div>*/}
+                                      {/*<div className="col-md-6 col-sm-6" style={{backgroundColor: "#fafafa"}}>*/}
+
+
+                                        {/*{(() => {*/}
+                                          {/*if (obj.cat_imp_supp_sales != "---") {*/}
+
+                                            {/*return (*/}
+                                              {/*<div>*/}
+                                                {/*<div className="col-md-12 col-sm-12 col-xs-12" style={{*/}
+                                                  {/*textAlign: 'center',*/}
+                                                  {/*borderTop: "1px solid #e5e8ea",*/}
+                                                  {/*float: 'right',*/}
+                                                  {/*backgroundColor: "white",*/}
+                                                  {/*margin: "0%",*/}
+                                                  {/*borderLeft: "1px solid #e5e8ea",*/}
+                                                  {/*borderRight: "1px solid #e5e8ea",*/}
+                                                  {/*borderBottom: "1px solid #e5e8ea"*/}
+                                                {/*}}>*/}
+                                                  {/*<h3 className="pageModuleSubTitle"> Category's value share to Parent*/}
+                                                    {/*Supplier </h3>*/}
+                                                  {/*<div style={{height: '15%', width: '100%'}}>&nbsp;</div>*/}
+                                                  {/*<GaugeChart2 data={[obj.cat_imp_supp_sales]}*/}
+                                                               {/*id="gauge2"/>*/}
+                                                  {/*<div className="row" style={{marginTop: '-11%'}}>*/}
+                                                    {/*<div className="col-xs-12"*/}
+                                                         {/*style={{fontWeight: 'bold', fontSize: '14px'}}>*/}
+                                                      {/*{obj.cat_imp_supp_sales}%*/}
+                                                    {/*</div>*/}
+                                                  {/*</div>*/}
+                                                {/*</div>*/}
+                                              {/*</div>*/}
+                                            {/*)*/}
+                                          {/*}*/}
+                                        {/*})()}*/}
+                                        {/*/!*<SampleBarChart/>*!/*/}
+
+                                      {/*</div>*/}
+                                    {/*</div>*/}
+                                  {/*</panel>*/}
                                 </div>
                               )
                             })
@@ -781,15 +806,15 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                         <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
 
 
-                        <div className="pageTitle" style={{marginBottom: "20px"}}>
+                        {/*<div className="pageTitle" style={{marginBottom: "20px"}}>*/}
                           <div className="headerBox">
                             <h2 className="pageModuleMainTitle">Assess performance by parent supplier</h2>
                           </div>
 
-                        </div>
+                        {/*</div>*/}
                         <div className="row mainBox">
                         <span className="glyphicon glyphicon-info-sign pull-right"
-                              style={{marginRight: '10px', fontSize: '15px', marginTop: '10px'}}
+                              style={{marginRight: '10px', fontSize: '15px', marginTop: '10px',color:'#00539f'}}
                               onClick={() => {
                                 this.setState({suppTopBottombar: true});
                               }}>
@@ -940,12 +965,13 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                           </Modal.Body>
                         </Modal>
 
-                        <div className="pageTitle">
+                        {/*<div className="pageTitle">*/}
                           <div className="headerBox">
                             <h2 className="pageModuleMainTitle">Negotiation Opportunity</h2>
                           </div>
 
-                        </div>
+                        {/*</div>*/}
+
                         <Modal show={this.state.bubbleChartModal} bsSize="large"
                                aria-labelledby="contained-modal-title-sm"
                                dialogClassName={'xlModal'}
@@ -953,14 +979,14 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                  this.setState({bubbleChartModal: false})
                                }}>
                           <Modal.Header closeButton>
-                            <Modal.Title id="contained-modal-title-sm text-center" className="bodySubTitle">Please enter
+                            <Modal.Title id="contained-modal-title-sm text-center" className="pageModuleTitle">Please enter
                               necessary details</Modal.Title>
                           </Modal.Header>
                           <Modal.Body>
                             <div className="row" style={{marginLeft: "0px", marginRight: "0px"}}>
                               <div className="mainBox">
                           <span className="glyphicon glyphicon-info-sign pull-right"
-                                style={{marginRight: '10px', fontSize: '15px', marginTop: '10px'}}
+                                style={{marginRight: '10px', fontSize: '15px', marginTop: '10px',color:'#00539f'}}
                                 onClick={() => {
                                   this.setState({suppNegotiationbar: true});
                                 }}></span>
@@ -1387,197 +1413,6 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                     }
                                   })()}
 
-                                  {/*<div className="col-xs-12 col-md-4" style={{marginTop: '2%', fontSize: '14px'}}>*/}
-
-                                  {/*<h4>*/}
-                                  {/*Please select a negotiation strategy below to filter*/}
-                                  {/*'Negotiation*/}
-                                  {/*Opportunity' chart and table*/}
-                                  {/*</h4>*/}
-
-                                  {/*<div className="panel">*/}
-                                  {/*<div className="lowProfit"*/}
-                                  {/*style={{height: '35px', backgroundColor: '#c74a52', opacity: '0.8'}}>*/}
-                                  {/*<RadioButton id={'1'}*/}
-                                  {/*checked={(() => {*/}
-                                  {/*if (this.props.supplier.radioChecked === '1') {*/}
-                                  {/*return true*/}
-                                  {/*}*/}
-                                  {/*else {*/}
-                                  {/*return false*/}
-                                  {/*}*/}
-                                  {/*})()}*/}
-                                  {/*label={'Low CPS/Low Profit'}*/}
-                                  {/*valid={true}*/}
-                                  {/*onChange={() => {*/}
-                                  {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
-                                  {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
-                                  {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/Low Profit";*/}
-                                  {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
-
-                                  {/*this.props.onFetchGraph();*/}
-                                  {/*this.props.onGenerateTable();*/}
-                                  {/*this.props.onRadioChecked('1');*/}
-                                  {/*}}*/}
-                                  {/*name="x"*/}
-                                  {/*/>*/}
-                                  {/*</div>*/}
-                                  {/*<div className="panel-body" style={{marginTop: '2%'}}>*/}
-                                  {/*Delist Products*/}
-                                  {/*</div>*/}
-                                  {/*</div>*/}
-                                  {/*<div className="panel panel-default">*/}
-                                  {/*<div className="default"*/}
-                                  {/*style={{*/}
-                                  {/*height: '35px',*/}
-                                  {/*backgroundColor: '#6e6767',*/}
-                                  {/*opacity: '0.8',*/}
-                                  {/*fontColor: 'white'*/}
-                                  {/*}}>*/}
-                                  {/*<RadioButton id={'2'}*/}
-                                  {/*checked={(() => {*/}
-                                  {/*if (this.props.supplier.radioChecked == '2') {*/}
-                                  {/*return true*/}
-                                  {/*}*/}
-                                  {/*else {*/}
-                                  {/*return false*/}
-                                  {/*}*/}
-                                  {/*})()}*/}
-
-                                  {/*label={'Low CPS/High Profit'}*/}
-                                  {/*valid={true}*/}
-                                  {/*onChange={() => {*/}
-                                  {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
-                                  {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
-                                  {/*dataPerformanceUrlParams = "performance_quartile=Low CPS/High Profit";*/}
-                                  {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
-                                  {/*this.props.onFetchGraph();*/}
-                                  {/*this.props.onGenerateTable();*/}
-                                  {/*this.props.onRadioChecked('2');*/}
-
-                                  {/*}}*/}
-                                  {/*name="x"*/}
-                                  {/*/>*/}
-                                  {/*</div>*/}
-                                  {/*<div className="panel-body" style={{height: '65px', marginTop: '3%'}}>*/}
-                                  {/*Hard*/}
-                                  {/*Bargaining’*/}
-                                  {/*for stronger*/}
-                                  {/*profits – Low importance to customers*/}
-                                  {/*</div>*/}
-                                  {/*</div>*/}
-
-
-                                  {/*<div className="panel panel-warning">*/}
-                                  {/*<div className="medProfit"*/}
-                                  {/*style={{*/}
-                                  {/*height: '35px',*/}
-                                  {/*backgroundColor: '#ffa626',*/}
-                                  {/*opacity: '0.8',*/}
-                                  {/*fontColor: 'white'*/}
-                                  {/*}}>*/}
-                                  {/*<RadioButton id={'3'}*/}
-                                  {/*label={'Med CPS/Med Profit'}*/}
-                                  {/*valid={true}*/}
-                                  {/*checked={(() => {*/}
-                                  {/*if (this.props.supplier.radioChecked == '3') {*/}
-                                  {/*return true*/}
-                                  {/*}*/}
-                                  {/*else {*/}
-                                  {/*return false*/}
-                                  {/*}*/}
-                                  {/*})()}*/}
-                                  {/*onChange={() => {*/}
-                                  {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
-                                  {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
-                                  {/*dataPerformanceUrlParams = "performance_quartile=Med CPS/Med Profit";*/}
-                                  {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
-                                  {/*this.props.onFetchGraph();*/}
-                                  {/*this.props.onGenerateTable();*/}
-                                  {/*this.props.onRadioChecked('3');*/}
-
-                                  {/*}}*/}
-                                  {/*name="x"*/}
-                                  {/*/>*/}
-                                  {/*</div>*/}
-                                  {/*<div className="panel-body" style={{height: '60px', marginTop: '3%'}}>Area of*/}
-                                  {/*opportunity. Concession*/}
-                                  {/*trading – Subs/Ranging/Price. Reduce range to drive*/}
-                                  {/*volume*/}
-                                  {/*</div>*/}
-                                  {/*</div>*/}
-
-                                  {/*<div className="panel panel-success">*/}
-                                  {/*<div className="highProfit"*/}
-                                  {/*style={{*/}
-                                  {/*height: '35px',*/}
-                                  {/*backgroundColor: '#69b24a',*/}
-                                  {/*opacity: '0.8',*/}
-                                  {/*fontColor: 'white'*/}
-                                  {/*}}>*/}
-                                  {/*<RadioButton id={'4'}*/}
-                                  {/*label={'High CPS/High Profit'}*/}
-                                  {/*valid={true}*/}
-                                  {/*checked={(() => {*/}
-                                  {/*if (this.props.supplier.radioChecked == '4') {*/}
-                                  {/*return true*/}
-                                  {/*}*/}
-                                  {/*else {*/}
-                                  {/*return false*/}
-                                  {/*}*/}
-                                  {/*})()}*/}
-                                  {/*onChange={() => {*/}
-                                  {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
-                                  {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
-                                  {/*dataPerformanceUrlParams = "performance_quartile=High CPS/High Profit"*/}
-                                  {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
-                                  {/*this.props.onFetchGraph();*/}
-                                  {/*this.props.onGenerateTable();*/}
-                                  {/*this.props.onRadioChecked('4');*/}
-
-                                  {/*}}*/}
-                                  {/*name="x"*/}
-                                  {/*/>*/}
-                                  {/*</div>*/}
-                                  {/*<div className="panel-body" style={{height: '50px', marginTop: '3%'}}>Build*/}
-                                  {/*Win-Win*/}
-                                  {/*relationship with*/}
-                                  {/*supplier to share further profit gains*/}
-                                  {/*</div>*/}
-                                  {/*</div>*/}
-                                  {/*<div className="panel">*/}
-                                  {/*<div className="highCps" style={{height: '35px', backgroundColor: '#99d9e5'}}>*/}
-                                  {/*<RadioButton id={'5'}*/}
-                                  {/*label={'High CPS/Low Profit'}*/}
-                                  {/*valid={true}*/}
-                                  {/*checked={(() => {*/}
-                                  {/*if (this.props.supplier.radioChecked == '5') {*/}
-                                  {/*return true*/}
-                                  {/*}*/}
-                                  {/*else {*/}
-                                  {/*return false*/}
-                                  {/*}*/}
-                                  {/*})()}*/}
-                                  {/*onChange={() => {*/}
-                                  {/*this.props.bubbleChartSpinnerCheckSuccess(0);*/}
-                                  {/*this.props.tableChartSpinnerCheckSuccess(0);*/}
-                                  {/*dataPerformanceUrlParams = "performance_quartile=High CPS/Low Profit"*/}
-                                  {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
-                                  {/*this.props.onFetchGraph();*/}
-                                  {/*this.props.onGenerateTable();*/}
-                                  {/*this.props.onRadioChecked('5');*/}
-
-                                  {/*}}*/}
-                                  {/*name="x"*/}
-                                  {/*/>*/}
-                                  {/*</div>*/}
-                                  {/*<div className="panel-body" style={{marginTop: '5%'}}>Work*/}
-                                  {/*collaboratively to jointly*/}
-                                  {/*solve low profitability*/}
-                                  {/*</div>*/}
-                                  {/*</div>*/}
-
-                                  {/*</div>*/}
 
 
                                   {/*-----Bubble table-----*/}
@@ -1646,12 +1481,21 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                                 </div>
                               </div>
+
                             </div>
                           </Modal.Body>
                         </Modal>
+                        <div style={{textAlign:'center',marginBottom:'10px'}}>
                         <Button buttonType={'primary'} onClick={() => {
+                          //For table
+                          this.props.onGenerateTable();
+                          //For Bubble Graph
+                          this.props.onFetchGraph();
                           this.setState({bubbleChartModal: true})
                         }}>Bubble Chart</Button>
+                        </div>
+                      </div>
+
                       </div>
                     </div>
                   </div>
