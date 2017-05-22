@@ -190,27 +190,26 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                     <h4 className="tesco-heading"><b>Sales</b></h4>
                                     {(() => {
                                       if ((this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) || kpiParmas == "val_type=2" || kpiParmas == "val_type=3") {
-                                        let a = this.props.DailySales.linechart_data.static_data;
-                                        return a.map(obj => {
+                                        let a = this.props.DailySales.linechart_data.sales;
+
                                           return (
                                             <div className="row">
-                                              <h4>{obj.tot_sales}</h4>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                10%
+                                                {a.sales_var_wow}
                                                 <h5 className="tesco-heading"><b>WoW</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                10%
+                                                {a.sales_var_yoy}
                                                 <h5 className="tesco-heading"><b>YoY</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                10%
+                                                {a.sales_var_lfl}
                                                 <h5 className="tesco-heading"><b>LFL</b></h5>
                                               </div>
                                             </div>
 
                                           )
-                                        })
+
                                       }
                                       else {
                                         return (
@@ -236,26 +235,25 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                     {/*<span className="overview-blk-value">*/}
                                     {(() => {
                                       if ((this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) || kpiParmas == "val_type=2" || kpiParmas == "val_type=3") {
-                                        let a = this.props.DailySales.linechart_data.static_data;
-                                        return a.map(obj => {
+                                        let a = this.props.DailySales.linechart_data.volume;
+
                                           return (
                                             <div className="row">
-                                              <h4>{obj.tot_vol}</h4>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                10%
+                                                {a.vol_var_wow}
                                                 <h5 className="tesco-heading"><b>WoW</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                10%
+                                                {a.vol_var_yoy}
                                                 <h5 className="tesco-heading"><b>YoY</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                10%
+                                                {a.vol_var_lfl}
                                                 <h5 className="tesco-heading"><b>LFL</b></h5>
                                               </div>
                                             </div>
                                           )
-                                        })
+
                                       }
                                       else {
                                         return (
@@ -282,26 +280,26 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                     {/*<span className="overview-blk-value">*/}
                                     {(() => {
                                       if ((this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) || kpiParmas == "val_type=2" || kpiParmas == "val_type=3") {
-                                        let a = this.props.DailySales.linechart_data.static_data;
-                                        return a.map(obj => {
+                                        let a = this.props.DailySales.linechart_data.cogs;
+
                                           return (
                                             <div className="row">
-                                              <h4>{obj.tot_cogs}</h4>
+
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                10%
+                                                {a.cogs_var_wow}
                                                 <h5 className="tesco-heading"><b>WoW</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                10%
+                                                {a.cogs_var_yoy}
                                                 <h5 className="tesco-heading"><b>YoY</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                10%
+                                                {a.cogs_var_lfl}
                                                 <h5 className="tesco-heading"><b>LFL</b></h5>
                                               </div>
                                             </div>
                                           )
-                                        })
+
                                       }
                                       else {
                                         return (
@@ -396,7 +394,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                     if (this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) {
                                       return (
                                         <div>
-                                          <LineChart data={this.props.DailySales.linechart_data.graph_data}
+                                          <LineChart data={this.props.DailySales.linechart_data.final_data.graph_data}
                                                      y_axis={this.state.y_axis}
                                             //          y_axis="Value"
                                                      x_axis="Date"
