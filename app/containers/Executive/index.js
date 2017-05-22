@@ -1521,7 +1521,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                           </span>{this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var}
                                                         </h4>
 
-                                                          <div className="row">
+                                                          <div className="row" style={{marginTop: '12%', marginBottom: '5%'}}>
                                                             <div className="col-xs-12 overview-blk"
                                                                  style={{marginRight: "5px"}}>
                                                               <div className="panel"
@@ -2875,9 +2875,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                   )
                                 } else {
                                   return (
-                                    <div>
-                                      <h3>Please select filter till Buying controller to view bottom performing
-                                        subgroups</h3>
+                                    <div className="row">
+                                     <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+                                       <div className="text-center"><Spinner />Please Wait a
+                                         Moment....!</div>
+                                     </div>
                                     </div>
                                   )
                                 }
