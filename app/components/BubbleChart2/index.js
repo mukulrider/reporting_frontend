@@ -26,13 +26,13 @@ class BubbleChart2 extends React.PureComponent { // eslint-disable-line react/pr
 
     let margin = {top: 20, right: 180, bottom: 180, left: 30};
     let width = containerWidth - margin.left - margin.right,
-      height = containerWidth*0.6 - margin.top - margin.bottom;
+      height = containerWidth*0.5 - margin.top - margin.bottom;
     console.log("BubbleChart2 X,Y -> ", containerWidth,containerWidth*0.5)
     let svg = d3.select('#bubbleChart2_svg')
-      .attr("height",containerWidth*0.5)
+      .attr("height",containerWidth*0.4)
       .attr("width",containerWidth)
       .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 " + containerWidth + " " + containerWidth*0.5)
+      .attr("viewBox", "0 0 " + containerWidth + " " + containerWidth*0.4)
       //class to make it responsive
       .classed("svg-content-responsive", true);
 
@@ -123,6 +123,7 @@ class BubbleChart2 extends React.PureComponent { // eslint-disable-line react/pr
         // console.log("------d"+d);
         tooltip.html(d.long_description+"<br/>"+"CPS : "+d.cps+"<br/>"+"PPS : "+d.pps);
         tooltip.style("visibility", "visible");
+        tooltip.style("z-index", "9999");
       })
       .on('mousemove', function() {
         // console.log("y--"+(d3.event.pageY)+"x-----"+(d3.event.pageX))

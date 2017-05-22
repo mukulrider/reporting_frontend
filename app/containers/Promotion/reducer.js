@@ -34,6 +34,11 @@ import {
   PROMO_PARTICIPATION_SPILT_SPINNER_SUCCESS,
   PRODUCTS_TABLE_SPINNER_SUCCESS,
   KPI_SPINNER_SUCCESS,
+  SAVE_TREND_CHART_TAB_PARAMS,
+  SAVE_METRIC_SELECTION_TAB,
+  TREND_CHART_SPINNER,
+
+  PRODUCTS_ON_PROMOTION_TABLE_SUCCESS,TREND_FOR_EACH_TAB_SUCCESS,PIE_CHART_FOR_EACH_TAB_SUCCESS
 
 } from './constants';
 
@@ -72,7 +77,9 @@ const initialState = fromJS({
       "total_lfl": "0",
       "total": "0"
     }
-  }
+  },
+  trendChartTabParam:'',
+  metricSelected:'value'
 
 });
 
@@ -182,6 +189,27 @@ function promotionReducer(state = initialState, action) {
     case KPI_SPINNER_SUCCESS:
       console.log("KPI_SPINNER_SUCCESS", action.spinnerCheck);
       return state.set('kpiSpinnerSuccess', action.spinnerCheck);
+
+    //SPINNERS - TREND CHART
+    case TREND_CHART_SPINNER:
+      console.log("TREND_CHART_SPINNER", action.spinnerCheck);
+      return state.set('trendChartSpinnerSuccess', action.spinnerCheck);
+
+
+    //---------------------------After adding tabs------------------------
+
+    case PRODUCTS_ON_PROMOTION_TABLE_SUCCESS:
+      return state.set('productsOnPromotion', action.data);
+    case TREND_FOR_EACH_TAB_SUCCESS:
+      return state.set('trendChartData', action.data);
+    case PIE_CHART_FOR_EACH_TAB_SUCCESS:
+      return state.set('pieChartData', action.data);
+    case SAVE_TREND_CHART_TAB_PARAMS:
+      return state.set('trendChartTabParam', action.data);
+    case SAVE_METRIC_SELECTION_TAB:
+      return state.set('metricSelected', action.data);
+
+
 
     default:
       return state;

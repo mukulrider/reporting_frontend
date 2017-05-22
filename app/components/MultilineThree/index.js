@@ -13,148 +13,14 @@ import messages from './messages';
 
 class MultilineThree extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   createMultilineThree = (data,chart_id,label_ty,label_ly,xaxis_title,yaxis_title,yaxis_title2,no_pref,no_suffix,no_pref2,no_suffix2) => {
-    console.log("---insde the createMultilinePromoChart----",data);
-    console.log("========= XAxis ",xaxis_title);
-    console.log("========= YAxis",yaxis_title);
-    // let data2 =   [
-    //     {
-    //       "tesco_week": "1-May-12",
-    //       "value_ly": 68.13,
-    //       "value_ty": 34.12
-    //     },
-    //     {
-    //       "tesco_week": "30-Apr-12",
-    //       "value_ly": 63.98,
-    //       "value_ty": 45.56
-    //     },
-    //     {
-    //       "tesco_week": "27-Apr-12",
-    //       "value_ly": 67,
-    //       "value_ty": 67.89
-    //     },
-    //     {
-    //       "tesco_week": "26-Apr-12",
-    //       "value_ly": 89.7,
-    //       "value_ty": 78.54
-    //     },
-    //     {
-    //       "tesco_week": "25-Apr-12",
-    //       "value_ly": 99,
-    //       "value_ty": 89.23
-    //     },
-    //     {
-    //       "tesco_week": "24-Apr-12",
-    //       "value_ly": 130.28,
-    //       "value_ty": 99.23
-    //     },
-    //     {
-    //       "tesco_week": "23-Apr-12",
-    //       "value_ly": 166.7,
-    //       "value_ty": 101.34
-    //     },
-    //     {
-    //       "tesco_week": "20-Apr-12",
-    //       "value_ly": 234.98,
-    //       "value_ty": 122.34
-    //     },
-    //     {
-    //       "tesco_week": "19-Apr-12",
-    //       "value_ly": 345.44,
-    //       "value_ty": 134.56
-    //     },
-    //     {
-    //       "tesco_week": "18-Apr-12",
-    //       "value_ly": 443.34,
-    //       "value_ty": 160.45
-    //     },
-    //     {
-    //       "tesco_week": "17-Apr-12",
-    //       "value_ly": 543.7,
-    //       "value_ty": 180.34
-    //     },
-    //     {
-    //       "tesco_week": "16-Apr-12",
-    //       "value_ly": 580.13,
-    //       "value_ty": 210.23
-    //     },
-    //     {
-    //       "tesco_week": "13-Apr-12",
-    //       "value_ly": 605.23,
-    //       "value_ty": 223.45
-    //     },
-    //     {
-    //       "tesco_week": "12-Apr-12",
-    //       "value_ly": 622.77,
-    //       "value_ty": 201.56
-    //     },
-    //     {
-    //       "tesco_week": "11-Apr-12",
-    //       "value_ly": 626.2,
-    //       "value_ty": 212.67
-    //     },
-    //     {
-    //       "tesco_week": "10-Apr-12",
-    //       "value_ly": 628.44,
-    //       "value_ty": 310.45
-    //     },
-    //     {
-    //       "tesco_week": "9-Apr-12",
-    //       "value_ly": 636.23,
-    //       "value_ty": 350.45
-    //     },
-    //     {
-    //       "tesco_week": "5-Apr-12",
-    //       "value_ly": 633.68,
-    //       "value_ty": 410.23
-    //     },
-    //     {
-    //       "tesco_week": "4-Apr-12",
-    //       "value_ly": 624.31,
-    //       "value_ty": 430.56
-    //     },
-    //     {
-    //       "tesco_week": "3-Apr-12",
-    //       "value_ly": 629.32,
-    //       "value_ty": 460.34
-    //     },
-    //     {
-    //       "tesco_week": "2-Apr-12",
-    //       "value_ly": 618.63,
-    //       "value_ty": 510.34
-    //     },
-    //     {
-    //       "tesco_week": "30-Mar-12",
-    //       "value_ly": 599.55,
-    //       "value_ty": 534.23
-    //     },
-    //     {
-    //       "tesco_week": "29-Mar-12",
-    //       "value_ly": 609.86,
-    //       "value_ty": 578.23
-    //     },
-    //     {
-    //       "tesco_week": "28-Mar-12",
-    //       "value_ly": 617.62,
-    //       "value_ty": 590.12
-    //     },
-    //     {
-    //       "tesco_week": "27-Mar-12",
-    //       "value_ly": 614.48,
-    //       "value_ty": 560.34
-    //     },
-    //     {
-    //       "tesco_week": "26-Mar-12",
-    //       "value_ly": 606.98,
-    //       "value_ty": 580.12
-    //     }
-    //   ]
-    //   console.log("---insde the createMultilinePromoChart mock_data",data2);
+
     // Add the valueline path.
     // set the dimensions and margins of the graph
-    let containerWidth = document.getElementById(chart_id).clientWidth;
-    let margin = {top: 20, right: 250, bottom: 60, left: 100},
+    // let containerWidth = document.getElementById(chart_id).clientWidth;
+    let containerWidth = 1000;
+    let margin = {top: 20, right: 200, bottom: 60, left: 100},
       width = containerWidth - margin.left - margin.right,
-      height = containerWidth*0.25 - margin.top - margin.bottom;
+      height = containerWidth*0.3 - margin.top - margin.bottom;
 
     console.log("---insde the createMultilinePromoChart---- check2",margin);
 // set the ranges
@@ -232,8 +98,6 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
       .attr("id",chart_id + '_svg')
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
-      .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 1000 250")
       .classed("svg-content", true)
       .append("g")
       .attr("transform",
@@ -362,14 +226,14 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
   };
 
   componentDidMount = () => {
-    console.log("XXXXXXXXXXXXXXX",this.props.xaxis_title)
+
     this.createMultilineThree(this.props.data,this.props.id,this.props.label_ty,this.props.label_ly
       ,this.props.xaxis_title,this.props.yaxis_title,this.props.yaxis_title2,this.props.no_pref,
       this.props.no_suffix,this.props.no_pref2, this.props.no_suffix2);
   };
 
   componentDidUpdate = () => {
-    // this.createOrdinalChart (this.props.data[0],this.props.data[1],this.props.data[2])
+
     this.createMultilineThree(this.props.data,this.props.id,this.props.label_ty,
       this.props.label_ly,this.props.xaxis_title,this.props.yaxis_title,this.props.yaxis_title2,
       this.props.no_pref,this.props.no_suffix,this.props.no_pref2,this.props.no_suffix2);

@@ -97,7 +97,7 @@ export function* generateSideFilter() {
   try {
     // todo: update url
 
-    // const data = yield call(request, `http://172.20.244.141:8000/api/product_impact/filter_data/?${urlParamsString}`);
+    // const data = yield call(request, `http://172.20.244.141:8002/api/product_impact/filter_data/?${urlParamsString}`);
     const filter_data = yield call(request,
       `${host_url}/api/reporting/filter_data_product?` + urlAppends
       );
@@ -235,7 +235,7 @@ export function* generateWeekFilterFetch() {
 
     console.log(`${host_url}/api/reporting/filter_data_week${filter_week_selection}`);
 
-    // const data = yield call(request, `http://10.1.161.82:8000/ranging/npd_view/filter_data?`);
+    // const data = yield call(request, `http://10.1.161.82:8002/ranging/npd_view/filter_data?`);
 
     console.log('Filter week data', data);
     yield put(WeekFilterFetchSuccess(data));

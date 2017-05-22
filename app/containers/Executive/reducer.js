@@ -14,6 +14,7 @@ import {
   WEEK_FILTER_FETCH_SUCCESS,
   WEEK_FILTER_PARAM,
   GENERATE_FILTER_PARAMS_STRING,
+  GENERATE_BEST_WORST_PERFORMANCE_TABLE,
   WEEK_PARAM,
   KPI_PARAM,
   DRIVER_PARAM,
@@ -68,7 +69,7 @@ import {
   KPI_SPINNER_FLAG,
   INTERNAL_DRIVER_SPINNER_FLAG,
   EXTERNAL_DRIVER_SPINNER_FLAG,
-  PRICE_KPI_SPINNER_FLAG
+  PRICE_KPI_SPINNER_FLAG, GENERATE_BEST_WORST_PERFORMANCE_SUCCESS, GENERATE_BEST_WORST_PERFORMANCE_TABLE_SUCCESS
 } from './constants';
 
 
@@ -394,6 +395,15 @@ function executiveReducer(state = initialState, action) {
     case PRICE_KPI_SPINNER_FLAG:
       console.log("reducer PRICE_KPI_SPINNER_FLAG",action.spinnerCheck);
       return state.set('priceKPISpinner',action.spinnerCheck);
+
+    //saurav
+    case GENERATE_BEST_WORST_PERFORMANCE_SUCCESS:
+      return state.set('bestWorstPerformance',action.data)
+    case GENERATE_BEST_WORST_PERFORMANCE_TABLE:
+      // alert(action.data)
+      return state.set('tableSelectedLevel',action.data)
+    case GENERATE_BEST_WORST_PERFORMANCE_TABLE_SUCCESS:
+      return state.set('bestWorstPerformanceTable',action.data)
 
     default:
       return state;

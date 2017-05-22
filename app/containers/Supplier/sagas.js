@@ -519,7 +519,7 @@ export function* generateWeekFilterFetch() {
 
     // console.log(host_url + '/api/reporting/filter_data_week' + filter_week_selection);
 
-    // const data = yield call(request, `http://10.1.161.82:8000/ranging/npd_view/filter_data?`);
+    // const data = yield call(request, `http://10.1.161.82:8002/ranging/npd_view/filter_data?`);
 
     console.log("Filter week data", data);
     yield put(WeekFilterFetchSuccess(data));

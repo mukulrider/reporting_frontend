@@ -28,7 +28,7 @@ export function* getData() {
   // console.log('getData');
   const cityName = 'London';
   try {
-    const data = yield call(request, `http://localhost:8000/firstpage/?format=json`);
+    const data = yield call(request, `http://172.20.181.92:8002/firstpage/?format=json`);
     // console.log(data);
     yield put(ajaxRequestSuccess(data));
   } catch (err) {
@@ -46,7 +46,7 @@ export function* doAjaxRequest() {
 
 export function* generateFile() {
   try {
-    const data = yield call(request, `http://127.0.0.1:8090/generate-file/?ud=124&format=json`);
+    const data = yield call(request, `http://172.20.181.92:8090/generate-file/?ud=124&format=json`);
     // console.log(data);
   } catch (err) {
     // console.log(err);
@@ -65,7 +65,7 @@ export function* generateTable() {
   try {
     urlParamsString = urlParamsString.replace('commercial_director', 'commerical_director');
 
-    const data = yield call(request, `http://127.0.0.1:8090/inputpage/?format=json&${urlParamsString}`);
+    const data = yield call(request, `http://172.20.181.92:8090/inputpage/?format=json&${urlParamsString}`);
     yield put(generateTableSuccess(data));
   } catch (err) {
     // console.log(err);
@@ -82,7 +82,7 @@ export function* doGenerateTable() {
 export function* generateSideFilter() {
   try {
     // todo: update url
-    const data = yield call(request, `http://localhost:8090/wash/?format=json`);
+    const data = yield call(request, `http://172.20.181.92:8090/wash/?format=json`);
     // // console.log(data);
     yield put(generateSideFilterSuccess(data));
   } catch (err) {
@@ -102,7 +102,7 @@ export function* generateTextBoxTable() {
     // todo: update url
     let textBoxQueryString = yield select(makeTextBoxQueryString());
     console.log(textBoxQueryString);
-    const data = yield call(request, `http://localhost:8090/pricing/autocomplete/?brand_name=${textBoxQueryString}`);
+    const data = yield call(request, `http://172.20.181.92:8090/pricing/autocomplete/?brand_name=${textBoxQueryString}`);
     yield put(generateTableSuccess(data));
   } catch (err) {
     // console.log(err);
@@ -121,7 +121,7 @@ export function* generateScenario() {
     // todo: update url
     let textBoxQueryString = yield select(makeTextBoxQueryString());
     console.log(textBoxQueryString);
-    const data = yield call(request, `http://localhost:8090/pricing/autocomplete/?brand_name=${textBoxQueryString}`);
+    const data = yield call(request, `http://172.20.181.92:8090/pricing/autocomplete/?brand_name=${textBoxQueryString}`);
     yield put(generateTableSuccess(data));
   } catch (err) {
     // console.log(err);
@@ -141,7 +141,7 @@ export function* generateNewScenario() {
     let newScenarioString = yield select(makeNewScenarioString());
     let newScenarioWeek = yield select(makeNewScenarioWeek());
     let newScenarioStoreFormat = yield select(makeNewScenarioStoreFormat());
-    const data = yield call(request, `http://localhost:8090/pricing/generate-scenario/`,
+    const data = yield call(request, `http://172.20.181.92:8090/pricing/generate-scenario/`,
       {
         method: 'POST',
         headers:{

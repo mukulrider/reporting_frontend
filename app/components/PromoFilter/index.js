@@ -19,7 +19,8 @@ import styles from './style.scss';
 class PromoFilter extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   updateUrl = (category) => {
     let queryString = '';
-    [...this.refs.selector.querySelectorAll('input')].map(obj => {
+    let localUrlParamsString = '';
+    [...this.refs.selector.querySelectorAll('input')].map((obj,index) => {
       if (obj.checked == true) {
         console.log("Objects", obj);
         let category = obj.id.split('__');
@@ -32,6 +33,9 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
         //   // this.props.onGenerateBuyingController(category[category.length - 1])
         //   this.props.onGenerateCategoryDirector(category[category.length - 2])
         // }
+        if (['store_type','commercial_name','category_name','buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])){
+          localUrlParamsString = localUrlParamsString + `${category[0]}=${category[category.length - 1]}&`;
+        }
         queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
       }
     });
@@ -41,6 +45,8 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
     // this.props.onGenerateUrlParamsString(queryString);
     // this.props.onGenerateUrlParamsData();
     this.props.onGenerateUrlParamsString(queryString);
+    localStorage.setItem('urlParams', localUrlParamsString);
+
     this.props.generateSideFilter();
     // this.props.onGenerateUrlParamsData();
     // this.updateNewState(newUrl + '?' + queryString);
@@ -342,11 +348,15 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
                       console.log('tesco_weeek filterDataWeek', filterDataWeek);
                       console.log('--filterData', filterData);
                       this.props.pieChartSuccess(0);
-                      this.props.promoGiveAwaySuccess(0);
-                      this.props.productsCountSplitSuccess(0);
-                      this.props.promoParticipationBySplitSuccess(0);
-                      this.props.productsTableSplitSuccess(0);
                       this.props.kpiDataSuccess(0);
+                      {/*this.props.promoGiveAwaySuccess(0);*/}
+                      this.props.trendChartSpinner(0);
+                      this.props.productsCountSplitSuccess(0);
+                      {/*this.props.promoParticipationBySplitSuccess(0);*/}
+                      this.props.productsTableSplitSuccess(0);
+                      this.props.productsOnPromoTableFetch();
+                      this.props.trendChartDataFetch();
+
                       this.props.loadKpi();
                       this.props.loadSales();
                       this.props.loadPromoGiveaway();

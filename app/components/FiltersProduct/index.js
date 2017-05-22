@@ -18,6 +18,8 @@ import styles from './style.scss';
 class FiltersProduct extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   updateUrl = (category) => {
     let queryString = '';
+    let localUrlParamsString = '';
+
     [...this.refs.selector.querySelectorAll('input')].map(obj => {
       if (obj.checked == true) {
         console.log("Filter Obj:", obj);
@@ -32,6 +34,9 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
         //   this.props.onGenerateCategoryDirector(category[category.length - 2])
         // }
         console.log('queryString', queryString);
+        if (['store_type','commercial_name','category_name','buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])){
+          localUrlParamsString = localUrlParamsString + `${category[0]}=${category[category.length - 1]}&`;
+        }
         queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
       }
     });
@@ -40,6 +45,8 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
     // APPEND URL PARAMS
 
     this.props.onGenerateUrlParamsString(queryString);
+    localStorage.setItem('urlParams', localUrlParamsString);
+
     console.log('this.props.onGenerateUrlParamsString(queryString)', this.props.onGenerateUrlParamsString(queryString));
     // this.props.onGenerateFilterParamsString(queryString);
     // this.props.onGenerateUrlParamsData();

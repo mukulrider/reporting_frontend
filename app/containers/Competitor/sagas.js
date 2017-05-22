@@ -92,7 +92,7 @@ export function* generateCompetitorWaterfallDataFetch() {
 
   }
 
-  if (!(typeof(waterfallparam) == "undefined") && !(waterfallparam == "")) {
+  if (!( typeof(waterfallparam) == "undefined") && !(waterfallparam == "")) {
     urlAppends = urlAppends + '&' + waterfallparam;
     console.log('urlAppends3', urlAppends);
   } else {

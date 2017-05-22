@@ -6,8 +6,8 @@
 
 import { fromJS } from 'immutable';
 import {
-  DEFAULT_ACTION,SAVE_WEEK_PARAM,SAVE_METRIC_PARAM,FETCH_SAVE_WEEK_PARAM,FETCH_SAVE_WEEK_PARAM_SUCCESS,GENERATE_SIDE_FILTER_SUCCESS,GENERATE_URL_PARAMS_STRING,
-  WEEK_FILTER_FETCH_SUCCESS,
+  DEFAULT_ACTION,SAVE_WEEK_PARAM,SAVE_METRIC_PARAM,SAVE_PRODUCT,SAVE_PRODUCT_TREND,FETCH_SAVE_SUPPLIER_INFO_SUCCESS,FETCH_SAVE_PRODUCT_TREND_SUCCESS ,
+  FETCH_SAVE_WEEK_PARAM, FETCH_SAVE_WEEK_PARAM_SUCCESS,GENERATE_SIDE_FILTER_SUCCESS,GENERATE_URL_PARAMS_STRING, WEEK_FILTER_FETCH_SUCCESS,
   CHECKBOX_WEEK_CHANGE,
   WEEK, TABS_APPLY_SPINNER
 } from './constants';
@@ -26,10 +26,25 @@ function productPageReducer(state = initialState, action) {
       console.log('Save Metric Action data',action.data);
       return state.set('dataMetricParams', action.data);
 
+    case SAVE_PRODUCT:
+      console.log('Save Product Action data',action.data);
+      return state.set('dataProduct', action.data);
+
+    case SAVE_PRODUCT_TREND:
+      console.log('Save Product Trend Action data',action.data);
+      return state.set('dataProduct', action.data);
+
     case FETCH_SAVE_WEEK_PARAM_SUCCESS:
       console.log("Updated the Store state in Reducer", action.data);
       return state.set('data', action.data);
 
+    case FETCH_SAVE_SUPPLIER_INFO_SUCCESS:
+      console.log("Updated the Supplier state in Reducer", action.data);
+      return state.set('supplier_info', action.data);
+
+    case FETCH_SAVE_PRODUCT_TREND_SUCCESS:
+      console.log("Updated the Product Trend Data in Reducer", action.data);
+      return state.set('product_trend', action.data);
 
     // FILTERS
     case GENERATE_SIDE_FILTER_SUCCESS:

@@ -35,11 +35,16 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
     let newUrl = this.props.location.pathname;
 
     let queryString = '';
+    let localUrlParamsString = '';
+
     [...this.refs.selector.querySelectorAll('input')].map(obj => {
       if (obj.checked == true) {
         let category = obj.id.split('__');
 
         console.log('queryString for time', queryString);
+        if (['store_type','commercial_name','category_name','buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])){
+          localUrlParamsString = localUrlParamsString + `${category[0]}=${category[category.length - 1]}&`;
+        }
         queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
         console.log('queryString 2 for time', queryString);
 
@@ -48,6 +53,8 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
     //
     queryString = queryString.substring(0, queryString.length - 1);
     console.log('queryString 3 for time', queryString);
+    // localStorage.setItem('urlParams', localUrlParamsString);
+
     this.props.onSaveWeek(queryString);
     // this.props.onGenerateUrlParamsString(queryString);
     // this.props.onCheckboxChange(queryString);
@@ -63,6 +70,8 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
     let queryString = '';
     let queryString_without_week = '';
     let queryString_for_week_date = '';
+    let localUrlParamsString = '';
+
     [...this.refs.selector.querySelectorAll('input')].map(obj => {
       if (obj.checked == true) {
 
@@ -75,9 +84,11 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
         console.log('queryString 2 for product1', queryString);
 
         // aa
-
+        if (['store_type','commercial_name','category_name','buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])){
+          localUrlParamsString = localUrlParamsString + `${category[0]}=${category[category.length - 1]}&`;
+        }
         if (category[0] !== "tesco_week" && category[0] !== "date") {
-          alert(category[0])
+          // alert(category[0])
           queryString_without_week = queryString_without_week + `${category[0]}=${category[category.length - 1]}&`;
 
         }
@@ -86,8 +97,10 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
     //
     queryString = queryString.substring(0, queryString.length - 1);
     queryString_without_week = queryString_without_week.substring(0, queryString_without_week.length - 1);
-    alert(queryString_without_week);
+    // alert(queryString_without_week);
     console.log('queryString 3 for product1', queryString_without_week);
+    localStorage.setItem('urlParams', localUrlParamsString);
+
 
 
     this.props.onCheckboxWeekChange(queryString_without_week);
@@ -351,22 +364,23 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                     let filterDataWeek = this.props.week;
                     let filterData = this.props.urlParamsString;
                     console.log('filterDataWeek', filterDataWeek);
+                    console.log('filterData', filterData);
                     if (!(typeof(filterDataWeek) == "undefined") && !(typeof(filterData) == "undefined")) {
                       console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek, filterData);
-                      if (filterDataWeek.includes("tesco_week") && filterDataWeek.includes("date") && filterData.includes("buying_controller")
+                      if (filterDataWeek.includes("tesco_week") && filterDataWeek.includes("date") && filterData.includes("buying_controller=")
                         && filterData.includes("store_type")) {
                         console.log('tesco_weeek filterDataWeek', filterDataWeek);
                         console.log('--filterData', filterData);
-                        this.DSViewKpiSpinnerCheck(0);
-                        this.LineChartSpinnerCheck(0);
+                        this.props.DSViewKpiSpinnerCheck(0);
+                        this.props.LineChartSpinnerCheck(0);
                         this.applyButtonFunctionality();
                       }
                       else {
-                        console.log('modal open');
+                        console.log('modal open1');
                         this.setState({alertShow: true});
                       }
                     } else {
-                      console.log('modal open');
+                      console.log('modal open2');
                       this.setState({alertShow: true});
                     }
                   }}>Apply Filters</Button>
