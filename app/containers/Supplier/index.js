@@ -206,6 +206,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
     let dataPerformanceUrlParams = this.props.supplier.dataPerformanceUrlParams;
     let dataStoreUrlParams = this.props.supplier.dataStoreUrlParams;
 
+    console.log('this.props', this.props);
 
     return (
       <div>
@@ -589,10 +590,10 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                           </div>
                                         </div>
 
-                                          <div className="row">
-                                            <div className="panel-body cardPanel">
-                                              <div className="col-xs-4">
-                                                <h4>
+                                        <div className="row" style={{marginTop: '5%'}}>
+                                          <div className="panel-body cardPanel">
+                                            <div className="col-xs-4">
+                                              <h4>
                                                   <span className={glyphiconFormatter(obj.sales_var_week)}>
                                                   </span>{(obj.sales_var_week) + '%'}
                                                 </h4><br></br>
@@ -627,42 +628,42 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                             </div>
                                             <div className="col-xs-6" style={{textAlign: "center"}}>
 
-                                              <h3 style={{padding: "0px", margin: "0px"}}>
-                                                LFL: {obj.cw_sales_exclu_sup_lfl } </h3>
+                                            <h3 style={{padding: "0px", margin: "0px"}}>
+                                              LFL: {obj.cw_sales_exclu_sup_lfl } </h3>
+                                          </div>
+                                        </div>
+                                        <br></br>
+                                        <div className="row">
+                                          <div className="panel-body cardPanel">
+                                            <div className="col-xs-4">
+                                              <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                className={glyphiconFormatter(obj.sales_growth_wow_1)}></span>&nbsp;{(obj.sales_growth_wow_1) + ' % '}
+                                                of <br></br><span
+                                                  className={glyphiconFormatter(obj.sales_growth_wow_2)}></span>&nbsp;{(obj.sales_growth_wow_2) + ' % '}
+                                              </h4>
+                                              <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'WoW'}</b>
+                                              </h5>
+                                            </div>
+                                            <div className="col-xs-4">
+                                              <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                className={glyphiconFormatter(obj.sales_growth_yoy_1)}></span>&nbsp;{(obj.sales_growth_yoy_1) + ' % '}
+                                                of <br></br><span
+                                                  className={glyphiconFormatter(obj.sales_growth_yoy_2)}></span>&nbsp;{(obj.sales_growth_yoy_2) + ' % '}
+                                              </h4>
+                                              <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'YoY'}</b>
+                                              </h5>
+                                            </div>
+                                            <div className="col-xs-4">
+                                              <h4>&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                className={glyphiconFormatter(obj.sales_growth_yoy_lfl_1)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_1) + ' % '}
+                                                of <br></br><span style={{left: '-5px'}}
+                                                  className={glyphiconFormatter(obj.sales_growth_yoy_lfl_2)}></span>{(obj.sales_growth_yoy_lfl_2) + ' % '}
+                                              </h4>
+                                              <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'LFL'}</b>
+                                              </h5>
                                             </div>
                                           </div>
-                                          <br></br>
-                                          <div className="row">
-                                            <div className="panel-body cardPanel">
-                                              <div className="col-xs-4">
-                                                <h4><span
-                                                  className={glyphiconFormatter(obj.sales_growth_wow_1)}></span>&nbsp;{(obj.sales_growth_wow_1) + ' % '}
-                                                  of <span
-                                                    className={glyphiconFormatter(obj.sales_growth_wow_2)}></span>{(obj.sales_growth_wow_2) + ' % '}
-                                                </h4>
-                                                <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'WoW'}</b>
-                                                </h5>
-                                              </div>
-                                              <div className="col-xs-4">
-                                                <h4><span
-                                                  className={glyphiconFormatter(obj.sales_growth_yoy_1)}></span>&nbsp;{(obj.sales_growth_yoy_1) + ' % '}
-                                                  of <span
-                                                    className={glyphiconFormatter(obj.sales_growth_yoy_2)}></span>{(obj.sales_growth_yoy_2) + ' % '}
-                                                </h4>
-                                                <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'YoY'}</b>
-                                                </h5>
-                                              </div>
-                                              <div className="col-xs-4">
-                                                <h4><span
-                                                  className={glyphiconFormatter(obj.sales_growth_yoy_lfl_1)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_1) + ' % '}
-                                                  of <span
-                                                    className={glyphiconFormatter(obj.sales_growth_yoy_lfl_2)}></span>{(obj.sales_growth_yoy_lfl_2) + ' % '}
-                                                </h4>
-                                                <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'LFL'}</b>
-                                                </h5>
-                                              </div>
-                                            </div>
-                                          </div>
+                                        </div>
 
                                         </Panel>
                                       </div>

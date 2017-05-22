@@ -45,6 +45,7 @@ import {
   kpiDataSuccess,
   saveTrendChartTabParam,productsOnPromoTableFetch,trendChartDataFetch,pieChartDataFetch,
   saveMetricSelectionTabParam,
+  trendChartSpinner,
 } from './actions';
 
 function glyphiconFormatter(cell) {
@@ -122,6 +123,7 @@ export class Promotion extends React.PureComponent {
     let kpiParam = this.props.promotion.kpi_param;
     let dataWeekParam = this.props.promotion.week_param;
 
+    console.log('this.propss',this.props);
     return (
       <div>
 
@@ -185,6 +187,8 @@ export class Promotion extends React.PureComponent {
                                promoParticipationBySplitSuccess={this.props.promoParticipationBySplitSuccess}
                                productsTableSplitSuccess={this.props.productsTableSplitSuccess}
                                kpiDataSuccess={this.props.kpiDataSuccess}
+                               trendChartSpinner={this.props.trendChartSpinner}
+
                                weekurlParam={this.props.promotion.weekurlParam}
                                urlParamsString={this.props.promotion.urlParamsString}
 
@@ -236,11 +240,12 @@ export class Promotion extends React.PureComponent {
                     dataWeekParam = "week_flag=Current Week";
                     this.setState({activeKey1: "1"});
                     this.props.kpiDataSuccess(0);
-                    {/*this.props.pieChartSuccess(0);*/}
+                    this.props.pieChartSuccess(0);
                     {/*this.props.promoGiveAwaySuccess(0);*/}
                     {/*this.props.productsCountSplitSuccess(0);*/}
                     {/*this.props.promoParticipationBySplitSuccess(0);*/}
-                    {/*this.props.productsTableSplitSuccess(0);*/}
+                    this.props.productsTableSplitSuccess(0);
+                    this.props.trendChartSpinner(0);
 
                     this.props.onSaveWeekParam(dataWeekParam);
                     this.props.loadKpi();
@@ -257,11 +262,12 @@ export class Promotion extends React.PureComponent {
                     this.props.saveTrendChartTabParam("");
 
                     this.props.kpiDataSuccess(0);
-                    {/*this.props.pieChartSuccess(0);*/}
+                    this.props.pieChartSuccess(0);
+                    this.props.trendChartSpinner(0);
                     {/*this.props.promoGiveAwaySuccess(0);*/}
                     {/*this.props.productsCountSplitSuccess(0);*/}
                     {/*this.props.promoParticipationBySplitSuccess(0);*/}
-                    {/*this.props.productsTableSplitSuccess(0);*/}
+                    this.props.productsTableSplitSuccess(0);
 
 
                     dataWeekParam = "week_flag=Latest 4 Weeks";
@@ -280,11 +286,12 @@ export class Promotion extends React.PureComponent {
 
 
                     this.props.kpiDataSuccess(0);
-                    {/*this.props.pieChartSuccess(0);*/}
+                    this.props.pieChartSuccess(0);
+                    this.props.trendChartSpinner(0);
                     {/*this.props.promoGiveAwaySuccess(0);*/}
                     {/*this.props.productsCountSplitSuccess(0);*/}
                     {/*this.props.promoParticipationBySplitSuccess(0);*/}
-                    {/*this.props.productsTableSplitSuccess(0);*/}
+                    this.props.productsTableSplitSuccess(0);
 
                     dataWeekParam = "week_flag=Latest 13 Weeks";
                     this.props.onSaveWeekParam(dataWeekParam);
@@ -301,11 +308,12 @@ export class Promotion extends React.PureComponent {
 
 
                     this.props.kpiDataSuccess(0);
-                    {/*this.props.pieChartSuccess(0);*/}
+                    this.props.pieChartSuccess(0);
+                    this.props.trendChartSpinner(0);
                     {/*this.props.promoGiveAwaySuccess(0);*/}
                     {/*this.props.productsCountSplitSuccess(0);*/}
                     {/*this.props.promoParticipationBySplitSuccess(0);*/}
-                    {/*this.props.productsTableSplitSuccess(0);*/}
+                    this.props.productsTableSplitSuccess(0);
 
                     dataWeekParam = "week_flag=Latest 26 Weeks";
                     this.props.onSaveWeekParam(dataWeekParam);
@@ -323,11 +331,12 @@ export class Promotion extends React.PureComponent {
                     this.props.saveTrendChartTabParam("");
 
                     this.props.kpiDataSuccess(0);
-                    {/*this.props.pieChartSuccess(0);*/}
+                    this.props.pieChartSuccess(0);
+                    this.props.trendChartSpinner(0);
                     {/*this.props.promoGiveAwaySuccess(0);*/}
                     {/*this.props.productsCountSplitSuccess(0);*/}
                     {/*this.props.promoParticipationBySplitSuccess(0);*/}
-                    {/*this.props.productsTableSplitSuccess(0);*/}
+                    this.props.productsTableSplitSuccess(0);
 
                     dataWeekParam = "week_flag=YTD";
                     this.props.onSaveWeekParam(dataWeekParam);
@@ -351,10 +360,12 @@ export class Promotion extends React.PureComponent {
 
 
                         this.props.kpiDataSuccess(0);
-                        {/*this.props.pieChartSuccess(0);*/}
+                        this.props.pieChartSuccess(0);
+                        this.props.trendChartSpinner(0);
                         {/*this.props.promoGiveAwaySuccess(0);*/}
                         {/*this.props.promoParticipationBySplitSuccess(0);*/}
                         {/*this.props.productsCountSplitSuccess(0);*/
+                          this.props.productsTableSplitSuccess(0);
                         }
                         kpiParam = "kpi_type=value";
                         this.props.onSaveKPIParam(kpiParam);
@@ -370,11 +381,13 @@ export class Promotion extends React.PureComponent {
                         this.props.saveTrendChartTabParam("");
 
                         this.props.kpiDataSuccess(0);
-                        {/*this.props.pieChartSuccess(0);*/}
+                        this.props.pieChartSuccess(0);
+                        this.props.trendChartSpinner(0);
                         {/*this.props.promoGiveAwaySuccess(0);*/}
                         {/*this.props.promoParticipationBySplitSuccess(0);*/}
                         {/*this.props.productsCountSplitSuccess(0);*/
                         }
+                        this.props.productsTableSplitSuccess(0);
                         kpiParam = "kpi_type=volume";
                         this.props.onSaveKPIParam(kpiParam);
                         this.props.loadKpi();
@@ -680,38 +693,39 @@ export class Promotion extends React.PureComponent {
                     </div>
 
 
-                    <Panel>
-                      <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect}
-                           className="tabsCustom mainTab" style={{margin: "0px"}}>
-                        <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
-                          this.setState({activeKey3: "1"});
-                          this.props.saveMetricSelectionTabParam('value');
-                          this.props.trendChartDataFetch();
-                          this.props.pieChartDataFetch();
-                        }}><span className="tab_label">Value</span></NavItem>
-                        <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
-                          this.setState({activeKey3: "2"});
-                          this.props.saveMetricSelectionTabParam('giveaway');
-                          this.props.trendChartDataFetch();
-                          this.props.pieChartDataFetch();
+                  <Panel>
+                    <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect}
+                         className="tabsCustom mainTab" style={{margin: "0px"}}>
+                      <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
+                        this.setState({activeKey3: "1"});
+                        this.props.saveMetricSelectionTabParam('value');
+                        this.props.trendChartDataFetch();
+                        this.props.pieChartDataFetch();
+                        this.props.pieChartSuccess(0);
+                      }}><span className="tab_label">Value</span></NavItem>
+                      <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
+                        this.setState({activeKey3: "2"});
+                        this.props.saveMetricSelectionTabParam('giveaway');
+                        this.props.trendChartDataFetch();
+                        this.props.pieChartDataFetch();
+                        this.props.pieChartSuccess(0);
+                      }}><span className="tab_label">Promotion Give Away</span></NavItem>
+                      <NavItem className="tabsNavPanelList1" eventKey="3" onClick={() => {
+                        this.setState({activeKey3: "3"});
+                        this.props.saveMetricSelectionTabParam('products_count');
+                        this.props.trendChartDataFetch();
+                        this.props.pieChartDataFetch();
+                        this.props.pieChartSuccess(0);
+                       }}><span className="tab_label">Product Count</span></NavItem>
+                      <NavItem className="tabsNavPanelList1" eventKey="4" onClick={() => {
+                        this.setState({activeKey3: "4"});
+                        this.props.saveMetricSelectionTabParam('participation');
+                        this.props.trendChartDataFetch();
+                        this.props.pieChartDataFetch();
+                        this.props.pieChartSuccess(0);
+                       }}><span className="tab_label">Promotion Participation</span></NavItem>
 
-                        }}><span className="tab_label">Promotion GiveAway</span></NavItem>
-                        <NavItem className="tabsNavPanelList1" eventKey="3" onClick={() => {
-                          this.setState({activeKey3: "3"});
-                          this.props.saveMetricSelectionTabParam('products_count');
-                          this.props.trendChartDataFetch();
-                          this.props.pieChartDataFetch();
-
-                        }}><span className="tab_label">Product Count</span></NavItem>
-                        <NavItem className="tabsNavPanelList1" eventKey="4" onClick={() => {
-                          this.setState({activeKey3: "4"});
-                          this.props.saveMetricSelectionTabParam('participation');
-                          this.props.trendChartDataFetch();
-                          this.props.pieChartDataFetch();
-
-                        }}><span className="tab_label">Promotion Participation</span></NavItem>
-
-                      </Nav>
+                    </Nav>
 
 
                       {/*Row for pie chart and graph*/}
@@ -746,7 +760,7 @@ export class Promotion extends React.PureComponent {
                                  }}>
 
                                   {(() => {
-                                    if (this.props.promotion.pieChartData){
+                                    if (this.props.promotion.pieChartData && this.props.promotion.pieChartSpinnerSuccess){
                                       return (
                                         <div style={{background: "#f5f5f5"}}>
                                           <div className="col-md-9 col-sm-12 col-xs-12" style={{textAlign: "center"}}>
@@ -814,20 +828,21 @@ export class Promotion extends React.PureComponent {
                                    className="tabsCustomList2 secondaryTabs" style={{margin: "0px"}}>
 
 
-                              {this.props.promotion.pieChartData.labels.map((obj ,index)=> {
-                                  let tab=(index+1).toString();
-                                  return (
-                                    <NavItem className="tabsCustomList2"
-                                        eventKey={tab}
-                                           onClick={() => {
-                                            let promoTypeParam ="";
-                                          if(obj!=='Total'){
-                                          promoTypeParam="promo_type="+obj;
-                                          }
-                                            console.log("-=-=-=-="+(index+1).toString())
-                                this.setState({activeKey4: (index+1).toString()});
-                                this.props.saveTrendChartTabParam(promoTypeParam);
-                                this.props.trendChartDataFetch();
+                                       {this.props.promotion.pieChartData.labels.map((obj ,index)=> {
+                                         let tab=(index+1).toString();
+                                         return(
+                                         <NavItem className="tabsCustomList2"
+                                                  eventKey={tab}
+                                                  onClick={() => {
+                                                  let promoTypeParam = "";
+                                                   if(obj!=='Total'){
+                                                     promoTypeParam="promo_type="+obj;
+                                                   }
+                                                   console.log("-=-=-=-="+(index+1).toString())
+                                                   this.setState({activeKey4: (index+1).toString()});
+                                                   this.props.trendChartSpinner(0);
+                                                   this.props.saveTrendChartTabParam(promoTypeParam);
+                                                   this.props.trendChartDataFetch();
                                                  }}>
                               <span className="tab_label">{obj}</span></NavItem>)
 
@@ -861,9 +876,9 @@ export class Promotion extends React.PureComponent {
                               </div>
 
                                 {(() => {
-                                  if (this.props.promotion.trendChartData) {
-                                    console.log("--------------------", this.props.promotion.trendChartData)
-                                    let label_ty= this.props.promotion.trendChartData.metric+" TY";
+                                  if (this.props.promotion.trendChartData && this.props.promotion.trendChartSpinnerSuccess == 1) {
+                                    console.log("--------------------",this.props.promotion.trendChartData)
+                                    let label_ty=this.props.promotion.trendChartData.metric+" TY";
                                     let label_ly=this.props.promotion.trendChartData.metric+" LY";
                                     return (
 
@@ -908,7 +923,7 @@ export class Promotion extends React.PureComponent {
                       <panel>
                         {/*Promo top 25 table            */}
                         {(() => {
-                          if (this.props.promotion.productsOnPromotion) {
+                          if (this.props.promotion.productsOnPromotion && this.props.promotion.productsTableSpinnerSuccess) {
                             return (
                               <div className="promoTable">
                                 <BootstrapTable className="promoTable"
@@ -1209,6 +1224,7 @@ function mapDispatchToProps(dispatch) {
     trendChartDataFetch: (e) => dispatch(trendChartDataFetch(e)),
     pieChartDataFetch: (e) => dispatch(pieChartDataFetch(e)),
     saveMetricSelectionTabParam: (e) => dispatch(saveMetricSelectionTabParam(e)),
+    trendChartSpinner: (e) => dispatch(trendChartSpinner(e)),
 
     dispatch,
   };

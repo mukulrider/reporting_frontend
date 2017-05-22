@@ -36,6 +36,7 @@ import {
   KPI_SPINNER_SUCCESS,
   SAVE_TREND_CHART_TAB_PARAMS,
   SAVE_METRIC_SELECTION_TAB,
+  TREND_CHART_SPINNER,
 
   PRODUCTS_ON_PROMOTION_TABLE_SUCCESS,TREND_FOR_EACH_TAB_SUCCESS,PIE_CHART_FOR_EACH_TAB_SUCCESS
 
@@ -188,6 +189,11 @@ function promotionReducer(state = initialState, action) {
     case KPI_SPINNER_SUCCESS:
       console.log("KPI_SPINNER_SUCCESS", action.spinnerCheck);
       return state.set('kpiSpinnerSuccess', action.spinnerCheck);
+
+    //SPINNERS - TREND CHART
+    case TREND_CHART_SPINNER:
+      console.log("TREND_CHART_SPINNER", action.spinnerCheck);
+      return state.set('trendChartSpinnerSuccess', action.spinnerCheck);
 
 
     //---------------------------After adding tabs------------------------

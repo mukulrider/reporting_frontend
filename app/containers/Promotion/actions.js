@@ -39,6 +39,7 @@ import {
   KPI_SPINNER_SUCCESS,
   SAVE_TREND_CHART_TAB_PARAMS,
   SAVE_METRIC_SELECTION_TAB,
+  TREND_CHART_SPINNER,
 
   PIE_CHART_FOR_EACH_TAB,PIE_CHART_FOR_EACH_TAB_SUCCESS,TREND_FOR_EACH_TAB,TREND_FOR_EACH_TAB_SUCCESS,PRODUCTS_ON_PROMOTION_TABLE,PRODUCTS_ON_PROMOTION_TABLE_SUCCESS
 
@@ -365,4 +366,10 @@ export function saveMetricSelectionTabParam(data) {
     data
   }
 }
-
+//-------------------------Trend chart SPINNER ----------------------
+export function trendChartSpinner(spinnerCheck) {
+  return {
+    type: TREND_CHART_SPINNER,
+    spinnerCheck
+  }
+}

@@ -82,6 +82,9 @@ export const PRODUCTS_TABLE_SPINNER_SUCCESS = 'app/Promotion/PRODUCTS_TABLE_SPIN
 //SPINNERS - KPI SPINNER
 export const KPI_SPINNER_SUCCESS = 'app/Promotion/KPI_SPINNER_SUCCESS';
 
+//SPINNERS - TREND CHART SPINNER
+export const TREND_CHART_SPINNER = 'app/Promotion/TREND_CHART_SPINNER';
+
 
 //Data for pie chart and line chart (Split by promo type)
 export const PIE_CHART_FOR_EACH_TAB = 'app/Promotion/PIE_CHART_FOR_EACH_TAB';

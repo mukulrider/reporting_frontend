@@ -33,7 +33,8 @@ import {
   kpiDataSuccess,
   productsOnPromoTableSuccess,
   trendChartDataFetchSuccess,
-  pieChartDataFetchSuccess
+  pieChartDataFetchSuccess,
+  trendChartSpinner,
 
 }
   from 'containers/Promotion/actions';
@@ -675,8 +676,8 @@ export function* generateProductsOnPromo() {
   const data = yield call(request, host_url + `/api/reporting/promo_table?` + urlAppends);
   yield put(productsOnPromoTableSuccess(data));
 
-  // let spinnerCheck = 1;
-  // yield put(promoParticipationBySplitSuccess(spinnerCheck));
+  let spinnerCheck = 1;
+  yield put(productsTableSplitSuccess(spinnerCheck));
   // } catch (err) {
   //   // console.log(err);
   // }
@@ -741,8 +742,8 @@ export function* generatePieChartDataFetch() {
   const data = yield call(request, host_url + `/api/reporting/promo_piechart?` + urlAppends);
   yield put(pieChartDataFetchSuccess(data));
 
-  // let spinnerCheck = 1;
-  // yield put(promoParticipationBySplitSuccess(spinnerCheck));
+  let spinnerCheck = 1;
+  yield put(pieChartSuccess(spinnerCheck));
   // } catch (err) {
   //   // console.log(err);
   // }
@@ -813,8 +814,8 @@ export function* generateTrendChartDataFetch() {
   const data = yield call(request, host_url + `/api/reporting/promo_trendchart?` + urlAppends);
   yield put(trendChartDataFetchSuccess(data));
 
-  // let spinnerCheck = 1;
-  // yield put(promoParticipationBySplitSuccess(spinnerCheck));
+  let spinnerCheck = 1;
+  yield put(trendChartSpinner(spinnerCheck));
   // } catch (err) {
   //   // console.log(err);
   // }

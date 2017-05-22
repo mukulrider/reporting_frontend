@@ -348,11 +348,15 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
                       console.log('tesco_weeek filterDataWeek', filterDataWeek);
                       console.log('--filterData', filterData);
                       this.props.pieChartSuccess(0);
-                      this.props.promoGiveAwaySuccess(0);
-                      this.props.productsCountSplitSuccess(0);
-                      this.props.promoParticipationBySplitSuccess(0);
-                      this.props.productsTableSplitSuccess(0);
                       this.props.kpiDataSuccess(0);
+                      {/*this.props.promoGiveAwaySuccess(0);*/}
+                      this.props.trendChartSpinner(0);
+                      this.props.productsCountSplitSuccess(0);
+                      {/*this.props.promoParticipationBySplitSuccess(0);*/}
+                      this.props.productsTableSplitSuccess(0);
+                      this.props.productsOnPromoTableFetch();
+                      this.props.trendChartDataFetch();
+
                       this.props.loadKpi();
                       this.props.loadSales();
                       this.props.loadPromoGiveaway();
