@@ -86,7 +86,7 @@ let gettingUserDetails = () => {
 const userParams = gettingUserDetails();
 
 
-let host_url = "http://172.20.181.88:8000";
+let host_url = "http://172.20.181.92:8000";
 
 // FOR PROMO BOXES
 export function* generatePromoKpiDataFetch() {
