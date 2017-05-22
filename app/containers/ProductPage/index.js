@@ -64,7 +64,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
   return (
     <button
       type="button"
-      className="btn btn-success"
+      className="btn btn-primary"
       onClick={() =>{
         console.log("Inside REact Button click!",this)
         this.setState({lgShow: true});
@@ -83,14 +83,13 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
     return (
       <button
         type="button"
-        className="btn btn-success"
+        className="btn btn-primary"
         onClick={() =>{
           console.log("Inside REact Button click!",this)
           let dataProduct = "product="+row.product;
           this.props.onSaveProductForTrend(dataProduct);
           this.props.onProductTrend();
           this.setState({showSalesTrendModalFlag: true});
-          this.setState({infoModalHeader: "Product Sales TY v/s LY Trend"});
         }}
       >Trend
       </button>
@@ -115,23 +114,29 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
     };
   }
 
-  formatSales = (cell) => {
+  formatMetric = (cell) => {
     if (cell >= 1000 || cell <= -1000) {
       let rounded = Math.round(cell / 1000);
-      return ('£ ' + rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'K');
+      if (this.state.y_axis_text == "Sales Volume") {
+        return (rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'K')
+      }
+      else {
+        return ('£ ' + rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'K');
+      }
     }
     else {
       return ('£ ' + Math.round(cell));
     }
   }
 
-  formatVolume = (cell) => {
-    if (cell >= 1000 || cell <= -1000) {
-      let rounded = Math.round(cell / 1000);
-      return (rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'K');
-
+  formatGlyphicon = (cell) => {
+    if (cell > 0) {
+      return '<i class="glyphicon glyphicon-triangle-top productTablePositive"></i>&nbsp' + cell + '%';
+    }
+    else if (cell < 0) {
+      return '<i class="glyphicon glyphicon-triangle-bottom productTableNegative"></i>&nbsp' + cell + '%';
     } else {
-      return (Math.round(cell));
+      return '<i class="glyphicon glyphicon-minus-sign productTableNeutral"></i>&nbsp' + cell + '%';
     }
   }
 
@@ -405,17 +410,17 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
             </div>
             <div className="col-xs-12">
               <h2 className="pageModuleMainTitle col-xs-12">
-                <b>PRODUCTS INFO </b>
+                <b>Products {this.state.y_axis_text} Info </b>
               </h2>
               <div>
                 {
                   (() => {
-                    if (this.props.ProductPage.data && this.props.ProductPage.data.table_output && this.props.ProductPage.tabsApplySpinner) {
+                    if (this.props.ProductPage.data && this.props.ProductPage.data.table_data && this.props.ProductPage.tabsApplySpinner) {
 
                       return (
                         <div>
                           <BootstrapTable
-                            data={this.props.ProductPage.data.table_output} options={options}
+                            data={this.props.ProductPage.data.table_data} options={options}
                             striped={true}
                             hover
                             condensed
@@ -423,36 +428,26 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                             search={true}
                             exportCSV={true}
                           >
-                            <TableHeaderColumn row="0" rowSpan="2" dataField="product_id" isKey={true}
-                                               dataAlign="center" dataSort>Product ID</TableHeaderColumn>
-                            <TableHeaderColumn row="0" rowSpan="2" width="225" tdStyle={ {whiteSpace: 'normal'} }
-                                               dataField="product" dataSort={true}
-                                               dataAlign="center">Description</TableHeaderColumn>
-                            <TableHeaderColumn row="0" rowSpan="2" width="110" dataField="product_area" dataSort={true}
-                                               dataAlign="center">Product Area</TableHeaderColumn>
-                            <TableHeaderColumn row="0" colSpan="3" dataAlign="center">Price</TableHeaderColumn>
-                            <TableHeaderColumn row="1" dataField="asp" dataFormat={this.formatSales} dataSort={true}
-                                               dataAlign="center">ASP</TableHeaderColumn>
-                            <TableHeaderColumn row="1" dataField="asp_diff_lw" dataSort={true} dataAlign="center"
-                                               dataFormat={ this.diffColumnFormatter }>v LW</TableHeaderColumn>
-                            <TableHeaderColumn row="1" dataField="promo" dataSort={true} dataAlign="center"
-                                               dataFormat={ this.tickColumnFormatter }>Promo?</TableHeaderColumn>
-                            <TableHeaderColumn row="0" colSpan="6" dataSort={true}
-                                               dataAlign="center">Sales</TableHeaderColumn>
-                            <TableHeaderColumn row="1" dataField="top20" dataSort={true} dataAlign="center"
-                                               dataFormat={ this.tickColumnFormatter }>Top 20 TW?</TableHeaderColumn>
-                            <TableHeaderColumn row="1" dataField="rank_lw" dataSort={true} dataAlign="center">LW
-                              Rank</TableHeaderColumn>
-                            <TableHeaderColumn row="1" dataField="sales_value" dataFormat={this.formatSales}
-                                               dataSort={true} dataAlign="center">Sales Value</TableHeaderColumn>
-                            <TableHeaderColumn row="1" dataField="sales_value_diff_lw" dataSort={true} dataAlign="left"
-                                               dataFormat={ this.diffColumnFormatter }>v LW</TableHeaderColumn>
-                            <TableHeaderColumn row="1" dataField="sales_volume" dataFormat={this.formatVolume}
-                                               dataSort={true} dataAlign="center">Sales Volume</TableHeaderColumn>
-                            <TableHeaderColumn row="1" dataField="sales_volume_diff_lw" dataSort={true} dataAlign="left"
-                                               dataFormat={ this.diffColumnFormatter }>vLW</TableHeaderColumn>
-                            <TableHeaderColumn row="0" rowSpan="2" dataFormat={this.cellButton} dataAlign="center">Supplier Info</TableHeaderColumn>
-                            <TableHeaderColumn row="0" rowSpan="2" dataFormat={this.cellButton2} dataAlign="center">Trend</TableHeaderColumn>
+                            <TableHeaderColumn width="225" tdStyle={ {whiteSpace: 'normal'} } dataField="product" isKey={true}
+                                               dataAlign="center" dataSort>Product Description</TableHeaderColumn>
+                            <TableHeaderColumn dataField="x_ty" dataFormat={this.formatMetric} dataSort={true}
+                                               dataAlign="center">TY</TableHeaderColumn>
+                            <TableHeaderColumn dataField="x_ly" dataFormat={this.formatMetric} dataSort={true}
+                                               dataAlign="center">LY</TableHeaderColumn>
+                            <TableHeaderColumn dataField="lfl" dataFormat={this.formatMetric} dataSort={true}
+                                               dataAlign="center">LFL</TableHeaderColumn>
+                            <TableHeaderColumn dataField="x_lfl_ty" dataFormat={this.formatMetric} dataSort={true}
+                                               dataAlign="center">LFL TY</TableHeaderColumn>
+                            <TableHeaderColumn dataField="x_lfl_ly" dataFormat={this.formatMetric} dataSort={true}
+                                               dataAlign="center">LFL LY</TableHeaderColumn>
+                            <TableHeaderColumn dataField="x_lw" dataFormat={this.formatGlyphicon} dataSort={true}
+                                               dataAlign="center">LW</TableHeaderColumn>
+                            <TableHeaderColumn dataField="x_wow" dataFormat={this.formatGlyphicon} dataSort={true}
+                                               dataAlign="center">WOW</TableHeaderColumn>
+                            <TableHeaderColumn dataField="x_yoy" dataFormat={this.formatGlyphicon} dataSort={true}
+                                               dataAlign="center">YOY</TableHeaderColumn>
+                            <TableHeaderColumn dataFormat={this.cellButton} dataAlign="center">Supplier Info</TableHeaderColumn>
+                            <TableHeaderColumn dataFormat={this.cellButton2} dataAlign="center">Trend</TableHeaderColumn>
                           </BootstrapTable>
 
                         </div>
@@ -515,12 +510,12 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                               <TableHeaderColumn tdStyle={ {whiteSpace: 'normal'} }
                                                  dataField="parent_supplier" dataSort={true}
                                                  dataAlign="center">Parent Supplier</TableHeaderColumn>
-                              <TableHeaderColumn dataField="sales_ty" dataSort={true}
+                              <TableHeaderColumn dataField="metric_ty" dataSort={true}
                                                  dataAlign="center">Sales TY</TableHeaderColumn>
-                              <TableHeaderColumn dataField="sales_ly" dataSort={true} dataAlign="center">Sales LY</TableHeaderColumn>
-                              <TableHeaderColumn dataField="sales_ty_lfl" dataFormat={this.formatSales} dataSort={true}
+                              <TableHeaderColumn dataField="metric_ly" dataSort={true} dataAlign="center">Sales LY</TableHeaderColumn>
+                              <TableHeaderColumn dataField="metric_ty_lfl" dataFormat={this.formatMetric} dataSort={true}
                                                  dataAlign="center">Sales TY LFL</TableHeaderColumn>
-                              <TableHeaderColumn dataField="sales_ly_lfl" dataFormat={this.formatSales} dataSort={true}
+                              <TableHeaderColumn dataField="metric_ly_lfl" dataFormat={this.formatMetric} dataSort={true}
                                                  dataAlign="center">Sales LY LFL</TableHeaderColumn>
                             </BootstrapTable>
 
@@ -549,7 +544,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
               <Modal.Header>
 
                 <Modal.Title id="contained-modal-title-sm" className="pageModuleTitle">
-                        <span className="pageModuleTitle"><b>{this.state.infoModalHeader}</b>
+                        <span className="pageModuleTitle"><b>Products {this.state.y_axis_text} Trend</b>
                          <span style={{textAlign: 'right', float: 'right'}}
                                onClick={() =>
                                {this.setState({showSalesTrendModalFlag: false})
