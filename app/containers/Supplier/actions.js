@@ -175,6 +175,7 @@ export function topBottomChart() {
 
 
 export function topBottomChartFetchSuccess(data) {
+  alert(2)
   console.log('SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS - actions', data);
   return {
     type: SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS,

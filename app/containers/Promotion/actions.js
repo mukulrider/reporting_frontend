@@ -37,6 +37,10 @@ import {
   PROMO_PARTICIPATION_SPILT_SPINNER_SUCCESS,
   PRODUCTS_TABLE_SPINNER_SUCCESS,
   KPI_SPINNER_SUCCESS,
+  SAVE_TREND_CHART_TAB_PARAMS,
+  SAVE_METRIC_SELECTION_TAB,
+
+  PIE_CHART_FOR_EACH_TAB,PIE_CHART_FOR_EACH_TAB_SUCCESS,TREND_FOR_EACH_TAB,TREND_FOR_EACH_TAB_SUCCESS,PRODUCTS_ON_PROMOTION_TABLE,PRODUCTS_ON_PROMOTION_TABLE_SUCCESS
 
 } from './constants';
 
@@ -99,14 +103,14 @@ export function PromoGiveawayDataFetchSuccess(data) {
 // FOR FETCHING PROMO PROD
 
 export function PromoProdData() {
-  console.log('actions.js PromoProdData PROMO_PROD_CONSTANT');
+  // console.log('actions.js PromoProdData PROMO_PROD_CONSTANT');
   return {
     type: PROMO_PROD_CONSTANT,
   };
 }
 
 export function PromoProdDataFetchSuccess(data) {
-  console.log('PromoProdDataFetchSuccess(data) PROMO_PROD_FETCH_SUCCESS actions', data)
+  // console.log('PromoProdDataFetchSuccess(data) PROMO_PROD_FETCH_SUCCESS actions', data)
   return {
     type: PROMO_PROD_FETCH_SUCCESS,
     data,
@@ -117,14 +121,14 @@ export function PromoProdDataFetchSuccess(data) {
 // FOR FETCHING PROMO PART
 
 export function PromoPartData() {
-  console.log('actions.js PromoPartData PROMO_PART_CONSTANT');
+  // console.log('actions.js PromoPartData PROMO_PART_CONSTANT');
   return {
     type: PROMO_PART_CONSTANT,
   };
 }
 
 export function PromoPartDataFetchSuccess(data) {
-  console.log('PromoPartDataFetchSuccess(data) PROMO_PART_FETCH_SUCCESS actions', data)
+  // console.log('PromoPartDataFetchSuccess(data) PROMO_PART_FETCH_SUCCESS actions', data)
   return {
     type: PROMO_PART_FETCH_SUCCESS,
     data,
@@ -135,7 +139,7 @@ export function PromoPartDataFetchSuccess(data) {
 //FOR SAVING WEEK PARAM (triggered by Week Buttons)
 
 export function SaveWeekParam(data) {
-  console.log('SaveWeekParam = actions', data);
+  // console.log('SaveWeekParam = actions', data);
   return {
     type: WEEK_PARAM,
     data,
@@ -145,7 +149,7 @@ export function SaveWeekParam(data) {
 // For saving the KPI param (triggered by KPI buttons)
 
 export function SaveKPIParam(data) {
-  console.log('SaveKPIParam = actions', data);
+  // console.log('SaveKPIParam = actions', data);
   return {
     type: KPI_PARAM,
     data,
@@ -154,7 +158,7 @@ export function SaveKPIParam(data) {
 
 
 export function SaveSalesParam(data) {
-  console.log('SaveSalesParam = actions', data);
+  // console.log('SaveSalesParam = actions', data);
   return {
     type: SALES_PARAM,
     data,
@@ -162,7 +166,7 @@ export function SaveSalesParam(data) {
 }
 
 export function SaveGiveawayParam(data) {
-  console.log('SaveGiveawayParam = actions', data);
+  // console.log('SaveGiveawayParam = actions', data);
   return {
     type: GIVEAWAY_PARAM,
     data,
@@ -170,7 +174,7 @@ export function SaveGiveawayParam(data) {
 }
 
 export function SavePromoProdParam(data) {
-  console.log('SavePromoProdParam = actions', data);
+  // console.log('SavePromoProdParam = actions', data);
   return {
     type: PROMO_PROD_PARAM,
     data,
@@ -178,7 +182,7 @@ export function SavePromoProdParam(data) {
 }
 
 export function SavePromoPartParam(data) {
-  console.log('SavePromoPartParam = actions', data);
+  // console.log('SavePromoPartParam = actions', data);
   return {
     type: PROMO_PART_PARAM,
     data,
@@ -188,7 +192,7 @@ export function SavePromoPartParam(data) {
 
 
 export function getFilter() {
-  console.log('actions.js Get Filter', FILTER_CONSTANT);
+  // console.log('actions.js Get Filter', FILTER_CONSTANT);
   return {
     type: FILTER_CONSTANT,
   };
@@ -196,7 +200,7 @@ export function getFilter() {
 
 
 export function FilterFetchSuccess(data) {
-  console.log('PromoFilterFetchSuccess = actions', data);
+  // console.log('PromoFilterFetchSuccess = actions', data);
   return {
     type: FILTER_FETCH_SUCCESS,
     data,
@@ -205,7 +209,7 @@ export function FilterFetchSuccess(data) {
 
 
 export function generateUrlParamsString(data) {
-  console.log('PromoFilterFetchSuccess = actions', data);
+  // console.log('PromoFilterFetchSuccess = actions', data);
   return {
     type: GENERATE_FILTER_PARAMS_STRING,
     data,
@@ -215,21 +219,21 @@ export function generateUrlParamsString(data) {
 
 
 export function getWeekFilter() {
-  console.log('actions.js getWeekFilter', WEEK_FILTER_CONSTANT);
+  // console.log('actions.js getWeekFilter', WEEK_FILTER_CONSTANT);
   return {
     type: WEEK_FILTER_CONSTANT,
   };
 }
 
 export function WeekFilterFetchSuccess(data) {
-  console.log('WeekFilterFetchSuccess = actions', data);
+  // console.log('WeekFilterFetchSuccess = actions', data);
   return {
     type: WEEK_FILTER_FETCH_SUCCESS,
     data,
   };
 }
 export function WeekFilterParam(data) {
-  console.log('WeekFilterParam = actions', data);
+  // console.log('WeekFilterParam = actions', data);
   return {
     type: WEEK_FILTER_PARAM,
     data,
@@ -239,7 +243,7 @@ export function WeekFilterParam(data) {
 
 //PIE CHART SPINNER
 export function pieChartSuccess(spinnerCheck) {
-  console.log('pieChartSuccess', spinnerCheck);
+  // console.log('pieChartSuccess', spinnerCheck);
   return {
     type: PIE_CHART_SPINNER_SUCCESS,
     spinnerCheck
@@ -248,7 +252,7 @@ export function pieChartSuccess(spinnerCheck) {
 
 //MULTI LINE PROMO CHART SPINNER
 export function promoGiveAwaySuccess(spinnerCheck) {
-  console.log('promoGiveAwaySuccess', spinnerCheck);
+  // console.log('promoGiveAwaySuccess', spinnerCheck);
   return {
     type: PROMO_GIVE_AWAY_SPINNER_SUCCESS,
     spinnerCheck
@@ -257,7 +261,7 @@ export function promoGiveAwaySuccess(spinnerCheck) {
 
 //productsCountSplitSuccess SPINNER
 export function productsCountSplitSuccess(spinnerCheck) {
-  console.log('productsCountSplitSuccess', spinnerCheck);
+  // console.log('productsCountSplitSuccess', spinnerCheck);
   return {
     type: PRODUCTS_COUNT_SPILT_SPINNER_SUCCESS,
     spinnerCheck
@@ -288,6 +292,77 @@ export function kpiDataSuccess(spinnerCheck) {
   return {
     type: KPI_SPINNER_SUCCESS,
     spinnerCheck
+  }
+}
+
+
+
+
+//================================================================================
+
+//------------------------------  PIE CHART ---------------------------------------
+
+export function pieChartDataFetch() {
+  return {
+    type: PIE_CHART_FOR_EACH_TAB
+  }
+}
+
+//
+export function pieChartDataFetchSuccess(data) {
+  return {
+    type: PIE_CHART_FOR_EACH_TAB_SUCCESS,
+    data
+  }
+}
+
+//------------------------------  TREND CHART ---------------------------------------
+
+export function trendChartDataFetch() {
+  return {
+    type: TREND_FOR_EACH_TAB
+  }
+}
+
+//
+export function trendChartDataFetchSuccess(data) {
+  return {
+    type: TREND_FOR_EACH_TAB_SUCCESS,
+    data
+  }
+}
+
+
+//------------------------------  TREND CHART ---------------------------------------
+
+export function productsOnPromoTableFetch() {
+  return {
+    type: PRODUCTS_ON_PROMOTION_TABLE
+  }
+}
+
+//
+export function productsOnPromoTableSuccess(data) {
+  return {
+    type: PRODUCTS_ON_PROMOTION_TABLE_SUCCESS,
+    data
+  }
+}
+
+//-------------------------Trend chart Tabs ----------------------
+export function saveTrendChartTabParam(data) {
+  return {
+    type: SAVE_TREND_CHART_TAB_PARAMS,
+    data
+  }
+}
+
+
+//-------------------------Trend chart Tabs ----------------------
+export function saveMetricSelectionTabParam(data) {
+  return {
+    type: SAVE_METRIC_SELECTION_TAB,
+    data
   }
 }
 

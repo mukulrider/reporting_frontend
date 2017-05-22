@@ -19,8 +19,9 @@ import {
   DRIVERS_INTERNAL_CONSTANT,
   DRIVERS_EXTERNAL_CONSTANT,
   PRICE_KPI_CONSTANT,
+  GENERATE_BEST_WORST_PERFORMANCE,
   OVERVIEW_KPI_SPINNER_FLAG,
-  PRICE_KPI_SPINNER_FLAG,
+  PRICE_KPI_SPINNER_FLAG,GENERATE_BEST_WORST_PERFORMANCE_TABLE,
   KPI_SPINNER_FLAG
 } from './constants';
 
@@ -53,7 +54,8 @@ import {
   spinnerInternalDrivers,
   spinnerExternalDrivers,
   spinnerPriceKPI,
-
+  generateBestWorstPerformanceSuccess,
+  generateBestWorstPerformanceTableSuccess
 }
   from 'containers/Executive/actions';
 
@@ -103,7 +105,7 @@ let gettingUserDetails = () => {
 const userParams = gettingUserDetails();
 // alert(userParams)
 
-let host_url = "http://172.20.181.92:8002";
+let host_url = "http://172.20.181.92:8000";
 
 // All sagas to be loaded
 
@@ -1696,10 +1698,209 @@ export function* doWeekFilterFetch() {
   yield cancel(watcher);
 }
 
+// saurav
+// FOR PROMO WEEK FILTER DATA
+export function* generateBestWorstPerformance() {
+  try {
+    // todo: update url
+    console.log("Inside generateWeekFilterFetch")
+    const urlName = yield select(selectExecutiveDomain());
+    const weekurlparam = urlName.get('week_param');
+    let urlParamsString = urlName.get('urlParamsString');
+    let weekParamString = urlName.get('week_filter_param');
+    let weekselection = urlName.get('weekurlParam');
+    if (!urlParamsString) {
+      urlParamsString = ''
+    }
+    if (typeof(urlParamsString) == "undefined") {
+      urlParamsString = "";
+    } else {
+      let urlParamsStringCheck = urlParamsString.substring(0, 2);
+      if (urlParamsStringCheck == 20) {
+        urlParamsString = urlParamsString.substring(14, urlParamsString.length);
+      }
+    }
+    const kpiparam = urlName.get('kpi_param');
+
+    let urlAppends = "";
+    if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+      urlAppends = urlAppends + '&' + weekurlparam;
+      console.log('urlAppends1', urlAppends);
+    } else {
+
+    }
+    //
+    // if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+    //   urlAppends = urlAppends + '&' + urlParamsString;
+    //   console.log('urlAppends1', urlAppends);
+    // } else {
+    //
+    // }
+
+    if (!(typeof(weekParamString) == "undefined") && !(weekParamString == "")) {
+      urlAppends = urlAppends + '&' + weekParamString;
+      console.log('urlAppends1', urlAppends);
+    } else {
+
+    }
+
+    if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
+      urlAppends = urlAppends + '&' + kpiparam;
+      console.log('urlAppends1', urlAppends);
+    } else {
+
+    }
+
+    if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+      urlAppends = urlAppends + '&' + weekselection;
+      console.log('urlAppends1', urlAppends);
+    } else {
+
+    }
+
+    if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+      urlAppends = urlAppends + '&' + userParams;
+      console.log('urlAppends1', urlAppends);
+    } else {
+
+    }
+
+    if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {
+      urlAppends = urlAppends.replace('&', '');
+    }
+    console.log('urlAppends10 generateBestWorstPerformance', urlAppends);
+    const data = yield call(request, host_url + '/api/reporting/executive_best_worst_performance?' + urlAppends);
+
+    // const data = yield call(request, `http://172.20.181.92:8002/api/reporting/executive_best_worst_performance?week_flag=Current%20Week&kpi_type=Value&user_id=c13a9c506c8e6db5fb9f0307e3a472ba2b85dcd2&user_name=sam.augustine@mu-sigma.com&designation=Buyer&buying_controller_header=Meat%20Fish%20and%20Veg&buyer_header=Fish`);
+    // const data = yield call(request, host_url + '/api/reporting/week_exec_filter_data?' + weekurlparams);
+    // const data = yield call(request, host_url+'/api/reporting/week_exec_filter_data?' + weekurlparams + '&' + userParams);
+
+    // console.log(host_url + '/api/reporting/week_exec_filter_data?' + weekurlparams);
+
+    // const data = yield call(request, `http://10.1.161.82:8002/ranging/npd_view/filter_data?`);
+
+    console.log("Filter week data", data);
+    yield put(generateBestWorstPerformanceSuccess(data));
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function* doGenerateBestWorstPerformance() {
+  console.log('sagas doFilterFetch ', WEEK_FILTER_CONSTANT);
+  const watcher = yield takeLatest(GENERATE_BEST_WORST_PERFORMANCE, generateBestWorstPerformance);
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+
+// saurav
+// FOR PROMO WEEK FILTER DATA
+export function* generateBestWorstPerformanceTable() {
+  try {
+    // todo: update url
+    console.log("Inside generateWeekFilterFetch")
+    const urlName = yield select(selectExecutiveDomain());
+    const weekurlparam = urlName.get('week_param');
+    let urlParamsString = urlName.get('urlParamsString');
+    let weekParamString = urlName.get('week_filter_param');
+    let weekselection = urlName.get('weekurlParam');
+    let tableSelectedLevel = urlName.get('tableSelectedLevel');
+    // alert(tableSelectedLevel)
+    if (!urlParamsString) {
+      urlParamsString = ''
+    }
+    if (typeof(urlParamsString) == "undefined") {
+      urlParamsString = "";
+    } else {
+      let urlParamsStringCheck = urlParamsString.substring(0, 2);
+      if (urlParamsStringCheck == 20) {
+        urlParamsString = urlParamsString.substring(14, urlParamsString.length);
+      }
+    }
+    const kpiparam = urlName.get('kpi_param');
+
+    let urlAppends = "";
+    if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
+      urlAppends = urlAppends + '&' + weekurlparam;
+      console.log('urlAppends1', urlAppends);
+    } else {
+
+    }
+
+    if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+      // urlAppends = urlAppends + '&' + urlParamsString;
+      console.log('urlAppends1', urlAppends);
+    } else {
+
+    }
+
+    if (!(typeof(weekParamString) == "undefined") && !(weekParamString == "")) {
+      urlAppends = urlAppends + '&' + weekParamString;
+      console.log('urlAppends1', urlAppends);
+    } else {
+
+    }
+
+    if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
+      urlAppends = urlAppends + '&' + kpiparam;
+      console.log('urlAppends1', urlAppends);
+    } else {
+
+    }
+
+    if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+      urlAppends = urlAppends + '&' + weekselection;
+      console.log('urlAppends1', urlAppends);
+    } else {
+
+    }
+
+    if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+      urlAppends = urlAppends + '&' + userParams;
+      console.log('urlAppends1', urlAppends);
+    } else {
+
+    }
+
+    if (!(typeof(userParams) == "undefined") && !(tableSelectedLevel == "")) {
+      urlAppends = urlAppends + '&selected_level=' + tableSelectedLevel;
+      console.log('urlAppends1', urlAppends);
+    } else {
+
+    }
+
+    if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {
+      urlAppends = urlAppends.replace('&', '');
+    }
+    console.log('urlAppends11 generateBestWorstPerformanceTable', urlAppends);
+    const data = yield call(request, host_url + '/api/reporting/exec_supplier_info?' + urlAppends);
+
+    // const data = yield call(request, `http://172.20.181.92:8000/api/reporting/exec_supplier_info?week_flag=Current%20Week&kpi_type=Value&selected_level=Coated%20Fish&selected_supplier=4894.%20-%20BIRDS%20EYE&user_id=c13a9c506c8e6db5fb9f0307e3a472ba2b85dcd2&user_name=sam.augustine@mu-sigma.com&designation=Buyer&buying_controller_header=Meat%20Fish%20and%20Veg&buyer_header=Fish%200`);
+    // const data = yield call(request, host_url + '/api/reporting/week_exec_filter_data?' + weekurlparams);
+    // const data = yield call(request, host_url+'/api/reporting/week_exec_filter_data?' + weekurlparams + '&' + userParams);
+
+    // console.log(host_url + '/api/reporting/week_exec_filter_data?' + weekurlparams);
+
+    // const data = yield call(request, `http://10.1.161.82:8002/ranging/npd_view/filter_data?`);
+
+    console.log("Filter week data", data);
+    yield put(generateBestWorstPerformanceTableSuccess(data));
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function* doGenerateBestWorstPerformanceTable() {
+  console.log('sagas doFilterFetch ', WEEK_FILTER_CONSTANT);
+  const watcher = yield takeLatest(GENERATE_BEST_WORST_PERFORMANCE_TABLE, generateBestWorstPerformanceTable);
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+
 
 // All sagas to be loaded
 export default [
-  defaultSaga,
+  defaultSaga,doGenerateBestWorstPerformance,
   doFilterFetch,
   doWeekFilterFetch,
   doPromoOverviewKpiFetch,
@@ -1708,7 +1909,7 @@ export default [
   doOverviewKPITrendFetch,
   doOverviewDriversInternalFetch,
   doOverviewDriversExternalFetch,
-  doKpiBoxesFetch,
+  doKpiBoxesFetch,doGenerateBestWorstPerformanceTable,
   doBestWorstFetch,
   doBestInfoFetch,
   doWorstInfoFetch,
