@@ -42,11 +42,22 @@ import styles from './style.scss';
 export class ProductPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   componentDidMount = () => {
+
+    let defaultFilterUrlParams = localStorage.getItem('urlParams');
+    console.log('defaultFilterUrlParams', defaultFilterUrlParams);
+
+    if (defaultFilterUrlParams) {
+      console.log('defaultFilterUrlParams', defaultFilterUrlParams);
+      this.props.onGenerateUrlParamsString(defaultFilterUrlParams);
+    } else {
+      this.props.onGenerateUrlParamsString('');
+    }
+
     let dataWeekParams = this.props.ProductPage.dataWeekParams;
     let dataMetricParams = this.props.ProductPage.dataMetricParams;
     this.props.onGetFilter();
     this.props.onSaveMetricParam(dataMetricParams);
-    this.props.onGenerateUrlParamsString();
+    // this.props.onGenerateUrlParamsString();
 
   };
 

@@ -95,9 +95,9 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
                     console.log("Cascading filter - week", this.props.week_data);
                     var panelHeader = (
 
-                      <div>Tesco Week
+                      <div className="">Tesco Week
                         <span style={{color: "red"}}>*</span>&nbsp;
-                        <span className="accordion-toggle" style={{float: 'right'}}></span>
+                        <span className="accordion-toggle" style={{float: 'right', marginRight: '0%'}}></span>
                       </div>
                     );
                     return (

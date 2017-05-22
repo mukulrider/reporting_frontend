@@ -278,19 +278,29 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
     let botName = '';
     let suppName = '';
     let topbotflag = '';
+    let formatVolume = (i) => {
+      if (i >= 1000 || i <= -1000) {
+        let rounded = Math.round(i / 1000)
+        return (rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'K');
 
+      } else {
+        return (Math.round(i));
+      }
+
+    };
     let cellButton = (row, cell) => {
       console.log('<<<<<<row', row, cell)
       return (
         <div>
-          <button className="btn btn-success" onClick={()=>{
+          <button className="btn btn-success" onClick={() => {
             // let suppName = 'None';
             // this.props.onSaveSupplierName(suppName);
             // this.setState({botsuppInfo: true});
             suppName = 'None';
             this.props.onGenerateBestWorstPerformanceTable(row);
             this.setState({topsuppInfo: true});
-          }}>Show info</button>
+          }}>Supplier Info
+          </button>
         </div>
       )
     }
@@ -310,7 +320,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
             this.setState({activeKey5: "1"});
             this.props.loadBestInfoData();
             this.setState({modalGraphTopBot: true})
-          }}>Show info 2
+          }}>Trend
           </button>
         </div>
       )
@@ -1511,39 +1521,32 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                           </span>{this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var}
                                                         </h4>
 
-                                                        <div className="row" style={{width: "480px"}}>
-                                                          <div className="col-xs-3 overview-blk"
-                                                               style={{marginRight: "5px"}}>
-                                                            <Panel>
+                                                          <div className="row">
+                                                            <div className="col-xs-12 overview-blk"
+                                                                 style={{marginRight: "5px"}}>
                                                               <div className="panel"
                                                                    style={{
                                                                      border: '1px solid #E5E8EA',
-                                                                     width: '120px',
-                                                                     height: '120px',
+                                                                     height: '100px',
                                                                      textAlign: 'center'
                                                                    }}>
                                                                 <h4 className="panel-heading tesco-heading"><b>Transactions</b>
                                                                 </h4>
                                                                 <div className="panel-body">
                                                                   <span className="overview-blk-value">
-                                                                    <h4>
                                                                       <span
                                                                         className={glyphiconFormatter(this.props.Executive.overview_drivers_internal_data.kpi.transaction_var)}>
                                                                       </span> {this.props.Executive.overview_drivers_internal_data.kpi.transaction_var}
-                                                                    </h4>
                                                                   </span>
                                                                 </div>
                                                               </div>
-                                                            </Panel>
-                                                          </div>
-                                                          <div className="col-xs-3 overview-blk"
-                                                               style={{marginRight: "5px"}}>
-                                                            <Panel>
+                                                            </div>
+                                                            <div className="col-xs-12 overview-blk"
+                                                                 style={{marginRight: "5px"}}>
                                                               <div className="panel"
                                                                    style={{
                                                                      border: '1px solid #E5E8EA',
-                                                                     width: '120px',
-                                                                     height: '120px',
+                                                                     height: '100px',
                                                                      textAlign: 'center'
                                                                    }}>
                                                                 <h4 className="panel-heading tesco-heading"><b>Items
@@ -1551,41 +1554,33 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                 </h4>
                                                                 <div className="panel-body">
                                                                   <span className="overview-blk-value">
-                                                                    <h4>
                                                                       <span
                                                                         className={glyphiconFormatter(this.props.Executive.overview_drivers_internal_data.kpi.item_per_basket_var)}>
                                                                       </span> {this.props.Executive.overview_drivers_internal_data.kpi.item_per_basket_var}
-                                                                    </h4>
                                                                   </span>
                                                                 </div>
                                                               </div>
-                                                            </Panel>
-                                                          </div>
-                                                          <div className="col-xs-3 overview-blk"
-                                                               style={{marginRight: "5px"}}>
-                                                            <Panel>
+                                                            </div>
+                                                            <div className="col-xs-12 overview-blk"
+                                                                 style={{marginRight: "5px"}}>
                                                               <div className="panel"
                                                                    style={{
                                                                      border: '1px solid #E5E8EA',
-                                                                     width: '120px',
-                                                                     height: '120px',
+                                                                     height: '100px',
                                                                      textAlign: 'center'
                                                                    }}>
                                                                 <h4 className="panel-heading tesco-heading"><b>Item
                                                                   price</b></h4>
                                                                 <div className="panel-body">
                                                                   <span className="overview-blk-value">
-                                                                    <h4>
                                                                       <span
                                                                         className={glyphiconFormatter(this.props.Executive.overview_drivers_internal_data.kpi.item_price_var)}>
                                                                       </span>{this.props.Executive.overview_drivers_internal_data.kpi.item_price_var}
-                                                                    </h4>
                                                                   </span>
                                                                 </div>
                                                               </div>
-                                                            </Panel>
+                                                            </div>
                                                           </div>
-                                                        </div>
 
                                                       </div>
 
@@ -2486,21 +2481,29 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                           exportCSV={ true }
                                                           search={ true }
                                                           pagination striped hover condensed>
+
                                             <TableHeaderColumn dataField='parent_supplier'
                                                                dataAlign='center' isKey
-                                                               thStyle={{whiteSpace: 'normal'}}>parent_supplier</TableHeaderColumn>
+                                                               tdStyle={{fontSize: '14px'}}
+                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>parent_supplier</TableHeaderColumn>
                                             <TableHeaderColumn dataField='grouped_ty'
                                                                dataAlign='center'
-                                                               thStyle={{whiteSpace: 'normal'}}>grouped_ty</TableHeaderColumn>
+                                                               tdStyle={{fontSize: '14px'}}
+                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>grouped_ty</TableHeaderColumn>
                                             <TableHeaderColumn dataField='cont_to_grwth'
                                                                dataAlign='center'
-                                                               thStyle={{whiteSpace: 'normal'}}>cont_to_grwth</TableHeaderColumn>
+                                                               tdStyle={{fontSize: '14px'}}
+                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>cont_to_grwth</TableHeaderColumn>
                                             <TableHeaderColumn dataField='grouped_ly'
                                                                dataAlign='center'
-                                                               thStyle={{whiteSpace: 'normal'}}>grouped_ly</TableHeaderColumn>
+                                                               tdStyle={{fontSize: '14px'}}
+
+                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>grouped_ly</TableHeaderColumn>
                                             <TableHeaderColumn dataFormat={cellButton}
                                                                dataAlign='center'
-                                                               thStyle={{whiteSpace: 'normal'}}>grouped_ly</TableHeaderColumn>
+                                                               tdStyle={{fontSize: '14px'}}
+
+                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>grouped_ly</TableHeaderColumn>
                                             <TableHeaderColumn dataFormat={(row, cell) => {
                                               return (
                                                 <div>
@@ -2533,6 +2536,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                 <Modal show={this.state.modalGraphTopBot} bsSize="large"
                                        aria-labelledby="contained-modal-title-sm"
+                                       dialogClassName={'mdModal'}
                                        onHide={() => {
                                          this.setState({modalGraphTopBot: false})
                                        }}>
@@ -2826,28 +2830,50 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                     pagination striped hover condensed>
                                       <TableHeaderColumn dataField='junior_buyer'
                                                          dataAlign='center' isKey
-                                                         thStyle={{whiteSpace: 'normal'}}>Parent Supplier</TableHeaderColumn>
+                                                         tdStyle={{fontSize: '14px'}}
+
+                                                         thStyle={{whiteSpace: 'normal', fontSize: '14px'}}>Parent
+                                        Supplier</TableHeaderColumn>
                                       <TableHeaderColumn dataField='sales_share'
                                                          dataAlign='center'
-                                                         thStyle={{whiteSpace: 'normal'}}>Sales Share</TableHeaderColumn>
+                                                         tdStyle={{fontSize: '14px'}}
+
+                                                         thStyle={{whiteSpace: 'normal', fontSize: '14px'}}>Sales
+                                        Share</TableHeaderColumn>
                                       <TableHeaderColumn dataField='cont_to_grwth'
                                                          dataAlign='center'
-                                                         thStyle={{whiteSpace: 'normal'}}>Contribution to Growth</TableHeaderColumn>
+                                                         tdStyle={{fontSize: '14px',}}
+
+                                                         thStyle={{whiteSpace: 'normal', fontSize: '14px'}}>Contribution
+                                        to Growth</TableHeaderColumn>
                                       <TableHeaderColumn dataField='yoy_var'
                                                          dataAlign='center'
-                                                         thStyle={{whiteSpace: 'normal'}}>YoY variation</TableHeaderColumn>
+                                                         tdStyle={{fontSize: '14px'}}
+
+                                                         thStyle={{whiteSpace: 'normal', fontSize: '14px'}}>YoY
+                                        variation</TableHeaderColumn>
                                       <TableHeaderColumn dataField='value_ly'
                                                          dataAlign='center'
-                                                         thStyle={{whiteSpace: 'normal'}}>Value LY</TableHeaderColumn>
-                                      <TableHeaderColumn  dataField='junior_buyer' dataFormat={cellButton}
-                                                          dataAlign='center'
-                                                          thStyle={{whiteSpace: 'normal'}}>Junior Buyer</TableHeaderColumn>
+                                                         dataFormat={formatVolume}
+                                                         tdStyle={{fontSize: '14px',}}
+
+                                                         thStyle={{whiteSpace: 'normal', fontSize: '14px'}}>Value
+                                        LY</TableHeaderColumn>
+                                      <TableHeaderColumn dataField='junior_buyer' dataFormat={cellButton}
+                                                         dataAlign='center'
+                                                         thStyle={{whiteSpace: 'normal', fontSize: '14px'}}>Supplier
+                                        Info.</TableHeaderColumn>
                                       <TableHeaderColumn dataField='index' dataFormat={cellButton2}
                                                          dataAlign='center'
-                                                         thStyle={{whiteSpace: 'normal'}}>grouped_ly</TableHeaderColumn>
+                                                         tdStyle={{fontSize: '14px'}}
+
+                                                         thStyle={{
+                                                           whiteSpace: 'normal',
+                                                           fontSize: '14px'
+                                                         }}>Trend</TableHeaderColumn>
                                     </BootstrapTable>
                                   )
-                                }else{
+                                } else {
                                   return (
                                     <div>
                                       <h3>Please select filter till Buying controller to view bottom performing
@@ -2858,25 +2884,25 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               })()}
 
                               {/*{(() => {*/}
-                                {/*if (this.props.Executive.best_worst_data.Choose_filters == 'no') {*/}
+                              {/*if (this.props.Executive.best_worst_data.Choose_filters == 'no') {*/}
 
-                                  {/*console.log("Choose_filters is no");*/}
-                                  {/*if (this.props.Executive.best_worst_data.length_less_than_five == 'no') {*/}
-                                    {/*return (*/}
-                                      {/*<div></div>*/}
-                                    {/*)*/}
-                                  {/*}*/}
+                              {/*console.log("Choose_filters is no");*/}
+                              {/*if (this.props.Executive.best_worst_data.length_less_than_five == 'no') {*/}
+                              {/*return (*/}
+                              {/*<div></div>*/}
+                              {/*)*/}
+                              {/*}*/}
 
-                                {/*}*/}
-                                {/*else {*/}
-                                  {/*return (*/}
-                                    {/*<div>*/}
-                                      {/*<h3>Please select filter till Buying controller to view bottom performing*/}
-                                        {/*subgroups</h3>*/}
-                                    {/*</div>*/}
-                                  {/*)*/}
+                              {/*}*/}
+                              {/*else {*/}
+                              {/*return (*/}
+                              {/*<div>*/}
+                              {/*<h3>Please select filter till Buying controller to view bottom performing*/}
+                              {/*subgroups</h3>*/}
+                              {/*</div>*/}
+                              {/*)*/}
 
-                                {/*}*/}
+                              {/*}*/}
                               {/*})()}*/}
 
 
@@ -3353,6 +3379,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
           <Modal show={this.state.topsuppInfo} bsSize="lg"
                  aria-labelledby="contained-modal-title-lg"
+                 onHide={() => {
+                   this.setState({topsuppInfo: false})
+                 }}
           >
             <Modal.Header>
 
@@ -3368,164 +3397,46 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
             </Modal.Header>
             <Modal.Body style={{fontSize: '14px'}}>
-              <div className="row">
-                <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4">
-                  {(() => {
-                    if (this.props.Executive.top_name != 'None') {
-                      return (
-                        <Nav bsStyle="tabs" activeKey={this.state.activeKey6} onSelect={this.handleSelect}
-                             className="tabsCustom2">
-                          <NavItem className="tabsCustomList2" eventKey="1" onClick={() => {
-                            suppName = this.props.Executive.best_info_data.top_5_supp[0].parent_supplier;
-                            suppName = "selected_supplier=" + suppName;
-                            this.props.onSaveSupplierName(suppName);
-                            this.setState({activeKey6: "1"});
-                            this.props.loadTopSupplierInfoData();
+              {/*{this.props.Executive.bestWorstPerformanceTable}*/}
+              <BootstrapTable className="promoTable"
+                              data={this.props.Executive.bestWorstPerformanceTable}
+                              pagination={true} options={options}
+                              striped={true}
+                              condensed>
 
-
-                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}>
-                            <b
-                              style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[0].parent_supplier}</b></NavItem>
-
-                          <NavItem className="tabsCustomList2" eventKey="2" onClick={() => {
-                            suppName = this.props.Executive.best_info_data.top_5_supp[1].parent_supplier;
-                            suppName = "selected_supplier=" + suppName;
-                            this.props.onSaveSupplierName(suppName);
-                            this.setState({activeKey6: "2"});
-                            this.props.loadTopSupplierInfoData();
-
-                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                            style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[1].parent_supplier}</b></NavItem>
-
-                          <NavItem className="tabsCustomList2" eventKey="3" onClick={() => {
-                            suppName = this.props.Executive.best_info_data.top_5_supp[2].parent_supplier;
-                            suppName = "selected_supplier=" + suppName;
-                            this.props.onSaveSupplierName(suppName);
-                            this.setState({activeKey6: "3"});
-                            this.props.loadTopSupplierInfoData();
-                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                            style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[2].parent_supplier}</b></NavItem>
-
-                          <NavItem className="tabsCustomList2" eventKey="4" onClick={() => {
-                            suppName = this.props.Executive.best_info_data.top_5_supp[3].parent_supplier;
-                            suppName = "selected_supplier=" + suppName;
-                            this.props.onSaveSupplierName(suppName);
-                            this.setState({activeKey6: "4"});
-                            this.props.loadTopSupplierInfoData();
-
-                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                            style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[3].parent_supplier}</b></NavItem>
-
-                          <NavItem className="tabsCustomList2" eventKey="5" onClick={() => {
-                            suppName = this.props.Executive.best_info_data.top_5_supp[4].parent_supplier;
-                            suppName = "selected_supplier=" + suppName;
-                            this.props.onSaveSupplierName(suppName);
-                            this.setState({activeKey6: "5"});
-                            this.props.loadTopSupplierInfoData();
-                          }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                            style={{textDecoration: 'none'}}>{this.props.Executive.best_info_data.top_5_supp[4].parent_supplier}</b></NavItem>
-
-                        </Nav>
-                      );
-                    }
-                  })()}
-
-
-                </div>
-                <div className="col-md-8 col-xs-12 col-sm-8 col-lg-8">
-                  {(() => {
-                    if (this.props.Executive.top_supp_info_data) {
-                      if (this.props.Executive.supplier_name != 'None')
-
-
-                        return (
-                          <div>
-                            {/*Row for KPIs*/}
-                            <div className="row">
-                              <div className="panel-body cardPanel">
-                                <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall" style={{
-                                  borderRight: "1px solid rgb(229, 232, 234)",
-                                  padding: "0",
-                                  textAlign: "center"
-                                }}>
-                                  <h4>
-                                    <span
-                                      className={glyphiconFormatter(this.props.Executive.top_supp_info_data.yoy_var)}>
-                                    </span>{this.props.Executive.top_supp_info_data.yoy_var}%
-                                  </h4>
-                                  <h4 className="kpiSubTitle"><b>YoY</b></h4>
-                                </div>
-
-                                <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall" style={{
-                                  borderRight: "1px solid rgb(229, 232, 234)",
-                                  padding: "0",
-                                  textAlign: "center"
-                                }}>
-                                  <h4>
-                                    <span
-                                      className={glyphiconFormatter(this.props.Executive.top_supp_info_data.cont_to_grwth)}>
-                                    </span>{this.props.Executive.top_supp_info_data.cont_to_grwth}%
-                                  </h4>
-                                  <h4 className="kpiSubTitle">Contri to growth</h4>
-                                </div>
-
-                                <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall" style={{
-                                  borderRight: "1px solid rgb(229, 232, 234)",
-                                  padding: "0",
-                                  textAlign: "center"
-                                }}>
-                                  <h4>{this.props.Executive.top_supp_info_data.sales_share}%
-                                  </h4>
-                                  <h4 className="kpiSubTitle">Sales Share</h4>
-                                </div>
-
-                              </div>
-                            </div>
-                            <div style={{height: '10%', width: '100%'}}>&nbsp;</div>
-                            {/*Row for Gauge Charts*/}
-                            <div className="row">
-                              <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                   style={{fontSize: "10px", textAlign: "center"}}>
-                                <b>Importance to Supplier</b>
-                                <GaugeExec data={[this.props.Executive.top_supp_info_data.imp_to_supp]}
-                                           id="top_gauge1"/>
-                              </div>
-                              <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                   style={{fontSize: "10px", textAlign: "center"}}>
-                                <b>Importance to Category</b>
-                                <GaugeExec data={[this.props.Executive.top_supp_info_data.imp_to_categ]}
-                                           id="top_gauge2"/>
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      else {
-                        return (
-                          <div><h3>Old data is present</h3></div>
-                        );
-                      }
-
-                    }
-                    else {
-                      return (
-                        <div>
-                          <h3>
-                            Select a supplier to view information
-                          </h3>
-                        </div>
-                      )
-                    }
-                  })()}
-                </div>
-              </div>
-
+                <TableHeaderColumn dataAlign={"left"}
+                                   dataField='parent_supplier' isKey>Tesco
+                  Week</TableHeaderColumn>
+                <TableHeaderColumn dataAlign={"grouped_ly"}
+                                   dataField='holiday_date'>Holiday
+                  Date</TableHeaderColumn>
+                <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                   dataAlign={"left"}
+                                   dataField='imp_to_ps'>Holiday
+                  Description</TableHeaderColumn>
+                <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                   dataAlign={"left"}
+                                   dataField='value_ty'>Holiday
+                  Description</TableHeaderColumn>
+                <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                   dataAlign={"left"}
+                                   dataField='grouped_ty'>Holiday
+                  Description</TableHeaderColumn>
+                <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                   dataAlign={"left"}
+                                   dataField='yoy_var'>Holiday
+                  Description</TableHeaderColumn>
+              </BootstrapTable>
             </Modal.Body>
           </Modal>
 
           {/*MODAL FOR bot - Supplier Info*/}
 
           <Modal show={this.state.botsuppInfo} bsSize="lg"
-                 aria-labelledby="contained-modal-title-lg">
+                 aria-labelledby="contained-modal-title-lg"
+                 onHide={() => {
+                   this.setState({botsuppInfo: false})
+                 }}>
             <Modal.Header>
 
               <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span

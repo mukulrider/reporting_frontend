@@ -39,6 +39,16 @@ import {
 } from './actions';
 export class DailySales extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentDidMount = () => {
+    let defaultFilterUrlParams = localStorage.getItem('urlParams');
+    console.log('defaultFilterUrlParams', defaultFilterUrlParams);
+
+    if (defaultFilterUrlParams) {
+      console.log('defaultFilterUrlParams', defaultFilterUrlParams);
+      this.props.onGenerateUrlParamsString(defaultFilterUrlParams);
+    } else {
+      this.props.onGenerateUrlParamsString('');
+    }
+
     this.props.DefaultLineChartCall();
     this.props.DSViewKpiSpinnerCheckSuccess(0);
     let dataWeekParam = 'week_flag=None';

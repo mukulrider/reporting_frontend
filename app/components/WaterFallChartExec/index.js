@@ -262,6 +262,7 @@ class WaterFallChartExec extends React.PureComponent { // eslint-disable-line re
 
   };
   componentDidMount = () => {
+    console.log("---------",this.props.data);
     this.createChart(this.props.data, this.props.id, this.props.yAxisName, this.props.formatter, this.props.positive_text, this.props.negative_text, this.props.total_text, this.props.xAxisName);
   };
 

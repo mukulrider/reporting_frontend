@@ -45,8 +45,8 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
       .value(function(d) { return d; });
 
      let svg = d3.select("#" + id + '_svg')
-       .attr("width", 300)
-       .attr("height", height + height/4)
+       .attr("width", 400)
+       .attr("height", 420)
        // .attr("height", 405)
        //responsive SVG needs these 2 attributes and no width and height attr
        // .attr("preserveAspectRatio", "xMinYMin meet")
@@ -92,7 +92,7 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
       .data(dataGroup)
       .enter().append("g")
       .attr("transform", function (d, i) {
-        return "translate(" + (i*legendWidth - width + margin.left + 125) + ",0)";
+        return "translate(" + (i*legendWidth - width + margin.left + frameWidth/4) + ",0)";
       });
 
     let color_hash = ["#98abc5", "#8a89a6"];

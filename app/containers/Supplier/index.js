@@ -80,7 +80,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
       this.props.onGenerateUrlParamsString('');
     }
     this.props.supplierViewKpiSpinnerCheckSuccess(0);
-    this.props.onGenerateUrlParamsString();
+    // this.props.onGenerateUrlParamsString();
     this.props.onGetFilter();
     this.props.onKPIBox();
     this.props.ontopBottomChart();
