@@ -61,15 +61,16 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
     };
 
   }
+
   render() {
     let kpiParmas = this.props.DailySales.kpi_param;
     return (
-      <Panel  style={{background:"#fafafa"}}>
+      <Panel style={{background: "#fafafa"}}>
         <div>
           <Helmet
             title="DailySales"
             meta={[
-              { name: 'description', content: 'Description of DailySales' },
+              {name: 'description', content: 'Description of DailySales'},
             ]}
           />
 
@@ -124,7 +125,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                              previous_selection={this.props.DailySales.filter_selection}
                                              previous_week_selection={this.props.DailySales.filter_week_selection}
                                              onCheckboxChange={this.props.onCheckboxChange}
-                                             onCheckboxWeekChange = {this.props.onCheckboxWeekChange}
+                                             onCheckboxWeekChange={this.props.onCheckboxWeekChange}
                                              DSViewKpiSpinnerCheck={this.props.DSViewKpiSpinnerCheckSuccess}
                                              LineChartSpinnerCheck={this.props.LineChartSpinnerCheckSuccess}
 
@@ -159,19 +160,26 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                       })()}
                     </div>
                     <div>
-                      <div className="row fixingPosition" style={{marginLeft: "0%", paddingTop: "-5px", marginRight: "0px"}}>
-                        <div className="row" style={{textAlign: "center", alignItems:"center"}}>
+                      <div className="row fixingPosition"
+                           style={{marginLeft: "0%", paddingTop: "-5px", marginRight: "0px"}}>
+                        <div className="row" style={{textAlign: "center", alignItems: "center"}}>
                           <div className="col-md-12">
                             <h4 className="pageModuleMainTitle">Overview</h4>
                           </div>
-                          <div className="col-md-12" style={{textAlign: "center",marginLeft: "0.5%", align: "center",alignItems:"center", backgroundColor:"1px solid #FAFAFA"}}>
+                          <div className="col-md-12" style={{
+                            textAlign: "center",
+                            marginLeft: "0.5%",
+                            align: "center",
+                            alignItems: "center",
+                            backgroundColor: "1px solid #FAFAFA"
+                          }}>
                             <div className="col-md-12 col-sm-12 col-xs-12">
-                              <div className="col-md-4 col-sm-6 col-xs-12 overview-blk" >
+                              <div className="col-md-4 col-sm-6 col-xs-12 overview-blk">
                                 <Panel>
-                                  <div className="panel" style={{border: '1px solid #ccc',textAlign:"center"}}>
+                                  <div className="panel" style={{border: '1px solid #ccc', textAlign: "center"}}>
                                     <h4 className="tesco-heading"><b>Sales</b></h4>
                                     {(() => {
-                                      if ((this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) || kpiParmas =="val_type=2" || kpiParmas =="val_type=3" ) {
+                                      if ((this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) || kpiParmas == "val_type=2" || kpiParmas == "val_type=3") {
                                         let a = this.props.DailySales.linechart_data.static_data;
                                         return a.map(obj => {
                                           return (
@@ -191,7 +199,9 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                               </div>
                                             </div>
 
-                                          )})}
+                                          )
+                                        })
+                                      }
                                       else {
                                         return (
                                           <div className="row spinnerPositionLineChart"><Spinner /><h4>Please Wait a
@@ -215,7 +225,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                     {/*<div className="panel-body" style={{marginBottom:"2px",paddingTop:"0px"}}>*/}
                                     {/*<span className="overview-blk-value">*/}
                                     {(() => {
-                                      if ((this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) || kpiParmas =="val_type=2" || kpiParmas =="val_type=3") {
+                                      if ((this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) || kpiParmas == "val_type=2" || kpiParmas == "val_type=3") {
                                         let a = this.props.DailySales.linechart_data.static_data;
                                         return a.map(obj => {
                                           return (
@@ -234,7 +244,9 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                                 <h5 className="tesco-heading"><b>LFL</b></h5>
                                               </div>
                                             </div>
-                                          )})}
+                                          )
+                                        })
+                                      }
                                       else {
                                         return (
                                           <div className="row spinnerPositionLineChart"><Spinner /><h4>Please Wait a
@@ -249,16 +261,17 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                   </div>
                                 </Panel>
                               </div>
-                              <div className="col-md-4 col-sm-6 col-xs-12 overview-blk" >
+                              <div className="col-md-4 col-sm-6 col-xs-12 overview-blk">
                                 <Panel>
                                   <div className="panel" style={{border: '1px solid #ccc'}}>
-                                    <h4 className="panel-heading tesco-heading" style={{marginBottom:"5px",paddingTop:"0px"}}>
+                                    <h4 className="panel-heading tesco-heading"
+                                        style={{marginBottom: "5px", paddingTop: "0px"}}>
                                       <b>COGS</b>
                                     </h4>
                                     {/*<div className="panel-body">*/}
                                     {/*<span className="overview-blk-value">*/}
                                     {(() => {
-                                      if ((this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) || kpiParmas =="val_type=2" || kpiParmas =="val_type=3") {
+                                      if ((this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) || kpiParmas == "val_type=2" || kpiParmas == "val_type=3") {
                                         let a = this.props.DailySales.linechart_data.static_data;
                                         return a.map(obj => {
                                           return (
@@ -277,7 +290,9 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                                 <h5 className="tesco-heading"><b>LFL</b></h5>
                                               </div>
                                             </div>
-                                          )})}
+                                          )
+                                        })
+                                      }
                                       else {
                                         return (
                                           <div className="row spinnerPositionLineChart"><Spinner /><h4>Please Wait a
@@ -295,85 +310,101 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                             </div>
                           </div>
                         </div>
-                        <div className ="col-md-12 col-sm-12">
+                        <div className="col-md-12 col-sm-12">
                           <div className="col-md-12">
                             <h4 className="pageModuleMainTitle">Daily Sales Trend
                             </h4>
                           </div>
-                          <div className="col-md-8 col-sm-8 col-xs-8" style={{background:'1px solid #FAFAFA'}}>
-                            <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect}  className="tabsCustom">
-                              <NavItem style={{fontSize: '16px',textAlign:'center',margin:"0px"}} className="tabsCustomList" eventKey="1" onClick={() => {
-                                this.setState({activeKey1: "1",
-                                  y_axis: "Sales Value"});
+                          <div className="col-md-8 col-sm-8 col-xs-8" style={{background: '1px solid #FAFAFA'}}>
+                            <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect}
+                                 className="tabsCustom">
+                              <NavItem style={{fontSize: '16px', textAlign: 'center', margin: "0px"}}
+                                       className="tabsCustomList" eventKey="1" onClick={() => {
+                                this.setState({
+                                  activeKey1: "1",
+                                  y_axis: "Sales Value"
+                                });
                                 kpiParmas = "val_type=1";
                                 this.props.onSaveKPIParam(kpiParmas);
                                 this.props.DefaultLineChartCall();
                                 this.props.DSViewKpiSpinnerCheckSuccess(0);
                                 this.props.LineChartSpinnerCheckSuccess(0);
-                              }} ><span className="tab_label">Sales</span></NavItem>
-                              <NavItem style={{fontSize: '16px',textAlign:'center',margin:"0px"}} className="tabsCustomList" eventKey="2" onClick={() => {
-                                this.setState({activeKey1: "2",
-                                  y_axis: "Volume"});
+                              }}><span className="tab_label">Sales</span></NavItem>
+                              <NavItem style={{fontSize: '16px', textAlign: 'center', margin: "0px"}}
+                                       className="tabsCustomList" eventKey="2" onClick={() => {
+                                this.setState({
+                                  activeKey1: "2",
+                                  y_axis: "Volume"
+                                });
                                 kpiParmas = "val_type=2";
                                 this.props.onSaveKPIParam(kpiParmas);
                                 this.props.DefaultLineChartCall();
                                 this.props.DSViewKpiSpinnerCheckSuccess(0);
                                 this.props.LineChartSpinnerCheckSuccess(0);
-                              }} ><span className="tab_label">Volume</span></NavItem>
-                              <NavItem style={{fontSize: '16px',textAlign:'center',margin:"0px"}} className="tabsCustomList" eventKey="3" onClick={() => {
-                                this.setState({activeKey1: "3",
-                                  y_axis: "COGS"});
+                              }}><span className="tab_label">Volume</span></NavItem>
+                              <NavItem style={{fontSize: '16px', textAlign: 'center', margin: "0px"}}
+                                       className="tabsCustomList" eventKey="3" onClick={() => {
+                                this.setState({
+                                  activeKey1: "3",
+                                  y_axis: "COGS"
+                                });
                                 kpiParmas = "val_type=3";
                                 this.props.onSaveKPIParam(kpiParmas);
                                 this.props.DefaultLineChartCall();
                                 this.props.DSViewKpiSpinnerCheckSuccess(0);
                                 this.props.LineChartSpinnerCheckSuccess(0);
-                              }} ><span className="tab_label">COGS</span></NavItem>
+                              }}><span className="tab_label">COGS</span></NavItem>
                             </Nav>
                           </div>
                           <div className="col-md-4 col-sm-4 col-xs-4">
-                            <span style={{float:"right",margin:"0px"}}>
+                            <span style={{float: "right", margin: "0px"}}>
                               <DropdownButton className="glyphicon glyphicon-menu-hamburger"
-                                              pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}}
+                                              pullRight style={{
+                                backgroundColor: "transparent",
+                                borderColor: "transparent",
+                                color: "#00539f"
+                              }}
                                               id="dropButtonId">
                                 <MenuItem onClick={() => {
-                                  saveImage(document.getElementById('sampleSvg'),"dailySales_lineChart")
+                                  saveImage(document.getElementById('sampleSvg'), "dailySales_lineChart")
                                 }
                                 }>Save As JPEG</MenuItem>
                                 <MenuItem onClick={() => {
-                                  saveDataAsCSV(this.props.DailySales.linechart_data.graph_data,"dailySales_lineChart_data.csv")
+                                  saveDataAsCSV(this.props.DailySales.linechart_data.graph_data, "dailySales_lineChart_data.csv")
                                 }
                                 }>Download CSV</MenuItem>
                               </DropdownButton>
                             </span>
                           </div>
-                          <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12" >
-                            <div className ="col-md-12 col-sm-12">
-                            <Panel className="col-md-6 col-xs-12 col-sm-12 col-lg-6 panel-body ts-blk-proview" style={{alignItems:"center"}}>
-                              <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12" style={{border: "1px solid #ccc", marginLeft:"5px"}}>
-                                {(() => {
-                                  if (this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0)
-                                  {
-                                    return(
-                                      <div>
-                                        <LineChart data={this.props.DailySales.linechart_data.graph_data}
-                                                   y_axis={this.state.y_axis}
-                                          //          y_axis="Value"
-                                                   x_axis="Date"
-                                        />
-                                      </div>
-                                    )
-                                  }else {
-                                    return (
-                                      <div className="row">
-                                        <div className="col-md-9 col-sm-9 col-xs-9 text-center"><Spinner /><h4>Please Wait a Moment....!</h4></div>
-                                      </div>
-                                    )
-                                  }
-                                })()}
-                              </div>
-                            </Panel>
-                          </div>
+                          <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+                            <div className="col-md-12 col-sm-12">
+                              <Panel className="col-md-6 col-xs-12 col-sm-12 col-lg-6 panel-body ts-blk-proview"
+                                     style={{alignItems: "center"}}>
+                                <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12"
+                                     style={{border: "1px solid #ccc", marginLeft: "5px"}}>
+                                  {(() => {
+                                    if (this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) {
+                                      return (
+                                        <div>
+                                          <LineChart data={this.props.DailySales.linechart_data.graph_data}
+                                                     y_axis={this.state.y_axis}
+                                            //          y_axis="Value"
+                                                     x_axis="Date"
+                                          />
+                                        </div>
+                                      )
+                                    } else {
+                                      return (
+                                        <div className="row">
+                                          <div className="col-md-9 col-sm-9 col-xs-9 text-center"><Spinner /><h4>Please
+                                            Wait a Moment....!</h4></div>
+                                        </div>
+                                      )
+                                    }
+                                  })()}
+                                </div>
+                              </Panel>
+                            </div>
                           </div>
                         </div>
                       </div>

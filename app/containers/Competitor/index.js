@@ -331,10 +331,10 @@ export class Competitor extends React.PureComponent {
                 <div className="row">
                   <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12 panel-body ts-blk-proview">
                     <div className="col-md-12 col-sm-12" style={{backgroundColor: "#fff", border: "1px solid #ccc"}}>
-                    <div className="col-md-9 col-sm-9 col-xs-9">
-                      <h4 className="pageModuleSubTitle"><b>Market Share</b></h4>
-                    </div>
-                    <div className="col-md-3 col-sm-3 col-xs-3">
+                      <div className="col-md-9 col-sm-9 col-xs-9">
+                        <h4 className="pageModuleSubTitle"><b>Market Share</b></h4>
+                      </div>
+                      <div className="col-md-3 col-sm-3 col-xs-3">
                   <span style={{float: "right"}}>
                           <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
                             backgroundColor: "transparent",
@@ -351,39 +351,40 @@ export class Competitor extends React.PureComponent {
                             }>Download CSV</MenuItem>
                           </DropdownButton>
                         </span>
-                    </div>
+                      </div>
 
-                    {(() => {
-
-                      if (this.props.competitor.piechart_data.pie_chart_value && (this.props.competitor.onPieChartSpinnerSuccess == 1)) {
-                        console.log("pie chart data", this.props.competitor.piechart_data);
-                        return (
-                          <div>
-
-                            <Pichart ref="competitorPieChartComp"
-                                     data={this.props.competitor.piechart_data.pie_chart_value} id="piechart"/>
-                          </div>
-                        )
-                      }
-                      else {
-                        return (
-
-                          <div className="row">
-                            <div className="col-md-9 col-sm-9 col-xs-9 text-center"><Spinner />Please Wait a Moment....!
-                            </div>
-                          </div>
-
-
-                        );
-                      }
-                    })()}
-                    <div>
                       {(() => {
 
-                        if (this.props.competitor.piechart_data && (this.props.competitor.onPieChartSpinnerSuccess == 1)) {
+                        if (this.props.competitor.piechart_data.pie_chart_value && (this.props.competitor.onPieChartSpinnerSuccess == 1)) {
+                          console.log("pie chart data", this.props.competitor.piechart_data);
+                          return (
+                            <div>
+
+                              <Pichart ref="competitorPieChartComp"
+                                       data={this.props.competitor.piechart_data.pie_chart_value} id="piechart"/>
+                            </div>
+                          )
+                        }
+                        else {
                           return (
 
-                            <div className="panel-body wowformatting">
+                            <div className="row">
+                              <div className="col-md-9 col-sm-9 col-xs-9 text-center"><Spinner />Please Wait a
+                                Moment....!
+                              </div>
+                            </div>
+
+
+                          );
+                        }
+                      })()}
+                      <div>
+                        {(() => {
+
+                          if (this.props.competitor.piechart_data && (this.props.competitor.onPieChartSpinnerSuccess == 1)) {
+                            return (
+
+                              <div className="panel-body wowformatting">
 
                       <span
                         className={(() => {
@@ -398,15 +399,15 @@ export class Competitor extends React.PureComponent {
                         })()}>&nbsp;
 
                       </span>
-                              <h4> WoW </h4>
-                            </div>
-                          )
-                        }
-                      })()}
+                                <h4> WoW </h4>
+                              </div>
+                            )
+                          }
+                        })()}
 
+                      </div>
                     </div>
                   </div>
-                </div>
                   <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12 panel-body ts-blk-proview">
                     <div className="col-md-9 col-sm-9 col-xs-9">
                       <h4 className="pageModuleSubTitle"><b>Outperformance</b></h4>

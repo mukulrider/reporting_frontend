@@ -13,142 +13,10 @@ import messages from './messages';
 
 class MultilinePromo extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   createMultilinePromoChart = (data,chart_id,label_ty,label_ly,xaxis_title,yaxis_title,no_pref,no_suffix,width=800,legend_width=650,legend_text_width=645) => {
-  // let data2 =   [
-  //     {
-  //       "tesco_week": "1-May-12",
-  //       "value_ly": 68.13,
-  //       "value_ty": 34.12
-  //     },
-  //     {
-  //       "tesco_week": "30-Apr-12",
-  //       "value_ly": 63.98,
-  //       "value_ty": 45.56
-  //     },
-  //     {
-  //       "tesco_week": "27-Apr-12",
-  //       "value_ly": 67,
-  //       "value_ty": 67.89
-  //     },
-  //     {
-  //       "tesco_week": "26-Apr-12",
-  //       "value_ly": 89.7,
-  //       "value_ty": 78.54
-  //     },
-  //     {
-  //       "tesco_week": "25-Apr-12",
-  //       "value_ly": 99,
-  //       "value_ty": 89.23
-  //     },
-  //     {
-  //       "tesco_week": "24-Apr-12",
-  //       "value_ly": 130.28,
-  //       "value_ty": 99.23
-  //     },
-  //     {
-  //       "tesco_week": "23-Apr-12",
-  //       "value_ly": 166.7,
-  //       "value_ty": 101.34
-  //     },
-  //     {
-  //       "tesco_week": "20-Apr-12",
-  //       "value_ly": 234.98,
-  //       "value_ty": 122.34
-  //     },
-  //     {
-  //       "tesco_week": "19-Apr-12",
-  //       "value_ly": 345.44,
-  //       "value_ty": 134.56
-  //     },
-  //     {
-  //       "tesco_week": "18-Apr-12",
-  //       "value_ly": 443.34,
-  //       "value_ty": 160.45
-  //     },
-  //     {
-  //       "tesco_week": "17-Apr-12",
-  //       "value_ly": 543.7,
-  //       "value_ty": 180.34
-  //     },
-  //     {
-  //       "tesco_week": "16-Apr-12",
-  //       "value_ly": 580.13,
-  //       "value_ty": 210.23
-  //     },
-  //     {
-  //       "tesco_week": "13-Apr-12",
-  //       "value_ly": 605.23,
-  //       "value_ty": 223.45
-  //     },
-  //     {
-  //       "tesco_week": "12-Apr-12",
-  //       "value_ly": 622.77,
-  //       "value_ty": 201.56
-  //     },
-  //     {
-  //       "tesco_week": "11-Apr-12",
-  //       "value_ly": 626.2,
-  //       "value_ty": 212.67
-  //     },
-  //     {
-  //       "tesco_week": "10-Apr-12",
-  //       "value_ly": 628.44,
-  //       "value_ty": 310.45
-  //     },
-  //     {
-  //       "tesco_week": "9-Apr-12",
-  //       "value_ly": 636.23,
-  //       "value_ty": 350.45
-  //     },
-  //     {
-  //       "tesco_week": "5-Apr-12",
-  //       "value_ly": 633.68,
-  //       "value_ty": 410.23
-  //     },
-  //     {
-  //       "tesco_week": "4-Apr-12",
-  //       "value_ly": 624.31,
-  //       "value_ty": 430.56
-  //     },
-  //     {
-  //       "tesco_week": "3-Apr-12",
-  //       "value_ly": 629.32,
-  //       "value_ty": 460.34
-  //     },
-  //     {
-  //       "tesco_week": "2-Apr-12",
-  //       "value_ly": 618.63,
-  //       "value_ty": 510.34
-  //     },
-  //     {
-  //       "tesco_week": "30-Mar-12",
-  //       "value_ly": 599.55,
-  //       "value_ty": 534.23
-  //     },
-  //     {
-  //       "tesco_week": "29-Mar-12",
-  //       "value_ly": 609.86,
-  //       "value_ty": 578.23
-  //     },
-  //     {
-  //       "tesco_week": "28-Mar-12",
-  //       "value_ly": 617.62,
-  //       "value_ty": 590.12
-  //     },
-  //     {
-  //       "tesco_week": "27-Mar-12",
-  //       "value_ly": 614.48,
-  //       "value_ty": 560.34
-  //     },
-  //     {
-  //       "tesco_week": "26-Mar-12",
-  //       "value_ly": 606.98,
-  //       "value_ty": 580.12
-  //     }
-  //   ]
-  // Add the valueline path.
-  // set the dimensions and margins of the graph
 
-    let frameWidth = document.getElementById(chart_id).clientWidth;
+
+    // let frameWidth = document.getElementById(chart_id).clientWidth;
+    let frameWidth = 500;
     let margin = {top: 20, right: 100, bottom: 100, left: 100};
      width = frameWidth - margin.left - margin.right;
     let height = frameWidth*0.5 - margin.top - margin.bottom;
@@ -207,19 +75,15 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
          .attr("id",chart_id + '_svg')
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
-      .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 " + (width + margin.left + margin.right +10) + " " + (height + margin.top + margin.bottom + 20))
-       //class to make it responsive
-      .classed("svg-content-responsive", true)
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     //Removing the height and width property for preserveAspectRatio
-    setTimeout(function(){
-      d3.select('#'+chart_id + '_svg')
-        .attr("height",null)
-        .attr("width",null);
-    },200)
+    // setTimeout(function(){
+    //   d3.select('#'+chart_id + '_svg')
+    //     .attr("height",null)
+    //     .attr("width",null);
+    // },200)
 
     // Add the valueline path.
     svg.append("path")
@@ -320,7 +184,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
   render() {
 
     return (
-      <div style={{background:"#fff", border: "1px solid #ccc"}} id={this.props.id}>
+      <div style={{background:"#fff", border: "1px solid #ccc",width:'500px'}} id={this.props.id}>
       </div>
     );
   }

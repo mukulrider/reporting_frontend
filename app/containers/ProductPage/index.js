@@ -7,6 +7,7 @@
 import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import {Modal} from 'react-bootstrap';
 // or in ECMAScript 5
 
 import {connect} from 'react-redux';
@@ -32,7 +33,7 @@ import {
 
 import {
   saveWeekParam, productPageValues, saveMetricParam, fetchSaveWeekParam, generateUrlParamsString, checkboxWeekChange,
-  SaveWeek, getWeekFilter,tabsAndApplySpinner
+  SaveWeek, getWeekFilter, tabsAndApplySpinner
 } from './actions';
 
 import styles from './style.scss';
@@ -60,7 +61,9 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
       ty_text: "Sales TY in £",
       ly_text: "Sales LY in £",
       y_axis_text: "Sales Value",
-      page_title: "Value Performance"
+      page_title: "Value Performance",
+      showSupplierInfoModal: false,
+      showTrendModal: false,
     };
   }
 
@@ -84,15 +87,15 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
     }
   }
 
-  diffColumnFormatter=(cell)=> {
-  if (cell > 0) {
-    return '<i class="glyphicon glyphicon-triangle-top productTablePositive"></i>&nbsp'+ cell+'%';
-  }
-  else if (cell < 0) {
-    return '<i class="glyphicon glyphicon-triangle-bottom productTableNegative"></i>&nbsp'+ cell+'%';
-  } else {
-    return '<i class="glyphicon glyphicon-minus-sign productTableNeutral"></i>&nbsp'+ cell+'%';
-  }
+  diffColumnFormatter = (cell) => {
+    if (cell > 0) {
+      return '<i class="glyphicon glyphicon-triangle-top productTablePositive"></i>&nbsp' + cell + '%';
+    }
+    else if (cell < 0) {
+      return '<i class="glyphicon glyphicon-triangle-bottom productTableNegative"></i>&nbsp' + cell + '%';
+    } else {
+      return '<i class="glyphicon glyphicon-minus-sign productTableNeutral"></i>&nbsp' + cell + '%';
+    }
 
   }
 
@@ -105,6 +108,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
       return '<i class="glyphicon glyphicon-remove-sign productTableNegative"></i>&nbsp' + cell;
     }
   }
+
 
   render() {
     //For url parameters
@@ -134,15 +138,47 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
       // withFirstAndLast: false > Hide the going to First and Last page button
     };
 
+    let cellButton = (row, cell) => {
+      return (
+        <div>
+          <button className="btn btn-success" onClick={() => {
+
+            {/*this.props.onGenerateBestWorstPerformanceTable(row);*/
+            }
+            this.setState({showSupplierInfoModal: true});
+          }}>View
+          </button>
+        </div>
+      )
+    }
+
+
+    let cellButton2 = (row, cell, x) => {
+      console.log('>>>>>row', row, cell, x);
+      return (
+        <div>
+          <button className="btn btn-success" onClick={() => {
+
+            this.setState({showTrendModal: true})
+          }}>View
+          </button>
+        </div>
+      )
+    }
+
+
     return (
       <Panel>
+
         <Helmet
           title="Products"
           meta={[
             {name: 'description', content: 'Description of Products'},
           ]}
         />
+
         <div id="productPage" ref="productPage">
+
           <div style={{
             height: '100%',
             position: 'fixed',
@@ -183,6 +219,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
 
 
           </div>
+
           <div className="col-xs-10" style={{float: 'right'}}>
             <div className="col-xs-12">
               <div className="pageTitle">
@@ -352,15 +389,192 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                  ><b className="tab_label">Price</b></NavItem>*/}
               </Nav>
             </div>
+
+            <div className="col-xs-12">
+              <h2 className="pageModuleMainTitle col-xs-12">
+                <b>Heading?</b>
+              </h2>
+              <div>
+                {
+                  (() => {
+                    if (this.props.ProductPage.data && this.props.ProductPage.data.top_output && this.props.ProductPage.tabsApplySpinner) {
+
+                      return (
+                        <div>
+                          <BootstrapTable
+                            data={this.props.ProductPage.data.top_output} options={options}
+                            striped={true}
+                            hover
+                            condensed
+                            pagination={ true }
+                            search={true}
+                            exportCSV={true}
+                          >
+                            <TableHeaderColumn row="0" rowSpan="2" dataField="product_id" isKey={true}
+                                               dataAlign="center" dataSort>Product ID</TableHeaderColumn>
+                            <TableHeaderColumn row="0" rowSpan="2" width="275" tdStyle={ {whiteSpace: 'normal'} }
+                                               dataField="product" dataSort={true}
+                                               dataAlign="center">Description</TableHeaderColumn>
+                            <TableHeaderColumn row="0" rowSpan="2" width="125" dataField="product_area" dataSort={true}
+                                               dataAlign="center">Product Area</TableHeaderColumn>
+                            <TableHeaderColumn row="0" colSpan="3" dataAlign="center">Price</TableHeaderColumn>
+                            <TableHeaderColumn row="1" dataField="asp" dataFormat={this.formatSales} dataSort={true}
+                                               dataAlign="center">ASP</TableHeaderColumn>
+                            <TableHeaderColumn row="1" dataField="asp_diff_lw" dataSort={true} dataAlign="center"
+                                               dataFormat={ this.diffColumnFormatter }>v LW</TableHeaderColumn>
+                            <TableHeaderColumn row="1" dataField="promo" dataSort={true} dataAlign="center"
+                                               dataFormat={ this.tickColumnFormatter }>Promo?</TableHeaderColumn>
+                            <TableHeaderColumn row="0" colSpan="6" dataSort={true}
+                                               dataAlign="center">Sales</TableHeaderColumn>
+                            <TableHeaderColumn row="1" dataField="top20" dataSort={true} dataAlign="center"
+                                               dataFormat={ this.tickColumnFormatter }>Top 20 TW?</TableHeaderColumn>
+                            <TableHeaderColumn row="1" dataField="rank_lw" dataSort={true} dataAlign="center">LW
+                              Rank</TableHeaderColumn>
+                            <TableHeaderColumn row="1" dataField="sales_value" dataFormat={this.formatSales}
+                                               dataSort={true} dataAlign="center">Sales Value</TableHeaderColumn>
+                            <TableHeaderColumn row="1" dataField="sales_value_diff_lw" dataSort={true} dataAlign="left"
+                                               dataFormat={ this.diffColumnFormatter }>v LW</TableHeaderColumn>
+                            <TableHeaderColumn row="1" dataField="sales_volume" dataFormat={this.formatVolume}
+                                               dataSort={true} dataAlign="center">Sales Volume</TableHeaderColumn>
+                            <TableHeaderColumn row="1" dataField="sales_volume_diff_lw" dataSort={true} dataAlign="left"
+                                               dataFormat={ this.diffColumnFormatter }>vLW</TableHeaderColumn>
+                            <TableHeaderColumn row="0" rowSpan="2"
+                                               dataFormat={cellButton}
+                                               dataAlign='center'
+                                               thStyle={{whiteSpace: 'normal'}}>Supplier Info</TableHeaderColumn>
+                            <TableHeaderColumn row="0" rowSpan="2"
+                                               dataFormat={cellButton2}
+                                               dataAlign='center'
+                                               thStyle={{whiteSpace: 'normal'}}>Trend</TableHeaderColumn>
+
+
+                          </BootstrapTable>
+
+                        </div>
+                      );
+
+                    }
+                    else {
+                      return (
+
+                        <div className="text-center" colSpan="11"><Spinner />Please Wait a Moment....!</div>
+
+                      );
+                    }
+                  })()
+                }
+
+              </div>
+            </div>
+
+            {/*Supplier modal*/}
+            <Modal show={this.state.showSupplierInfoModal} bsSize="lg"
+                   aria-labelledby="contained-modal-title-lg"
+            >
+              <Modal.Header>
+                <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
+                  style={{textAlign: 'center', fontSize: '14px'}}><b>Supplier Info</b><span
+                  style={{textAlign: 'right', float: 'right'}}
+                  onClick={() => this.setState({showSupplierInfoModal: false})}><b>X</b></span></span>
+                  <div style={{textAlign: 'center'}}>
+                    <div style={{textAlign: 'right'}}>
+                    </div>
+                  </div>
+                </Modal.Title>
+
+              </Modal.Header>
+              <Modal.Body style={{fontSize: '14px'}}>
+
+              </Modal.Body>
+            </Modal>
+
+            {/*Trend modal*/}
+            <Modal show={this.state.showTrendModal} bsSize="lg"
+                   aria-labelledby="contained-modal-title-lg"
+            >
+              <Modal.Header>
+                <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
+                  style={{textAlign: 'center', fontSize: '14px'}}><b>Trend</b><span
+                  style={{textAlign: 'right', float: 'right'}}
+                  onClick={() => this.setState({showTrendModal: false})}><b>X</b></span></span>
+                  <div style={{textAlign: 'center'}}>
+                    <div style={{textAlign: 'right'}}>
+                    </div>
+                  </div>
+                </Modal.Title>
+
+              </Modal.Header>
+              <Modal.Body style={{fontSize: '14px'}}>
+
+                <div >
+                  {/*<div className="row">*/}
+                  {/*<h2 className="pageModuleMainTitle">{this.state.page_title}</h2>*/}
+                  {/*</div>*/}
+
+                  {/*Graph and table*/}
+                  <div className="row" style={{margin: '5%'}}>
+                    {(() => {
+                      if (this.props.ProductPage.data && this.props.ProductPage.data.d3_output) {
+
+
+                        return (
+                          <div>
+                            <div style={{float: "right"}}>
+                              <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                                backgroundColor: "transparent",
+                                borderColor: "transparent",
+                                color: "#00539f"
+                              }} id="dropButtonId">
+                                <MenuItem onClick={() => {
+                                  saveImage(this.refs.chartImage.refs.image, "TY_v/s_LY_Product_Performance_Comparison")
+                                }
+                                }>Save As JPEG</MenuItem>
+                                <MenuItem onClick={() => {
+                                  saveDataAsCSV(this.props.ProductPage.data.d3_output, "TY_v/s_LY_Product_Performance_Comparison.csv")
+                                }
+                                }>Download CSV</MenuItem>
+                              </DropdownButton>
+                            </div>
+
+                            <DualLineChart ref="chartImage" ty_text={this.state.ty_text} ly_text={this.state.ly_text}
+                                           y_axis_text={this.state.y_axis_text}
+                                           data={this.props.ProductPage.data.d3_output}/>
+                          </div>
+                        )
+
+
+                      } else {
+                        return (
+
+                          <div className="row">
+                            <div className="col-md-9 col-sm-9 col-xs-9 text-center" style={{marginTop: '6%'}}>
+                              <Spinner />Please Wait a Moment....!
+                            </div>
+                          </div>
+
+                        );
+                      }
+                    })()}
+                  </div>
+
+                </div>
+              </Modal.Body>
+            </Modal>
+
+
+            {/*Graph and table*/}
             <div >
               <div className="col-xs-12">
                 <h2 className="pageModuleMainTitle">{this.state.page_title}</h2>
               </div>
+
+              {/*Graph and table*/}
               <div className="col-xs-12">
+
                 <div className="col-xs-3" style={{marginTop: '8%'}}>
 
                   {(() => {
-                    if (this.props.ProductPage.data && this.props.ProductPage.data.comp_data  && this.props.ProductPage.tabsApplySpinner) {
+                    if (this.props.ProductPage.data && this.props.ProductPage.data.comp_data && this.props.ProductPage.tabsApplySpinner) {
                       return this.props.ProductPage.data.comp_data.map((obj) => {
 
                         /*                              console.log("ProductPage:");
@@ -420,47 +634,46 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                                 textAlign: 'center'
                               }}>
                                 {(() => {
-                                  if (this.state.y_axis_text == 'Sales Volume') {
+                                    if (this.state.y_axis_text == 'Sales Volume') {
 
 
-                                    return 'LFL: ' + (obj.metric_lfl / 1000).toFixed(0) + 'K'
+                                      return 'LFL: ' + (obj.metric_lfl / 1000).toFixed(0) + 'K'
 
 
-                                        }else {
-                                          return 'LFL: £ ' + (obj.metric_lfl / 1000).toFixed(0) + 'K'
-                                        }
-                                      }
-                                    )()}
-                                  </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr style={{ verticalAlign: 'middle',color:'#000000',backgroundColor:'#FFFFFF' }}>
-                                  <td colSpan="4"><span className={(() => {
-                                    if (obj.wow_change > 0) {
-                                      return "glyphicon glyphicon-triangle-top productTablePositive"
                                     } else {
-                                      return "glyphicon glyphicon-triangle-bottom productTableNegative"
+                                      return 'LFL: £ ' + (obj.metric_lfl / 1000).toFixed(0) + 'K'
                                     }
-                                  })()}>&nbsp;</span> <span style={{fontSize:'16px'}}>{(obj.wow_change)+'%'} </span>
-                                    <br/><br/><h4 style={{color:'#00539f'}}>WOW</h4></td>
-                                  <td colSpan="4"><span className={(() => {
-                                    if (obj.yoy_change > 0) {
-                                      return "glyphicon glyphicon-triangle-top productTablePositive"
-                                    } else {
-                                      return "glyphicon glyphicon-triangle-bottom productTableNegative"
-                                    }
-                                  })()}>&nbsp;</span> <span style={{fontSize:'16px'}}>{(obj.yoy_change)+'%'} </span>
-                                    <br/><br/><h4 style={{color:'#00539f'}}>YOY</h4></td>
-                                  <td colSpan="4"><span className={(() => {
-                                    if (obj.lfl_change > 0) {
-                                      return "glyphicon glyphicon-triangle-top productTablePositive"
-                                    } else {
-                                      return "glyphicon glyphicon-triangle-bottom productTableNegative"
-                                    }
-                                  })()}>&nbsp;</span> <span style={{fontSize:'16px'}}>{(obj.lfl_change)+'%'} </span>
-                                    <br/><br/><h4 style={{color:'#00539f'}}>LFL</h4></td>
-                              </tr>
+                                  })()}
+                              </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr style={{verticalAlign: 'middle', color: '#000000', backgroundColor: '#FFFFFF'}}>
+                              <td colSpan="4"><span className={(() => {
+                                if (obj.wow_change > 0) {
+                                  return "glyphicon glyphicon-triangle-top productTablePositive"
+                                } else {
+                                  return "glyphicon glyphicon-triangle-bottom productTableNegative"
+                                }
+                              })()}>&nbsp;</span> <span style={{fontSize: '16px'}}>{(obj.wow_change) + '%'} </span>
+                                <br/><br/><h4 style={{color: '#00539f'}}>WOW</h4></td>
+                              <td colSpan="4"><span className={(() => {
+                                if (obj.yoy_change > 0) {
+                                  return "glyphicon glyphicon-triangle-top productTablePositive"
+                                } else {
+                                  return "glyphicon glyphicon-triangle-bottom productTableNegative"
+                                }
+                              })()}>&nbsp;</span> <span style={{fontSize: '16px'}}>{(obj.yoy_change) + '%'} </span>
+                                <br/><br/><h4 style={{color: '#00539f'}}>YOY</h4></td>
+                              <td colSpan="4"><span className={(() => {
+                                if (obj.lfl_change > 0) {
+                                  return "glyphicon glyphicon-triangle-top productTablePositive"
+                                } else {
+                                  return "glyphicon glyphicon-triangle-bottom productTableNegative"
+                                }
+                              })()}>&nbsp;</span> <span style={{fontSize: '16px'}}>{(obj.lfl_change) + '%'} </span>
+                                <br/><br/><h4 style={{color: '#00539f'}}>LFL</h4></td>
+                            </tr>
 
                             </tbody>
                           </table>
@@ -471,7 +684,9 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                       return (
 
                         <div className="row">
-                          <div className="col-md-9 col-sm-9 col-xs-9 text-center" style={{marginTop: '-17%'}}><Spinner />Please Wait a Moment....!</div>
+                          <div className="col-md-9 col-sm-9 col-xs-9 text-center" style={{marginTop: '-17%'}}>
+                            <Spinner />Please Wait a Moment....!
+                          </div>
                         </div>
 
                       );
@@ -482,7 +697,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
 
                 <div className="col-xs-8" style={{float: 'right'}}>
                   {(() => {
-                    if (this.props.ProductPage.data && this.props.ProductPage.data.d3_output  && this.props.ProductPage.tabsApplySpinner) {
+                    if (this.props.ProductPage.data && this.props.ProductPage.data.d3_output && this.props.ProductPage.tabsApplySpinner) {
 
 
                       return (
@@ -514,7 +729,9 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                       return (
 
                         <div className="row">
-                          <div className="col-md-9 col-sm-9 col-xs-9 text-center" style={{marginTop: '6%'}}><Spinner />Please Wait a Moment....!</div>
+                          <div className="col-md-9 col-sm-9 col-xs-9 text-center" style={{marginTop: '6%'}}><Spinner />Please
+                            Wait a Moment....!
+                          </div>
                         </div>
 
                       );
@@ -525,6 +742,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
               </div>
 
             </div>
+
             <div className="col-xs-12">
               <h2 className="pageModuleMainTitle col-xs-12">
                 <b>TOP 25 SKUs </b>
@@ -601,7 +819,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
               <div>
                 {
                   (() => {
-                    if (this.props.ProductPage.data && this.props.ProductPage.data.bottom_output  && this.props.ProductPage.tabsApplySpinner) {
+                    if (this.props.ProductPage.data && this.props.ProductPage.data.bottom_output && this.props.ProductPage.tabsApplySpinner) {
 
                       return (
                         <div>

@@ -50,8 +50,8 @@ let gettingUserDetails = () =>{
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-const host_url = "http://172.20.181.92:8000";
-// let host_url = "http://172.20.244.228:8000"
+const host_url = "http://172.20.181.92:8002";
+// let host_url = "http://172.20.244.228:8002"
 
 
 /* GENERATE SIDE FILTER*/

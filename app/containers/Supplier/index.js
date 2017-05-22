@@ -453,7 +453,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                     <div>
                       <div className="mainBox">
                         <span className="glyphicon glyphicon-info-sign pull-right"
-                              style={{marginRight: '10px', fontSize: '15px', marginTop: '10px'}}
+                              style={{marginRight: '10px', fontSize: '15px', marginTop: '10px', color: '#00539f'}}
                               onClick={() => {
                                 this.setState({suppKPIbar: true});
                               }}>
@@ -562,7 +562,6 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
 
                         <div className="coverBox">
-
                         <div className="headerBox">
                           <h2 className="pageModuleMainTitle">Performance by KPI</h2>
                         </div>
@@ -590,226 +589,235 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                           </div>
                                         </div>
 
-                                        <div className="row">
-                                          <div className="panel-body cardPanel">
-                                            <div className="col-xs-4">
-                                              <h4>
+                                          <div className="row">
+                                            <div className="panel-body cardPanel">
+                                              <div className="col-xs-4">
+                                                <h4>
                                                   <span className={glyphiconFormatter(obj.sales_var_week)}>
                                                   </span>{(obj.sales_var_week) + '%'}
-                                              </h4><br></br>
-                                              <h5 className="kpiSubTitle"><b> {'WoW'} </b></h5>
-                                            </div>
-                                            <div className="col-xs-4">
-                                              <h4>
+                                                </h4><br></br>
+                                                <h5 className="kpiSubTitle"><b> {'WoW'} </b></h5>
+                                              </div>
+                                              <div className="col-xs-4">
+                                                <h4>
                                                   <span className={glyphiconFormatter(obj.sales_var_year)}>
                                                   </span>{(obj.sales_var_year) + '%'}
-                                              </h4><br></br>
-                                              <h5 className="kpiSubTitle"><b> {'YoY'} </b></h5>
-                                            </div>
-                                            <div className="col-xs-4">
-                                              <h4>
+                                                </h4><br></br>
+                                                <h5 className="kpiSubTitle"><b> {'YoY'} </b></h5>
+                                              </div>
+                                              <div className="col-xs-4">
+                                                <h4>
                                                   <span className={glyphiconFormatter(obj.sales_var_year_lfl)}>
                                                   </span>{(obj.sales_var_year_lfl) + '%'}
-                                              </h4><br></br>
-                                              <h5 className="kpiSubTitle"><b>{'LFL'}</b></h5>
+                                                </h4><br></br>
+                                                <h5 className="kpiSubTitle"><b>{'LFL'}</b></h5>
+                                              </div>
                                             </div>
                                           </div>
-                                        </div>
 
-                                      </Panel>
+                                        </Panel>
+                                      </div>
+                                      <div className="col-md-4 col-sm-12" style={{backgroundColor: "#fafafa"}}>
+                                        <Panel>
+                                          <h3 className="pageModuleSubTitle"> Contribution to Growth </h3>
+                                          <div className="row">
+                                            <div className="col-xs-6" style={{textAlign: "center"}}>
+                                              <h3
+                                                style={{padding: "0px", margin: "0px"}}>  {obj.cw_sales_exclu_sup} </h3>
+                                            </div>
+                                            <div className="col-xs-6" style={{textAlign: "center"}}>
+
+                                              <h3 style={{padding: "0px", margin: "0px"}}>
+                                                LFL: {obj.cw_sales_exclu_sup_lfl } </h3>
+                                            </div>
+                                          </div>
+                                          <br></br>
+                                          <div className="row">
+                                            <div className="panel-body cardPanel">
+                                              <div className="col-xs-4">
+                                                <h4><span
+                                                  className={glyphiconFormatter(obj.sales_growth_wow_1)}></span>&nbsp;{(obj.sales_growth_wow_1) + ' % '}
+                                                  of <span
+                                                    className={glyphiconFormatter(obj.sales_growth_wow_2)}></span>{(obj.sales_growth_wow_2) + ' % '}
+                                                </h4>
+                                                <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'WoW'}</b>
+                                                </h5>
+                                              </div>
+                                              <div className="col-xs-4">
+                                                <h4><span
+                                                  className={glyphiconFormatter(obj.sales_growth_yoy_1)}></span>&nbsp;{(obj.sales_growth_yoy_1) + ' % '}
+                                                  of <span
+                                                    className={glyphiconFormatter(obj.sales_growth_yoy_2)}></span>{(obj.sales_growth_yoy_2) + ' % '}
+                                                </h4>
+                                                <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'YoY'}</b>
+                                                </h5>
+                                              </div>
+                                              <div className="col-xs-4">
+                                                <h4><span
+                                                  className={glyphiconFormatter(obj.sales_growth_yoy_lfl_1)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_1) + ' % '}
+                                                  of <span
+                                                    className={glyphiconFormatter(obj.sales_growth_yoy_lfl_2)}></span>{(obj.sales_growth_yoy_lfl_2) + ' % '}
+                                                </h4>
+                                                <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'LFL'}</b>
+                                                </h5>
+                                              </div>
+                                            </div>
+                                          </div>
+
+                                        </Panel>
+                                      </div>
+                                      <div className="col-md-4 col-sm-12" style={{backgroundColor: "#fafafa"}}>
+                                        <Panel>
+                                          <h3 className="pageModuleSubTitle"> Parent Supplier's value share in
+                                            Category </h3>
+                                          {(() => {
+                                            if (obj.supp_imp_cat_sales != "---") {
+
+                                              return (
+                                                <div style={{
+                                                  fontSize: '20px',
+                                                  marginTop: '-10px'
+                                                }}>{obj.supp_imp_cat_sales}%</div>
+                                              )
+                                            }
+                                          })()}
+
+                                          <h3 className="pageModuleSubTitle"> Category's value share to Parent
+                                            Supplier </h3>
+                                          {(() => {
+                                            if (obj.cat_imp_supp_sales != "---") {
+
+                                              return (
+                                                <div style={{
+                                                  fontSize: '20px',
+                                                  marginTop: '-10px',
+                                                  marginBottom: '10px'
+                                                }}>{obj.cat_imp_supp_sales}%</div>
+                                              )
+                                            }
+                                          })()}
+
+                                        </Panel>
+                                      </div>
                                     </div>
-                                    <div className="col-md-4 col-sm-12" style={{backgroundColor: "#fafafa"}}>
-                                      <Panel>
-                                        <h3 className="pageModuleSubTitle"> Contribution to Growth </h3>
-                                        <div className="row">
-                                          <div className="col-xs-6" style={{textAlign: "center"}}>
-                                            <h3 style={{padding: "0px", margin: "0px"}}>  {obj.cw_sales_exclu_sup} </h3>
-                                          </div>
-                                          <div className="col-xs-6" style={{textAlign: "center"}}>
 
-                                            <h3 style={{padding: "0px", margin: "0px"}}>
-                                              LFL: {obj.cw_sales_exclu_sup_lfl } </h3>
-                                          </div>
-                                        </div>
-                                        <br></br>
-                                        <div className="row">
-                                          <div className="panel-body cardPanel">
-                                            <div className="col-xs-4">
-                                              <h4><span
-                                                className={glyphiconFormatter(obj.sales_growth_wow_1)}></span>&nbsp;{(obj.sales_growth_wow_1) + ' % '}
-                                                of <span
-                                                  className={glyphiconFormatter(obj.sales_growth_wow_2)}></span>{(obj.sales_growth_wow_2) + ' % '}
-                                              </h4>
-                                              <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'WoW'}</b>
-                                              </h5>
-                                            </div>
-                                            <div className="col-xs-4">
-                                              <h4><span
-                                                className={glyphiconFormatter(obj.sales_growth_yoy_1)}></span>&nbsp;{(obj.sales_growth_yoy_1) + ' % '}
-                                                of <span
-                                                  className={glyphiconFormatter(obj.sales_growth_yoy_2)}></span>{(obj.sales_growth_yoy_2) + ' % '}
-                                              </h4>
-                                              <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'YoY'}</b>
-                                              </h5>
-                                            </div>
-                                            <div className="col-xs-4">
-                                              <h4><span
-                                                className={glyphiconFormatter(obj.sales_growth_yoy_lfl_1)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_1) + ' % '}
-                                                of <span
-                                                  className={glyphiconFormatter(obj.sales_growth_yoy_lfl_2)}></span>{(obj.sales_growth_yoy_lfl_2) + ' % '}
-                                              </h4>
-                                              <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'LFL'}</b>
-                                              </h5>
-                                            </div>
-                                          </div>
-                                        </div>
-
-                                      </Panel>
-                                    </div>
-                                    <div className="col-md-4 col-sm-12" style={{backgroundColor: "#fafafa"}}>
-                                      <Panel>
-                                        <h3 className="pageModuleSubTitle"> Parent Supplier's value share in
-                                          Category </h3>
-                                        {(() => {
-                                        if (obj.supp_imp_cat_sales != "---") {
-
-                                        return (
-                                      <div style={{fontSize: '20px',marginTop:'-10px'}}>{obj.supp_imp_cat_sales}%</div>
-                                                      )
-                                      }
-                                      })()}
-
-                                        <h3 className="pageModuleSubTitle"> Category's value share to Parent
-                                          Supplier </h3>
-                                        {(() => {
-                                          if (obj.cat_imp_supp_sales != "---") {
-
-                                            return (
-                                              <div style={{fontSize: '20px',marginTop:'-10px',marginBottom:'10px'}}>{obj.cat_imp_supp_sales}%</div>
-                                            )
-                                          }
-                                        })()}
-
-                                      </Panel>
-                                    </div>
-                                  </div>
-
-                                  {/*<panel>*/}
+                                    {/*<panel>*/}
                                     {/*<div className="row mainBox">*/}
-                                      {/*<div className="col-md-6 col-sm-6" style={{backgroundColor: "#fafafa"}}>*/}
+                                    {/*<div className="col-md-6 col-sm-6" style={{backgroundColor: "#fafafa"}}>*/}
 
 
-                                        {/*{(() => {*/}
-                                          {/*if (obj.supp_imp_cat_sales != "---") {*/}
+                                    {/*{(() => {*/}
+                                    {/*if (obj.supp_imp_cat_sales != "---") {*/}
 
-                                            {/*return (*/}
-                                              {/*<div>*/}
-                                                {/*<div className="col-md-12 col-sm-6" style={{*/}
-                                                  {/*textAlign: 'center',*/}
-                                                  {/*borderTop: "1px solid #e5e8ea",*/}
-                                                  {/*backgroundColor: "white",*/}
-                                                  {/*margin: "0%",*/}
-                                                  {/*borderLeft: "1px solid #e5e8ea",*/}
-                                                  {/*borderRight: "1px solid #e5e8ea",*/}
-                                                  {/*borderBottom: "1px solid #e5e8ea"*/}
-                                                {/*}}>*/}
-                                                  {/*<h3 className="pageModuleSubTitle"> Parent Supplier's value share in*/}
-                                                    {/*Category</h3>*/}
-                                                  {/*<div style={{height: '15%', width: '100%'}}>&nbsp;</div>*/}
-                                                  {/*<GaugeChart2 data={[obj.supp_imp_cat_sales]}*/}
-                                                               {/*id="gauge1"/>*/}
-                                                  {/*<div className="row" style={{marginTop: '-11%'}}>*/}
-                                                    {/*<div className="col-xs-12"*/}
-                                                         {/*style={{fontWeight: 'bold', fontSize: '14px'}}>*/}
-                                                      {/*{obj.supp_imp_cat_sales}%*/}
-                                                    {/*</div>*/}
-                                                  {/*</div>*/}
-                                                {/*</div>*/}
-                                              {/*</div>*/}
-                                            {/*)*/}
-                                          {/*}*/}
-                                        {/*})()}*/}
-
-                                      {/*</div>*/}
-                                      {/*<div className="col-md-6 col-sm-6" style={{backgroundColor: "#fafafa"}}>*/}
-
-
-                                        {/*{(() => {*/}
-                                          {/*if (obj.cat_imp_supp_sales != "---") {*/}
-
-                                            {/*return (*/}
-                                              {/*<div>*/}
-                                                {/*<div className="col-md-12 col-sm-12 col-xs-12" style={{*/}
-                                                  {/*textAlign: 'center',*/}
-                                                  {/*borderTop: "1px solid #e5e8ea",*/}
-                                                  {/*float: 'right',*/}
-                                                  {/*backgroundColor: "white",*/}
-                                                  {/*margin: "0%",*/}
-                                                  {/*borderLeft: "1px solid #e5e8ea",*/}
-                                                  {/*borderRight: "1px solid #e5e8ea",*/}
-                                                  {/*borderBottom: "1px solid #e5e8ea"*/}
-                                                {/*}}>*/}
-                                                  {/*<h3 className="pageModuleSubTitle"> Category's value share to Parent*/}
-                                                    {/*Supplier </h3>*/}
-                                                  {/*<div style={{height: '15%', width: '100%'}}>&nbsp;</div>*/}
-                                                  {/*<GaugeChart2 data={[obj.cat_imp_supp_sales]}*/}
-                                                               {/*id="gauge2"/>*/}
-                                                  {/*<div className="row" style={{marginTop: '-11%'}}>*/}
-                                                    {/*<div className="col-xs-12"*/}
-                                                         {/*style={{fontWeight: 'bold', fontSize: '14px'}}>*/}
-                                                      {/*{obj.cat_imp_supp_sales}%*/}
-                                                    {/*</div>*/}
-                                                  {/*</div>*/}
-                                                {/*</div>*/}
-                                              {/*</div>*/}
-                                            {/*)*/}
-                                          {/*}*/}
-                                        {/*})()}*/}
-                                        {/*/!*<SampleBarChart/>*!/*/}
-
-                                      {/*</div>*/}
+                                    {/*return (*/}
+                                    {/*<div>*/}
+                                    {/*<div className="col-md-12 col-sm-6" style={{*/}
+                                    {/*textAlign: 'center',*/}
+                                    {/*borderTop: "1px solid #e5e8ea",*/}
+                                    {/*backgroundColor: "white",*/}
+                                    {/*margin: "0%",*/}
+                                    {/*borderLeft: "1px solid #e5e8ea",*/}
+                                    {/*borderRight: "1px solid #e5e8ea",*/}
+                                    {/*borderBottom: "1px solid #e5e8ea"*/}
+                                    {/*}}>*/}
+                                    {/*<h3 className="pageModuleSubTitle"> Parent Supplier's value share in*/}
+                                    {/*Category</h3>*/}
+                                    {/*<div style={{height: '15%', width: '100%'}}>&nbsp;</div>*/}
+                                    {/*<GaugeChart2 data={[obj.supp_imp_cat_sales]}*/}
+                                    {/*id="gauge1"/>*/}
+                                    {/*<div className="row" style={{marginTop: '-11%'}}>*/}
+                                    {/*<div className="col-xs-12"*/}
+                                    {/*style={{fontWeight: 'bold', fontSize: '14px'}}>*/}
+                                    {/*{obj.supp_imp_cat_sales}%*/}
                                     {/*</div>*/}
-                                  {/*</panel>*/}
+                                    {/*</div>*/}
+                                    {/*</div>*/}
+                                    {/*</div>*/}
+                                    {/*)*/}
+                                    {/*}*/}
+                                    {/*})()}*/}
+
+                                    {/*</div>*/}
+                                    {/*<div className="col-md-6 col-sm-6" style={{backgroundColor: "#fafafa"}}>*/}
+
+
+                                    {/*{(() => {*/}
+                                    {/*if (obj.cat_imp_supp_sales != "---") {*/}
+
+                                    {/*return (*/}
+                                    {/*<div>*/}
+                                    {/*<div className="col-md-12 col-sm-12 col-xs-12" style={{*/}
+                                    {/*textAlign: 'center',*/}
+                                    {/*borderTop: "1px solid #e5e8ea",*/}
+                                    {/*float: 'right',*/}
+                                    {/*backgroundColor: "white",*/}
+                                    {/*margin: "0%",*/}
+                                    {/*borderLeft: "1px solid #e5e8ea",*/}
+                                    {/*borderRight: "1px solid #e5e8ea",*/}
+                                    {/*borderBottom: "1px solid #e5e8ea"*/}
+                                    {/*}}>*/}
+                                    {/*<h3 className="pageModuleSubTitle"> Category's value share to Parent*/}
+                                    {/*Supplier </h3>*/}
+                                    {/*<div style={{height: '15%', width: '100%'}}>&nbsp;</div>*/}
+                                    {/*<GaugeChart2 data={[obj.cat_imp_supp_sales]}*/}
+                                    {/*id="gauge2"/>*/}
+                                    {/*<div className="row" style={{marginTop: '-11%'}}>*/}
+                                    {/*<div className="col-xs-12"*/}
+                                    {/*style={{fontWeight: 'bold', fontSize: '14px'}}>*/}
+                                    {/*{obj.cat_imp_supp_sales}%*/}
+                                    {/*</div>*/}
+                                    {/*</div>*/}
+                                    {/*</div>*/}
+                                    {/*</div>*/}
+                                    {/*)*/}
+                                    {/*}*/}
+                                    {/*})()}*/}
+                                    {/*/!*<SampleBarChart/>*!/*/}
+
+                                    {/*</div>*/}
+                                    {/*</div>*/}
+                                    {/*</panel>*/}
+                                  </div>
+                                )
+                              })
+                            }
+                          })()}
+
+
+                          <Modal show={this.state.suppTopBottombar} bsSize="lg"
+                                 aria-labelledby="contained-modal-title-lg"
+                          >
+                            <Modal.Header>
+
+                              <Modal.Title id="contained-modal-title-sm"
+                                           style={{textAlign: 'center', fontSize: '14px'}}><span
+                                style={{
+                                  textAlign: 'center',
+                                  fontSize: '14px'
+                                }}><b>Assess Performance by Parent Supplier</b><span
+                                style={{textAlign: 'right', float: 'right'}}
+                                onClick={() => this.setState({suppTopBottombar: false})}><b>X</b></span></span>
+                                <div style={{textAlign: 'center'}}>
+                                  <div style={{textAlign: 'right'}}>
+                                  </div>
                                 </div>
-                              )
-                            })
-                          }
-                        })()}
+                              </Modal.Title>
+
+                            </Modal.Header>
+
+                            <Modal.Body style={{fontSize: '14px'}}>
+                              A comparison of suppliers based on various metric is pivotal to improved buyer- supplier
+                              negotiations. Empowered with data regarding how different suppliers offer similar products
+                              at varying prices, a buyer can make more informed decisions to grow his portfolio. The
+                              list
+                              of top and bottom suppliers will help critically evaluate engagements with buyers.
+                            </Modal.Body>
+                          </Modal>
+
+                          <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
 
 
-                        <Modal show={this.state.suppTopBottombar} bsSize="lg"
-                               aria-labelledby="contained-modal-title-lg"
-                        >
-                          <Modal.Header>
-
-                            <Modal.Title id="contained-modal-title-sm"
-                                         style={{textAlign: 'center', fontSize: '14px'}}><span
-                              style={{
-                                textAlign: 'center',
-                                fontSize: '14px'
-                              }}><b>Assess Performance by Parent Supplier</b><span
-                              style={{textAlign: 'right', float: 'right'}}
-                              onClick={() => this.setState({suppTopBottombar: false})}><b>X</b></span></span>
-                              <div style={{textAlign: 'center'}}>
-                                <div style={{textAlign: 'right'}}>
-                                </div>
-                              </div>
-                            </Modal.Title>
-
-                          </Modal.Header>
-
-                          <Modal.Body style={{fontSize: '14px'}}>
-                            A comparison of suppliers based on various metric is pivotal to improved buyer- supplier
-                            negotiations. Empowered with data regarding how different suppliers offer similar products
-                            at varying prices, a buyer can make more informed decisions to grow his portfolio. The list
-                            of top and bottom suppliers will help critically evaluate engagements with buyers.
-                          </Modal.Body>
-                        </Modal>
-
-                        <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
-
-
-                        {/*<div className="pageTitle" style={{marginBottom: "20px"}}>*/}
+                          {/*<div className="pageTitle" style={{marginBottom: "20px"}}>*/}
                           <div className="headerBox">
                             <h2 className="pageModuleMainTitle">Assess performance by parent supplier</h2>
                           </div>
@@ -821,9 +829,9 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                         {/**/}
                       {/*</div>*/}
 
-                        <div>
-                          <div className="row mainBox">
-                            <panel>
+                          <div>
+                            <div className="row mainBox">
+                              <panel>
 
                                <div className="col-md-12 col-sm-12 col-xs-12 panel-body" style={{backgroundColor: "#f5f5f5"}}>
                             {(() => {
@@ -842,12 +850,12 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                     exportCSV={true}
                                   >
                                     <TableHeaderColumn dataField="parent_supplier" isKey={true}
-                                                       tdStyle={ {whiteSpace: 'normal'} } width="20%"
-                                                       dataSort={true} dataAlign="center">Parent
+                                                       tdStyle={ {whiteSpace: 'normal'} } width="30%"
+                                                       dataSort={true} dataAlign="left">Parent
                                       Supplier</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="part_by_val" dataFormat={formatSales} dataSort={true} dataAlign="center">{this.state.paticipationByTab}</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="value_growth" dataFormat={formatSales} dataSort={true} dataAlign="center">{this.state.GrowthTab}</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="value_contri" dataFormat={formatSales} dataSort={true} dataAlign="center">{this.state.ContributionToGrowthTab}</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="part_by_val" dataFormat={formatSales} dataSort={true} dataAlign="right">{this.state.paticipationByTab}</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="value_growth" dataFormat={formatSales} dataSort={true} dataAlign="right">{this.state.GrowthTab}</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="value_contri" dataFormat={formatSales} dataSort={true} dataAlign="right">{this.state.ContributionToGrowthTab}</TableHeaderColumn>
                                   </BootstrapTable>
 
                                 </div>
@@ -947,7 +955,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                 </Nav>
                               </div>
 
-                              {/*------Performance quartile---- */}
+                                {/*------Performance quartile---- */}
 
                               {/*Header row*/}
                               <div className="col-md-12 col-sm-12 pageModuleSubTitle" style={{marginTop: '20px'}}>
@@ -1317,101 +1325,100 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                             //Passing array which updates opacity
                                                         selectedBubbleOpacity={this.props.supplier.prodArrayOpacity}
 
-                                            //Ajax calls to save prodArrayTable in state
-                                                        onSaveBubbleParam={this.props.onSaveBubbleParam}
+                                              //Ajax calls to save prodArrayTable in state
+                                                          onSaveBubbleParam={this.props.onSaveBubbleParam}
 
-                                            //Ajax calls to save prodArrayOpacity in state
-                                                        onSaveBubbleParam2={this.props.onSaveBubbleParam2}
+                                              //Ajax calls to save prodArrayOpacity in state
+                                                          onSaveBubbleParam2={this.props.onSaveBubbleParam2}
 
-                                            //To update graph and table
-                                                        onFetchGraph={this.props.onFetchGraph}
-                                                        onGenerateTable={this.props.onGenerateTable}
-                                          />
-                                          <i style={{fontSize: '12px'}}>*Size of the bubble corresponds to Rate of
-                                            Sales</i>
+                                              //To update graph and table
+                                                          onFetchGraph={this.props.onFetchGraph}
+                                                          onGenerateTable={this.props.onGenerateTable}
+                                            />
+                                            <i style={{fontSize: '12px'}}>*Size of the bubble corresponds to Rate of
+                                              Sales</i>
 
-                                          {/*<div className="resetButton" onClick={() => {*/}
-                                          {/*dataPerformanceUrlParams = '';*/}
-                                          {/*this.props.onSavePageParam("page=1");*/}
-                                          {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
-                                          {/*this.props.onFetchGraph();*/}
-                                          {/*this.props.onGenerateTable();*/}
-                                          {/*this.props.onRadioChecked('6');*/}
-                                          {/*}}><p>View Selections</p></div>*/}
+                                            {/*<div className="resetButton" onClick={() => {*/}
+                                            {/*dataPerformanceUrlParams = '';*/}
+                                            {/*this.props.onSavePageParam("page=1");*/}
+                                            {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                                            {/*this.props.onFetchGraph();*/}
+                                            {/*this.props.onGenerateTable();*/}
+                                            {/*this.props.onRadioChecked('6');*/}
+                                            {/*}}><p>View Selections</p></div>*/}
 
-                                        </div>
-                                      )
-                                    }
-                                  })()}
-
-
-
-                                  {/*-----Bubble table-----*/}
-
-                                  <Panel>
-                                    <div>
-                                      {
-                                        (() => {
-
-                                          if (this.props.supplier.data && (this.props.supplier.tableChartSpinnerCheck == 1)) {
-
-
-                                            return (
-                                              <div>
-                                                <BootstrapTable
-                                                  data={this.props.supplier.data.table_data} options={options}
-                                                  striped={true}
-                                                  hover
-                                                  condensed
-                                                  pagination={ true }
-                                                  search={true}
-                                                  exportCSV={true}
-                                                >
-                                                  <TableHeaderColumn dataField="base_product_number" isKey={true}
-                                                                     dataAlign="center" dataSort={true} width="20%">Product
-                                                    ID</TableHeaderColumn>
-                                                  <TableHeaderColumn dataField="parent_supplier"
-                                                                     tdStyle={ {whiteSpace: 'normal'} } width="20%"
-                                                                     dataSort={true} dataAlign="center">Parent
-                                                    Supplier</TableHeaderColumn>
-                                                  <TableHeaderColumn dataField="sales_ty" dataFormat={formatSales}
-                                                                     dataSort={true}
-                                                                     dataAlign="center">Sales TY</TableHeaderColumn>
-                                                  <TableHeaderColumn dataField="volume_ty" dataFormat={formatVolume}
-                                                                     dataSort={true} dataAlign="center">Volume
-                                                    TY</TableHeaderColumn>
-                                                  <TableHeaderColumn dataField="cgm_ty" dataFormat={formatSales}
-                                                                     dataSort={true}
-                                                                     dataAlign="center">CGM TY</TableHeaderColumn>
-                                                  <TableHeaderColumn dataField="pps" dataSort={true}
-                                                                     dataAlign="center">PPS</TableHeaderColumn>
-                                                  <TableHeaderColumn dataField="cps" dataSort={true}
-                                                                     dataAlign="center">CPS</TableHeaderColumn>
-                                                  <TableHeaderColumn dataField="rate_of_sale" dataSort={true}
-                                                                     dataAlign="center">Rate
-                                                    of Sale</TableHeaderColumn>
-                                                </BootstrapTable>
-
-                                              </div>
-                                            );
-
-                                          }
-                                          else {
-                                            return (
-
-                                              <div className="text-center" colSpan="11"><Spinner /><h3>Please Wait a
-                                                Moment....!</h3></div>
-
-                                            );
-                                          }
-                                        })()
+                                          </div>
+                                        )
                                       }
-                                    </div>
-                                  </Panel>
+                                    })()}
 
 
+                                    {/*-----Bubble table-----*/}
+
+                                    <Panel>
+                                      <div>
+                                        {
+                                          (() => {
+
+                                            if (this.props.supplier.data && (this.props.supplier.tableChartSpinnerCheck == 1)) {
+
+
+                                              return (
+                                                <div>
+                                                  <BootstrapTable
+                                                    data={this.props.supplier.data.table_data} options={options}
+                                                    striped={true}
+                                                    hover
+                                                    condensed
+                                                    pagination={ true }
+                                                    search={true}
+                                                    exportCSV={true}
+                                                  >
+                                                    <TableHeaderColumn dataField="base_product_number" isKey={true}
+                                                                       dataAlign="center" dataSort={true} width="20%">Product
+                                                      ID</TableHeaderColumn>
+                                                    <TableHeaderColumn dataField="parent_supplier"
+                                                                       tdStyle={ {whiteSpace: 'normal'} } width="20%"
+                                                                       dataSort={true} dataAlign="center">Parent
+                                                      Supplier</TableHeaderColumn>
+                                                    <TableHeaderColumn dataField="sales_ty" dataFormat={formatSales}
+                                                                       dataSort={true}
+                                                                       dataAlign="center">Sales TY</TableHeaderColumn>
+                                                    <TableHeaderColumn dataField="volume_ty" dataFormat={formatVolume}
+                                                                       dataSort={true} dataAlign="center">Volume
+                                                      TY</TableHeaderColumn>
+                                                    <TableHeaderColumn dataField="cgm_ty" dataFormat={formatSales}
+                                                                       dataSort={true}
+                                                                       dataAlign="center">CGM TY</TableHeaderColumn>
+                                                    <TableHeaderColumn dataField="pps" dataSort={true}
+                                                                       dataAlign="center">PPS</TableHeaderColumn>
+                                                    <TableHeaderColumn dataField="cps" dataSort={true}
+                                                                       dataAlign="center">CPS</TableHeaderColumn>
+                                                    <TableHeaderColumn dataField="rate_of_sale" dataSort={true}
+                                                                       dataAlign="center">Rate
+                                                      of Sale</TableHeaderColumn>
+                                                  </BootstrapTable>
+
+                                                </div>
+                                              );
+
+                                            }
+                                            else {
+                                              return (
+
+                                                <div className="text-center" colSpan="11"><Spinner /><h3>Please Wait a
+                                                  Moment....!</h3></div>
+
+                                              );
+                                            }
+                                          })()
+                                        }
+                                      </div>
+                                    </Panel>
+
+
+                                  </div>
                                 </div>
-                              </div>
 
                             </div>
                           </Modal.Body>
