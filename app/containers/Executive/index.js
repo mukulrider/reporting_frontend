@@ -257,7 +257,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
         //   text: 'All', value: products.length
       }], // you can change the dropdown list for size per page
       sizePerPage: 5,  // which size per page you want to locate as default
-      pageStartIndex: 0, // where to start counting the pages
+      pageStartIndex: 1, // where to start counting the pages
       paginationSize: 3,  // the pagination bar size.
       // prePage: 'Prev', // Previous page button text
       // nextPage: 'Next', // Next page button text
@@ -1891,7 +1891,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                           </Modal>
 
-                          <div style={{textAlign: 'right', marginTop: '5%'}}>
+                          <div style={{textAlign: 'center', marginTop: '5%'}}>
                             <Button onClick={() => {
                               this.setState({showExternalDriverModal: true})
                               let driverParam = "external";

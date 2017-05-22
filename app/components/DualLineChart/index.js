@@ -157,19 +157,19 @@ class DualLineChart extends React.PureComponent { // eslint-disable-line react/p
       .data(['metric_ly', 'metric_ty'])
       .enter().append('g')
       .attr('class', 'legend')
-      .attr('transform', (d, i) => `translate(0,${i * 10})`)
+      .attr('transform', (d, i) => `translate(${i * 300},0)`)
       .style('font', '12px sans-serif');
 
     legend.append('rect')
-      .attr('x', width / 2 + 2 * (margin.left))
-      .attr('y',  0)
+      .attr('x', width / 3 + 2 * (margin.left))
+      .attr('y',  height+2*margin.top)
       .attr('width', 25)
       .attr('height', 2.5)
       .attr('fill', z);
 
     legend.append('text')
-      .attr('x', width / 2 +3 * (margin.left))
-      .attr('y', 0)
+      .attr('x', width / 3 +3 * (margin.left))
+      .attr('y', height+2*margin.top)
       .attr('dy', '.35em')
       .attr('text-anchor', 'middle')
       .text((d) => {
