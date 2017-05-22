@@ -6,10 +6,11 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import request from 'utils/request';
 
 import {
-  API_FETCH, SAVE_WEEK_PARAM, SAVE_METRIC_PARAM, GENERATE_URL_PARAMS_STRING, FETCH_FILTERED_PRODUCT_DATA, WEEK_FILTER_CONSTANT,
+  API_FETCH, SAVE_WEEK_PARAM, SAVE_METRIC_PARAM,SAVE_PRODUCT, GENERATE_URL_PARAMS_STRING, FETCH_FILTERED_PRODUCT_DATA, WEEK_FILTER_CONSTANT,FETCH_PRODUCT_TREND
 } from './constants';
 import {
-  apiFetchSuccess, fetchSaveWeekParamSuccess, fetchSaveMetricParamSuccess, generateUrlParamsString, generateSideFilterSuccess, generateCascadingFilter, WeekFilterFetchSuccess, tabsAndApplySpinner
+  apiFetchSuccess, fetchSaveWeekParamSuccess, fetchSaveMetricParamSuccess,fetchSaveSupplierInfoSuccess,fetchProductTrendInfoSuccess,generateUrlParamsString, generateSideFilterSuccess,
+  generateCascadingFilter, WeekFilterFetchSuccess, tabsAndApplySpinner
 } from 'containers/ProductPage/actions';
 
 import {
@@ -50,8 +51,8 @@ let gettingUserDetails = () =>{
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-const host_url = "http://172.20.181.92:8002";
-// let host_url = "http://172.20.244.228:8002"
+const host_url = "http://172.20.181.88:8000";
+// let host_url = "http://172.20.244.228:8000"
 
 
 /* GENERATE SIDE FILTER*/
@@ -193,6 +194,92 @@ export function* generateWeekFilter() {
   }
 }
 
+export function* generateProductSupplierInfo() {
+  const urlName = yield select(selectProductPageDomain());
+  console.log('urlName', urlName);
+  const urlProductParams = urlName.get('dataProduct');
+  const urlParamsWeekFlag = urlName.get('dataWeekParams');
+  const urlParamsMetricFlag = urlName.get('dataMetricParams');
+  const userParams = gettingUserDetails();
+
+  let urlParams = `${urlProductParams}&${urlParamsWeekFlag}&${urlParamsMetricFlag}`;
+
+  let urlParamsWeekFilter = "";
+  urlParamsWeekFilter = urlName.get('filter_week_selection');
+  if (!(typeof(urlParamsWeekFilter) == "undefined") && !(urlParamsWeekFilter == "")) {
+    urlParamsWeekFilter = urlName.get('filter_week_selection');
+    urlParams = `${urlParams}&${urlParamsWeekFilter}`;
+    console.log("filter_week_selection", urlParamsWeekFilter);
+  } else {
+    urlParamsWeekFilter = "";
+  }
+  console.log("Week Filter With Week,Metric Flag:",urlParamsWeekFilter);
+  console.log(urlParams);
+
+  console.log('urlParams for Week Flag,Metric Flag,Week Filter', urlParamsWeekFlag, urlParamsMetricFlag,urlParamsWeekFilter);
+  console.log('Complete urlParams', urlParams);
+
+
+  try {
+    let data = '';
+    if (urlParams) {
+      data = yield call(request, `${host_url}/api/reporting/supplier_modal?${urlParams}&${userParams}`);
+      console.log('This is my fetched supplier modal data', data);
+
+    } else {
+      data = yield call(request, `${host_url}/api/reporting/supplier_modal`);
+    }
+    // // console.log(data);
+    yield put(fetchSaveSupplierInfoSuccess(data));
+
+    let spinnerCheck = 1;
+    console.log('spinnerCheck in sagas else', spinnerCheck);
+    yield put(tabsAndApplySpinner(spinnerCheck));
+  } catch (err) {
+    // console.log(err);
+  }
+}
+
+export function* generateProductTrendInfo() {
+  const urlName = yield select(selectProductPageDomain());
+  console.log('urlName', urlName);
+  const urlProductParams = urlName.get('dataProduct');
+  const urlParamsWeekFlag = urlName.get('dataWeekParams');
+  const urlParamsMetricFlag = urlName.get('dataMetricParams');
+  const userParams = gettingUserDetails();
+
+  let urlParams = `${urlProductParams}&${urlParamsWeekFlag}&${urlParamsMetricFlag}`;
+
+  let urlParamsWeekFilter = "";
+  urlParamsWeekFilter = urlName.get('filter_week_selection');
+  if (!(typeof(urlParamsWeekFilter) == "undefined") && !(urlParamsWeekFilter == "")) {
+    urlParamsWeekFilter = urlName.get('filter_week_selection');
+    urlParams = `${urlParams}&${urlParamsWeekFilter}`;
+    console.log("filter_week_selection", urlParamsWeekFilter);
+  } else {
+    urlParamsWeekFilter = "";
+  }
+
+  try {
+    let data = '';
+    if (urlParams) {
+      data = yield call(request, `${host_url}/api/reporting/sales_trend?${urlParams}&${userParams}`);
+      console.log('This is my fetched product trend data', data);
+
+    } else {
+      data = yield call(request, `${host_url}/api/reporting/sales_trend`);
+    }
+    // // console.log(data);
+    yield put(fetchProductTrendInfoSuccess(data));
+
+    let spinnerCheck = 1;
+    console.log('spinnerCheck in sagas else', spinnerCheck);
+    yield put(tabsAndApplySpinner(spinnerCheck));
+  } catch (err) {
+    // console.log(err);
+  }
+}
+
 export function* doGenerateCascadingFilter() {
   const watcher = yield takeLatest(FETCH_FILTERED_PRODUCT_DATA, generateWeekFilter);
   yield take(LOCATION_CHANGE);
@@ -209,7 +296,17 @@ export function* doGenerateMetricFilter() {
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
 }
+export function* doGenerateProductSupplierInfo() {
+  const watcher = yield takeLatest(SAVE_PRODUCT, generateProductSupplierInfo);
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
 
+export function* doGenerateProductTrendInfo() {
+  const watcher = yield takeLatest(FETCH_PRODUCT_TREND, generateProductTrendInfo);
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
 export function* generateWeekFilterFetch() {
   try {
     console.log('Inside generateWeekFilterFetch');
@@ -272,6 +369,8 @@ export default [
   defaultSaga,
   doGenerateWeekFilter,
   doGenerateMetricFilter,
+  doGenerateProductSupplierInfo,
+  doGenerateProductTrendInfo,
   doGenerateSideFilter,
   doGenerateCascadingFilter,
   doWeekFilterFetch,
