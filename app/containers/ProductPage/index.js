@@ -121,7 +121,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
 
   formatMetric = (cell,row) => {
    // console.log("Cell:",row.product,cell);
-    console.log(row);
+   // console.log(row);
     if (cell >= 1000 || cell <= -1000) {
       let rounded = Math.round(cell / 1000);
       if (this.state.y_axis_text == "Sales Volume") {
@@ -409,7 +409,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                 {
                   (() => {
                     if (this.props.ProductPage.data && this.props.ProductPage.data.table_data && this.props.ProductPage.tabsApplySpinner) {
-
+//console.log("This is table data length:",this.props.ProductPage.data.table_data.length);
                       return (
                         <div>
                           <BootstrapTable

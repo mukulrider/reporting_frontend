@@ -24,7 +24,7 @@ export default class App extends React.PureComponent { // eslint-disable-line re
 
 
   componentWillMount() {
-    const hostName = '172.20.244.152';
+    const hostName = '172.20.244.222';
     const hostPort = '3001';
     let getCookie;
     getCookie = (name) => {
