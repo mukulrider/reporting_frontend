@@ -11,20 +11,18 @@ import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
 import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
-import * as d3 from 'd3';
 import $ from 'jquery';
 import DualLineChart from 'components/DualLineChart';
 import FiltersProduct from 'components/FiltersProduct';
 import Panel from 'components/panel';
-import Button from 'components/button';
 import Spinner from 'components/spinner';
 import {Modal,Nav, NavItem, DropdownButton, MenuItem} from 'react-bootstrap';
 import {saveImage, saveDataAsCSV} from './../../utils/exportFunctions';
-import {FormattedMessage} from 'react-intl';
 import {createStructuredSelector} from 'reselect';
 import makeSelectProductPage from './selectors';
 import messages from './messages';
 require('react-bootstrap-table/css/react-bootstrap-table.css')
+var dateFormat = require('dateformat');
 
 import {
   makeUrlParamsString,
@@ -51,6 +49,13 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
     } else {
       this.props.onGenerateUrlParamsString('');
     }
+
+    const self = this;
+    self.interval = setInterval(function() {
+      self.setState({
+        now: new Date(),
+      });
+    }, 1000);
 
     let dataWeekParams = this.props.ProductPage.dataWeekParams;
     let dataMetricParams = this.props.ProductPage.dataMetricParams;
@@ -114,7 +119,9 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
     };
   }
 
-  formatMetric = (cell) => {
+  formatMetric = (cell,row) => {
+   // console.log("Cell:",row.product,cell);
+   // console.log(row);
     if (cell >= 1000 || cell <= -1000) {
       let rounded = Math.round(cell / 1000);
       if (this.state.y_axis_text == "Sales Volume") {
@@ -261,13 +268,6 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   this.props.tabsAndApplySpinner(0);
                   let dataWeekParams = "week_flag=Latest Week";
                   this.props.onSaveWeekParam(dataWeekParams);
-                  /*
-                   let week_no = "time_period=13_weeks";
-                   this.props.onWeekClick(week_no);
-                   this.props.onWaterfallValueChart();
-                   this.props.onApiFetch();
-                   this.props.ondelistTable();
-                   this.props.onWeekTabClick("Week: 13 weeks ")*/
                 }}
                 ><span className="tab_label">Selected Week</span></NavItem>
                 <NavItem style={{fontSize: '16px', width: '16%', textAlign: 'center'}}
@@ -276,13 +276,6 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   this.props.tabsAndApplySpinner(0);
                   let dataWeekParams = "week_flag=4";
                   this.props.onSaveWeekParam(dataWeekParams);
-                  /*
-                   let week_no = "time_period=26_weeks";
-                   this.props.onWeekClick(week_no);
-                   this.props.onWaterfallValueChart();
-                   this.props.onApiFetch();
-                   this.props.ondelistTable();
-                   this.props.onWeekTabClick("Week: 26 weeks ")*/
                 }}
                 ><span className="tab_label">Last 4 Weeks</span></NavItem>
                 <NavItem style={{fontSize: '16px', width: '16%', textAlign: 'center'}}
@@ -416,7 +409,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                 {
                   (() => {
                     if (this.props.ProductPage.data && this.props.ProductPage.data.table_data && this.props.ProductPage.tabsApplySpinner) {
-
+//console.log("This is table data length:",this.props.ProductPage.data.table_data.length);
                       return (
                         <div>
                           <BootstrapTable
@@ -434,18 +427,18 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                                                dataAlign="center">TY</TableHeaderColumn>
                             <TableHeaderColumn dataField="x_ly" dataFormat={this.formatMetric} dataSort={true}
                                                dataAlign="center">LY</TableHeaderColumn>
-                            <TableHeaderColumn dataField="lfl" dataFormat={this.formatMetric} dataSort={true}
-                                               dataAlign="center">LFL</TableHeaderColumn>
+                            <TableHeaderColumn dataField="x_lw" dataFormat={this.formatMetric} dataSort={true}
+                                               dataAlign="center">LW</TableHeaderColumn>
                             <TableHeaderColumn dataField="x_lfl_ty" dataFormat={this.formatMetric} dataSort={true}
                                                dataAlign="center">LFL TY</TableHeaderColumn>
                             <TableHeaderColumn dataField="x_lfl_ly" dataFormat={this.formatMetric} dataSort={true}
                                                dataAlign="center">LFL LY</TableHeaderColumn>
-                            <TableHeaderColumn dataField="x_lw" dataFormat={this.formatGlyphicon} dataSort={true}
-                                               dataAlign="center">LW</TableHeaderColumn>
                             <TableHeaderColumn dataField="x_wow" dataFormat={this.formatGlyphicon} dataSort={true}
-                                               dataAlign="center">WOW</TableHeaderColumn>
+                                               dataAlign="center">WOW % Change</TableHeaderColumn>
                             <TableHeaderColumn dataField="x_yoy" dataFormat={this.formatGlyphicon} dataSort={true}
-                                               dataAlign="center">YOY</TableHeaderColumn>
+                                               dataAlign="center">YOY % Change</TableHeaderColumn>
+                            <TableHeaderColumn dataField="lfl" dataFormat={this.formatGlyphicon} dataSort={true}
+                                               dataAlign="center">LFL % Change</TableHeaderColumn>
                             <TableHeaderColumn dataFormat={this.cellButton} dataAlign="center">Supplier Info</TableHeaderColumn>
                             <TableHeaderColumn dataFormat={this.cellButton2} dataAlign="center">Trend</TableHeaderColumn>
                           </BootstrapTable>
@@ -457,7 +450,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                     else {
                       return (
 
-                        <div className="text-center" colSpan="11"><Spinner />Please Wait a Moment....!</div>
+                        <div className="text-center" colSpan="11" style={{textAlign: 'center'}}><Spinner />Please Wait a Moment....!</div>
 
                       );
                     }
@@ -480,15 +473,10 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                                {this.setState({showSupplierInfoModalFlag: false})
                                }}>
                           <b>X</b></span></span>
-                  <div style={{textAlign: 'center'}}>
-                    <div style={{textAlign: 'right'}}>
-                    </div>
-                  </div>
                 </Modal.Title>
 
               </Modal.Header>
               <Modal.Body className="infoModalText">
-                {this.state.infoModalHelpText}
                 <div>
                   {
                     (() => {
@@ -505,18 +493,15 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                               search={true}
                               exportCSV={true}
                             >
-                              <TableHeaderColumn width="225" tdStyle={ {whiteSpace: 'normal'} } dataField="product" isKey={true}
+                              <TableHeaderColumn width="200" tdStyle={ {whiteSpace: 'normal'} } dataField="product" isKey={true}
                                                  dataAlign="center" dataSort>Product</TableHeaderColumn>
                               <TableHeaderColumn tdStyle={ {whiteSpace: 'normal'} }
                                                  dataField="parent_supplier" dataSort={true}
                                                  dataAlign="center">Parent Supplier</TableHeaderColumn>
-                              <TableHeaderColumn dataField="metric_ty" dataSort={true}
-                                                 dataAlign="center">Sales TY</TableHeaderColumn>
-                              <TableHeaderColumn dataField="metric_ly" dataSort={true} dataAlign="center">Sales LY</TableHeaderColumn>
-                              <TableHeaderColumn dataField="metric_ty_lfl" dataFormat={this.formatMetric} dataSort={true}
-                                                 dataAlign="center">Sales TY LFL</TableHeaderColumn>
-                              <TableHeaderColumn dataField="metric_ly_lfl" dataFormat={this.formatMetric} dataSort={true}
-                                                 dataAlign="center">Sales LY LFL</TableHeaderColumn>
+                              <TableHeaderColumn dataField="metric_ty" dataSort={true} dataAlign="center" dataFormat={this.formatMetric}>{this.state.y_axis_text} TY</TableHeaderColumn>
+                              <TableHeaderColumn dataField="metric_ly" dataSort={true} dataAlign="center" dataFormat={this.formatMetric}>{this.state.y_axis_text} LY</TableHeaderColumn>
+                              <TableHeaderColumn dataField="metric_ty_lfl" dataSort={true} dataAlign="center" dataFormat={this.formatMetric}>{this.state.y_axis_text} TY LFL</TableHeaderColumn>
+                              <TableHeaderColumn dataField="metric_ly_lfl" dataSort={true} dataAlign="center" dataFormat={this.formatMetric}>{this.state.y_axis_text} LY LFL</TableHeaderColumn>
                             </BootstrapTable>
 
                           </div>
@@ -550,10 +535,6 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                                {this.setState({showSalesTrendModalFlag: false})
                                }}>
                           <b>X</b></span></span>
-                  <div style={{textAlign: 'center'}}>
-                    <div style={{textAlign: 'right'}}>
-                    </div>
-                  </div>
                 </Modal.Title>
 
               </Modal.Header>
@@ -572,11 +553,11 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                               color: "#00539f"
                             }} id="dropButtonId">
                               <MenuItem onClick={() => {
-                                saveImage(this.refs.chartImage.refs.image, "TY_v/s_LY_Product_Performance_Comparison")
+                                saveImage(this.refs.chartImage.refs.image, "Products "+ this.state.y_axis_text + " Trend " + dateFormat(this.state.now,"dS mmmm yyyy, h:MM:ss"))
                               }
                               }>Save As JPEG</MenuItem>
                               <MenuItem onClick={() => {
-                                saveDataAsCSV(this.props.ProductPage.data.d3_output, "TY_v/s_LY_Product_Performance_Comparison.csv")
+                                saveDataAsCSV(this.props.ProductPage.product_trend.data, "Products "+ this.state.y_axis_text + " Trend_" + dateFormat(this.state.now,"dS mmmm yyyy, h:MM:ss")+ ".csv")
                               }
                               }>Download CSV</MenuItem>
                             </DropdownButton>
@@ -590,11 +571,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
 
                     } else {
                       return (
-
-                        <div className="row">
-                          <div className="col-md-9 col-sm-9 col-xs-9 text-center" style={{marginTop: '6%'}}><Spinner />Please Wait a Moment....!</div>
-                        </div>
-
+                          <div className="text-center" colSpan="11"><Spinner />Please Wait a Moment....!</div>
                       );
                     }
                   })()}
