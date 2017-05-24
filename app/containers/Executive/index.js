@@ -2103,18 +2103,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                 return (
                                                   <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12 kpiSmall">
                                                     <h4>
-                                    <span
-                                      className={(() => {
-                                        if (this.props.Executive.price_kpi_data.price_index_var_wow > 0) {
-                                          return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                                        }
-                                        else if (this.props.Executive.price_kpi_data.price_index_var_wow < 0) {
-                                          return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                                        } else {
-                                          return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                                        }
-                                      })()}></span>
-                                                      {this.props.Executive.price_kpi_data.price_index_var_wow}%
+                                                      <span
+                                                        className={glyphiconFormatter(this.props.Executive.price_kpi_data.price_index_var_wow)}>
+                                                      </span>{this.props.Executive.price_kpi_data.price_index_var_wow}%
                                                     </h4>
                                                     <h5 className="kpiSubTitle"><b>WoW</b></h5>
 
