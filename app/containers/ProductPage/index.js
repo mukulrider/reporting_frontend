@@ -50,12 +50,6 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
       this.props.onGenerateUrlParamsString('');
     }
 
-    const self = this;
-    self.interval = setInterval(function() {
-      self.setState({
-        now: new Date(),
-      });
-    }, 1000);
 
     let dataWeekParams = this.props.ProductPage.dataWeekParams;
     let dataMetricParams = this.props.ProductPage.dataMetricParams;
@@ -77,7 +71,6 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
         let dataProduct = "product="+row.product;
         this.props.onSaveProduct(dataProduct);
         this.setState({infoModalHeader: "Product's Parent Supplier Info"});
-        this.setState({infoModalHelpText: "Tesco’s outperformance wrt the Market at a Product Subgroup level"});
       }}
     >View
     </button>
@@ -147,27 +140,6 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
     }
   }
 
-  diffColumnFormatter = (cell) => {
-    if (cell > 0) {
-      return '<i class="glyphicon glyphicon-triangle-top productTablePositive"></i>&nbsp' + cell + '%';
-    }
-    else if (cell < 0) {
-      return '<i class="glyphicon glyphicon-triangle-bottom productTableNegative"></i>&nbsp' + cell + '%';
-    } else {
-      return '<i class="glyphicon glyphicon-minus-sign productTableNeutral"></i>&nbsp' + cell + '%';
-    }
-
-  }
-
-  tickColumnFormatter = (cell) => {
-
-    if (cell == 1) {
-      return '<i class="glyphicon glyphicon-ok-sign productTablePositive"></i>&nbsp';
-    }
-    else {
-      return '<i class="glyphicon glyphicon-remove-sign productTableNegative"></i>&nbsp';
-    }
-  }
 
   render() {
     //For url parameters
@@ -180,7 +152,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
       }, {
         text: '15', value: 15
       }, {
-        text: '25', value: 25
+        text: 'All', value: this.props.ProductPage.data && this.props.ProductPage.data.table_data ? this.props.ProductPage.data.table_data.length :0
       }], // you can change the dropdown list for size per page
       sizePerPage: 5,  // which size per page you want to locate as default
       pageStartIndex: 1, // where to start counting the pages
