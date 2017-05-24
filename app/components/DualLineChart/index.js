@@ -131,14 +131,16 @@ class DualLineChart extends React.PureComponent { // eslint-disable-line react/p
       .style('text-anchor', 'end')
       .attr('dx', '-.8em')
       .attr('dy', '.15em')
-      .attr('transform', 'rotate(-65)')
-      .append('text')
-      .attr('x', width / 2)
-      .attr('y', 35)
+      .attr('transform', 'rotate(-65)');
+
+    svg.append('text')
+      .attr('x', width / 3.5)
+      .attr('y', height+2.5*margin.top)
       .attr('dx', '0.71em')
       .attr('fill', '#000')
-      .style('font', '20px sans-serif')
-      .text('Weeks---->');
+      .style('text-anchor', 'middle')
+      .style('font', '18px sans-serif')
+      .text('Tesco Week');
 
     // Add the Y Axis
     svg.append('g')

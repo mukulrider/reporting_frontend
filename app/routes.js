@@ -138,6 +138,26 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
+      path: '/sales/kantar',
+      name: 'kantarReport',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/KantarReport/reducer'),
+          import('containers/KantarReport/sagas'),
+          import('containers/KantarReport'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('kantarReport', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
