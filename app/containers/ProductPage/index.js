@@ -70,7 +70,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
         this.setState({showSupplierInfoModalFlag: true});
         let dataProduct = "product="+row.product;
         this.props.onSaveProduct(dataProduct);
-        this.setState({infoModalHeader: "Product's Parent Supplier Info"});
+        this.setState({product:row.product,infoModalHeader:"Parent Supplier Info : "+row.product,showSupplierInfoModalFlag: true});
       }}
     >View
     </button>
@@ -87,9 +87,9 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
           let dataProduct = "product="+row.product;
           this.props.onSaveProductForTrend(dataProduct);
           this.props.onProductTrend();
-          this.setState({showSalesTrendModalFlag: true});
+          this.setState({product:row.product,showSalesTrendModalFlag: true});
         }}
-      >Trend
+      >View
       </button>
     )
   }
@@ -105,6 +105,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
       showSupplierInfoModalFlag:false,
       showSalesTrendModalFlag:false,
       infoModalHeader:'',
+      product:'',
       ty_text: "Sales TY in £",
       ly_text: "Sales LY in £",
       y_axis_text: "Sales Value",
@@ -135,6 +136,8 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
     }
     else if (cell < 0) {
       return '<i class="glyphicon glyphicon-triangle-bottom productTableNegative"></i>&nbsp' + cell + '%';
+    }else if (cell = "NA") {
+      return 'NA*';
     } else {
       return '<i class="glyphicon glyphicon-minus-sign productTableNeutral"></i>&nbsp' + cell + '%';
     }
@@ -262,7 +265,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                          className="tabsCustomListTime" eventKey="4" onClick={() => {
                   this.setState({activeKey: "4"});
                   this.props.tabsAndApplySpinner(0);
-                  dataWeekParams = "week_flag=26";
+                  let dataWeekParams = "week_flag=26";
                   this.props.onSaveWeekParam(dataWeekParams);
                 }}
                 ><span className="tab_label">Last 26 Weeks</span></NavItem>
@@ -405,16 +408,16 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                                                dataAlign="center">LFL TY</TableHeaderColumn>
                             <TableHeaderColumn dataField="x_lfl_ly" dataFormat={this.formatMetric} dataSort={true}
                                                dataAlign="center">LFL LY</TableHeaderColumn>
-                            <TableHeaderColumn dataField="x_wow" dataFormat={this.formatGlyphicon} dataSort={true}
+                            <TableHeaderColumn dataField="wow" width="11%" dataFormat={this.formatGlyphicon} dataSort={true}
                                                dataAlign="center">WOW % Change</TableHeaderColumn>
-                            <TableHeaderColumn dataField="x_yoy" dataFormat={this.formatGlyphicon} dataSort={true}
+                            <TableHeaderColumn dataField="yoy" width="11%" dataFormat={this.formatGlyphicon} dataSort={true}
                                                dataAlign="center">YOY % Change</TableHeaderColumn>
-                            <TableHeaderColumn dataField="lfl" dataFormat={this.formatGlyphicon} dataSort={true}
+                            <TableHeaderColumn dataField="lfl_percent" width="11%" dataFormat={this.formatGlyphicon} dataSort={true}
                                                dataAlign="center">LFL % Change</TableHeaderColumn>
-                            <TableHeaderColumn dataFormat={this.cellButton} dataAlign="center">Supplier Info</TableHeaderColumn>
+                            <TableHeaderColumn dataFormat={this.cellButton} tdStyle={ {whiteSpace: 'normal'} } dataAlign="center">Supplier Info</TableHeaderColumn>
                             <TableHeaderColumn dataFormat={this.cellButton2} dataAlign="center">Trend</TableHeaderColumn>
                           </BootstrapTable>
-
+                          <i style={{textAlign:"center",fontSize: "14px"}}>* Indicates this product was not present for the previous week/year</i>
                         </div>
                       );
 
@@ -465,9 +468,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                               search={true}
                               exportCSV={true}
                             >
-                              <TableHeaderColumn width="200" tdStyle={ {whiteSpace: 'normal'} } dataField="product" isKey={true}
-                                                 dataAlign="center" dataSort>Product</TableHeaderColumn>
-                              <TableHeaderColumn tdStyle={ {whiteSpace: 'normal'} }
+                              <TableHeaderColumn isKey={true} width="225" tdStyle={ {whiteSpace: 'normal'} }
                                                  dataField="parent_supplier" dataSort={true}
                                                  dataAlign="center">Parent Supplier</TableHeaderColumn>
                               <TableHeaderColumn dataField="metric_ty" dataSort={true} dataAlign="center" dataFormat={this.formatMetric}>{this.state.y_axis_text} TY</TableHeaderColumn>
@@ -501,7 +502,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
               <Modal.Header>
 
                 <Modal.Title id="contained-modal-title-sm" className="pageModuleTitle">
-                        <span className="pageModuleTitle"><b>Products {this.state.y_axis_text} Trend</b>
+                        <span className="pageModuleTitle"><b>{this.state.y_axis_text} Trend : {this.state.product}</b>
                          <span style={{textAlign: 'right', float: 'right'}}
                                onClick={() =>
                                {this.setState({showSalesTrendModalFlag: false})
