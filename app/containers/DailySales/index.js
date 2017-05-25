@@ -72,6 +72,18 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
 
   }
 
+  formatGlyphicon = (cell) => {
+    if (cell > 0) {
+      return "glyphicon glyphicon-triangle-top glyphiconPositive";
+    }
+    else if (cell < 0) {
+      return "glyphicon glyphicon-triangle-bottom glyphiconNegative";
+    }
+    else {
+      return "glyphicon glyphicon-minus-sign glyphiconNeutral";
+    }
+  }
+
   render() {
     let kpiParmas = this.props.DailySales.kpi_param;
     return (
@@ -195,15 +207,15 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                           return (
                                             <div className="row">
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                {a.sales_var_wow}
+                                                <span className={this.formatGlyphicon(a.sales_var_wow)}></span>&nbsp;{a.sales_var_wow}%
                                                 <h5 className="tesco-heading"><b>WoW</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                {a.sales_var_yoy}
+                                                <span className={this.formatGlyphicon(a.sales_var_yoy)}></span>&nbsp;{a.sales_var_yoy}%
                                                 <h5 className="tesco-heading"><b>YoY</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                {a.sales_var_lfl}
+                                                <span className={this.formatGlyphicon(a.sales_var_lfl)}></span>&nbsp;{a.sales_var_lfl}%
                                                 <h5 className="tesco-heading"><b>LFL</b></h5>
                                               </div>
                                             </div>
@@ -240,15 +252,15 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                           return (
                                             <div className="row">
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                {a.vol_var_wow}
+                                                <span className={this.formatGlyphicon(a.vol_var_wow)}></span>&nbsp;{a.vol_var_wow}%
                                                 <h5 className="tesco-heading"><b>WoW</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                {a.vol_var_yoy}
+                                                <span className={this.formatGlyphicon(a.vol_var_yoy)}></span>&nbsp;{a.vol_var_yoy}%
                                                 <h5 className="tesco-heading"><b>YoY</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                {a.vol_var_lfl}
+                                                <span className={this.formatGlyphicon(a.vol_var_lfl)}></span>&nbsp;{a.vol_var_lfl}%
                                                 <h5 className="tesco-heading"><b>LFL</b></h5>
                                               </div>
                                             </div>
@@ -286,15 +298,15 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                             <div className="row">
 
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                {a.cogs_var_wow}
+                                                <span className={this.formatGlyphicon(a.cogs_var_wow)}></span>&nbsp;{a.cogs_var_wow}%
                                                 <h5 className="tesco-heading"><b>WoW</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                {a.cogs_var_yoy}
+                                                <span className={this.formatGlyphicon(a.cogs_var_yoy)}></span>&nbsp;{a.cogs_var_yoy}%
                                                 <h5 className="tesco-heading"><b>YoY</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                {a.cogs_var_lfl}
+                                                <span className={this.formatGlyphicon(a.cogs_var_lfl)}></span>&nbsp;{a.cogs_var_lfl}%
                                                 <h5 className="tesco-heading"><b>LFL</b></h5>
                                               </div>
                                             </div>

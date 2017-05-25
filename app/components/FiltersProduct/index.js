@@ -76,7 +76,7 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
 
   clearFilter = () => {
     // this.props.onGenerateFilterParamsString('');
-    // this.props.onGenerateUrlParamsString('');
+     this.props.onGenerateUrlParamsString('');
     // this.props.onGenerateUrlParamsData();
   };
 
@@ -327,7 +327,16 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
                     console.log('modal open');
                     this.setState({alertShow: true});
                   }
-                }}>Apply</Button></div>
+                }}>Apply</Button>
+                <Button style={{marginTop:"4px", marginLeft:"0 auto"}} buttonType={'secondary'}
+
+                        onClick={() => {
+                          this.props.onGenerateUrlParamsString('');
+                          this.props.onCheckboxWeekChange('');
+                          this.props.onSaveWeek('');
+                          this.props.onGetFilter();
+                          this.props.onProductPage();
+                        }}>Clear Filters Selection</Button></div>
               {/*<Button onClick={() => {*/}
               {/*/!*this.props.onFilterReset();*!/*/}
               {/*}}>Reset Filters</Button>&nbsp;&nbsp;*/}

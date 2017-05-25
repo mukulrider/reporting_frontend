@@ -102,6 +102,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
       activePage: 1,
       activeKey: "1",
       activeKey2: "7",
+      dataWeekParams:"Latest Week",
       showSupplierInfoModalFlag:false,
       showSalesTrendModalFlag:false,
       infoModalHeader:'',
@@ -126,7 +127,12 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
       }
     }
     else {
-      return ('£ ' + Math.round(cell));
+      if (this.state.y_axis_text == "Sales Volume") {
+      return (Math.round(cell));
+    }
+    else {
+      return ('£ '+ Math.round(cell));
+      }
     }
   }
 
@@ -240,6 +246,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                 <NavItem style={{fontSize: '16px', width: '16%', textAlign: 'center'}}
                          className=" tabsCustomList" eventKey="1" onClick={() => {
                   this.setState({activeKey: "1"});
+                  this.setState({dataWeekParams:"Latest Week"})
                   this.props.tabsAndApplySpinner(0);
                   let dataWeekParams = "week_flag=Latest Week";
                   this.props.onSaveWeekParam(dataWeekParams);
@@ -248,6 +255,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                 <NavItem style={{fontSize: '16px', width: '16%', textAlign: 'center'}}
                          className="tabsCustomListTime" eventKey="2" onClick={() => {
                   this.setState({activeKey: "2"});
+                  this.setState({dataWeekParams:"4"})
                   this.props.tabsAndApplySpinner(0);
                   let dataWeekParams = "week_flag=4";
                   this.props.onSaveWeekParam(dataWeekParams);
@@ -256,6 +264,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                 <NavItem style={{fontSize: '16px', width: '16%', textAlign: 'center'}}
                          className="tabsCustomListTime" eventKey="3" onClick={() => {
                   this.setState({activeKey: "3"});
+                  this.setState({dataWeekParams:"13"})
                   this.props.tabsAndApplySpinner(0);
                   let dataWeekParams = "week_flag=13";
                   this.props.onSaveWeekParam(dataWeekParams);
@@ -264,6 +273,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                 <NavItem style={{fontSize: '16px', width: '16%', textAlign: 'center'}}
                          className="tabsCustomListTime" eventKey="4" onClick={() => {
                   this.setState({activeKey: "4"});
+                  this.setState({dataWeekParams:"26"})
                   this.props.tabsAndApplySpinner(0);
                   let dataWeekParams = "week_flag=26";
                   this.props.onSaveWeekParam(dataWeekParams);
@@ -272,6 +282,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                 <NavItem style={{fontSize: '16px', width: '16%', textAlign: 'center'}}
                          className="tabsCustomListTime" eventKey="5" onClick={() => {
                   this.setState({activeKey: "5"});
+                  this.setState({dataWeekParams:"YTD"})
                   this.props.tabsAndApplySpinner(0);
                   let dataWeekParams = "week_flag=YTD";
                   this.props.onSaveWeekParam(dataWeekParams);
@@ -408,7 +419,14 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                                                dataAlign="center">LFL TY</TableHeaderColumn>
                             <TableHeaderColumn dataField="x_lfl_ly" dataFormat={this.formatMetric} dataSort={true}
                                                dataAlign="center">LFL LY</TableHeaderColumn>
-                            <TableHeaderColumn dataField="wow" width="11%" dataFormat={this.formatGlyphicon} dataSort={true}
+                            <TableHeaderColumn dataField="wow" width="11%" hidden={(()=>{
+                              if (this.state.dataWeekParams=="Latest Week"){
+                                return false;
+                              }
+                              else {
+                                return true;
+                              }
+                            })()}  dataFormat={this.formatGlyphicon} dataSort={true}
                                                dataAlign="center">WOW % Change</TableHeaderColumn>
                             <TableHeaderColumn dataField="yoy" width="11%" dataFormat={this.formatGlyphicon} dataSort={true}
                                                dataAlign="center">YOY % Change</TableHeaderColumn>
