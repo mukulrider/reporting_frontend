@@ -1529,15 +1529,15 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                   return (
                                                     <div>
 
-                                                      <h4 className="pageModuleSubTitle"> KPI Contribution to
-                                                        growth </h4>
-                                                      <h4 className="panel-heading tesco-heading h3"
-                                                          style={{textAlign: "center"}}>
-                                                        LFL Sales:
-                                                        <span
-                                                          className={glyphiconFormatter(this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var)}>
-                                                          </span>{this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var}
-                                                      </h4>
+                                                        <h4 className="pageModuleSubTitle"> KPI Contribution to
+                                                          growth </h4>
+                                                        <h4 className="panel-heading tesco-heading h3"
+                                                            style={{textAlign: "center"}}>
+                                                          LFL Sales:
+                                                          <span
+                                                            className={glyphiconFormatter(this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var)}>
+                                                          </span>{this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var}%
+                                                        </h4>
 
                                                       <div className="row"
                                                            style={{marginTop: '12%', marginBottom: '5%'}}>
@@ -1556,7 +1556,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                   <span className="overview-blk-value">
                                                                       <span
                                                                         className={glyphiconFormatter(this.props.Executive.overview_drivers_internal_data.kpi.transaction_var)}>
-                                                                      </span> {this.props.Executive.overview_drivers_internal_data.kpi.transaction_var}
+                                                                      </span> {this.props.Executive.overview_drivers_internal_data.kpi.transaction_var}%
                                                                   </span>
                                                             </div>
                                                           </div>
@@ -1576,7 +1576,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                   <span className="overview-blk-value">
                                                                       <span
                                                                         className={glyphiconFormatter(this.props.Executive.overview_drivers_internal_data.kpi.item_per_basket_var)}>
-                                                                      </span> {this.props.Executive.overview_drivers_internal_data.kpi.item_per_basket_var}
+                                                                      </span> {this.props.Executive.overview_drivers_internal_data.kpi.item_per_basket_var}%
                                                                   </span>
                                                             </div>
                                                           </div>
@@ -1595,7 +1595,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                   <span className="overview-blk-value">
                                                                       <span
                                                                         className={glyphiconFormatter(this.props.Executive.overview_drivers_internal_data.kpi.item_price_var)}>
-                                                                      </span>{this.props.Executive.overview_drivers_internal_data.kpi.item_price_var}
+                                                                      </span>{this.props.Executive.overview_drivers_internal_data.kpi.item_price_var}%
                                                                   </span>
                                                             </div>
                                                           </div>
@@ -2480,9 +2480,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                          this.setState({lgValidation: false})
                                        }}>
                                   <Modal.Header closeButton>
-                                    <Modal.Title id="contained-modal-title-sm text-center" className="bodySubTitle">Please
-                                      enter
-                                      necessary details</Modal.Title>
+                                    <Modal.Title id="contained-modal-title-sm text-center" className="bodySubTitle">Trended Performance</Modal.Title>
                                   </Modal.Header>
                                   <Modal.Body>
                                     {(() => {
@@ -2496,25 +2494,25 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             <TableHeaderColumn dataField='parent_supplier'
                                                                dataAlign='center' isKey
                                                                tdStyle={{fontSize: '14px'}}
-                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>parent_supplier</TableHeaderColumn>
+                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>Parent Supplier</TableHeaderColumn>
                                             <TableHeaderColumn dataField='grouped_ty'
                                                                dataAlign='center'
                                                                tdStyle={{fontSize: '14px'}}
-                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>grouped_ty</TableHeaderColumn>
+                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>Grouped TY</TableHeaderColumn>
                                             <TableHeaderColumn dataField='cont_to_grwth'
                                                                dataAlign='center'
                                                                tdStyle={{fontSize: '14px'}}
-                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>cont_to_grwth</TableHeaderColumn>
+                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>Contribution to Growth</TableHeaderColumn>
                                             <TableHeaderColumn dataField='grouped_ly'
                                                                dataAlign='center'
                                                                tdStyle={{fontSize: '14px'}}
 
-                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>grouped_ly</TableHeaderColumn>
+                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>Grouped LY</TableHeaderColumn>
                                             <TableHeaderColumn dataFormat={cellButton}
                                                                dataAlign='center'
                                                                tdStyle={{fontSize: '14px'}}
 
-                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>grouped_ly</TableHeaderColumn>
+                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>Grouped TY</TableHeaderColumn>
                                             <TableHeaderColumn dataFormat={(row, cell) => {
                                               return (
                                                 <div>
@@ -2552,9 +2550,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                          this.setState({modalGraphTopBot: false})
                                        }}>
                                   <Modal.Header closeButton>
-                                    <Modal.Title id="contained-modal-title-sm text-center" className="bodySubTitle">Please
-                                      enter
-                                      necessary details</Modal.Title>
+                                    <Modal.Title id="contained-modal-title-sm text-center" className="bodySubTitle">Trended Performance</Modal.Title>
                                   </Modal.Header>
                                   <Modal.Body>
 
@@ -2620,7 +2616,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                     className={glyphiconFormatter(this.props.Executive.best_info_data.cont_to_grwth)}>
                                                                   </span>{this.props.Executive.best_info_data.cont_to_grwth}%
                                                               </h4>
-                                                              <h4 className="kpiSubTitle">Contri to
+                                                              <h4 className="kpiSubTitle">Contribution to
                                                                 growth</h4>
                                                             </div>
 
@@ -2657,7 +2653,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                         }
                                         else {
                                           return (
-                                            <div><h3>Old data present</h3></div>
+                                            <div><h3>Loading...</h3></div>
                                           )
                                         }
 
@@ -2666,7 +2662,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                         console.log("Executive.top_name == Not None");
                                         return (
                                           <div>
-                                            <h3> Please select an option to view performance</h3>
+                                            <h3>Loading...</h3>
                                           </div>
                                         )
                                       }
@@ -2680,9 +2676,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                          this.setState({modalTableTopBot: false})
                                        }}>
                                   <Modal.Header closeButton>
-                                    <Modal.Title id="contained-modal-title-sm text-center" className="bodySubTitle">Please
-                                      enter
-                                      necessary details</Modal.Title>
+                                    <Modal.Title id="contained-modal-title-sm text-center" className="bodySubTitle">Trended Performance</Modal.Title>
                                   </Modal.Header>
                                   <Modal.Body>
 
@@ -2748,7 +2742,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                     className={glyphiconFormatter(this.props.Executive.best_info_data.cont_to_grwth)}>
                                                                   </span>{this.props.Executive.best_info_data.cont_to_grwth}%
                                                               </h4>
-                                                              <h4 className="kpiSubTitle">Contri to
+                                                              <h4 className="kpiSubTitle">Contribution to
                                                                 growth</h4>
                                                             </div>
 
@@ -2847,18 +2841,21 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                          thStyle={{whiteSpace: 'normal', fontSize: '14px'}}>{this.props.Executive.bestWorstPerformance.level}</TableHeaderColumn>
                                       <TableHeaderColumn dataField='sales_share'
                                                          dataAlign='center'
+                                                         dataSort={true}
                                                          tdStyle={{fontSize: '14px'}}
 
                                                          thStyle={{whiteSpace: 'normal', fontSize: '14px'}}>Sales
                                         Share</TableHeaderColumn>
                                       <TableHeaderColumn dataField='cont_to_grwth'
                                                          dataAlign='center'
+                                                         dataSort={true}
                                                          tdStyle={{fontSize: '14px',}}
 
                                                          thStyle={{whiteSpace: 'normal', fontSize: '14px'}}>Contribution
                                         to Growth</TableHeaderColumn>
                                       <TableHeaderColumn dataField='yoy_var'
                                                          dataAlign='center'
+                                                         dataSort={true}
                                                          tdStyle={{fontSize: '14px'}}
 
                                                          thStyle={{whiteSpace: 'normal', fontSize: '14px'}}>YoY
@@ -2866,6 +2863,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                       <TableHeaderColumn dataField='value_ly'
                                                          dataAlign='center'
                                                          dataFormat={formatVolume}
+                                                         dataSort={true}
                                                          tdStyle={{fontSize: '14px',}}
 
                                                          thStyle={{whiteSpace: 'normal', fontSize: '14px'}}>{this.props.Executive.bestWorstPerformance.kpi_type} &nbsp;
@@ -2885,7 +2883,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                     </BootstrapTable>
                                   )
                                 } else {
-                                  console.log("this.props.Executive.bestWorstPerformance no data ")
+
                                   return (
                                     <div className="row">
                                       <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
@@ -3422,27 +3420,30 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               condensed>
 
                 <TableHeaderColumn dataAlign={"left"}
-                                   dataField='parent_supplier' isKey>Tesco
-                  Week</TableHeaderColumn>
-                <TableHeaderColumn dataAlign={"grouped_ly"}
-                                   dataField='holiday_date'>Holiday
-                  Date</TableHeaderColumn>
+                                   dataField='parent_supplier' isKey>Parent Supplier</TableHeaderColumn>
+
                 <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                   dataSort={true}
                                    dataAlign={"left"}
-                                   dataField='imp_to_ps'>Holiday
-                  Description</TableHeaderColumn>
+                                   dataField='imp_to_ps'>Importance to Parent Supplier</TableHeaderColumn>
                 <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                   dataSort={true}
                                    dataAlign={"left"}
-                                   dataField='value_ty'>Holiday
-                  Description</TableHeaderColumn>
+                                   dataField='imp_to_categ'>Importance to Category</TableHeaderColumn>
                 <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                   dataSort={true}
                                    dataAlign={"left"}
-                                   dataField='grouped_ty'>Holiday
-                  Description</TableHeaderColumn>
+                                   dataField='sales_share'>Sales Share</TableHeaderColumn>
+
                 <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                   dataSort={true}
                                    dataAlign={"left"}
-                                   dataField='yoy_var'>Holiday
-                  Description</TableHeaderColumn>
+                                   dataField='cont_to_grwth'>Contribution to growth</TableHeaderColumn>
+
+                <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                   dataSort={true}
+                                   dataAlign={"left"}
+                                   dataField='yoy_var'>YoY Variation</TableHeaderColumn>
               </BootstrapTable>
             </Modal.Body>
           </Modal>
