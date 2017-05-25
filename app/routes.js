@@ -137,7 +137,7 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    }, {
+    }, /*{
       path: '/sales/kantar',
       name: 'kantarReport',
       getComponent(nextState, cb) {
@@ -157,7 +157,7 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    }, {
+    },*/ {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
