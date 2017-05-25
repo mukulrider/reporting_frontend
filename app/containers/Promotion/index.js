@@ -122,8 +122,33 @@ export class Promotion extends React.PureComponent {
   render() {
     let kpiParam = this.props.promotion.kpi_param;
     let dataWeekParam = this.props.promotion.week_param;
+    const options = {
+      page: 1,  // which page you want to show as default
+      sizePerPageList: [{
+        text: '5', value: 5
+      }, {
+        text: '10', value: 10
+      }, {
+        text: '15', value: 15
+      }, {
+        text: 'All', value: this.props.promotion.productsOnPromotion && this.props.promotion.productsOnPromotion.table_data ? this.props.promotion.productsOnPromotion.table_data.length :0
+      }], // you can change the dropdown list for size per page
+      sizePerPage: 5,  // which size per page you want to locate as default
+      pageStartIndex: 1, // where to start counting the pages
+      paginationSize: 3,  // the pagination bar size.
+      prePage: 'Prev', // Previous page button text
+      nextPage: 'Next', // Next page button text
+      firstPage: 'First', // First page button text
+      lastPage: 'Last', // Last page button text
+      paginationShowsTotal: this.renderShowsTotal,  // Accept bool or function
+      paginationPosition: 'bottom',  // default is bottom, top and both is all available
+      expandRowBgColor: 'rgb(242, 255, 163)'
+      // hideSizePerPage: true > You can hide the dropdown for sizePerPage
+      // alwaysShowAllBtns: true // Always show next and previous button
+      // withFirstAndLast: false > Hide the going to First and Last page button
+    };
 
-    console.log('this.propss',this.props);
+
     return (
       <div>
 
@@ -427,7 +452,6 @@ export class Promotion extends React.PureComponent {
                                 <Panel>
                                   <h3 className="pageModuleSubTitle">
                                     Total {this.props.promotion.kpi_data.kpi_name} </h3>
-
                                   <div className="row">
                                     <div className="col-md-6 col-xs-6">
                                       <h3 style={{
@@ -855,8 +879,12 @@ export class Promotion extends React.PureComponent {
                               </div>
 
                               <div className="col-xs-9">
+                                <div className="col-md-9 col-sm-12 col-xs-12" style={{textAlign: "center"}}>
+                                  <h3 className="pageModuleSubTitle" style={{marginTop: "12px"}}>Trended Performance</h3>
+                                </div>
                               {/*Line chart*/}
                                 <div className="row">
+
                                 <span style={{float: "right"}}>
                           <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
                             backgroundColor: "transparent",
@@ -921,16 +949,21 @@ export class Promotion extends React.PureComponent {
                     </span>
                         </h2></div>
                       <panel>
-                        {/*Promo top 25 table            */}
+
                         {(() => {
                           if (this.props.promotion.productsOnPromotion && this.props.promotion.productsTableSpinnerSuccess) {
                             return (
                               <div className="promoTable">
                                 <BootstrapTable className="promoTable"
                                                 data={this.props.promotion.productsOnPromotion.table_data}
+                                                options={options}
+                                                striped={true}
+                                                hover
+                                                condensed
                                                 exportCSV={true}
                                                 search={true}
-                                                pagination>
+                                                pagination={true}
+                                                >
                                   <TableHeaderColumn dataAlign={"left"} width="35%" dataField='Product Description' isKey>Product
                                     Description</TableHeaderColumn>
                                   <TableHeaderColumn dataAlign={"right"} dataField='Promo TY'
