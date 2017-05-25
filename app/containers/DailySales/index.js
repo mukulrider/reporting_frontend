@@ -20,6 +20,8 @@ import CascadedFilterDSS from 'components/CascadedFilterDSS';
 import MultilinePromo from 'components/MultilinePromo';
 import LineChart from 'components/LineChart';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+var dateFormat = require('dateformat');
+
 import {
   PromoGiveawayData,
   lineChartCallAction, SaveKPIParam, generateUrlParamsString,
@@ -332,7 +334,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                         </div>
                         <div className="col-md-12 col-sm-12">
                           <div className="col-md-12">
-                            <h4 className="pageModuleMainTitle">Daily Sales Trend
+                            <h4 className="pageModuleMainTitle">Daily {this.state.y_axis} Trend
                             </h4>
                           </div>
                           <div className="col-md-8 col-sm-8 col-xs-8" style={{background: '1px solid #FAFAFA'}}>
@@ -340,10 +342,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                  className="tabsCustom">
                               <NavItem style={{fontSize: '16px', textAlign: 'center', margin: "0px"}}
                                        className="tabsCustomList" eventKey="1" onClick={() => {
-                                this.setState({
-                                  activeKey1: "1",
-                                  y_axis: "Sales Value"
-                                });
+                                this.setState({activeKey1: "1", y_axis: "Sales Value"});
                                 kpiParmas = "val_type=1";
                                 this.props.onSaveKPIParam(kpiParmas);
                                 this.props.DefaultLineChartCall();
@@ -352,10 +351,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                               }}><span className="tab_label">Sales</span></NavItem>
                               <NavItem style={{fontSize: '16px', textAlign: 'center', margin: "0px"}}
                                        className="tabsCustomList" eventKey="2" onClick={() => {
-                                this.setState({
-                                  activeKey1: "2",
-                                  y_axis: "Volume"
-                                });
+                                this.setState({activeKey1: "2", y_axis: "Volume"});
                                 kpiParmas = "val_type=2";
                                 this.props.onSaveKPIParam(kpiParmas);
                                 this.props.DefaultLineChartCall();
@@ -364,10 +360,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                               }}><span className="tab_label">Volume</span></NavItem>
                               <NavItem style={{fontSize: '16px', textAlign: 'center', margin: "0px"}}
                                        className="tabsCustomList" eventKey="3" onClick={() => {
-                                this.setState({
-                                  activeKey1: "3",
-                                  y_axis: "COGS"
-                                });
+                                this.setState({activeKey1: "3", y_axis: "COGS"});
                                 kpiParmas = "val_type=3";
                                 this.props.onSaveKPIParam(kpiParmas);
                                 this.props.DefaultLineChartCall();
@@ -378,7 +371,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                           </div>
                           <div className="col-md-4 col-sm-4 col-xs-4">
                             <span style={{float: "right", margin: "0px"}}>
-                              <DropdownButton className="glyphicon glyphicon-menu-hamburger"
+                              <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger"
                                               pullRight style={{
                                 backgroundColor: "transparent",
                                 borderColor: "transparent",
@@ -386,11 +379,11 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                               }}
                                               id="dropButtonId">
                                 <MenuItem onClick={() => {
-                                  saveImage(document.getElementById('sampleSvg'), "dailySales_lineChart")
+                                  saveImage(document.getElementById('sampleSvg'), "Daily " + this.state.y_axis + " Trend " + dateFormat(this.state.now,"dS mmmm yyyy, h:MM:ss"))
                                 }
                                 }>Save As JPEG</MenuItem>
                                 <MenuItem onClick={() => {
-                                  saveDataAsCSV(this.props.DailySales.linechart_data.graph_data, "dailySales_lineChart_data.csv")
+                                  saveDataAsCSV(this.props.DailySales.linechart_data.graph_data, "Daily " + this.state.y_axis + " Trend " + dateFormat(this.state.now,"dS mmmm yyyy, h:MM:ss")+".csv")
                                 }
                                 }>Download CSV</MenuItem>
                               </DropdownButton>
@@ -407,9 +400,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                       return (
                                         <div>
                                           <LineChart data={this.props.DailySales.linechart_data.final_data.graph_data}
-                                                     y_axis={this.state.y_axis}
-                                            //          y_axis="Value"
-                                                     x_axis="Date"
+                                                     y_axis={this.state.y_axis} x_axis="Date"
                                           />
                                         </div>
                                       )

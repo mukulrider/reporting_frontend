@@ -1206,7 +1206,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                     <div className="col-md-3 col-sm-3 col-lg-3"
                                          style={{float: "right", marginTop: "15px"}}>
-                                      <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight
+                                      <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight
                                                       style={{
                                                         backgroundColor: "transparent",
                                                         borderColor: "transparent",
@@ -1304,7 +1304,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                     <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
                                       <h3 className="pageModuleSubTitle"> Value
                                         <div style={{float: "right", paddingRight: "5px"}}>
-                                          <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight
+                                          <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight
                                                           style={{
                                                             backgroundColor: "transparent",
                                                             borderColor: "transparent",
@@ -1341,7 +1341,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                     <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
                                       <h3 className="pageModuleSubTitle"> Volume
                                         <div style={{float: "right", paddingRight: "5px"}}>
-                                          <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight
+                                          <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight
                                                           style={{
                                                             backgroundColor: "transparent",
                                                             borderColor: "transparent",
@@ -1381,7 +1381,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                     <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
                                       <h3 className="pageModuleSubTitle"> COGS
                                         <div style={{float: "right", paddingRight: "5px"}}>
-                                          <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight
+                                          <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight
                                                           style={{
                                                             backgroundColor: "transparent",
                                                             borderColor: "transparent",
@@ -1418,7 +1418,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                     <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
                                       <h3 className="pageModuleSubTitle"> Profit
                                         <div style={{float: "right", paddingRight: "5px"}}>
-                                          <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight
+                                          <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight
                                                           style={{
                                                             backgroundColor: "transparent",
                                                             borderColor: "transparent",
@@ -1606,7 +1606,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                           <Panel>
                                             <h4 className="pageModuleSubTitle"> Promotion Contribution to growth
                                               <div style={{float: "right"}}>
-                                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight
+                                                <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight
                                                                 style={{
                                                                   backgroundColor: "transparent",
                                                                   borderColor: "transparent",
@@ -3105,7 +3105,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                         return (
                                                           <div>
                                                             <div style={{float: "right"}}>
-                                                              <DropdownButton
+                                                              <DropdownButton title=""
                                                                 className="glyphicon glyphicon-menu-hamburger"
                                                                 pullRight style={{
                                                                 backgroundColor: "transparent",
@@ -3147,7 +3147,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                           return (
                                                             <div>
                                                               <div style={{float: "right"}}>
-                                                                <DropdownButton
+                                                                <DropdownButton title=""
                                                                   className="glyphicon glyphicon-menu-hamburger"
                                                                   pullRight style={{
                                                                   backgroundColor: "transparent",
@@ -3191,7 +3191,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                             return (
                                                               <div>
                                                                 <div style={{float: "right"}}>
-                                                                  <DropdownButton
+                                                                  <DropdownButton title=""
                                                                     className="glyphicon glyphicon-menu-hamburger"
                                                                     pullRight style={{
                                                                     backgroundColor: "transparent",
@@ -3287,7 +3287,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                           return (
                                                             <div>
                                                               <div style={{float: "right"}}>
-                                                                <DropdownButton
+                                                                <DropdownButton title=""
                                                                   className="glyphicon glyphicon-menu-hamburger"
                                                                   pullRight style={{
                                                                   backgroundColor: "transparent",

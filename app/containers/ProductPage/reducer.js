@@ -6,9 +6,9 @@
 
 import { fromJS } from 'immutable';
 import {
-  DEFAULT_ACTION,SAVE_WEEK_PARAM,SAVE_METRIC_PARAM,SAVE_PRODUCT,SAVE_PRODUCT_TREND,FETCH_SAVE_SUPPLIER_INFO_SUCCESS,FETCH_SAVE_PRODUCT_TREND_SUCCESS ,
+  DEFAULT_ACTION,WEEK_FILTER_CONSTANT,SAVE_WEEK_PARAM,SAVE_METRIC_PARAM,SAVE_PRODUCT,SAVE_PRODUCT_TREND,FETCH_SAVE_SUPPLIER_INFO_SUCCESS,FETCH_SAVE_PRODUCT_TREND_SUCCESS ,
   FETCH_SAVE_WEEK_PARAM, FETCH_SAVE_WEEK_PARAM_SUCCESS,GENERATE_SIDE_FILTER_SUCCESS,GENERATE_URL_PARAMS_STRING, WEEK_FILTER_FETCH_SUCCESS,
-  CHECKBOX_WEEK_CHANGE,
+  CHECKBOX_WEEK_CHANGE,DEFAULT_TESCO_WEEK,SAVE_USER_PARAMS,
   WEEK, TABS_APPLY_SPINNER
 } from './constants';
 
@@ -56,10 +56,18 @@ function productPageReducer(state = initialState, action) {
       console.log("Updating the urlParamsString in Reducer",action.data)
       return state.set('urlParamsString', action.data);
 
+    case WEEK_FILTER_CONSTANT:
+      console.log("DefaultTescoWeek in Reducer",action.data)
+      return state.set('urlTescoDefault', action.data);
+
     //FOR WEEK FILTER DATA
     case WEEK_FILTER_FETCH_SUCCESS:
       console.log("reducer WEEK_FILTER_FETCH_SUCCESS", action.data);
       return state.set('week_filter_data', action.data)
+
+    case DEFAULT_TESCO_WEEK:
+      console.log('DEFAULT_TESCO_WEEK reducer', action.data);
+      return state.set('filter_week_selection', "tesco_week="+action.data);
 
     case CHECKBOX_WEEK_CHANGE:
       console.log('CHECKBOX_WEEK_CHANGE reducer', action.data);
@@ -68,6 +76,10 @@ function productPageReducer(state = initialState, action) {
     case WEEK:
       console.log("reducer WEEK", action.data);
       return state.set('week', action.data)
+
+    case SAVE_USER_PARAMS:
+      console.log("reducer SAVE_USER_PARAMS", action.data);
+      return state.set('userParams', action.data)
 
  case TABS_APPLY_SPINNER:
       console.log("TABS_APPLY_SPINNER", action.spinnerCheck);

@@ -1303,7 +1303,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                                         <div className="col-md-12 col-sm-12 col-xs-12 " style={{marginTop: '2%'}}>
                                           <div style={{float: "right"}}>
-                                            <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight
+                                            <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight
                                                             style={{
                                                               backgroundColor: "transparent",
                                                               borderColor: "transparent",

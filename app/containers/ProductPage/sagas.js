@@ -10,7 +10,7 @@ import {
 } from './constants';
 import {
   apiFetchSuccess, fetchSaveWeekParamSuccess, fetchSaveMetricParamSuccess,fetchSaveSupplierInfoSuccess,fetchProductTrendInfoSuccess,generateUrlParamsString, generateSideFilterSuccess,
-  generateCascadingFilter, WeekFilterFetchSuccess, tabsAndApplySpinner
+  generateCascadingFilter, saveDefaultWeek,WeekFilterFetchSuccess, tabsAndApplySpinner,saveUserParams
 } from 'containers/ProductPage/actions';
 
 import {
@@ -59,6 +59,7 @@ const host_url = "http://127.0.0.1:8000";
 export function* generateSideFilter() {
   const urlName = yield select(selectProductPageDomain());
   const userParams = gettingUserDetails();
+  yield put(saveUserParams(userParams));
   // let getCookie;
   // getCookie = (name) => {
   //   const value = `; ${document.cookie}`;
@@ -213,11 +214,21 @@ export function* generateProductSupplierInfo() {
   } else {
     urlParamsWeekFilter = "";
   }
-  console.log("Week Filter With Week,Metric Flag:",urlParamsWeekFilter);
+  console.log("Week Filter:",urlParamsWeekFilter);
   console.log(urlParams);
 
-  console.log('urlParams for Week Flag,Metric Flag,Week Filter', urlParamsWeekFlag, urlParamsMetricFlag,urlParamsWeekFilter);
-  console.log('Complete urlParams', urlParams);
+  let urlparamsHierarchyFilter = urlName.get('urlParamsString');
+  if (typeof(urlparamsHierarchyFilter) == "undefined") {
+    urlparamsHierarchyFilter = "";
+  } else {
+    let urlParamsStringCheck = urlparamsHierarchyFilter.substring(0, 2);
+
+    if (urlParamsStringCheck == 20) {
+      urlparamsHierarchyFilter = urlparamsHierarchyFilter.substring(14, urlparamsHierarchyFilter.length);
+    }
+  }
+  urlParams = `${urlParams}&${urlparamsHierarchyFilter}`;
+  console.log('Complete urlParams for Supplier Modal', urlParams);
 
 
   try {
@@ -256,9 +267,23 @@ export function* generateProductTrendInfo() {
     urlParamsWeekFilter = urlName.get('filter_week_selection');
     urlParams = `${urlParams}&${urlParamsWeekFilter}`;
     console.log("filter_week_selection", urlParamsWeekFilter);
-  } else {
+  }
+  else {
     urlParamsWeekFilter = "";
   }
+
+  let urlparamsHierarchyFilter = urlName.get('urlParamsString');
+  if (typeof(urlparamsHierarchyFilter) == "undefined") {
+    urlparamsHierarchyFilter = "";
+  } else {
+    let urlParamsStringCheck = urlparamsHierarchyFilter.substring(0, 2);
+
+    if (urlParamsStringCheck == 20) {
+      urlparamsHierarchyFilter = urlparamsHierarchyFilter.substring(14, urlparamsHierarchyFilter.length);
+    }
+  }
+  urlParams = `${urlParams}&${urlparamsHierarchyFilter}`;
+  console.log('Complete urlParams for Product Trend', urlParams);
 
   try {
     let data = '';
@@ -314,17 +339,22 @@ export function* generateWeekFilterFetch() {
     console.log('Tesco Week Filter urlName:', urlName);
     let weekurlparams = '';
 
-    let filter_week_selection = '';
+    let filter_week_selection,default_tesco_week = '';
     filter_week_selection = urlName.get('filter_week_selection');
+    default_tesco_week = urlName.get('urlTescoDefault');
+    console.log("Default_tesco_week",default_tesco_week)
+    console.log("Filter Week Selection",filter_week_selection,typeof(filter_week_selection))
     const urlParams = '';
-    if (!(typeof (filter_week_selection) === 'undefined') && !(filter_week_selection == '')) {
+    if ( !(filter_week_selection = '')) {
       filter_week_selection = urlName.get('filter_week_selection');
 //      filter_week_selection = `?${filter_week_selection}`;
-      console.log('filter_week_selection', filter_week_selection);
-    } else {
-      filter_week_selection = '';
+    } else if (default_tesco_week='default') {
+      filter_week_selection = 'default';
     }
-
+    else {
+      filter_week_selection = 'ABC';
+    }
+    console.log('Filter_Week_Selection', filter_week_selection);
     // if (!(filter_week_selection == "")) {
     //   let urlParams = filter_week_selection;
     //   console.log("urlParams1",urlParams);
@@ -344,11 +374,17 @@ export function* generateWeekFilterFetch() {
 
     const data = yield call(request, `${host_url}/api/reporting/product/filter_data_week?${filter_week_selection}`);
 
-    console.log(`${host_url}/api/reporting/filter_data_week${filter_week_selection}`);
+    console.log(`${host_url}/api/reporting/filter_data_week?${filter_week_selection}`);
 
     // const data = yield call(request, `http://10.1.161.82:8002/ranging/npd_view/filter_data?`);
 
     console.log('Filter week data', data);
+    for (let i = 0; i < data[0].items.length; i++ ){
+      if (data[0].items[i].selected===true) {
+        console.log("Default Tesco Week Fetch:",data[0].items[i].name);
+        yield put(saveDefaultWeek(data[0].items[i].name));
+      }
+    }
     yield put(WeekFilterFetchSuccess(data));
   } catch (err) {
     console.log(err);
