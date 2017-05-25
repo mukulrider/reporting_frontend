@@ -24,11 +24,13 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
 
     console.log("---insde the createMultilinePromoChart---- check2",margin);
 // set the ranges
-    let x = d3.scaleLinear().range([0, width]);
+    let x = d3.scalePoint().range([0, width]);
+    // let x = d3.scaleLinear().range([0, width]);
     let y = d3.scaleLinear().range([height, 0]);
     let y2 = d3.scaleLinear().range([height, 0]);
     // Scale the range of the data
-    x.domain(d3.extent(data, function(d) { return d.tesco_week; }));
+    // x.domain(d3.extent(data, function(d) { return d.tesco_week; }));
+    x.domain(data.map(function(d) { return d.tesco_week.toString(); }));
     y.domain([0, d3.max(data, function(d) {
       return Math.max(+d.value_ty); })]);
     y2.domain([0, d3.max(data, function(d) {

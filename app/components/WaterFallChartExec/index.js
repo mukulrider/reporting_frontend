@@ -211,10 +211,22 @@ class WaterFallChartExec extends React.PureComponent { // eslint-disable-line re
     const formatText = (i, d) => {
       if (i == 0 || i == data.length-1) {
         console.log('(d.end).toFixed(2)', (d.end).toFixed(2));
-        return (d.end).toFixed(2);
+        let temp = (d.end).toFixed(2);
+        temp = Math.round(temp);
+        if(Math.abs(temp)>1000)
+        {
+          temp = Math.round(temp/1000) + 'K';
+        }
+        return ('£'+ temp);
       } else {
         console.log('(d.end - d.start).toFixed(2);', (d.end - d.start).toFixed(2));
-        return (d.end - d.start).toFixed(2);
+        let temp = (d.end - d.start).toFixed(2);
+        temp = Math.round(temp);
+        if(Math.abs(temp)>1000)
+        {
+          temp = Math.round(temp/1000) + 'K';
+        }
+        return ('£'+ temp);
       }
     };
 

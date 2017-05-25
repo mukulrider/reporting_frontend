@@ -216,6 +216,7 @@ export function* generateRolesAndIntentDataFetch() {
   }
   // const kpiparam = urlName.get('kpi_param');
 
+  // yield put(RolesAndIntentDataFetchSuccess({bestWorstPerformance: 0}));
 
   console.log("sagas generateRolesAndIntentDataFetch url", host_url + `/api/reporting/exec_roles_and_intent?` + weekurlparam + '&' + urlParamsString + weekParamString + '&' + weekselection + '&' + userParams)
 
@@ -1704,6 +1705,8 @@ export function* doWeekFilterFetch() {
 // FOR PROMO WEEK FILTER DATA
 export function* generateBestWorstPerformance() {
   try {
+    yield put(generateBestWorstPerformanceSuccess(''));
+
     // todo: update url
     console.log("Inside generateWeekFilterFetch")
     const urlName = yield select(selectExecutiveDomain());
