@@ -486,7 +486,7 @@ export class Competitor extends React.PureComponent {
                         return (
                           <Panel>
                             <div className="row">
-                              <div className="col-md-12 col-sm-12" style={{backgroundColor: "#fff"}}><Spinner />Please
+                              <div className="col-md-12 col-sm-12 text-center" style={{backgroundColor: "#fff"}}><Spinner />Please
                                 Wait a Moment....!
                               </div>
                             </div>
