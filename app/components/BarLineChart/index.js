@@ -16,8 +16,8 @@ class BarLineChart extends React.PureComponent { // eslint-disable-line react/pr
 
   createChart = (data, id,series_col_name) => {
     let frameWidth = document.getElementById(id).clientWidth;
-    console.log("Inside BarLineChart ------", data);
-    let margin = {top: 20, right: 40, bottom: 80, left: 60},
+    console.log("Inside BarLineChart -------", data);
+    let margin = {top: 20, right: 40, bottom: 80, left: 70},
       width = frameWidth - margin.left - margin.right,
       height = frameWidth*0.6 - margin.top - margin.bottom;
 
@@ -237,9 +237,12 @@ class BarLineChart extends React.PureComponent { // eslint-disable-line react/pr
       .attr("d", line3);
 
     svg.append("text")
-      .attr("transform","translate(" + (width/2) + " ," +(height + margin.top+(margin.bottom)) + ")")
+      .attr("transform","translate(" + (width/2) + " ," +(height + margin.top+(margin.bottom/2.5)) + ")")
+      // .attr("transform","translate(" + (width/2) + " ," +(height + margin.top+(margin.bottom)) + ")")
       .style("text-anchor", "middle")
-      .text("Week");
+      .attr("font-size", 12)
+      .attr("font-weight","bolder")
+      .text("Week ---- >");
 
     //Y axis
     svg.append("text")
@@ -248,8 +251,9 @@ class BarLineChart extends React.PureComponent { // eslint-disable-line react/pr
       .attr("x",0 - (height / 2))
       .attr("dy", "1em")
       .style("text-anchor", "middle")
-      .text("Value Growth (%)");
-
+      .attr("font-size", 12)
+      .attr("font-weight","bolder")
+      .text("Value Growth (%) ---- >");
 
     function type(d) {
       d.tesco_growth = +d.tesco_growth;
