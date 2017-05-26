@@ -272,7 +272,7 @@ class WaterFallChart2 extends React.PureComponent { // eslint-disable-line react
     chart.append('g')
     // .attr('class', 'x axis')
     // .attr('transform', `translate(0,${height})`)
-      .attr("transform", "translate(25," + (height) + ")")
+      .attr("transform", "translate(20," + (height) + ")")
       .classed("axis xaxis", true)
       .call(xAxis)
       .selectAll(".tick text")
