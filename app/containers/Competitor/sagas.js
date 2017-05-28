@@ -1,6 +1,7 @@
 import {
   WATERFALL_CONSTANT, PIECHART_CONSTANT, PRICE_RANGE_CONSTANT, FILTER_CONSTANT, OUTPERFORMANCE_CONSTANT,
 } from './constants';
+
 import {
   CompetitorWaterfallDataFetchSuccess,
   CompetitorPieChartDataFetchSuccess,
@@ -10,7 +11,9 @@ import {
   onPieChartSpinnerSuccess,
   outPerformanceChartSuccess,
   waterChartAsdaSuccess,
-  priceRangeChartSuccess
+  priceRangeChartSuccess,
+  checkboxWeekChange2,
+  checkboxWeekChange,
 } from 'containers/Competitor/actions';
 
 
@@ -28,7 +31,7 @@ export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
 
-let gettingUserDetails = () =>{
+let gettingUserDetails = () => {
   //function to get values from cookie
   const getCookie = (name) => {
     const value = `; ${document.cookie}`;
@@ -43,7 +46,7 @@ let gettingUserDetails = () =>{
   const designation = getCookie('designation');
   const buyingController = getCookie('buying_controller');
   let buyer = getCookie('buyer');
-  let cookieParams= "";
+  let cookieParams = "";
 
   if ((typeof(buyer) == "undefined") || (buyer == "")) {
     buyer = "";
@@ -59,8 +62,7 @@ let gettingUserDetails = () =>{
 };
 const userParams = gettingUserDetails();
 
-const host_url = 'http://172.20.181.92:8002';
-// const host_url = 'http://10.1.244.154:8000';
+const host_url = 'http://172.20.181.92:8000';
 // All sagas to be loaded
 
 // FOR COMPETITOR WATERFALL CHART
@@ -267,21 +269,21 @@ export function* generateCompetitorPriceRangeDataFetch() {
 
   }
 
-if (!(typeof(filterurlparam) == "undefined") && !(filterurlparam == "")) {
+  if (!(typeof(filterurlparam) == "undefined") && !(filterurlparam == "")) {
     urlAppends = urlAppends + '&' + filterurlparam;
     console.log('urlAppends2 3', urlAppends);
   } else {
 
   }
 
-if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+  if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
     urlAppends = urlAppends + '&' + weekselection;
     console.log('urlAppends3 3', urlAppends);
   } else {
 
   }
 
-if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
     urlAppends = urlAppends + '&' + userParams;
     console.log('urlAppends4 3', urlAppends);
   } else {
@@ -356,28 +358,28 @@ export function* generateCompetitorOutperformance() {
 
   }
 
- if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
+  if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
     urlAppends = urlAppends + '&' + kpiparam;
     console.log('urlAppends2 4', urlAppends);
   } else {
 
   }
 
- if (!(typeof(filterurlparam) == "undefined") && !(filterurlparam == "")) {
+  if (!(typeof(filterurlparam) == "undefined") && !(filterurlparam == "")) {
     urlAppends = urlAppends + '&' + filterurlparam;
     console.log('urlAppends3 4', urlAppends);
   } else {
 
   }
 
- if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+  if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
     urlAppends = urlAppends + '&' + weekselection;
     console.log('urlAppends3 4', urlAppends);
   } else {
 
   }
 
- if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
     urlAppends = urlAppends + '&' + userParams;
     console.log('urlAppends3 4', urlAppends);
   } else {
@@ -422,7 +424,6 @@ export function* doCompetitorOutperformanceFetch() {
 }
 // For generating filters
 export function* generateFilterFetch() {
-  try {
     // let getCookie;
     // getCookie = (name) => {
     //   const value = `; ${document.cookie}`;
@@ -434,42 +435,47 @@ export function* generateFilterFetch() {
     // const token = user_token.concat('___').concat(buyer)
 
     const urlName = yield select(selectCompetitorDomain());
-    const weekurlparams = urlName.get('filter_week_selection');
+    let weekurlparams1 = urlName.get('filter_week_selection');
+    let weekurlparams2 = urlName.get('filter_week_selection2');
     let urlParams = urlName.get('filter_selection');
 
-    if (!(typeof(urlParams) == "undefined") && !(urlParams == "")) {
-      let urlParamsStringCheck = urlParams.substring(0, 2);
-      if (urlParamsStringCheck == 20) {
-        urlParams = urlParams.substring(14, urlParamsString.length);
-      }
-    }
-    // {
-    //   headers: {
-    //     Authorization: token,
-    //   },
-    // }
 
+    console.log('weekurlparams1', weekurlparams1);
+    console.log('weekurlparams2', weekurlparams2);
+
+    let weekurlparams = "";
+
+    // if (!(typeof(weekurlparams2) == "undefined") || !(weekurlparams2 == "") || !(weekurlparams2 != 1)) {
+    if ((weekurlparams2 == 1)) {
+      weekurlparams = weekurlparams1;
+      console.log('weekurlparams if', weekurlparams);
+    } else {
+      weekurlparams = weekurlparams2;
+      console.log('weekurlparams else', weekurlparams2, typeof(weekurlparams2));
+    }
 
     // if (urlParams==='')
     // {urlParams='default'
     // }
-
+  try {
     const data = yield call(request, `${host_url}/api/reporting/competitor_filter_data?${urlParams}&${userParams}`,
-      // {
-      //   headers: {
-      //     Authorization: token,
-      //   },
-      // }
     );
 
     console.log(`${host_url}/api/reporting/filter_data_week?${weekurlparams}`);
     const data2 = yield call(request, `${host_url}/api/reporting/filter_data_week?${weekurlparams}`,
-      // {
-      //   headers: {
-      //     Authorization: token,
-      //   },
-      // }
     );
+    console.log('data2',data2);
+    console.log('data2[0]',data2[0]);
+    console.log('data2[0].name',data2[0].name);
+    console.log('data2[0].name',data2[0].items[0].name);
+    let a = data2[0].name + '=' + data2[0].items[0].name;
+    console.log('data2[0].name=data2[0].items[0].name',data2[0].name=data2[0].items[0].name);
+    console.log('a',a);
+    if ((weekurlparams2 != 1)) {
+      yield put(checkboxWeekChange(a));
+    }
+    yield put(checkboxWeekChange2(1));
+
     console.log('sagas generateFilterFetch data2', data2);
     // const data = yield call(request, `http://localhost:8090/wash/?format=json`);
     // const data = yield call(request, `http://10.1.161.82:8000/ranging/npd_view/filter_data?`);

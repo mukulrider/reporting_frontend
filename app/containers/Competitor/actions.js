@@ -18,6 +18,7 @@ import {
   FILTER_FETCH_SUCCESS,
   CHECKBOX_CHANGE,
   CHECKBOX_WEEK_CHANGE,
+  CHECKBOX_WEEK_CHANGE2,
   SEND_URL_PARAMS,
   GENERATE_URL_PARAMS,
   GENERATE_URL_PARAMS_STRING,
@@ -190,6 +191,14 @@ export function checkboxWeekChange(data) {
   console.log("checkboxWeekChange Selection in actions" + data);
   return {
     type: CHECKBOX_WEEK_CHANGE,
+    data
+  };
+}
+
+export function checkboxWeekChange2(data) {
+  console.log("checkboxWeekChange2 Selection in actions" + data);
+  return {
+    type: CHECKBOX_WEEK_CHANGE2,
     data
   };
 }

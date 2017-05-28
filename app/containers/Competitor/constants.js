@@ -41,6 +41,7 @@ export const FILTER_CONSTANT='app/competitor/FILTER_CONSTANT';
 export const FILTER_FETCH_SUCCESS='app/competitor/FILTER_FETCH_SUCCESS';
 export const CHECKBOX_CHANGE = 'app/competitor/CHECKBOX_CHANGE';
 export const CHECKBOX_WEEK_CHANGE = 'app/competitor/CHECKBOX_WEEK_CHANGE';
+export const CHECKBOX_WEEK_CHANGE2 = 'app/competitor/CHECKBOX_WEEK_CHANGE2';
 
 
 //export const GENERATE_TEXTBOX_QUERY_STRING = 'app/RangingNpdPage/GENERATE_TEXTBOX_QUERY_STRING';
