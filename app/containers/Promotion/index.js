@@ -449,8 +449,10 @@ export class Promotion extends React.PureComponent {
 
                               <div className="col-md-4 col-sm-12 col-xs-12"
                                    style={{backgroundColor: "#fafafa", paddingLeft: '15px', paddingRight: '15px'}}>
+
                                 <Panel>
-                                  <h3 className="pageModuleSubTitle">
+                                  <div className="firstCard" style={{height: '150px'}}>
+                                  <h3 className="pageModuleSubTitle" style={{marginTop: "-1px"}}>
                                     Total {this.props.promotion.kpi_data.kpi_name} </h3>
                                   <div className="row">
                                     <div className="col-md-6 col-xs-6">
@@ -461,7 +463,7 @@ export class Promotion extends React.PureComponent {
                                     </div>
                                     <div className="col-md-6 col-xs-6">
                                       <h3 style={{padding: "0px", margin: "0px"}}>
-                                        LFL&nbsp; {this.props.promotion.kpi_data.total.total_lfl} </h3>
+                                        LFL&#8208;&nbsp; {this.props.promotion.kpi_data.total.total_lfl} </h3>
                                     </div>
                                   </div>
 
@@ -473,7 +475,7 @@ export class Promotion extends React.PureComponent {
                                             <div className="col-md-4 col-xs-4 ">
                                               <h4>
                                     <span
-                                      className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_wow)}>
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_wow)} style={{marginTop: '20px'}}>
                                     </span>{(this.props.promotion.kpi_data.total.var_total_wow) + '%'}
                                               </h4>
                                               <h5 className="kpiSubTitle"><b>WoW</b></h5>
@@ -499,7 +501,7 @@ export class Promotion extends React.PureComponent {
                                       })()}>
                                         <h4>
                                     <span
-                                      className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_yoy)}>
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_yoy)} style={{marginTop: '20px'}}>
                                     </span>{(this.props.promotion.kpi_data.total.var_total_yoy) + '%'}
                                         </h4>
                                         <h5 className="kpiSubTitle"><b>YOY</b></h5>
@@ -519,20 +521,23 @@ export class Promotion extends React.PureComponent {
                                       })()}>
                                         <h4>
                                     <span
-                                      className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_lfl)}>
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_lfl)} style={{marginTop: '20px'}}>
                                     </span>{(this.props.promotion.kpi_data.total.var_total_lfl) + '%'}
                                         </h4>
                                         <h5 className="kpiSubTitle"><b>LFL</b></h5>
                                       </div>
                                     </div>
                                   </div>
+                                  </div>
                                 </Panel>
+
                               </div>
 
                               <div className="col-md-4 col-sm-12 col-xs-12"
-                                   style={{backgroundColor: "#fafafa", paddingLeft: '15px', paddingRight: '15px'}}>
+                                   style={{backgroundColor: "#fafafa", paddingLeft: '15px', paddingRight: '15px',height:'30px'}}>
                                 <Panel>
-                                  <h3 className="pageModuleSubTitle">
+                                  <div className="secondCard" style={{height: "150px"}}>
+                                  <h3 className="pageModuleSubTitle" style={{marginTop: "-1px"}}>
                                     Promo {this.props.promotion.kpi_data.kpi_name} </h3>
 
                                   <div className="row">
@@ -545,7 +550,7 @@ export class Promotion extends React.PureComponent {
                                     </div>
                                     <div className="col-md-6 col-xs-6">
                                       <h3 style={{padding: "0px", margin: "0px"}}>
-                                        LFL&nbsp;{this.props.promotion.kpi_data.promo.promo_lfl} </h3>
+                                        LFL&#8208;&nbsp;{this.props.promotion.kpi_data.promo.promo_lfl} </h3>
                                     </div>
                                   </div>
 
@@ -559,7 +564,7 @@ export class Promotion extends React.PureComponent {
                                             <div className="col-md-4 col-xs-4 ">
                                               <h4>
                                     <span
-                                      className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_wow)}></span>
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_wow)} style={{marginTop:'20px'}}></span>
                                                 {(this.props.promotion.kpi_data.promo.var_promo_wow) + '%'}
                                               </h4>
                                               <h5 className="kpiSubTitle"><b>WoW</b></h5>
@@ -588,7 +593,7 @@ export class Promotion extends React.PureComponent {
                                       })()}>
                                         <h4>
                                     <span
-                                      className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_yoy)}></span>
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_yoy)} style={{marginTop:'20px'}}></span>
                                           {(this.props.promotion.kpi_data.promo.var_promo_yoy) + '%'}
                                         </h4>
                                         <h5 className="kpiSubTitle"><b>YOY</b></h5>
@@ -608,12 +613,13 @@ export class Promotion extends React.PureComponent {
                                       })()}>
                                         <h4>
                                     <span
-                                      className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_lfl)}></span>
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_lfl)} style={{marginTop:'20px'}}></span>
                                           {(this.props.promotion.kpi_data.promo.var_promo_lfl) + '%'}
                                         </h4>
                                         <h5 className="kpiSubTitle"><b>LFL</b></h5>
                                       </div>
                                     </div>
+                                  </div>
                                   </div>
                                 </Panel>
                               </div>
@@ -621,7 +627,8 @@ export class Promotion extends React.PureComponent {
                               <div className="col-md-4 col-sm-12 col-xs-12"
                                    style={{backgroundColor: "#fafafa", paddingLeft: '15px', paddingRight: '15px'}}>
                                 <Panel>
-                                  <h3 className="pageModuleSubTitle"> Non
+                                  <div className="thirdCard" style={{height: "150px"}}>
+                                  <h3 className="pageModuleSubTitle" style={{marginTop: "-1px"}}> Non
                                     Promo {this.props.promotion.kpi_data.kpi_name} </h3>
 
                                   <div className="row">
@@ -634,7 +641,7 @@ export class Promotion extends React.PureComponent {
                                     </div>
                                     <div className="col-md-6 col-xs-6">
                                       <h3 style={{padding: "0px", margin: "0px"}}>
-                                        LFL&nbsp;    {this.props.promotion.kpi_data.nonpromo.nonpromo_lfl} </h3>
+                                        LFL&#8208;&nbsp; {this.props.promotion.kpi_data.nonpromo.nonpromo_lfl} </h3>
                                     </div>
                                   </div>
 
@@ -647,7 +654,7 @@ export class Promotion extends React.PureComponent {
                                             <div className="col-md-4 col-xs-4 ">
                                               <h4>
                                     <span
-                                      className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow)}></span>
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow)} style={{marginTop:'20px'}}></span>
                                                 {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow) + '%'}
                                               </h4>
                                               <h5 className="kpiSubTitle"><b>WoW</b></h5>
@@ -674,7 +681,7 @@ export class Promotion extends React.PureComponent {
                                       })()}>
                                         <h4>
                                     <span
-                                      className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy)}></span>
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy)} style={{marginTop:'20px'}}></span>
                                           {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy) + '%'}
                                         </h4>
                                         <h5 className="kpiSubTitle"><b>YOY</b></h5>
@@ -694,12 +701,13 @@ export class Promotion extends React.PureComponent {
                                       })()}>
                                         <h4>
                                     <span
-                                      className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl)}></span>
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl)} style={{marginTop:'20px'}}></span>
                                           {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl) + '%'}
                                         </h4>
                                         <h5 className="kpiSubTitle"><b>LFL</b></h5>
                                       </div>
                                     </div>
+                                  </div>
                                   </div>
                                 </Panel>
                               </div>
@@ -708,9 +716,7 @@ export class Promotion extends React.PureComponent {
                           )
                         } else {
                           return (
-
                             <div className="text-center"><Spinner />Please Wait a Moment....!</div>
-
                           );
                         }
                       })()}

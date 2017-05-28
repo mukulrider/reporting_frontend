@@ -97,9 +97,9 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
                     console.log("Cascading filter - week", this.props.week_data);
                     var panelHeader = (
 
-                      <div className="panel-heading">Tesco Week
+                      <div>Tesco Week
                         <span style={{color: "red"}}>*</span>&nbsp;
-                        <span className="accordion-toggle" style={{float: 'right', marginRight: '-6%'}}></span>
+                        <span className="accordion-toggle" style={{float: 'right'}}></span>
                       </div>
                     );
                     return (
