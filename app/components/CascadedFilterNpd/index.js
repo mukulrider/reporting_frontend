@@ -16,16 +16,16 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
   componentDidMount = () => {
     // console.log("----inside selector----",this.props);
     let selector = '';
-    this.props.onGenerateSideFilter();
+    // this.props.onGenerateSideFilter();
 
   };
 
   componentDidUpdate = () => {
     const urlParams = this.props.location.query;
     const tesco_week_value = '';
-    this.props.onGenerateUrlParams(urlParams);
-    this.props.onSendUrlParams(urlParams);
-    this.props.onSaveWeek(tesco_week_value);
+    // this.props.onGenerateUrlParams(urlParams);
+    // this.props.onSendUrlParams(urlParams);
+    // this.props.onSaveWeek(tesco_week_value);
     // this.props.onCompetitorPieChart(urlParams);
     // this.props.onCompetitorPriceRange();
     // this.props.onCompWaterfall();
@@ -43,32 +43,49 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
 
   updateUrl = (category) => {
     let queryString = '';
-    [...this.refs.selector.querySelectorAll('input')].map(obj => {
-      if (obj.checked == true) {
-        console.log("Objects", obj);
-        console.log("Objects category", category);
-        let category = obj.id.split('__');
-        // let category = category.split('__');
+    let urlParamsSingleSelect = '';
+    // [...this.refs.selector.querySelectorAll('input')].map(obj => {
+    //   if (obj.checked == true) {
+    //     console.log("Objects", obj);
 
-        // if (category[0] === 'buying_controller') {
-        //   this.props.onGenerateBuyingController(category[category.length - 1])
-        // }
-        // if (category[1] === 'category_director') {
-        //   // this.props.onGenerateBuyingController(category[category.length - 1])
-        //   this.props.onGenerateCategoryDirector(category[category.length - 2])
-        // }
-        queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
-      }
-    });
+    console.log("Objects category1", category);
+    // category = category.split('__');
+    // let category = obj.id.split('__');
+    // console.log("Objects category", category);
+    // let category = category.split('__');
+    // let category = category.split('__');
+
+    // if (category[0] === 'buying_controller') {
+    //   this.props.onGenerateBuyingController(category[category.length - 1])
+    // }
+    // if (category[1] === 'category_director') {
+    //   // this.props.onGenerateBuyingController(category[category.length - 1])
+    //   this.props.onGenerateCategoryDirector(category[category.length - 2])
+    // }
+    if (['commercial_name', 'category_name', 'buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])) {
+      urlParamsSingleSelect = category;
+      // urlParamsSingleSelect = urlParamsSingleSelect + `${category[0]}=${category[category.length - 1]}`;
+    }
+    queryString = queryString + `${category[0]}=${category[category.length - 1]}`;
+    // }
+    // });
 
     queryString = queryString.substring(0, queryString.length - 1);
-    console.log('queryString for prod',queryString);
-    queryString = queryString.substring(14, queryString.length);
-    console.log('queryString for prod',queryString);
+    console.log('queryString for prod', queryString);
+    // queryString = queryString.substring(14, queryString.length);
+    // console.log('queryString for prod', queryString);
+    console.log('urlParamsSingleSelect--', urlParamsSingleSelect);
 
-
-    this.props.onCheckboxChange(queryString);
+    // this.props.onCheckboxChange(queryString);
+    this.props.onCheckboxChange(category);
     this.props.onGenerateSideFilter();
+
+    if(category.includes("commercial_name") || category.includes("category_name")){
+
+    }
+    else {
+    localStorage.setItem('urlParamsSingleSelect', category);
+    }
   };
 
 
@@ -108,6 +125,8 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
 
   render() {
     // console.log("inside the cascaded filter",this.props.previous_selection)
+    let pHierarchyFilterCheck = true;
+    let weekFilterCheck = true;
     return (
 
 
@@ -220,6 +239,43 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
                 {(() => {
                   if (this.props.filter_data) {
                     console.log("Cascading filter - filter_data", this.props.filter_data);
+                    console.log("Cascading filter - filter_data1", this.props.filter_data[0]);
+                    console.log("Cascading filter - week_data", this.props.week_data[0]);
+                    {/*for (let i = 0; i < this.props.filter_data[0].items.length; i++) {*/
+                    }
+                    {/*if (this.props.filter_data[2].items[i].selected == true) {*/
+                    }
+                    {/*console.log("Cascading filter - filter_data2 for loop", this.props.filter_data[0].items[i].selected);*/
+                    }
+                    {/*pHierarchyFilterCheck = true;*/
+                    }
+                    {/*} else {*/
+                    }
+                    {/*pHierarchyFilterCheck = false;*/
+                    }
+                    {/*}*/
+                    }
+                    {/*}*/
+                    }
+
+                    {/*for (let i = 0; i < this.props.week_data[0].items.length; i++) {*/
+                    }
+                    {/*if (this.props.week_data[0].items[i].selected == true) {*/
+                    }
+                    {/*console.log("Cascading filter - week_data1 for loop", this.props.week_data[0].items[i].selected);*/
+                    }
+                    {/*weekFilterCheck = true;*/
+                    }
+                    {/*} else {*/
+                    }
+                    {/*weekFilterCheck = false;*/
+                    }
+                    {/*}*/
+                    }
+                    {/*}*/
+                    }
+
+
                     return (
 
                       this.props.filter_data.map((obj, key) => {
@@ -246,7 +302,7 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
                                   {
                                     obj.items.map(obj2 => {
                                       finalCheckbox.push(
-                                        <Checkbox id={obj.name  + '__' + obj2.name}
+                                        <Checkbox id={obj.name + '__' + obj2.name}
                                                   label={obj2.name}
                                                   style={{fontSize: '10px'}}
                                                   checked={(() => {
@@ -255,24 +311,27 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
                                                   onChange={() => {
 
                                                     let previous_selection = this.props.previous_selection;
-                                                    {/*let selection = obj.name + "=" + obj2.name;*/}
-                                                    let selection = obj.name + "__" + obj2.name;
+                                                    let selection = obj.name + "=" + obj2.name;
+
+                                                    {/*let selection = obj.name + "__" + obj2.name;*/
+                                                    }
                                                     //For enabling un checking
 
                                                     if (previous_selection == selection) {
                                                       selection = '';
                                                     }
-                                                    console.log('obj for comp', obj);
-                                                    console.log('obj2 for comp', obj2);
-                                                    let abc = obj.name+"__"+obj2.name;
-                                                    console.log('obj3 for comp', abc);
+                                                    console.log('previous_selection--', previous_selection);
+                                                    console.log('selection--', selection);
 
                                                     this.updateUrl(selection)
 
 
-                                                    {/*this.updateUrl(obj.name+"__"+obj2.name)*/}
-                                                    {/*this.props.onCheckboxChange(selection);*/}
-                                                    {/*this.props.onGenerateSideFilter();*/}
+                                                    {/*this.updateUrl(obj.name+"__"+obj2.name)*/
+                                                    }
+                                                    {/*this.props.onCheckboxChange(selection);*/
+                                                    }
+                                                    {/*this.props.onGenerateSideFilter();*/
+                                                    }
                                                   }}
                                                   isDisabled={obj2.disabled}
                                                   valid={true}
@@ -285,8 +344,7 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
                                   // for replacing enabled to top
                                   let finalled = [];
                                   finalCheckbox.map(obj => {
-                                    {/*console.log(obj.props.checked);*/
-                                    }
+
                                     if (!obj.props.isDisabled) {
                                       finalled.push(obj)
                                     }
@@ -311,13 +369,18 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
                 })()}
               </PanelGroup>
 
-              <Modal show={this.state.alertShow} bsSize="sm" aria-labelledby="contained-modal-title-sm" style={{marginTop: '10%'}}>
+              <Modal show={this.state.alertShow} bsSize="sm" aria-labelledby="contained-modal-title-sm"
+                     style={{marginTop: '10%'}}>
                 <Modal.Header>
                   <Modal.Title id="contained-modal-title-sm"
                                style={{textAlign: 'center', fontSize: '18px'}}><span
-                    style={{textAlign: 'center', fontSize: '14px'}}><b>Mandatory Filter Selection Missing</b></span><span
+                    style={{
+                      textAlign: 'center',
+                      fontSize: '14px'
+                    }}><b>Mandatory Filter Selection Missing</b></span><span
                     style={{textAlign: 'right', float: 'right', marginTop: '1.1%'}}
-                    onClick={() => this.setState({alertShow: false})}  className="glyphicon glyphicon-remove-sign"></span>
+                    onClick={() => this.setState({alertShow: false})}
+                    className="glyphicon glyphicon-remove-sign"></span>
                     <div style={{textAlign: 'center'}}>
                       <div style={{textAlign: 'right'}}>
                       </div>
@@ -347,29 +410,84 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
               <Button
                 style={{marginTop: "5px", marginLeft: "48px", width: "10px", "min-width": "170px", fontSize: "13px"}}
                 onClick={() => {
-
-                  let filterDataWeek = this.props.filter_week_selection;
-                  let filterData = this.props.filter_selection;
-                  console.log('filterDataWeek', filterDataWeek);
-                  if (!(typeof(filterDataWeek) == "undefined") && !(typeof(filterData) == "undefined")) {
-                    console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek,filterData);
-                    if (filterDataWeek.includes("tesco_week") && filterData.includes("buying_controller=")) {
-                      console.log('tesco_weeek filterDataWeek', filterDataWeek);
-                      console.log('--filterData', filterData);
-                      this.props.onPieChartSpinnerSuccess(0);
-                      this.props.outPerformanceChartSuccess(0);
-                      this.props.waterChartAsdaSuccess(0);
-                      this.props.priceRangeChartSuccess(0);
-
-                      this.applyButtonFunctionality();
+                  pHierarchyFilterCheck = false;
+                  for (let i = 0; i < this.props.filter_data[0].items.length; i++) {
+                    if (this.props.filter_data[2].items[i].selected == true) {
+                      console.log("Cascading filter - filter_data2 for loop", this.props.filter_data[0].items[i].selected);
+                      pHierarchyFilterCheck = true;
+                      console.log('pHierarchyFilterCheck11', pHierarchyFilterCheck);
+                    } else {
+                      pHierarchyFilterCheck = false;
+                      console.log('pHierarchyFilterCheck22', pHierarchyFilterCheck);
                     }
-                    else {
-                      console.log('modal open');
-                      this.setState({alertShow: true});
                   }
+                  weekFilterCheck = false;
+                  for (let i = 0; i < this.props.week_data[0].items.length; i++) {
+                    if (this.props.week_data[0].items[i].selected == true) {
+                      console.log("Cascading filter - 1week_data1 for loop", this.props.week_data[0]);
+                      console.log("Cascading filter - week_data1 for loop", this.props.week_data[0].items[i].selected);
+                      weekFilterCheck = true;
+                      console.log('weekFilterCheck11', weekFilterCheck);
+                    } else {
+                      {/*weekFilterCheck = false;*/
+                      }
+                      console.log('weekFilterCheck22', weekFilterCheck);
+                      console.log("Cascading filter - week_data false for loop", this.props.week_data[0].items[i].name);
+                    }
+                  }
+                  if (pHierarchyFilterCheck && weekFilterCheck) {
+                    this.props.onPieChartSpinnerSuccess(0);
+                    this.props.outPerformanceChartSuccess(0);
+                    this.props.waterChartAsdaSuccess(0);
+                    this.props.priceRangeChartSuccess(0);
+                    this.applyButtonFunctionality();
                   } else {
-                    console.log('modal open');
                     this.setState({alertShow: true});
+                  }
+                  {/*let filterDataWeek = this.props.filter_week_selection;*/
+                  }
+                  {/*let filterData = this.props.filter_selection;*/
+                  }
+                  {/*console.log('filterDataWeek', filterDataWeek);*/
+                  }
+                  {/*if (!(typeof(filterDataWeek) == "undefined") && !(typeof(filterData) == "undefined")) {*/
+                  }
+                  {/*console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek, filterData);*/
+                  }
+                  {/*if (filterDataWeek.includes("tesco_week") && filterData.includes("buying_controller=")) {*/
+                  }
+                  {/*console.log('tesco_weeek filterDataWeek', filterDataWeek);*/
+                  }
+                  {/*console.log('--filterData', filterData);*/
+                  }
+                  {/*this.props.onPieChartSpinnerSuccess(0);*/
+                  }
+                  {/*this.props.outPerformanceChartSuccess(0);*/
+                  }
+                  {/*this.props.waterChartAsdaSuccess(0);*/
+                  }
+                  {/*this.props.priceRangeChartSuccess(0);*/
+                  }
+
+                  {/*this.applyButtonFunctionality();*/
+                  }
+                  {/*}*/
+                  }
+                  {/*else {*/
+                  }
+                  {/*console.log('modal open');*/
+                  }
+                  {/*this.setState({alertShow: true});*/
+                  }
+                  {/*}*/
+                  }
+                  {/*} else {*/
+                  }
+                  {/*console.log('modal open');*/
+                  }
+                  {/*this.setState({alertShow: true});*/
+                  }
+                  {/*}*/
                   }
                 }}>Apply Filters</Button>
 

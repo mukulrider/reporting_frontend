@@ -16,10 +16,13 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
     // Define Legend Parameters
     let legend_width = containerWidth*1.8, legend_text_width=containerWidth*1.8 -20;
     //defining the colors for the chart bars
-    let color_hash = ["#98abc5", "#6b486b"];
+    // let color_hash = ["#98abc5", "#6b486b"];
     // creating legend object for chart
-    let data_label = [{"label": col_a},{"label":"Sales"}] // defining the legend label variable
+    // let data_label = [{"label": col_a},{"label":"Sales"}] // defining the legend label variable
 
+    let color_hash = ["#98abc5", "#6b486b","#1FC546"];
+    // creating legend object for chart
+    let data_label = [{"label":"Budget"},{"label":"Sales"},{"label":"Forecast"}] // defining the legend label variable
 
     let svg = d3.select('#'+chart_id + '_svg');
     svg.selectAll("*").remove();
