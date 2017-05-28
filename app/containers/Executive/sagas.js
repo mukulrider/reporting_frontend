@@ -21,7 +21,7 @@ import {
   PRICE_KPI_CONSTANT,
   GENERATE_BEST_WORST_PERFORMANCE,
   OVERVIEW_KPI_SPINNER_FLAG,
-  PRICE_KPI_SPINNER_FLAG,GENERATE_BEST_WORST_PERFORMANCE_TABLE,
+  PRICE_KPI_SPINNER_FLAG, GENERATE_BEST_WORST_PERFORMANCE_TABLE,
   KPI_SPINNER_FLAG
 } from './constants';
 
@@ -121,6 +121,7 @@ export function* generateOverviewKpiDataFetch() {
   const weekurlparam = urlName.get('week_param');
   let urlParamsString = urlName.get('urlParamsString');
   let weekParamString = urlName.get('week_filter_param');
+  let storeParamString = urlName.get('store_filter_param');
   let weekselection = urlName.get('weekurlParam');
   if (!urlParamsString) {
     urlParamsString = ''
@@ -153,6 +154,13 @@ export function* generateOverviewKpiDataFetch() {
 
   if (!(typeof(weekParamString) == "undefined") && !(weekParamString == "")) {
     urlAppends = urlAppends + '&' + weekParamString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(storeParamString) == "undefined") && !(storeParamString == "")) {
+    urlAppends = urlAppends + '&' + storeParamString;
     console.log('urlAppends1', urlAppends);
   } else {
 
@@ -1482,8 +1490,7 @@ export function* generateDriversExternalFetch() {
   console.log('urlAppends6', urlAppends);
 
 
-
-  const data = yield call(request,host_url + `/api/reporting/exec_drivers_external?` + urlAppends);
+  const data = yield call(request, host_url + `/api/reporting/exec_drivers_external?` + urlAppends);
 
   yield put(DriversExternalDataFetchSuccess(data));
 
@@ -1573,7 +1580,7 @@ export function* generatePriceKPIFetch() {
   }
   console.log('urlAppends6', urlAppends);
 
-  const data = yield call(request,host_url + `/api/reporting/exec_pricing?` + urlAppends);
+  const data = yield call(request, host_url + `/api/reporting/exec_pricing?` + urlAppends);
 
   yield put(PriceKPIDataFetchSuccess(data));
   let spinnerFlag = 1;
@@ -1644,7 +1651,7 @@ export function* generateFilterFetch() {
     console.log('urlAppends6', urlAppends);
 
     // localStorage.setItem('urlAppends', urlAppends);
-    const data = yield call(request,host_url + '/api/reporting/exec_filter_data?' + urlAppends);
+    const data = yield call(request, host_url + '/api/reporting/exec_filter_data?' + urlAppends);
 
     yield put(FilterFetchSuccess(data));
   } catch (err) {
@@ -1903,7 +1910,7 @@ export function* doGenerateBestWorstPerformanceTable() {
 
 // All sagas to be loaded
 export default [
-  defaultSaga,doGenerateBestWorstPerformance,
+  defaultSaga, doGenerateBestWorstPerformance,
   doFilterFetch,
   doWeekFilterFetch,
   doPromoOverviewKpiFetch,
@@ -1912,7 +1919,7 @@ export default [
   doOverviewKPITrendFetch,
   doOverviewDriversInternalFetch,
   doOverviewDriversExternalFetch,
-  doKpiBoxesFetch,doGenerateBestWorstPerformanceTable,
+  doKpiBoxesFetch, doGenerateBestWorstPerformanceTable,
   doBestWorstFetch,
   doBestInfoFetch,
   doWorstInfoFetch,

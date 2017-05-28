@@ -22,7 +22,7 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
     let queryString = '';
     let localUrlParamsString = '';
 
-    [...this.refs.selector.querySelectorAll('input')].map((obj,index) => {
+    [...this.refs.selector.querySelectorAll('input')].map((obj, index) => {
       if (obj.checked == true) {
         console.log("Objects", obj);
         console.log("Objects -- queryString", queryString);
@@ -36,7 +36,7 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
         //   // this.props.onGenerateBuyingController(category[category.length - 1])
         //   this.props.onGenerateCategoryDirector(category[category.length - 2])
         // }
-        if (['store_type','commercial_name','category_name','buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])){
+        if (['store_type', 'commercial_name', 'category_name', 'buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])) {
           localUrlParamsString = localUrlParamsString + `${category[0]}=${category[category.length - 1]}&`;
         }
         queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
@@ -80,7 +80,6 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
   }
 
 
-
   render() {
     return (
       <div ref={'selector'}>
@@ -88,106 +87,6 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
           return (
             <div id="style-7">
 
-
-              <PanelGroup defaultActiveKey="0" accordion>
-                {(() => {
-                  if (this.props.week_data) {
-                    console.log("Cascading filter - week", this.props.week_data);
-                    var panelHeader = (
-
-                      <div className="">Tesco Week
-                        <span style={{color: "red"}}>*</span>&nbsp;
-                        <span className="accordion-toggle" style={{float: 'right', marginRight: '0%'}}></span>
-                      </div>
-                    );
-                    return (
-
-                      <Panel header={panelHeader} eventKey="1">
-                        <div className="panel selector">
-                          <div className="panel-body style-7" style={{
-                            maxHeight: '250px',
-                            overflowX: 'hidden', fontSize: '9px'
-                          }}>
-                            {(() => {
-                              console.log("Cascading filter ----------")
-                              let finalCheckbox = [];
-                              console.log('Cascading filter - week inside panel div', this.props.week_data);
-
-                              {
-                                this.props.week_data[0].items.map(obj2 => {
-                                  {/*console.log("Cascading Filter Inside map", obj2)*/
-                                  }
-                                  finalCheckbox.push(
-                                    <Checkbox id={obj2.name }
-                                              label={obj2.name}
-                                              style={{fontSize: '10px'}}
-                                              checked={(() => {
-                                                return obj2.selected;
-                                              })()}
-                                              onChange={() => {
-
-                                                let previous_week_selection = this.props.previous_week_selection;
-                                                let selection = "tesco_week=" + obj2.name;
-                                                //For enabling un checking
-                                                {
-                                                  console.log('Cascaded Filter previous_week_selection', previous_week_selection);
-                                                }
-                                                {
-                                                  console.log('Cascaded Filter selection', selection);
-                                                }
-                                                if (previous_week_selection == selection) {
-                                                  selection = '';
-                                                }
-
-
-                                                this.props.onSaveWeekFilterParam(selection);
-                                                this.props.ongenerateWeekFilter();
-                                              }}
-
-                                              isDisabled={obj2.disabled}
-                                              valid={true}
-                                              key={Date.now() + Math.random()}
-                                    />
-                                  )
-
-                                })
-                              }
-
-                              // for replacing enabled to top
-                              let finalled = [];
-                              finalCheckbox.map(obj => {
-                                {/*console.log(obj.props.checked);*/
-                                }
-                                if (!obj.props.isDisabled) {
-                                  finalled.push(obj)
-                                }
-                              });
-                              finalCheckbox.map(obj => {
-                                {/*console.log(obj.props.checked);*/
-                                }
-                                if (obj.props.isDisabled) {
-                                  finalled.push(obj)
-                                }
-                              });
-                              return finalled
-
-                            })()}
-                          </div>
-                        </div>
-                      </Panel>
-
-
-
-                    )
-                  }
-                })()}
-              </PanelGroup>
-              <hr style={{
-                marginTop: '0px',
-                marginBottom: '-6%',
-                border: '0',
-                borderTop: '1px solid #eee',
-              }}></hr>
               {/*<div id="style-7" style={{*/}
               {/*height: '52%',*/}
               {/*width: '19%',*/}
@@ -207,6 +106,8 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
                       <span className="accordion-toggle" style={{float: 'right'}}></span>
                     </div>
                   );
+                  if (item.title!='store_type') {
+
                   return (
                     <Panel header={panelHeader} eventKey={++key}>
                       <div className="panel selector">
@@ -259,8 +160,8 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
                                                key={item.id + '__' + obj.title}
                                                name={obj.title.toLowerCase()}
                                                onChange={() => {
-                                                 console.log('item.id for exec',item);
-                                                 console.log('item.id for exec',obj);
+                                                 console.log('item.id for exec', item);
+                                                 console.log('item.id for exec', obj);
                                                  this.updateUrl(item.id)
                                                }}
                                                checked={obj.resource.selected}
@@ -301,17 +202,24 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
                       </div>
                     </Panel>
                   )
+                  }
+
                 })}
               </PanelGroup>
 
-              <Modal show={this.state.alertShow}  bsSize="sm" aria-labelledby="contained-modal-title-sm" style={{marginTop: '10%'}}>
+              <Modal show={this.state.alertShow} bsSize="sm" aria-labelledby="contained-modal-title-sm"
+                     style={{marginTop: '10%'}}>
 
                 <Modal.Header>
                   <Modal.Title id="contained-modal-title-sm"
                                style={{textAlign: 'center', fontSize: '18px'}}><span
-                    style={{textAlign: 'center', fontSize: '14px'}}><b> Mandatory Filter Selection Missing</b></span><span
+                    style={{
+                      textAlign: 'center',
+                      fontSize: '14px'
+                    }}><b> Mandatory Filter Selection Missing</b></span><span
                     style={{textAlign: 'right', float: 'right', marginTop: '1.1%'}}
-                    onClick={() => this.setState({alertShow: false})} className="glyphicon glyphicon-remove-sign"></span>
+                    onClick={() => this.setState({alertShow: false})}
+                    className="glyphicon glyphicon-remove-sign"></span>
                     <div style={{textAlign: 'center'}}>
                       <div style={{textAlign: 'right'}}>
                       </div>
@@ -343,50 +251,48 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
                   let filterDataWeek = this.props.week_filter_param;
                   let filterData = this.props.urlParamsString;
                   console.log('filterDataWeek', filterDataWeek);
-                  if (!(typeof(filterDataWeek) == "undefined") && !(typeof(filterData) == "undefined")) {
+                  if (!(typeof(filterData) == "undefined")) {
                     console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek, filterData);
-                    if (filterDataWeek.includes("tesco_week") && filterData.includes("buying_controller")) {
+                    if (filterData.includes("buying_controller")) {
                       console.log('tesco_weeek filterDataWeek', filterDataWeek);
                       console.log('--filterData', filterData);
 
-               {/*Load functions here*/}
-                  if (this.props.kpi_param=='kpi_type=Overview') {
-                    console.log("______________________ Only Overview function Called")
-                    this.props.spinnerRolesAndIntent(0);
-                    this.props.spinnerOverviewKPI(0);
-                    this.props.spinnerOverviewKPITrend(0);
-                    this.props.spinnerOverviewInternalDrivers(0);
-                    this.props.spinnerOverviewExternalDrivers(0);
+                      if (this.props.kpi_param == 'kpi_type=Overview') {
+                        console.log("______________________ Only Overview function Called")
+                        this.props.spinnerRolesAndIntent(0);
+                        this.props.spinnerOverviewKPI(0);
+                        this.props.spinnerOverviewKPITrend(0);
+                        this.props.spinnerOverviewInternalDrivers(0);
+                        this.props.spinnerOverviewExternalDrivers(0);
 
-                    this.props.loadOverviewKpi();
-                    this.props.loadOverviewKpiTrend();
-                    this.props.loadOverviewDriversInternal();
-                    this.props.loadOverviewDriversExternal();
-                    this.props.loadRolesAndIntent();
-                    this.props.loadBudgetAndForecast();
+                        this.props.loadOverviewKpi();
+                        this.props.loadOverviewKpiTrend();
+                        this.props.loadOverviewDriversInternal();
+                        this.props.loadOverviewDriversExternal();
+                        this.props.loadRolesAndIntent();
+                        this.props.loadBudgetAndForecast();
 
-                  }
-                  else {
-                    if(this.props.kpi_param=='kpi_type=Price')
-                    {
-                      console.log("______________________ Only Price function Called")
-                      this.props.spinnerPriceKPI(0);
-                      this.props.loadPriceKPIData();
+                      }
+                      else {
+                        if (this.props.kpi_param == 'kpi_type=Price') {
+                          console.log("______________________ Only Price function Called")
+                          this.props.spinnerPriceKPI(0);
+                          this.props.loadPriceKPIData();
 
 
                         }
 
                         else {
                           console.log("______________________ Only KPI functions Called")
-                      this.props.spinnerInternalDrivers(0);
-                      this.props.spinnerExternalDrivers(0);
-                      this.props.spinnerKPI(0);
-                      this.props.loadKpiBoxes();
-                      this.props.loadBestWorst();
-                      this.props.loadDriversInternalData();
-                      this.props.loadDriversExternalData();
+                          this.props.spinnerInternalDrivers(0);
+                          this.props.spinnerExternalDrivers(0);
+                          this.props.spinnerKPI(0);
+                          this.props.loadKpiBoxes();
+                          this.props.loadBestWorst();
+                          this.props.loadDriversInternalData();
+                          this.props.loadDriversExternalData();
 
-                    }
+                        }
 
                       }
 
