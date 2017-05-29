@@ -21,7 +21,7 @@ class PromoTopFilter extends React.PureComponent { // eslint-disable-line react/
     return (
       <div>
         <div className="row">
-          <div className="col-xs-3"></div>
+          <div className="col-xs-1"></div>
           <div className="col-xs-3">
             <SelectInput label={'week'} name={'week'} id={'week_select'}
                          data={[{rowText: 'All Stores'}, {rowText: 'Main Estate'}, {rowText: 'Express'}]}
@@ -68,6 +68,36 @@ class PromoTopFilter extends React.PureComponent { // eslint-disable-line react/
                            // console.log(e.target.value)
                            let selection = "tesco_week=" + v;
                            this.props.onSaveWeekFilterParam(selection);
+
+                           this.props.pieChartSuccess(0);
+                           this.props.kpiDataSuccess(0);
+                           {/*this.props.promoGiveAwaySuccess(0);*/}
+                           this.props.trendChartSpinner(0);
+                           this.props.productsCountSplitSuccess(0);
+                           {/*this.props.promoParticipationBySplitSuccess(0);*/}
+                           this.props.productsTableSplitSuccess(0);
+                           this.props.productsOnPromoTableFetch();
+                           this.props.trendChartDataFetch();
+
+                           this.props.loadKpi();
+                           this.props.loadSales();
+                           this.props.loadPromoGiveaway();
+                           this.props.loadPromoProd();
+                           this.props.loadPromoPart();
+
+                         }}/>
+          </div>
+          <div className="col-xs-3">
+            <SelectInput label={'week'} name={'week'} id={'week_select'}
+                         data={[{rowText: 'Current Week'}, {rowText: 'Latest 4 Weeks'}, {rowText: 'Latest 13 Weeks'}, {rowText: 'Latest 26 Weeks'}, {rowText: 'YTD'}]}
+                         valid
+                         fieldBlurred={() => {
+                         }}
+                         valueUpdated={(e,v) => {
+                           console.log('value updated', e,v);
+                           // console.log(e.target.value)
+                           let selection = "week_flag=" + v;
+                           this.props.onSaveWeekParam(selection);
 
                            this.props.pieChartSuccess(0);
                            this.props.kpiDataSuccess(0);

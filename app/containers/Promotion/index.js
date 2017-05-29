@@ -17,6 +17,7 @@ import './style.scss';
 import PieChart from 'components/PieChart';
 import Spinner from 'components/spinner';
 import PromoFilter from 'components/PromoFilter';
+import Breadcrumb from 'components/Breadcrumb';
 import Link from 'components/link';
 import PromoTopFilter from 'components/PromoTopFilter';
 import MultilinePromo from 'components/MultilinePromo';
@@ -48,7 +49,7 @@ import {
   kpiDataSuccess,
   saveTrendChartTabParam, productsOnPromoTableFetch, trendChartDataFetch, pieChartDataFetch,
   saveMetricSelectionTabParam,
-  trendChartSpinner, modalProductName, modalProductInfo, modalProductInfoSuccess,
+  trendChartSpinner, modalProductName, modalProductInfo, modalProductInfoSuccess, StoreFilterParam,
 } from './actions';
 
 function glyphiconFormatter(cell) {
@@ -253,40 +254,29 @@ export class Promotion extends React.PureComponent {
 
               {/*Page title*/}
               <div className="">
-                {(() => {
-                  if (this.props.promotion.kpi_data.selected_week) {
-                    return (
-                      <div>
-                        <Link arrow="right" className="back-link">Back To Groceries</Link>
-                        <Link arrow="right" className="back-link">Back To Groceries</Link>
-                      </div>
-                    )
-                  } else {
-                    return (
-                      <Link arrow="left" className="back-link">Back To Groceries</Link>
-                    )
-                  }
-                })()}
+                <Breadcrumb selected_week={this.props.promotion.kpi_data.selected_week} urlParamsString={this.props.promotion.urlParamsString}/>
               </div>
               <br/>
-              <div className="pageTitle">
-                {(() => {
-                  if (this.props.promotion.kpi_data.selected_week) {
-                    return (
-                      <span>Promotions View - {this.props.promotion.kpi_data.selected_week} </span>
-                    )
-                  } else {
-                    return (
-                      <span>Promotions View - 201711  </span>
-                    )
-                  }
-                })()}
-              </div>
+              {/*<div className="pageTitle">*/}
+                {/*{(() => {*/}
+                  {/*if (this.props.promotion.kpi_data.selected_week) {*/}
+                    {/*return (*/}
+                      {/*<span>Promotions View - {this.props.promotion.kpi_data.selected_week} </span>*/}
+                    {/*)*/}
+                  {/*} else {*/}
+                    {/*return (*/}
+                      {/*<span>Promotions View - 201711  </span>*/}
+                    {/*)*/}
+                  {/*}*/}
+                {/*})()}*/}
+              {/*</div>*/}
+
+
 
               {/*Content*/}
               <div className="col-md-12 content-wrap" style={{background: "#fafafa"}}>
                 {/*Time period Tabs*/}
-                <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect}
+                {/*<Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect}
                      className="tabsCustom" style={{marginLeft: '1%', marginBottom: '0%'}}>
                   <NavItem className="tabsCustomListTime" eventKey="1" onClick={() => {
 
@@ -294,12 +284,7 @@ export class Promotion extends React.PureComponent {
                     this.setState({activeKey1: "1"});
                     this.props.kpiDataSuccess(0);
                     this.props.pieChartSuccess(0);
-                    {/*this.props.promoGiveAwaySuccess(0);*/
-                    }
-                    {/*this.props.productsCountSplitSuccess(0);*/
-                    }
-                    {/*this.props.promoParticipationBySplitSuccess(0);*/
-                    }
+
                     this.props.productsTableSplitSuccess(0);
                     this.props.trendChartSpinner(0);
 
@@ -320,12 +305,7 @@ export class Promotion extends React.PureComponent {
                     this.props.kpiDataSuccess(0);
                     this.props.pieChartSuccess(0);
                     this.props.trendChartSpinner(0);
-                    {/*this.props.promoGiveAwaySuccess(0);*/
-                    }
-                    {/*this.props.productsCountSplitSuccess(0);*/
-                    }
-                    {/*this.props.promoParticipationBySplitSuccess(0);*/
-                    }
+
                     this.props.productsTableSplitSuccess(0);
 
 
@@ -347,12 +327,7 @@ export class Promotion extends React.PureComponent {
                     this.props.kpiDataSuccess(0);
                     this.props.pieChartSuccess(0);
                     this.props.trendChartSpinner(0);
-                    {/*this.props.promoGiveAwaySuccess(0);*/
-                    }
-                    {/*this.props.productsCountSplitSuccess(0);*/
-                    }
-                    {/*this.props.promoParticipationBySplitSuccess(0);*/
-                    }
+
                     this.props.productsTableSplitSuccess(0);
 
                     dataWeekParam = "week_flag=Latest 13 Weeks";
@@ -372,12 +347,7 @@ export class Promotion extends React.PureComponent {
                     this.props.kpiDataSuccess(0);
                     this.props.pieChartSuccess(0);
                     this.props.trendChartSpinner(0);
-                    {/*this.props.promoGiveAwaySuccess(0);*/
-                    }
-                    {/*this.props.productsCountSplitSuccess(0);*/
-                    }
-                    {/*this.props.promoParticipationBySplitSuccess(0);*/
-                    }
+
                     this.props.productsTableSplitSuccess(0);
 
                     dataWeekParam = "week_flag=Latest 26 Weeks";
@@ -398,12 +368,7 @@ export class Promotion extends React.PureComponent {
                     this.props.kpiDataSuccess(0);
                     this.props.pieChartSuccess(0);
                     this.props.trendChartSpinner(0);
-                    {/*this.props.promoGiveAwaySuccess(0);*/
-                    }
-                    {/*this.props.productsCountSplitSuccess(0);*/
-                    }
-                    {/*this.props.promoParticipationBySplitSuccess(0);*/
-                    }
+
                     this.props.productsTableSplitSuccess(0);
 
                     dataWeekParam = "week_flag=YTD";
@@ -414,7 +379,7 @@ export class Promotion extends React.PureComponent {
                     this.props.productsOnPromoTableFetch();
                     this.setState({activeKey4: "4"});
                   }}><span className="tab_label">YTD</span></NavItem>
-                </Nav>
+                </Nav>*/}
                 <div>
                   {/*Value/Volume Tabs*/}
                   {/*<div className="mainBox">*/}
@@ -523,74 +488,18 @@ export class Promotion extends React.PureComponent {
                       </span>
                   </Nav>
 
-                </div>
-
-
-                <div className="coverBox">
                   {(() => {
                     if (this.props.promotion.week_filter_data) {
                       return (
                         <div>
-                          {/*<div className="row">*/}
-                          {/*<div className="col-xs-3"></div>*/}
-                          {/*<div className="col-xs-3">*/}
-                          {/*<SelectInput label={'week'} name={'week'} id={'week_select'}*/}
-                          {/*data={[{rowText: 'All Stores'}, {rowText: 'Main Estate'}, {rowText: 'Express'}]}*/}
-                          {/*valid*/}
-                          {/*fieldBlurred={() => {*/}
-                          {/*console.log('field blurred');*/}
-                          {/*}}*/}
-                          {/*valueUpdated={(e, v) => {*/}
-                          {/*console.log('value updated');*/}
-                          {/*// console.log(e.target.value);*/}
-                          {/*if (v == 'All Stores') {*/}
-                          {/*this.props.onSaveStoreFilterParam('store_type=Express&store_type=Main Estate');*/}
-
-                          {/*} else {*/}
-                          {/*this.props.onSaveStoreFilterParam('store_type=' + v);*/}
-
-                          {/*}*/}
-
-
-                          {/*}}/>*/}
-                          {/*</div>*/}
-                          {/*<div className="col-xs-3">*/}
-                          {/*<SelectInput label={'week'} name={'week'} id={'week_select'} data={week_data}*/}
-                          {/*valid*/}
-                          {/*fieldBlurred={() => {*/}
-                          {/*}}*/}
-                          {/*valueUpdated={(e, v) => {*/}
-                          {/*console.log('value updated', e, v);*/}
-                          {/*// console.log(e.target.value)*/}
-                          {/*let selection = "tesco_week=" + v;*/}
-                          {/*this.props.onSaveWeekFilterParam(selection);*/}
-                          {/*this.props.pieChartSuccess(0);*/}
-                          {/*this.props.kpiDataSuccess(0);*/}
-                          {/*/!*this.props.promoGiveAwaySuccess(0);*!/*/}
-                          {/*this.props.trendChartSpinner(0);*/}
-                          {/*this.props.productsCountSplitSuccess(0);*/}
-                          {/*/!*this.props.promoParticipationBySplitSuccess(0);*!/*/}
-                          {/*this.props.productsTableSplitSuccess(0);*/}
-                          {/*this.props.productsOnPromoTableFetch();*/}
-                          {/*this.props.trendChartDataFetch();*/}
-
-                          {/*this.props.loadKpi();*/}
-                          {/*this.props.loadSales();*/}
-                          {/*this.props.loadPromoGiveaway();*/}
-                          {/*this.props.loadPromoProd();*/}
-                          {/*this.props.loadPromoPart();*/}
-
-                          {/*}}/>*/}
-                          {/*</div>*/}
-                          {/*</div>*/}
 
                           <PromoTopFilter
                             week_filter_data={this.props.promotion.week_filter_data}
 
                             onSaveWeekFilterParam={this.props.onSaveWeekFilterParam}
+                            onSaveWeekParam={this.props.onSaveWeekParam}
 
                             onSaveStoreFilterParam={this.props.onSaveStoreFilterParam}
-
 
 
                             kpi_type={this.props.promotion.kpi_param}
@@ -638,6 +547,10 @@ export class Promotion extends React.PureComponent {
                       )
                     }
                   })()}
+                </div>
+
+
+                <div className="coverBox">
 
 
                   {/* Header---Promo KPI Boxes */}
