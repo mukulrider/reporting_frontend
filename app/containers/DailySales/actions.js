@@ -6,7 +6,8 @@
 
 import {
   DEFAULT_ACTION,
-  LINECHART_CONSTANT,LINECHART_FETCH_SUCCESS,
+  CARDS_CONSTANT,CARDS_DATA_FETCH_SUCCESS,
+  CHARTS_CONSTANT,CHARTS_DATA_FETCH_SUCCESS,
   KPI_PARAM,
   KPI_CONSTANT,
   WEEK_PARAM,
@@ -23,8 +24,9 @@ import {
   DS_VIEW_KPI_SPINNER,
   LINE_CHART_SPINNER,
   WEEK,
-  CHECKBOX_WEEK_CHANGE
-
+  CHECKBOX_WEEK_CHANGE,
+  STORE_FILTER_PARAM,
+  DEFAULT_PAGE_LOAD_CHECK,
 } from './constants';
 
 export function defaultAction() {
@@ -33,19 +35,34 @@ export function defaultAction() {
   };
 }
 
-export function lineChartCallAction()
+export function cardsCallAction()
 {
-  console.log('Reached Action Call');
+  console.log('Reached Cards Action Call');
   return {
-    type: LINECHART_CONSTANT,
+    type: CARDS_CONSTANT,
   };
 }
 
-export function LineChartDataFetchSuccess(data)
+export function chartCallAction()
 {
-  console.log('LINECHART_FETCH_SUCCESS with data',data)
+  console.log('Reached Action Call');
   return {
-    type: LINECHART_FETCH_SUCCESS,
+    type: CHARTS_CONSTANT,
+  };
+}
+export function cardDataFetchSuccess(data)
+{
+  console.log('CARDS_DATA_FETCH_SUCCESS',data)
+  return {
+    type: CARDS_DATA_FETCH_SUCCESS,
+    data,
+  };
+}
+export function chartDataFetchSuccess(data)
+{
+  console.log('CHARTS_DATA_FETCH_SUCCESS',data)
+  return {
+    type: CHARTS_DATA_FETCH_SUCCESS,
     data,
   };
 }
@@ -76,6 +93,17 @@ export function SaveWeekParam(data)
   console.log('SaveWeekParam = actions', data);
   return {
     type: WEEK_PARAM,
+    data,
+  };
+}
+
+//DEFAULT PAGE LOAD CHECK FOR TESCO WEEEK
+
+export function defaultPageLoadCheck(data)
+{
+  console.log('defaultPageLoadCheck', data);
+  return {
+    type: DEFAULT_PAGE_LOAD_CHECK,
     data,
   };
 }
@@ -166,6 +194,14 @@ export function SaveWeek(data) {
   console.log('SaveWeek = actions', data);
   return {
     type: WEEK,
+    data,
+  };
+}
+
+export function StoreFilterParam(data) {
+  console.log('StoreFilterParam = actions', data);
+  return {
+    type: STORE_FILTER_PARAM,
     data,
   };
 }

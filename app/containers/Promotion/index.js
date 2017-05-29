@@ -1294,7 +1294,7 @@ export class Promotion extends React.PureComponent {
                                   Promo Type</h3>
                               </div>
                               <div className="col-md-3 col-sm-12 col-xs-12" style={{marginTop: "8px"}}>
-                                <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight
+                                <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight
                                                 style={{
                                                   backgroundColor: "transparent",
                                                   borderColor: "transparent",
@@ -1390,7 +1390,7 @@ export class Promotion extends React.PureComponent {
                         <div className="row">
 
                                 <span style={{float: "right"}}>
-                          <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                          <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight style={{
                             backgroundColor: "transparent",
                             borderColor: "transparent",
                             color: "#00539f"

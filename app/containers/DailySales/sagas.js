@@ -2,7 +2,8 @@
 
 import {
   DEFAULT_ACTION,
-  LINECHART_CONSTANT,
+  CARDS_CONSTANT,
+  CHARTS_CONSTANT,
   FILTER_CONSTANT,
   WEEK_FILTER_CONSTANT
 } from './constants';
@@ -11,8 +12,9 @@ import {
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-import {lineChartCallAction,LineChartDataFetchSuccess,LineChartSpinnerCheckSuccess,
-  PromoKpiDataFetchSuccess, FilterFetchSuccess, WeekFilterFetchSuccess,DSViewKpiSpinnerCheckSuccess}
+import {cardDataFetchSuccess,chartDataFetchSuccess,LineChartSpinnerCheckSuccess,
+  PromoKpiDataFetchSuccess, FilterFetchSuccess, WeekFilterFetchSuccess,DSViewKpiSpinnerCheckSuccess,
+  defaultPageLoadCheck}
   from './actions';
 
 // import { take, call, put, select } from 'redux-saga/effects';
@@ -24,7 +26,7 @@ import {
   selectDailySalesDomain
 } from './selectors';
 
-let gettingUserDetails = () =>{
+let gettingUserDetails = () => {
   //function to get values from cookie
   const getCookie = (name) => {
     const value = `; ${document.cookie}`;
@@ -39,7 +41,7 @@ let gettingUserDetails = () =>{
   const designation = getCookie('designation');
   const buyingController = getCookie('buying_controller');
   let buyer = getCookie('buyer');
-  let cookieParams= "";
+  let cookieParams = "";
 
   if ((typeof(buyer) == "undefined") || (buyer == "")) {
     buyer = "";
@@ -57,29 +59,51 @@ const userParams = gettingUserDetails();
 
 
 // let host_url="http://172.20.181.92:8002";
-let host_url="http://172.20.181.92:8002";
+let host_url="http://127.0.0.1:8000";
 // All sagas to be loaded
 
+// FOR CARDS DATA
+export function* Cards_watcher() {
+  console.log('Cards_watcher triggered');
+  const watcher = yield takeLatest(CARDS_CONSTANT, cardData_pull);
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+export function* cardData_pull() {
+  const urlName = yield select(selectDailySalesDomain());
+  console.log("Begin Card Data Pull");
+  const kpiparam = urlName.get('kpi_param');
+  const week_filter = urlName.get('filter_week_selection');
+  const filter = urlName.get('filter_selection');
 
-// FOR LINECHART DATA
-export function* LineChart_watcher() {
-  console.log('LineChart_watcher triggered');
-  const watcher = yield takeLatest(LINECHART_CONSTANT, LineChartData_pull);
+  const data = yield call(request,host_url+"/api/reporting/data_daily_sales?"+'&'+kpiparam+'&'+filter+'&'+week_filter + '&'+ userParams);
+  console.log("Line chart fetched data",data);
+  console.log("Along with the URL",host_url+"/api/reporting/data_daily_sales?"+'&'+kpiparam+'&'+filter+'&'+week_filter + '&'+ userParams);
+  yield put(cardDataFetchSuccess(data));
+
+  let LineChartSpinnerCheck = 1;
+  yield put(LineChartSpinnerCheckSuccess(LineChartSpinnerCheck));
+
+}
+// FOR CHARTS DATA
+export function* Charts_watcher() {
+  console.log('Chart_watcher triggered');
+  const watcher = yield takeLatest(CHARTS_CONSTANT, chartData_pull);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
 }
 
-export function* LineChartData_pull() {
+export function* chartData_pull() {
   const urlName = yield select(selectDailySalesDomain());
   console.log("Begin Line Chart Pull");
   const kpiparam = urlName.get('kpi_param');
   const week_filter = urlName.get('filter_week_selection');
   const filter = urlName.get('filter_selection');
 
-  const data = yield call(request,host_url+"/api/reporting/daily_sales?"+'&'+kpiparam+'&'+filter+'&'+week_filter + '&'+ userParams);
+  const data = yield call(request,host_url+"/api/reporting/graph_daily_sales?"+'&'+kpiparam+'&'+filter+'&'+week_filter + '&'+ userParams);
   console.log("Line chart fetched data",data);
-  console.log("Along with the URL",host_url+"/api/reporting/daily_sales?"+'&'+kpiparam+'&'+filter+'&'+week_filter + '&'+ userParams);
-  yield put(LineChartDataFetchSuccess(data));
+  console.log("Along with the URL",host_url+"/api/reporting/graph_daily_sales?"+'&'+kpiparam+'&'+filter+'&'+week_filter + '&'+ userParams);
+  yield put(chartDataFetchSuccess(data));
 
   let LineChartSpinnerCheck = 1;
   yield put(LineChartSpinnerCheckSuccess(LineChartSpinnerCheck));
@@ -90,7 +114,7 @@ export function* LineChartData_pull() {
 // FOR FILTER DATA
 
 export function* doFilterFetch() {
-  console.log('Filter_Watcher ',FILTER_CONSTANT);
+  console.log('Filter_Watcher ', FILTER_CONSTANT);
   const watcher = yield takeLatest(FILTER_CONSTANT, generateFilterFetch);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
@@ -109,19 +133,19 @@ export function* generateFilterFetch() {
   // const buyer = getCookie('buyer');
   // const token = user_token.concat('___').concat(buyer)
 
-  let urlName=yield select(selectDailySalesDomain());
+  let urlName = yield select(selectDailySalesDomain());
   let urlParamsString = urlName.get('filter_week_selection');
   // let urlParamsString = urlName.get('filter_selection');
-  console.log('urlParamsString-> ',urlParamsString);
-  if(!urlParamsString){
-    urlParamsString=''
+  console.log('urlParamsString-> ', urlParamsString);
+  if (!urlParamsString) {
+    urlParamsString = ''
   }
 
   if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
     // urlParamsString = '?' + urlParamsString;
   }
   try {
-    const data = yield call(request, host_url+'/api/reporting/filter_daily_sales?' + urlParamsString + '&'+ userParams,
+    const data = yield call(request, host_url + '/api/reporting/filter_daily_sales?' + urlParamsString + '&' + userParams,
       // {
       //   headers: {
       //     Authorization: token
@@ -134,7 +158,7 @@ export function* generateFilterFetch() {
     // const data2 = yield call(request, host_url+'/api/reporting/filter_data_week?' +weekurlparams);
     // console.log("sagas generateFilterFetch data2",data2)
     // const filter_data = {"filter_data": data, "week_data": data2 }
-    console.log("Filter data",data);
+    console.log("Filter data", data);
     yield put(FilterFetchSuccess(data));
 
     let DSViewKpiSpinnerCheck = 1;
@@ -151,7 +175,7 @@ export function* generateWeekFilterFetch() {
   // todo: update url
 
   console.log("Inside generateWeekFilterFetch");
-  let urlName=yield select(selectDailySalesDomain());
+  let urlName = yield select(selectDailySalesDomain());
   // let weekurlparams1 = urlName.get('filter_week_selection');
 
   //*********************** FILTERS PARAMETERS *****************************
@@ -159,28 +183,46 @@ export function* generateWeekFilterFetch() {
   let urlParams = "";
   let filter_week_selection = '';
   filter_week_selection = urlName.get('week');
-  if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
-    filter_week_selection = urlName.get('week');
-    console.log("filter_week_selection if", filter_week_selection);
+  console.log("below filter", filter_week_selection);
+  let abc = urlName.get('defaultPageLoadCheck');
+  console.log("below filter1", abc);
+
+  // if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
+  //   filter_week_selection = urlName.get('week');
+  //
+  // } else {
+  //   filter_week_selection = "";
+  //
+  // }
+
+  if ((localStorage.getItem('weekParams') == "") || (localStorage.getItem('weekParams') === null) || (typeof(localStorage.getItem('weekParams')) === undefined)) {
+
+    if (abc == 1) {
+      urlParams = '?' + 'tesco_week_flag=1';
+      console.log("flag check if", urlParams);
+    } else {
+      if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
+
+        urlParams = '?' + filter_week_selection;
+        console.log("flag check if", urlParams);
+      } else {
+
+      }
+    }
   } else {
-    filter_week_selection = "";
-    console.log("filter_week_selection else", filter_week_selection);
-  }
-  if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
-    urlParams = '?' + filter_week_selection;
-    console.log("filter_week_selection urlParams if", urlParams);
-  } else {
-    console.log("filter_week_selection urlParams else", urlParams);
+    urlParams = '?' + localStorage.getItem('weekParams');
+    console.log("flag check outer else", urlParams);
   }
 
-  try{
-    const data = yield call(request, host_url+'/api/reporting/filter_daily_tesco_week' + urlParams);
+  try {
+    const data = yield call(request, host_url + '/api/reporting/filter_daily_tesco_week' + urlParams);
     // const data = yield call(request, host_url+'/api/reporting/product/filter_data_week?' + urlParams);
-    console.log("Filter week data",data);
+    console.log("Filter week data", data);
 
+    yield put(defaultPageLoadCheck(0));
     yield put(WeekFilterFetchSuccess(data));
   } catch (err) {
-    console.log("Error",err);
+    console.log("Error", err);
   }
 }
 
@@ -195,7 +237,8 @@ export function* WeekFilter_watcher() {
 // All sagas to be loaded
 export default [
   defaultSaga,
-  LineChart_watcher,
+  Cards_watcher,
+  Charts_watcher,
   doFilterFetch,
   WeekFilter_watcher,
   generateWeekFilterFetch

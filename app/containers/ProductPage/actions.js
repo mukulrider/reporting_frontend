@@ -5,10 +5,10 @@
  */
 
 import {
-  DEFAULT_ACTION, API_FETCH, API_FETCH_SUCCESS,SAVE_WEEK_PARAM,SAVE_METRIC_PARAM,FETCH_SAVE_WEEK_PARAM,FETCH_SAVE_WEEK_PARAM_SUCCESS,
+  DEFAULT_ACTION, API_FETCH, API_FETCH_SUCCESS,DEFAULT_TESCO_WEEK,SAVE_WEEK_PARAM,SAVE_METRIC_PARAM,FETCH_SAVE_WEEK_PARAM,FETCH_SAVE_WEEK_PARAM_SUCCESS,
   FETCH_SAVE_METRIC_PARAM_SUCCESS,GENERATE_URL_PARAMS_STRING,GENERATE_SIDE_FILTER,GENERATE_SIDE_FILTER_SUCCESS,FETCH_FILTERED_PRODUCT_DATA,
   WEEK_FILTER_CONSTANT, WEEK_FILTER_FETCH_SUCCESS,CHECKBOX_WEEK_CHANGE, WEEK, TABS_APPLY_SPINNER,SAVE_PRODUCT,FETCH_SAVE_SUPPLIER_INFO_SUCCESS,SAVE_PRODUCT_TREND,
-  FETCH_PRODUCT_TREND, FETCH_SAVE_PRODUCT_TREND_SUCCESS
+  FETCH_PRODUCT_TREND, FETCH_SAVE_PRODUCT_TREND_SUCCESS,SAVE_USER_PARAMS
 } from './constants';
 
 export function defaultAction() {
@@ -120,7 +120,12 @@ export function generateSideFilter() {
     type: GENERATE_SIDE_FILTER
   }
 }
-
+export function saveUserParams(data) {
+  return {
+    type: SAVE_USER_PARAMS,
+    data
+  }
+}
 
 export function apiFetch() {
   console.log('apiFetch action');
@@ -139,9 +144,8 @@ export function apiFetchSuccess(data) {
 
 //FOR WEEK FILTER DATA
 
-export function WeekFilterFetchSuccess(data)
-{
-  console.log('WeekFilterFetchSuccess = actions', data);
+export function WeekFilterFetchSuccess(data) {
+  console.log('WeekFilterFetchSuccess', data);
   return {
     type: WEEK_FILTER_FETCH_SUCCESS,
     data,
@@ -156,6 +160,13 @@ export function SaveWeek(data) {
   };
 }
 
+export function saveDefaultWeek(data) {
+  console.log("SaveDefaultWeek",data);
+  return {
+    type: DEFAULT_TESCO_WEEK,
+    data,
+  };
+}
 export function checkboxWeekChange(data) {
   console.log("checkboxWeekChange Selection in actions" + data);
   return {
@@ -164,17 +175,16 @@ export function checkboxWeekChange(data) {
   };
 }
 
-export function getWeekFilter()
-{
-  console.log('getWeekFilter',WEEK_FILTER_CONSTANT);
+export function getWeekFilter(data) {
+  console.log('getWeekFilter',data);
   return {
     type: WEEK_FILTER_CONSTANT,
+    data
   };
 }
 
 // APPLY AND TABS CLICK SPINNER
-export function tabsAndApplySpinner(spinnerCheck)
-{
+export function tabsAndApplySpinner(spinnerCheck) {
   console.log('tabsAndApplySpinner',spinnerCheck);
   return {
     type: TABS_APPLY_SPINNER,

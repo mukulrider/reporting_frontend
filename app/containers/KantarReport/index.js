@@ -228,7 +228,7 @@ export class KantarReport extends React.PureComponent { // eslint-disable-line r
                       return (
                         <div style={{border: '1px solid #e5e8ea'}}>
                           <div style={{float:"right"}}>
-                            <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
+                            <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                               <MenuItem onClick={() => {
                                 saveImage(document.getElementById('growthPercRetailer'+'_svg'),"growthPercRetailer_barChart")
                               }
@@ -263,7 +263,7 @@ export class KantarReport extends React.PureComponent { // eslint-disable-line r
                       return (
                         <div style={{border: '1px solid #e5e8ea'}}>
                           <div style={{float:"right"}}>
-                            <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
+                            <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                               <MenuItem onClick={() => {
                                 saveImage(document.getElementById('sharePercRetailer'+'_svg'),"sharePercRetailer_barChart")
                               }
@@ -299,7 +299,7 @@ export class KantarReport extends React.PureComponent { // eslint-disable-line r
                     return (
                       <div style={{border: '1px solid #e5e8ea'}}>
                         <div style={{float:"right"}}>
-                          <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
+                          <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight style={{backgroundColor:"transparent", borderColor:"transparent",color:"#00539f"}} id="dropButtonId">
                             <MenuItem onClick={() => {
                               saveImage(document.getElementById('yoyPercRetailer'+'_svg'),"yoyPercRetailer_barChart")
                             }

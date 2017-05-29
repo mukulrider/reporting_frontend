@@ -76,7 +76,7 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
 
   clearFilter = () => {
     // this.props.onGenerateFilterParamsString('');
-     this.props.onGenerateUrlParamsString('');
+     //this.props.onGenerateUrlParamsString('');
     // this.props.onGenerateUrlParamsData();
   };
 
@@ -133,7 +133,7 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
                                                 }
                                                 this.props.onCheckboxWeekChange(selection);
                                                 this.props.onSaveWeek(selection);
-                                                this.props.onGetFilter();
+                                                this.props.onGetFilter('');
                                                 {/*this.props.onGenerateSideFilter();*/
                                                 }
                                               }}
@@ -308,10 +308,11 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
                   console.log('apply');
                   let filterDataWeek = this.props.filter_week_selection;
                   let filterData = this.props.urlParamsString;
+                  let hierarchyData = this.props.userParams;
                   console.log('filterDataWeek', filterDataWeek);
                   if (!(typeof(filterDataWeek) == "undefined") && !(typeof(filterData) == "undefined")) {
                     console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek, filterData);
-                    if (filterDataWeek.includes("tesco_week=") && filterData.includes("buying_controller=")) {
+                    if (filterDataWeek.includes("tesco_week=") && (filterData.includes("buying_controller=") || hierarchyData.includes("buying_controller_header=")) ) {
                       console.log('tesco_weeek filterDataWeek', filterDataWeek);
                       console.log('--filterData', filterData);
 
@@ -331,11 +332,19 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
                 <Button style={{marginTop:"4px", marginLeft:"0 auto"}} buttonType={'secondary'}
 
                         onClick={() => {
+                          console.log("Clear Filters Clicked");
                           this.props.onGenerateUrlParamsString('');
-                          this.props.onCheckboxWeekChange('');
-                          this.props.onSaveWeek('');
-                          this.props.onGetFilter();
-                          this.props.onProductPage();
+                          let previous_week_selection = this.props.previous_week_selection;
+                          let selection = this.props.filter_week_selection;
+                          //For enabling un checking
+                          console.log('Cascaded Filter previous_week_selection', previous_week_selection);
+                          console.log('Cascaded Filter selection', selection);
+                          if (previous_week_selection == selection) {
+                            selection = '';
+                          }
+                          this.props.onCheckboxWeekChange(selection);
+                          this.props.onSaveWeek(selection);
+                          this.props.onGetFilter('');
                         }}>Clear Filters Selection</Button></div>
               {/*<Button onClick={() => {*/}
               {/*/!*this.props.onFilterReset();*!/*/}
