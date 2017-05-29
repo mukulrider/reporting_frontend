@@ -21,7 +21,7 @@ class PromoTopFilter extends React.PureComponent { // eslint-disable-line react/
     return (
       <div>
         <div className="row">
-          <div className="col-xs-1"></div>
+          <div className="col-xs-0"></div>
           <div className="col-xs-3">
             <SelectInput label={'week'} name={'week'} id={'week_select'}
                          data={[{rowText: 'All Stores'}, {rowText: 'Main Estate'}, {rowText: 'Express'}]}

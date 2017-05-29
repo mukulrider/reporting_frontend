@@ -249,7 +249,7 @@ export class Promotion extends React.PureComponent {
           }}>
 
 
-            <div className="row" style={{marginLeft: "0.5%", paddingTop: "-5px"}}>
+            <div className="row" style={{paddingTop: "-5px"}}>
               {/*<FormattedMessage {...messages.header} />*/}
 
               {/*Page title*/}
@@ -388,6 +388,65 @@ export class Promotion extends React.PureComponent {
                   {/*Value/Volume Tabs*/}
                   {/*<div className="mainBox">*/}
 
+                  {(() => {
+                    if (this.props.promotion.week_filter_data) {
+                      return (
+                        <div>
+
+                          <PromoTopFilter
+                            week_filter_data={this.props.promotion.week_filter_data}
+
+                            onSaveWeekFilterParam={this.props.onSaveWeekFilterParam}
+                            onSaveWeekParam={this.props.onSaveWeekParam}
+
+                            onSaveStoreFilterParam={this.props.onSaveStoreFilterParam}
+
+
+                            kpi_type={this.props.promotion.kpi_param}
+
+                            generateSideFilter={this.props.onGetFilter}
+                            onFilterReset={this.props.onFilterReset}
+                            onDataUrlParams={this.props.DataUrlParams}
+                            onUrlParamsData={this.props.onUrlParamsData}
+                            onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}
+                            onGenerateFilterParamsString={this.props.onGenerateFilterParamsString}
+                            onGenerateUrlParamsData={this.props.onGenerateUrlParamsData}
+                            week_data={this.props.promotion.week_filter_data}
+                            ongenerateWeekFilter={this.props.onGetWeekFilter}
+                            previous_week_selection={this.props.weekurlParam}
+                            loadKpi={this.props.loadKpi}
+                            loadSales={this.props.loadSales}
+                            loadPromoGiveaway={this.props.loadPromoGiveaway}
+                            loadPromoProd={this.props.loadPromoProd}
+                            loadPromoPart={this.props.loadPromoPart}
+
+                            trendChartDataFetch={this.props.trendChartDataFetch}
+                            pieChartDataFetch={this.props.pieChartDataFetch}
+                            productsOnPromoTableFetch={this.props.productsOnPromoTableFetch}
+
+
+                            pieChartSuccess={this.props.pieChartSuccess}
+                            promoGiveAwaySuccess={this.props.promoGiveAwaySuccess}
+                            productsCountSplitSuccess={this.props.productsCountSplitSuccess}
+                            promoParticipationBySplitSuccess={this.props.promoParticipationBySplitSuccess}
+                            productsTableSplitSuccess={this.props.productsTableSplitSuccess}
+                            kpiDataSuccess={this.props.kpiDataSuccess}
+                            trendChartSpinner={this.props.trendChartSpinner}
+
+                            weekurlParam={this.props.promotion.weekurlParam}
+                            urlParamsString={this.props.promotion.urlParamsString}
+
+                          />
+                        </div>
+                      )
+                    } else {
+                      return (
+                        <div className="text-center">
+                          <Spinner/>
+                        </div>
+                      )
+                    }
+                  })()}
                   <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect}
                        className="tabsCustom mainTab" style={{margin: "0px"}}>
                     <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
@@ -464,7 +523,7 @@ export class Promotion extends React.PureComponent {
                       this.props.trendChartDataFetch();
                       this.props.pieChartDataFetch();
                       this.props.productsOnPromoTableFetch();
-                    }}><span className="tab_label">Promotion Give Away</span></NavItem>
+                    }}><span className="tab_label">Giveaway</span></NavItem>
 
                     <NavItem className="tabsNavPanelList1" eventKey="5" onClick={() => {
                       this.setState({activeKey2: "5"});
@@ -492,65 +551,6 @@ export class Promotion extends React.PureComponent {
                       </span>
                   </Nav>
 
-                  {(() => {
-                    if (this.props.promotion.week_filter_data) {
-                      return (
-                        <div>
-
-                          <PromoTopFilter
-                            week_filter_data={this.props.promotion.week_filter_data}
-
-                            onSaveWeekFilterParam={this.props.onSaveWeekFilterParam}
-                            onSaveWeekParam={this.props.onSaveWeekParam}
-
-                            onSaveStoreFilterParam={this.props.onSaveStoreFilterParam}
-
-
-                            kpi_type={this.props.promotion.kpi_param}
-
-                            generateSideFilter={this.props.onGetFilter}
-                            onFilterReset={this.props.onFilterReset}
-                            onDataUrlParams={this.props.DataUrlParams}
-                            onUrlParamsData={this.props.onUrlParamsData}
-                            onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}
-                            onGenerateFilterParamsString={this.props.onGenerateFilterParamsString}
-                            onGenerateUrlParamsData={this.props.onGenerateUrlParamsData}
-                            week_data={this.props.promotion.week_filter_data}
-                            ongenerateWeekFilter={this.props.onGetWeekFilter}
-                            previous_week_selection={this.props.weekurlParam}
-                            loadKpi={this.props.loadKpi}
-                            loadSales={this.props.loadSales}
-                            loadPromoGiveaway={this.props.loadPromoGiveaway}
-                            loadPromoProd={this.props.loadPromoProd}
-                            loadPromoPart={this.props.loadPromoPart}
-
-                            trendChartDataFetch={this.props.trendChartDataFetch}
-                            pieChartDataFetch={this.props.pieChartDataFetch}
-                            productsOnPromoTableFetch={this.props.productsOnPromoTableFetch}
-
-
-                            pieChartSuccess={this.props.pieChartSuccess}
-                            promoGiveAwaySuccess={this.props.promoGiveAwaySuccess}
-                            productsCountSplitSuccess={this.props.productsCountSplitSuccess}
-                            promoParticipationBySplitSuccess={this.props.promoParticipationBySplitSuccess}
-                            productsTableSplitSuccess={this.props.productsTableSplitSuccess}
-                            kpiDataSuccess={this.props.kpiDataSuccess}
-                            trendChartSpinner={this.props.trendChartSpinner}
-
-                            weekurlParam={this.props.promotion.weekurlParam}
-                            urlParamsString={this.props.promotion.urlParamsString}
-
-                          />
-                        </div>
-                      )
-                    } else {
-                      return (
-                        <div className="text-center">
-                          <Spinner/>
-                        </div>
-                      )
-                    }
-                  })()}
                 </div>
 
 
