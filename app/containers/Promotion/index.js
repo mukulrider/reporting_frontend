@@ -253,133 +253,137 @@ export class Promotion extends React.PureComponent {
               {/*<FormattedMessage {...messages.header} />*/}
 
               {/*Page title*/}
-              <div className="">
-                <Breadcrumb selected_week={this.props.promotion.kpi_data.selected_week} urlParamsString={this.props.promotion.urlParamsString}/>
+              <div className="col-xs-12">
+
+                  <Breadcrumb selected_week={this.props.promotion.kpi_data.selected_week}
+                              urlParamsString={this.props.promotion.urlParamsString}/>
               </div>
               <br/>
+              <br/>
+              <br/>
+              <br/>
               {/*<div className="pageTitle">*/}
-                {/*{(() => {*/}
-                  {/*if (this.props.promotion.kpi_data.selected_week) {*/}
-                    {/*return (*/}
-                      {/*<span>Promotions View - {this.props.promotion.kpi_data.selected_week} </span>*/}
-                    {/*)*/}
-                  {/*} else {*/}
-                    {/*return (*/}
-                      {/*<span>Promotions View - 201711  </span>*/}
-                    {/*)*/}
-                  {/*}*/}
-                {/*})()}*/}
+              {/*{(() => {*/}
+              {/*if (this.props.promotion.kpi_data.selected_week) {*/}
+              {/*return (*/}
+              {/*<span>Promotions View - {this.props.promotion.kpi_data.selected_week} </span>*/}
+              {/*)*/}
+              {/*} else {*/}
+              {/*return (*/}
+              {/*<span>Promotions View - 201711  </span>*/}
+              {/*)*/}
+              {/*}*/}
+              {/*})()}*/}
               {/*</div>*/}
-
 
 
               {/*Content*/}
               <div className="col-md-12 content-wrap" style={{background: "#fafafa"}}>
                 {/*Time period Tabs*/}
                 {/*<Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect}
-                     className="tabsCustom" style={{marginLeft: '1%', marginBottom: '0%'}}>
-                  <NavItem className="tabsCustomListTime" eventKey="1" onClick={() => {
+                 className="tabsCustom" style={{marginLeft: '1%', marginBottom: '0%'}}>
+                 <NavItem className="tabsCustomListTime" eventKey="1" onClick={() => {
 
-                    dataWeekParam = "week_flag=Current Week";
-                    this.setState({activeKey1: "1"});
-                    this.props.kpiDataSuccess(0);
-                    this.props.pieChartSuccess(0);
+                 dataWeekParam = "week_flag=Current Week";
+                 this.setState({activeKey1: "1"});
+                 this.props.kpiDataSuccess(0);
+                 this.props.pieChartSuccess(0);
 
-                    this.props.productsTableSplitSuccess(0);
-                    this.props.trendChartSpinner(0);
+                 this.props.productsTableSplitSuccess(0);
+                 this.props.trendChartSpinner(0);
 
-                    this.props.onSaveWeekParam(dataWeekParam);
-                    this.props.loadKpi();
-                    this.props.trendChartDataFetch();
-                    this.props.pieChartDataFetch();
-                    this.props.productsOnPromoTableFetch();
-                    this.setState({activeKey4: "1"});
+                 this.props.onSaveWeekParam(dataWeekParam);
+                 this.props.loadKpi();
+                 this.props.trendChartDataFetch();
+                 this.props.pieChartDataFetch();
+                 this.props.productsOnPromoTableFetch();
+                 this.setState({activeKey4: "1"});
 
-                  }}><span className="tab_label">Selected Week</span></NavItem>
+                 }}><span className="tab_label">Selected Week</span></NavItem>
 
-                  <NavItem className="tabsCustomListTime" eventKey="2" onClick={() => {
-                    this.setState({activeKey1: "2"});
-                    this.setState({activeKey4: "1"});
-                    this.props.saveTrendChartTabParam("");
+                 <NavItem className="tabsCustomListTime" eventKey="2" onClick={() => {
+                 this.setState({activeKey1: "2"});
+                 this.setState({activeKey4: "1"});
+                 this.props.saveTrendChartTabParam("");
 
-                    this.props.kpiDataSuccess(0);
-                    this.props.pieChartSuccess(0);
-                    this.props.trendChartSpinner(0);
+                 this.props.kpiDataSuccess(0);
+                 this.props.pieChartSuccess(0);
+                 this.props.trendChartSpinner(0);
 
-                    this.props.productsTableSplitSuccess(0);
-
-
-                    dataWeekParam = "week_flag=Latest 4 Weeks";
-                    this.props.onSaveWeekParam(dataWeekParam);
-                    this.props.loadKpi();
-                    this.props.trendChartDataFetch();
-                    this.props.pieChartDataFetch();
-                    this.props.productsOnPromoTableFetch();
-
-                  }}><span className="tab_label">Last 4 weeks</span></NavItem>
-
-                  <NavItem className="tabsCustomListTime" eventKey="3" onClick={() => {
-                    this.setState({activeKey1: "3"});
-                    this.setState({activeKey4: "1"});
-                    this.props.saveTrendChartTabParam("");
+                 this.props.productsTableSplitSuccess(0);
 
 
-                    this.props.kpiDataSuccess(0);
-                    this.props.pieChartSuccess(0);
-                    this.props.trendChartSpinner(0);
+                 dataWeekParam = "week_flag=Latest 4 Weeks";
+                 this.props.onSaveWeekParam(dataWeekParam);
+                 this.props.loadKpi();
+                 this.props.trendChartDataFetch();
+                 this.props.pieChartDataFetch();
+                 this.props.productsOnPromoTableFetch();
 
-                    this.props.productsTableSplitSuccess(0);
+                 }}><span className="tab_label">Last 4 weeks</span></NavItem>
 
-                    dataWeekParam = "week_flag=Latest 13 Weeks";
-                    this.props.onSaveWeekParam(dataWeekParam);
-                    this.props.loadKpi();
-                    this.props.trendChartDataFetch();
-                    this.props.pieChartDataFetch();
-                    this.props.productsOnPromoTableFetch();
-                    this.setState({activeKey4: "1"});
-                  }}><span className="tab_label">Last 13 weeks</span></NavItem>
-                  <NavItem className="tabsCustomListTime" eventKey="4" onClick={() => {
-                    this.setState({activeKey1: "4"});
-                    this.setState({activeKey4: "1"});
-                    this.props.saveTrendChartTabParam("");
+                 <NavItem className="tabsCustomListTime" eventKey="3" onClick={() => {
+                 this.setState({activeKey1: "3"});
+                 this.setState({activeKey4: "1"});
+                 this.props.saveTrendChartTabParam("");
 
 
-                    this.props.kpiDataSuccess(0);
-                    this.props.pieChartSuccess(0);
-                    this.props.trendChartSpinner(0);
+                 this.props.kpiDataSuccess(0);
+                 this.props.pieChartSuccess(0);
+                 this.props.trendChartSpinner(0);
 
-                    this.props.productsTableSplitSuccess(0);
+                 this.props.productsTableSplitSuccess(0);
 
-                    dataWeekParam = "week_flag=Latest 26 Weeks";
-                    this.props.onSaveWeekParam(dataWeekParam);
-                    this.props.loadKpi();
-                    this.props.trendChartDataFetch();
-                    this.props.pieChartDataFetch();
-                    this.props.productsOnPromoTableFetch();
-                    this.setState({activeKey4: "1"});
-                  }}><span className="tab_label">Last 26 weeks</span></NavItem>
+                 dataWeekParam = "week_flag=Latest 13 Weeks";
+                 this.props.onSaveWeekParam(dataWeekParam);
+                 this.props.loadKpi();
+                 this.props.trendChartDataFetch();
+                 this.props.pieChartDataFetch();
+                 this.props.productsOnPromoTableFetch();
+                 this.setState({activeKey4: "1"});
+                 }}><span className="tab_label">Last 13 weeks</span></NavItem>
+                 <NavItem className="tabsCustomListTime" eventKey="4" onClick={() => {
+                 this.setState({activeKey1: "4"});
+                 this.setState({activeKey4: "1"});
+                 this.props.saveTrendChartTabParam("");
 
 
-                  <NavItem className="tabsCustomListTime" eventKey="5" onClick={() => {
-                    this.setState({activeKey1: "5"});
-                    this.setState({activeKey4: "1"});
-                    this.props.saveTrendChartTabParam("");
+                 this.props.kpiDataSuccess(0);
+                 this.props.pieChartSuccess(0);
+                 this.props.trendChartSpinner(0);
 
-                    this.props.kpiDataSuccess(0);
-                    this.props.pieChartSuccess(0);
-                    this.props.trendChartSpinner(0);
+                 this.props.productsTableSplitSuccess(0);
 
-                    this.props.productsTableSplitSuccess(0);
+                 dataWeekParam = "week_flag=Latest 26 Weeks";
+                 this.props.onSaveWeekParam(dataWeekParam);
+                 this.props.loadKpi();
+                 this.props.trendChartDataFetch();
+                 this.props.pieChartDataFetch();
+                 this.props.productsOnPromoTableFetch();
+                 this.setState({activeKey4: "1"});
+                 }}><span className="tab_label">Last 26 weeks</span></NavItem>
 
-                    dataWeekParam = "week_flag=YTD";
-                    this.props.onSaveWeekParam(dataWeekParam);
-                    this.props.loadKpi();
-                    this.props.trendChartDataFetch();
-                    this.props.pieChartDataFetch();
-                    this.props.productsOnPromoTableFetch();
-                    this.setState({activeKey4: "4"});
-                  }}><span className="tab_label">YTD</span></NavItem>
-                </Nav>*/}
+
+                 <NavItem className="tabsCustomListTime" eventKey="5" onClick={() => {
+                 this.setState({activeKey1: "5"});
+                 this.setState({activeKey4: "1"});
+                 this.props.saveTrendChartTabParam("");
+
+                 this.props.kpiDataSuccess(0);
+                 this.props.pieChartSuccess(0);
+                 this.props.trendChartSpinner(0);
+
+                 this.props.productsTableSplitSuccess(0);
+
+                 dataWeekParam = "week_flag=YTD";
+                 this.props.onSaveWeekParam(dataWeekParam);
+                 this.props.loadKpi();
+                 this.props.trendChartDataFetch();
+                 this.props.pieChartDataFetch();
+                 this.props.productsOnPromoTableFetch();
+                 this.setState({activeKey4: "4"});
+                 }}><span className="tab_label">YTD</span></NavItem>
+                 </Nav>*/}
                 <div>
                   {/*Value/Volume Tabs*/}
                   {/*<div className="mainBox">*/}

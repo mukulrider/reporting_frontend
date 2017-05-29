@@ -14,6 +14,18 @@ class Breadcrumb extends React.PureComponent { // eslint-disable-line react/pref
   render() {
     return (
       <div>
+        <div className=""
+             style={{
+               background: '#fff',
+               padding: '0 0 0 20px',
+               border: '1px solid transparent',
+               position: 'fixed',
+               width: '100%',
+               zIndex: 100,
+               marginTop: '-2px',
+               borderRadius: '3px',
+               boxShadow: '0px 0 0px 0 rgba(100, 100, 100, 0.2), 0 3px 6px 0 rgba(100, 100, 010, 0.19)'
+             }}>
         {(() => {
           // let this.props.promotion.urlParamsString
           if (this.props.selected_week && this.props.urlParamsString) {
@@ -48,7 +60,7 @@ class Breadcrumb extends React.PureComponent { // eslint-disable-line react/pref
             )
           }
         })()}
-      </div>
+        </div></div>
     );
   }
 }

@@ -4,6 +4,15 @@
   width: 90%;
 }
 
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+  opacity: 0.4;
+}
+
 .ts-blk-proview-head {
   text-align: center;
   color: #ffffff !important;
