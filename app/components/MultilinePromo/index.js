@@ -16,10 +16,10 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
 
 console.log("HARSHIT",data)
     // let frameWidth = document.getElementById(chart_id).clientWidth;
-    let frameWidth = 500;
-    let margin = {top: 20, right: 50, bottom: 50, left: 100};
+    let frameWidth = 600;
+    let margin = {top: 20, right: 100, bottom: 50, left: 60};
         width = frameWidth - margin.left - margin.right;
-    let height = frameWidth*0.3 - margin.top - margin.bottom;
+    let height = frameWidth*0.5 - margin.top - margin.bottom;
     // set the ranges
     let x = d3.scalePoint().range([0, width]);
     let y = d3.scaleLinear().range([height, 0]);
@@ -82,7 +82,7 @@ console.log("HARSHIT",data)
        svg = d3.select('#'+chart_id).append("svg")
          .attr("id",chart_id + '_svg')
       .attr("width", frameWidth)
-      .attr("height", frameWidth*0.4)
+      .attr("height", frameWidth*0.6)
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -128,11 +128,10 @@ console.log("HARSHIT",data)
     //Y axis title
     svg.append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 0 - (margin.left)+30)
-      // .attr("y", 0 - (width / 2))
+      .attr("y", 0 - (margin.left))
       .attr("x",0 - (height / 2))
       .attr("dy", "1em")
-      .style("text-anchor", "middle")
+      .style("text-anchor", " middle")
       .text(yaxis_title);
 
     //X axis title
@@ -198,7 +197,7 @@ console.log("HARSHIT",data)
   render() {
 
     return (
-      <div style={{background:"#fff", width:'500px'}} id={this.props.id}>
+      <div style={{background:"#fff",width:'400px'}} id={this.props.id}>
       </div>
     );
   }

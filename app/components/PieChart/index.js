@@ -16,12 +16,11 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
   { console.log("Piechart inside createChart check 1",data);
     // let data = [10, 20];
     var containerWidth = document.getElementById(id).clientWidth;
-    let margin = {top: 120, right: 10, bottom: 30, left: 100},
+    let margin = {top: 100, right: 50, bottom: 30, left: 50},
       width = containerWidth - margin.left - margin.right,
       height = containerWidth - margin.top - margin.bottom,
-      radius = Math.min(width, height) / 1.8;
+      radius = Math.min(width, height) / 2.5 ;
     console.log("Piechart inside createChart margin",margin);
-
 
     let arc = d3.arc()
       .outerRadius(radius)
@@ -66,7 +65,7 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
       .attr("height", containerWidth*0.5 + margin.top + margin.bottom)
       .append("g")
       //  .attr("transform", "translate(" + margin.left+ "," + margin.top + ")");
-      .attr("transform", "translate(" + width / 2 + "," + height / 1.5 + ")");
+      .attr("transform", "translate(" + width / 1.65 + "," + height / 2 + ")");
 
     let g = svg.selectAll(".arc")
       .data(pie(data))
@@ -113,7 +112,7 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
       .data(data)
       .enter().append("g")
       .attr("transform", function (d, i) {
-        return "translate(" + (i*legendWidth -containerWidth + margin.left) + "," + (radius*1.4) + ")";
+        return "translate(" + (i*legendWidth -containerWidth + 4*margin.left) + "," + (radius*1.4) + ")";
       });
 
     legend.append("rect")
