@@ -275,7 +275,7 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
 
                 }}>Apply</Button>
                 <div style={{height: '1%', width: '100%'}}>&nbsp;</div>
-                <Button onClick={() => {
+                <Button buttonType={'secondary'} onClick={() => {
                   let selection = '';
                   this.props.onSaveWeekFilterParam(selection);
                   this.props.ongenerateWeekFilter();

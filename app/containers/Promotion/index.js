@@ -557,11 +557,6 @@ export class Promotion extends React.PureComponent {
                 <div className="coverBox">
 
 
-                  {/* Header---Promo KPI Boxes */}
-                  <div className="headerBox">
-                    <h2 className="pageModuleMainTitle">Promotion Performance</h2>
-                  </div>
-
                   {/* Promo KPI Boxes */}
                   <div style={{textAlign: 'center'}}>
 
