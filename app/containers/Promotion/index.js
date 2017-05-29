@@ -1228,13 +1228,13 @@ export class Promotion extends React.PureComponent {
                     })()}
                   </div>
 
-                  <div className="col-md-12 col-sm-12">
-                  <button className="btn btn-success" onClick={() => {
-                    this.setState({promoPartTabInfo: true})
-                    this.props.loadPromoPart();
-                  }}>Promotion Participation
-                  </button>
-                  </div>
+                  {/*<div className="col-md-12 col-sm-12">*/}
+                  {/*<button className="btn btn-success" onClick={() => {*/}
+                    {/*this.setState({promoPartTabInfo: true})*/}
+                    {/*this.props.loadPromoPart();*/}
+                  {/*}}>Promotion Participation*/}
+                  {/*</button>*/}
+                  {/*</div>*/}
 
                   {/*MODAL for showing Promotion Participation  */}
                   <Modal show={this.state.promoPartTabInfo} bsSize="lg"
@@ -1591,6 +1591,13 @@ export class Promotion extends React.PureComponent {
 
                     </div>
                     {/*</div>*/}
+
+                    <div className="text-right">
+                      <button className="btn btn-success" onClick={() => {
+                        this.props.loadPromoPart();
+                      }}>Promotion Participation
+                      </button>
+                    </div>
 
                   </div>
 
