@@ -43,6 +43,10 @@ export const CHECKBOX_CHANGE = 'app/Promotion/CHECKBOX_CHANGE';
 export const WEEK_FILTER_CONSTANT='app/Promotion/WEEK_FILTER_CONSTANT';
 export const WEEK_FILTER_FETCH_SUCCESS='app/Promotion/WEEK_FILTER_FETCH_SUCCESS';
 export const WEEK_FILTER_PARAM='app/Promotion/WEEK_FILTER_PARAM';
+export const STORE_FILTER_PARAM='app/Promotion/STORE_FILTER_PARAM';
+export const MODAL_PRODUCT_NAME='app/Promotion/MODAL_PRODUCT_NAME';
+export const MODAL_PRODUCT_DATA='app/Promotion/MODAL_PRODUCT_DATA';
+export const MODAL_PRODUCT_DATA_SUCCESS='app/Promotion/MODAL_PRODUCT_DATA_SUCCESS';
 
 //export const GENERATE_TEXTBOX_QUERY_STRING = 'app/RangingNpdPage/GENERATE_TEXTBOX_QUERY_STRING';
 export const SEND_URL_PARAMS= 'app/Promotion/SEND_URL_PARAMS';

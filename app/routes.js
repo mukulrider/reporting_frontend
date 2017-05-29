@@ -18,7 +18,7 @@ export default function createRoutes(store) {
   const namespace = '';
   return [
      {
-      path: 'reporting/competitor',
+      path: 'sales/competitor',
       name: 'competitor',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
@@ -38,7 +38,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
-      path: 'reporting/supplier',
+      path: 'sales/supplier',
       name: 'supplier',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
@@ -58,7 +58,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
-      path: 'reporting/promo',
+      path: 'sales/promo',
       name: 'promotion',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
@@ -78,7 +78,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
-      path: '/reporting/product',
+      path: '/sales/product',
       name: 'productPage',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
@@ -98,7 +98,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
-      path: 'reporting/executive',
+      path: 'sales/executive',
       name: 'executive',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
@@ -118,7 +118,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
-      path: '/reporting/dailysales',
+      path: '/sales/dailysales',
       name: 'dailySales',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
