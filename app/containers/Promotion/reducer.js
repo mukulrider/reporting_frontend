@@ -38,7 +38,8 @@ import {
   SAVE_METRIC_SELECTION_TAB,
   TREND_CHART_SPINNER,
 
-  PRODUCTS_ON_PROMOTION_TABLE_SUCCESS,TREND_FOR_EACH_TAB_SUCCESS,PIE_CHART_FOR_EACH_TAB_SUCCESS
+  PRODUCTS_ON_PROMOTION_TABLE_SUCCESS, TREND_FOR_EACH_TAB_SUCCESS, PIE_CHART_FOR_EACH_TAB_SUCCESS, STORE_FILTER_PARAM,
+  MODAL_PRODUCT_NAME, MODAL_PRODUCT_DATA_SUCCESS
 
 } from './constants';
 
@@ -153,7 +154,9 @@ function promotionReducer(state = initialState, action) {
     case WEEK_FILTER_PARAM:
       console.log("reducer WEEK_FILTER_PARAM", action.data);
       return state.set('weekurlParam', action.data)
-
+    case STORE_FILTER_PARAM:
+      console.log("reducer STORE_FILTER_PARAM",action.data);
+      return state.set('store_filter_param',action.data);
 
     //PIE CHART - SPINNER
     case PIE_CHART_SPINNER_SUCCESS:
@@ -208,6 +211,11 @@ function promotionReducer(state = initialState, action) {
       return state.set('trendChartTabParam', action.data);
     case SAVE_METRIC_SELECTION_TAB:
       return state.set('metricSelected', action.data);
+
+    case MODAL_PRODUCT_NAME:
+      return state.set('modalProductName', action.data);
+    case MODAL_PRODUCT_DATA_SUCCESS:
+      return state.set('modalProductData', action.data);
 
 
 

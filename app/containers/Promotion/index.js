@@ -17,6 +17,7 @@ import './style.scss';
 import PieChart from 'components/PieChart';
 import Spinner from 'components/spinner';
 import PromoFilter from 'components/PromoFilter';
+import TopFilter from 'components/TopFilter';
 import MultilinePromo from 'components/MultilinePromo';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table.min.css';
@@ -26,6 +27,8 @@ import {
   SaveWeekParam,
   SaveKPIParam,
   PromoKpiData,
+  StoreFilterParam,
+
   PromoSalesData,
   PromoGiveawayData,
   PromoProdData,
@@ -43,9 +46,9 @@ import {
   promoParticipationBySplitSuccess,
   productsTableSplitSuccess,
   kpiDataSuccess,
-  saveTrendChartTabParam,productsOnPromoTableFetch,trendChartDataFetch,pieChartDataFetch,
+  saveTrendChartTabParam, productsOnPromoTableFetch, trendChartDataFetch, pieChartDataFetch,
   saveMetricSelectionTabParam,
-  trendChartSpinner,
+  trendChartSpinner, modalProductName, modalProductInfo, modalProductInfoSuccess,
 } from './actions';
 
 function glyphiconFormatter(cell) {
@@ -114,7 +117,7 @@ export class Promotion extends React.PureComponent {
       activeKey2: "1",
       activeKey3: "1",
       activeKey4: "1",
-
+      showModal: false
     };
 
   }// eslint-disable-line react/prefer-stateless-function
@@ -131,7 +134,8 @@ export class Promotion extends React.PureComponent {
       }, {
         text: '15', value: 15
       }, {
-        text: 'All', value: this.props.promotion.productsOnPromotion && this.props.promotion.productsOnPromotion.table_data ? this.props.promotion.productsOnPromotion.table_data.length :0
+        text: 'All',
+        value: this.props.promotion.productsOnPromotion && this.props.promotion.productsOnPromotion.table_data ? this.props.promotion.productsOnPromotion.table_data.length : 0
       }], // you can change the dropdown list for size per page
       sizePerPage: 5,  // which size per page you want to locate as default
       pageStartIndex: 1, // where to start counting the pages
@@ -178,7 +182,8 @@ export class Promotion extends React.PureComponent {
 
             {(() => {
               if (this.props.promotion.filter_data) {
-                {/*console.log("Calling Filter index.js", this.props.promotion.filter_data.filter_data);*/}
+                {/*console.log("Calling Filter index.js", this.props.promotion.filter_data.filter_data);*/
+                }
                 return (
                   <PromoFilter sideFilter={this.props.promotion.filter_data}
                     // week_data={this.props.promotion.filter_data.week_data}
@@ -203,7 +208,6 @@ export class Promotion extends React.PureComponent {
                                trendChartDataFetch={this.props.trendChartDataFetch}
                                pieChartDataFetch={this.props.pieChartDataFetch}
                                productsOnPromoTableFetch={this.props.productsOnPromoTableFetch}
-
 
 
                                pieChartSuccess={this.props.pieChartSuccess}
@@ -254,6 +258,22 @@ export class Promotion extends React.PureComponent {
                   }
                 })()}
               </div>
+              <div className="row">
+                {/*{(() => {*/}
+                {/*if (this.props.Promotion.week_filter_data) {*/}
+                {/*return (*/}
+                {/*<TopFilter*/}
+                {/*week_filter_data={this.props.Promotion.week_filter_data}*/}
+
+                {/*onSaveStoreFilterParam={this.props.onSaveStoreFilterParam}*/}
+
+
+                {/*/>*/}
+
+                {/*)*/}
+                {/*}*/}
+                {/*})()}*/}
+              </div>
 
               {/*Content*/}
               <div className="col-md-12 content-wrap" style={{background: "#fafafa"}}>
@@ -266,9 +286,12 @@ export class Promotion extends React.PureComponent {
                     this.setState({activeKey1: "1"});
                     this.props.kpiDataSuccess(0);
                     this.props.pieChartSuccess(0);
-                    {/*this.props.promoGiveAwaySuccess(0);*/}
-                    {/*this.props.productsCountSplitSuccess(0);*/}
-                    {/*this.props.promoParticipationBySplitSuccess(0);*/}
+                    {/*this.props.promoGiveAwaySuccess(0);*/
+                    }
+                    {/*this.props.productsCountSplitSuccess(0);*/
+                    }
+                    {/*this.props.promoParticipationBySplitSuccess(0);*/
+                    }
                     this.props.productsTableSplitSuccess(0);
                     this.props.trendChartSpinner(0);
 
@@ -289,9 +312,12 @@ export class Promotion extends React.PureComponent {
                     this.props.kpiDataSuccess(0);
                     this.props.pieChartSuccess(0);
                     this.props.trendChartSpinner(0);
-                    {/*this.props.promoGiveAwaySuccess(0);*/}
-                    {/*this.props.productsCountSplitSuccess(0);*/}
-                    {/*this.props.promoParticipationBySplitSuccess(0);*/}
+                    {/*this.props.promoGiveAwaySuccess(0);*/
+                    }
+                    {/*this.props.productsCountSplitSuccess(0);*/
+                    }
+                    {/*this.props.promoParticipationBySplitSuccess(0);*/
+                    }
                     this.props.productsTableSplitSuccess(0);
 
 
@@ -313,9 +339,12 @@ export class Promotion extends React.PureComponent {
                     this.props.kpiDataSuccess(0);
                     this.props.pieChartSuccess(0);
                     this.props.trendChartSpinner(0);
-                    {/*this.props.promoGiveAwaySuccess(0);*/}
-                    {/*this.props.productsCountSplitSuccess(0);*/}
-                    {/*this.props.promoParticipationBySplitSuccess(0);*/}
+                    {/*this.props.promoGiveAwaySuccess(0);*/
+                    }
+                    {/*this.props.productsCountSplitSuccess(0);*/
+                    }
+                    {/*this.props.promoParticipationBySplitSuccess(0);*/
+                    }
                     this.props.productsTableSplitSuccess(0);
 
                     dataWeekParam = "week_flag=Latest 13 Weeks";
@@ -335,9 +364,12 @@ export class Promotion extends React.PureComponent {
                     this.props.kpiDataSuccess(0);
                     this.props.pieChartSuccess(0);
                     this.props.trendChartSpinner(0);
-                    {/*this.props.promoGiveAwaySuccess(0);*/}
-                    {/*this.props.productsCountSplitSuccess(0);*/}
-                    {/*this.props.promoParticipationBySplitSuccess(0);*/}
+                    {/*this.props.promoGiveAwaySuccess(0);*/
+                    }
+                    {/*this.props.productsCountSplitSuccess(0);*/
+                    }
+                    {/*this.props.promoParticipationBySplitSuccess(0);*/
+                    }
                     this.props.productsTableSplitSuccess(0);
 
                     dataWeekParam = "week_flag=Latest 26 Weeks";
@@ -358,9 +390,12 @@ export class Promotion extends React.PureComponent {
                     this.props.kpiDataSuccess(0);
                     this.props.pieChartSuccess(0);
                     this.props.trendChartSpinner(0);
-                    {/*this.props.promoGiveAwaySuccess(0);*/}
-                    {/*this.props.productsCountSplitSuccess(0);*/}
-                    {/*this.props.promoParticipationBySplitSuccess(0);*/}
+                    {/*this.props.promoGiveAwaySuccess(0);*/
+                    }
+                    {/*this.props.productsCountSplitSuccess(0);*/
+                    }
+                    {/*this.props.promoParticipationBySplitSuccess(0);*/
+                    }
                     this.props.productsTableSplitSuccess(0);
 
                     dataWeekParam = "week_flag=YTD";
@@ -387,8 +422,10 @@ export class Promotion extends React.PureComponent {
                         this.props.kpiDataSuccess(0);
                         this.props.pieChartSuccess(0);
                         this.props.trendChartSpinner(0);
-                        {/*this.props.promoGiveAwaySuccess(0);*/}
-                        {/*this.props.promoParticipationBySplitSuccess(0);*/}
+                        {/*this.props.promoGiveAwaySuccess(0);*/
+                        }
+                        {/*this.props.promoParticipationBySplitSuccess(0);*/
+                        }
                         {/*this.props.productsCountSplitSuccess(0);*/
                           this.props.productsTableSplitSuccess(0);
                         }
@@ -408,8 +445,10 @@ export class Promotion extends React.PureComponent {
                         this.props.kpiDataSuccess(0);
                         this.props.pieChartSuccess(0);
                         this.props.trendChartSpinner(0);
-                        {/*this.props.promoGiveAwaySuccess(0);*/}
-                        {/*this.props.promoParticipationBySplitSuccess(0);*/}
+                        {/*this.props.promoGiveAwaySuccess(0);*/
+                        }
+                        {/*this.props.promoParticipationBySplitSuccess(0);*/
+                        }
                         {/*this.props.productsCountSplitSuccess(0);*/
                         }
                         this.props.productsTableSplitSuccess(0);
@@ -452,174 +491,188 @@ export class Promotion extends React.PureComponent {
 
                                 <Panel>
                                   <div className="firstCard" style={{height: '150px'}}>
-                                  <h3 className="pageModuleSubTitle" style={{marginTop: "-1px"}}>
-                                    Total {this.props.promotion.kpi_data.kpi_name} </h3>
-                                  <div className="row">
-                                    <div className="col-md-6 col-xs-6">
-                                      <h3 style={{
-                                        padding: "0px",
-                                        margin: "0px"
-                                      }}>{this.props.promotion.kpi_data.total.total}</h3>
+                                    <h3 className="pageModuleSubTitle" style={{marginTop: "-1px"}}>
+                                      Total {this.props.promotion.kpi_data.kpi_name} </h3>
+                                    <div className="row">
+                                      <div className="col-md-6 col-xs-6">
+                                        <h3 style={{
+                                          padding: "0px",
+                                          margin: "0px"
+                                        }}>{this.props.promotion.kpi_data.total.total}</h3>
+                                      </div>
+                                      <div className="col-md-6 col-xs-6">
+                                        <h3 style={{padding: "0px", margin: "0px"}}>
+                                          LFL&#8208;&nbsp; {this.props.promotion.kpi_data.total.total_lfl} </h3>
+                                      </div>
                                     </div>
-                                    <div className="col-md-6 col-xs-6">
-                                      <h3 style={{padding: "0px", margin: "0px"}}>
-                                        LFL&#8208;&nbsp; {this.props.promotion.kpi_data.total.total_lfl} </h3>
-                                    </div>
-                                  </div>
 
-                                  <div className="row">
-                                    <div className="panel-body cardPanel">
-                                      {(() => {
-                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                          return (
-                                            <div className="col-md-4 col-xs-4 ">
-                                              <h4>
+                                    <div className="row">
+                                      <div className="panel-body cardPanel">
+                                        {(() => {
+                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                            return (
+                                              <div className="col-md-4 col-xs-4 ">
+                                                <h4>
                                     <span
-                                      className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_wow)} style={{marginTop: '20px'}}>
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_wow)}
+                                      style={{marginTop: '20px'}}>
                                     </span>{(this.props.promotion.kpi_data.total.var_total_wow) + '%'}
-                                              </h4>
-                                              <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                                            </div>
-                                          )
-                                        }
+                                                </h4>
+                                                <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                              </div>
+                                            )
+                                          }
 
-                                      })()}
+                                        })()}
 
 
-                                      <div className={(() => {
-                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                          return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+                                        <div className={(() => {
+                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                            return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
 
-                                          )
-                                        }
-                                        else {
-                                          return (
-                                            "col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                          )
-                                        }
+                                            )
+                                          }
+                                          else {
+                                            return (
+                                              "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                            )
+                                          }
 
-                                      })()}>
-                                        <h4>
+                                        })()}>
+                                          <h4>
                                     <span
-                                      className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_yoy)} style={{marginTop: '20px'}}>
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_yoy)}
+                                      style={{marginTop: '20px'}}>
                                     </span>{(this.props.promotion.kpi_data.total.var_total_yoy) + '%'}
-                                        </h4>
-                                        <h5 className="kpiSubTitle"><b>YOY</b></h5>
-                                      </div>
-                                      <div className={(() => {
-                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                          return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+                                          </h4>
+                                          <h5 className="kpiSubTitle"><b>YOY</b></h5>
+                                        </div>
+                                        <div className={(() => {
+                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                            return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
 
-                                          )
-                                        }
-                                        else {
-                                          return (
-                                            "col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                          )
-                                        }
+                                            )
+                                          }
+                                          else {
+                                            return (
+                                              "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                            )
+                                          }
 
-                                      })()}>
-                                        <h4>
+                                        })()}>
+                                          <h4>
                                     <span
-                                      className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_lfl)} style={{marginTop: '20px'}}>
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.total.var_total_lfl)}
+                                      style={{marginTop: '20px'}}>
                                     </span>{(this.props.promotion.kpi_data.total.var_total_lfl) + '%'}
-                                        </h4>
-                                        <h5 className="kpiSubTitle"><b>LFL</b></h5>
+                                          </h4>
+                                          <h5 className="kpiSubTitle"><b>LFL</b></h5>
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
                                   </div>
                                 </Panel>
 
                               </div>
 
                               <div className="col-md-4 col-sm-12 col-xs-12"
-                                   style={{backgroundColor: "#fafafa", paddingLeft: '15px', paddingRight: '15px',height:'30px'}}>
+                                   style={{
+                                     backgroundColor: "#fafafa",
+                                     paddingLeft: '15px',
+                                     paddingRight: '15px',
+                                     height: '30px'
+                                   }}>
                                 <Panel>
                                   <div className="secondCard" style={{height: "150px"}}>
-                                  <h3 className="pageModuleSubTitle" style={{marginTop: "-1px"}}>
-                                    Promo {this.props.promotion.kpi_data.kpi_name} </h3>
+                                    <h3 className="pageModuleSubTitle" style={{marginTop: "-1px"}}>
+                                      Promo {this.props.promotion.kpi_data.kpi_name} </h3>
 
-                                  <div className="row">
-                                    <div className="col-md-6 col-xs-6">
+                                    <div className="row">
+                                      <div className="col-md-6 col-xs-6">
 
-                                      <h3 style={{
-                                        padding: "0px",
-                                        margin: "0px"
-                                      }}> {this.props.promotion.kpi_data.promo.promo} </h3>
-                                    </div>
-                                    <div className="col-md-6 col-xs-6">
-                                      <h3 style={{padding: "0px", margin: "0px"}}>
-                                        LFL&#8208;&nbsp;{this.props.promotion.kpi_data.promo.promo_lfl} </h3>
-                                    </div>
-                                  </div>
-
-                                  <div className="row">
-                                    <div className="panel-body cardPanel">
-
-                                      {(() => {
-                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                          {/*console.log("week param is current week");*/}
-                                          return (
-                                            <div className="col-md-4 col-xs-4 ">
-                                              <h4>
-                                    <span
-                                      className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_wow)} style={{marginTop:'20px'}}></span>
-                                                {(this.props.promotion.kpi_data.promo.var_promo_wow) + '%'}
-                                              </h4>
-                                              <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                                            </div>
-                                          )
-                                        }
-
-
-                                      })()}
-
-
-                                      <div className={(() => {
-                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                          {/*console.log("week param is current week");*/}
-                                          return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
-
-                                          )
-                                        }
-                                        else {
-                                          {/*console.log("week param is not current week");*/}
-                                          return (
-                                            "col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                          )
-                                        }
-
-                                      })()}>
-                                        <h4>
-                                    <span
-                                      className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_yoy)} style={{marginTop:'20px'}}></span>
-                                          {(this.props.promotion.kpi_data.promo.var_promo_yoy) + '%'}
-                                        </h4>
-                                        <h5 className="kpiSubTitle"><b>YOY</b></h5>
+                                        <h3 style={{
+                                          padding: "0px",
+                                          margin: "0px"
+                                        }}> {this.props.promotion.kpi_data.promo.promo} </h3>
                                       </div>
-                                      <div className={(() => {
-                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                          return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
-
-                                          )
-                                        }
-                                        else {
-                                          return (
-                                            "col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                          )
-                                        }
-
-                                      })()}>
-                                        <h4>
-                                    <span
-                                      className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_lfl)} style={{marginTop:'20px'}}></span>
-                                          {(this.props.promotion.kpi_data.promo.var_promo_lfl) + '%'}
-                                        </h4>
-                                        <h5 className="kpiSubTitle"><b>LFL</b></h5>
+                                      <div className="col-md-6 col-xs-6">
+                                        <h3 style={{padding: "0px", margin: "0px"}}>
+                                          LFL&#8208;&nbsp;{this.props.promotion.kpi_data.promo.promo_lfl} </h3>
                                       </div>
                                     </div>
-                                  </div>
+
+                                    <div className="row">
+                                      <div className="panel-body cardPanel">
+
+                                        {(() => {
+                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                            {/*console.log("week param is current week");*/
+                                            }
+                                            return (
+                                              <div className="col-md-4 col-xs-4 ">
+                                                <h4>
+                                    <span
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_wow)}
+                                      style={{marginTop: '20px'}}></span>
+                                                  {(this.props.promotion.kpi_data.promo.var_promo_wow) + '%'}
+                                                </h4>
+                                                <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                              </div>
+                                            )
+                                          }
+
+
+                                        })()}
+
+
+                                        <div className={(() => {
+                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                            {/*console.log("week param is current week");*/
+                                            }
+                                            return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+
+                                            )
+                                          }
+                                          else {
+                                            {/*console.log("week param is not current week");*/
+                                            }
+                                            return (
+                                              "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                            )
+                                          }
+
+                                        })()}>
+                                          <h4>
+                                    <span
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_yoy)}
+                                      style={{marginTop: '20px'}}></span>
+                                            {(this.props.promotion.kpi_data.promo.var_promo_yoy) + '%'}
+                                          </h4>
+                                          <h5 className="kpiSubTitle"><b>YOY</b></h5>
+                                        </div>
+                                        <div className={(() => {
+                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                            return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+
+                                            )
+                                          }
+                                          else {
+                                            return (
+                                              "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                            )
+                                          }
+
+                                        })()}>
+                                          <h4>
+                                    <span
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.promo.var_promo_lfl)}
+                                      style={{marginTop: '20px'}}></span>
+                                            {(this.props.promotion.kpi_data.promo.var_promo_lfl) + '%'}
+                                          </h4>
+                                          <h5 className="kpiSubTitle"><b>LFL</b></h5>
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </Panel>
                               </div>
@@ -628,86 +681,89 @@ export class Promotion extends React.PureComponent {
                                    style={{backgroundColor: "#fafafa", paddingLeft: '15px', paddingRight: '15px'}}>
                                 <Panel>
                                   <div className="thirdCard" style={{height: "150px"}}>
-                                  <h3 className="pageModuleSubTitle" style={{marginTop: "-1px"}}> Non
-                                    Promo {this.props.promotion.kpi_data.kpi_name} </h3>
+                                    <h3 className="pageModuleSubTitle" style={{marginTop: "-1px"}}> Non
+                                      Promo {this.props.promotion.kpi_data.kpi_name} </h3>
 
-                                  <div className="row">
-                                    <div className="col-md-6 col-xs-6">
+                                    <div className="row">
+                                      <div className="col-md-6 col-xs-6">
 
-                                      <h3 style={{
-                                        padding: "0px",
-                                        margin: "0px"
-                                      }}>  {this.props.promotion.kpi_data.nonpromo.nonpromo} </h3>
-                                    </div>
-                                    <div className="col-md-6 col-xs-6">
-                                      <h3 style={{padding: "0px", margin: "0px"}}>
-                                        LFL&#8208;&nbsp; {this.props.promotion.kpi_data.nonpromo.nonpromo_lfl} </h3>
-                                    </div>
-                                  </div>
-
-                                  <div className="row">
-                                    <div className="panel-body cardPanel">
-
-                                      {(() => {
-                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                          return (
-                                            <div className="col-md-4 col-xs-4 ">
-                                              <h4>
-                                    <span
-                                      className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow)} style={{marginTop:'20px'}}></span>
-                                                {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow) + '%'}
-                                              </h4>
-                                              <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                                            </div>
-                                          )
-                                        }
-
-
-                                      })()}
-
-
-                                      <div className={(() => {
-                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                          return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
-
-                                          )
-                                        }
-                                        else {
-                                          return (
-                                            "col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                          )
-                                        }
-
-                                      })()}>
-                                        <h4>
-                                    <span
-                                      className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy)} style={{marginTop:'20px'}}></span>
-                                          {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy) + '%'}
-                                        </h4>
-                                        <h5 className="kpiSubTitle"><b>YOY</b></h5>
+                                        <h3 style={{
+                                          padding: "0px",
+                                          margin: "0px"
+                                        }}>  {this.props.promotion.kpi_data.nonpromo.nonpromo} </h3>
                                       </div>
-                                      <div className={(() => {
-                                        if (this.props.promotion.week_param == 'week_flag=Current Week') {
-                                          return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
-
-                                          )
-                                        }
-                                        else {
-                                          return (
-                                            "col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                          )
-                                        }
-
-                                      })()}>
-                                        <h4>
-                                    <span
-                                      className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl)} style={{marginTop:'20px'}}></span>
-                                          {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl) + '%'}
-                                        </h4>
-                                        <h5 className="kpiSubTitle"><b>LFL</b></h5>
+                                      <div className="col-md-6 col-xs-6">
+                                        <h3 style={{padding: "0px", margin: "0px"}}>
+                                          LFL&#8208;&nbsp; {this.props.promotion.kpi_data.nonpromo.nonpromo_lfl} </h3>
                                       </div>
                                     </div>
-                                  </div>
+
+                                    <div className="row">
+                                      <div className="panel-body cardPanel">
+
+                                        {(() => {
+                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                            return (
+                                              <div className="col-md-4 col-xs-4 ">
+                                                <h4>
+                                    <span
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow)}
+                                      style={{marginTop: '20px'}}></span>
+                                                  {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_wow) + '%'}
+                                                </h4>
+                                                <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                              </div>
+                                            )
+                                          }
+
+
+                                        })()}
+
+
+                                        <div className={(() => {
+                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                            return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+
+                                            )
+                                          }
+                                          else {
+                                            return (
+                                              "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                            )
+                                          }
+
+                                        })()}>
+                                          <h4>
+                                    <span
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy)}
+                                      style={{marginTop: '20px'}}></span>
+                                            {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_yoy) + '%'}
+                                          </h4>
+                                          <h5 className="kpiSubTitle"><b>YOY</b></h5>
+                                        </div>
+                                        <div className={(() => {
+                                          if (this.props.promotion.week_param == 'week_flag=Current Week') {
+                                            return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+
+                                            )
+                                          }
+                                          else {
+                                            return (
+                                              "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                            )
+                                          }
+
+                                        })()}>
+                                          <h4>
+                                    <span
+                                      className={glyphiconFormatter(this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl)}
+                                      style={{marginTop: '20px'}}></span>
+                                            {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl) + '%'}
+                                          </h4>
+                                          <h5 className="kpiSubTitle"><b>LFL</b></h5>
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </Panel>
                               </div>
@@ -723,173 +779,176 @@ export class Promotion extends React.PureComponent {
                     </div>
 
 
-                  <Panel>
-                    <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect}
-                         className="tabsCustom mainTab" style={{margin: "0px"}}>
-                      <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
-                        this.setState({activeKey3: "1"});
-                        this.props.saveMetricSelectionTabParam('value');
-                        this.props.trendChartDataFetch();
-                        this.props.pieChartDataFetch();
-                        this.props.pieChartSuccess(0);
-                      }}><span className="tab_label">Value</span></NavItem>
-                      <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
-                        this.setState({activeKey3: "2"});
-                        this.props.saveMetricSelectionTabParam('giveaway');
-                        this.props.trendChartDataFetch();
-                        this.props.pieChartDataFetch();
-                        this.props.pieChartSuccess(0);
-                      }}><span className="tab_label">Promotion Give Away</span></NavItem>
-                      <NavItem className="tabsNavPanelList1" eventKey="3" onClick={() => {
-                        this.setState({activeKey3: "3"});
-                        this.props.saveMetricSelectionTabParam('products_count');
-                        this.props.trendChartDataFetch();
-                        this.props.pieChartDataFetch();
-                        this.props.pieChartSuccess(0);
-                       }}><span className="tab_label">Product Count</span></NavItem>
-                      <NavItem className="tabsNavPanelList1" eventKey="4" onClick={() => {
-                        this.setState({activeKey3: "4"});
-                        this.props.saveMetricSelectionTabParam('participation');
-                        this.props.trendChartDataFetch();
-                        this.props.pieChartDataFetch();
-                        this.props.pieChartSuccess(0);
-                       }}><span className="tab_label">Promotion Participation</span></NavItem>
+                    <Panel>
+                      <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect}
+                           className="tabsCustom mainTab" style={{margin: "0px"}}>
+                        <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
+                          this.setState({activeKey3: "1"});
+                          this.props.saveMetricSelectionTabParam('value');
+                          this.props.trendChartDataFetch();
+                          this.props.pieChartDataFetch();
+                          this.props.pieChartSuccess(0);
+                        }}><span className="tab_label">Value</span></NavItem>
+                        <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
+                          this.setState({activeKey3: "2"});
+                          this.props.saveMetricSelectionTabParam('giveaway');
+                          this.props.trendChartDataFetch();
+                          this.props.pieChartDataFetch();
+                          this.props.pieChartSuccess(0);
+                        }}><span className="tab_label">Promotion Give Away</span></NavItem>
+                        <NavItem className="tabsNavPanelList1" eventKey="3" onClick={() => {
+                          this.setState({activeKey3: "3"});
+                          this.props.saveMetricSelectionTabParam('products_count');
+                          this.props.trendChartDataFetch();
+                          this.props.pieChartDataFetch();
+                          this.props.pieChartSuccess(0);
+                        }}><span className="tab_label">Product Count</span></NavItem>
+                        <NavItem className="tabsNavPanelList1" eventKey="4" onClick={() => {
+                          this.setState({activeKey3: "4"});
+                          this.props.saveMetricSelectionTabParam('participation');
+                          this.props.trendChartDataFetch();
+                          this.props.pieChartDataFetch();
+                          this.props.pieChartSuccess(0);
+                        }}><span className="tab_label">Promotion Participation</span></NavItem>
 
-                    </Nav>
+                      </Nav>
 
 
                       {/*Row for pie chart and graph*/}
                       <div className="row">
 
-                  {/*<div className="headerBox col-md-12 col-sm-12 col-xs-12">*/}
+                        {/*<div className="headerBox col-md-12 col-sm-12 col-xs-12">*/}
 
                         {/*<h2 className="pageModuleMainTitle">*/}
-                          {/*Total &nbsp; {this.props.promotion.kpi_data.kpi_name} &nbsp; Split by Promo Type <span*/}
-                          {/*className="glyphicon glyphicon-info-sign pull-right"*/}
-                          {/*style={{right: '4px', fontSize: '15px', top: '8px'}}*/}
-                          {/*onClick={() => {*/}
-                            {/*this.setState({promoSalesInfo: true});*/}
-                          {/*}}>*/}
+                        {/*Total &nbsp; {this.props.promotion.kpi_data.kpi_name} &nbsp; Split by Promo Type <span*/}
+                        {/*className="glyphicon glyphicon-info-sign pull-right"*/}
+                        {/*style={{right: '4px', fontSize: '15px', top: '8px'}}*/}
+                        {/*onClick={() => {*/}
+                        {/*this.setState({promoSalesInfo: true});*/}
+                        {/*}}>*/}
 
-                   {/*</span>*/}
-                            {/*</h2>*/}
-                          {/*</div>*/}
+                        {/*</span>*/}
+                        {/*</h2>*/}
+                        {/*</div>*/}
 
-                            <div className="mainBox">
-                              {/*Left---pie chart*/}
-                                <div className="col-lg-3 col-md-4 col-sm-12 col-xs-12"
-                                     style={{
-                                       minHeight: '380px',
-                                       borderRadius: '1px',
-                                       border: '1px solid rgb(204, 204, 204)',
-                                       float: 'left',
-                                       width: '31%',
-                                       marginLeft: '1%',
-                                     marginTop:'2%',
+                        <div className="mainBox">
+                          {/*Left---pie chart*/}
+                          <div className="col-lg-3 col-md-4 col-sm-12 col-xs-12"
+                               style={{
+                                 minHeight: '380px',
+                                 borderRadius: '1px',
+                                 border: '1px solid rgb(204, 204, 204)',
+                                 float: 'left',
+                                 width: '31%',
+                                 marginLeft: '1%',
+                                 marginTop: '2%',
 
-                                 }}>
+                               }}>
 
-                                  {(() => {
-                                    if (this.props.promotion.pieChartData && this.props.promotion.pieChartSpinnerSuccess){
-                                      return (
-                                        <div style={{background: "#f5f5f5"}}>
-                                          <div className="col-md-9 col-sm-12 col-xs-12" style={{textAlign: "center"}}>
-                                            <h3 className="pageModuleSubTitle" style={{marginTop: "12px"}}>Share by
-                                              Promo Type</h3>
-                                          </div>
-                                          <div className="col-md-3 col-sm-12 col-xs-12" style={{marginTop: "8px"}}>
-                                            <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight
-                                                            style={{
-                                                              backgroundColor: "transparent",
-                                                              borderColor: "transparent",
-                                                              color: "#00539f"
-                                                            }} id="dropButtonId">
-                                              <MenuItem onClick={() => {
-                                                saveImage(document.getElementById('piechart' + '_svg'), "promo_sales_piechart")
-                                              }
-                                              }>Save As JPEG</MenuItem>
-                                              <MenuItem onClick={() => {
-                                                saveDataAsCSV(this.props.promotion.sales_data.promo_sales.pie_chart, "promo_sales_piechart_data.csv")
-                                              }
-                                              }>Download CSV</MenuItem>
-                                            </DropdownButton>
-                                          </div>
-                                          <PieChart data={this.props.promotion.pieChartData.piechart}
-                                                    id="piechart"/>
-                                        </div>
-                                      );
-                                    }
-                                    else {
-                                      return (
+                            {(() => {
+                              if (this.props.promotion.pieChartData && this.props.promotion.pieChartSpinnerSuccess) {
+                                return (
+                                  <div style={{background: "#f5f5f5"}}>
+                                    <div className="col-md-9 col-sm-12 col-xs-12" style={{textAlign: "center"}}>
+                                      <h3 className="pageModuleSubTitle" style={{marginTop: "12px"}}>Share by
+                                        Promo Type</h3>
+                                    </div>
+                                    <div className="col-md-3 col-sm-12 col-xs-12" style={{marginTop: "8px"}}>
+                                      <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight
+                                                      style={{
+                                                        backgroundColor: "transparent",
+                                                        borderColor: "transparent",
+                                                        color: "#00539f"
+                                                      }} id="dropButtonId">
+                                        <MenuItem onClick={() => {
+                                          saveImage(document.getElementById('piechart' + '_svg'), "promo_sales_piechart")
+                                        }
+                                        }>Save As JPEG</MenuItem>
+                                        <MenuItem onClick={() => {
+                                          saveDataAsCSV(this.props.promotion.sales_data.promo_sales.pie_chart, "promo_sales_piechart_data.csv")
+                                        }
+                                        }>Download CSV</MenuItem>
+                                      </DropdownButton>
+                                    </div>
+                                    <PieChart data={this.props.promotion.pieChartData.piechart}
+                                              id="piechart"/>
+                                  </div>
+                                );
+                              }
+                              else {
+                                return (
 
-                                        <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+                                  <div className="text-center"><Spinner />Please Wait a Moment....!</div>
 
-                                      );
-                                    }
-                                  })()}
+                                );
+                              }
+                            })()}
 
-                            </div>
+                          </div>
 
                           {/*Right--- line chart and tabs*/}
-                            <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12" style={{
-                              minHeight: '380px',
-                              borderRadius: '1px',
-                              border: '1px solid rgb(204, 204, 204)',
-                              marginTop:'2%',
-                              marginLeft: '1%',
-                            paddingLeft:'0px'}}>
+                          <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12"
+                               style={{
+                                 minHeight: '380px',
+                                 borderRadius: '1px',
+                                 border: '1px solid rgb(204, 204, 204)',
+                                 marginTop: '2%',
+                                 marginLeft: '1%',
+                                 paddingLeft: '0px'
+                               }}>
 
 
+                            <div className="col-xs-3" style={{paddingLeft: '0px'}}>
+                              {/*Tabs & export button*/}
 
-                                      <div className="col-xs-3" style={{paddingLeft: '0px'}}>
-                                        {/*Tabs & export button*/}
 
-
-                                  {/*Tabs*/}
-                        <span style={{float: "left"}}>
+                              {/*Tabs*/}
+                              <span style={{float: "left"}}>
 
                                 {(() => {
-                                  if (this.props.promotion.pieChartData){
+                                  if (this.props.promotion.pieChartData) {
                                     return (
 
 
-                                        <Nav bsStyle="tabs" activeKey={this.state.activeKey4} onSelect={
-                                    this.handleSelect}
-                                   className="tabsCustomList2 secondaryTabs" style={{margin: "0px"}}>
+                                      <Nav bsStyle="tabs" activeKey={this.state.activeKey4} onSelect={
+                                        this.handleSelect}
+                                           className="tabsCustomList2 secondaryTabs" style={{margin: "0px"}}>
 
 
-                                       {this.props.promotion.pieChartData.labels.map((obj ,index)=> {
-                                         let tab=(index+1).toString();
-                                         return(
-                                         <NavItem className="tabsCustomList2"
-                                                  eventKey={tab}
-                                                  onClick={() => {
-                                                  let promoTypeParam = "";
-                                                   if(obj!=='Total'){
-                                                     promoTypeParam="promo_type="+obj;
-                                                   }
-                                                   console.log("-=-=-=-="+(index+1).toString())
-                                                   this.setState({activeKey4: (index+1).toString()});
-                                                   this.props.trendChartSpinner(0);
-                                                   this.props.saveTrendChartTabParam(promoTypeParam);
-                                                   this.props.trendChartDataFetch();
-                                                 }}>
-                              <span className="tab_label">{obj}</span></NavItem>)
+                                        {this.props.promotion.pieChartData.labels.map((obj, index) => {
+                                          let tab = (index + 1).toString();
+                                          return (
+                                            <NavItem className="tabsCustomList2"
+                                                     eventKey={tab}
+                                                     onClick={() => {
+                                                       let promoTypeParam = "";
+                                                       if (obj !== 'Total') {
+                                                         promoTypeParam = "promo_type=" + obj;
+                                                       }
+                                                       console.log("-=-=-=-=" + (index + 1).toString())
+                                                       this.setState({activeKey4: (index + 1).toString()});
+                                                       this.props.trendChartSpinner(0);
+                                                       this.props.saveTrendChartTabParam(promoTypeParam);
+                                                       this.props.trendChartDataFetch();
+                                                     }}>
+                                              <span className="tab_label">{obj}</span></NavItem>)
 
-                                       })}
-                                     </Nav>
-                                   )}})()}
+                                        })}
+                                      </Nav>
+                                    )
+                                  }
+                                })()}
                                  </span>
 
 
-                              </div>
+                            </div>
 
-                              <div className="col-xs-9">
-                                <div className="col-md-9 col-sm-12 col-xs-12" style={{textAlign: "center"}}>
-                                  <h3 className="pageModuleSubTitle" style={{marginTop: "12px"}}>Trended Performance</h3>
-                                </div>
+                            <div className="col-xs-9">
+                              <div className="col-md-9 col-sm-12 col-xs-12" style={{textAlign: "center"}}>
+                                <h3 className="pageModuleSubTitle" style={{marginTop: "12px"}}>Trended Performance</h3>
+                              </div>
                               {/*Line chart*/}
-                                <div className="row">
+                              <div className="row">
 
                                 <span style={{float: "right"}}>
                           <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
@@ -909,22 +968,22 @@ export class Promotion extends React.PureComponent {
                         </span>
                               </div>
 
-                                {(() => {
-                                  if (this.props.promotion.trendChartData && this.props.promotion.trendChartSpinnerSuccess == 1) {
-                                    console.log("--------------------",this.props.promotion.trendChartData)
-                                    let label_ty=this.props.promotion.trendChartData.metric+" TY";
-                                    let label_ly=this.props.promotion.trendChartData.metric+" LY";
-                                    return (
+                              {(() => {
+                                if (this.props.promotion.trendChartData && this.props.promotion.trendChartSpinnerSuccess == 1) {
+                                  console.log("--------------------", this.props.promotion.trendChartData)
+                                  let label_ty = this.props.promotion.trendChartData.metric + " TY";
+                                  let label_ly = this.props.promotion.trendChartData.metric + " LY";
+                                  return (
 
-                                        <MultilinePromo data={this.props.promotion.trendChartData.trend}
-                                                        id="linechart" label_ty={label_ty}
-                                                        label_ly={label_ly} xaxis_title="Tesco Week"
-                                                         no_pref={this.props.promotion.trendChartData.no_pref} no_suffix=''
-                                      yaxis_title={this.props.promotion.trendChartData.metric}/>
-                                    );
-                                  }
-                                  else {
-                                    return (
+                                    <MultilinePromo data={this.props.promotion.trendChartData.trend}
+                                                    id="linechart" label_ty={label_ty}
+                                                    label_ly={label_ly} xaxis_title="Tesco Week"
+                                                    no_pref={this.props.promotion.trendChartData.no_pref} no_suffix=''
+                                                    yaxis_title={this.props.promotion.trendChartData.metric}/>
+                                  );
+                                }
+                                else {
+                                  return (
 
                                     <div className="text-center"><Spinner />Please Wait a Moment....!</div>
 
@@ -938,9 +997,9 @@ export class Promotion extends React.PureComponent {
 
                         </div>
 
-                    </div>
+                      </div>
 
-                  </Panel>
+                    </Panel>
 
                     {/*top 25 rows*/}
                     <div className="row">
@@ -969,9 +1028,12 @@ export class Promotion extends React.PureComponent {
                                                 exportCSV={true}
                                                 search={true}
                                                 pagination={true}
-                                                >
-                                  <TableHeaderColumn dataAlign={"left"} width="35%" dataField='Product Description' isKey>Product
+                                >
+                                  <TableHeaderColumn dataAlign={"left"} width="35%" dataField='Product Description'
+                                                     isKey>Product
                                     Description</TableHeaderColumn>
+                                  <TableHeaderColumn dataAlign={"right"} dataField='brand_name'
+                                                     dataSort={true}>Brand</TableHeaderColumn>
                                   <TableHeaderColumn dataAlign={"right"} dataField='Promo TY'
                                                      dataSort={true}>Promo {this.props.promotion.productsOnPromotion.col_name}
                                     TY</TableHeaderColumn>
@@ -983,6 +1045,24 @@ export class Promotion extends React.PureComponent {
                                     Variation</TableHeaderColumn>
                                   <TableHeaderColumn dataAlign={"left"} dataField='promoted_ly_ind'>Promoted Last
                                     Year?</TableHeaderColumn>
+                                  <TableHeaderColumn dataAlign={"left"} dataField='Product Description'
+                                                     dataFormat={(f, g) => {
+                                                       return <button className="btn btn-success"
+                                                                      onClick={(e, v, x, y) => {
+                                                                        console.log('f:', f)
+                                                                        console.log('g:', g)
+                                                                        console.log('e:', e)
+                                                                        console.log('v:', v)
+                                                                        console.log('x:', x)
+                                                                        console.log('y:', y)
+                                                                        this.props.onModalProductName(f);
+                                                                        this.props.onModalProductInfo();
+                                                                        this.setState({showModal: true})
+                                                                      }}>Promo Info.</button>
+                                                     }}></TableHeaderColumn>
+                                  <TableHeaderColumn dataAlign={"left"} dataFormat={() => {
+                                    return <button className="btn btn-success">Send to Delist</button>
+                                  }}></TableHeaderColumn>
                                 </BootstrapTable>
                               </div>
                             )
@@ -1003,6 +1083,484 @@ export class Promotion extends React.PureComponent {
               </div>
 
             </div>
+
+            <Modal show={this.state.showModal} bsSize="lg"
+                   aria-labelledby="contained-modal-title-lg"
+                   dialogClassName={'xlModal'}
+                   onHide={() => {
+                     this.setState({showModal: false})
+                   }}>
+              <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}>
+                  <b>Product Promotion Info.</b>
+
+                  <div style={{textAlign: 'center'}}>
+                    <div style={{textAlign: 'right'}}>
+                    </div>
+                  </div>
+                </Modal.Title>
+
+              </Modal.Header>
+              <Modal.Body style={{fontSize: '14px'}}>
+                {(() => {
+                  if (this.props.promotion.modalProductData) {
+                    return (
+                      <div className="">
+
+                        <div className="row mainBox">
+
+                          <div className="col-md-4 col-sm-12 col-xs-12"
+                               style={{backgroundColor: "#fafafa", paddingLeft: '15px', paddingRight: '15px'}}>
+
+                            <Panel>
+                              <div className="firstCard" style={{height: '150px'}}>
+                                <h3 className="pageModuleSubTitle" style={{marginTop: "-1px"}}>
+                                  Total {this.props.promotion.modalProductData.kpi_data.kpi_name} </h3>
+                                <div className="row">
+                                  <div className="col-md-6 col-xs-6">
+                                    <h3 style={{
+                                      padding: "0px",
+                                      margin: "0px"
+                                    }}>{this.props.promotion.modalProductData.kpi_data.total.total}</h3>
+                                  </div>
+                                  <div className="col-md-6 col-xs-6">
+                                    <h3 style={{padding: "0px", margin: "0px"}}>
+                                      LFL&#8208;&nbsp; {this.props.promotion.modalProductData.kpi_data.total.total_lfl} </h3>
+                                  </div>
+                                </div>
+
+                                <div className="row">
+                                  <div className="panel-body cardPanel">
+                                    {(() => {
+                                      if (this.props.promotion.modalProductData.week_param == 'week_flag=Current Week') {
+                                        return (
+                                          <div className="col-md-4 col-xs-4 ">
+                                            <h4>
+                                    <span
+                                      className={glyphiconFormatter(this.props.promotion.modalProductData.kpi_data.total.var_total_wow)}
+                                      style={{marginTop: '20px'}}>
+                                    </span>{(this.props.promotion.modalProductData.kpi_data.total.var_total_wow) + '%'}
+                                            </h4>
+                                            <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                          </div>
+                                        )
+                                      }
+
+                                    })()}
+
+
+                                    <div className={(() => {
+                                      if (this.props.promotion.modalProductData.week_param == 'week_flag=Current Week') {
+                                        return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+
+                                        )
+                                      }
+                                      else {
+                                        return (
+                                          "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                        )
+                                      }
+
+                                    })()}>
+                                      <h4>
+                                    <span
+                                      className={glyphiconFormatter(this.props.promotion.modalProductData.kpi_data.total.var_total_yoy)}
+                                      style={{marginTop: '20px'}}>
+                                    </span>{(this.props.promotion.modalProductData.kpi_data.total.var_total_yoy) + '%'}
+                                      </h4>
+                                      <h5 className="kpiSubTitle"><b>YOY</b></h5>
+                                    </div>
+                                    <div className={(() => {
+                                      if (this.props.promotion.modalProductData.week_param == 'week_flag=Current Week') {
+                                        return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+
+                                        )
+                                      }
+                                      else {
+                                        return (
+                                          "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                        )
+                                      }
+
+                                    })()}>
+                                      <h4>
+                                    <span
+                                      className={glyphiconFormatter(this.props.promotion.modalProductData.kpi_data.total.var_total_lfl)}
+                                      style={{marginTop: '20px'}}>
+                                    </span>{(this.props.promotion.modalProductData.kpi_data.total.var_total_lfl) + '%'}
+                                      </h4>
+                                      <h5 className="kpiSubTitle"><b>LFL</b></h5>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </Panel>
+
+                          </div>
+
+                          <div className="col-md-4 col-sm-12 col-xs-12"
+                               style={{
+                                 backgroundColor: "#fafafa",
+                                 paddingLeft: '15px',
+                                 paddingRight: '15px',
+                                 height: '30px'
+                               }}>
+                            <Panel>
+                              <div className="secondCard" style={{height: "150px"}}>
+                                <h3 className="pageModuleSubTitle" style={{marginTop: "-1px"}}>
+                                  Promo {this.props.promotion.modalProductData.kpi_data.kpi_name} </h3>
+
+                                <div className="row">
+                                  <div className="col-md-6 col-xs-6">
+
+                                    <h3 style={{
+                                      padding: "0px",
+                                      margin: "0px"
+                                    }}> {this.props.promotion.modalProductData.kpi_data.promo.promo} </h3>
+                                  </div>
+                                  <div className="col-md-6 col-xs-6">
+                                    <h3 style={{padding: "0px", margin: "0px"}}>
+                                      LFL&#8208;&nbsp;{this.props.promotion.modalProductData.kpi_data.promo.promo_lfl} </h3>
+                                  </div>
+                                </div>
+
+                                <div className="row">
+                                  <div className="panel-body cardPanel">
+
+                                    {(() => {
+                                      if (this.props.promotion.modalProductData.week_param == 'week_flag=Current Week') {
+                                        {/*console.log("week param is current week");*/
+                                        }
+                                        return (
+                                          <div className="col-md-4 col-xs-4 ">
+                                            <h4>
+                                    <span
+                                      className={glyphiconFormatter(this.props.promotion.modalProductData.kpi_data.promo.var_promo_wow)}
+                                      style={{marginTop: '20px'}}></span>
+                                              {(this.props.promotion.modalProductData.kpi_data.promo.var_promo_wow) + '%'}
+                                            </h4>
+                                            <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                          </div>
+                                        )
+                                      }
+
+
+                                    })()}
+
+
+                                    <div className={(() => {
+                                      if (this.props.promotion.modalProductData.week_param == 'week_flag=Current Week') {
+                                        {/*console.log("week param is current week");*/
+                                        }
+                                        return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+
+                                        )
+                                      }
+                                      else {
+                                        {/*console.log("week param is not current week");*/
+                                        }
+                                        return (
+                                          "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                        )
+                                      }
+
+                                    })()}>
+                                      <h4>
+                                    <span
+                                      className={glyphiconFormatter(this.props.promotion.modalProductData.kpi_data.promo.var_promo_yoy)}
+                                      style={{marginTop: '20px'}}></span>
+                                        {(this.props.promotion.modalProductData.kpi_data.promo.var_promo_yoy) + '%'}
+                                      </h4>
+                                      <h5 className="kpiSubTitle"><b>YOY</b></h5>
+                                    </div>
+                                    <div className={(() => {
+                                      if (this.props.promotion.modalProductData.week_param == 'week_flag=Current Week') {
+                                        return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+
+                                        )
+                                      }
+                                      else {
+                                        return (
+                                          "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                        )
+                                      }
+
+                                    })()}>
+                                      <h4>
+                                    <span
+                                      className={glyphiconFormatter(this.props.promotion.modalProductData.kpi_data.promo.var_promo_lfl)}
+                                      style={{marginTop: '20px'}}></span>
+                                        {(this.props.promotion.modalProductData.kpi_data.promo.var_promo_lfl) + '%'}
+                                      </h4>
+                                      <h5 className="kpiSubTitle"><b>LFL</b></h5>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </Panel>
+                          </div>
+
+                          <div className="col-md-4 col-sm-12 col-xs-12"
+                               style={{backgroundColor: "#fafafa", paddingLeft: '15px', paddingRight: '15px'}}>
+                            <Panel>
+                              <div className="thirdCard" style={{height: "150px"}}>
+                                <h3 className="pageModuleSubTitle" style={{marginTop: "-1px"}}> Non
+                                  Promo {this.props.promotion.modalProductData.kpi_data.kpi_name} </h3>
+
+                                <div className="row">
+                                  <div className="col-md-6 col-xs-6">
+
+                                    <h3 style={{
+                                      padding: "0px",
+                                      margin: "0px"
+                                    }}>  {this.props.promotion.modalProductData.kpi_data.nonpromo.nonpromo} </h3>
+                                  </div>
+                                  <div className="col-md-6 col-xs-6">
+                                    <h3 style={{padding: "0px", margin: "0px"}}>
+                                      LFL&#8208;&nbsp; {this.props.promotion.modalProductData.kpi_data.nonpromo.nonpromo_lfl} </h3>
+                                  </div>
+                                </div>
+
+                                <div className="row">
+                                  <div className="panel-body cardPanel">
+
+                                    {(() => {
+                                      if (this.props.promotion.modalProductData.week_param == 'week_flag=Current Week') {
+                                        return (
+                                          <div className="col-md-4 col-xs-4 ">
+                                            <h4>
+                                    <span
+                                      className={glyphiconFormatter(this.props.promotion.modalProductData.kpi_data.nonpromo.var_nonpromo_wow)}
+                                      style={{marginTop: '20px'}}></span>
+                                              {(this.props.promotion.modalProductData.kpi_data.nonpromo.var_nonpromo_wow) + '%'}
+                                            </h4>
+                                            <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                          </div>
+                                        )
+                                      }
+
+
+                                    })()}
+
+
+                                    <div className={(() => {
+                                      if (this.props.promotion.modalProductData.week_param == 'week_flag=Current Week') {
+                                        return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+
+                                        )
+                                      }
+                                      else {
+                                        return (
+                                          "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                        )
+                                      }
+
+                                    })()}>
+                                      <h4>
+                                    <span
+                                      className={glyphiconFormatter(this.props.promotion.modalProductData.kpi_data.nonpromo.var_nonpromo_yoy)}
+                                      style={{marginTop: '20px'}}></span>
+                                        {(this.props.promotion.modalProductData.kpi_data.nonpromo.var_nonpromo_yoy) + '%'}
+                                      </h4>
+                                      <h5 className="kpiSubTitle"><b>YOY</b></h5>
+                                    </div>
+                                    <div className={(() => {
+                                      if (this.props.promotion.modalProductData.week_param == 'week_flag=Current Week') {
+                                        return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
+
+                                        )
+                                      }
+                                      else {
+                                        return (
+                                          "col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                        )
+                                      }
+
+                                    })()}>
+                                      <h4>
+                                    <span
+                                      className={glyphiconFormatter(this.props.promotion.modalProductData.kpi_data.nonpromo.var_nonpromo_lfl)}
+                                      style={{marginTop: '20px'}}></span>
+                                        {(this.props.promotion.modalProductData.kpi_data.nonpromo.var_nonpromo_lfl) + '%'}
+                                      </h4>
+                                      <h5 className="kpiSubTitle"><b>LFL</b></h5>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </Panel>
+                          </div>
+
+                        </div>
+                        <div className="row">
+
+                        <div className="col-lg-3 col-md-4 col-sm-12 col-xs-12"
+                             style={{
+                               minHeight: '380px',
+                               borderRadius: '1px',
+                               border: '1px solid rgb(204, 204, 204)',
+                               float: 'left',
+                               width: '31%',
+                               marginLeft: '1%',
+                               marginTop: '2%',
+                        
+                             }}>
+                        
+                          {(() => {
+                            if (this.props.promotion.modalProductData.pieChartData) {
+                              return (
+                                <div style={{background: "#f5f5f5"}}>
+                                  <div className="col-md-9 col-sm-12 col-xs-12" style={{textAlign: "center"}}>
+                                    <h3 className="pageModuleSubTitle" style={{marginTop: "12px"}}>Share by
+                                      Promo Type</h3>
+                                  </div>
+                                  <div className="col-md-3 col-sm-12 col-xs-12" style={{marginTop: "8px"}}>
+                                    <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight
+                                                    style={{
+                                                      backgroundColor: "transparent",
+                                                      borderColor: "transparent",
+                                                      color: "#00539f"
+                                                    }} id="dropButtonId">
+                                      <MenuItem onClick={() => {
+                                        saveImage(document.getElementById('piechart' + '_svg'), "promo_sales_piechart")
+                                      }
+                                      }>Save As JPEG</MenuItem>
+                                      <MenuItem onClick={() => {
+                                        saveDataAsCSV(this.props.promotion.modalProductData.sales_data.promo_sales.pie_chart, "promo_sales_piechart_data.csv")
+                                      }
+                                      }>Download CSV</MenuItem>
+                                    </DropdownButton>
+                                  </div>
+                                  <PieChart data={this.props.promotion.modalProductData.pieChartData.piechart}
+                                            id="piechartModal"/>
+                                </div>
+                              );
+                            }
+                            else {
+                              return (
+                        
+                                <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+                        
+                              );
+                            }
+                          })()}
+                        
+                        </div>
+
+                        <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12"
+                             style={{
+                               minHeight: '380px',
+                               borderRadius: '1px',
+                               border: '1px solid rgb(204, 204, 204)',
+                               marginTop: '2%',
+                               marginLeft: '1%',
+                               paddingLeft: '0px'
+                             }}>
+
+
+                          <div className="col-xs-3" style={{paddingLeft: '0px'}}>
+                            {/*Tabs & export button*/}
+
+
+                            {/*Tabs*/}
+                            <span style={{float: "left"}}>
+
+                                {(() => {
+                                  if (this.props.promotion.modalProductData.pieChartData) {
+                                    return (
+
+
+                                      <Nav bsStyle="tabs" activeKey={this.state.activeKey4} onSelect={
+                                        this.handleSelect}
+                                           className="tabsCustomList2 secondaryTabs" style={{margin: "0px"}}>
+
+
+                                        {this.props.promotion.modalProductData.pieChartData.labels.map((obj, index) => {
+                                          let tab = (index + 1).toString();
+                                          return (
+                                            <NavItem className="tabsCustomList2"
+                                                     eventKey={tab}
+                                                     onClick={() => {
+                                                       let promoTypeParam = "";
+                                                       if (obj !== 'Total') {
+                                                         promoTypeParam = "promo_type=" + obj;
+                                                       }
+                                                       console.log("-=-=-=-=" + (index + 1).toString())
+                                                       this.setState({activeKey4: (index + 1).toString()});
+                                                       this.props.trendChartSpinner(0);
+                                                       this.props.saveTrendChartTabParam(promoTypeParam);
+                                                       this.props.trendChartDataFetch();
+                                                     }}>
+                                              <span className="tab_label">{obj}</span></NavItem>)
+
+                                        })}
+                                      </Nav>
+                                    )
+                                  }
+                                })()}
+                                 </span>
+
+
+                          </div>
+
+                          <div className="col-xs-9">
+                            <div className="col-md-9 col-sm-12 col-xs-12" style={{textAlign: "center"}}>
+                              <h3 className="pageModuleSubTitle" style={{marginTop: "12px"}}>Trended Performance</h3>
+                            </div>
+                            {/*Line chart*/}
+                            <div className="row">
+
+                                <span style={{float: "right"}}>
+                          <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                            backgroundColor: "transparent",
+                            borderColor: "transparent",
+                            color: "#00539f"
+                          }} id="dropButtonId">
+                            <MenuItem onClick={() => {
+                              saveImage(document.getElementById('sampleSvg'), "promo_sales_trend_multilineChart")
+                            }
+                            }>Save As JPEG</MenuItem>
+                            <MenuItem onClick={() => {
+                              saveDataAsCSV(this.props.promotion.modalProductData.trendChartData.trend, "promo_sales_trend_multilineChart_data.csv")
+                            }
+                            }>Download CSV</MenuItem>
+                          </DropdownButton>
+                        </span>
+                            </div>
+
+                            {(() => {
+                              if (this.props.promotion.modalProductData.trendChartData) {
+                                console.log("--------------------", this.props.promotion.modalProductData.trendChartData)
+                                let label_ty = this.props.promotion.modalProductData.trendChartData.metric + " TY";
+                                let label_ly = this.props.promotion.modalProductData.trendChartData.metric + " LY";
+                                return (
+
+                                  <MultilinePromo data={this.props.promotion.modalProductData.trendChartData.trend}
+                                                  id="linechartModal" label_ty={label_ty}
+                                                  label_ly={label_ly} xaxis_title="Tesco Week"
+                                                  no_pref={this.props.promotion.modalProductData.trendChartData.no_pref} no_suffix=''
+                                                  yaxis_title={this.props.promotion.modalProductData.trendChartData.metric}/>
+                                );
+                              }
+                              else {
+                                return (
+
+                                  <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                                );
+                              }
+                            })()}
+                          </div>
+
+                        </div>
+
+                        </div>
+                      </div>
+                    )
+                  }
+                })()}
+              </Modal.Body>
+            </Modal>
 
 
             {/*MODAL FOR Promo KPI boxes */}
@@ -1234,6 +1792,12 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     onSaveWeekParam: (e) => dispatch(SaveWeekParam(e)),
+
+    onModalProductName: (e) => dispatch(modalProductName(e)),
+    onModalProductInfo: (e) => dispatch(modalProductInfo(e)),
+    onModalProductInfoSuccess: (e) => dispatch(modalProductInfoSuccess(e)),
+
+    // onSaveStoreParam: (e) => dispatch(SaveStoreParam(e)),
     onSaveKPIParam: (e) => dispatch(SaveKPIParam(e)),
     loadKpi: (e) => dispatch(PromoKpiData(e)),
     loadSales: (e) => dispatch(PromoSalesData(e)),
@@ -1249,6 +1813,7 @@ function mapDispatchToProps(dispatch) {
     onSavePromoPartParam: (e) => dispatch(SavePromoPartParam(e)),
     onGetWeekFilter: (e) => dispatch(getWeekFilter(e)),
     onSaveWeekFilterParam: (e) => dispatch(WeekFilterParam(e)),
+    onSaveStoreFilterParam: (e) => dispatch(StoreFilterParam(e)),
 
     pieChartSuccess: (e) => dispatch(pieChartSuccess(e)),
     promoGiveAwaySuccess: (e) => dispatch(promoGiveAwaySuccess(e)),
