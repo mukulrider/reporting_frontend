@@ -1,6 +1,6 @@
 /**
  *
- * TopFilter
+ * PromoTopFilter
  *
  */
 
@@ -10,7 +10,7 @@ import SelectInput from 'components/select_input';
 // import styled from 'styled-components';
 
 
-class TopFilter extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+class PromoTopFilter extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     let week_data = []
 
@@ -40,18 +40,21 @@ class TopFilter extends React.PureComponent { // eslint-disable-line react/prefe
 
                            }
 
-                           this.props.spinnerRolesAndIntent(0);
-                           this.props.spinnerOverviewKPI(0);
-                           this.props.spinnerOverviewKPITrend(0);
-                           this.props.spinnerOverviewInternalDrivers(0);
-                           this.props.spinnerOverviewExternalDrivers(0);
+                           this.props.pieChartSuccess(0);
+                           this.props.kpiDataSuccess(0);
+                           {/*this.props.promoGiveAwaySuccess(0);*/}
+                           this.props.trendChartSpinner(0);
+                           this.props.productsCountSplitSuccess(0);
+                           {/*this.props.promoParticipationBySplitSuccess(0);*/}
+                           this.props.productsTableSplitSuccess(0);
+                           this.props.productsOnPromoTableFetch();
+                           this.props.trendChartDataFetch();
 
-                           this.props.loadOverviewKpi();
-                           this.props.loadOverviewKpiTrend();
-                           this.props.loadOverviewDriversInternal();
-                           this.props.loadOverviewDriversExternal();
-                           this.props.loadRolesAndIntent();
-                           this.props.loadBudgetAndForecast();
+                           this.props.loadKpi();
+                           this.props.loadSales();
+                           this.props.loadPromoGiveaway();
+                           this.props.loadPromoProd();
+                           this.props.loadPromoPart();
 
                          }}/>
           </div>
@@ -66,18 +69,21 @@ class TopFilter extends React.PureComponent { // eslint-disable-line react/prefe
                            let selection = "tesco_week=" + v;
                            this.props.onSaveWeekFilterParam(selection);
 
-                           this.props.spinnerRolesAndIntent(0);
-                           this.props.spinnerOverviewKPI(0);
-                           this.props.spinnerOverviewKPITrend(0);
-                           this.props.spinnerOverviewInternalDrivers(0);
-                           this.props.spinnerOverviewExternalDrivers(0);
+                           this.props.pieChartSuccess(0);
+                           this.props.kpiDataSuccess(0);
+                           {/*this.props.promoGiveAwaySuccess(0);*/}
+                           this.props.trendChartSpinner(0);
+                           this.props.productsCountSplitSuccess(0);
+                           {/*this.props.promoParticipationBySplitSuccess(0);*/}
+                           this.props.productsTableSplitSuccess(0);
+                           this.props.productsOnPromoTableFetch();
+                           this.props.trendChartDataFetch();
 
-                           this.props.loadOverviewKpi();
-                           this.props.loadOverviewKpiTrend();
-                           this.props.loadOverviewDriversInternal();
-                           this.props.loadOverviewDriversExternal();
-                           this.props.loadRolesAndIntent();
-                           this.props.loadBudgetAndForecast();
+                           this.props.loadKpi();
+                           this.props.loadSales();
+                           this.props.loadPromoGiveaway();
+                           this.props.loadPromoProd();
+                           this.props.loadPromoPart();
 
                          }}/>
           </div>
@@ -88,6 +94,6 @@ class TopFilter extends React.PureComponent { // eslint-disable-line react/prefe
   }
 }
 
-TopFilter.propTypes = {};
+PromoTopFilter.propTypes = {};
 
-export default TopFilter;
+export default PromoTopFilter;

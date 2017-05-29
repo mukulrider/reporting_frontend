@@ -20,7 +20,7 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
   updateUrl = (category) => {
     let queryString = '';
     let localUrlParamsString = '';
-    [...this.refs.selector.querySelectorAll('input')].map((obj,index) => {
+    [...this.refs.selector.querySelectorAll('input')].map((obj, index) => {
       if (obj.checked == true) {
         console.log("Objects", obj);
         let category = obj.id.split('__');
@@ -33,7 +33,7 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
         //   // this.props.onGenerateBuyingController(category[category.length - 1])
         //   this.props.onGenerateCategoryDirector(category[category.length - 2])
         // }
-        if (['store_type','commercial_name','category_name','buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])){
+        if (['store_type', 'commercial_name', 'category_name', 'buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])) {
           localUrlParamsString = localUrlParamsString + `${category[0]}=${category[category.length - 1]}&`;
         }
         queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
@@ -89,116 +89,6 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
         {(() => {
           return (
             <div id="style-7">
-
-
-              <PanelGroup defaultActiveKey="0" accordion>
-                {(() => {
-                  if (this.props.week_data) {
-                    console.log("Cascading filter - week", this.props.week_data);
-                    var panelHeader = (
-
-                      <div>Tesco Week
-                        <span style={{color: "red"}}>*</span>&nbsp;
-                        <span className="accordion-toggle" style={{float: 'right'}}></span>
-                      </div>
-                    );
-                    return (
-
-                      <Panel header={panelHeader} eventKey="1">
-                        <div className="panel selector">
-                          <div className="panel-body style-7" style={{
-                            maxHeight: '250px',
-                            overflowX: 'hidden', fontSize: '9px'
-                          }}>
-                            {(() => {
-                              console.log("Cascading filter ----------")
-                              let finalCheckbox = [];
-                              console.log('Cascading filter - week inside panel div', this.props.week_data);
-
-                              {
-                                this.props.week_data[0].items.map(obj2 => {
-                                  console.log("Cascading Filter Inside map", obj2)
-                                  finalCheckbox.push(
-                                    <Checkbox id={obj2.name }
-                                              label={obj2.name}
-                                              style={{fontSize: '10px'}}
-                                              checked={(() => {
-                                                return obj2.selected;
-                                              })()}
-                                              onChange={() => {
-
-                                                let previous_week_selection = this.props.previous_week_selection;
-                                                let selection = "tesco_week=" + obj2.name;
-                                                //For enabling un checking
-                                                {
-                                                  console.log('Cascaded Filter previous_week_selection', previous_week_selection);
-                                                }
-                                                {
-                                                  console.log('Cascaded Filter selection', selection);
-                                                }
-                                                if (previous_week_selection == selection) {
-                                                  selection = '';
-                                                }
-
-
-                                                this.props.onSaveWeekFilterParam(selection);
-                                                this.props.ongenerateWeekFilter();
-                                              }}
-
-                                              isDisabled={obj2.disabled}
-                                              valid={true}
-                                              key={Date.now() + Math.random()}
-                                    />
-                                  )
-
-                                })
-                              }
-
-                              // for replacing enabled to top
-                              let finalled = [];
-                              finalCheckbox.map(obj => {
-                                {/*console.log(obj.props.checked);*/
-                                }
-                                if (!obj.props.isDisabled) {
-                                  finalled.push(obj)
-                                }
-                              });
-                              finalCheckbox.map(obj => {
-                                {/*console.log(obj.props.checked);*/
-                                }
-                                if (obj.props.isDisabled) {
-                                  finalled.push(obj)
-                                }
-                              });
-                              return finalled
-
-                            })()}
-                          </div>
-                        </div>
-                      </Panel>
-
-
-
-                    )
-                  }
-                })()}
-              </PanelGroup>
-              <hr style={{
-                marginTop: '0px',
-                marginBottom: '-6%',
-                border: '0',
-                borderTop: '1px solid #eee',
-              }}></hr>
-              {/*<div id="style-7" style={{*/}
-              {/*height: '52%',*/}
-              {/*width: '19%',*/}
-              {/*position: 'fixed',*/}
-              {/*overflow: 'scroll',*/}
-              {/*paddingRight: '5px',*/}
-              {/*overflowX: 'hidden',*/}
-              {/*borderTop: '1px solid #ccc',*/}
-              {/*}}>*/}
-
               <PanelGroup defaultActiveKey="1" accordion>
                 {this.props.sideFilter.checkbox_list.map((item, key) => {
                   let panelHeader = (
@@ -208,108 +98,116 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
                       <span className="accordion-toggle" style={{float: 'right'}}></span>
                     </div>
                   );
-                  return (
-                    <Panel header={panelHeader} eventKey={++key}>
-                      <div className="panel selector">
-                        {/*<div className="panel-heading">*/}
-                        {/*<input type="text" value={this.props.filterSearch}*/}
-                        {/*onChange={(e) => {*/}
-                        {/*// console.log(e);*/}
-                        {/*let search = e.target.value.toLowerCase();*/}
-                        {/*if (!search) return*/}
+                  if (!['store_type', 'brand_name', 'product'].includes(item.title)) {
 
-                        {/*let parent = e.target.parentNode;*/}
-                        {/*while (parent.classList.contains('selector')) {*/}
-                        {/*parent = parent.parentNode;*/}
-                        {/*}*/}
-                        {/*parent = parent.parentNode;*/}
-                        {/*let inputText = parent.querySelectorAll(`input[name*=${search}]`);*/}
-                        {/*// console.log(inputText);*/}
+                    return (
+                      <Panel header={panelHeader} eventKey={++key}>
+                        <div className="panel selector">
+                          {/*<div className="panel-heading">*/}
+                          {/*<input type="text" value={this.props.filterSearch}*/}
+                          {/*onChange={(e) => {*/}
+                          {/*// console.log(e);*/}
+                          {/*let search = e.target.value.toLowerCase();*/}
+                          {/*if (!search) return*/}
 
-                        {/*// inputText.map(obj=>{*/}
-                        {/*//   obj.setAttribute('hidden')*/}
-                        {/*// })*/}
+                          {/*let parent = e.target.parentNode;*/}
+                          {/*while (parent.classList.contains('selector')) {*/}
+                          {/*parent = parent.parentNode;*/}
+                          {/*}*/}
+                          {/*parent = parent.parentNode;*/}
+                          {/*let inputText = parent.querySelectorAll(`input[name*=${search}]`);*/}
+                          {/*// console.log(inputText);*/}
 
-                        {/*// for (let i = 0; i < inputText.length; i++) {*/}
-                        {/*//   inputText[i].setAttribute("hidden", true)*/}
-                        {/*// }*/}
-                        {/*}}/>*/}
-                        {/*</div>*/}
-                        <div className="panel-body style-7"
-                             style={{maxHeight: '250px', overflowX: 'hidden'}}>
-                          {item.items.map(obj => {
-                            if (obj.highlighted) {
-                              if (item.input_type == 'RadioButton') {
-                                return <RadioButton id={item.id + '__' + item.category_director + '__' + obj.title}
-                                                    label={obj.title}
-                                                    valid={true}
-                                                    key={item.id + '__' + obj.title}
-                                                    name={obj.title.toLowerCase() }
-                                                    onChange={() => {
-                                                      this.updateUrl(item.id)
-                                                    }}
-                                                    checked={obj.resource.selected}
-                                                    isDisabled={!obj.highlighted}
+                          {/*// inputText.map(obj=>{*/}
+                          {/*//   obj.setAttribute('hidden')*/}
+                          {/*// })*/}
+
+                          {/*// for (let i = 0; i < inputText.length; i++) {*/}
+                          {/*//   inputText[i].setAttribute("hidden", true)*/}
+                          {/*// }*/}
+                          {/*}}/>*/}
+                          {/*</div>*/}
+                          <div className="panel-body style-7"
+                               style={{maxHeight: '250px', overflowX: 'hidden'}}>
+                            {item.items.map(obj => {
+                              if (obj.highlighted) {
+                                if (item.input_type == 'RadioButton') {
+                                  return <RadioButton id={item.id + '__' + item.category_director + '__' + obj.title}
+                                                      label={obj.title}
+                                                      valid={true}
+                                                      key={item.id + '__' + obj.title}
+                                                      name={obj.title.toLowerCase() }
+                                                      onChange={() => {
+                                                        this.updateUrl(item.id)
+                                                      }}
+                                                      checked={obj.resource.selected}
+                                                      isDisabled={!obj.highlighted}
+                                  />
+                                }
+                                return <Checkbox style="font-size:12px;"
+                                                 id={item.id + '__' + item.category_director + '__' + obj.title}
+                                                 label={obj.title}
+                                                 valid={true}
+                                                 key={item.id + '__' + obj.title}
+                                                 name={obj.title.toLowerCase()}
+                                                 onChange={() => {
+                                                   this.updateUrl(item.id)
+                                                 }}
+                                                 checked={obj.resource.selected}
+                                                 isDisabled={!obj.highlighted}
                                 />
                               }
-                              return <Checkbox style="font-size:12px;"
-                                               id={item.id + '__' + item.category_director + '__' + obj.title}
-                                               label={obj.title}
-                                               valid={true}
-                                               key={item.id + '__' + obj.title}
-                                               name={obj.title.toLowerCase()}
-                                               onChange={() => {
-                                                 this.updateUrl(item.id)
-                                               }}
-                                               checked={obj.resource.selected}
-                                               isDisabled={!obj.highlighted}
-                              />
-                            }
-                          })}
-                          <hr/>
-                          {item.items.map(obj => {
-                            if (!obj.highlighted) {
-                              if (item.input_type == 'RadioButton') {
-                                return <RadioButton id={item.id + '__' + item.category_director + '__' + obj.title}
-                                                    label={obj.title}
-                                                    valid={true}
-                                                    key={item.id + '__' + obj.title}
-                                                    name={obj.title.toLowerCase() }
-                                                    onChange={() => {
-                                                      this.updateUrl(item.id)
-                                                    }}
-                                                    checked={obj.resource.selected}
-                                                    isDisabled={!obj.highlighted}
+                            })}
+                            <hr/>
+                            {item.items.map(obj => {
+                              if (!obj.highlighted) {
+                                if (item.input_type == 'RadioButton') {
+                                  return <RadioButton id={item.id + '__' + item.category_director + '__' + obj.title}
+                                                      label={obj.title}
+                                                      valid={true}
+                                                      key={item.id + '__' + obj.title}
+                                                      name={obj.title.toLowerCase() }
+                                                      onChange={() => {
+                                                        this.updateUrl(item.id)
+                                                      }}
+                                                      checked={obj.resource.selected}
+                                                      isDisabled={!obj.highlighted}
+                                  />
+                                }
+                                return <Checkbox style="font-size:12px,width:230px;"
+                                                 id={item.id + '__' + item.category_director + '__' + obj.title}
+                                                 label={obj.title} valid={true}
+                                                 key={item.id + '__' + obj.title}
+                                                 name={obj.title.toLowerCase() }
+                                                 onChange={() => {
+                                                   this.updateUrl(item.category_director)
+                                                 }}
+                                                 checked={obj.resource.selected}
+                                                 isDisabled={!obj.highlighted}
                                 />
                               }
-                              return <Checkbox style="font-size:12px,width:230px;"
-                                               id={item.id + '__' + item.category_director + '__' + obj.title}
-                                               label={obj.title} valid={true}
-                                               key={item.id + '__' + obj.title}
-                                               name={obj.title.toLowerCase() }
-                                               onChange={() => {
-                                                 this.updateUrl(item.category_director)
-                                               }}
-                                               checked={obj.resource.selected}
-                                               isDisabled={!obj.highlighted}
-                              />
-                            }
-                          })}
+                            })}
+                          </div>
                         </div>
-                      </div>
-                    </Panel>
-                  )
+                      </Panel>
+                    )
+                  }
                 })}
               </PanelGroup>
 
 
-              <Modal show={this.state.alertShow} bsSize="sm" aria-labelledby="contained-modal-title-sm" style={{marginTop: '10%'}}>
+              <Modal show={this.state.alertShow} bsSize="sm" aria-labelledby="contained-modal-title-sm"
+                     style={{marginTop: '10%'}}>
                 <Modal.Header>
                   <Modal.Title id="contained-modal-title-sm"
                                style={{textAlign: 'center', fontSize: '18px'}}><span
-                    style={{textAlign: 'center', fontSize: '14px'}}><b>Mandatory Filter Selection Missing</b></span><span
-                    style={{textAlign: 'right', float: 'right' , marginTop: '1.1%'}}
-                    onClick={() => this.setState({alertShow: false})} className="glyphicon glyphicon-remove-sign"></span>
+                    style={{
+                      textAlign: 'center',
+                      fontSize: '14px'
+                    }}><b>Mandatory Filter Selection Missing</b></span><span
+                    style={{textAlign: 'right', float: 'right', marginTop: '1.1%'}}
+                    onClick={() => this.setState({alertShow: false})}
+                    className="glyphicon glyphicon-remove-sign"></span>
                     <div style={{textAlign: 'center'}}>
                       <div style={{textAlign: 'right'}}>
                       </div>
@@ -349,10 +247,12 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
                       console.log('--filterData', filterData);
                       this.props.pieChartSuccess(0);
                       this.props.kpiDataSuccess(0);
-                      {/*this.props.promoGiveAwaySuccess(0);*/}
+                      {/*this.props.promoGiveAwaySuccess(0);*/
+                      }
                       this.props.trendChartSpinner(0);
                       this.props.productsCountSplitSuccess(0);
-                      {/*this.props.promoParticipationBySplitSuccess(0);*/}
+                      {/*this.props.promoParticipationBySplitSuccess(0);*/
+                      }
                       this.props.productsTableSplitSuccess(0);
                       this.props.productsOnPromoTableFetch();
                       this.props.trendChartDataFetch();
