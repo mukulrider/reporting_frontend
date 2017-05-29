@@ -41,7 +41,9 @@ import {
   SAVE_METRIC_SELECTION_TAB,
   TREND_CHART_SPINNER,
 
-  PIE_CHART_FOR_EACH_TAB,PIE_CHART_FOR_EACH_TAB_SUCCESS,TREND_FOR_EACH_TAB,TREND_FOR_EACH_TAB_SUCCESS,PRODUCTS_ON_PROMOTION_TABLE,PRODUCTS_ON_PROMOTION_TABLE_SUCCESS
+  PIE_CHART_FOR_EACH_TAB, PIE_CHART_FOR_EACH_TAB_SUCCESS, TREND_FOR_EACH_TAB, TREND_FOR_EACH_TAB_SUCCESS,
+  PRODUCTS_ON_PROMOTION_TABLE, PRODUCTS_ON_PROMOTION_TABLE_SUCCESS, STORE_FILTER_PARAM, MODAL_PRODUCT_NAME,
+  MODAL_PRODUCT_DATA_SUCCESS, MODAL_PRODUCT_DATA
 
 } from './constants';
 
@@ -260,6 +262,18 @@ export function promoGiveAwaySuccess(spinnerCheck) {
   }
 }
 
+
+export function StoreFilterParam(data)
+{
+  console.log('StoreFilterParam = actions', data);
+  return {
+    type: STORE_FILTER_PARAM,
+    data,
+  };
+}
+
+
+
 //productsCountSplitSuccess SPINNER
 export function productsCountSplitSuccess(spinnerCheck) {
   // console.log('productsCountSplitSuccess', spinnerCheck);
@@ -371,5 +385,29 @@ export function trendChartSpinner(spinnerCheck) {
   return {
     type: TREND_CHART_SPINNER,
     spinnerCheck
+  }
+}
+
+//-------------------------Trend chart SPINNER ----------------------
+export function modalProductName(data) {
+  return {
+    type: MODAL_PRODUCT_NAME,
+    data
+  }
+}
+
+//-------------------------Trend chart SPINNER ----------------------
+export function modalProductInfo(data) {
+  return {
+    type: MODAL_PRODUCT_DATA,
+    data
+  }
+}
+
+//-------------------------Trend chart SPINNER ----------------------
+export function modalProductInfoSuccess(data) {
+  return {
+    type: MODAL_PRODUCT_DATA_SUCCESS,
+    data
   }
 }

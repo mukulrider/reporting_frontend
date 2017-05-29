@@ -21,7 +21,8 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
 
     console.log("PieChart Data" , data)
     let frameWidth = document.getElementById(id).clientWidth;
-    let margin = {top: 20, right: frameWidth/30, bottom: 10, left: frameWidth/30},
+    let margin = {top: 0, right: frameWidth/30, bottom: frameWidth/5.25, left: frameWidth/30},
+    // let margin = {top: 0, right: frameWidth/30, bottom: 55, left: frameWidth/30},
     // let margin = {top: 20, right: 30, bottom: 10, left: 30},
       width = frameWidth - margin.left - margin.right,
       height = frameWidth - margin.top - margin.bottom,
@@ -45,21 +46,21 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
       .value(function(d) { return d; });
 
      let svg = d3.select("#" + id + '_svg')
-       .attr("width", 400)
-       .attr("height", 420)
+       .attr("width", width)
+       .attr("height", height)
        // .attr("height", 405)
        //responsive SVG needs these 2 attributes and no width and height attr
-       // .attr("preserveAspectRatio", "xMinYMin meet")
-       // .attr("viewBox", "0 0" + (frameWidth) + " " + (frameWidth))
+       .attr("preserveAspectRatio", "xMinYMin meet")
+       .attr("viewBox", "0 0 " + (height) + " " + (width))
        //class to make it responsive
        .classed("svg-content-responsive", true)
       .append("g")
      //  .attr("transform", "translate(" + margin.left+ "," + margin.top + ")");
       .attr("transform", "translate(" + (radius + margin.left) + " " + (radius + margin.top)+ ")");
 
-    // setTimeout(function(){
-    //   d3.select('#'+id+'_svg').attr("width",null).attr("height",null)
-    // },100)
+    setTimeout(function(){
+      d3.select('#'+id+'_svg').attr("width",null).attr("height",null)
+    },100)
     let g = svg.selectAll(".arc")
       .data(pie(data))
       .enter().append("g")
@@ -83,23 +84,23 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
 
 
     // Legend
-    const legendWidth = frameWidth/2;
+    const legendWidth = frameWidth/3;
     let legend = svg.append("g")
       .attr("font-family", "sans-serif")
-      .attr("font-size", 14)
+      //.attr("font-size", 14)
       .attr("text-anchor", "end")
       .selectAll("g")
       .data(dataGroup)
       .enter().append("g")
       .attr("transform", function (d, i) {
-        return "translate(" + (i*legendWidth - width + margin.left + frameWidth/4) + ",0)";
+        return "translate(" + (i*legendWidth - (width/3) + margin.left) + ",0)";
       });
+
 
     let color_hash = ["#98abc5", "#8a89a6"];
 
-
     legend.append("rect")
-      .attr("x", 140 ).attr("y", radius)
+      .attr("x", 25 ).attr("y", radius)
       .attr("width", 19)
       .attr("height", 19)
       .attr("fill", function (d, i) {
@@ -107,7 +108,7 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
       });
 
     legend.append("text")
-      .attr("x", 130)
+      .attr("x", 20)
       .attr("y", radius + 10)
       .attr("dy", "0.32em")
       .text(function (d) {

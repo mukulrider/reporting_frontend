@@ -24,6 +24,7 @@ import ExecFilter from 'components/ExecFilter';
 
 // For KPIs and Charts
 import MultilinePromo from 'components/MultilinePromo';
+import TopFilter from 'components/TopFilter';
 import ExecTopbotMultiline from 'components/ExecTopbotMultiline';
 import GaugeExec from 'components/GaugeExec';
 import BarChartSimple from 'components/BarChartSimple';
@@ -52,6 +53,7 @@ import {
   generateUrlParamsString,
   getWeekFilter,
   WeekFilterParam,
+  StoreFilterParam,
   SaveDriverParam,
   //For top5/bot5 modal
   SaveFilteredFlag,
@@ -151,7 +153,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
     this.props.onGetWeekFilter();
 
     // saurav
-    this.props.onGenerateBestWorstPerformance();
+    // this.props.onGenerateBestWorstPerformance();
 
     if (this.props.Executive.kpi_param == 'kpi_type=Overview') {
       console.log("______________________ Only Overview function Called")
@@ -222,6 +224,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
       activeKey8: "0",
       activeKey9: "1",
       activeKey10: "1",
+      allImpGraphs: false,
+      detailedTable: false,
 
       showExternalDriverModal: false,
       showExternalDriverModalValue: false
@@ -229,7 +233,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
   }
 
-  cellButton = (row, cell) =>{
+  cellButton = (row, cell) => {
     return (
       <div>
         <button className="btn btn-success">Show info</button>
@@ -237,7 +241,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
     )
   }
 
-  cellButton2 = (row, cell) =>{
+  cellButton2 = (row, cell) => {
     return (
       <div>
         <button className="btn btn-success">Show info</button>
@@ -333,6 +337,248 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
             {name: 'description', content: 'Description of Executives'},
           ]}
         />
+
+
+        {/*Overview-external driver --modal*/}
+        <Modal show={this.state.allImpGraphs} bsSize="large"
+               dialogClassName={'xlModal'}
+               aria-labelledby="contained-modal-title-sm"
+               onHide={() => {
+                 this.setState({allImpGraphs: false})
+               }}>
+          <Modal.Header closeButton>
+            <Modal.Title id="" className="">External
+              Drivers</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+
+            {(() => {
+              if (this.props.Executive.overview_kpi_trend_data && this.props.Executive.overviewKPITrendSpinner) {
+                return (
+                  <div className="">
+                    {/*Row for value and volume*/}
+                    <div className="row ">
+                      {/*Value Trend*/}
+                      <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
+                        <h3 className="pageModuleSubTitle"> Value
+                          <div style={{float: "right", paddingRight: "5px"}}>
+                            <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight
+                                            style={{
+                                              backgroundColor: "transparent",
+                                              borderColor: "transparent",
+                                              color: "#00539f"
+                                            }} id="dropButtonId">
+                              <MenuItem onClick={() => {
+                                saveImage(document.getElementById('overview_value_line'), "kpiSalesValueTrend")
+                              }
+                              }>Save As JPEG</MenuItem>
+                              <MenuItem onClick={() => {
+                                saveDataAsCSV(this.props.Executive.overview_kpi_trend_data.sales_trend, "kpiSalesValueTrend.csv")
+                              }
+                              }>Download CSV</MenuItem>
+                            </DropdownButton>
+                          </div>
+                        </h3>
+
+                        {(() => {
+                          if (this.props.Executive.overview_kpi_trend_data) {
+                            console.log("overview_kpi_trend_data value line chart data", this.props.Executive.overview_kpi_trend_data.sales_trend);
+                            return (
+                              <div className="col-md-6 col-sm-12 col-xs-12">
+                                <MultilinePromo
+                                  data={this.props.Executive.overview_kpi_trend_data.sales_trend}
+                                  id="overview_value_line" label_ty="Sales TY" label_ly="Sales LY"
+                                  xaxis_title="Tesco Week" no_pref='£' no_suffix=''
+                                  yaxis_title='Value'
+                                  chart_width="600" legend_width="450" legend_text_width="445"/>
+                              </div>
+                            );
+                          }
+                        })()}
+                      </div>
+                      {/*Volume Trend*/}
+                      <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
+                        <h3 className="pageModuleSubTitle"> Volume
+                          <div style={{float: "right", paddingRight: "5px"}}>
+                            <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight
+                                            style={{
+                                              backgroundColor: "transparent",
+                                              borderColor: "transparent",
+                                              color: "#00539f"
+                                            }} id="dropButtonId">
+                              <MenuItem onClick={() => {
+                                saveImage(document.getElementById('overview_volume_line'), "kpiSalesVolumeTrend")
+                              }
+                              }>Save As JPEG</MenuItem>
+                              <MenuItem onClick={() => {
+                                saveDataAsCSV(this.props.Executive.overview_kpi_trend_data.volume_trend, "kpiSalesVolumeTrend.csv")
+                              }
+                              }>Download CSV</MenuItem>
+                            </DropdownButton>
+                          </div>
+                        </h3>
+                        {(() => {
+                          if (this.props.Executive.overview_kpi_trend_data) {
+                            console.log("overview_kpi_trend_data volume line chart data", this.props.Executive.overview_kpi_trend_data.volume_trend);
+                            return (
+                              <div className="col-md-6 col-sm-12 col-xs-12">
+                                <MultilinePromo
+                                  data={this.props.Executive.overview_kpi_trend_data.volume_trend}
+                                  id="overview_volume_line" label_ty="Volume TY" label_ly="Volume LY"
+                                  xaxis_title="Tesco Week" no_pref='' no_suffix=''
+                                  yaxis_title='Volume'
+                                  chart_width="600" legend_width="450" legend_text_width="445"/>
+                              </div>
+                            );
+                          }
+                        })()}
+
+                      </div>
+                    </div>
+                    {/*Row for COGS and CGM*/}
+                    <div className="row">
+                      {/*COGS Trend*/}
+                      <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
+                        <h3 className="pageModuleSubTitle"> COGS
+                          <div style={{float: "right", paddingRight: "5px"}}>
+                            <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight
+                                            style={{
+                                              backgroundColor: "transparent",
+                                              borderColor: "transparent",
+                                              color: "#00539f"
+                                            }} id="dropButtonId">
+                              <MenuItem onClick={() => {
+                                saveImage(document.getElementById('overview_cogs_line'), "kpiCOGSTrend")
+                              }
+                              }>Save As JPEG</MenuItem>
+                              <MenuItem onClick={() => {
+                                saveDataAsCSV(this.props.Executive.overview_kpi_trend_data.cogs_trend, "kpiCOGSTrend.csv")
+                              }
+                              }>Download CSV</MenuItem>
+                            </DropdownButton>
+                          </div>
+                        </h3>
+                        {(() => {
+                          if (this.props.Executive.overview_kpi_trend_data) {
+                            console.log("overview_kpi_trend_data COGS line chart data", this.props.Executive.overview_kpi_trend_data.cogs_trend);
+                            return (
+                              <div className="col-md-6 col-sm-12 col-xs-12">
+                                <MultilinePromo
+                                  data={this.props.Executive.overview_kpi_trend_data.cogs_trend}
+                                  id="overview_cogs_line" label_ty="COGS TY" label_ly="COGS LY"
+                                  xaxis_title="Tesco Week" no_pref='£' no_suffix=''
+                                  yaxis_title='COGS' chart_width="600" legend_width="450"
+                                  legend_text_width="445"/>
+                              </div>
+                            );
+                          }
+                        })()}
+                      </div>
+                      {/*CGM Trend*/}
+                      <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
+                        <h3 className="pageModuleSubTitle"> Profit
+                          <div style={{float: "right", paddingRight: "5px"}}>
+                            <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight
+                                            style={{
+                                              backgroundColor: "transparent",
+                                              borderColor: "transparent",
+                                              color: "#00539f"
+                                            }} id="dropButtonId">
+                              <MenuItem onClick={() => {
+                                saveImage(document.getElementById('overview_cgm_line'), "kpiCGMTrend")
+                              }
+                              }>Save As JPEG</MenuItem>
+                              <MenuItem onClick={() => {
+                                saveDataAsCSV(this.props.Executive.overview_kpi_trend_data.cgm_trend, "kpiCGMTrend.csv")
+                              }
+                              }>Download CSV</MenuItem>
+                            </DropdownButton>
+                          </div>
+                        </h3>
+                        {(() => {
+                          if (this.props.Executive.overview_kpi_trend_data) {
+                            console.log("overview_kpi_trend_data profit line chart data", this.props.Executive.overview_kpi_trend_data.cgm_trend);
+                            return (
+                              <div className="col-md-6 col-sm-12 col-xs-12">
+                                <MultilinePromo
+                                  data={this.props.Executive.overview_kpi_trend_data.cgm_trend}
+                                  id="overview_cgm_line" label_ty="Profit TY"
+                                  label_ly="Profit LY" xaxis_title="Tesco Week" no_pref='£'
+                                  no_suffix='' yaxis_title='Profit' chart_width="600"
+                                  legend_width="450" legend_text_width="445"/>
+                              </div>
+                            );
+                          }
+                        })()}
+
+                      </div>
+                    </div>
+                  </div>
+                )
+              } else {
+                return (
+
+                  <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+
+                );
+              }
+            })()}
+
+          </Modal.Body>
+
+        </Modal>
+
+        <Modal show={this.state.detailedTable} bsSize="large"
+               dialogClassName={'xlModal'}
+               aria-labelledby="contained-modal-title-sm"
+               onHide={() => {
+                 this.setState({allImpGraphs: false})
+               }}>
+          <Modal.Header closeButton>
+            <Modal.Title id="" className="">External
+              Drivers</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+
+
+            {(() => {
+              if (this.props.Executive.roles_intent_data && this.props.Executive.roles_intent_data.roles_and_intent_detail) {
+                return (
+                  <BootstrapTable className="promoTable"
+                                  data={this.props.Executive.roles_intent_data.roles_and_intent_detail}
+                                  striped={true}
+                                  condensed
+                  >
+                    <TableHeaderColumn dataAlign={"left"} dataField='buying_controller' isKey>Buying
+                      Controller</TableHeaderColumn>
+                    <TableHeaderColumn dataAlign={"left"} dataField='express'
+                                       columnClassName={''}>Express</TableHeaderColumn>
+                    <TableHeaderColumn dataAlign={"left"} dataField='large_stores'
+                                       columnClassName={''}>Large
+                      Stores</TableHeaderColumn>
+                    <TableHeaderColumn dataAlign={"left"} dataField='type'
+                                       columnClassName={''}>Type</TableHeaderColumn>
+                    <TableHeaderColumn dataAlign={"left"} dataField='benchmark'
+                                       columnClassName={''}>Customer Proposition metrics - Benchmark
+                    </TableHeaderColumn>
+                    <TableHeaderColumn dataAlign={"left"} dataField='tesco_as_is'
+                                       columnClassName={''}>Customer Proposition metrics - Tesco As-Is
+                    </TableHeaderColumn>
+                    <TableHeaderColumn dataAlign={"left"} dataField='tesco_end_game'
+                                       columnClassName={''}>Customer Proposition metrics - Tesco End-game
+                    </TableHeaderColumn>
+                  </BootstrapTable>
+
+                )
+              }
+
+
+            })()}
+
+          </Modal.Body>
+
+        </Modal>
+
 
         <div className="row" style={{
           marginLeft: '0px',
@@ -447,6 +693,42 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                 }
               })()}
             </div>
+            {(() => {
+              if (this.props.Executive.week_filter_data) {
+                return (
+                  <TopFilter
+                    week_filter_data={this.props.Executive.week_filter_data}
+                             onSaveWeekFilterParam={this.props.onSaveWeekFilterParam}
+
+                             onSaveStoreFilterParam={this.props.onSaveStoreFilterParam}
+
+                             loadOverviewKpi={ this.props.loadOverviewKpi}
+                             loadRolesAndIntent={ this.props.loadRolesAndIntent}
+                             loadBudgetAndForecast={ this.props.loadBudgetAndForecast}
+                             loadOverviewKpiTrend={ this.props.loadOverviewKpiTrend}
+                             loadOverviewDriversInternal={ this.props.loadOverviewDriversInternal}
+                             loadOverviewDriversExternal={ this.props.loadOverviewDriversExternal}
+                             loadKpiBoxes={ this.props.loadKpiBoxes}
+                             loadBestWorst={ this.props.loadBestWorst}
+                             loadDriversInternalData={ this.props.loadDriversInternalData}
+
+                             loadDriversExternalData={ this.props.loadDriversExternalData}
+                             loadPriceKPIData={ this.props.loadPriceKPIData}
+                             kpi_type={this.props.Executive.kpi_param}
+                             spinnerRolesAndIntent={this.props.spinnerRolesAndIntent}
+                             spinnerOverviewKPITrend={this.props.spinnerOverviewKPITrend}
+                             spinnerOverviewInternalDrivers={this.props.spinnerOverviewInternalDrivers}
+                             spinnerOverviewExternalDrivers={this.props.spinnerOverviewExternalDrivers}
+                             spinnerInternalDrivers={this.props.spinnerInternalDrivers}
+                             spinnerExternalDrivers={this.props.spinnerExternalDrivers}
+                             spinnerOverviewKPI={this.props.spinnerOverviewKPI}
+                             spinnerPriceKPi={this.props.spinnerPriceKPI}
+                             spinnerKPI={this.props.spinnerKPI}
+                  />
+
+                )
+              }
+            })()}
             <div className="row " style={{marginLeft: "0%", paddingTop: "-5px", marginRight: "0px"}}>
 
               <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12 ">
@@ -540,6 +822,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             this.props.loadOverviewDriversExternal();
                             this.props.loadRolesAndIntent();
                             this.props.loadBudgetAndForecast();
+                            this.props.onGenerateBestWorstPerformance();
 
                           }
                           else {
@@ -600,6 +883,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             this.props.loadOverviewDriversExternal();
                             this.props.loadRolesAndIntent();
                             this.props.loadBudgetAndForecast();
+                            this.props.onGenerateBestWorstPerformance();
 
                           }
                           else {
@@ -616,6 +900,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               this.props.spinnerKPI(0);
                               this.props.loadKpiBoxes();
                               this.props.loadBestWorst();
+                              this.props.onGenerateBestWorstPerformance();
+
                               {/*this.props.loadBestInfoData();*/
                               }
                               {/*this.props.loadWorstInfoData();*/
@@ -675,6 +961,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               this.props.spinnerKPI(0);
                               this.props.loadKpiBoxes();
                               this.props.loadBestWorst();
+                              this.props.onGenerateBestWorstPerformance();
+
                               {/*this.props.loadBestInfoData();*/
                               }
                               {/*this.props.loadWorstInfoData();*/
@@ -737,6 +1025,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               this.props.spinnerKPI(0);
                               this.props.loadKpiBoxes();
                               this.props.loadBestWorst();
+                              this.props.onGenerateBestWorstPerformance();
+
                               {/*this.props.loadBestInfoData();*/
                               }
                               {/*this.props.loadWorstInfoData();*/
@@ -810,6 +1100,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         this.props.loadKpiBoxes();
                         this.props.loadBestWorst();
+                        this.props.onGenerateBestWorstPerformance();
+
                         {/*this.props.loadWorstInfoData();*/
                         }
                         {/*this.props.loadBestInfoData();*/
@@ -840,6 +1132,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         this.props.loadKpiBoxes();
                         this.props.loadBestWorst();
+                        this.props.onGenerateBestWorstPerformance();
+
                         {/*this.props.loadWorstInfoData();*/
                         }
                         {/*this.props.loadBestInfoData();*/
@@ -870,6 +1164,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         this.props.loadKpiBoxes();
                         this.props.loadBestWorst();
+                        this.props.onGenerateBestWorstPerformance();
+
                         {/*this.props.loadWorstInfoData();*/
                         }
                         {/*this.props.loadBestInfoData();*/
@@ -901,6 +1197,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         this.props.loadKpiBoxes();
                         this.props.loadBestWorst();
+                        this.props.onGenerateBestWorstPerformance();
+
                         {/*this.props.loadWorstInfoData();*/
                         }
                         {/*this.props.loadBestInfoData();*/
@@ -936,22 +1234,23 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                       return (
                         <div className="coverBox">
 
-                        {/*Row for overview KPI Boxes */}
-                        <div className="headerBox">
-                          <h2 className="pageModuleMainTitle">Performance by KPI</h2>
-                        </div>
+                          {/*Row for overview KPI Boxes */}
+                          <div className="headerBox">
+                            <h2 className="pageModuleMainTitle">Performance KPI</h2>
+                          </div>
 
-                          {(() => {if (this.props.Executive.overviewKPISpinner && this.props.Executive.overview_kpi_data) {
-                            return (
-                              <div>
-                                <div className="row mainBox" style={{textAlign: 'center'}}>
-                                  {/* Box for value */}
-                                  <div className="col-md-3 col-xs-3" style={{backgroundColor: "#fafafa"}}>
-                                    <Panel>
-                                      <h3 className="pageModuleSubTitle"> Value </h3>
-                                      <h3 style={{padding: "0px", margin: "0px"}}>
-                                        {this.props.Executive.overview_kpi_data.kpi.value.total}
-                                      </h3>
+                          {(() => {
+                            if (this.props.Executive.overviewKPISpinner && this.props.Executive.overview_kpi_data) {
+                              return (
+                                <div>
+                                  <div className="row mainBox" style={{textAlign: 'center'}}>
+                                    {/* Box for value */}
+                                    <div className="col-md-3 col-xs-3" style={{backgroundColor: "#fafafa"}}>
+                                      <Panel>
+                                        <h3 className="pageModuleSubTitle"> Value </h3>
+                                        <h3 style={{padding: "0px", margin: "0px"}}>
+                                          {this.props.Executive.overview_kpi_data.kpi.value.total}
+                                        </h3>
 
                                         <div className="row">
                                           {(() => {
@@ -1141,7 +1440,13 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                       </Panel>
                                     </div>
 
+                                    <div className="text-right">
+                                      <Button buttonType={'primary'} onClick={() => {
+                                        this.setState({allImpGraphs: true})
+                                      }}>Show KPI Trends</Button>
+                                    </div>
                                   </div>
+                                  <br/>
                                   <div className="row mainBox"
                                        style={{textAlign: 'center', backgroundColor: "#fafafa"}}>
                                     {/* Box for price */}
@@ -1242,7 +1547,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                       <div className="col-xs-6">
                                         <Panel>
                                           <div className="pageModuleTitle">Value vs Forecast</div>
-                                          <div className="cardNumbers">{this.props.Executive.budget_forecast_data.forecast_value}</div>
+                                          <div
+                                            className="cardNumbers">{this.props.Executive.budget_forecast_data.forecast_value}</div>
                                         </Panel>
                                       </div>
 
@@ -1257,17 +1563,20 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                        style={{paddingTop: "20px", paddingBottom: "20px", background: "#fff"}}>
 
                                     {(() => {
-                                      if (this.props.Executive.roles_intent_data) {
+                                      if (this.props.Executive.roles_intent_data.roles_and_intent) {
                                         return (
                                           <BootstrapTable className="promoTable"
-                                                          data={this.props.Executive.roles_intent_data}
+                                                          data={this.props.Executive.roles_intent_data.roles_and_intent}
                                                           striped={true}
                                                           condensed
                                           >
                                             <TableHeaderColumn dataAlign={"left"} dataField='buying_controller' isKey>Buying
                                               Controller</TableHeaderColumn>
-                                            <TableHeaderColumn dataAlign={"left"} dataField='intent'
-                                                               columnClassName={columnClassNameFormat}>Intent</TableHeaderColumn>
+                                            <TableHeaderColumn dataAlign={"left"} dataField='express'
+                                                               columnClassName={columnClassNameFormat}>Express</TableHeaderColumn>
+                                            <TableHeaderColumn dataAlign={"left"} dataField='large_stores'
+                                                               columnClassName={columnClassNameFormat}>Large
+                                              Stores</TableHeaderColumn>
                                           </BootstrapTable>
 
                                         )
@@ -1276,186 +1585,15 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                     })()}
                                   </div>
+                                  <div className="text-right">
+                                    <Button buttonType={'primary'} onClick={() => {
+                                      this.setState({detailedTable: true})
+                                    }}>Detailed Info.</Button>
+                                  </div>
                                 </div>
                               )
                             }
                             else {
-                              return (
-
-                                <div className="text-center"><Spinner />Please Wait a Moment....!</div>
-
-                              );
-                            }
-                          })()}
-
-
-                          {/*Row for Trended performance*/}
-                          <div className="headerBox">
-                            <h2 className="pageModuleMainTitle">Trended Performance</h2>
-                          </div>
-
-                          {(() => {
-                            if (this.props.Executive.overview_kpi_trend_data && this.props.Executive.overviewKPITrendSpinner) {
-                              return (
-                                <div className="mainBox">
-                                  {/*Row for value and volume*/}
-                                  <div className="row ">
-                                    {/*Value Trend*/}
-                                    <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
-                                      <h3 className="pageModuleSubTitle"> Value
-                                        <div style={{float: "right", paddingRight: "5px"}}>
-                                          <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight
-                                                          style={{
-                                                            backgroundColor: "transparent",
-                                                            borderColor: "transparent",
-                                                            color: "#00539f"
-                                                          }} id="dropButtonId">
-                                            <MenuItem onClick={() => {
-                                              saveImage(document.getElementById('overview_value_line'), "kpiSalesValueTrend")
-                                            }
-                                            }>Save As JPEG</MenuItem>
-                                            <MenuItem onClick={() => {
-                                              saveDataAsCSV(this.props.Executive.overview_kpi_trend_data.sales_trend, "kpiSalesValueTrend.csv")
-                                            }
-                                            }>Download CSV</MenuItem>
-                                          </DropdownButton>
-                                        </div>
-                                      </h3>
-
-                                      {(() => {
-                                        if (this.props.Executive.overview_kpi_trend_data) {
-                                          console.log("overview_kpi_trend_data value line chart data", this.props.Executive.overview_kpi_trend_data.sales_trend);
-                                          return (
-                                            <div className="col-md-12 col-sm-12 col-xs-12">
-                                              <MultilinePromo
-                                                data={this.props.Executive.overview_kpi_trend_data.sales_trend}
-                                                id="overview_value_line" label_ty="Sales TY" label_ly="Sales LY"
-                                                xaxis_title="Tesco Week" no_pref='£' no_suffix='' yaxis_title='Value'
-                                                chart_width="600" legend_width="450" legend_text_width="445"/>
-                                            </div>
-                                          );
-                                        }
-                                      })()}
-                                    </div>
-                                    {/*Volume Trend*/}
-                                    <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
-                                      <h3 className="pageModuleSubTitle"> Volume
-                                        <div style={{float: "right", paddingRight: "5px"}}>
-                                          <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight
-                                                          style={{
-                                                            backgroundColor: "transparent",
-                                                            borderColor: "transparent",
-                                                            color: "#00539f"
-                                                          }} id="dropButtonId">
-                                            <MenuItem onClick={() => {
-                                              saveImage(document.getElementById('overview_volume_line'), "kpiSalesVolumeTrend")
-                                            }
-                                            }>Save As JPEG</MenuItem>
-                                            <MenuItem onClick={() => {
-                                              saveDataAsCSV(this.props.Executive.overview_kpi_trend_data.volume_trend, "kpiSalesVolumeTrend.csv")
-                                            }
-                                            }>Download CSV</MenuItem>
-                                          </DropdownButton>
-                                        </div>
-                                      </h3>
-                                      {(() => {
-                                        if (this.props.Executive.overview_kpi_trend_data) {
-                                          console.log("overview_kpi_trend_data volume line chart data", this.props.Executive.overview_kpi_trend_data.volume_trend);
-                                          return (
-                                            <div className="col-md-12 col-sm-12 col-xs-12">
-                                              <MultilinePromo
-                                                data={this.props.Executive.overview_kpi_trend_data.volume_trend}
-                                                id="overview_volume_line" label_ty="Volume TY" label_ly="Volume LY"
-                                                xaxis_title="Tesco Week" no_pref='' no_suffix='' yaxis_title='Volume'
-                                                chart_width="600" legend_width="450" legend_text_width="445"/>
-                                            </div>
-                                          );
-                                        }
-                                      })()}
-
-                                    </div>
-                                  </div>
-                                  {/*Row for COGS and CGM*/}
-                                  <div className="row">
-                                    {/*COGS Trend*/}
-                                    <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
-                                      <h3 className="pageModuleSubTitle"> COGS
-                                        <div style={{float: "right", paddingRight: "5px"}}>
-                                          <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight
-                                                          style={{
-                                                            backgroundColor: "transparent",
-                                                            borderColor: "transparent",
-                                                            color: "#00539f"
-                                                          }} id="dropButtonId">
-                                            <MenuItem onClick={() => {
-                                              saveImage(document.getElementById('overview_cogs_line'), "kpiCOGSTrend")
-                                            }
-                                            }>Save As JPEG</MenuItem>
-                                            <MenuItem onClick={() => {
-                                              saveDataAsCSV(this.props.Executive.overview_kpi_trend_data.cogs_trend, "kpiCOGSTrend.csv")
-                                            }
-                                            }>Download CSV</MenuItem>
-                                          </DropdownButton>
-                                        </div>
-                                      </h3>
-                                      {(() => {
-                                        if (this.props.Executive.overview_kpi_trend_data) {
-                                          console.log("overview_kpi_trend_data COGS line chart data", this.props.Executive.overview_kpi_trend_data.cogs_trend);
-                                          return (
-                                            <div className="col-md-12 col-sm-12 col-xs-12">
-                                              <MultilinePromo
-                                                data={this.props.Executive.overview_kpi_trend_data.cogs_trend}
-                                                id="overview_cogs_line" label_ty="COGS TY" label_ly="COGS LY"
-                                                xaxis_title="Tesco Week" no_pref='£' no_suffix=''
-                                                yaxis_title='COGS' chart_width="600" legend_width="450"
-                                                legend_text_width="445"/>
-                                            </div>
-                                          );
-                                        }
-                                      })()}
-                                    </div>
-                                    {/*CGM Trend*/}
-                                    <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
-                                      <h3 className="pageModuleSubTitle"> Profit
-                                        <div style={{float: "right", paddingRight: "5px"}}>
-                                          <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight
-                                                          style={{
-                                                            backgroundColor: "transparent",
-                                                            borderColor: "transparent",
-                                                            color: "#00539f"
-                                                          }} id="dropButtonId">
-                                            <MenuItem onClick={() => {
-                                              saveImage(document.getElementById('overview_cgm_line'), "kpiCGMTrend")
-                                            }
-                                            }>Save As JPEG</MenuItem>
-                                            <MenuItem onClick={() => {
-                                              saveDataAsCSV(this.props.Executive.overview_kpi_trend_data.cgm_trend, "kpiCGMTrend.csv")
-                                            }
-                                            }>Download CSV</MenuItem>
-                                          </DropdownButton>
-                                        </div>
-                                      </h3>
-                                      {(() => {
-                                        if (this.props.Executive.overview_kpi_trend_data) {
-                                          console.log("overview_kpi_trend_data profit line chart data", this.props.Executive.overview_kpi_trend_data.cgm_trend);
-                                          return (
-                                            <div className="col-md-12 col-sm-12 col-xs-12">
-                                              <MultilinePromo
-                                                data={this.props.Executive.overview_kpi_trend_data.cgm_trend}
-                                                id="overview_cgm_line" label_ty="Profit TY"
-                                                label_ly="Profit LY" xaxis_title="Tesco Week" no_pref='£'
-                                                no_suffix='' yaxis_title='Profit' chart_width="600"
-                                                legend_width="450" legend_text_width="445"/>
-                                            </div>
-                                          );
-                                        }
-                                      })()}
-
-                                    </div>
-                                  </div>
-                                </div>
-                              )
-                            } else {
                               return (
 
                                 <div className="text-center"><Spinner />Please Wait a Moment....!</div>
@@ -1518,141 +1656,143 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                           LFL Sales:
                                                           <span
                                                             className={glyphiconFormatter(this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var)}>
-                                                          </span>{this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var}
+                                                          </span>{this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var}%
                                                         </h4>
 
-                                                          <div className="row" style={{marginTop: '12%', marginBottom: '5%'}}>
-                                                            <div className="col-xs-12 overview-blk"
-                                                                 style={{marginRight: "5px"}}>
-                                                              <div className="panel"
-                                                                   style={{
-                                                                     border: '1px solid #E5E8EA',
-                                                                     height: '100px',
-                                                                     textAlign: 'center'
-                                                                   }}>
-                                                                <h4 className="panel-heading tesco-heading"><b>Transactions</b>
-                                                                </h4>
-                                                                <div className="panel-body">
+                                                      <div className="row"
+                                                           style={{marginTop: '12%', marginBottom: '5%'}}>
+                                                        <div className="col-xs-12 overview-blk"
+                                                             style={{marginRight: "5px"}}>
+                                                          <div className="panel"
+                                                               style={{
+                                                                 border: '1px solid #E5E8EA',
+                                                                 height: '100px',
+                                                                 textAlign: 'center'
+                                                               }}>
+                                                            <h4 className="panel-heading tesco-heading">
+                                                              <b>Transactions</b>
+                                                            </h4>
+                                                            <div className="panel-body">
                                                                   <span className="overview-blk-value">
                                                                       <span
                                                                         className={glyphiconFormatter(this.props.Executive.overview_drivers_internal_data.kpi.transaction_var)}>
-                                                                      </span> {this.props.Executive.overview_drivers_internal_data.kpi.transaction_var}
+                                                                      </span> {this.props.Executive.overview_drivers_internal_data.kpi.transaction_var}%
                                                                   </span>
-                                                                </div>
-                                                              </div>
                                                             </div>
-                                                            <div className="col-xs-12 overview-blk"
-                                                                 style={{marginRight: "5px"}}>
-                                                              <div className="panel"
-                                                                   style={{
-                                                                     border: '1px solid #E5E8EA',
-                                                                     height: '100px',
-                                                                     textAlign: 'center'
-                                                                   }}>
-                                                                <h4 className="panel-heading tesco-heading"><b>Items
-                                                                  per Basket</b>
-                                                                </h4>
-                                                                <div className="panel-body">
+                                                          </div>
+                                                        </div>
+                                                        <div className="col-xs-12 overview-blk"
+                                                             style={{marginRight: "5px"}}>
+                                                          <div className="panel"
+                                                               style={{
+                                                                 border: '1px solid #E5E8EA',
+                                                                 height: '100px',
+                                                                 textAlign: 'center'
+                                                               }}>
+                                                            <h4 className="panel-heading tesco-heading"><b>Items
+                                                              per Basket</b>
+                                                            </h4>
+                                                            <div className="panel-body">
                                                                   <span className="overview-blk-value">
                                                                       <span
                                                                         className={glyphiconFormatter(this.props.Executive.overview_drivers_internal_data.kpi.item_per_basket_var)}>
-                                                                      </span> {this.props.Executive.overview_drivers_internal_data.kpi.item_per_basket_var}
+                                                                      </span> {this.props.Executive.overview_drivers_internal_data.kpi.item_per_basket_var}%
                                                                   </span>
-                                                                </div>
-                                                              </div>
                                                             </div>
-                                                            <div className="col-xs-12 overview-blk"
-                                                                 style={{marginRight: "5px"}}>
-                                                              <div className="panel"
-                                                                   style={{
-                                                                     border: '1px solid #E5E8EA',
-                                                                     height: '100px',
-                                                                     textAlign: 'center'
-                                                                   }}>
-                                                                <h4 className="panel-heading tesco-heading"><b>Item
-                                                                  price</b></h4>
-                                                                <div className="panel-body">
+                                                          </div>
+                                                        </div>
+                                                        <div className="col-xs-12 overview-blk"
+                                                             style={{marginRight: "5px"}}>
+                                                          <div className="panel"
+                                                               style={{
+                                                                 border: '1px solid #E5E8EA',
+                                                                 height: '100px',
+                                                                 textAlign: 'center'
+                                                               }}>
+                                                            <h4 className="panel-heading tesco-heading"><b>Item
+                                                              price</b></h4>
+                                                            <div className="panel-body">
                                                                   <span className="overview-blk-value">
                                                                       <span
                                                                         className={glyphiconFormatter(this.props.Executive.overview_drivers_internal_data.kpi.item_price_var)}>
-                                                                      </span>{this.props.Executive.overview_drivers_internal_data.kpi.item_price_var}
+                                                                      </span>{this.props.Executive.overview_drivers_internal_data.kpi.item_price_var}%
                                                                   </span>
-                                                                </div>
-                                                              </div>
                                                             </div>
                                                           </div>
-
+                                                        </div>
                                                       </div>
 
-                                                    )
-                                                  }
-                                                  else {
-                                                    return (
-                                                      <div>
-                                                        <h4 className="pageModuleSubTitle"> KPI Contribution to
-                                                          growth</h4>
-                                                        <h4>Data is available only from week 201702</h4></div>
-                                                    )
-                                                  }
+                                                    </div>
+
+                                                  )
                                                 }
+                                                else {
+                                                  return (
+                                                    <div>
+                                                      <h4 className="pageModuleSubTitle"> KPI Contribution to
+                                                        growth</h4>
+                                                      <h4>Data is available only from week 201702</h4></div>
+                                                  )
+                                                }
+                                              }
 
-                                              })()}
-
-
-                                            </div>
-                                          </Panel>
-                                        </div>
-                                        <div className="col-md-8 col-sm-8 col-xs-12  col-lg-8">
-                                          <Panel>
-                                            <h4 className="pageModuleSubTitle"> Promotion Contribution to growth
-                                              <div style={{float: "right"}}>
-                                                <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight
-                                                                style={{
-                                                                  backgroundColor: "transparent",
-                                                                  borderColor: "transparent",
-                                                                  color: "#00539f"
-                                                                }} id="dropButtonId">
-                                                  <MenuItem onClick={() => {
-                                                    saveImage(document.getElementById('waterfallChart_2_svg'), "overviewDriversInternalWaterfallChart")
-                                                  }
-                                                  }>Save As JPEG</MenuItem>
-                                                  <MenuItem onClick={() => {
-                                                    saveDataAsCSV(this.props.Executive.overview_drivers_internal_data.promo, "overviewDriversInternalWaterfallChart_data.csv")
-                                                  }
-                                                  }>Download CSV</MenuItem>
-                                                </DropdownButton>
-                                              </div>
-                                            </h4>
-                                            {(() => {
-                                              if (this.props.Executive.overview_drivers_internal_data)
-                                                return (
-                                                  <div>
-                                                    <WaterFallChartExec id="waterfallChart_2"
-                                                                        yAxisName="Price Index"
-                                                                        formatter="formatSales"
-                                                                        positive_text='negative'
-                                                                        negative_text='positive'
-                                                                        total_text='total1'
-                                                                        data={this.props.Executive.overview_drivers_internal_data.promo}
-                                                    />
-                                                  </div>
-                                                )
                                             })()}
-                                          </Panel>
-                                        </div>
+
+
+                                          </div>
+                                        </Panel>
                                       </div>
-                                    )
-                                  }
-                                  else {
-                                    return (
-                                      <div className="text-center"><Spinner />Please Wait a Moment....!</div>
-                                    )
-                                  }
+                                      <div className="col-md-8 col-sm-8 col-xs-12  col-lg-8">
+                                        <Panel>
+                                          <h4 className="pageModuleSubTitle"> Promotion Contribution to growth
+                                            <div style={{float: "right"}}>
+                                              <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight
+                                                              style={{
+                                                                backgroundColor: "transparent",
+                                                                borderColor: "transparent",
+                                                                color: "#00539f"
+                                                              }} id="dropButtonId">
+                                                <MenuItem onClick={() => {
+                                                  saveImage(document.getElementById('waterfallChart_2_svg'), "overviewDriversInternalWaterfallChart")
+                                                }
+                                                }>Save As JPEG</MenuItem>
+                                                <MenuItem onClick={() => {
+                                                  saveDataAsCSV(this.props.Executive.overview_drivers_internal_data.promo, "overviewDriversInternalWaterfallChart_data.csv")
+                                                }
+                                                }>Download CSV</MenuItem>
+                                              </DropdownButton>
+                                            </div>
+                                          </h4>
+                                          {(() => {
+                                            if (this.props.Executive.overview_drivers_internal_data)
+                                              return (
+                                                <div>
+                                                  <WaterFallChartExec id="waterfallChart_2"
+                                                                      yAxisName="Price Index"
+                                                                      formatter="formatSales"
+                                                                      positive_text='negative'
+                                                                      negative_text='positive'
+                                                                      total_text='total1'
+                                                                      data={this.props.Executive.overview_drivers_internal_data.promo}
+                                                  />
+                                                </div>
+                                              )
+                                          })()}
+                                        </Panel>
+                                      </div>
+                                    </div>
+                                  )
+                                }
+                                else {
+                                  return (
+                                    <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+                                  )
+                                }
 
-                                })()}
+                              })()}
 
-                              </div>
                             </div>
+                          </div>
 
 
                           {/*Overview-external driver --modal*/}
@@ -1678,18 +1818,18 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                       <h3 className="pageModuleSubTitle"> Sunshine
                                       </h3>
 
-                                        {/* Image here*/}
-                                        <img style={{height: 100, width: 100, marginLeft: '32%'}} src={imgSunshine}/>
+                                      {/* Image here*/}
+                                      <img style={{height: 100, width: 100, marginLeft: '32%'}} src={imgSunshine}/>
 
-                                        <div className="row">
-                                          <h3 style={{textAlign: "center"}}>{
-                                            this.props.Executive.overview_drivers_external_data.sunshine.avg
+                                      <div className="row">
+                                        <h3 style={{textAlign: "center"}}>{
+                                          this.props.Executive.overview_drivers_external_data.sunshine.avg
 
-                                          }</h3>
-                                        </div>
+                                        }</h3>
+                                      </div>
 
-                                        <div className="row">
-                                          <div className="panel-body cardPanel">
+                                      <div className="row">
+                                        <div className="panel-body cardPanel">
 
                                           {(() => {
                                             if (this.props.Executive.week_param == 'week_flag=Current Week') {
@@ -1707,7 +1847,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             }
 
 
-                                            })()}
+                                          })()}
 
 
                                           <div className={(() => {
@@ -1766,7 +1906,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             }
 
 
-                                            })()}
+                                          })()}
 
 
                                           <div className={(() => {
@@ -1823,7 +1963,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             }
 
 
-                                            })()}
+                                          })()}
 
 
                                           <div className={(() => {
@@ -1846,10 +1986,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             <h5 className="kpiSubTitle"><b>YoY</b></h5>
                                           </div>
 
-                                          </div>
                                         </div>
-                                      </Panel>
-                                    </div>
+                                      </div>
+                                    </Panel>
+                                  </div>
 
 
                                   {/*Block for holidays table*/}
@@ -2460,9 +2600,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                          this.setState({lgValidation: false})
                                        }}>
                                   <Modal.Header closeButton>
-                                    <Modal.Title id="contained-modal-title-sm text-center" className="bodySubTitle">Please
-                                      enter
-                                      necessary details</Modal.Title>
+                                    <Modal.Title id="contained-modal-title-sm text-center" className="bodySubTitle">Trended Performance</Modal.Title>
                                   </Modal.Header>
                                   <Modal.Body>
                                     {(() => {
@@ -2476,25 +2614,25 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             <TableHeaderColumn dataField='parent_supplier'
                                                                dataAlign='center' isKey
                                                                tdStyle={{fontSize: '14px'}}
-                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>parent_supplier</TableHeaderColumn>
+                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>Parent Supplier</TableHeaderColumn>
                                             <TableHeaderColumn dataField='grouped_ty'
                                                                dataAlign='center'
                                                                tdStyle={{fontSize: '14px'}}
-                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>grouped_ty</TableHeaderColumn>
+                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>Grouped TY</TableHeaderColumn>
                                             <TableHeaderColumn dataField='cont_to_grwth'
                                                                dataAlign='center'
                                                                tdStyle={{fontSize: '14px'}}
-                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>cont_to_grwth</TableHeaderColumn>
+                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>Contribution to Growth</TableHeaderColumn>
                                             <TableHeaderColumn dataField='grouped_ly'
                                                                dataAlign='center'
                                                                tdStyle={{fontSize: '14px'}}
 
-                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>grouped_ly</TableHeaderColumn>
+                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>Grouped LY</TableHeaderColumn>
                                             <TableHeaderColumn dataFormat={cellButton}
                                                                dataAlign='center'
                                                                tdStyle={{fontSize: '14px'}}
 
-                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>grouped_ly</TableHeaderColumn>
+                                                               thStyle={{whiteSpace: 'normal', fontSize: '15px'}}>Grouped TY</TableHeaderColumn>
                                             <TableHeaderColumn dataFormat={(row, cell) => {
                                               return (
                                                 <div>
@@ -2532,9 +2670,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                          this.setState({modalGraphTopBot: false})
                                        }}>
                                   <Modal.Header closeButton>
-                                    <Modal.Title id="contained-modal-title-sm text-center" className="bodySubTitle">Please
-                                      enter
-                                      necessary details</Modal.Title>
+                                    <Modal.Title id="contained-modal-title-sm text-center" className="bodySubTitle">Trended Performance</Modal.Title>
                                   </Modal.Header>
                                   <Modal.Body>
 
@@ -2600,7 +2736,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                     className={glyphiconFormatter(this.props.Executive.best_info_data.cont_to_grwth)}>
                                                                   </span>{this.props.Executive.best_info_data.cont_to_grwth}%
                                                               </h4>
-                                                              <h4 className="kpiSubTitle">Contri to
+                                                              <h4 className="kpiSubTitle">Contribution to
                                                                 growth</h4>
                                                             </div>
 
@@ -2637,7 +2773,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                         }
                                         else {
                                           return (
-                                            <div><h3>Old data present</h3></div>
+                                            <div><h3>Loading...</h3></div>
                                           )
                                         }
 
@@ -2646,7 +2782,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                         console.log("Executive.top_name == Not None");
                                         return (
                                           <div>
-                                            <h3> Please select an option to view performance</h3>
+                                            <h3>Loading...</h3>
                                           </div>
                                         )
                                       }
@@ -2660,9 +2796,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                          this.setState({modalTableTopBot: false})
                                        }}>
                                   <Modal.Header closeButton>
-                                    <Modal.Title id="contained-modal-title-sm text-center" className="bodySubTitle">Please
-                                      enter
-                                      necessary details</Modal.Title>
+                                    <Modal.Title id="contained-modal-title-sm text-center" className="bodySubTitle">Trended Performance</Modal.Title>
                                   </Modal.Header>
                                   <Modal.Body>
 
@@ -2728,7 +2862,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                     className={glyphiconFormatter(this.props.Executive.best_info_data.cont_to_grwth)}>
                                                                   </span>{this.props.Executive.best_info_data.cont_to_grwth}%
                                                               </h4>
-                                                              <h4 className="kpiSubTitle">Contri to
+                                                              <h4 className="kpiSubTitle">Contribution to
                                                                 growth</h4>
                                                             </div>
 
@@ -2801,7 +2935,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                               {(() => {
-                                if (this.props.Executive.bestWorstPerformance && this.props.Executive.bestWorstPerformance) {
+                                if (this.props.Executive.bestWorstPerformance) {
+                                  console.log("this.props.Executive.bestWorstPerformance data is there")
                                   // return <table>
                                   //   {this.props.Executive.best_info_data.top_5_supp.map(obj=>{
                                   //     return (
@@ -2815,7 +2950,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                   //   })}
                                   // </table>
                                   return (
-                                    <BootstrapTable data={this.props.Executive.bestWorstPerformance}
+                                    <BootstrapTable data={this.props.Executive.bestWorstPerformance.table_data}
                                                     exportCSV={ true }
                                                     search={ true }
                                                     pagination striped hover condensed>
@@ -2823,22 +2958,27 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                          dataAlign='center' isKey
                                                          tdStyle={{fontSize: '14px'}}
 
-                                                         thStyle={{whiteSpace: 'normal', fontSize: '14px'}}>Parent
-                                        Supplier</TableHeaderColumn>
+                                                         thStyle={{
+                                                           whiteSpace: 'normal',
+                                                           fontSize: '14px'
+                                                         }}>{this.props.Executive.bestWorstPerformance.level}</TableHeaderColumn>
                                       <TableHeaderColumn dataField='sales_share'
                                                          dataAlign='center'
+                                                         dataSort={true}
                                                          tdStyle={{fontSize: '14px'}}
 
                                                          thStyle={{whiteSpace: 'normal', fontSize: '14px'}}>Sales
                                         Share</TableHeaderColumn>
                                       <TableHeaderColumn dataField='cont_to_grwth'
                                                          dataAlign='center'
+                                                         dataSort={true}
                                                          tdStyle={{fontSize: '14px',}}
 
                                                          thStyle={{whiteSpace: 'normal', fontSize: '14px'}}>Contribution
                                         to Growth</TableHeaderColumn>
                                       <TableHeaderColumn dataField='yoy_var'
                                                          dataAlign='center'
+                                                         dataSort={true}
                                                          tdStyle={{fontSize: '14px'}}
 
                                                          thStyle={{whiteSpace: 'normal', fontSize: '14px'}}>YoY
@@ -2846,9 +2986,13 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                       <TableHeaderColumn dataField='value_ly'
                                                          dataAlign='center'
                                                          dataFormat={formatVolume}
+                                                         dataSort={true}
                                                          tdStyle={{fontSize: '14px',}}
 
-                                                         thStyle={{whiteSpace: 'normal', fontSize: '14px'}}>Value
+                                                         thStyle={{
+                                                           whiteSpace: 'normal',
+                                                           fontSize: '14px'
+                                                         }}>{this.props.Executive.bestWorstPerformance.kpi_type} &nbsp;
                                         LY</TableHeaderColumn>
                                       <TableHeaderColumn dataField='junior_buyer' dataFormat={cellButton}
                                                          dataAlign='center'
@@ -2865,12 +3009,14 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                     </BootstrapTable>
                                   )
                                 } else {
+
                                   return (
                                     <div className="row">
-                                     <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
-                                       <div className="text-center"><Spinner />Please Wait a
-                                         Moment....!</div>
-                                     </div>
+                                      <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+                                        <div className="text-center"><Spinner />Please Wait a
+                                          Moment....!
+                                        </div>
+                                      </div>
                                     </div>
                                   )
                                 }
@@ -2960,80 +3106,81 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                           style={{textDecoration: 'none'}}>Promotion Contribution</b></NavItem>
 
 
-                                            </Nav>
-                                            <div className=" row mainBox">
+                                      </Nav>
+                                      <div className=" row mainBox">
 
-                                              {(() => {
-                                                if (this.props.Executive.value_internal_tab == 'kpi') {
-                                                  console.log("KPI div")
-                                                  return (
-                                                    <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+                                        {(() => {
+                                          if (this.props.Executive.value_internal_tab == 'kpi') {
+                                            console.log("KPI div")
+                                            return (
+                                              <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
 
-                                                      <h2 className="pageModuleSubTitle">KPI</h2>
+                                                <h2 className="pageModuleSubTitle">KPI</h2>
 
-                                                      {(() => {
-                                                        if (this.props.Executive.drivers_internal_data && this.props.Executive.internalDriverSpinner) {
-                                                          if (this.props.Executive.drivers_internal_data.kpi_data_available_flag == 'yes') {
-                                                            console.log("kpi_data_flag is available")
-                                                            return (
-                                                              <StackedChart id="stackedChartKPI"
-                                                                            data={this.props.Executive.drivers_internal_data.kpi}
-                                                                            col_label={this.props.Executive.drivers_internal_data.kpi_col_label}
-                                                                            legend_label={this.props.Executive.drivers_internal_data.kpi_legend_label}
-                                                                            key_list={this.props.Executive.kpi_stack_key_list}/>
+                                                {(() => {
+                                                  if (this.props.Executive.drivers_internal_data && this.props.Executive.internalDriverSpinner) {
+                                                    if (this.props.Executive.drivers_internal_data.kpi_data_available_flag == 'yes') {
+                                                      console.log("kpi_data_flag is available")
+                                                      return (
+                                                        <StackedChart id="stackedChartKPI"
+                                                                      data={this.props.Executive.drivers_internal_data.kpi}
+                                                                      col_label={this.props.Executive.drivers_internal_data.kpi_col_label}
+                                                                      legend_label={this.props.Executive.drivers_internal_data.kpi_legend_label}
+                                                                      key_list={this.props.Executive.kpi_stack_key_list}/>
 
-                                                            )
+                                                      )
 
-                                                          }
-                                                          else {
-                                                            return (
-                                                              <div>
-                                                                <h4> Data is available only for weeks from 201702</h4>
-                                                              </div>
-                                                            )
-                                                          }
+                                                    }
+                                                    else {
+                                                      return (
+                                                        <div>
+                                                          <h4> Data is available only for weeks from 201702</h4>
+                                                        </div>
+                                                      )
+                                                    }
 
-                                                        }
-                                                        else {
-                                                          return (
-                                                            <div className="text-center"><Spinner />Please Wait a
-                                                              Moment....!</div>)
-                                                        }
-                                                      })()}
+                                                  }
+                                                  else {
+                                                    return (
+                                                      <div className="text-center"><Spinner />Please Wait a
+                                                        Moment....!</div>)
+                                                  }
+                                                })()}
 
 
-                                                    </div>
-                                                  )
-                                                }
-                                                else {
-                                                  return (
-                                                    <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
-                                                      <h2 className="pageModuleSubTitle">Promotion</h2>
-                                                      {(() => {
-                                                        if (this.props.Executive.drivers_internal_data && this.props.Executive.internalDriverSpinner) {
-                                                          return (
-                                                            <StackedChart id="stackedChartPromotion"
-                                                                          data={this.props.Executive.drivers_internal_data.promo}
-                                                                          col_label={this.props.Executive.drivers_internal_data.promo_col_label}
-                                                                          legend_label={this.props.Executive.drivers_internal_data.promo_legend_label}
-                                                                          key_list={this.props.Executive.promo_stack_key_list}/>
-                                                          )
-                                                        }
-                                                        else {
-                                                          return (
-                                                            <div className="text-center"><Spinner />Please Wait a
-                                                              Moment....!</div>)
-                                                        }
-                                                      })()}
-                                                    </div>
-                                                  )
-                                                }
+                                              </div>
+                                            )
+                                          }
+                                          else {
+                                            return (
+                                              <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+                                                <h2 className="pageModuleSubTitle">Promotion</h2>
+                                                {(() => {
+                                                  if (this.props.Executive.drivers_internal_data && this.props.Executive.internalDriverSpinner) {
+                                                    return (
+                                                      <StackedChart id="stackedChartPromotion"
+                                                                    data={this.props.Executive.drivers_internal_data.promo}
+                                                                    col_label={this.props.Executive.drivers_internal_data.promo_col_label}
+                                                                    legend_label={this.props.Executive.drivers_internal_data.promo_legend_label}
+                                                                    key_list={this.props.Executive.promo_stack_key_list}/>
+                                                    )
+                                                  }
+                                                  else {
+                                                    return (
+                                                      <div className="text-center"><Spinner />Please Wait a
+                                                        Moment....!</div>)
+                                                  }
+                                                })()}
+                                              </div>
+                                            )
+                                          }
 
-                                              })()}
+                                        })()}
 
-                                            </div>
+                                      </div>
 
-                                          </div>)
+                                    </div>
+                                    )
 
                                     {/*NIta*/}
                                     {/*Overview-external driver --modal*/}
@@ -3058,41 +3205,41 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                  className="tabsCustom">
                                               <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
 
-                                                  let value_external_tab = "sunshine";
-                                                  this.setState({activeKey10: "1"});
-                                                  this.props.onSaveValueExternal(value_external_tab);
+                                                let value_external_tab = "sunshine";
+                                                this.setState({activeKey10: "1"});
+                                                this.props.onSaveValueExternal(value_external_tab);
 
-                                                }} style={{
-                                                  fontSize: '20px',
-                                                  fontFamily: 'Tesco',
-                                                  textDecoration: 'none'
-                                                }}>
-                                                  <b style={{textDecoration: 'none'}}>Sunshine</b></NavItem>
+                                              }} style={{
+                                                fontSize: '20px',
+                                                fontFamily: 'Tesco',
+                                                textDecoration: 'none'
+                                              }}>
+                                                <b style={{textDecoration: 'none'}}>Sunshine</b></NavItem>
 
-                                                <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
-                                                  let value_external_tab = "rainfall";
-                                                  this.setState({activeKey10: "2"});
-                                                  this.props.onSaveValueExternal(value_external_tab);
-                                                }} style={{
-                                                  fontSize: '20px',
-                                                  fontFamily: 'Tesco',
-                                                  textDecoration: 'none'
-                                                }}><b
-                                                  style={{textDecoration: 'none'}}>Rainfall</b></NavItem>
+                                              <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
+                                                let value_external_tab = "rainfall";
+                                                this.setState({activeKey10: "2"});
+                                                this.props.onSaveValueExternal(value_external_tab);
+                                              }} style={{
+                                                fontSize: '20px',
+                                                fontFamily: 'Tesco',
+                                                textDecoration: 'none'
+                                              }}><b
+                                                style={{textDecoration: 'none'}}>Rainfall</b></NavItem>
 
-                                                <NavItem className="tabsNavPanelList1" eventKey="3" onClick={() => {
-                                                  let value_external_tab = "temperature";
-                                                  this.setState({activeKey10: "3"});
-                                                  this.props.onSaveValueExternal(value_external_tab);
-                                                }} style={{
-                                                  fontSize: '20px',
-                                                  fontFamily: 'Tesco',
-                                                  textDecoration: 'none'
-                                                }}><b
-                                                  style={{textDecoration: 'none'}}>Temperature</b></NavItem>
+                                              <NavItem className="tabsNavPanelList1" eventKey="3" onClick={() => {
+                                                let value_external_tab = "temperature";
+                                                this.setState({activeKey10: "3"});
+                                                this.props.onSaveValueExternal(value_external_tab);
+                                              }} style={{
+                                                fontSize: '20px',
+                                                fontFamily: 'Tesco',
+                                                textDecoration: 'none'
+                                              }}><b
+                                                style={{textDecoration: 'none'}}>Temperature</b></NavItem>
 
 
-                                              </Nav>
+                                            </Nav>
 
                                             {(() => {
                                               if (this.props.Executive.value_external_tab == 'rainfall' && this.props.Executive.externalDriverSpinner) {
@@ -3221,16 +3368,16 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                         })()}
 
 
-                                                        </div>
-                                                      )
-                                                    }
-                                                    else {
-                                                      return (<div className="text-center"><Spinner />Please Wait a
-                                                        Moment....!</div>)
-                                                    }
+                                                      </div>
+                                                    )
+                                                  }
+                                                  else {
+                                                    return (<div className="text-center"><Spinner />Please Wait a
+                                                      Moment....!</div>)
                                                   }
                                                 }
-                                              })()}
+                                              }
+                                            })()}
 
 
                                           </div>
@@ -3240,88 +3387,89 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                               <h3 className="pageModuleMainTitle">Holidays</h3>
                                             </div>
 
-                                            {(() => {  if (this.props.Executive.externalDriverSpinner) {
-                                                return (<div className="row"style={{paddingRight: '10px'}}>
+                                            {(() => {
+                                              if (this.props.Executive.externalDriverSpinner) {
+                                                return (<div className="row" style={{paddingRight: '10px'}}>
                                                   {/*Holiday Table*/}
                                                   <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6"
                                                        style={{paddingTop: "40px", paddingLeft: "30px"}}>
 
-                                                      {(() => {
-                                                        if (this.props.Executive.overview_drivers_external_data) {
-                                                          return (
+                                                    {(() => {
+                                                      if (this.props.Executive.overview_drivers_external_data) {
+                                                        return (
 
-                                                            <BootstrapTable className="promoTable"
-                                                                            data={this.props.Executive.overview_drivers_external_data.holidays}
-                                                                            pagination={true} options={options}
-                                                                            striped={true}
-                                                                            condensed>
+                                                          <BootstrapTable className="promoTable"
+                                                                          data={this.props.Executive.overview_drivers_external_data.holidays}
+                                                                          pagination={true} options={options}
+                                                                          striped={true}
+                                                                          condensed>
 
-                                                              <TableHeaderColumn dataAlign={"left"}
-                                                                                 dataField='tesco_week' isKey>Tesco
-                                                                Week</TableHeaderColumn>
-                                                              <TableHeaderColumn dataAlign={"left"}
-                                                                                 dataField='holiday_date'>Holiday
-                                                                Date</TableHeaderColumn>
-                                                              <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
-                                                                                 dataAlign={"left"}
-                                                                                 dataField='holiday_description'>Holiday
-                                                                Description</TableHeaderColumn>
-                                                            </BootstrapTable>
+                                                            <TableHeaderColumn dataAlign={"left"}
+                                                                               dataField='tesco_week' isKey>Tesco
+                                                              Week</TableHeaderColumn>
+                                                            <TableHeaderColumn dataAlign={"left"}
+                                                                               dataField='holiday_date'>Holiday
+                                                              Date</TableHeaderColumn>
+                                                            <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                                                               dataAlign={"left"}
+                                                                               dataField='holiday_description'>Holiday
+                                                              Description</TableHeaderColumn>
+                                                          </BootstrapTable>
 
-                                                          )
-                                                        } else {
-                                                          return (<div>Loading</div>)
-                                                        }
+                                                        )
+                                                      } else {
+                                                        return (<div>Loading</div>)
+                                                      }
 
-                                                      })()}
+                                                    })()}
 
 
-                                                    </div>
+                                                  </div>
 
-                                                    {/*Value Trend*/}
-                                                    <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6"
-                                                         style={{paddingRight: "45px"}}>
-                                                      {(() => {
-                                                        if (this.props.Executive.overview_kpi_trend_data) {
-                                                          console.log("Promo Sales line chart data", this.props.Executive.overview_kpi_trend_data.sales_trend);
-                                                          return (
-                                                            <div>
-                                                              <div style={{float: "right"}}>
-                                                                <DropdownButton title=""
-                                                                  className="glyphicon glyphicon-menu-hamburger"
-                                                                  pullRight style={{
-                                                                  backgroundColor: "transparent",
-                                                                  borderColor: "transparent",
-                                                                  color: "#00539f"
-                                                                }} id="dropButtonId">
-                                                                  <MenuItem onClick={() => {
-                                                                    saveImage(document.getElementById('holiday_value_line' + '_svg'), "overview_kpi_sales_trend")
-                                                                  }
-                                                                  }>Save As JPEG</MenuItem>
-                                                                  <MenuItem onClick={() => {
-                                                                    saveDataAsCSV(this.props.Executive.overview_kpi_trend_data.sales_trend, "overview_kpi_sales_trend.csv")
-                                                                  }
-                                                                  }>Download CSV</MenuItem>
-                                                                </DropdownButton>
-                                                              </div>
-                                                              <MultilinePromo
-                                                                data={this.props.Executive.overview_kpi_trend_data.sales_trend}
-                                                                id="holiday_value_line" label_ty="Sales TY"
-                                                                label_ly="Sales LY" xaxis_title="Tesco Week" no_pref='£'
-                                                                no_suffix='' yaxis_title='Value'/>
+                                                  {/*Value Trend*/}
+                                                  <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                                       style={{paddingRight: "45px"}}>
+                                                    {(() => {
+                                                      if (this.props.Executive.overview_kpi_trend_data) {
+                                                        console.log("Promo Sales line chart data", this.props.Executive.overview_kpi_trend_data.sales_trend);
+                                                        return (
+                                                          <div>
+                                                            <div style={{float: "right"}}>
+                                                              <DropdownButton title=""
+                                                                className="glyphicon glyphicon-menu-hamburger"
+                                                                pullRight style={{
+                                                                backgroundColor: "transparent",
+                                                                borderColor: "transparent",
+                                                                color: "#00539f"
+                                                              }} id="dropButtonId">
+                                                                <MenuItem onClick={() => {
+                                                                  saveImage(document.getElementById('holiday_value_line' + '_svg'), "overview_kpi_sales_trend")
+                                                                }
+                                                                }>Save As JPEG</MenuItem>
+                                                                <MenuItem onClick={() => {
+                                                                  saveDataAsCSV(this.props.Executive.overview_kpi_trend_data.sales_trend, "overview_kpi_sales_trend.csv")
+                                                                }
+                                                                }>Download CSV</MenuItem>
+                                                              </DropdownButton>
                                                             </div>
-                                                          );
-                                                        }
-                                                      })()}
-                                                    </div>
+                                                            <MultilinePromo
+                                                              data={this.props.Executive.overview_kpi_trend_data.sales_trend}
+                                                              id="holiday_value_line" label_ty="Sales TY"
+                                                              label_ly="Sales LY" xaxis_title="Tesco Week" no_pref='£'
+                                                              no_suffix='' yaxis_title='Value'/>
+                                                          </div>
+                                                        );
+                                                      }
+                                                    })()}
+                                                  </div>
 
-                                                  </div>)
+                                                </div>)
                                               }
                                               else {
                                                 return (<div></div>)
                                               }
 
-                                              })()}
+                                            })()}
 
 
                                           </div>
@@ -3398,27 +3546,30 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               condensed>
 
                 <TableHeaderColumn dataAlign={"left"}
-                                   dataField='parent_supplier' isKey>Tesco
-                  Week</TableHeaderColumn>
-                <TableHeaderColumn dataAlign={"grouped_ly"}
-                                   dataField='holiday_date'>Holiday
-                  Date</TableHeaderColumn>
+                                   dataField='parent_supplier' isKey>Parent Supplier</TableHeaderColumn>
+
                 <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                   dataSort={true}
                                    dataAlign={"left"}
-                                   dataField='imp_to_ps'>Holiday
-                  Description</TableHeaderColumn>
+                                   dataField='imp_to_ps'>Importance to Parent Supplier</TableHeaderColumn>
                 <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                   dataSort={true}
                                    dataAlign={"left"}
-                                   dataField='value_ty'>Holiday
-                  Description</TableHeaderColumn>
+                                   dataField='imp_to_categ'>Importance to Category</TableHeaderColumn>
                 <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                   dataSort={true}
                                    dataAlign={"left"}
-                                   dataField='grouped_ty'>Holiday
-                  Description</TableHeaderColumn>
+                                   dataField='sales_share'>Sales Share</TableHeaderColumn>
+
                 <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                   dataSort={true}
                                    dataAlign={"left"}
-                                   dataField='yoy_var'>Holiday
-                  Description</TableHeaderColumn>
+                                   dataField='cont_to_grwth'>Contribution to growth</TableHeaderColumn>
+
+                <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                   dataSort={true}
+                                   dataAlign={"left"}
+                                   dataField='yoy_var'>YoY Variation</TableHeaderColumn>
               </BootstrapTable>
             </Modal.Body>
           </Modal>
@@ -3631,6 +3782,7 @@ function mapDispatchToProps(dispatch) {
     onGenerateUrlParamsString: (e) => dispatch(generateUrlParamsString(e)),
     onGetWeekFilter: (e) => dispatch(getWeekFilter(e)),
     onSaveWeekFilterParam: (e) => dispatch(WeekFilterParam(e)),
+    onSaveStoreFilterParam: (e) => dispatch(StoreFilterParam(e)),
     onSaveFilteredFlag: (e) => dispatch(SaveFilteredFlag(e)),
     onSaveTopName: (e) => dispatch(SaveTopName(e)),
     onSaveBotName: (e) => dispatch(SaveBotName(e)),

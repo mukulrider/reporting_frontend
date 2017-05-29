@@ -352,7 +352,7 @@ export function* generateWeekFilterFetch() {
       filter_week_selection = 'default';
     }
     else {
-      filter_week_selection = 'ABC';
+      filter_week_selection = '';
     }
     console.log('Filter_Week_Selection', filter_week_selection);
     // if (!(filter_week_selection == "")) {

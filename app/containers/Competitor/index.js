@@ -29,6 +29,7 @@ import {
   SaveKPIParam,
   getFilter,
   checkboxChange,
+  checkboxWeekChange2,
   checkboxWeekChange,
   generateUrlParams,
   generateUrlParamsString,
@@ -63,6 +64,47 @@ export class Competitor extends React.PureComponent {
   componentDidMount = () => {
     let dataWeekParam = 'week_flag=None';
     let kpiparam = 'kpi_type=value';
+
+    let defaultFilterUrlParams = localStorage.getItem('urlParamsSingleSelect');
+    if (defaultFilterUrlParams) {
+      console.log('defaultFilterUrlParams', defaultFilterUrlParams)
+      this.props.onCheckboxChange(defaultFilterUrlParams);
+      // this.props.onGenerateUrlParamsString(defaultFilterUrlParams);
+    } else {
+
+      let gettingUserDetails = () => {
+        //function to get values from cookie
+        const getCookie = (name) => {
+          const value = `; ${document.cookie}`;
+          const parts = value.split(`; ${name}=`);
+          if (parts.length === 2) {
+            return parts.pop().split(';').shift();
+          }
+        };
+        //fetching values from cookie
+
+        let buyingcontroller = getCookie('buying_controller');
+        let buyer_header = getCookie('buyer');
+        let buying_controller = '';
+        let buyer = '';
+
+        if ((typeof(buyer_header) == "undefined") || (buyer_header == "")) {
+          buying_controller = 'buying_controller='+buyingcontroller;
+          console.log('buying_controller non empty', buying_controller);
+          return buying_controller
+        } else {
+          buyer = 'buyer='+buyer_header;
+          console.log('buyer non empty--', buyer);
+          return buyer
+        }
+
+      };
+      let filterParams = gettingUserDetails();
+
+      this.props.onCheckboxChange(filterParams);
+      // this.props.onGenerateUrlParamsString('');
+    }
+    this.props.onCheckboxWeekChange2('tesco_week_flag=1');
     this.props.onSaveKPIParam(kpiparam);
     this.props.onSaveWeekParam(dataWeekParam);
     this.props.onCompWaterfall();
@@ -70,7 +112,7 @@ export class Competitor extends React.PureComponent {
     this.props.onCompetitorPriceRange();
     this.props.onGetFilter();
     this.props.onCompetitorOutperformance();
-    console.log('-=-=-=-==-=-==================-=-=-=', this.props.filter_week_selection);
+    console.log('-=-=-=-==-=-==================-=-=-=-', this.props.filter_week_selection);
     // this.props.supplier.reducer1.sales;
   };
 
@@ -136,7 +178,6 @@ export class Competitor extends React.PureComponent {
                   console.log("Filter Data", this.props.competitor.filter_data);
 
                   return (
-
                     <CascadedFilterNpd
                       filter_data={this.props.competitor.filter_data.filter_data}
                       week_data={this.props.competitor.filter_data.week_data}
@@ -167,8 +208,8 @@ export class Competitor extends React.PureComponent {
                   )
                 }
               })()}
-
             </div>
+
 
             <div style={{
               width: '78%',
@@ -396,7 +437,7 @@ export class Competitor extends React.PureComponent {
                           } else {
                             return "glyphicon glyphicon-minus-sign glyphiconNeutral"
                           }
-                        })()}>&nbsp;
+                        })()}>{this.props.competitor.piechart_data.tesco_share_data}
 
                       </span>
                                 <h4> WoW </h4>
@@ -443,10 +484,13 @@ export class Competitor extends React.PureComponent {
                       }
                       else {
                         return (
-                          <div className="row">
-                            <div className="col-md-9 col-sm-9 col-xs-9 text-center"><Spinner />Please Wait a Moment....!
+                          <Panel>
+                            <div className="row">
+                              <div className="col-md-12 col-sm-12 text-center" style={{backgroundColor: "#fff"}}><Spinner />Please
+                                Wait a Moment....!
+                              </div>
                             </div>
-                          </div>
+                          </Panel>
                         );
                       }
                     })()}
@@ -871,6 +915,7 @@ function mapDispatchToProps(dispatch) {
     onSavePriceIndexParam: (e) => dispatch(SavePriceIndexParam(e)),
     onSaveWeek: (e) => dispatch(SaveWeek(e)),
     onCheckboxWeekChange: (e) => dispatch(checkboxWeekChange(e)),
+    onCheckboxWeekChange2: (e) => dispatch(checkboxWeekChange2(e)),
 
     onPieChartSpinnerSuccess: (e) => dispatch(onPieChartSpinnerSuccess(e)),
     outPerformanceChartSuccess: (e) => dispatch(outPerformanceChartSuccess(e)),

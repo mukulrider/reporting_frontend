@@ -51,11 +51,27 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
       }
     });
     //
+
     queryString = queryString.substring(0, queryString.length - 1);
     console.log('queryString 3 for time', queryString);
-    // localStorage.setItem('urlParams', localUrlParamsString);
 
+    if(queryString.includes('tesco_week=')) {
+      if(queryString.includes('tesco_week=') && queryString.includes('date=')) {
+        queryString = queryString.substring(0, 33);
+        console.log('queryString with date',queryString);
+      } else {
+        queryString = queryString.substring(0, 17);
+        console.log('queryString with week only',queryString);
+      }
+    } else {
+      queryString = '';
+    }
+    // localStorage.setItem('weekParams', queryString);
+    localStorage.setItem('weekParams', queryString);
+    let a  = localStorage.getItem('weekParams');
+    console.log('aaa',a);
     this.props.onSaveWeek(queryString);
+
     // this.props.onGenerateUrlParamsString(queryString);
     // this.props.onCheckboxChange(queryString);
     this.props.ongenerateWeekFilter();

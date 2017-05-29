@@ -1,5 +1,36 @@
 @import "./../../stylesheet";
 
+.col-half-offset{
+  margin-left:4.166666667%
+}
+
+.pageModuleSubTitle{
+  width: 100%;
+  line-height: 28px;
+  font-size: 18px;
+  height: 30px;
+  color: #00539f !important;
+  font-weight: 500;
+  text-align: center;
+  vertical-align: middle;
+  padding-left: 3%;
+  //padding-top: 3%;
+
+}
+
+.mainBox{
+  margin-left: 1% !important;
+  margin-right: 1% !important;
+  border: 1px solid #e5e8ea;
+  background-color: #F5F5F5;
+}
+.kpiSmall{
+  padding: 0;
+  text-align: center;
+}
+.kpiSubTitle{
+  color: #00539f !important;
+}
 .pageTitle {
   font-family: Tesco;
   font-size: 20px;

@@ -8,7 +8,7 @@ import {
   DEFAULT_ACTION,
   FILTER_CONSTANT,
   FILTER_FETCH_SUCCESS,
-  CHECKBOX_CHANGE,GENERATE_BEST_WORST_PERFORMANCE_SUCCESS,
+  CHECKBOX_CHANGE, GENERATE_BEST_WORST_PERFORMANCE_SUCCESS,
   GENERATE_BEST_WORST_PERFORMANCE_TABLE,
   GENERATE_BEST_WORST_PERFORMANCE_TABLE_SUCCESS,
   WEEK_FILTER_CONSTANT,
@@ -65,7 +65,7 @@ import {
   INTERNAL_DRIVER_SPINNER_FLAG,
   EXTERNAL_DRIVER_SPINNER_FLAG,
   KPI_SPINNER_FLAG,
-  PRICE_KPI_SPINNER_FLAG, GENERATE_BEST_WORST_PERFORMANCE
+  PRICE_KPI_SPINNER_FLAG, GENERATE_BEST_WORST_PERFORMANCE, STORE_FILTER_PARAM
 } from './constants';
 
 export function defaultAction() {
@@ -490,6 +490,15 @@ export function WeekFilterParam(data)
   console.log('WeekFilterParam = actions', data);
   return {
     type: WEEK_FILTER_PARAM,
+    data,
+  };
+}
+
+export function StoreFilterParam(data)
+{
+  console.log('StoreFilterParam = actions', data);
+  return {
+    type: STORE_FILTER_PARAM,
     data,
   };
 }

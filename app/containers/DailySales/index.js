@@ -12,19 +12,21 @@ import Panel from 'components/panel';
 import {FormattedMessage} from 'react-intl';
 import {createStructuredSelector} from 'reselect';
 import makeSelectDailySales from './selectors';
+import DualLineChart2 from 'components/DualLineChart2';
+import MultiSeriesBarChart from 'components/MultiSeriesBarChart';
 import Spinner from 'components/spinner';
 import messages from './messages';
 import './style.scss';
 import PieChart from 'components/PieChart';
 import CascadedFilterDSS from 'components/CascadedFilterDSS';
 import MultilinePromo from 'components/MultilinePromo';
-import LineChart from 'components/LineChart';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import TopFilter from 'components/TopFilter';
 var dateFormat = require('dateformat');
 
 import {
-  PromoGiveawayData,
-  lineChartCallAction, SaveKPIParam, generateUrlParamsString,
+  PromoGiveawayData,cardsCallAction,
+  chartCallAction, SaveKPIParam, generateUrlParamsString,
   SaveWeekParam, PromoKpiData,
   getFilter,
   getWeekFilter,
@@ -36,27 +38,44 @@ import {
   LineChartSpinnerCheckSuccess,
   checkboxChange,
   checkboxWeekChange,
-
-
+  StoreFilterParam,
+  defaultPageLoadCheck,
 } from './actions';
+
+
 export class DailySales extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentDidMount = () => {
+    this.props.defaultPageLoadCheck(1);
+
     let defaultFilterUrlParams = localStorage.getItem('urlParams');
+
+    let defaultfilterWeekParams = localStorage.getItem('weekParams');
+
     console.log('defaultFilterUrlParams', defaultFilterUrlParams);
 
     if (defaultFilterUrlParams) {
-      console.log('defaultFilterUrlParams', defaultFilterUrlParams);
-      this.props.onGenerateUrlParamsString(defaultFilterUrlParams);
+      console.log('defaultFilterUrlParams--', defaultFilterUrlParams);
+      this.props.onCheckboxWeekChange(defaultFilterUrlParams);
+      // this.props.onGenerateUrlParamsString(defaultFilterUrlParams);
     } else {
-      this.props.onGenerateUrlParamsString('');
+      this.props.onCheckboxWeekChange('');
+      // this.props.onGenerateUrlParamsString('');
     }
 
-    this.props.DefaultLineChartCall();
-    this.props.DSViewKpiSpinnerCheckSuccess(0);
+
+    if (defaultfilterWeekParams) {
+      console.log('defaultfilterWeekParams', defaultfilterWeekParams);
+      this.props.onSaveWeek(defaultfilterWeekParams);
+    } else {
+      this.props.onSaveWeek('');
+    }
     let dataWeekParam = 'week_flag=None';
     let kpiparam = 'val_type=1';
     this.props.onSaveKPIParam(kpiparam);
     this.props.onSaveWeekParam(dataWeekParam);
+    this.props.CardsDataCall();
+    this.props.ChartDataCall();
+    this.props.DSViewKpiSpinnerCheckSuccess(0);
     this.props.loadKpi();
     this.props.onGetFilter();
     this.props.onGetWeekFilter();
@@ -87,6 +106,26 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
   }
 
   render() {
+    let formatMetric = (cell,flag="value") => {
+      if (cell >= 1000 || cell <= -1000) {
+        let rounded = Math.round(cell / 1000);
+        if (flag == "volume") {
+          return (rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'K')
+        }
+        else {
+          return ('£ ' + rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'K');
+        }
+      }
+      else {
+        if (flag == "volume") {
+          return (Math.round(cell));
+        }
+        else {
+          return ('£ '+ Math.round(cell));
+        }
+      }
+    }
+
     let kpiParmas = this.props.DailySales.kpi_param;
     return (
       <Panel style={{background: "#fafafa"}}>
@@ -126,7 +165,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                         return (
                           <CascadedFilterDSS filter_data={this.props.DailySales.filter_data}
                             // week_data={this.props.promotion.filter_data.week_data}
-                                             DefaultLineChartCall={this.props.DefaultLineChartCall}
+                                             ChartDataCall={this.props.ChartDataCall}
                                              week_data={this.props.DailySales.week_filter_data}
                                              location={this.props.location}
                                              save_week={this.props.save_week}
@@ -172,166 +211,209 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                     {/*Page title*/}
                     <div className="pageTitle">
                       {(() => {
-                        if (this.props.DailySales.calendar_date) {
+                        if (this.props.DailySales.cards_data && this.props.DailySales.cards_data.tesco_week) {
                           return (
-                            <span> Daily Sales View- {this.props.DailySales.calendar_date}  </span>
+                            <span className="pageModuleMainTitle"> Daily Sales View: {this.props.DailySales.cards_data.tesco_week}</span>
                           )
                         } else {
                           return (
-                            <span>Daily Sales View </span>
+                            <span className="pageModuleMainTitle">Daily Sales View </span>
                           )
                         }
                       })()}
                     </div>
+
                     <div>
                       <div className="row fixingPosition"
                            style={{marginLeft: "0%", paddingTop: "-5px", marginRight: "0px"}}>
-                        <div className="row" style={{textAlign: "center", alignItems: "center"}}>
-                          <div className="col-md-12">
-                            <h4 className="pageModuleMainTitle">Overview</h4>
-                          </div>
-                          <div className="col-md-12" style={{
-                            textAlign: "center",
-                            marginLeft: "0.5%",
-                            align: "center",
-                            alignItems: "center",
-                            backgroundColor: "1px solid #FAFAFA"
-                          }}>
-                            <div className="col-md-12 col-sm-12 col-xs-12">
-                              <div className="col-md-4 col-sm-6 col-xs-12 overview-blk">
-                                <Panel>
-                                  <div className="panel" style={{border: '1px solid #ccc', textAlign: "center"}}>
-                                    <h4 className="tesco-heading"><b>Sales</b></h4>
-                                    {(() => {
-                                      if ((this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) || kpiParmas == "val_type=2" || kpiParmas == "val_type=3") {
-                                        let a = this.props.DailySales.linechart_data.sales;
-
-                                          return (
-                                            <div className="row">
-                                              <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(a.sales_var_wow)}></span>&nbsp;{a.sales_var_wow}%
-                                                <h5 className="tesco-heading"><b>WoW</b></h5>
-                                              </div>
-                                              <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(a.sales_var_yoy)}></span>&nbsp;{a.sales_var_yoy}%
-                                                <h5 className="tesco-heading"><b>YoY</b></h5>
-                                              </div>
-                                              <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(a.sales_var_lfl)}></span>&nbsp;{a.sales_var_lfl}%
-                                                <h5 className="tesco-heading"><b>LFL</b></h5>
-                                              </div>
-                                            </div>
-
-                                          )
-
-                                      }
-                                      else {
-                                        return (
-                                          <div className="row spinnerPositionLineChart"><Spinner /><h4>Please Wait a
-                                            Moment....!</h4></div>
-                                        )
-                                      }
-                                    })()}
-
-                                    {/*<div className="panel-body" style={{marginBottom:"5px",paddingTop:"0px"}}>*/}
-                                    {/*<span className="overview-blk-value">*/}
-
-                                    {/*</span>*/}
-                                    {/*</div>*/}
+                        {(() => {
+                          if (this.props.DailySales.cards_data && this.props.DailySales.LineChartSpinnerCheck != 0){
+                            let a = this.props.DailySales.cards_data.sales,b=this.props.DailySales.cards_data.volume,
+                              c=this.props.DailySales.cards_data.cogs,d=this.props.DailySales.cards_data.profit,e=this.props.DailySales.cards_data.margin;
+                            return (
+                              <div>
+                                <div className="row mainBox" style={{textAlign: 'center'}}>
+                                  {/* Box for value */}
+                                  <div className="col-md-4 col-xs-4" style={{backgroundColor: "#fafafa"}}>
+                                    <Panel>
+                                      <h3 className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>Value</h3>
+                                      <div className="row">
+                                        <div className="col-md-6 col-sm-6 col-xs-6 kpiSmall">
+                                          <h3>{formatMetric(a.tot_sales)}</h3>
+                                        </div>
+                                        <div className="col-md-6 col-sm-6 col-xs-6">
+                                          <h3>LFL:{formatMetric(a.tot_sales_lfl)}</h3>
+                                        </div>
+                                      </div>
+                                      <div className="row">
+                                        <div className="col-md-4 col-sm-4 col-xs-4">
+                                          <span className={this.formatGlyphicon(a.sales_var_wow)}></span>&nbsp;{a.sales_var_wow}%
+                                          <h4 className="kpiSubTitle"><b>WoW</b></h4>
+                                        </div>
+                                        <div className="col-md-4 col-sm-4 col-xs-4">
+                                          <span className={this.formatGlyphicon(a.sales_var_yoy)}></span>&nbsp;{a.sales_var_yoy}%
+                                          <h4 className="kpiSubTitle"><b>YoY</b></h4>
+                                        </div>
+                                        <div className="col-md-4 col-sm-4 col-xs-4">
+                                          <span className={this.formatGlyphicon(a.sales_var_lfl)}></span>&nbsp;{a.sales_var_lfl}%
+                                          <h4 className="kpiSubTitle"><b>LFL</b></h4>
+                                        </div>
+                                      </div>
+                                      <div className="row">
+                                        <div className="col-md-12">
+                                          <h3 style={{padding: "0px", margin: "0px",backgroundColor:"#e5e8ea"}}>{formatMetric(a.tot_sales_wtd)}</h3>
+                                        </div>
+                                      </div>
+                                    </Panel>
                                   </div>
-                                </Panel>
-                              </div>
-                              <div className="col-md-4 col-sm-6 col-xs-12 overview-blk">
-                                <Panel>
-                                  <div className="panel" style={{border: '1px solid #ccc'}}>
-                                    <h4 className="tesco-heading"><b>Volume</b></h4>
-                                    {/*<div className="panel-body" style={{marginBottom:"2px",paddingTop:"0px"}}>*/}
-                                    {/*<span className="overview-blk-value">*/}
-                                    {(() => {
-                                      if ((this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) || kpiParmas == "val_type=2" || kpiParmas == "val_type=3") {
-                                        let a = this.props.DailySales.linechart_data.volume;
 
-                                          return (
-                                            <div className="row">
-                                              <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(a.vol_var_wow)}></span>&nbsp;{a.vol_var_wow}%
-                                                <h5 className="tesco-heading"><b>WoW</b></h5>
-                                              </div>
-                                              <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(a.vol_var_yoy)}></span>&nbsp;{a.vol_var_yoy}%
-                                                <h5 className="tesco-heading"><b>YoY</b></h5>
-                                              </div>
-                                              <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(a.vol_var_lfl)}></span>&nbsp;{a.vol_var_lfl}%
-                                                <h5 className="tesco-heading"><b>LFL</b></h5>
-                                              </div>
-                                            </div>
-                                          )
-
-                                      }
-                                      else {
-                                        return (
-                                          <div className="row spinnerPositionLineChart"><Spinner /><h4>Please Wait a
-                                            Moment....!</h4></div>
-                                        )
-                                      }
-                                    })()}
-
-
-                                    {/*</span>*/}
-                                    {/*</div>*/}
+                                  <div className="col-md-4 col-xs-4" style={{backgroundColor: "#fafafa"}}>
+                                    <Panel>
+                                      <h3 className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>Volume</h3>
+                                      <div className="row">
+                                        <div className="col-md-6 col-sm-6 col-xs-6 kpiSmall">
+                                          <h3 >{formatMetric(b.tot_vol,"volume")}</h3>
+                                        </div>
+                                        <div className="col-md-6 col-sm-6 col-xs-6">
+                                          <h3>LFL:{formatMetric(b.tot_vol_lfl,"volume")}</h3>
+                                        </div>
+                                      </div>
+                                      <div className="row">
+                                        <div className="col-md-4 col-sm-4 col-xs-4">
+                                          <span className={this.formatGlyphicon(b.vol_var_wow)}></span>&nbsp;{b.vol_var_wow}%
+                                          <h4 className="kpiSubTitle"><b>WoW</b></h4>
+                                        </div>
+                                        <div className="col-md-4 col-sm-4 col-xs-4">
+                                          <span className={this.formatGlyphicon(b.vol_var_yoy)}></span>&nbsp;{b.vol_var_yoy}%
+                                          <h4 className="kpiSubTitle"><b>YoY</b></h4>
+                                        </div>
+                                        <div className="col-md-4 col-sm-4 col-xs-4">
+                                          <span className={this.formatGlyphicon(b.vol_var_lfl)}></span>&nbsp;{b.vol_var_lfl}%
+                                          <h4 className="kpiSubTitle"><b>LFL</b></h4>
+                                        </div>
+                                      </div>
+                                      <div className="row">
+                                        <div className="col-md-12">
+                                          <h3 style={{padding: "0px", margin: "0px",backgroundColor:"#e5e8ea"}}>{formatMetric(b.tot_vol_wtd)}</h3>
+                                        </div>
+                                      </div>
+                                    </Panel>
                                   </div>
-                                </Panel>
-                              </div>
-                              <div className="col-md-4 col-sm-6 col-xs-12 overview-blk">
-                                <Panel>
-                                  <div className="panel" style={{border: '1px solid #ccc'}}>
-                                    <h4 className="panel-heading tesco-heading"
-                                        style={{marginBottom: "5px", paddingTop: "0px"}}>
-                                      <b>COGS</b>
-                                    </h4>
-                                    {/*<div className="panel-body">*/}
-                                    {/*<span className="overview-blk-value">*/}
-                                    {(() => {
-                                      if ((this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) || kpiParmas == "val_type=2" || kpiParmas == "val_type=3") {
-                                        let a = this.props.DailySales.linechart_data.cogs;
 
-                                          return (
-                                            <div className="row">
-
-                                              <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(a.cogs_var_wow)}></span>&nbsp;{a.cogs_var_wow}%
-                                                <h5 className="tesco-heading"><b>WoW</b></h5>
-                                              </div>
-                                              <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(a.cogs_var_yoy)}></span>&nbsp;{a.cogs_var_yoy}%
-                                                <h5 className="tesco-heading"><b>YoY</b></h5>
-                                              </div>
-                                              <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(a.cogs_var_lfl)}></span>&nbsp;{a.cogs_var_lfl}%
-                                                <h5 className="tesco-heading"><b>LFL</b></h5>
-                                              </div>
-                                            </div>
-                                          )
-
-                                      }
-                                      else {
-                                        return (
-                                          <div className="row spinnerPositionLineChart"><Spinner /><h4>Please Wait a
-                                            Moment....!</h4></div>
-                                        )
-                                      }
-                                    })()}
-
-
-                                    {/*</span>*/}
-                                    {/*</div>*/}
+                                  <div className="col-md-4 col-xs-4" style={{backgroundColor: "#fafafa"}}>
+                                    <Panel>
+                                      <h3 className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>COGS</h3>
+                                      <div className="row">
+                                        <div className="col-md-6 col-sm-6 col-xs-6 kpiSmall">
+                                          <h3>{formatMetric(c.tot_cogs)}</h3>
+                                        </div>
+                                        <div className="col-md-6 col-sm-6 col-xs-6">
+                                          <h3>LFL:{formatMetric(c.tot_cogs_lfl)}</h3>
+                                        </div>
+                                      </div>
+                                      <div className="row">
+                                        <div className="col-md-4 col-sm-4 col-xs-4">
+                                          <span className={this.formatGlyphicon(c.cogs_var_wow)}></span>&nbsp;{c.cogs_var_wow}%
+                                          <h4 className="kpiSubTitle"><b>WoW</b></h4>
+                                        </div>
+                                        <div className="col-md-4 col-sm-4 col-xs-4">
+                                          <span className={this.formatGlyphicon(c.cogs_var_yoy)}></span>&nbsp;{c.cogs_var_yoy}%
+                                          <h4 className="kpiSubTitle"><b>YoY</b></h4>
+                                        </div>
+                                        <div className="col-md-4 col-sm-4 col-xs-4">
+                                          <span className={this.formatGlyphicon(c.cogs_var_lfl)}></span>&nbsp;{c.cogs_var_lfl}%
+                                          <h4 className="kpiSubTitle"><b>LFL</b></h4>
+                                        </div>
+                                      </div>
+                                      <div className="row">
+                                        <div className="col-md-12">
+                                          <h3 style={{padding: "0px", margin: "0px",backgroundColor:"#e5e8ea"}}>{formatMetric(c.tot_cogs_wtd)}</h3>
+                                        </div>
+                                      </div>
+                                    </Panel>
                                   </div>
-                                </Panel>
+
+
+
+                                </div>
+
+
+                                <div className="row mainBox" style={{textAlign: 'center'}}>
+                                  <div className="col-md-6 col-xs-6" style={{backgroundColor: "#fafafa"}}>
+                                    <Panel>
+                                      <h3 className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>Profit</h3>
+                                      <div className="row">
+                                        <div className="col-md-6 col-sm-6 col-xs-6 kpiSmall">
+                                          <h3>{formatMetric(d.tot_profit)}</h3>
+                                        </div>
+                                        <div className="col-md-6 col-sm-6 col-xs-6">
+                                          <h3>LFL:{formatMetric(d.tot_profit_lfl)}</h3>
+                                        </div>
+                                      </div>
+                                      <div className="row">
+                                        <div className="col-md-4 col-sm-4 col-xs-4">
+                                          <span className={this.formatGlyphicon(d.profit_var_wow)}></span>&nbsp;{d.profit_var_wow}%
+                                          <h4 className="kpiSubTitle"><b>WoW</b></h4>
+                                        </div>
+                                        <div className="col-md-4 col-sm-4 col-xs-4">
+                                          <span className={this.formatGlyphicon(d.profit_var_yoy)}></span>&nbsp;{d.profit_var_yoy}%
+                                          <h4 className="kpiSubTitle"><b>YoY</b></h4>
+                                        </div>
+                                        <div className="col-md-4 col-sm-4 col-xs-4">
+                                          <span className={this.formatGlyphicon(d.profit_var_lfl)}></span>&nbsp;{d.profit_var_lfl}%
+                                          <h4 className="kpiSubTitle"><b>LFL</b></h4>
+                                        </div>
+                                      </div>
+                                      <div className="row">
+                                        <div className="col-md-12">
+                                          <h3 style={{padding: "0px", margin: "0px",backgroundColor:"#e5e8ea"}}>{formatMetric(d.tot_profit_wtd)}</h3>
+                                        </div>
+                                      </div>
+                                    </Panel>
+                                  </div>
+
+                                  <div className="col-md-6 col-xs-6" style={{backgroundColor: "#fafafa"}}>
+                                    <Panel>
+                                      <h3 className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>Margin</h3>
+                                      <div className="row">
+                                        <div className="col-md-6 col-sm-6 col-xs-6 kpiSmall">
+                                          <h3>{formatMetric(e.current_day)}</h3>
+                                        </div>
+                                        <div className="col-md-6 col-sm-6 col-xs-6">
+                                          <h3>LFL:{formatMetric(e.current_day_lfl)}</h3>
+                                        </div>
+                                      </div>
+                                      <div className="row">
+                                        <div className="col-md-4 col-sm-4 col-xs-4">
+                                          <span className={this.formatGlyphicon(b.vol_var_wow)}></span>&nbsp;{e.wow}%
+                                          <h4 className="kpiSubTitle"><b>WoW</b></h4>
+                                        </div>
+                                        <div className="col-md-4 col-sm-4 col-xs-4">
+                                          <span className={this.formatGlyphicon(b.vol_var_yoy)}></span>&nbsp;{e.yoy}%
+                                          <h4 className="kpiSubTitle"><b>YoY</b></h4>
+                                        </div>
+                                        <div className="col-md-4 col-sm-4 col-xs-4">
+                                          <span className={this.formatGlyphicon(b.vol_var_lfl)}></span>&nbsp;{e.yoy_lfl}%
+                                          <h4 className="kpiSubTitle"><b>LFL</b></h4>
+                                        </div>
+                                      </div>
+                                      <div className="row">
+                                        <div className="col-md-12" style={{backgroundColor:"#e5e8ea"}}>
+                                          <h3 style={{padding: "0px", margin: "0px",visibility:"hidden"}}><br></br></h3>
+                                        </div>
+                                      </div>
+                                    </Panel>
+                                  </div>
+
+                                </div>
                               </div>
-                            </div>
-                          </div>
-                        </div>
+
+                            )
+                          }
+                          else {
+                            return (<div className="text-center"><Spinner />Please Wait a Moment....!</div>)
+                          }
+                        })()}
                         <div className="col-md-12 col-sm-12">
                           <div className="col-md-12">
                             <h4 className="pageModuleMainTitle">Daily {this.state.y_axis} Trend
@@ -345,7 +427,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                 this.setState({activeKey1: "1", y_axis: "Sales Value"});
                                 kpiParmas = "val_type=1";
                                 this.props.onSaveKPIParam(kpiParmas);
-                                this.props.DefaultLineChartCall();
+                                this.props.ChartDataCall();
                                 this.props.DSViewKpiSpinnerCheckSuccess(0);
                                 this.props.LineChartSpinnerCheckSuccess(0);
                               }}><span className="tab_label">Sales</span></NavItem>
@@ -354,7 +436,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                 this.setState({activeKey1: "2", y_axis: "Volume"});
                                 kpiParmas = "val_type=2";
                                 this.props.onSaveKPIParam(kpiParmas);
-                                this.props.DefaultLineChartCall();
+                                this.props.ChartDataCall();
                                 this.props.DSViewKpiSpinnerCheckSuccess(0);
                                 this.props.LineChartSpinnerCheckSuccess(0);
                               }}><span className="tab_label">Volume</span></NavItem>
@@ -363,58 +445,52 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                 this.setState({activeKey1: "3", y_axis: "COGS"});
                                 kpiParmas = "val_type=3";
                                 this.props.onSaveKPIParam(kpiParmas);
-                                this.props.DefaultLineChartCall();
+                                this.props.ChartDataCall();
                                 this.props.DSViewKpiSpinnerCheckSuccess(0);
                                 this.props.LineChartSpinnerCheckSuccess(0);
                               }}><span className="tab_label">COGS</span></NavItem>
+                              <NavItem style={{fontSize: '16px', textAlign: 'center', margin: "0px"}}
+                                       className="tabsCustomList" eventKey="4" onClick={() => {
+                                this.setState({activeKey1: "4", y_axis: "Profit"});
+                                kpiParmas = "val_type=4";
+                                this.props.onSaveKPIParam(kpiParmas);
+                                this.props.ChartDataCall();
+                                this.props.DSViewKpiSpinnerCheckSuccess(0);
+                                this.props.LineChartSpinnerCheckSuccess(0);
+                              }}><span className="tab_label">Profit</span></NavItem>
                             </Nav>
                           </div>
-                          <div className="col-md-4 col-sm-4 col-xs-4">
-                            <span style={{float: "right", margin: "0px"}}>
-                              <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger"
-                                              pullRight style={{
-                                backgroundColor: "transparent",
-                                borderColor: "transparent",
-                                color: "#00539f"
-                              }}
-                                              id="dropButtonId">
-                                <MenuItem onClick={() => {
-                                  saveImage(document.getElementById('sampleSvg'), "Daily " + this.state.y_axis + " Trend " + dateFormat(this.state.now,"dS mmmm yyyy, h:MM:ss"))
-                                }
-                                }>Save As JPEG</MenuItem>
-                                <MenuItem onClick={() => {
-                                  saveDataAsCSV(this.props.DailySales.linechart_data.graph_data, "Daily " + this.state.y_axis + " Trend " + dateFormat(this.state.now,"dS mmmm yyyy, h:MM:ss")+".csv")
-                                }
-                                }>Download CSV</MenuItem>
-                              </DropdownButton>
-                            </span>
-                          </div>
                           <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
-                            <div className="col-md-12 col-sm-12">
-                              <Panel className="col-md-6 col-xs-12 col-sm-12 col-lg-6 panel-body ts-blk-proview"
-                                     style={{alignItems: "center"}}>
-                                <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12"
-                                     style={{border: "1px solid #ccc", marginLeft: "5px"}}>
-                                  {(() => {
-                                    if (this.props.DailySales.linechart_data && this.props.DailySales.LineChartSpinnerCheck != 0) {
-                                      return (
-                                        <div>
-                                          <LineChart data={this.props.DailySales.linechart_data.final_data.graph_data}
-                                                     y_axis={this.state.y_axis} x_axis="Date"
-                                          />
-                                        </div>
-                                      )
-                                    } else {
-                                      return (
-                                        <div className="row">
-                                          <div className="col-md-9 col-sm-9 col-xs-9 text-center"><Spinner /><h4>Please
-                                            Wait a Moment....!</h4></div>
-                                        </div>
-                                      )
-                                    }
-                                  })()}
-                                </div>
-                              </Panel>
+                            <div className="col-md-6 col-sm-6">
+                              {(() => {
+                                if (this.props.DailySales.charts_data && this.props.DailySales.charts_data.graph_data) {
+                                  return (
+                                    <Panel style={{alignItems: "center"}}>
+                                      <MultiSeriesBarChart y_axis={this.state.y_axis}
+                                                      data={this.props.DailySales.charts_data.graph_data}/>
+                                    </Panel>
+                                  )
+                                }
+                                else {
+                                  return (<div className="text-center"><Spinner />Please Wait a Moment....!</div>)
+                                }
+                              })()}
+                            </div>
+                            <div className="col-md-6 col-sm-6">
+                              {(() => {
+                                if (this.props.DailySales.charts_data && this.props.DailySales.charts_data.graph_data) {
+                                  return (
+                                    <Panel style={{alignItems: "center"}}>
+                                      <DualLineChart2 y_axis={this.state.y_axis}
+                                                      data={this.props.DailySales.charts_data.graph_data.cum_graph_data}/>
+                                    </Panel>
+                                  )
+                                }
+                                else {
+                                  return (<div className="text-center"><Spinner />Please Wait a Moment....!</div>)
+                                }
+                              })()}
+
                             </div>
                           </div>
                         </div>
@@ -442,10 +518,12 @@ function mapDispatchToProps(dispatch) {
     onSaveKPIParam: (e) => dispatch(SaveKPIParam(e)),
     DSViewKpiSpinnerCheckSuccess: (e) => dispatch(DSViewKpiSpinnerCheckSuccess(e)),
     DSViewKpiSpinnerCheck: (e) => dispatch(DSViewKpiSpinnerCheckSuccess(e)),
-    DefaultLineChartCall: (e) => dispatch(lineChartCallAction(e)),
+    CardsDataCall: (e) => dispatch(cardsCallAction(e)),
+    ChartDataCall: (e) => dispatch(chartCallAction(e)),
     onSaveWeekParam: (e) => dispatch(SaveWeekParam(e)),
     loadKpi: (e) => dispatch(PromoKpiData(e)),
     onGenerateUrlParamsString: (e) => dispatch(generateUrlParamsString(e)),
+    defaultPageLoadCheck: (e) => dispatch(defaultPageLoadCheck(e)),
     onGenerateUrlParamsData: (e) => dispatch(generateSideFilter(e)),
     onGetFilter: (e) => dispatch(getFilter(e)),
     onGenerateSideFilter: (e) => dispatch(getFilter(e)),

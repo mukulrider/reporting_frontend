@@ -9,7 +9,7 @@ import {
   WEEK_FILTER_CONSTANT,
   PRODUCTS_ON_PROMOTION_TABLE,
   TREND_FOR_EACH_TAB,
-  PIE_CHART_FOR_EACH_TAB,
+  PIE_CHART_FOR_EACH_TAB, MODAL_PRODUCT_DATA,
   // FILTER_CONSTANT,
   // FILTER_FETCH_SUCCESS,
   // CHECKBOX_CHANGE
@@ -51,6 +51,7 @@ import request from 'utils/request';
 import {
   selectPromotionDomain
 } from 'containers/Promotion/selectors';
+import {modalProductInfoSuccess} from "./actions";
 
 
 let gettingUserDetails = () => {
@@ -86,7 +87,7 @@ let gettingUserDetails = () => {
 const userParams = gettingUserDetails();
 
 
-let host_url = "http://172.20.181.92:8000";
+let host_url = "http://172.20.181.14:8001";
 
 // FOR PROMO BOXES
 export function* generatePromoKpiDataFetch() {
@@ -828,8 +829,88 @@ export function* doTrendChartDataFetch() {
 }
 
 
+
+// --------------------------- Trend Chart data-----------------------------------
+export function* generateModalInfo() {
+
+  const urlName = yield select(selectPromotionDomain());
+  let week_param = urlName.get('week_param');
+  let urlParamsString = urlName.get('urlParamsString');
+  let weekurlParam = urlName.get('weekurlParam');
+  let kpi_param = urlName.get('kpi_param');
+  let trendChartTabParam = urlName.get('trendChartTabParam');
+  let metricSelected = urlName.get('metricSelected');
+  let modalProductName = urlName.get('modalProductName');
+
+  let urlAppends = "";
+
+ // Filter
+ //  if (urlParamsString!== "") {
+ //    let urlParamsStringCheck = urlParamsString.substring(0, 2);
+ //    if (urlParamsStringCheck == 20) {
+ //      urlParamsString = urlParamsString.substring(14, urlParamsString.length);
+ //    }
+ //    urlAppends = urlAppends + '&' + urlParamsString;
+ //  }
+ //
+ //  // Week selection
+ //  if (week_param !== "") {
+ //    urlAppends = urlAppends + '&' + week_param;
+ //  }
+ //
+ //  if(weekurlParam !== "") {
+ //    urlAppends = urlAppends + '&' + weekurlParam;
+ //
+ //  }
+ //
+  if (kpi_param !== "") {
+    urlAppends = urlAppends + '&' + kpi_param;
+
+  }
+ //  if (trendChartTabParam !== "") {
+ //    urlAppends = urlAppends + '&' + trendChartTabParam;
+ //
+ //  }
+ //
+ //  if (metricSelected !== "") {
+ //    urlAppends = urlAppends + '&metric=' + metricSelected;
+ //
+ //  }
+
+  if (modalProductName !== "") {
+    urlAppends = urlAppends + '&selected=' + modalProductName;
+
+  }
+
+  //user detail obtained from cookies
+  if (userParams !== "") {
+    // urlAppends = urlAppends ;
+
+  }
+
+  urlAppends = urlAppends.replace('&', '');
+
+  // const data = yield call(request, host_url + `/api/reporting/check_trend?` + urlAppends);
+  const data = yield call(request, host_url + `/api/reporting/promo_prdlevel?` + urlAppends);
+  yield put(modalProductInfoSuccess(data));
+
+  let spinnerCheck = 1;
+  yield put(trendChartSpinner(spinnerCheck));
+  // } catch (err) {
+  //   // console.log(err);
+  // }
+}
+
+export function* doGenerateModalInfo() {
+  const watcher = yield takeLatest(MODAL_PRODUCT_DATA, generateModalInfo);
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+
+
 // All sagas to be loaded
 export default [
+  doGenerateModalInfo,
   defaultSaga,
   doPromoKpiFetch,
   doPromoSalesFetch,
