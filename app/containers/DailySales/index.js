@@ -23,6 +23,7 @@ import MultilinePromo from 'components/MultilinePromo';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import TopFilter from 'components/TopFilter';
 var dateFormat = require('dateformat');
+require('react-bootstrap-table/css/react-bootstrap-table.css')
 
 import {
   PromoGiveawayData,cardsCallAction,
@@ -84,6 +85,32 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
     this.props.onSendUrlParams(this.props.location.query);
   };
 
+  cellButton=(cell, row,enumObject, rowIndex)=>{
+    return (
+      <button
+        type="button"
+        className="btn btn-primary"
+        onClick={() =>{
+          console.log("Inside REact Button click!",this)
+        }}
+      >View
+      </button>
+    )
+  }
+
+  cellButton2=(cell, row, rowIndex)=>{
+    return (
+      <button
+        type="button"
+        className="btn btn-primary"
+        onClick={() =>{
+          console.log("Inside REact Button click!",this)
+        }}
+      >View
+      </button>
+    )
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -106,6 +133,32 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
   }
 
   render() {
+    const options = {
+      page: 1,  // which page you want to show as default
+      sizePerPageList: [{
+        text: '5', value: 5
+      }, {
+        text: '10', value: 10
+      }, {
+        text: '15', value: 15
+      }, {
+        text: 'All', value: this.props.DailySales.charts_data && this.props.DailySales.charts_data.dss_table ? this.props.DailySales.charts_data.dss_table.length :0
+      }], // you can change the dropdown list for size per page
+      sizePerPage: 5,  // which size per page you want to locate as default
+      pageStartIndex: 1, // where to start counting the pages
+      paginationSize: 3,  // the pagination bar size.
+      prePage: 'Prev', // Previous page button text
+      nextPage: 'Next', // Next page button text
+      firstPage: 'First', // First page button text
+      lastPage: 'Last', // Last page button text
+      paginationShowsTotal: this.renderShowsTotal,  // Accept bool or function
+      paginationPosition: 'bottom',  // default is bottom, top and both is all available
+      expandRowBgColor: 'rgb(242, 255, 163)'
+      // hideSizePerPage: true > You can hide the dropdown for sizePerPage
+      // alwaysShowAllBtns: true // Always show next and previous button
+      // withFirstAndLast: false > Hide the going to First and Last page button
+    };
+
     let formatMetric = (cell,flag="value") => {
       if (cell >= 1000 || cell <= -1000) {
         let rounded = Math.round(cell / 1000);
@@ -494,6 +547,59 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                             </div>
                           </div>
                         </div>
+
+                        <div className="col-md-12 col-xs-12">
+                          <h2 className="pageModuleMainTitle col-xs-12">
+                            <b>Products Daily Sales Info </b>
+                          </h2>
+                          <div>
+                            {
+                              (() => {
+                                if (this.props.DailySales.charts_data && this.props.DailySales.charts_data.dss_table) {
+//console.log("This is table data length:",this.props.ProductPage.data.table_data.length);
+                                  return (
+                                    <div>
+                                      <BootstrapTable
+                                        data={this.props.DailySales.charts_data.dss_table} options={options}
+                                        striped={true}
+                                        hover
+                                        condensed
+                                        pagination={ true }
+                                        search={true}
+                                        exportCSV={true}
+                                      >
+                                        <TableHeaderColumn width="225" tdStyle={ {whiteSpace: 'normal'} } dataField="product" isKey={true}
+                                                           dataAlign="center" dataSort>Product Description</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="brand_indicator" dataFormat={this.formatMetric} dataSort={true}
+                                                           dataAlign="center">Brand</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="kpi_ty" dataFormat={this.formatMetric} dataSort={true}
+                                                           dataAlign="center">TY</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="kpi_ly" dataFormat={this.formatMetric} dataSort={true}
+                                                           dataAlign="center">LY</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="kpi_ty_lfl" dataFormat={this.formatMetric} dataSort={true}
+                                                           dataAlign="center">TY LFL</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="kpi_ly_lfl" dataFormat={this.formatMetric} dataSort={true}
+                                                           dataAlign="center">LY LFL</TableHeaderColumn>
+                                        <TableHeaderColumn dataFormat={this.cellButton} tdStyle={ {whiteSpace: 'normal'} } dataAlign="center"></TableHeaderColumn>
+                                        <TableHeaderColumn dataFormat={this.cellButton2} dataAlign="center"></TableHeaderColumn>
+                                      </BootstrapTable>
+                                    </div>
+                                  );
+
+                                }
+                                else {
+                                  return (
+
+                                    <div className="text-center" colSpan="11" style={{textAlign: 'center'}}><Spinner />Please Wait a Moment....!</div>
+
+                                  );
+                                }
+                              })()
+                            }
+
+                          </div>
+                        </div>
+
                       </div>
                     </div>
                   </div>
