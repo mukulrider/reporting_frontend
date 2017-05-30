@@ -14,12 +14,12 @@ import * as d3 from 'd3';
 
 
 class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  createChart = (graphdata, y_axis) => {
+  createChart = (graphdata, y_axis, id) => {
 
-    console.log("MultiSeriesBarChartData:",graphdata.graph_data);
-    let data = graphdata.graph_data;
-    let keys=graphdata.labels_bar;
-    let colors=graphdata.colors_bar;
+    console.log("MultiSeriesBarChartData:",graphdata);
+    let data = graphdata.cum_graph_data;
+    let keys = graphdata.labels_bar;
+    let colors = graphdata.colors_bar;
 
 
     let wrap = (text, width)=> {
@@ -46,16 +46,17 @@ class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line r
       });
     }
 
-    var containerWidth = document.getElementById('npdMultiSeriesGraph').clientWidth;
-    let margin = {top: 30, right: 15, bottom: 40, left: 100},
+    var containerWidth = document.getElementById(id).clientWidth;
+    let margin = {top: 30, right: 15, bottom: 80, left: 80},
       width = containerWidth - margin.left - margin.right,
       height = containerWidth*0.8 - margin.top - margin.bottom;
 
 
-    let svg = d3.select('#npdMultiSeriesGraph');
+    let svg = d3.select('#'+id);
     svg.selectAll('*').remove();
 
-    svg = d3.select('#npdMultiSeriesGraph')
+    svg = d3.select('#'+id).append("svg")
+      .attr("id", id + '_svg')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
@@ -173,19 +174,18 @@ class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line r
 
 
   componentDidMount = () => {
-    this.createChart(this.props.data,this.props.y_axis)
+    this.createChart(this.props.data,this.props.y_axis, this.props.id)
   };
 
   componentDidUpdate = () => {
     // console.log(this.props.data);
-    this.createChart(this.props.data, this.props.y_axis)
+    this.createChart(this.props.data, this.props.y_axis, this.props.id)
   };
 
 
   render() {
     return (
-      <div>
-        <svg id="npdMultiSeriesGraph" width="480" height="330"></svg>
+      <div id={this.props.id} style={{background:"#fff", border: "1px solid #ccc"}}>
       </div>
     );
   }
