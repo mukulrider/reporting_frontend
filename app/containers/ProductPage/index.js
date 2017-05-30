@@ -177,20 +177,9 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
       // alwaysShowAllBtns: true // Always show next and previous button
       // withFirstAndLast: false > Hide the going to First and Last page button
     };
-/*    let prod_array = [];
-
-    let make_array = (row) => {
-        if(row.product){
-        prod_array.push({"product": row.product});
-      };
-      console.log("PRODARRAY________",prod_array);
-      return (prod_array);
-    };*/
 
 
     let onRowSelect=(row, isSelected, e)=> {
-      console.log("Inside Select Row Click!",row);
-
       this.prodList.push({"product": row.product});
       console.log("ProdList:",this.prodList);
       this.setState({SelectProducts:this.prodList});
@@ -199,7 +188,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
     let onSelectAll=(isSelected, rows)=> {
       alert(`is select all: ${isSelected}`);
       if (isSelected) {
-        alert('Current display and selected data: ');
+
       } else {
         alert('unselect rows: ');
       }
