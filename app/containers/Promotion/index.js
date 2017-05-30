@@ -552,21 +552,18 @@ export class Promotion extends React.PureComponent {
                   </Nav>
 
                 </div>
-
-
                 <div className="coverBox">
-
-
                   {/* Promo KPI Boxes */}
-                  <div style={{textAlign: 'center'}}>
+                  <br/>
 
+                  <div style={{textAlign: 'center'}}>
                     {(() => {
                       if (this.props.promotion.kpi_param == 'kpi_type=value' || this.props.promotion.kpi_param == 'kpi_type=volume' || this.props.promotion.kpi_param == 'kpi_type=profit') {
                         if (this.props.promotion.kpi_data && this.props.promotion.kpiSpinnerSuccess) {
                           return ( <div className="row mainBox">
 
                             <div className="col-md-4 col-sm-12 col-xs-12"
-                                 style={{backgroundColor: "#fafafa", paddingLeft: '15px', paddingRight: '15px'}}>
+                                 style={{paddingLeft: '15px', paddingRight: '15px'}}>
 
                               <Panel>
                                 <div className="firstCard" style={{height: '150px'}}>
@@ -656,7 +653,6 @@ export class Promotion extends React.PureComponent {
 
                             <div className="col-md-4 col-sm-12 col-xs-12"
                                  style={{
-                                   backgroundColor: "#fafafa",
                                    paddingLeft: '15px',
                                    paddingRight: '15px',
                                    height: '30px'
@@ -757,7 +753,7 @@ export class Promotion extends React.PureComponent {
                             </div>
 
                             <div className="col-md-4 col-sm-12 col-xs-12"
-                                 style={{backgroundColor: "#fafafa", paddingLeft: '15px', paddingRight: '15px'}}>
+                                 style={{paddingLeft: '15px', paddingRight: '15px'}}>
                               <Panel>
                                 <div className="thirdCard" style={{height: "150px"}}>
                                   <h3 className="pageModuleSubTitle" style={{marginTop: "-1px"}}> Non
@@ -857,7 +853,7 @@ export class Promotion extends React.PureComponent {
                         return (
                           <div className="row mainBox">
                             <div className="col-md-4 col-sm-12 col-xs-12"
-                                 style={{backgroundColor: "#fafafa", paddingLeft: '15px', paddingRight: '15px'}}>
+                                 style={{ paddingLeft: '15px', paddingRight: '15px'}}>
                               <Panel>
                                 <div className="firstCard" style={{height: '150px'}}>
                                   <h3 className="pageModuleSubTitle" style={{marginTop: "-1px"}}>
