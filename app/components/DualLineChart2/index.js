@@ -38,7 +38,7 @@ class DualLineChart2 extends React.PureComponent { // eslint-disable-line react/
 
 
     const z = d3.scaleOrdinal()
-      .range(['#CFDB39', '#02958B']);
+      .range(['#02958B','#CFDB39']);
 
     const xAxis = d3.axisBottom()
       .scale(x);

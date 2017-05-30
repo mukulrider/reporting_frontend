@@ -12,7 +12,7 @@ import {
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-import {cardDataFetchSuccess,chartDataFetchSuccess,LineChartSpinnerCheckSuccess,
+import {cardsCallAction,cardDataFetchSuccess,chartDataFetchSuccess,LineChartSpinnerCheckSuccess,
   PromoKpiDataFetchSuccess, FilterFetchSuccess, WeekFilterFetchSuccess,DSViewKpiSpinnerCheckSuccess,
   defaultPageLoadCheck}
   from './actions';
@@ -77,7 +77,7 @@ export function* cardData_pull() {
   const filter = urlName.get('filter_selection');
 
   const data = yield call(request,host_url+"/api/reporting/data_daily_sales?"+'&'+kpiparam+'&'+filter+'&'+week_filter + '&'+ userParams);
-  console.log("Line chart fetched data",data);
+  console.log("Cards data fetched",data);
   console.log("Along with the URL",host_url+"/api/reporting/data_daily_sales?"+'&'+kpiparam+'&'+filter+'&'+week_filter + '&'+ userParams);
   yield put(cardDataFetchSuccess(data));
 
