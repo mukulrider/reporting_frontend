@@ -53,9 +53,8 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
 
     let dataWeekParams = this.props.ProductPage.dataWeekParams;
     let dataMetricParams = this.props.ProductPage.dataMetricParams;
-    this.props.onGetFilter();
+    this.props.onGetFilter('default');
     this.props.onSaveMetricParam(dataMetricParams);
-    this.props.onGenerateUrlParamsString();
 
   };
 
@@ -203,6 +202,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                 return (
                   <FiltersProduct sideFilter={this.props.ProductPage.sideFilter}
                                   location={this.props.location}
+                                  userParams={this.props.ProductPage.userParams}
                                   week_data={this.props.ProductPage.week_filter_data}
                                   previous_week_selection={this.props.ProductPage.filter_week_selection}
                                   onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}
@@ -210,7 +210,6 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                                   onSaveWeek={this.props.onSaveWeek}
                                   onCheckboxWeekChange={this.props.onCheckboxWeekChange}
                                   onGetFilter={this.props.onGetFilter}
-
                                   filter_week_selection={this.props.ProductPage.filter_week_selection}
                                   urlParamsString={this.props.ProductPage.urlParamsString}
                                   tabsAndApplySpinner={this.props.tabsAndApplySpinner}
@@ -237,7 +236,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                     )
                   } else {
                     return (
-                      <span>Product View - Latest Week  </span>
+                      <span>Product View - {this.props.ProductPage.data && this.props.ProductPage.data.latest_week ? this.props.ProductPage.data.latest_week:"Latest Week"}  </span>
                     )
                   }
                 })()}
@@ -245,8 +244,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
               <Nav bsStyle="tabs" className="tabsCustom" activeKey={this.state.activeKey}>
                 <NavItem style={{fontSize: '16px', width: '16%', textAlign: 'center'}}
                          className=" tabsCustomList" eventKey="1" onClick={() => {
-                  this.setState({activeKey: "1"});
-                  this.setState({dataWeekParams:"Latest Week"})
+                  this.setState({activeKey: "1",dataWeekParams:"Latest Week"});
                   this.props.tabsAndApplySpinner(0);
                   let dataWeekParams = "week_flag=Latest Week";
                   this.props.onSaveWeekParam(dataWeekParams);
@@ -254,8 +252,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                 ><span className="tab_label">Selected Week</span></NavItem>
                 <NavItem style={{fontSize: '16px', width: '16%', textAlign: 'center'}}
                          className="tabsCustomListTime" eventKey="2" onClick={() => {
-                  this.setState({activeKey: "2"});
-                  this.setState({dataWeekParams:"4"})
+                  this.setState({activeKey: "2",dataWeekParams:"4"});
                   this.props.tabsAndApplySpinner(0);
                   let dataWeekParams = "week_flag=4";
                   this.props.onSaveWeekParam(dataWeekParams);
@@ -263,8 +260,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                 ><span className="tab_label">Last 4 Weeks</span></NavItem>
                 <NavItem style={{fontSize: '16px', width: '16%', textAlign: 'center'}}
                          className="tabsCustomListTime" eventKey="3" onClick={() => {
-                  this.setState({activeKey: "3"});
-                  this.setState({dataWeekParams:"13"})
+                  this.setState({activeKey: "3",dataWeekParams:"13"});
                   this.props.tabsAndApplySpinner(0);
                   let dataWeekParams = "week_flag=13";
                   this.props.onSaveWeekParam(dataWeekParams);
@@ -272,8 +268,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                 ><span className="tab_label">Last 13 Weeks</span></NavItem>
                 <NavItem style={{fontSize: '16px', width: '16%', textAlign: 'center'}}
                          className="tabsCustomListTime" eventKey="4" onClick={() => {
-                  this.setState({activeKey: "4"});
-                  this.setState({dataWeekParams:"26"})
+                  this.setState({activeKey: "4",dataWeekParams:"26"});
                   this.props.tabsAndApplySpinner(0);
                   let dataWeekParams = "week_flag=26";
                   this.props.onSaveWeekParam(dataWeekParams);
@@ -281,8 +276,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                 ><span className="tab_label">Last 26 Weeks</span></NavItem>
                 <NavItem style={{fontSize: '16px', width: '16%', textAlign: 'center'}}
                          className="tabsCustomListTime" eventKey="5" onClick={() => {
-                  this.setState({activeKey: "5"});
-                  this.setState({dataWeekParams:"YTD"})
+                  this.setState({activeKey: "5",dataWeekParams:"YTD"});
                   this.props.tabsAndApplySpinner(0);
                   let dataWeekParams = "week_flag=YTD";
                   this.props.onSaveWeekParam(dataWeekParams);
@@ -538,7 +532,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                       return (
                         <div>
                           <div style={{float: "right"}}>
-                            <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                            <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight style={{
                               backgroundColor: "transparent",
                               borderColor: "transparent",
                               color: "#00539f"

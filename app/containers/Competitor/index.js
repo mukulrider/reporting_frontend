@@ -377,7 +377,7 @@ export class Competitor extends React.PureComponent {
                       </div>
                       <div className="col-md-3 col-sm-3 col-xs-3">
                   <span style={{float: "right"}}>
-                          <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                          <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight style={{
                             backgroundColor: "transparent",
                             borderColor: "transparent",
                             color: "#00539f"
@@ -455,7 +455,7 @@ export class Competitor extends React.PureComponent {
                     </div>
                     <div className="col-md-3 col-sm-3 col-xs-3">
                   <span style={{float: "right"}}>
-                          <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                          <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight style={{
                             backgroundColor: "transparent",
                             borderColor: "transparent",
                             color: "#00539f"
@@ -599,7 +599,7 @@ export class Competitor extends React.PureComponent {
                       </div>
                       <div className="col-md-3 col-sm-3 col-xs-3">
                   <span style={{float: "right"}}>
-                          <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                          <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight style={{
                             backgroundColor: "transparent",
                             borderColor: "transparent",
                             color: "#00539f"
@@ -652,7 +652,7 @@ export class Competitor extends React.PureComponent {
                       </div>
                       <div className="col-md-3 col-sm-3 col-xs-3">
                   <span style={{float: "right"}}>
-                          <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                          <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight style={{
                             backgroundColor: "transparent",
                             borderColor: "transparent",
                             color: "#00539f"
@@ -708,7 +708,7 @@ export class Competitor extends React.PureComponent {
                       </div>
                       <div className="col-md-3 col-sm-3 col-xs-3">
                   <span style={{float: "right"}}>
-                          <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                          <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight style={{
                             backgroundColor: "transparent",
                             borderColor: "transparent",
                             color: "#00539f"
@@ -758,7 +758,7 @@ export class Competitor extends React.PureComponent {
                       </div>
                       <div className="col-md-3 col-sm-3 col-xs-3">
                   <span style={{float: "right"}}>
-                          <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                          <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight style={{
                             backgroundColor: "transparent",
                             borderColor: "transparent",
                             color: "#00539f"
@@ -845,7 +845,7 @@ export class Competitor extends React.PureComponent {
                       return (
                         <div style={{background: "#fff", border: "1px solid #ccc"}}>
                           <div style={{float: "right"}}>
-                            <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                            <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight style={{
                               backgroundColor: "transparent",
                               borderColor: "transparent",
                               color: "#00539f"

@@ -190,7 +190,7 @@ class Header extends Component {
                   <NavItem className="tabsNavPanelLogoutList" style={{ float: 'right', marginTop: '-8px' }}>
                     <span>
                       <span>
-                      <DropdownButton className="	glyphicon glyphicon-user" pullRight style={{ backgroundColor: 'transparent', borderColor: 'transparent', color: '#00539f', fontSize:"18px"}}>
+                      <DropdownButton title="" className="	glyphicon glyphicon-user" pullRight style={{ backgroundColor: 'transparent', borderColor: 'transparent', color: '#00539f', fontSize:"18px"}}>
                         <MenuItem style={{textDecoration:"none"}}><span ><b>Hi,User</b></span></MenuItem>
                         <MenuItem onClick={() => {
                           const getCookie = (name) => {

@@ -14,10 +14,10 @@ import messages from './messages';
 class MultilinePromo extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   createMultilinePromoChart = (data,chart_id,label_ty,label_ly,xaxis_title,yaxis_title,no_pref,no_suffix,width=800,legend_width=650,legend_text_width=645) => {
 
-
+console.log("HARSHIT",data)
     // let frameWidth = document.getElementById(chart_id).clientWidth;
     let frameWidth = 600;
-    let margin = {top: 20, right: 100, bottom: 50, left: 100};
+    let margin = {top: 20, right: 100, bottom: 50, left: 60};
         width = frameWidth - margin.left - margin.right;
     let height = frameWidth*0.5 - margin.top - margin.bottom;
     // set the ranges
@@ -49,6 +49,20 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
         return (a);
       });
 
+//Tooltip
+    let tooltip = d3.select("body")
+      .append("div")
+      .style("position", "absolute")
+      .classed("tooltip_bubble",true)
+      .style("z-index", "10")
+      .style("visibility", "hidden")
+      .style("color", "white")
+      .style("padding", "8px")
+      .style("background-color", "rgba(0, 0, 0, 0.75)")
+      .style("border-radius", "6px")
+      .style("font", "15px sans-serif")
+      .text("tooltip");
+
 // define the 1st line
     let valueline = d3.line()
       .x(function(d) { return x(d.tesco_week); })
@@ -76,7 +90,19 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
     svg.append("path")
       .data([data])
       .attr("class", "line")
-      .attr("d", valueline);
+      .attr("d", valueline)
+      .on('mouseover', function(d) {
+        // console.log("harshit");
+        // console.log("------d",d);
+        d.map((obj)=> {
+        tooltip.html("Week : "+obj.tesco_week+"<br/>"+"Value : "+obj.value_ty);
+        tooltip.style("visibility", "visible");})
+      })
+      .on('mousemove', function() {
+        // console.log("y--"+(d3.event.pageY)+"x-----"+(d3.event.pageX))
+        return tooltip.style("top", (d3.event.pageY-100)+"px").style("left",(d3.event.pageX+5)+"px");
+      })
+      .on('mouseout', function(){return tooltip.style("visibility", "hidden");});
 
     // Add the valueline2 path.
     svg.append("path")
@@ -84,6 +110,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
       .attr("class", "line")
       .style("stroke", "red")
       .attr("d", valueline2);
+
 
     // Add the X Axis
     svg.append("g")
@@ -101,11 +128,10 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
     //Y axis title
     svg.append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 0 - (margin.left)+30)
-      // .attr("y", 0 - (width / 2))
+      .attr("y", 0 - (margin.left))
       .attr("x",0 - (height / 2))
       .attr("dy", "1em")
-      .style("text-anchor", "middle")
+      .style("text-anchor", " middle")
       .text(yaxis_title);
 
     //X axis title
@@ -117,7 +143,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
 
 
     //Legend
-    let legendWidth = width/3;
+    let legendWidth = width/5;
     let data_label = [{"label":label_ty},{"label":label_ly}]
 
     let legend = svg.append("svg")
@@ -130,7 +156,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
       .data(data_label)
       .enter().append("g")
       .attr("transform", function (d, i) {
-        return "translate(" + (legendWidth*i - width) +  "," + (height + margin.top + margin.bottom) + ")";
+        return "translate(" + (legendWidth*i - width-20) +  "," + (height + margin.top + margin.bottom) + ")";
       });
 
     let color_hash = ["steelblue","red"];
@@ -171,7 +197,7 @@ class MultilinePromo extends React.PureComponent { // eslint-disable-line react/
   render() {
 
     return (
-      <div style={{background:"#fff",width:'600px'}} id={this.props.id}>
+      <div style={{background:"#fff",width:'400px'}} id={this.props.id}>
       </div>
     );
   }

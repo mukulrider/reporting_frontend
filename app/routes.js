@@ -137,8 +137,8 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    }, /*{
-      path: '/sales/kantar',
+    }, {
+      path: '/reporting/kantar',
       name: 'kantarReport',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
@@ -157,7 +157,7 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    },*/ {
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

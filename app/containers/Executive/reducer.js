@@ -69,7 +69,8 @@ import {
   KPI_SPINNER_FLAG,
   INTERNAL_DRIVER_SPINNER_FLAG,
   EXTERNAL_DRIVER_SPINNER_FLAG,
-  PRICE_KPI_SPINNER_FLAG, GENERATE_BEST_WORST_PERFORMANCE_SUCCESS, GENERATE_BEST_WORST_PERFORMANCE_TABLE_SUCCESS
+  PRICE_KPI_SPINNER_FLAG, GENERATE_BEST_WORST_PERFORMANCE_SUCCESS, GENERATE_BEST_WORST_PERFORMANCE_TABLE_SUCCESS,
+  STORE_FILTER_PARAM
 } from './constants';
 
 
@@ -230,6 +231,9 @@ function executiveReducer(state = initialState, action) {
     case WEEK_FILTER_PARAM:
       console.log("reducer WEEK_FILTER_PARAM",action.data);
       return state.set('week_filter_param',action.data);
+    case STORE_FILTER_PARAM:
+      console.log("reducer STORE_FILTER_PARAM",action.data);
+      return state.set('store_filter_param',action.data);
     case OVERVIEW_KPI_CONSTANT:
       console.log("reducer OVERVIEW_KPI_CONSTANT",action.data);
       return state.set('overview_kpi',action.data);
