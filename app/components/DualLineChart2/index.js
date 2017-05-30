@@ -16,13 +16,11 @@ import messages from './messages';
 
 class DualLineChart2 extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
-  createChart = (data, y_axis) => {
+  createChart = (data, x_axis, y_axis, id) => {
     const data1 = data;
-    console.log('This is my data');
-    console.log(data1);
+    console.log('This is my data',data1);
 
-
-    var containerWidth = document.getElementById('sample_div_container').clientWidth;
+    let containerWidth = document.getElementById(id).clientWidth;
     let margin = {top: 30, right: 80, bottom: 80, left: 80},
       width = containerWidth - margin.left - margin.right,
       height = containerWidth*0.8 - margin.top - margin.bottom;
@@ -75,10 +73,12 @@ class DualLineChart2 extends React.PureComponent { // eslint-disable-line react/
 // appends a 'group' element to 'svg'
 // moves the 'group' element to the top left margin
 
-    let svg = d3.select('#dailyCumSales');
+    let svg = d3.select(`#${id}`);
+
     svg.selectAll('*').remove();
 
-    svg = d3.select('#dailyCumSales')
+    svg = d3.select("#" + id).append("svg")
+      .attr("id", id + '_svg')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
@@ -87,7 +87,7 @@ class DualLineChart2 extends React.PureComponent { // eslint-disable-line react/
 
 
     // Add the valueline path.
-    y.domain([d3.min(data1, (d) => (Math.min(0, d.tot_val, d.tot_val_ly))), d3.max(data1, (d) => (Math.max(d.tot_val, d.tot_val_ly)))]);
+    y.domain([d3.min(data1, (d) => (Math.min(d.tot_val, d.tot_val_ly))), d3.max(data1, (d) => (Math.max(d.tot_val, d.tot_val_ly)))]);
 
 
     // Add the valueline path.
@@ -121,7 +121,7 @@ class DualLineChart2 extends React.PureComponent { // eslint-disable-line react/
       .attr('fill', '#000')
       .style('text-anchor', 'middle')
       .style('font', '18px sans-serif')
-      .text('Tesco Week');
+      .text(x_axis);
 
     // Add the Y Axis
     svg.append('g')
@@ -140,19 +140,19 @@ class DualLineChart2 extends React.PureComponent { // eslint-disable-line react/
       .data(['tot_val', 'tot_val_ly'])
       .enter().append('g')
       .attr('class', 'legend')
-      .attr('transform', (d, i) => `translate(0,${i * 30})`)
+      .attr('transform', (d, i) => `translate(0,${i * 25})`)
       .style('font', '12px sans-serif');
 
     legend.append('rect')
       .attr('x', width / 3 + 2 * (margin.left))
-      .attr('y',  height+2*margin.top)
+      .attr('y',  height+1.5*margin.top)
       .attr('width', 25)
       .attr('height', 2.5)
       .attr('fill', z);
 
     legend.append('text')
       .attr('x', width / 3 +3 * (margin.left))
-      .attr('y', height+2*margin.top)
+      .attr('y', height+1.5*margin.top)
       .attr('dy', '.35em')
       .attr('text-anchor', 'middle')
       .text((d) => { console.log("Legend Text:",d);
@@ -168,20 +168,19 @@ class DualLineChart2 extends React.PureComponent { // eslint-disable-line react/
   }
 
   componentDidMount = () => {
-    console.log('Component Mount -> ', this.props.data);
-    this.createChart(this.props.data,  this.props.y_axis);
+    console.log('Component Mount -> ');
+    this.createChart(this.props.data,this.props.x_axis, this.props.y_axis, this.props.id);
 
   };
 
   componentDidUpdate = () => {
-    console.log('Component Update Mount -> ', this.props.data);
-    this.createChart(this.props.data,this.props.y_axis);
+    console.log('Component Update Mount -> ');
+    this.createChart(this.props.data,this.props.x_axis,this.props.y_axis,this.props.id);
   };
 
   render() {
     return (
-      <div id="sample_div_container" style={{background:"#fff", border: "1px solid #ccc"}}>
-        <svg id="dailyCumSales" fontFamily="sans-serif" fontSize="10"> </svg>
+      <div id={this.props.id} style={{background:"#fff", border: "1px solid #ccc"}}>
       </div>
     );
   }

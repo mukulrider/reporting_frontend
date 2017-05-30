@@ -14,12 +14,12 @@ import * as d3 from 'd3';
 
 
 class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  createChart = (graphdata, y_axis) => {
+  createChart = (graphdata, x_axis, y_axis, id) => {
 
-    console.log("MultiSeriesBarChartData:",graphdata.graph_data);
-    let data = graphdata.graph_data;
-    let keys=graphdata.labels_bar;
-    let colors=graphdata.colors_bar;
+    console.log("MultiSeriesBarChartData:",graphdata);
+    let data = graphdata.cum_graph_data;
+    let keys = graphdata.labels_bar;
+    let colors = graphdata.colors_bar;
 
 
     let wrap = (text, width)=> {
@@ -46,16 +46,17 @@ class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line r
       });
     }
 
-    var containerWidth = document.getElementById('npdMultiSeriesGraph').clientWidth;
-    let margin = {top: 30, right: 15, bottom: 40, left: 100},
+    let containerWidth = document.getElementById(id).clientWidth;
+    let margin = {top: 30, right: 15, bottom: 80, left: 80},
       width = containerWidth - margin.left - margin.right,
       height = containerWidth*0.8 - margin.top - margin.bottom;
 
 
-    let svg = d3.select('#npdMultiSeriesGraph');
+    let svg = d3.select('#'+id);
     svg.selectAll('*').remove();
 
-    svg = d3.select('#npdMultiSeriesGraph')
+    svg = d3.select('#'+id).append("svg")
+      .attr("id", id + '_svg')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
@@ -63,11 +64,27 @@ class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line r
         `translate(${margin.left},${margin.top})`);
 
     let spaceForLegends=65;
-    let x0 = d3.scaleBand().rangeRound([0, width-spaceForLegends]).paddingInner(0.1),
+    const x0 = d3.scaleBand().rangeRound([0, width-spaceForLegends]).paddingInner(0.1),
       x1 = d3.scaleBand().rangeRound([height, 0]),
       y = d3.scaleLinear().rangeRound([height, 0]),
 
       z = d3.scaleOrdinal().range(colors);
+
+    let format = d3.format(',');
+
+    let yAxis = d3.axisLeft()
+      .scale(y)
+      .tickFormat((d) => {
+        if ((d / 1000) >= 1 || (d / 1000) <= -1) {
+          d = d / 1000;
+        }
+        if (y_axis == "Volume") {
+          return `${format(d)} K`;
+        }
+        else {
+          return `£ ${format(d)} K`;
+        }
+      });
 
     // Mapping domains
     x0.domain(data.map(function (d) {
@@ -77,7 +94,11 @@ class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line r
     x1.domain(keys)
       .rangeRound([0, x0.bandwidth()]);
 
-    y.domain([0, d3.max(data, function (d) {
+    y.domain([d3.min(data, function (d) {
+      return d3.min(keys, function (key) {
+        return d[key];
+      });
+    }), d3.max(data, function (d) {
       return d3.max(keys, function (key) {
         return d[key];
       });
@@ -122,16 +143,25 @@ class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line r
 
     svg.append("g")
       .attr("class", "chartAxisLabel")
-      // .attr("transform", "translate("+margin.left+",0)")
-      .call(d3.axisLeft(y));
+      .call(yAxis);
 
     //AXIS TITLES
+    svg.append('text')
+      .attr('x', width / 3.5)
+      .attr('y', height+2.5*margin.top)
+      .attr('dx', '0.71em')
+      .attr('fill', '#000')
+      .style('text-anchor', 'middle')
+      .style('font', '18px sans-serif')
+      .text(x_axis);
+
     svg.append("text")
-      .attr("class", "chartAxisTitle")
       .attr("transform", "rotate(-90)")
-      .attr("y", 0-100)
+      .attr("y", -80)
       .attr("x",0 - (height / 2))
       .attr("dy", "2em")
+      .style('text-anchor', 'middle')
+      .style('font', '18px sans-serif')
       .text(y_axis);
 
 
@@ -173,19 +203,18 @@ class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line r
 
 
   componentDidMount = () => {
-    this.createChart(this.props.data,this.props.y_axis)
+    this.createChart(this.props.data,this.props.x_axis, this.props.y_axis, this.props.id)
   };
 
   componentDidUpdate = () => {
     // console.log(this.props.data);
-    this.createChart(this.props.data, this.props.y_axis)
+    this.createChart(this.props.data, this.props.x_axis, this.props.y_axis, this.props.id)
   };
 
 
   render() {
     return (
-      <div>
-        <svg id="npdMultiSeriesGraph" width="480" height="330"></svg>
+      <div id={this.props.id} style={{background:"#fff", border: "1px solid #ccc"}}>
       </div>
     );
   }
