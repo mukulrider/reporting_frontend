@@ -255,8 +255,8 @@ export class Promotion extends React.PureComponent {
               {/*Page title*/}
               <div className="col-xs-12">
 
-                  <Breadcrumb selected_week={this.props.promotion.kpi_data.selected_week}
-                              urlParamsString={this.props.promotion.urlParamsString}/>
+                <Breadcrumb selected_week={this.props.promotion.kpi_data.selected_week}
+                            urlParamsString={this.props.promotion.urlParamsString}/>
               </div>
               <br/>
               <br/>
@@ -1230,8 +1230,8 @@ export class Promotion extends React.PureComponent {
 
                   {/*<div className="col-md-12 col-sm-12">*/}
                   {/*<button className="btn btn-success" onClick={() => {*/}
-                    {/*this.setState({promoPartTabInfo: true})*/}
-                    {/*this.props.loadPromoPart();*/}
+                  {/*this.setState({promoPartTabInfo: true})*/}
+                  {/*this.props.loadPromoPart();*/}
                   {/*}}>Promotion Participation*/}
                   {/*</button>*/}
                   {/*</div>*/}
@@ -1255,7 +1255,7 @@ export class Promotion extends React.PureComponent {
                     </Modal.Header>
                     <Modal.Body style={{fontSize: '14px'}}>
 
-                    {/*Showing pie chart and trended chart*/}
+                      {/*Showing pie chart and trended chart*/}
                       <div className="row">
 
 
@@ -1278,7 +1278,8 @@ export class Promotion extends React.PureComponent {
                               return (
                                 <div style={{background: "#f5f5f5"}}>
                                   <div className="col-md-9 col-sm-12 col-xs-12" style={{textAlign: "center"}}>
-                                    <h3 className="pageModuleSubTitle" style={{marginTop: "12px",marginLeft: "40px"}}>Share by Promo Type</h3>
+                                    <h3 className="pageModuleSubTitle" style={{marginTop: "12px", marginLeft: "40px"}}>
+                                      Share by Promo Type</h3>
                                   </div>
                                   <div className="col-md-3 col-sm-12 col-xs-12" style={{marginTop: "8px"}}>
                                     <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight
@@ -1354,10 +1355,13 @@ export class Promotion extends React.PureComponent {
                                                        }
                                                        console.log("-=-=-=-=" + (index + 1).toString())
                                                        this.setState({activeKey4: (index + 1).toString()});
-                                                       {/*this.props.trendChartSpinner(0);*/}
-                                                       {/*this.props.saveTrendChartTabParam(promoTypeParam);*/}
+                                                       {/*this.props.trendChartSpinner(0);*/
+                                                       }
+                                                       {/*this.props.saveTrendChartTabParam(promoTypeParam);*/
+                                                       }
                                                        this.props.loadPromoPart();
-                                                       {/*this.props.trendChartDataFetch();*/}
+                                                       {/*this.props.trendChartDataFetch();*/
+                                                       }
                                                      }}>
                                               <span className="tab_label">{obj}</span></NavItem>)
 
@@ -1450,7 +1454,8 @@ export class Promotion extends React.PureComponent {
                           return (
                             <div style={{background: "#f5f5f5"}}>
                               <div className="col-md-9 col-sm-12 col-xs-12" style={{textAlign: "center"}}>
-                                <h3 className="pageModuleSubTitle" style={{marginTop: "12px",marginLeft: "40px"}}>Share by Promo Type</h3>
+                                <h3 className="pageModuleSubTitle" style={{marginTop: "12px", marginLeft: "40px"}}>Share
+                                  by Promo Type</h3>
                               </div>
                               <div className="col-md-3 col-sm-12 col-xs-12" style={{marginTop: "8px"}}>
                                 <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight
@@ -1494,7 +1499,7 @@ export class Promotion extends React.PureComponent {
                       marginTop: '2%',
                       marginLeft: '1%',
                       paddingLeft: '0px',
-                      width:'60%'
+                      width: '60%'
                     }}>
 
 
@@ -1661,10 +1666,18 @@ export class Promotion extends React.PureComponent {
                                                                       this.props.onModalProductInfo();
                                                                       this.setState({showModal: true})
                                                                     }}>Promo Info.</button>
-                                                   }}></TableHeaderColumn>
-                                <TableHeaderColumn dataAlign={"left"} dataFormat={() => {
-                                  return <button className="btn btn-success">Send to Delist</button>
-                                }}></TableHeaderColumn>
+                                                   }}>&nbsp;</TableHeaderColumn>
+                                <TableHeaderColumn dataAlign={"left"}
+                                                   dataField={'product_id'}
+                                                   dataFormat={(product_id) => {
+                                                     return (
+                                                       <button className="btn btn-success" onClick={() => {
+                                                         console.log(product_id)
+                                                         window.location = '/ranging/delist?long_description=' + product_id
+                                                       }}>Send to Delist
+                                                       </button>
+                                                     )
+                                                   }}>&nbsp;</TableHeaderColumn>
                               </BootstrapTable>
                             </div>
                           )
@@ -1993,14 +2006,11 @@ export class Promotion extends React.PureComponent {
                       </div>
                       <div className="row">
 
-                        <div className="col-lg-3 col-md-4 col-sm-12 col-xs-12"
+                        <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12"
                              style={{
                                minHeight: '450px',
                                borderRadius: '1px',
                                border: '1px solid rgb(204, 204, 204)',
-                               float: 'left',
-                               width: '35%',
-                               marginLeft: '1%',
                                marginTop: '2%',
 
                              }}>
@@ -2048,11 +2058,10 @@ export class Promotion extends React.PureComponent {
 
                         <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12"
                              style={{
-                               minHeight: '380px',
+                               minHeight: '450px',
                                borderRadius: '1px',
                                border: '1px solid rgb(204, 204, 204)',
                                marginTop: '2%',
-                               marginLeft: '1%',
                                paddingLeft: '0px'
                              }}>
 
