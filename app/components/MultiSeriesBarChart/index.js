@@ -10,7 +10,7 @@ import React from 'react';
 import {FormattedMessage} from 'react-intl';
 import messages from './messages';
 import * as d3 from 'd3';
-//import styles from './style.scss'
+import styles from './style.scss'
 
 
 class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -19,7 +19,7 @@ class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line r
     console.log("MultiSeriesBarChartData:",graphdata);
     let data = graphdata.cum_graph_data;
     let keys = graphdata.labels_bar;
-    let colors = graphdata.colors_bar;
+    let colors = ["#CFDB39","#02958B"];
 
 
     let wrap = (text, width)=> {
@@ -63,6 +63,7 @@ class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line r
       .attr('transform',
         `translate(${margin.left},${margin.top})`);
 
+    let tooltip = svg.append("div").attr("class", "toolTip");
     let spaceForLegends=65;
     const x0 = d3.scaleBand().rangeRound([0, width-spaceForLegends]).paddingInner(0.1),
       x1 = d3.scaleBand().rangeRound([height, 0]),
@@ -132,7 +133,13 @@ class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line r
       })
       .attr("fill", function (d) {
         return z(d.key);
-      });
+      })
+      .on("mousemove", function(d){
+        console.log("Entered tooltip:");
+        tooltip
+          .text((d.week_day_str) + ":%");
+      })
+      .on("mouseout", function(d){ tooltip.style("display", "none");});
 
     svg.append("g")
       .attr("class", "chartAxisLabel")
