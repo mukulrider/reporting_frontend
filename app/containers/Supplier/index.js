@@ -24,6 +24,9 @@ import FiltersSupplier from 'components/FiltersSupplier';
 import RadioButton from 'components/radio_button';
 import Checkbox from 'components/checkbox';
 import Spinner from 'components/spinner';
+import Breadcrumb from 'components/Breadcrumb';
+import TopFilterSupplier from 'components/TopFilterSupplier';
+
 require('react-bootstrap-table/css/react-bootstrap-table.css')
 
 import {
@@ -36,6 +39,8 @@ import {
   checkboxWeekChange,
   SaveWeek,
   GenerateUrlParamsString,
+  GenerateUrlParamsString2,
+  GenerateUrlParamsString3,
   getWeekFilter,
   SaveStoreParam,
   generateTable,
@@ -51,6 +56,7 @@ import {
   bubbleChartSpinnerCheckSuccess,
   barChartSpinnerCheckSuccess,
   tableChartSpinnerCheckSuccess,
+  StoreFilterParam,
 
 } from './actions';
 import styles from './style.scss';
@@ -74,8 +80,12 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
   componentDidMount = () => {
     let defaultFilterUrlParams = localStorage.getItem('urlParams');
     if (defaultFilterUrlParams) {
-      console.log('defaultFilterUrlParams', defaultFilterUrlParams)
-      this.props.onGenerateUrlParamsString(defaultFilterUrlParams);
+      console.log('defaultFilterUrlParams  ', defaultFilterUrlParams)
+
+      this.props.onGenerateUrlParamsString3(1);
+      this.props.onGenerateUrlParamsString2(defaultFilterUrlParams);
+      this.props.onGenerateUrlParamsString(0);
+      // this.props.onGenerateUrlParamsString(defaultFilterUrlParams);
     } else {
       this.props.onGenerateUrlParamsString('');
     }
@@ -87,7 +97,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
     this.props.onKPIBoxASP();
     this.props.onSaveTopBottomKpi();
 
-    // //For table
+    // //For tableaa
     // this.props.onGenerateTable();
     // //For Bubble Graph
     // this.props.onFetchGraph();
@@ -205,8 +215,10 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
     let TopBottomKpi = this.props.supplier.top_bottom_kpi;
     let dataPerformanceUrlParams = this.props.supplier.dataPerformanceUrlParams;
     let dataStoreUrlParams = this.props.supplier.dataStoreUrlParams;
+    let finalurlParamsString = '';
 
     console.log('this.props', this.props);
+
 
     return (
       <div>
@@ -293,19 +305,68 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                   marginLeft: '22%'
                 }}>
                   {/*Page title*/}
-                  <div className="pageTitle">
-                    {(() => {
-                      if (this.props.supplier.filter_week_selection) {
-                        return (
-                          <span>Supplier View - {(this.props.supplier.filter_week_selection).substring(11, 17)}</span>
-                        )
-                      } else {
-                        return (
-                          <span>Supplier View - 201711  </span>
-                        )
-                      }
-                    })()}
-                  </div>
+
+                  {/*<div className="pageTitle">*/}
+                    {/*{(() => {*/}
+                      {/*if (this.props.supplier.filter_week_selection) {*/}
+                        {/*return (*/}
+                          {/*<span>Supplier View - {(this.props.supplier.filter_week_selection).substring(11, 17)}</span>*/}
+                        {/*)*/}
+                      {/*} else {*/}
+                        {/*return (*/}
+                          {/*<span>Supplier View - 201711  </span>*/}
+                        {/*)*/}
+                      {/*}*/}
+                    {/*})()}*/}
+                  {/*</div>*/}
+
+                  <div className="row">
+                    <div className="col-xs-12">
+                      {(() => {
+                        if (this.props.supplier.urlParamsString){
+
+                          finalurlParamsString = this.props.supplier.urlParamsString;
+                          console.log('elseelse',finalurlParamsString);
+
+
+                        } else {
+                          console.log('if if if if',this.props.supplier.urlParamsString2);
+                          finalurlParamsString = this.props.supplier.urlParamsString2;
+                          console.log('ififif',finalurlParamsString);
+
+                        }
+                      })()}
+
+                      <Breadcrumb
+                        selected_week={(this.props.supplier.filter_week_selection).substring(11, this.props.supplier.filter_week_selection.length)}
+                        urlParamsString={finalurlParamsString}/>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/></div>
+
+                  {(() => {
+                    if (this.props.supplier.week_filter_data) {
+                      return (
+                        <TopFilterSupplier
+                          week_filter_data={this.props.supplier.week_filter_data}
+                          onSaveWeekFilterParam={this.props.onCheckboxWeekChange}
+
+                          onSaveStoreFilterParam={this.props.onSaveStoreFilterParam}
+                          onSaveWeekParam={this.props.onSaveWeekParam}
+
+                          onKPIBox={this.props.onKPIBox}
+                          ontopBottomChart={this.props.ontopBottomChart}
+
+                          barChartSpinnerCheck={this.props.barChartSpinnerCheckSuccess}
+                          supplierViewKpiSpinnerCheck={this.props.supplierViewKpiSpinnerCheckSuccess}
+                        />
+
+                      )
+                    }
+                  })()}
+
                 </div>
 
                 <div className="row" style={{
@@ -318,95 +379,10 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                   <div className="col-md-12 content-wrap" style={{backgroundColor: "#f5f5f5"}}>
 
-                    <Nav style={{marginLeft: '1%', marginBottom: '0%'}} bsStyle="tabs" activeKey={this.state.activeKey1}
-                         onSelect={this.handleSelect} className="tabsCustom mainTab">
-                      <NavItem className="tabsCustomListTime" eventKey="1" onClick={() => {
-                        this.setState({activeKey1: "1"});
-                        this.props.supplierViewKpiSpinnerCheckSuccess(0);
-                        this.props.barChartSpinnerCheckSuccess(0);
-                        this.props.bubbleChartSpinnerCheckSuccess(0);
-                        this.props.tableChartSpinnerCheckSuccess(0);
-                        dataWeekUrlParams = "week_flag=1";
-                        this.props.onSaveWeekParam(dataWeekUrlParams);
-                        this.props.onKPIBox();
-                        {/*this.props.onSupplierTable();*/
-                        }
-                        this.props.onFetchGraph();
-                        this.props.onGenerateTable();
-                        this.props.ontopBottomChart();
-
-                      }}>
-                        <span className="tab_label">Selected Week</span></NavItem>
-
-                      <NavItem className="tabsCustomListTime" eventKey="2" onClick={() => {
-                        this.setState({activeKey1: "2"});
-                        this.props.supplierViewKpiSpinnerCheckSuccess(0);
-                        this.props.barChartSpinnerCheckSuccess(0);
-                        this.props.bubbleChartSpinnerCheckSuccess(0);
-                        this.props.tableChartSpinnerCheckSuccess(0);
-                        dataWeekUrlParams = "week_flag=2";
-                        this.props.onSaveWeekParam(dataWeekUrlParams);
-                        this.props.onKPIBox();
-                        {/*this.props.onSupplierTable();*/
-                        }
-                        this.props.onFetchGraph();
-                        this.props.onGenerateTable();
-                        this.props.ontopBottomChart();
-
-                      }}><span className="tab_label">Last 4 weeks</span></NavItem>
-
-                      <NavItem className="tabsCustomListTime" eventKey="3" onClick={() => {
-                        this.setState({activeKey1: "3"});
-                        this.props.supplierViewKpiSpinnerCheckSuccess(0);
-                        this.props.barChartSpinnerCheckSuccess(0);
-                        this.props.bubbleChartSpinnerCheckSuccess(0);
-                        this.props.tableChartSpinnerCheckSuccess(0);
-                        dataWeekUrlParams = "week_flag=3";
-                        this.props.onSaveWeekParam(dataWeekUrlParams);
-                        this.props.onKPIBox();
-                        {/*this.props.onSupplierTable();*/
-                        }
-                        this.props.onFetchGraph();
-                        this.props.onGenerateTable();
-                        this.props.ontopBottomChart();
-
-                      }}><span className="tab_label">Last 13 weeks</span></NavItem>
-                      <NavItem className="tabsCustomListTime" eventKey="4" onClick={() => {
-                        this.setState({activeKey1: "4"});
-                        this.props.supplierViewKpiSpinnerCheckSuccess(0);
-                        this.props.barChartSpinnerCheckSuccess(0);
-                        this.props.bubbleChartSpinnerCheckSuccess(0);
-                        this.props.tableChartSpinnerCheckSuccess(0);
-                        dataWeekUrlParams = "week_flag=4";
-                        this.props.onSaveWeekParam(dataWeekUrlParams);
-                        this.props.onKPIBox();
-                        {/*this.props.onSupplierTable();*/
-                        }
-                        this.props.onFetchGraph();
-                        this.props.onGenerateTable();
-                        this.props.ontopBottomChart();
-
-                      }}><span className="tab_label">Last 52 weeks</span></NavItem>
-
-                      <NavItem className="tabsCustomListTime" eventKey="5" onClick={() => {
-                        this.setState({activeKey1: "5"});
-                        this.props.supplierViewKpiSpinnerCheckSuccess(0);
-                        this.props.barChartSpinnerCheckSuccess(0);
-                        this.props.bubbleChartSpinnerCheckSuccess(0);
-                        this.props.tableChartSpinnerCheckSuccess(0);
-                        dataWeekUrlParams = "week_flag=5";
-                        this.props.onSaveWeekParam(dataWeekUrlParams);
-                        this.props.onKPIBox();
-                        {/*this.props.onSupplierTable();*/
-                        }
-                        this.props.onFetchGraph();
-                        this.props.onGenerateTable();
-                        this.props.ontopBottomChart();
-
-                      }}><span className="tab_label">YTD</span></NavItem>
-                    </Nav>
 
                     <div style={{height: '0px', width: '100%'}}>&nbsp;</div>
+
+
 
                     <Modal show={this.state.suppKPIbar} bsSize="lg"
                            aria-labelledby="contained-modal-title-lg"
@@ -463,7 +439,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                           <Nav bsStyle="tabs" style={{marginLeft: '1%'}} activeKey={this.state.activeKey2}
                                onSelect={this.handleSelect} className="tabsCustom  mainTab">
 
-                            <NavItem eventKey="1" className="tabsNavPanelList1" onClick={() => {
+                            <NavItem eventKey="1" className="tabsCustomListTime" onClick={() => {
                               this.setState({activeKey2: "1"});
                               this.props.supplierViewKpiSpinnerCheckSuccess(0);
                               this.props.barChartSpinnerCheckSuccess(0);
@@ -477,7 +453,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                             }}><span className="tab_label">Value</span>
                             </NavItem>
 
-                            <NavItem eventKey="2" className="tabsNavPanelList1" onClick={() => {
+                            <NavItem eventKey="2" className="tabsCustomListTime" onClick={() => {
                               this.setState({activeKey2: "2"});
                               this.props.supplierViewKpiSpinnerCheckSuccess(0);
                               this.props.barChartSpinnerCheckSuccess(0);
@@ -490,7 +466,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                               this.props.ontopBottomChart();
                             }}><span className="tab_label">Volume</span></NavItem>
 
-                            <NavItem eventKey="3" className="tabsNavPanelList1" onClick={() => {
+                            <NavItem eventKey="3" className="tabsCustomListTime" onClick={() => {
                               this.setState({activeKey2: "3"});
                               this.props.supplierViewKpiSpinnerCheckSuccess(0);
                               this.props.barChartSpinnerCheckSuccess(0);
@@ -503,7 +479,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                               this.props.ontopBottomChart();
                             }}><span className="tab_label">COGS</span></NavItem>
 
-                            <NavItem eventKey="4" className="tabsNavPanelList1" onClick={() => {
+                            <NavItem eventKey="4" className="tabsCustomListTime" onClick={() => {
                               this.setState({activeKey2: "4"});
                               this.props.supplierViewKpiSpinnerCheckSuccess(0);
                               this.props.barChartSpinnerCheckSuccess(0);
@@ -517,7 +493,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                               this.props.ontopBottomChart();
                             }}><span className="tab_label">CGM</span></NavItem>
 
-                            <NavItem eventKey="5" className="tabsNavPanelList1" onClick={() => {
+                            <NavItem eventKey="5" className="tabsCustomListTime" onClick={() => {
                               this.setState({activeKey2: "5"});
                               this.props.supplierViewKpiSpinnerCheckSuccess(0);
                               this.props.barChartSpinnerCheckSuccess(0);
@@ -530,7 +506,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                               this.props.ontopBottomChart();
                             }}><span className="tab_label">ASP</span></NavItem>
 
-                            <NavItem eventKey="6" className="tabsNavPanelList1" onClick={() => {
+                            <NavItem eventKey="6" className="tabsCustomListTime" onClick={() => {
                               this.setState({activeKey2: "6"});
                               this.props.supplierViewKpiSpinnerCheckSuccess(0);
                               this.props.barChartSpinnerCheckSuccess(0);
@@ -543,7 +519,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                               this.props.ontopBottomChart();
                             }}><span className="tab_label">Supplier Funding(exc VAT)</span></NavItem>
 
-                            <NavItem eventKey="7" className="tabsNavPanelList1" onClick={() => {
+                            <NavItem eventKey="7" className="tabsCustomListTime" onClick={() => {
                               this.setState({activeKey2: "7"});
                               this.props.supplierViewKpiSpinnerCheckSuccess(0);
                               this.props.barChartSpinnerCheckSuccess(0);
@@ -596,21 +572,23 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                               <h4>
                                                   <span className={glyphiconFormatter(obj.sales_var_week)}>
                                                   </span>{(obj.sales_var_week) + '%'}
-                                                </h4><br></br>
+                                              </h4>
+                                              &nbsp; &nbsp; <br></br>&nbsp; &nbsp;<span></span>&nbsp;
+
                                                 <h5 className="kpiSubTitle"><b> {'WoW'} </b></h5>
                                               </div>
                                               <div className="col-xs-4">
                                                 <h4>
                                                   <span className={glyphiconFormatter(obj.sales_var_year)}>
                                                   </span>{(obj.sales_var_year) + '%'}
-                                                </h4><br></br>
+                                                </h4><br></br><div>&nbsp;</div>
                                                 <h5 className="kpiSubTitle"><b> {'YoY'} </b></h5>
                                               </div>
                                               <div className="col-xs-4">
                                                 <h4>
                                                   <span className={glyphiconFormatter(obj.sales_var_year_lfl)}>
                                                   </span>{(obj.sales_var_year_lfl) + '%'}
-                                                </h4><br></br>
+                                                </h4><br></br><div>&nbsp;</div>
                                                 <h5 className="kpiSubTitle"><b>{'LFL'}</b></h5>
                                               </div>
                                             </div>
@@ -638,7 +616,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                             <div className="col-xs-4">
                                               <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
                                                 className={glyphiconFormatter(obj.sales_growth_wow_1)}></span>&nbsp;{(obj.sales_growth_wow_1) + ' % '}
-                                                of <br></br><span
+                                                <br></br> &nbsp; &nbsp;of <br></br>&nbsp; &nbsp;<span
                                                   className={glyphiconFormatter(obj.sales_growth_wow_2)}></span>&nbsp;{(obj.sales_growth_wow_2) + ' % '}
                                               </h4>
                                               <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'WoW'}</b>
@@ -647,7 +625,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                             <div className="col-xs-4">
                                               <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
                                                 className={glyphiconFormatter(obj.sales_growth_yoy_1)}></span>&nbsp;{(obj.sales_growth_yoy_1) + ' % '}
-                                                of <br></br><span
+                                                <br></br> &nbsp; &nbsp; of <br></br>&nbsp; &nbsp;<span
                                                   className={glyphiconFormatter(obj.sales_growth_yoy_2)}></span>&nbsp;{(obj.sales_growth_yoy_2) + ' % '}
                                               </h4>
                                               <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'YoY'}</b>
@@ -656,8 +634,8 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                             <div className="col-xs-4">
                                               <h4>&nbsp;&nbsp;&nbsp;&nbsp;<span
                                                 className={glyphiconFormatter(obj.sales_growth_yoy_lfl_1)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_1) + ' % '}
-                                                of <br></br><span style={{left: '-5px'}}
-                                                  className={glyphiconFormatter(obj.sales_growth_yoy_lfl_2)}></span>{(obj.sales_growth_yoy_lfl_2) + ' % '}
+                                                <br></br> &nbsp; &nbsp; of <br></br>&nbsp; &nbsp;<span style={{left: '-5px'}}
+                                                  className={glyphiconFormatter(obj.sales_growth_yoy_lfl_2)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_2) + ' % '}
                                               </h4>
                                               <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'LFL'}</b>
                                               </h5>
@@ -677,23 +655,20 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                               return (
                                                 <div style={{
                                                   fontSize: '20px',
-                                                  marginTop: '-10px'
                                                 }}>{obj.supp_imp_cat_sales}%</div>
                                               )
                                             }
                                           })()}
 
-                                          <h3 className="pageModuleSubTitle"> Category's value share to Parent
-                                            Supplier </h3>
+                                          <div style={{height:'1%', width:'100%'}}></div><br></br>
+                                          <h3 className="pageModuleSubTitle"> Category's value share to Parent Supplier </h3>
                                           {(() => {
                                             if (obj.cat_imp_supp_sales != "---") {
 
                                               return (
                                                 <div style={{
                                                   fontSize: '20px',
-                                                  marginTop: '-10px',
-                                                  marginBottom: '10px'
-                                                }}>{obj.cat_imp_supp_sales}%</div>
+                                                }}>{obj.cat_imp_supp_sales}% <br></br></div>
                                               )
                                             }
                                           })()}
@@ -1440,8 +1415,6 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                     </div>
                   </div>
                 </div>
-
-
             )
           }
         })()}
@@ -1513,10 +1486,22 @@ function mapDispatchToProps(dispatch) {
     onCheckboxWeekChange: (e) => dispatch(checkboxWeekChange(e)),
     onSaveWeek: (e) => dispatch(SaveWeek(e)),
 
+    onSaveStoreFilterParam: (e) => dispatch(StoreFilterParam(e)),
+
     //FOR GETTING FILTERS DATA
     onGenerateUrlParamsString: (e) => {
       return dispatch(GenerateUrlParamsString(e));
     },
+    //FOR GETTING FILTERS DATA ON INITIAL LOAD
+    onGenerateUrlParamsString2: (e) => {
+      return dispatch(GenerateUrlParamsString2(e));
+    },
+
+    //FLAG FOR KNOWING DEFAULT PAGE LOAD
+    onGenerateUrlParamsString3: (e) => {
+      return dispatch(GenerateUrlParamsString3(e));
+    },
+
     onGenerateCheckedList: (a, b) => dispatch(generateCheckedList(a, b)),
   }
 }

@@ -28,7 +28,8 @@ class Breadcrumb extends React.PureComponent { // eslint-disable-line react/pref
              }}>
         {(() => {
           // let this.props.promotion.urlParamsString
-          if (this.props.selected_week && this.props.urlParamsString) {
+          if (this.props.urlParamsString) {
+            console.log('urlParamsString urlParamsString', this.props.urlParamsString);
             let urlParamString = this.props.urlParamsString;
             urlParamString = urlParamString.split('&')
             let urlParamObject = {};
@@ -50,7 +51,7 @@ class Breadcrumb extends React.PureComponent { // eslint-disable-line react/pref
                     <Link arrow="right" className="back-link"> {urlParamObject[obj].length < 2 ? urlParamObject[obj].join(', ') :  urlParamObject[obj][1] + ' + ' + (urlParamObject[obj].length - 1)+ ''}</Link>
                   )
                 })}
-                <Link arrow="right" className="back-link"> {this.props.selected_week}</Link>
+                {/*<Link arrow="right" className="back-link"> {this.props.selected_week}</Link>*/}
                 {/*<Link arrow="right" className="back-link">Back To Groceries</Link>*/}
               </div>
             )

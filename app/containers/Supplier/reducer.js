@@ -11,7 +11,7 @@ import {
   TOP_BOTTOM_CONSTANT,
   KPI_DATA_FETCH_SUCCESS,
   SUPPLIER_TABLE_DATA_FETCH_SUCCESS,
-  GENERATE_TEXTBOX_QUERY_STRING,SAVE_PAGE_PARAM,
+  GENERATE_TEXTBOX_QUERY_STRING, SAVE_PAGE_PARAM,
   SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS,
   WEEK_PARAM,
   KPI_PARAM,
@@ -20,6 +20,8 @@ import {
   KPI_DATA_ASP_FETCH_SUCCESS,
   TOP_BOTTOM_KPI,
   GENERATE_URL_PARAMS_STRING,
+  GENERATE_URL_PARAMS_STRING2,
+  GENERATE_URL_PARAMS_STRING3,
   WEEK_FILTER_FETCH_SUCCESS,
   CHECKBOX_WEEK_CHANGE,
   WEEK,
@@ -34,7 +36,8 @@ import {
   SUPPLIER_VIEW_KPI_SPINNER,
   BUBBLE_CHART_SPINNER,
   BAR_CHART_SPINNER,
-  TABLE_SPINNER ,
+  TABLE_SPINNER,
+  STORE_FILTER_PARAM,
 } from './constants';
 
 const initialState = fromJS({
@@ -58,10 +61,11 @@ const initialState = fromJS({
   urlParamsString: '',
   dataPerformanceUrlParams: '',
   bubbleParams: '',
-  textBoxQueryString:'',
-  dataPageUrlParams:'',
+  textBoxQueryString: '',
+  dataPageUrlParams: '',
   dataStoreUrlParams: '',
   dataWeekUrlParams: '',
+  filter_week_selection: '',
   checkedList: [],
   chartData: [
     {
@@ -136,7 +140,7 @@ function supplierReducer(state = initialState, action) {
       return state.set('chartData', action.data);
 
     case SAVE_PERF_PARAM:
-      console.log("-----------------updated---------------",action.data);
+      console.log("-----------------updated---------------", action.data);
       return state.set('dataPerformanceUrlParams', action.data);
 
 
@@ -155,7 +159,20 @@ function supplierReducer(state = initialState, action) {
 
     //STORING FILTERS SELECTED BY USER
     case GENERATE_URL_PARAMS_STRING:
-      return state.set('urlParamsString', action.data);
+      console.log("testing", action.data);
+      if (action.data === 0) {
+        return state
+      } else {
+        return state.set('urlParamsString', action.data);
+      }
+
+    //STORING FILTERS ON DEFAULT LOAD FOR AJAX CALL
+    case GENERATE_URL_PARAMS_STRING2:
+      return state.set('urlParamsString2', action.data);
+
+//FLAG FOR KNOWING DEFAULT PAGE LOAD
+    case GENERATE_URL_PARAMS_STRING3:
+      return state.set('urlParamsString3', action.data);
 
     case SAVE_BUBBLE_PARAM:
       console.log("Bubble array in reducer", action.data);
@@ -210,12 +227,12 @@ function supplierReducer(state = initialState, action) {
         ]
       })());
 
-      //SPINNER FOR SUPPLIER VIEW KPI
+    //SPINNER FOR SUPPLIER VIEW KPI
     case SUPPLIER_VIEW_KPI_SPINNER:
       console.log("SUPPLIER_VIEW_KPI_SPINNER", action.supplierViewKpiSpinnerCheck);
       return state.set('supplierViewKpiSpinner', action.supplierViewKpiSpinnerCheck)
 
-      //SPINNER FOR BUBBLE CHART
+    //SPINNER FOR BUBBLE CHART
     case BUBBLE_CHART_SPINNER:
       console.log("BUBBLE_CHART_SPINNER", action.bubbleChartSpinnerCheck);
       return state.set('bubbleChartSpinnerCheck', action.bubbleChartSpinnerCheck)
@@ -225,10 +242,14 @@ function supplierReducer(state = initialState, action) {
       console.log("BAR_CHART_SPINNER", action.barChartSpinnerCheck);
       return state.set('barChartSpinnerCheck', action.barChartSpinnerCheck)
 
-  //SPINNER FOR TABLE
+    //SPINNER FOR TABLE
     case TABLE_SPINNER:
       console.log("TABLE_SPINNER", action.tableChartSpinnerCheck);
       return state.set('tableChartSpinnerCheck', action.tableChartSpinnerCheck)
+
+    case STORE_FILTER_PARAM:
+      console.log("reducer STORE_FILTER_PARAM",action.data);
+      return state.set('store_filter_param',action.data);
 
 
     default:
