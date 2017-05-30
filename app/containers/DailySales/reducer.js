@@ -4,7 +4,7 @@
  *
  */
 
-import { fromJS } from 'immutable';
+import {fromJS} from 'immutable';
 import {
   DEFAULT_ACTION,
   LINECHART_FETCH_SUCCESS,
@@ -25,7 +25,8 @@ import {
   LINE_CHART_SPINNER,
   WEEK,
   CHECKBOX_CHANGE,
-  CHECKBOX_WEEK_CHANGE
+  CHECKBOX_WEEK_CHANGE,
+  DEFAULT_PAGE_LOAD_CHECK,
 } from './constants';
 
 
@@ -78,8 +79,8 @@ function dailySalesReducer(state = initialState, action) {
       console.log("reducer LINECHART_FETCH_SUCCESS", action.data)
       return state.set('linechart_data', action.data);
     case KPI_PARAM:
-      console.log("reducer KPI_PARAM",action.data);
-      return state.set('kpi_param',action.data);
+      console.log("reducer KPI_PARAM", action.data);
+      return state.set('kpi_param', action.data);
     case FILTER_CONSTANT:
       console.log("reducer FILTER_CONSTANT", action.data);
       return state.set('filters', action.data);
@@ -126,12 +127,14 @@ function dailySalesReducer(state = initialState, action) {
       console.log('CHECKBOX_WEEK_CHANGE reducer', action.data);
       return state.set('filter_week_selection', action.data);
 
+    case DEFAULT_PAGE_LOAD_CHECK:
+      console.log('DEFAULT_PAGE_LOAD_CHECK reducer', action.data);
+      return state.set('defaultPageLoadCheck', action.data);
+
     default:
       return state;
   }
 }
-
-
 
 
 export default dailySalesReducer;

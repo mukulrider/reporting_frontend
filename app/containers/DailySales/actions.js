@@ -23,8 +23,9 @@ import {
   DS_VIEW_KPI_SPINNER,
   LINE_CHART_SPINNER,
   WEEK,
-  CHECKBOX_WEEK_CHANGE
-
+  CHECKBOX_WEEK_CHANGE,
+  STORE_FILTER_PARAM,
+  DEFAULT_PAGE_LOAD_CHECK,
 } from './constants';
 
 export function defaultAction() {
@@ -76,6 +77,17 @@ export function SaveWeekParam(data)
   console.log('SaveWeekParam = actions', data);
   return {
     type: WEEK_PARAM,
+    data,
+  };
+}
+
+//DEFAULT PAGE LOAD CHECK FOR TESCO WEEEK
+
+export function defaultPageLoadCheck(data)
+{
+  console.log('defaultPageLoadCheck', data);
+  return {
+    type: DEFAULT_PAGE_LOAD_CHECK,
     data,
   };
 }
@@ -166,6 +178,14 @@ export function SaveWeek(data) {
   console.log('SaveWeek = actions', data);
   return {
     type: WEEK,
+    data,
+  };
+}
+
+export function StoreFilterParam(data) {
+  console.log('StoreFilterParam = actions', data);
+  return {
+    type: STORE_FILTER_PARAM,
     data,
   };
 }

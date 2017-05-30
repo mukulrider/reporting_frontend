@@ -29,6 +29,8 @@ export const WEEK_FILTER_CONSTANT ='app/DailySales/WEEK_FILTER_CONSTANT';
 export const WEEK_FILTER_FETCH_SUCCESS ='app/DailySales/WEEK_FILTER_FETCH_SUCCESS';
 export const WEEK_FILTER_PARAM ='app/DailySales/WEEK_FILTER_PARAM';
 
+export const STORE_FILTER_PARAM ='app/DailySales/STORE_FILTER_PARAM';
+
 //export const GENERATE_TEXTBOX_QUERY_STRING = 'app/RangingNpdPage/GENERATE_TEXTBOX_QUERY_STRING';
 export const SEND_URL_PARAMS= 'app/DailySales/SEND_URL_PARAMS';
 export const SAVE_WEEK_PARAM= 'app/DailySales/SAVE_WEEK_PARAM';
@@ -48,3 +50,6 @@ export const WEEK = 'app/Competitor/WEEK';
 export const DS_VIEW_KPI_SPINNER = 'app/DailySales/DS_VIEW_KPI_SPINNER';
 //LINE CHART SPINNER
 export const LINE_CHART_SPINNER = 'app/DailySales/LINE_CHART_SPINNER';
+
+//DEFAULT PAGE LOAD CHECK FOR TESCO WEEEK
+export const DEFAULT_PAGE_LOAD_CHECK = 'app/DailySales/DEFAULT_PAGE_LOAD_CHECK';

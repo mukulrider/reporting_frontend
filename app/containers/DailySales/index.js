@@ -20,6 +20,7 @@ import CascadedFilterDSS from 'components/CascadedFilterDSS';
 import MultilinePromo from 'components/MultilinePromo';
 import LineChart from 'components/LineChart';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import TopFilter from 'components/TopFilter';
 import {
   PromoGiveawayData,
   lineChartCallAction, SaveKPIParam, generateUrlParamsString,
@@ -34,19 +35,36 @@ import {
   LineChartSpinnerCheckSuccess,
   checkboxChange,
   checkboxWeekChange,
-
-
+  StoreFilterParam,
+  defaultPageLoadCheck,
 } from './actions';
+
+
 export class DailySales extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentDidMount = () => {
+    this.props.defaultPageLoadCheck(1);
+
     let defaultFilterUrlParams = localStorage.getItem('urlParams');
+
+    let defaultfilterWeekParams = localStorage.getItem('weekParams');
+
     console.log('defaultFilterUrlParams', defaultFilterUrlParams);
 
     if (defaultFilterUrlParams) {
-      console.log('defaultFilterUrlParams', defaultFilterUrlParams);
-      this.props.onGenerateUrlParamsString(defaultFilterUrlParams);
+      console.log('defaultFilterUrlParams--', defaultFilterUrlParams);
+      this.props.onCheckboxWeekChange(defaultFilterUrlParams);
+      // this.props.onGenerateUrlParamsString(defaultFilterUrlParams);
     } else {
-      this.props.onGenerateUrlParamsString('');
+      this.props.onCheckboxWeekChange('');
+      // this.props.onGenerateUrlParamsString('');
+    }
+
+
+    if (defaultfilterWeekParams) {
+      console.log('defaultfilterWeekParams', defaultfilterWeekParams);
+      this.props.onSaveWeek(defaultfilterWeekParams);
+    } else {
+      this.props.onSaveWeek('');
     }
 
     this.props.DefaultLineChartCall();
@@ -455,6 +473,7 @@ function mapDispatchToProps(dispatch) {
     onSaveWeekParam: (e) => dispatch(SaveWeekParam(e)),
     loadKpi: (e) => dispatch(PromoKpiData(e)),
     onGenerateUrlParamsString: (e) => dispatch(generateUrlParamsString(e)),
+    defaultPageLoadCheck: (e) => dispatch(defaultPageLoadCheck(e)),
     onGenerateUrlParamsData: (e) => dispatch(generateSideFilter(e)),
     onGetFilter: (e) => dispatch(getFilter(e)),
     onGenerateSideFilter: (e) => dispatch(getFilter(e)),
