@@ -144,7 +144,7 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
     //const urlParams = this.props.location.query;
     // this.props.onSaveWeek();
     // this.props.onGenerateUrlParamsString(queryString);
-    this.props.DefaultLineChartCall();
+    this.props.ChartDataCall();
   };
 
   resetButtonFunctionality = () => {

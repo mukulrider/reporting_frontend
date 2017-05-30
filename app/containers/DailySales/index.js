@@ -160,6 +160,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
     };
 
     let formatMetric = (cell,flag="value") => {
+      console.log("Inside Format Metric",cell,flag);
       if (cell >= 1000 || cell <= -1000) {
         let rounded = Math.round(cell / 1000);
         if (flag == "volume") {
@@ -386,8 +387,6 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                     </Panel>
                                   </div>
 
-
-
                                 </div>
 
 
@@ -451,8 +450,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                         </div>
                                       </div>
                                       <div className="row">
-                                        <div className="col-md-12" style={{backgroundColor:"#e5e8ea"}}>
-                                          <h3 style={{padding: "0px", margin: "0px",visibility:"hidden"}}><br></br></h3>
+                                        <div className="col-md-12">
+                                          <h3 style={{padding: "0px", margin: "0px",backgroundColor:"#e5e8ea"}}><br></br></h3>
                                         </div>
                                       </div>
                                     </Panel>
@@ -519,7 +518,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                 if (this.props.DailySales.charts_data && this.props.DailySales.charts_data.graph_data  && this.props.DailySales.LineChartSpinnerCheck != 0) {
                                   return (
                                     <Panel style={{alignItems: "center"}}>
-                                      <DualLineChart2 y_axis={this.state.y_axis} id="daily_sales"
+                                      <DualLineChart2 x_axis="Week Day" y_axis={this.state.y_axis} id="daily_sales"
                                                       data={this.props.DailySales.charts_data.graph_data.graph_data}/>
                                     </Panel>
                                   )
@@ -534,7 +533,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                 if (this.props.DailySales.charts_data && this.props.DailySales.charts_data.graph_data && this.props.DailySales.LineChartSpinnerCheck != 0) {
                                   return (
                                     <Panel style={{alignItems: "center"}}>
-                                      <MultiSeriesBarChart y_axis={this.state.y_axis} id="cumulative_sales"
+                                      <MultiSeriesBarChart x_axis="Week Day" y_axis={this.state.y_axis} id="cumulative_sales"
                                                       data={this.props.DailySales.charts_data.graph_data}/>
                                     </Panel>
                                   )
@@ -570,15 +569,15 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                       >
                                         <TableHeaderColumn width="225" tdStyle={ {whiteSpace: 'normal'} } dataField="product" isKey={true}
                                                            dataAlign="center" dataSort>Product Description</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="brand_indicator" dataFormat={this.formatMetric} dataSort={true}
+                                        <TableHeaderColumn dataField="brand_indicator" dataSort={true}
                                                            dataAlign="center">Brand</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="kpi_ty" dataFormat={this.formatMetric} dataSort={true}
+                                        <TableHeaderColumn dataField="kpi_ty" dataFormat={formatMetric} dataSort={true}
                                                            dataAlign="center">TY</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="kpi_ly" dataFormat={this.formatMetric} dataSort={true}
+                                        <TableHeaderColumn dataField="kpi_ly" dataFormat={formatMetric} dataSort={true}
                                                            dataAlign="center">LY</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="kpi_ty_lfl" dataFormat={this.formatMetric} dataSort={true}
+                                        <TableHeaderColumn dataField="kpi_ty_lfl" dataFormat={formatMetric} dataSort={true}
                                                            dataAlign="center">TY LFL</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="kpi_ly_lfl" dataFormat={this.formatMetric} dataSort={true}
+                                        <TableHeaderColumn dataField="kpi_ly_lfl" dataFormat={formatMetric} dataSort={true}
                                                            dataAlign="center">LY LFL</TableHeaderColumn>
                                         <TableHeaderColumn dataFormat={this.cellButton} tdStyle={ {whiteSpace: 'normal'} } dataAlign="center"></TableHeaderColumn>
                                         <TableHeaderColumn dataFormat={this.cellButton2} dataAlign="center"></TableHeaderColumn>
