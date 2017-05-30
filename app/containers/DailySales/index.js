@@ -280,7 +280,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                       <div className="row fixingPosition"
                            style={{marginLeft: "0%", paddingTop: "-5px", marginRight: "0px"}}>
                         {(() => {
-                          if (this.props.DailySales.cards_data && this.props.DailySales.LineChartSpinnerCheck != 0){
+                          if (this.props.DailySales.cards_data){
                             let a = this.props.DailySales.cards_data.sales,b=this.props.DailySales.cards_data.volume,
                               c=this.props.DailySales.cards_data.cogs,d=this.props.DailySales.cards_data.profit,e=this.props.DailySales.cards_data.margin;
                             return (
@@ -516,11 +516,11 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                           <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
                             <div className="col-md-6 col-sm-6">
                               {(() => {
-                                if (this.props.DailySales.charts_data && this.props.DailySales.charts_data.graph_data) {
+                                if (this.props.DailySales.charts_data && this.props.DailySales.charts_data.graph_data  && this.props.DailySales.LineChartSpinnerCheck != 0) {
                                   return (
                                     <Panel style={{alignItems: "center"}}>
-                                      <MultiSeriesBarChart y_axis={this.state.y_axis}
-                                                      data={this.props.DailySales.charts_data.graph_data}/>
+                                      <DualLineChart2 y_axis={this.state.y_axis} id="daily_sales"
+                                                      data={this.props.DailySales.charts_data.graph_data.graph_data}/>
                                     </Panel>
                                   )
                                 }
@@ -531,11 +531,11 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                             </div>
                             <div className="col-md-6 col-sm-6">
                               {(() => {
-                                if (this.props.DailySales.charts_data && this.props.DailySales.charts_data.graph_data) {
+                                if (this.props.DailySales.charts_data && this.props.DailySales.charts_data.graph_data && this.props.DailySales.LineChartSpinnerCheck != 0) {
                                   return (
                                     <Panel style={{alignItems: "center"}}>
-                                      <DualLineChart2 y_axis={this.state.y_axis}
-                                                      data={this.props.DailySales.charts_data.graph_data.cum_graph_data}/>
+                                      <MultiSeriesBarChart y_axis={this.state.y_axis} id="cumulative_sales"
+                                                      data={this.props.DailySales.charts_data.graph_data}/>
                                     </Panel>
                                   )
                                 }
@@ -550,12 +550,12 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
 
                         <div className="col-md-12 col-xs-12">
                           <h2 className="pageModuleMainTitle col-xs-12">
-                            <b>Products Daily Sales Info </b>
+                            <b>Products Daily {this.state.y_axis} Info </b>
                           </h2>
                           <div>
                             {
                               (() => {
-                                if (this.props.DailySales.charts_data && this.props.DailySales.charts_data.dss_table) {
+                                if (this.props.DailySales.charts_data && this.props.DailySales.charts_data.dss_table && this.props.DailySales.LineChartSpinnerCheck != 0) {
 //console.log("This is table data length:",this.props.ProductPage.data.table_data.length);
                                   return (
                                     <div>
