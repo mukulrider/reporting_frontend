@@ -387,8 +387,6 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                     </Panel>
                                   </div>
 
-
-
                                 </div>
 
 
@@ -452,8 +450,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                         </div>
                                       </div>
                                       <div className="row">
-                                        <div className="col-md-12" style={{backgroundColor:"#e5e8ea"}}>
-                                          <h3 style={{padding: "0px", margin: "0px",visibility:"hidden"}}><br></br></h3>
+                                        <div className="col-md-12">
+                                          <h3 style={{padding: "0px", margin: "0px",backgroundColor:"#e5e8ea"}}><br></br></h3>
                                         </div>
                                       </div>
                                     </Panel>
@@ -571,7 +569,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                       >
                                         <TableHeaderColumn width="225" tdStyle={ {whiteSpace: 'normal'} } dataField="product" isKey={true}
                                                            dataAlign="center" dataSort>Product Description</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="brand_indicator" dataFormat={formatMetric} dataSort={true}
+                                        <TableHeaderColumn dataField="brand_indicator" dataSort={true}
                                                            dataAlign="center">Brand</TableHeaderColumn>
                                         <TableHeaderColumn dataField="kpi_ty" dataFormat={formatMetric} dataSort={true}
                                                            dataAlign="center">TY</TableHeaderColumn>
