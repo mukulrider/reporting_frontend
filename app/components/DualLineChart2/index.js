@@ -181,7 +181,6 @@ class DualLineChart2 extends React.PureComponent { // eslint-disable-line react/
   render() {
     return (
       <div id={this.props.id} style={{background:"#fff", border: "1px solid #ccc"}}>
-/*        <svg fontFamily="sans-serif" fontSize="10"> </svg>*/
       </div>
     );
   }

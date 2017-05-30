@@ -160,6 +160,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
     };
 
     let formatMetric = (cell,flag="value") => {
+      console.log("Inside Format Metric",cell,flag);
       if (cell >= 1000 || cell <= -1000) {
         let rounded = Math.round(cell / 1000);
         if (flag == "volume") {
@@ -570,15 +571,15 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                       >
                                         <TableHeaderColumn width="225" tdStyle={ {whiteSpace: 'normal'} } dataField="product" isKey={true}
                                                            dataAlign="center" dataSort>Product Description</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="brand_indicator" dataFormat={this.formatMetric} dataSort={true}
+                                        <TableHeaderColumn dataField="brand_indicator" dataFormat={formatMetric} dataSort={true}
                                                            dataAlign="center">Brand</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="kpi_ty" dataFormat={this.formatMetric} dataSort={true}
+                                        <TableHeaderColumn dataField="kpi_ty" dataFormat={formatMetric} dataSort={true}
                                                            dataAlign="center">TY</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="kpi_ly" dataFormat={this.formatMetric} dataSort={true}
+                                        <TableHeaderColumn dataField="kpi_ly" dataFormat={formatMetric} dataSort={true}
                                                            dataAlign="center">LY</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="kpi_ty_lfl" dataFormat={this.formatMetric} dataSort={true}
+                                        <TableHeaderColumn dataField="kpi_ty_lfl" dataFormat={formatMetric} dataSort={true}
                                                            dataAlign="center">TY LFL</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="kpi_ly_lfl" dataFormat={this.formatMetric} dataSort={true}
+                                        <TableHeaderColumn dataField="kpi_ly_lfl" dataFormat={formatMetric} dataSort={true}
                                                            dataAlign="center">LY LFL</TableHeaderColumn>
                                         <TableHeaderColumn dataFormat={this.cellButton} tdStyle={ {whiteSpace: 'normal'} } dataAlign="center"></TableHeaderColumn>
                                         <TableHeaderColumn dataFormat={this.cellButton2} dataAlign="center"></TableHeaderColumn>

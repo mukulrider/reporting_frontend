@@ -46,7 +46,7 @@ class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line r
       });
     }
 
-    var containerWidth = document.getElementById(id).clientWidth;
+    let containerWidth = document.getElementById(id).clientWidth;
     let margin = {top: 30, right: 15, bottom: 80, left: 80},
       width = containerWidth - margin.left - margin.right,
       height = containerWidth*0.8 - margin.top - margin.bottom;
@@ -64,11 +64,27 @@ class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line r
         `translate(${margin.left},${margin.top})`);
 
     let spaceForLegends=65;
-    let x0 = d3.scaleBand().rangeRound([0, width-spaceForLegends]).paddingInner(0.1),
+    const x0 = d3.scaleBand().rangeRound([0, width-spaceForLegends]).paddingInner(0.1),
       x1 = d3.scaleBand().rangeRound([height, 0]),
       y = d3.scaleLinear().rangeRound([height, 0]),
 
       z = d3.scaleOrdinal().range(colors);
+
+    let format = d3.format(',');
+
+    let yAxis = d3.axisLeft()
+      .scale(y)
+      .tickFormat((d) => {
+        if ((d / 1000) >= 1 || (d / 1000) <= -1) {
+          d = d / 1000;
+        }
+        if (y_axis == "Volume") {
+          return `${format(d)} K`;
+        }
+        else {
+          return `£ ${format(d)} K`;
+        }
+      });
 
     // Mapping domains
     x0.domain(data.map(function (d) {
@@ -123,16 +139,16 @@ class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line r
 
     svg.append("g")
       .attr("class", "chartAxisLabel")
-      // .attr("transform", "translate("+margin.left+",0)")
-      .call(d3.axisLeft(y));
+      .call(yAxis);
 
     //AXIS TITLES
     svg.append("text")
-      .attr("class", "chartAxisTitle")
       .attr("transform", "rotate(-90)")
-      .attr("y", 0-100)
+      .attr("y", -80)
       .attr("x",0 - (height / 2))
       .attr("dy", "2em")
+      .style('text-anchor', 'middle')
+      .style('font', '18px sans-serif')
       .text(y_axis);
 
 
