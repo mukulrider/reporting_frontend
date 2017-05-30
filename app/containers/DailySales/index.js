@@ -518,7 +518,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                 if (this.props.DailySales.charts_data && this.props.DailySales.charts_data.graph_data  && this.props.DailySales.LineChartSpinnerCheck != 0) {
                                   return (
                                     <Panel style={{alignItems: "center"}}>
-                                      <DualLineChart2 y_axis={this.state.y_axis} id="daily_sales"
+                                      <DualLineChart2 x_axis="Week Day" y_axis={this.state.y_axis} id="daily_sales"
                                                       data={this.props.DailySales.charts_data.graph_data.graph_data}/>
                                     </Panel>
                                   )
@@ -533,7 +533,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                 if (this.props.DailySales.charts_data && this.props.DailySales.charts_data.graph_data && this.props.DailySales.LineChartSpinnerCheck != 0) {
                                   return (
                                     <Panel style={{alignItems: "center"}}>
-                                      <MultiSeriesBarChart y_axis={this.state.y_axis} id="cumulative_sales"
+                                      <MultiSeriesBarChart x_axis="Week Day" y_axis={this.state.y_axis} id="cumulative_sales"
                                                       data={this.props.DailySales.charts_data.graph_data}/>
                                     </Panel>
                                   )

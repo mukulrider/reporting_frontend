@@ -14,7 +14,7 @@ import * as d3 from 'd3';
 
 
 class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  createChart = (graphdata, y_axis, id) => {
+  createChart = (graphdata, x_axis, y_axis, id) => {
 
     console.log("MultiSeriesBarChartData:",graphdata);
     let data = graphdata.cum_graph_data;
@@ -94,7 +94,11 @@ class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line r
     x1.domain(keys)
       .rangeRound([0, x0.bandwidth()]);
 
-    y.domain([0, d3.max(data, function (d) {
+    y.domain([d3.min(data, function (d) {
+      return d3.min(keys, function (key) {
+        return d[key];
+      });
+    }), d3.max(data, function (d) {
       return d3.max(keys, function (key) {
         return d[key];
       });
@@ -142,6 +146,15 @@ class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line r
       .call(yAxis);
 
     //AXIS TITLES
+    svg.append('text')
+      .attr('x', width / 3.5)
+      .attr('y', height+2.5*margin.top)
+      .attr('dx', '0.71em')
+      .attr('fill', '#000')
+      .style('text-anchor', 'middle')
+      .style('font', '18px sans-serif')
+      .text(x_axis);
+
     svg.append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", -80)
@@ -190,12 +203,12 @@ class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line r
 
 
   componentDidMount = () => {
-    this.createChart(this.props.data,this.props.y_axis, this.props.id)
+    this.createChart(this.props.data,this.props.x_axis, this.props.y_axis, this.props.id)
   };
 
   componentDidUpdate = () => {
     // console.log(this.props.data);
-    this.createChart(this.props.data, this.props.y_axis, this.props.id)
+    this.createChart(this.props.data, this.props.x_axis, this.props.y_axis, this.props.id)
   };
 
 
