@@ -21,6 +21,7 @@ import messages from './messages';
 import WaterFallChartExec from 'components/WaterFallChartExec'
 //For Filter
 import ExecFilter from 'components/ExecFilter';
+import Breadcrumb from 'components/Breadcrumb';
 
 // For KPIs and Charts
 import MultilinePromo from 'components/MultilinePromo';
@@ -648,51 +649,17 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
             width: '78%',
             marginLeft: '22%'
           }}>
-            <div className="pageTitle">
 
+            <div className="row">
+            <div className="col-xs-12">
 
-              {/*Header to show the week selection and time period*/}
-              {(() => {
-                if (this.props.Executive.week_filter_param) {
-                  return (
-                    <span>Executive View -
-                      {(() => {
-                        if (this.props.Executive.week_param != 'week_flag=Current Week') {
-                          return (
-                            <span> {(this.props.Executive.week_param).substring(10, this.props.Executive.week_param.length)}
-                              to</span>
-                          )
-                        }
-                        else {
-                          return (
-                            <span></span>
-                          )
-                        }
-                      })()}
-                      {(this.props.Executive.week_filter_param).substring(11, this.props.Executive.week_filter_param.length)}</span>
-                  )
-                } else {
-                  return (
-                    <span>Executive View
-                      {(() => {
-                        if (this.props.Executive.week_param != 'week_flag=Current Week') {
-                          return (
-                            <span> {(this.props.Executive.week_param).substring(10, this.props.Executive.week_param.length)}
-                              to</span>
-                          )
-                        }
-                        else {
-                          return (
-                            <span> </span>
-                          )
-                        }
-                      })()}
-
-                      - 201711 </span>
-                  )
-                }
-              })()}
+              <Breadcrumb selected_week={(this.props.Executive.week_param).substring(10, this.props.Executive.week_param.length)}
+                          urlParamsString={this.props.Executive.urlParamsString}/>
             </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/></div>
             {(() => {
               if (this.props.Executive.week_filter_data) {
                 return (
@@ -701,6 +668,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                              onSaveWeekFilterParam={this.props.onSaveWeekFilterParam}
 
                              onSaveStoreFilterParam={this.props.onSaveStoreFilterParam}
+                    onSaveWeekParam={this.props.onSaveWeekParam}
 
                              loadOverviewKpi={ this.props.loadOverviewKpi}
                              loadRolesAndIntent={ this.props.loadRolesAndIntent}
@@ -732,325 +700,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
             <div className="row " style={{marginLeft: "0%", paddingTop: "-5px", marginRight: "0px"}}>
 
               <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12 ">
-                {/*Nav for time period*/}
-                <div className="" style={{borderRight: '0%'}}>
 
-                  <Nav style={{marginLeft: '0%', marginBottom: '0%'}} bsStyle="tabs" activeKey={this.state.activeKey1}
-                       onSelect={this.handleSelect} className="tabsCustom  mainTab">
-                    <NavItem className="tabsCustomListTime" eventKey="1" onClick={() => {
-
-                      dataWeekParam = "week_flag=Current Week";
-
-                      this.setState({activeKey1: "1"});
-                      this.props.onSaveWeekParam(dataWeekParam);
-
-                      {
-                        (() => {
-                          if (this.props.Executive.kpi_param == 'kpi_type=Overview') {
-                            console.log("______________________ Only Overview function Called")
-                            this.props.spinnerRolesAndIntent(0);
-                            this.props.spinnerOverviewKPI(0);
-                            this.props.spinnerOverviewKPITrend(0);
-                            this.props.spinnerOverviewInternalDrivers(0);
-                            this.props.spinnerOverviewExternalDrivers(0);
-
-                            this.props.loadOverviewKpi();
-                            this.props.loadOverviewKpiTrend();
-                            this.props.loadOverviewDriversInternal();
-                            this.props.loadOverviewDriversExternal();
-                            this.props.loadRolesAndIntent();
-                            this.props.loadBudgetAndForecast();
-
-                          }
-                          else {
-                            if (this.props.Executive.kpi_param == 'kpi_type=Price') {
-                              console.log("______________________ Only Price function Called")
-                              this.props.spinnerPriceKPI(0);
-                              this.props.loadPriceKPIData();
-
-
-                            }
-
-                            else {
-                              console.log("______________________ Only KPI functions Called")
-                              this.props.spinnerKPI(0);
-                              this.props.loadKpiBoxes();
-                              this.props.loadBestWorst();
-                              {/*this.props.loadBestInfoData();*/
-                              }
-                              {/*this.props.loadWorstInfoData();*/
-                              }
-                              {/*this.props.loadSupplierInfoData();*/
-                              }
-                              {/*this.props.loadTopSupplierInfoData();*/
-                              }
-                              {/*this.props.loadBotSupplierInfoData();*/
-                              }
-                              this.props.loadDriversInternalData();
-                              this.props.loadDriversExternalData();
-                              this.props.spinnerInternalDrivers(0);
-                              this.props.spinnerExternalDrivers(0);
-                            }
-
-                          }
-                        })()
-                      }
-
-
-                    }}>
-                      <span className="tab_label">Selected Week</span></NavItem>
-
-                    <NavItem className="tabsCustomListTime" eventKey="2" onClick={() => {
-                      this.setState({activeKey1: "2"});
-                      dataWeekParam = "week_flag=4 Weeks";
-                      this.props.onSaveWeekParam(dataWeekParam);
-
-
-                      {
-                        (() => {
-                          if (this.props.Executive.kpi_param == 'kpi_type=Overview') {
-                            console.log("______________________ Only Overview function Called")
-                            this.props.spinnerRolesAndIntent(0);
-                            this.props.spinnerOverviewKPI(0);
-                            this.props.spinnerOverviewKPITrend(0);
-                            this.props.spinnerOverviewInternalDrivers(0);
-                            this.props.spinnerOverviewExternalDrivers(0);
-
-                            this.props.loadOverviewKpi();
-                            this.props.loadOverviewKpiTrend();
-                            this.props.loadOverviewDriversInternal();
-                            this.props.loadOverviewDriversExternal();
-                            this.props.loadRolesAndIntent();
-                            this.props.loadBudgetAndForecast();
-                            this.props.onGenerateBestWorstPerformance();
-
-                          }
-                          else {
-                            if (this.props.Executive.kpi_param == 'kpi_type=Price') {
-                              console.log("______________________ Only Price function Called")
-                              this.props.spinnerPriceKPI(0);
-                              this.props.loadPriceKPIData();
-
-
-                            }
-
-                            else {
-                              console.log("______________________ Only KPI functions Called")
-                              this.props.spinnerKPI(0);
-                              this.props.loadKpiBoxes();
-                              this.props.loadBestWorst();
-                              {/*this.props.loadBestInfoData();*/
-                              }
-                              {/*this.props.loadWorstInfoData();*/
-                              }
-                              {/*this.props.loadSupplierInfoData();*/
-                              }
-                              {/*this.props.loadTopSupplierInfoData();*/
-                              }
-                              {/*this.props.loadBotSupplierInfoData();*/
-                              }
-                              this.props.loadDriversInternalData();
-                              this.props.loadDriversExternalData();
-                              this.props.spinnerInternalDrivers(0);
-                              this.props.spinnerExternalDrivers(0);
-                            }
-
-                          }
-                        })()
-                      }
-
-
-                    }}> <span className="tab_label">Last 4 weeks</span></NavItem>
-
-                    <NavItem className="tabsCustomListTime" eventKey="3" onClick={() => {
-                      this.setState({activeKey1: "3"});
-                      dataWeekParam = "week_flag=13 Weeks";
-                      this.props.onSaveWeekParam(dataWeekParam);
-
-                      {
-                        (() => {
-                          if (this.props.Executive.kpi_param == 'kpi_type=Overview') {
-                            console.log("______________________ Only Overview function Called")
-                            this.props.spinnerRolesAndIntent(0);
-                            this.props.spinnerOverviewKPI(0);
-                            this.props.spinnerOverviewKPITrend(0);
-                            this.props.spinnerOverviewInternalDrivers(0);
-                            this.props.spinnerOverviewExternalDrivers(0);
-
-                            this.props.loadOverviewKpi();
-                            this.props.loadOverviewKpiTrend();
-                            this.props.loadOverviewDriversInternal();
-                            this.props.loadOverviewDriversExternal();
-                            this.props.loadRolesAndIntent();
-                            this.props.loadBudgetAndForecast();
-                            this.props.onGenerateBestWorstPerformance();
-
-                          }
-                          else {
-                            if (this.props.Executive.kpi_param == 'kpi_type=Price') {
-                              console.log("______________________ Only Price function Called")
-                              this.props.spinnerPriceKPI(0);
-                              this.props.loadPriceKPIData();
-
-
-                            }
-
-                            else {
-                              console.log("______________________ Only KPI functions Called")
-                              this.props.spinnerKPI(0);
-                              this.props.loadKpiBoxes();
-                              this.props.loadBestWorst();
-                              this.props.onGenerateBestWorstPerformance();
-
-                              {/*this.props.loadBestInfoData();*/
-                              }
-                              {/*this.props.loadWorstInfoData();*/
-                              }
-                              {/*this.props.loadSupplierInfoData();*/
-                              }
-                              {/*this.props.loadTopSupplierInfoData();*/
-                              }
-                              {/*this.props.loadBotSupplierInfoData();*/
-                              }
-                              this.props.loadDriversInternalData();
-                              this.props.loadDriversExternalData();
-                              this.props.spinnerInternalDrivers(0);
-                              this.props.spinnerExternalDrivers(0);
-                            }
-
-                          }
-                        })()
-                      }
-
-
-                    }}><span className="tab_label">Last 13 weeks</span></NavItem>
-
-                    <NavItem className="tabsCustomListTime" eventKey="4" onClick={() => {
-                      this.setState({activeKey1: "4"});
-                      dataWeekParam = "week_flag=26 Weeks";
-                      this.props.onSaveWeekParam(dataWeekParam);
-                      {
-                        (() => {
-                          if (this.props.Executive.kpi_param == 'kpi_type=Overview') {
-                            console.log("______________________ Only Overview function Called")
-                            this.props.spinnerRolesAndIntent(0);
-                            this.props.spinnerOverviewKPI(0);
-                            this.props.spinnerOverviewKPITrend(0);
-                            this.props.spinnerOverviewInternalDrivers(0);
-                            this.props.spinnerOverviewExternalDrivers(0);
-
-                            this.props.loadOverviewKpi();
-                            this.props.loadOverviewKpiTrend();
-                            this.props.loadOverviewDriversInternal();
-                            this.props.loadOverviewDriversExternal();
-                            this.props.loadRolesAndIntent();
-                            this.props.loadBudgetAndForecast();
-
-                          }
-                          else {
-                            if (this.props.Executive.kpi_param == 'kpi_type=Price') {
-                              console.log("______________________ Only Price function Called")
-                              this.props.spinnerPriceKPI(0);
-                              this.props.loadPriceKPIData();
-
-
-                            }
-
-                            else {
-                              console.log("______________________ Only KPI functions Called")
-                              this.props.spinnerKPI(0);
-                              this.props.loadKpiBoxes();
-                              this.props.loadBestWorst();
-                              this.props.onGenerateBestWorstPerformance();
-
-                              {/*this.props.loadBestInfoData();*/
-                              }
-                              {/*this.props.loadWorstInfoData();*/
-                              }
-                              {/*this.props.loadSupplierInfoData();*/
-                              }
-                              {/*this.props.loadTopSupplierInfoData();*/
-                              }
-                              {/*this.props.loadBotSupplierInfoData();*/
-                              }
-                              this.props.loadDriversInternalData();
-                              this.props.loadDriversExternalData();
-                              this.props.spinnerInternalDrivers(0);
-                              this.props.spinnerExternalDrivers(0);
-                            }
-
-                          }
-                        })()
-                      }
-
-
-                    }}><span className="tab_label">Last 26 weeks</span></NavItem>
-
-                    <NavItem className="tabsCustomListTime" eventKey="5" onClick={() => {
-                      this.setState({activeKey1: "5"});
-
-                      dataWeekParam = "week_flag=YTD";
-                      this.props.onSaveWeekParam(dataWeekParam);
-
-
-                      {
-                        (() => {
-                          if (this.props.Executive.kpi_param == 'kpi_type=Overview') {
-                            console.log("______________________ Only Overview function Called")
-                            this.props.spinnerRolesAndIntent(0);
-                            this.props.spinnerOverviewKPI(0);
-                            this.props.spinnerOverviewKPITrend(0);
-                            this.props.spinnerOverviewInternalDrivers(0);
-                            this.props.spinnerOverviewExternalDrivers(0);
-
-                            this.props.loadOverviewKpi();
-                            this.props.loadOverviewKpiTrend();
-                            this.props.loadOverviewDriversInternal();
-                            this.props.loadOverviewDriversExternal();
-                            this.props.loadRolesAndIntent();
-                            this.props.loadBudgetAndForecast();
-
-                          }
-                          else {
-                            if (this.props.Executive.kpi_param == 'kpi_type=Price') {
-                              console.log("______________________ Only Price function Called")
-                              this.props.spinnerPriceKPI(0);
-                              this.props.loadPriceKPIData();
-
-
-                            }
-
-                            else {
-                              console.log("______________________ Only KPI functions Called")
-                              this.props.spinnerKPI(0);
-                              this.props.loadKpiBoxes();
-                              this.props.loadBestWorst();
-                              this.props.onGenerateBestWorstPerformance();
-
-                              {/*this.props.loadBestInfoData();*/
-                              }
-                              {/*this.props.loadWorstInfoData();*/
-                              }
-                              {/*this.props.loadSupplierInfoData();*/
-                              }
-                              {/*this.props.loadTopSupplierInfoData();*/
-                              }
-                              {/*this.props.loadBotSupplierInfoData();*/
-                              }
-                              this.props.loadDriversInternalData();
-                              this.props.loadDriversExternalData();
-                              this.props.spinnerInternalDrivers(0);
-                              this.props.spinnerExternalDrivers(0);
-                            }
-
-                          }
-                        })()
-                      }
-
-
-                    }}><span className="tab_label">YTD</span></NavItem>
-                  </Nav>
-                </div>
                 <div className="mainBox">
                   <div style={{borderRight: '0%'}}>
                     {/*Nav for kpi type*/}

@@ -3,6 +3,21 @@
 .xlModal{
   width: 90%;
 }
+.table-header-format{
+  font-size: 16px;
+  font-family:Tesco;
+  text-align: center;
+  color: #333333;
+  background-color: #e5e5e5;
+}
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+  opacity: 0.4;
+}
 
 .ts-blk-proview-head {
   text-align: center;
@@ -191,6 +206,10 @@
   font-size: 18px !important;
 }
 
+.xlModal{
+  width: 90%;
+}
+
 .tesco-heading {
   width: 100%;
   line-height: 28px;
@@ -336,7 +355,7 @@
 //fOR SIDE TABS
 .tabsCustomList2 {
   display: inline-block;
-  margin: 10px 6px 10px 8px;
+  margin: 15px 6px 10px 8px;
   border-bottom: none;
   font-size: 16px !important;
   float: None !important;
