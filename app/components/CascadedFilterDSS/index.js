@@ -80,25 +80,18 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
   };
 
   checkboxUpdate1 = (selection) => {
-    console.log('Cascaded check', this.props);
-    let newUrl = this.props.location.pathname;
 
     let queryString = '';
     let queryString_without_week = '';
-    let queryString_for_week_date = '';
     let localUrlParamsString = '';
 
     [...this.refs.selector.querySelectorAll('input')].map(obj => {
       if (obj.checked == true) {
-
         let category = obj.id.split('__');
-
         console.log('queryString for product1', queryString);
         console.log('match', queryString.match(/tesco_week/gi));
-
         queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
         console.log('queryString 2 for product1', queryString);
-
         // aa
         if (['store_type', 'commercial_name', 'category_name', 'buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])) {
           localUrlParamsString = localUrlParamsString + `${category[0]}=${category[category.length - 1]}&`;
@@ -106,7 +99,6 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
         if (category[0] !== "tesco_week" && category[0] !== "date") {
           // alert(category[0])
           queryString_without_week = queryString_without_week + `${category[0]}=${category[category.length - 1]}&`;
-
         }
       }
     });
@@ -118,7 +110,6 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
     localStorage.setItem('urlParams', localUrlParamsString);
     this.props.onCheckboxWeekChange(queryString_without_week);
     this.props.onGenerateSideFilter();
-
   };
 
   applyButtonFunctionality = () => {
@@ -161,18 +152,20 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
 
               <PanelGroup defaultActiveKey="11" accordion>
                 {(() => {
-                  if (this.props.week_data) {
-                    console.log("Cascading filter - filter_data", this.props.week_data);
+                  if (this.props.filter_data) {
+                    console.log("Cascading filter - filter_data", this.props.filter_data);
                     return (
 
-                      this.props.week_data.checkbox_list.map((obj, key) => {
+                      this.props.filter_data.checkbox_list.map((obj, key) => {
                         let panelHeader = (
-                          <div className="text-capitalize">
-                            {obj.title.replace(/_/g, ' ')}&nbsp;<span style={{color: "red"}}>*</span>&nbsp;
+                          <div key={Date.now() + Math.random() + Math.random() + 10}
+                               className="text-capitalize">
+                            {obj.title.replace(/_/g, ' ')}&nbsp;{obj.required ?
+                            <span style={{color: 'red'}}>*</span> : '' } &nbsp;
                             <span className="accordion-toggle" style={{float: 'right'}}></span>
                           </div>
                         );
-                        if (!['brand_name','product'].includes(obj.title)) {
+                        if (!['store_type','brand_name','product'].includes(obj.title)) {
                           return (
                             <Panel header={panelHeader} eventKey={++key}>
                               <div className="panel text-capitalize"
@@ -186,8 +179,7 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                                     {
                                       obj.items.map(obj2 => {
                                         finalCheckbox.push(
-                                          <Checkbox key={Date.now() + Math.random() + Math.random() + 10}
-                                                    id={obj.title + '__' + obj2.title}
+                                          <Checkbox id={obj.title + '__' + obj2.title}
                                                     label={obj2.title}
                                                     style={{fontSize: '10px'}}
                                                     checked={(() => {
@@ -195,18 +187,20 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                                                         {/*alert()*/
                                                         }
                                                       }
-                                                      return obj2.resource.selected;
+                                                      return obj2.resource.selected
                                                     })()}
                                                     onChange={() => {
 
                                                       let previous_selection = this.props.previous_selection;
                                                       let selection = obj.title + "=" + obj2.title;
 
-                                                      console.log('selection for product', selection);
-                                                      this.checkboxUpdate(selection);
+                                                      console.log('selection11', selection);
+                                                      this.checkboxUpdate1(selection)
                                                     }}
+                                            // checked={obj.resource.selected}
                                                     isDisabled={!obj2.highlighted}
                                                     valid={true}
+                                                    key={Date.now() + Math.random()}
                                           />
                                         )
                                       })
@@ -236,89 +230,6 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                             </Panel>
                           )
                         }
-                      })
-                    )
-                  }
-                })()}
-              </PanelGroup>
-              <PanelGroup defaultActiveKey="11" accordion>
-                {(() => {
-                  if (this.props.filter_data) {
-                    console.log("Cascading filter - filter_data", this.props.filter_data);
-                    return (
-
-                      this.props.filter_data.checkbox_list.map((obj, key) => {
-                        let panelHeader = (
-                          <div key={Date.now() + Math.random() + Math.random() + 10}
-                               className="text-capitalize">
-                            {obj.title.replace(/_/g, ' ')}&nbsp;{obj.required ?
-                            <span style={{color: 'red'}}>*</span> : '' } &nbsp;
-                            <span className="accordion-toggle" style={{float: 'right'}}></span>
-                          </div>
-                        );
-                        return (
-                          <Panel header={panelHeader} eventKey={++key}>
-                            <div className="panel text-capitalize"
-                                 key={Date.now() + Math.random() + Math.random() + 10}>
-
-                              <div className="panel-body style-7"
-                                   style={{maxHeight: '250px', overflowX: 'hidden', fontSize: '9px'}}>
-                                {(() => {
-                                  let finalCheckbox = [];
-
-                                  {
-                                    obj.items.map(obj2 => {
-                                      finalCheckbox.push(
-                                        <Checkbox key={Date.now() + Math.random() + Math.random() + 10}
-                                                  id={obj.title + '__' + obj2.title}
-                                                  label={obj2.title}
-                                                  style={{fontSize: '10px'}}
-                                                  checked={(() => {
-                                                    if (obj2.selected) {
-                                                      {/*alert()*/
-                                                      }
-                                                    }
-                                                    return obj2.resource.selected
-                                                  })()}
-                                                  onChange={() => {
-
-                                                    let previous_selection = this.props.previous_selection;
-                                                    let selection = obj.title + "=" + obj2.title;
-
-                                                    console.log('selection11', selection);
-                                                    this.checkboxUpdate1(selection)
-                                                  }}
-                                          // checked={obj.resource.selected}
-                                                  isDisabled={!obj2.highlighted}
-                                                  valid={true}
-                                        />
-                                      )
-                                    })
-                                  }
-
-                                  // for replacing enabled to top
-                                  let finalled = [];
-                                  finalCheckbox.map(obj => {
-                                    {/*console.log(obj.props.checked);*/
-                                    }
-                                    if (!obj.props.isDisabled) {
-                                      finalled.push(obj)
-                                    }
-                                  });
-                                  finalCheckbox.map(obj => {
-                                    {/*console.log(obj.props.checked);*/
-                                    }
-                                    if (obj.props.isDisabled) {
-                                      finalled.push(obj)
-                                    }
-                                  });
-                                  return finalled
-
-                                })()}
-                              </div>
-                            </div>
-                          </Panel>
-                        )
                       })
                     )
                   }
@@ -412,7 +323,7 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
               </div>
             </div>
           )
-        })()}
+        })()};
       </div>
 
 

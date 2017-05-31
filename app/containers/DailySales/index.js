@@ -21,14 +21,14 @@ import PieChart from 'components/PieChart';
 import CascadedFilterDSS from 'components/CascadedFilterDSS';
 import MultilinePromo from 'components/MultilinePromo';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import TopFilter from 'components/TopFilter';
+import TopFilterDSS from 'components/TopFilterDSS';
 
-import Breadcrumb from 'components/Breadcrumb';
+import BreadcrumbDSS from 'components/BreadcrumbDSS';
 var dateFormat = require('dateformat');
 require('react-bootstrap-table/css/react-bootstrap-table.css')
 
 import {
-  PromoGiveawayData,cardsCallAction,
+  PromoGiveawayData, cardsCallAction,
   chartCallAction, SaveKPIParam, generateUrlParamsString,
   SaveWeekParam, PromoKpiData,
   getFilter,
@@ -89,27 +89,26 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
     this.props.onSendUrlParams(this.props.location.query);
   };
 
-  cellButton=(cell, row,enumObject, rowIndex)=>{
+  cellButton = (cell, row, enumObject, rowIndex) => {
     return (
       <button
         type="button"
         className="btn btn-primary"
-        onClick={() =>{
-          console.log("Inside REact Button click!",this)
-
+        onClick={() => {
+          console.log("Inside REact Button click!", this)
         }}
       >View
       </button>
     )
   }
 
-  cellButton2=(cell, row, rowIndex)=>{
+  cellButton2 = (cell, row, rowIndex) => {
     return (
       <button
         type="button"
         className="btn btn-primary"
-        onClick={() =>{
-          console.log("Inside REact Button click!",this)
+        onClick={() => {
+          console.log("Inside REact Button click!", this)
         }}
       >View
       </button>
@@ -148,7 +147,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
       }, {
         text: '15', value: 15
       }, {
-        text: 'All', value: this.props.DailySales.charts_data && this.props.DailySales.charts_data.dss_table ? this.props.DailySales.charts_data.dss_table.length :0
+        text: 'All',
+        value: this.props.DailySales.charts_data && this.props.DailySales.charts_data.dss_table ? this.props.DailySales.charts_data.dss_table.length : 0
       }], // you can change the dropdown list for size per page
       sizePerPage: 5,  // which size per page you want to locate as default
       pageStartIndex: 1, // where to start counting the pages
@@ -165,7 +165,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
       // withFirstAndLast: false > Hide the going to First and Last page button
     };
 
-    let formatMetric = (cell,flag="value") => {
+    let formatMetric = (cell, flag = "value") => {
       if (cell >= 1000 || cell <= -1000) {
         let rounded = Math.round(cell / 1000);
         if (flag == "volume") {
@@ -180,14 +180,14 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
           return (Math.round(cell));
         }
         else {
-          return ('£ '+ Math.round(cell));
+          return ('£ ' + Math.round(cell));
         }
       }
     }
 
     let kpiParmas = this.props.DailySales.kpi_param;
     return (
-      <Panel style={{background: "#fafafa"}}>
+      <div style={{background: "#fafafa"}}>
         <div>
           <Helmet
             title="DailySales"
@@ -267,40 +267,85 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                     width: '78%',
                     marginLeft: '22%'
                   }}>
-                    {(()=>{
-                      if(this.props.DailySales.week && this.props.DailySales.filter_week_selection){
+                    {(() => {
+                      if (this.props.DailySales.filter_week_selection) {
                         return (
-                          <Breadcrumb selected_week={this.props.DailySales.week.replace(/tesco_week/g, '  ').replace(/date/g, '  ').replace(/_/g, '  ').replace(/=/g, '  ').replace('&', '  > ')}
-                                      urlParamsString={this.props.DailySales.filter_week_selection}/>
+                          <BreadcrumbDSS
+                            selected_week={this.props.DailySales.week.replace(/tesco_week/g, '  ').replace(/date/g, '  ').replace(/_/g, '  ').replace(/=/g, '  ').replace('&', '  > ')}
+                            urlParamsString={this.props.DailySales.filter_week_selection}/>
 
-                        )  }
+                        )
+                      }
                     })()}
                     <br/>
                     <br/>
                     <br/>
                     <br/>
                     {/*Page title*/}
-                    <div className="pageTitle">
-                      {(() => {
-                        if (this.props.DailySales.cards_data && this.props.DailySales.cards_data.tesco_week) {
-                          return (
-                            <span className="pageModuleMainTitle"> Daily Sales View: {this.props.DailySales.cards_data.tesco_week}</span>
-                          )
-                        } else {
-                          return (
-                            <span className="pageModuleMainTitle">Daily Sales View </span>
-                          )
-                        }
-                      })()}
-                    </div>
+                    {/*<div className="pageTitle">*/}
+                    {/*{(() => {*/}
+                    {/*if (this.props.DailySales.cards_data && this.props.DailySales.cards_data.tesco_week) {*/}
+                    {/*return (*/}
+                    {/*<span className="pageModuleMainTitle"> Daily Sales View: {this.props.DailySales.cards_data.tesco_week}</span>*/}
+                    {/*)*/}
+                    {/*} else {*/}
+                    {/*return (*/}
+                    {/*<span className="pageModuleMainTitle">Daily Sales View </span>*/}
+                    {/*)*/}
+                    {/*}*/}
+                    {/*})()}*/}
+                    {/*</div>*/}
+
+                    {(() => {
+                      if (this.props.DailySales.week_filter_data && this.props.DailySales.filter_data) {
+                        return (
+                          <TopFilterDSS
+                            filter_data={this.props.DailySales.filter_data}
+                            CardsDataCall={this.props.CardsDataCall}
+                            ChartDataCall={this.props.ChartDataCall}
+                            week_data={this.props.DailySales.week_filter_data}
+                            location={this.props.location}
+                            save_week={this.props.save_week}
+                            onGenerateSideFilter={this.props.onGetFilter}
+                            onFilterReset={this.props.onFilterReset}
+                            onDataUrlParams={this.props.DataUrlParams}
+                            onUrlParamsData={this.props.onUrlParamsData}
+                            onGenerateUrlParams={this.props.onGenerateUrlParams}
+                            onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}
+                            onGenerateFilterParamsString={this.props.onGenerateFilterParamsString}
+                            onGenerateUrlParamsData={this.props.onGenerateUrlParamsData}
+                            ongenerateWeekFilter={this.props.onGetWeekFilter}
+                            onSaveWeekFilterParam={this.props.onSaveWeekFilterParam}
+                            loadKpi={this.props.loadKpi}
+                            loadSales={this.props.loadSales}
+                            loadPromoProd={this.props.loadPromoProd}
+                            loadPromoPart={this.props.loadPromoPart}
+                            onSendUrlParams={this.props.onSendUrlParams}
+                            onSaveWeek={this.props.onSaveWeek}
+                            previous_selection={this.props.DailySales.filter_selection}
+                            previous_week_selection={this.props.DailySales.filter_week_selection}
+                            onCheckboxChange={this.props.onCheckboxChange}
+                            onCheckboxWeekChange={this.props.onCheckboxWeekChange}
+                            DSViewKpiSpinnerCheck={this.props.DSViewKpiSpinnerCheckSuccess}
+                            LineChartSpinnerCheck={this.props.LineChartSpinnerCheckSuccess}
+                            week={this.props.DailySales.week}
+                            urlParamsString={this.props.DailySales.filter_week_selection}
+                            storeSelectionParams={this.props.onSaveStoreFilterParam}
+
+                          />
+
+                        )
+                      }
+                    })()}
 
                     <div>
                       <div className="row fixingPosition"
                            style={{marginLeft: "0%", paddingTop: "-5px", marginRight: "0px"}}>
                         {(() => {
-                          if (this.props.DailySales.cards_data){
-                            let a = this.props.DailySales.cards_data.sales,b=this.props.DailySales.cards_data.volume,
-                              c=this.props.DailySales.cards_data.cogs,d=this.props.DailySales.cards_data.profit,e=this.props.DailySales.cards_data.margin;
+                          if (this.props.DailySales.cards_data) {
+                            let a = this.props.DailySales.cards_data.sales, b = this.props.DailySales.cards_data.volume,
+                              c = this.props.DailySales.cards_data.cogs, d = this.props.DailySales.cards_data.profit,
+                              e = this.props.DailySales.cards_data.margin;
                             return (
                               <div>
                                 <div className="row mainBox" style={{textAlign: 'center'}}>
@@ -332,7 +377,11 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                       </div>
                                       <div className="row">
                                         <div className="col-md-12">
-                                          <h3 style={{padding: "0px", margin: "0px",backgroundColor:"#e5e8ea"}}>{formatMetric(a.tot_sales_wtd)}</h3>
+                                          <h3 style={{
+                                            padding: "0px",
+                                            margin: "0px",
+                                            backgroundColor: "#e5e8ea"
+                                          }}>{formatMetric(a.tot_sales_wtd)}</h3>
                                         </div>
                                       </div>
                                     </Panel>
@@ -346,7 +395,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                           <h3 >{formatMetric(b.tot_vol,"volume")}</h3>
                                         </div>
                                         <div className="col-md-6 col-sm-6 col-xs-6">
-                                          <h3>LFL:{formatMetric(b.tot_vol_lfl,"volume")}</h3>
+                                          <h3>LFL:{formatMetric(b.tot_vol_lfl, "volume")}</h3>
                                         </div>
                                       </div>
                                       <div className="row">
@@ -398,7 +447,11 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                       </div>
                                       <div className="row">
                                         <div className="col-md-12">
-                                          <h3 style={{padding: "0px", margin: "0px",backgroundColor:"#e5e8ea"}}>{formatMetric(c.tot_cogs_wtd)}</h3>
+                                          <h3 style={{
+                                            padding: "0px",
+                                            margin: "0px",
+                                            backgroundColor: "#e5e8ea"
+                                          }}>{formatMetric(c.tot_cogs_wtd)}</h3>
                                         </div>
                                       </div>
                                     </Panel>
@@ -435,7 +488,11 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                       </div>
                                       <div className="row">
                                         <div className="col-md-12">
-                                          <h3 style={{padding: "0px", margin: "0px",backgroundColor:"#e5e8ea"}}>{formatMetric(d.tot_profit_wtd)}</h3>
+                                          <h3 style={{
+                                            padding: "0px",
+                                            margin: "0px",
+                                            backgroundColor: "#e5e8ea"
+                                          }}>{formatMetric(d.tot_profit_wtd)}</h3>
                                         </div>
                                       </div>
                                     </Panel>
@@ -593,8 +650,10 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                         search={true}
                                         exportCSV={true}
                                       >
-                                        <TableHeaderColumn width="225" tdStyle={ {whiteSpace: 'normal'} } dataField="product" isKey={true}
-                                                           dataAlign="center" dataSort>Product Description</TableHeaderColumn>
+                                        <TableHeaderColumn width="225" tdStyle={ {whiteSpace: 'normal'} }
+                                                           dataField="product" isKey={true}
+                                                           dataAlign="center" dataSort>Product
+                                          Description</TableHeaderColumn>
                                         <TableHeaderColumn dataField="brand_indicator" dataSort={true}
                                                            dataAlign="center">Brand</TableHeaderColumn>
                                         <TableHeaderColumn dataField="kpi_ty" dataFormat={formatMetric} dataSort={true}
@@ -634,7 +693,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
             }
           })()}
         </div>
-      </Panel>
+      </div>
     );
   }
 }
@@ -656,6 +715,7 @@ function mapDispatchToProps(dispatch) {
     onGenerateUrlParamsString: (e) => dispatch(generateUrlParamsString(e)),
     defaultPageLoadCheck: (e) => dispatch(defaultPageLoadCheck(e)),
     onGenerateUrlParamsData: (e) => dispatch(generateSideFilter(e)),
+    onSaveStoreFilterParam: (e) => dispatch(StoreFilterParam(e)),
     onGetFilter: (e) => dispatch(getFilter(e)),
     onGenerateSideFilter: (e) => dispatch(getFilter(e)),
     onSaveSalesParam: (e) => dispatch(SaveSalesParam(e)),
