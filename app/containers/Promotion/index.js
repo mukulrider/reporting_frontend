@@ -141,10 +141,7 @@ export class Promotion extends React.PureComponent {
       sizePerPage: 5,  // which size per page you want to locate as default
       pageStartIndex: 1, // where to start counting the pages
       paginationSize: 3,  // the pagination bar size.
-      prePage: 'Prev', // Previous page button text
-      nextPage: 'Next', // Next page button text
-      firstPage: 'First', // First page button text
-      lastPage: 'Last', // Last page button text
+
       paginationShowsTotal: this.renderShowsTotal,  // Accept bool or function
       paginationPosition: 'bottom',  // default is bottom, top and both is all available
       expandRowBgColor: 'rgb(242, 255, 163)'
@@ -187,6 +184,7 @@ export class Promotion extends React.PureComponent {
             overflowY: 'scroll',
             borderTop: '1px solid #ccc'
           }}>
+
 
             {(() => {
               if (this.props.promotion.filter_data) {
