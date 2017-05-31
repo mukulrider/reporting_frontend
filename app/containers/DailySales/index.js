@@ -22,6 +22,8 @@ import CascadedFilterDSS from 'components/CascadedFilterDSS';
 import MultilinePromo from 'components/MultilinePromo';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import TopFilter from 'components/TopFilter';
+
+import Breadcrumb from 'components/Breadcrumb';
 var dateFormat = require('dateformat');
 require('react-bootstrap-table/css/react-bootstrap-table.css')
 
@@ -263,6 +265,18 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                     width: '78%',
                     marginLeft: '22%'
                   }}>
+                    {(()=>{
+                      if(this.props.DailySales.week && this.props.DailySales.filter_week_selection){
+                        return (
+                          <Breadcrumb selected_week={this.props.DailySales.week.replace(/tesco_week/g, '  ').replace(/date/g, '  ').replace(/_/g, '  ').replace(/=/g, '  ').replace('&', '  > ')}
+                                      urlParamsString={this.props.DailySales.filter_week_selection}/>
+
+                        )  }
+                    })()}
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
                     {/*Page title*/}
                     <div className="pageTitle">
                       {(() => {
