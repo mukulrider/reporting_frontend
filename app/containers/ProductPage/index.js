@@ -69,7 +69,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
         this.setState({showSupplierInfoModalFlag: true});
         let dataProduct = "product="+row.product;
         this.props.onSaveProduct(dataProduct);
-        this.setState({product:row.product,infoModalHeader:"Parent Supplier Info : "+row.product,showSupplierInfoModalFlag: true});
+        this.setState({product:row.product,infoModalHeader:"Parent Supplier Info : "+row.product});
       }}
     >View
     </button>

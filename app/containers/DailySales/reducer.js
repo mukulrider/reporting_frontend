@@ -9,6 +9,8 @@ import {
   DEFAULT_ACTION,
   CARDS_DATA_FETCH_SUCCESS,
   CHARTS_DATA_FETCH_SUCCESS,
+  PROD_DAILY_TREND_FETCH_SUCCESS,
+  PROD_CUM_TREND_FETCH_SUCCESS,
   KPI_PARAM,
   FILTER_CONSTANT,
   KPI_CONSTANT,
@@ -18,25 +20,22 @@ import {
   FILTER_FETCH_SUCCESS,
   WEEK_FILTER_CONSTANT,
   WEEK_FILTER_FETCH_SUCCESS,
-  WEEK_FILTER_PARAM,
+  DATE_FILTER_PARAM,
   GENERATE_URL_PARAMS,
   DS_VIEW_KPI_SPINNER,
   LINE_CHART_SPINNER,
+  DAILY_TREND_CHART_SPINNER,
+  CUM_TREND_CHART_SPINNER,
   STORE_FILTER_PARAM,
   WEEK,
+  PRODUCT_CONSTANT,
   CHECKBOX_CHANGE,
   CHECKBOX_WEEK_CHANGE,
   DEFAULT_PAGE_LOAD_CHECK,
 } from './constants';
 
 
-const initialState = fromJS({cum_graph_data: [{"tot_val_ly": 2160315.120,"tot_val": 2019872.960,"week_day_str": "Monday"},
-  {"tot_val_ly": 4413326.510,"tot_val": 4388697.040,"week_day_str": "Tuesday"},
-  {"tot_val_ly": 6771199.260,"tot_val": 6749583.640,"week_day_str": "Wednesday"},
-  {"tot_val_ly": 9238331.410,"tot_val": 9355892.250,"week_day_str": "Thursday"},
-  {"tot_val_ly": 12980336.240,"tot_val": 13215353.630,"week_day_str": "Friday"},
-  {"tot_val_ly": 16727729.840,"tot_val": 17062824.570,"week_day_str": "Saturday"},
-  {"tot_val_ly": 19794849.610,"tot_val": 20481378.770,"week_day_str": "Sunday"}],
+const initialState = fromJS({
   week_param: '',
   kpi_param: '',
   urlParamsString: '',
@@ -90,6 +89,14 @@ function dailySalesReducer(state = initialState, action) {
       console.log("reducer CHARTS_DATA_FETCH_SUCCESS", action.data)
       return state.set('charts_data', action.data);
 
+    case PROD_DAILY_TREND_FETCH_SUCCESS:
+      console.log("reducer PROD_DAILY_TREND_FETCH_SUCCESS", action.data)
+      return state.set('prod_daily_data', action.data);
+
+    case PROD_CUM_TREND_FETCH_SUCCESS:
+      console.log("reducer PROD_CUM_TREND_FETCH_SUCCESS", action.data)
+      return state.set('prod_cum_data', action.data);
+
     case KPI_PARAM:
       console.log("reducer KPI_PARAM", action.data);
       return state.set('kpi_param', action.data);
@@ -108,9 +115,9 @@ function dailySalesReducer(state = initialState, action) {
     case WEEK_PARAM:
       console.log("reducer WEEK_PARAM", action.data);
       return state.set('week_param', action.data);
-    case WEEK_FILTER_PARAM:
-      console.log("reducer WEEK_FILTER_PARAM", action.data);
-      return state.set('weekurlParam', action.data);
+    case DATE_FILTER_PARAM:
+      console.log("reducer DATE_FILTER_PARAM", action.data);
+      return state.set('dateurlParam', action.data);
     case STORE_FILTER_PARAM:
       console.log("reducer STORE_FILTER_PARAM",action.data);
       return state.set('store_filter_param',action.data);
@@ -125,6 +132,16 @@ function dailySalesReducer(state = initialState, action) {
       console.log("LINE_CHART_SPINNER", action.LineChartSpinnerCheck);
       return state.set('LineChartSpinnerCheck', action.LineChartSpinnerCheck)
 
+    //SPINNER FOR PROD DAILY TREND CHART
+    case DAILY_TREND_CHART_SPINNER:
+      console.log("DAILY_TREND_CHART_SPINNER", action.DailyTrendSpinnerCheck);
+      return state.set('DailyTrendSpinnerCheck', action.DailyTrendSpinnerCheck)
+
+    //SPINNER FOR PROD CUM TREND CHART
+    case CUM_TREND_CHART_SPINNER:
+      console.log("CUM_TREND_CHART_SPINNER", action.CumTrendSpinnerCheck);
+      return state.set('CumTrendSpinnerCheck', action.CumTrendSpinnerCheck)
+
     //FOR FILTERS
     case GENERATE_URL_PARAMS:
       console.log("reducer WEEK", action.data)
@@ -133,6 +150,10 @@ function dailySalesReducer(state = initialState, action) {
     case WEEK:
       console.log("reducer WEEK", action.data);
       return state.set('week', action.data);
+
+    case PRODUCT_CONSTANT:
+      console.log("reducer PRODUCT", action.data);
+      return state.set('product', action.data);
 
     case CHECKBOX_CHANGE:
       console.log(CHECKBOX_CHANGE, 'reducer', action);

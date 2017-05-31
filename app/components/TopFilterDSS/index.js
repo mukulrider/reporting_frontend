@@ -75,7 +75,7 @@ class TopFilterDSS extends React.PureComponent {
               valueUpdated={(e, v) => {
                 let selection = "tesco_week=" + v;
                 this.props.onSaveWeek(selection);
-
+                this.props.onSaveDateFilterParam('');
                 this.props.DSViewKpiSpinnerCheck(0);
                 this.props.LineChartSpinnerCheck(0);
 
@@ -95,14 +95,11 @@ class TopFilterDSS extends React.PureComponent {
               valueUpdated={(e, v) => {
                 console.log('value updated', e, v);
                 // console.log(e.target.value)
-                let selection = "date=" + v;
-                this.props.onSaveWeekFilterParam(selection);
-
+                let selection = "dt_sel=" + v;
+                this.props.onSaveDateFilterParam(selection);
                 this.props.DSViewKpiSpinnerCheck(0);
-                this.props.LineChartSpinnerCheck(0);
 
                 this.props.loadKpi();
-                this.props.ChartDataCall();
                 this.props.CardsDataCall();
 
               }}

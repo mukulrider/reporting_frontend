@@ -33,10 +33,13 @@ import {
   SaveWeekParam, PromoKpiData,
   getFilter,
   getWeekFilter,
-  WeekFilterParam,
+  DateFilterParam,
   generateUrlParams,
   sendUrlParams,
   SaveWeek,
+  saveProduct,
+  dailyProductTrend,
+  cumProductTrend,
   DSViewKpiSpinnerCheckSuccess,
   LineChartSpinnerCheckSuccess,
   checkboxChange,
@@ -95,7 +98,10 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
         type="button"
         className="btn btn-primary"
         onClick={() => {
-          console.log("Inside REact Button click!", this)
+          this.setState({showDailySalesInfoModalFlag: true,product:row.product});
+          let product = "product="+row.product;
+          this.props.onSaveProduct(product);
+          this.props.onDailyProductTrend();
         }}
       >View
       </button>
@@ -108,7 +114,10 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
         type="button"
         className="btn btn-primary"
         onClick={() => {
-          console.log("Inside REact Button click!", this)
+          this.setState({showCumSalesInfoModalFlag: true,product:row.product});
+          let product = "product="+row.product;
+          this.props.onSaveProduct(product);
+          this.props.onCumProductTrend();
         }}
       >View
       </button>
@@ -120,7 +129,9 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
     this.state = {
       activeKey1: "1",
       y_axis: "Sales Value",
-      legendTY:"Sales TY",legendLY:"Sales LY"
+      legendTY:"Sales TY",legendLY:"Sales LY",
+      showDailySalesInfoModalFlag:false,
+      showCumSalesInfoModalFlag:false,
     };
 
   }
@@ -238,13 +249,14 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                              onGenerateFilterParamsString={this.props.onGenerateFilterParamsString}
                                              onGenerateUrlParamsData={this.props.onGenerateUrlParamsData}
                                              ongenerateWeekFilter={this.props.onGetWeekFilter}
-                                             onSaveWeekFilterParam={this.props.onSaveWeekFilterParam}
                                              loadKpi={this.props.loadKpi}
                                              loadSales={this.props.loadSales}
                                              loadPromoProd={this.props.loadPromoProd}
                                              loadPromoPart={this.props.loadPromoPart}
                                              onSendUrlParams={this.props.onSendUrlParams}
                                              onSaveWeek={this.props.onSaveWeek}
+                                             storeSelectionParams={this.props.onSaveStoreFilterParam}
+                                             onSaveDateFilterParam={this.props.onSaveDateFilterParam}
                                              previous_selection={this.props.DailySales.filter_selection}
                                              previous_week_selection={this.props.DailySales.filter_week_selection}
                                              onCheckboxChange={this.props.onCheckboxChange}
@@ -315,7 +327,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                             onGenerateFilterParamsString={this.props.onGenerateFilterParamsString}
                             onGenerateUrlParamsData={this.props.onGenerateUrlParamsData}
                             ongenerateWeekFilter={this.props.onGetWeekFilter}
-                            onSaveWeekFilterParam={this.props.onSaveWeekFilterParam}
+                            onSaveDateFilterParam={this.props.onSaveDateFilterParam}
                             loadKpi={this.props.loadKpi}
                             loadSales={this.props.loadSales}
                             loadPromoProd={this.props.loadPromoProd}
@@ -684,6 +696,84 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                           </div>
                         </div>
 
+                        <Modal show={this.state.showDailySalesInfoModalFlag}
+                               bsSize="lg"
+                               aria-labelledby="contained-modal-title-lg"
+                               dialogClassName={'xlModal'}
+                        >
+                          <Modal.Header>
+
+                            <Modal.Title id="contained-modal-title-sm" className="pageModuleTitle">
+                        <span className="pageModuleTitle"><b>{this.state.y_axis} Trend : {this.state.product}</b>
+                         <span style={{textAlign: 'right', float: 'right'}}
+                               onClick={() =>
+                               {this.setState({showDailySalesInfoModalFlag: false})
+                               }}>
+                          <b>X</b></span></span>
+                            </Modal.Title>
+
+                          </Modal.Header>
+                          <Modal.Body className="infoModalText">
+                            <div>
+                              {(() => {
+                                if (this.props.DailySales.prod_daily_data && this.props.DailySales.prod_daily_data.graph_data  && this.props.DailySales.CumTrendSpinnerCheck != 0) {
+                                  if (this.props.DailySales.prod_daily_data.graph_data.length != 0) {
+                                    return (
+                                      <Panel>
+                                        <DualLineChart2 x_axis="Week Day" y_axis={this.state.y_axis}
+                                                        legendTY={this.state.legendTY} legendLY={this.state.legendLY}
+                                                        id="prod_daily_sales"
+                                                        data={this.props.DailySales.prod_daily_data.graph_data.graph_data}/>
+                                      </Panel>
+                                    )
+                                  }
+                                  else {
+                                    return (
+                                      <div> No Sales for This Product in the Selected Week! </div>
+                                    )
+                                  }
+                                }
+                                else {
+                                  return (<div className="text-center"><Spinner />Please Wait a Moment....!</div>)
+                                }
+                              })()}
+                            </div>
+                          </Modal.Body>
+                        </Modal>
+
+                        <Modal show={this.state.showCumSalesInfoModalFlag} bsSize="lg"
+                               aria-labelledby="contained-modal-title-lg"
+                        >
+                          <Modal.Header>
+
+                            <Modal.Title id="contained-modal-title-sm" className="pageModuleTitle">
+                        <span className="pageModuleTitle"><b>{this.state.y_axis} Cum Trend : {this.state.product}</b>
+                         <span style={{textAlign: 'right', float: 'right'}}
+                               onClick={() =>
+                               {this.setState({showCumSalesInfoModalFlag: false})
+                               }}>
+                          <b>X</b></span></span>
+                            </Modal.Title>
+
+                          </Modal.Header>
+                          <Modal.Body className="infoModalText">
+                            <div>
+                              {(() => {
+                                if (this.props.DailySales.prod_cum_data && this.props.DailySales.prod_cum_data.graph_data && this.props.DailySales.CumTrendSpinnerCheck != 0) {
+                                  return (
+                                    <Panel style={{alignItems: "center"}}>
+                                      <MultiSeriesBarChart x_axis="Week Day" y_axis={this.state.y_axis} legendTY={this.state.legendTY} legendLY={this.state.legendLY}
+                                                           id="prod_cumulative_sales" data={this.props.DailySales.prod_cum_data.graph_data}/>
+                                    </Panel>
+                                  )
+                                }
+                                else {
+                                  return (<div className="text-center"><Spinner />Please Wait a Moment....!</div>)
+                                }
+                              })()}
+                            </div>
+                          </Modal.Body>
+                        </Modal>
                       </div>
                     </div>
                   </div>
@@ -721,11 +811,14 @@ function mapDispatchToProps(dispatch) {
     onSaveSalesParam: (e) => dispatch(SaveSalesParam(e)),
     onGetWeekFilter: (e) => dispatch(getWeekFilter(e)),
     ongenerateWeekFilter: (e) => dispatch(getWeekFilter(e)),
-    onSaveWeekFilterParam: (e) => dispatch(WeekFilterParam(e)),
+    onSaveDateFilterParam: (e) => dispatch(DateFilterParam(e)),
     onGenerateUrlParams: (e) => dispatch(generateUrlParams(e)),
     onSendUrlParams: (e) => dispatch(sendUrlParams(e)),
     onSaveWeek: (e) => dispatch(SaveWeek(e)),
     onCheckboxChange: (e) => dispatch(checkboxChange(e)),
+    onSaveProduct: (e) => dispatch(saveProduct(e)),
+    onDailyProductTrend: (e) => dispatch(dailyProductTrend(e)),
+    onCumProductTrend: (e) => dispatch(cumProductTrend(e)),
     LineChartSpinnerCheckSuccess: (e) => dispatch(LineChartSpinnerCheckSuccess(e)),
     LineChartSpinnerCheck: (e) => dispatch(LineChartSpinnerCheckSuccess(e)),
     onCheckboxWeekChange: (e) => dispatch(checkboxWeekChange(e)),
