@@ -247,7 +247,6 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                              onCheckboxWeekChange={this.props.onCheckboxWeekChange}
                                              DSViewKpiSpinnerCheck={this.props.DSViewKpiSpinnerCheckSuccess}
                                              LineChartSpinnerCheck={this.props.LineChartSpinnerCheckSuccess}
-                                             CardsDataCall={this.props.CardsDataCall}
                                              week={this.props.DailySales.week}
                                              urlParamsString={this.props.DailySales.filter_week_selection}
 
