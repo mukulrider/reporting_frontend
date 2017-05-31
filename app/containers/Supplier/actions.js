@@ -17,6 +17,8 @@ import {
   KPI_ASP_CONSTANT,
   TOP_BOTTOM_KPI,
   GENERATE_URL_PARAMS_STRING,
+  GENERATE_URL_PARAMS_STRING2,
+  GENERATE_URL_PARAMS_STRING3,
   FILTERS_DATA_SUCCESS,
   WEEK_FILTER_FETCH_SUCCESS,
   WEEK_FILTER_CONSTANT,
@@ -37,6 +39,7 @@ import {
   BUBBLE_CHART_SPINNER,
   BAR_CHART_SPINNER,
   TABLE_SPINNER,
+  STORE_FILTER_PARAM,
 } from './constants';
 
 
@@ -223,9 +226,29 @@ export function SaveTopBottomParam(data) {
 // FOR GETTING FILTERS DATA (FOR DOING AJAX CALL)
 
 export function GenerateUrlParamsString(data) {
-  console.log('filters');
+  console.log('filters1',data);
   return {
     type: GENERATE_URL_PARAMS_STRING,
+    data,
+  };
+}
+
+// FOR GETTING FILTERS DATA (FOR DOING AJAX CALL) ON DEFAULT PAGE LOAD
+
+export function GenerateUrlParamsString2(data) {
+  console.log('filters2',data);
+  return {
+    type: GENERATE_URL_PARAMS_STRING2,
+    data,
+  };
+}
+
+//FLAG FOR KNOWING DEFAULT PAGE LOAD
+
+export function GenerateUrlParamsString3(data) {
+  console.log('filters3',data);
+  return {
+    type: GENERATE_URL_PARAMS_STRING3,
     data,
   };
 }
@@ -260,7 +283,7 @@ export function getWeekFilter() {
 
 
 export function checkboxWeekChange(data) {
-  console.log("checkboxWeekChange Selection in actions" + data);
+  console.log("checkboxWeekChange Selection in actions " + data);
   return {
     type: CHECKBOX_WEEK_CHANGE,
     data
@@ -325,3 +348,13 @@ export function tableChartSpinnerCheckSuccess(tableChartSpinnerCheck) {
     tableChartSpinnerCheck
   }
 }
+
+export function StoreFilterParam(data)
+{
+  console.log('StoreFilterParam = actions', data);
+  return {
+    type: STORE_FILTER_PARAM,
+    data,
+  };
+}
+
