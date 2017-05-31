@@ -26,7 +26,7 @@ import Checkbox from 'components/checkbox';
 import Spinner from 'components/spinner';
 import Breadcrumb from 'components/Breadcrumb';
 import TopFilterSupplier from 'components/TopFilterSupplier';
-import Multiselect from 'components/MultiSelect';
+// import Multiselect from 'components/MultiSelect';
 import createClass from 'create-react-class';
 
 var SelectBox = React.createFactory(require('react-select-box/lib/select-box'))
@@ -56,14 +56,14 @@ var Example = React.createFactory(React.createClass({
   render: function () {
     let values = [];
     // let values = {'value': ""};
-    this.props.filterdata.checkbox_list[8].items.map((item, key) => {
-      console.log('key', key);
-      values.push({'value': item.title});
-      console.log('values[key].value', values[key].value);
-      // values[key][value] = item.title;
-    })
-    console.log('values', this.props.filterdata.checkbox_list[8].items);
-    console.log('values1', values);
+    // this.props.filterdata.checkbox_list[8].items.map((item, key) => {
+    //   console.log('key', key);
+    //   values.push({'value': item.title});
+    //   console.log('values[key].value', values[key].value);
+    //   // values[key][value] = item.title;
+    // })
+    // console.log('values', this.props.filterdata.checkbox_list[8].items);
+    // console.log('values1', values);
     return (
       SelectBox(
         {
@@ -79,13 +79,9 @@ var Example = React.createFactory(React.createClass({
         // })
 
 
-         option({value: 'green'}, 'Green'),
-         option({value: 'green'}, 'Green'),
-        option({value: 'blue'}, 'Blue'),
-         option({value: 'black'}, 'Black'),
-         option({value: 'orange'}, 'Orange'),
-         option({value: 'greenish'}, 'Light greenish with a little bit of yellow')
-
+         option({value: '10397. - KARRO FOODS'}, '10397. - KARRO FOODS'),
+         option({value: '1097. - MOY PARK (OSI)'}, '1097. - MOY PARK (OSI)'),
+        option({value: '1827. - FRESHLINK FOODS'}, '1827. - FRESHLINK FOODS')
       )
     )
   }
@@ -449,6 +445,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                     <br/>
                     <br/></div>
 
+
                   {(() => {
                     if (this.props.supplier.week_filter_data) {
                       return (
@@ -474,16 +471,17 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                 <div className="row">
                   <div className="col-xs-3">
                   </div>
-
                   {(() => {
                     if (this.props.supplier.sideFilter) {
                       return (
-                        <Example placeholder="Parent Supplier" filterdata={this.props.supplier.sideFilter}></Example>
+                        <Example placeholder="Parent Supplier"></Example>
                       )
                     }
                   })()}
-                  <Example placeholder="Supplier"  filterdata={this.props.supplier.sideFilter}></Example>
 
+                  <div className="col-xs-3">
+                  <Example placeholder="Supplier"></Example>
+                  </div>
                   <br/>
                   <br/>
                   <br/>
