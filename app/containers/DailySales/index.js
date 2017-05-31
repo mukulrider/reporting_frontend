@@ -533,12 +533,21 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                             <div className="col-md-6 col-sm-6">
                               {(() => {
                                 if (this.props.DailySales.charts_data && this.props.DailySales.charts_data.graph_data  && this.props.DailySales.LineChartSpinnerCheck != 0) {
-                                  return (
-                                    <Panel style={{alignItems: "center"}}>
-                                      <DualLineChart2 x_axis="Week Day" y_axis={this.state.y_axis} legendTY={this.state.legendTY} legendLY={this.state.legendLY}
-                                                      id="daily_sales" data={this.props.DailySales.charts_data.graph_data.graph_data}/>
-                                    </Panel>
-                                  )
+                                  if (this.props.DailySales.charts_data.graph_data.graph_data.length != 0) {
+                                    return (
+                                      <Panel style={{alignItems: "center"}}>
+                                        <DualLineChart2 x_axis="Week Day" y_axis={this.state.y_axis}
+                                                        legendTY={this.state.legendTY} legendLY={this.state.legendLY}
+                                                        id="daily_sales"
+                                                        data={this.props.DailySales.charts_data.graph_data.graph_data}/>
+                                      </Panel>
+                                    )
+                                  }
+                                  else {
+                                    return (
+                                      <div> No Sales for This Product in the Selected Week! </div>
+                                    )
+                                  }
                                 }
                                 else {
                                   return (<div className="text-center"><Spinner />Please Wait a Moment....!</div>)
