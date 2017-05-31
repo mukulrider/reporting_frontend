@@ -16,12 +16,12 @@ import messages from './messages';
 
 class DualLineChart2 extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
-  createChart = (data, x_axis, y_axis, id) => {
+  createChart = (data, x_axis, y_axis,legendTY, legendLY, id) => {
     const data1 = data;
     console.log('This is my data',data1);
 
     let containerWidth = document.getElementById(id).clientWidth;
-    let margin = {top: 30, right: 80, bottom: 80, left: 80},
+    let margin = {top: 30, right: 80, bottom: 80, left: 100},
       width = containerWidth - margin.left - margin.right,
       height = containerWidth*0.8 - margin.top - margin.bottom;
 
@@ -140,7 +140,7 @@ class DualLineChart2 extends React.PureComponent { // eslint-disable-line react/
       .data(['tot_val', 'tot_val_ly'])
       .enter().append('g')
       .attr('class', 'legend')
-      .attr('transform', (d, i) => `translate(0,${i * 25})`)
+      .attr('transform', (d, i) => `translate(0,${i * 20})`)
       .style('font', '12px sans-serif');
 
     legend.append('rect')
@@ -155,11 +155,11 @@ class DualLineChart2 extends React.PureComponent { // eslint-disable-line react/
       .attr('y', height+1.5*margin.top)
       .attr('dy', '.35em')
       .attr('text-anchor', 'middle')
-      .text((d) => { console.log("Legend Text:",d);
+      .text((d) => {
         if (d == 'tot_val') {
-          return 'tot_val';
+          return legendTY;
         } else {
-          return 'tot_val_ly';
+          return legendLY;
         }
       });
 
@@ -169,13 +169,13 @@ class DualLineChart2 extends React.PureComponent { // eslint-disable-line react/
 
   componentDidMount = () => {
     console.log('Component Mount -> ');
-    this.createChart(this.props.data,this.props.x_axis, this.props.y_axis, this.props.id);
+    this.createChart(this.props.data,this.props.x_axis, this.props.y_axis,this.props.legendTY, this.props.legendLY, this.props.id);
 
   };
 
   componentDidUpdate = () => {
     console.log('Component Update Mount -> ');
-    this.createChart(this.props.data,this.props.x_axis,this.props.y_axis,this.props.id);
+    this.createChart(this.props.data,this.props.x_axis,this.props.y_axis,this.props.legendTY, this.props.legendLY,this.props.id);
   };
 
   render() {

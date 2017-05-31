@@ -96,6 +96,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
         className="btn btn-primary"
         onClick={() =>{
           console.log("Inside REact Button click!",this)
+
         }}
       >View
       </button>
@@ -119,7 +120,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
     super(props);
     this.state = {
       activeKey1: "1",
-      y_axis: "Sales Value"
+      y_axis: "Sales Value",
+      legendTY:"Sales TY",legendLY:"Sales LY"
     };
 
   }
@@ -363,7 +365,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                       </div>
                                       <div className="row">
                                         <div className="col-md-12">
-                                          <h3 style={{padding: "0px", margin: "0px",backgroundColor:"#e5e8ea"}}>{formatMetric(b.tot_vol_wtd)}</h3>
+                                          <h3 style={{padding: "0px", margin: "0px",backgroundColor:"#e5e8ea"}}>{formatMetric(b.tot_vol_wtd,"volume")}</h3>
                                         </div>
                                       </div>
                                     </Panel>
@@ -491,7 +493,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                  className="tabsCustom">
                               <NavItem style={{fontSize: '16px', textAlign: 'center', margin: "0px"}}
                                        className="tabsCustomList" eventKey="1" onClick={() => {
-                                this.setState({activeKey1: "1", y_axis: "Sales Value"});
+                                this.setState({activeKey1: "1", y_axis: "Sales Value",legendTY:"Sales TY",legendLY:"Sales LY"});
                                 kpiParmas = "val_type=1";
                                 this.props.onSaveKPIParam(kpiParmas);
                                 this.props.ChartDataCall();
@@ -500,7 +502,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                               }}><span className="tab_label">Sales</span></NavItem>
                               <NavItem style={{fontSize: '16px', textAlign: 'center', margin: "0px"}}
                                        className="tabsCustomList" eventKey="2" onClick={() => {
-                                this.setState({activeKey1: "2", y_axis: "Volume"});
+                                this.setState({activeKey1: "2", y_axis: "Volume",legendTY:"Volume TY",legendLY:"Volume LY"});
                                 kpiParmas = "val_type=2";
                                 this.props.onSaveKPIParam(kpiParmas);
                                 this.props.ChartDataCall();
@@ -509,7 +511,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                               }}><span className="tab_label">Volume</span></NavItem>
                               <NavItem style={{fontSize: '16px', textAlign: 'center', margin: "0px"}}
                                        className="tabsCustomList" eventKey="3" onClick={() => {
-                                this.setState({activeKey1: "3", y_axis: "COGS"});
+                                this.setState({activeKey1: "3", y_axis: "COGS",legendTY:"COGS TY",legendLY:"COGS LY"});
                                 kpiParmas = "val_type=3";
                                 this.props.onSaveKPIParam(kpiParmas);
                                 this.props.ChartDataCall();
@@ -518,7 +520,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                               }}><span className="tab_label">COGS</span></NavItem>
                               <NavItem style={{fontSize: '16px', textAlign: 'center', margin: "0px"}}
                                        className="tabsCustomList" eventKey="4" onClick={() => {
-                                this.setState({activeKey1: "4", y_axis: "Profit"});
+                                this.setState({activeKey1: "4", y_axis: "Profit",legendTY:"Profit TY",legendLY:"Profit LY"});
                                 kpiParmas = "val_type=4";
                                 this.props.onSaveKPIParam(kpiParmas);
                                 this.props.ChartDataCall();
@@ -533,8 +535,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                 if (this.props.DailySales.charts_data && this.props.DailySales.charts_data.graph_data  && this.props.DailySales.LineChartSpinnerCheck != 0) {
                                   return (
                                     <Panel style={{alignItems: "center"}}>
-                                      <DualLineChart2 x_axis="Week Day" y_axis={this.state.y_axis} id="daily_sales"
-                                                      data={this.props.DailySales.charts_data.graph_data.graph_data}/>
+                                      <DualLineChart2 x_axis="Week Day" y_axis={this.state.y_axis} legendTY={this.state.legendTY} legendLY={this.state.legendLY}
+                                                      id="daily_sales" data={this.props.DailySales.charts_data.graph_data.graph_data}/>
                                     </Panel>
                                   )
                                 }
@@ -548,8 +550,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                 if (this.props.DailySales.charts_data && this.props.DailySales.charts_data.graph_data && this.props.DailySales.LineChartSpinnerCheck != 0) {
                                   return (
                                     <Panel style={{alignItems: "center"}}>
-                                      <MultiSeriesBarChart x_axis="Week Day" y_axis={this.state.y_axis} id="cumulative_sales"
-                                                      data={this.props.DailySales.charts_data.graph_data}/>
+                                      <MultiSeriesBarChart x_axis="Week Day" y_axis={this.state.y_axis} legendTY={this.state.legendTY} legendLY={this.state.legendLY}
+                                                           id="cumulative_sales" data={this.props.DailySales.charts_data.graph_data}/>
                                     </Panel>
                                   )
                                 }
@@ -594,8 +596,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                                            dataAlign="center">TY LFL</TableHeaderColumn>
                                         <TableHeaderColumn dataField="kpi_ly_lfl" dataFormat={formatMetric} dataSort={true}
                                                            dataAlign="center">LY LFL</TableHeaderColumn>
-                                        <TableHeaderColumn dataFormat={this.cellButton} tdStyle={ {whiteSpace: 'normal'} } dataAlign="center"></TableHeaderColumn>
-                                        <TableHeaderColumn dataFormat={this.cellButton2} dataAlign="center"></TableHeaderColumn>
+                                        <TableHeaderColumn dataFormat={this.cellButton} tdStyle={ {whiteSpace: 'normal'} } dataAlign="center">Daily Trend</TableHeaderColumn>
+                                        <TableHeaderColumn dataFormat={this.cellButton2} tdStyle={ {whiteSpace: 'normal'} } dataAlign="center">Cumulative Trend</TableHeaderColumn>
                                       </BootstrapTable>
                                     </div>
                                   );

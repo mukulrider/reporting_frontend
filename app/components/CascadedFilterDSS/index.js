@@ -186,7 +186,8 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                                     {
                                       obj.items.map(obj2 => {
                                         finalCheckbox.push(
-                                          <Checkbox id={obj.title + '__' + obj2.title}
+                                          <Checkbox key={Date.now() + Math.random() + Math.random() + 10}
+                                                    id={obj.title + '__' + obj2.title}
                                                     label={obj2.title}
                                                     style={{fontSize: '10px'}}
                                                     checked={(() => {
@@ -206,7 +207,6 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                                                     }}
                                                     isDisabled={!obj2.highlighted}
                                                     valid={true}
-                                                    key={Date.now() + Math.random()}
                                           />
                                         )
                                       })
@@ -249,7 +249,8 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
 
                       this.props.filter_data.checkbox_list.map((obj, key) => {
                         let panelHeader = (
-                          <div className="text-capitalize">
+                          <div key={Date.now() + Math.random() + Math.random() + 10}
+                               className="text-capitalize">
                             {obj.title.replace(/_/g, ' ')}&nbsp;{obj.required ?
                             <span style={{color: 'red'}}>*</span> : '' } &nbsp;
                             <span className="accordion-toggle" style={{float: 'right'}}></span>
@@ -268,7 +269,8 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                                   {
                                     obj.items.map(obj2 => {
                                       finalCheckbox.push(
-                                        <Checkbox id={obj.title + '__' + obj2.title}
+                                        <Checkbox key={Date.now() + Math.random() + Math.random() + 10}
+                                                  id={obj.title + '__' + obj2.title}
                                                   label={obj2.title}
                                                   style={{fontSize: '10px'}}
                                                   checked={(() => {
@@ -289,7 +291,6 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                                           // checked={obj.resource.selected}
                                                   isDisabled={!obj2.highlighted}
                                                   valid={true}
-                                                  key={Date.now() + Math.random()}
                                         />
                                       )
                                     })

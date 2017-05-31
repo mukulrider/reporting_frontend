@@ -58,7 +58,7 @@ let gettingUserDetails = () => {
 const userParams = gettingUserDetails();
 
 
-let host_url="http://172.20.181.12:8001";
+let host_url="http://127.0.0.1:8000";
 // let host_url="http://127.0.0.1:8000";
 // All sagas to be loaded
 
@@ -74,11 +74,11 @@ export function* cardData_pull() {
   console.log("Begin Card Data Pull");
   const kpiparam = urlName.get('kpi_param');
   const week_filter = urlName.get('week');
-  const filter = urlName.get('filter_selection');
+  const filter = urlName.get('filter_week_selection');
 
-  const data = yield call(request,host_url+"/api/reporting/data_daily_sales?"+'&'+kpiparam+'&'+week_filter + '&'+ userParams);
-  console.log("Line chart fetched data",data);
-  console.log("Along with the URL",host_url+"/api/reporting/data_daily_sales?"+'&'+kpiparam+'&'+week_filter + '&'+ userParams);
+  const data = yield call(request,host_url+"/api/reporting/data_daily_sales?"+'&'+kpiparam+'&'+week_filter + '&'+ filter +'&'+ userParams);
+  console.log("Cards data fetched",data);
+  console.log("Along with the URL",host_url+"/api/reporting/data_daily_sales?"+'&'+kpiparam+'&'+week_filter + '&'+ filter + '&'+ userParams);
   yield put(cardDataFetchSuccess(data));
 
   let LineChartSpinnerCheck = 1;
@@ -98,10 +98,21 @@ export function* chartData_pull() {
   console.log("Begin Line Chart Pull");
   const kpiparam = urlName.get('kpi_param');
   const week_filter = urlName.get('week');
+  let filter = urlName.get('filter_week_selection');
+console.log("Filters:",filter);
+  if (typeof(filter) == "undefined") {
+    filter = "";
+  } else {
+    let urlParamsStringCheck = filter.substring(0, 2);
 
-  const data = yield call(request,host_url+"/api/reporting/graph_daily_sales?"+'&'+kpiparam+'&'+week_filter + '&'+ userParams);
+    if (urlParamsStringCheck == 20) {
+      filter = filter.substring(14, filter.length);
+    }
+  }
+
+  const data = yield call(request,host_url+"/api/reporting/graph_daily_sales?"+'&'+kpiparam+'&'+week_filter + '&'+ filter + '&'+ userParams);
   console.log("Line chart fetched data",data);
-  console.log("Along with the URL",host_url+"/api/reporting/graph_daily_sales?"+'&'+kpiparam+'&'+week_filter + '&'+ userParams);
+  console.log("Along with the URL",host_url+"/api/reporting/graph_daily_sales?"+'&'+kpiparam+'&'+week_filter + '&'+ filter + '&'+ userParams);
   yield put(chartDataFetchSuccess(data));
 
   let LineChartSpinnerCheck = 1;
