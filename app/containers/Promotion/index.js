@@ -1234,10 +1234,10 @@ export class Promotion extends React.PureComponent {
 
                   {/*MODAL for showing Promotion Participation  */}
                   <Modal show={this.state.promoPartTabInfo} bsSize="lg"
-                         dialogClassName={'xlModal'}
-                         aria-labelledby="contained-modal-title-lg">
-                    <Modal.Header>
+                         aria-labelledby="contained-modal-title-lg"
+                         dialogClassName={'xlModal'}>
 
+                    <Modal.Header>
                       <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
                         style={{textAlign: 'center', fontSize: '14px'}}><b>Promotion Participation</b><span
                         style={{textAlign: 'right', float: 'right'}}
@@ -1259,14 +1259,13 @@ export class Promotion extends React.PureComponent {
                         {/*Left---pie chart*/}
                         <div className="col-lg-3 col-md-4 col-sm-12 col-xs-12"
                              style={{
-                               minHeight: '380px',
+                               minHeight: '450px',
                                borderRadius: '1px',
                                border: '1px solid rgb(204, 204, 204)',
                                float: 'left',
                                width: '31%',
                                marginLeft: '1%',
                                marginTop: '2%',
-
                              }}>
 
                           {(() => {
@@ -1313,7 +1312,7 @@ export class Promotion extends React.PureComponent {
 
                         {/*Right--- line chart and tabs*/}
                         <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12" style={{
-                          minHeight: '380px',
+                          minHeight: '450px',
                           borderRadius: '1px',
                           border: '1px solid rgb(204, 204, 204)',
                           marginTop: '2%',
@@ -1325,9 +1324,8 @@ export class Promotion extends React.PureComponent {
                           <div className="col-xs-3" style={{paddingLeft: '0px'}}>
                             {/*Tabs & export button*/}
 
-
                             {/*Tabs*/}
-                            <span style={{float: "left"}}>
+                            <span style={{float: "left",marginLeft:"3%"}}>
 
                                 {(() => {
                                   if (this.props.promotion.promo_part_data) {
@@ -1429,10 +1427,14 @@ export class Promotion extends React.PureComponent {
                   </Modal>
 
                   {/*Row for pie chart and graph*/}
-                  <div className="row">
+                  <div className="row ">
 
 
-                    {/*<div className="mainBox">*/}
+                    <div className="mainBox" style={{
+                      marginLeft: '2%',
+                      marginRight: '2%',
+                      marginTop: '1%',
+                    }}>
                     {/*Left---pie chart*/}
                     <div className="col-lg-3 col-md-4 col-sm-12 col-xs-12"
                          style={{
@@ -1443,6 +1445,7 @@ export class Promotion extends React.PureComponent {
                            width: '35%',
                            marginLeft: '2%',
                            marginTop: '2%',
+                           background: 'white'
                          }}>
 
                       {(() => {
@@ -1495,7 +1498,8 @@ export class Promotion extends React.PureComponent {
                       marginTop: '2%',
                       marginLeft: '1%',
                       paddingLeft: '0px',
-                      width: '60%'
+                      width: '60%',
+                      background: 'white'
                     }}>
 
 
@@ -1592,12 +1596,22 @@ export class Promotion extends React.PureComponent {
 
                     </div>
                     {/*</div>*/}
+                      {(() => {
+                        if (this.props.promotion.kpi_param === 'kpi_type=value' || this.props.promotion.kpi_param === 'kpi_type=volume') {
+                          console.log("in promotion participation");
+                         return(
+                          <div className="text-right">
+                            <button className="btn btn-success" onClick={() => {
+                              this.setState({promoPartTabInfo: true})
+                              this.props.loadPromoPart();
+                            }}>Promotion Participation
+                            </button>
+                          </div>
+                         )
+                        }
+                        else{return(<div> </div>)}
+                      })()}
 
-                    <div className="text-right">
-                      <button className="btn btn-success" onClick={() => {
-                        this.props.loadPromoPart();
-                      }}>Promotion Participation
-                      </button>
                     </div>
 
                   </div>
@@ -1697,17 +1711,16 @@ export class Promotion extends React.PureComponent {
                  dialogClassName={'xlModal'}
                  onHide={() => {
                    this.setState({showModal: false})
-                 }}>
+                 }}
+          >
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}>
-                <b>Product Promotion Info.</b>
-
+                <b>Product Promotion Details</b>
                 <div style={{textAlign: 'center'}}>
                   <div style={{textAlign: 'right'}}>
                   </div>
                 </div>
               </Modal.Title>
-
             </Modal.Header>
             <Modal.Body style={{fontSize: '14px'}}>
               {(() => {
