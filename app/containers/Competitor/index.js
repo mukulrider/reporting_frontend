@@ -20,6 +20,7 @@ import {saveImage, saveDataAsCSV} from './../../utils/exportFunctions';
 import WaterFallChart2 from 'components/WaterFallChart2';
 import Panel from 'components/panel';
 import Spinner from 'components/spinner';
+import Breadcrumb from 'components/Breadcrumb';
 import {
   CompetitorWaterfall,
   CompetitorPieChart,
@@ -41,6 +42,7 @@ import {
   outPerformanceChartSuccess,
   waterChartAsdaSuccess,
   priceRangeChartSuccess,
+  user_filter_selection,
 
 } from './actions';
 
@@ -66,9 +68,11 @@ export class Competitor extends React.PureComponent {
     let kpiparam = 'kpi_type=value';
 
     let defaultFilterUrlParams = localStorage.getItem('urlParamsSingleSelect');
+    let defaultUrlParams = localStorage.getItem('urlParams');
     if (defaultFilterUrlParams) {
       console.log('defaultFilterUrlParams', defaultFilterUrlParams)
       this.props.onCheckboxChange(defaultFilterUrlParams);
+      this.props.user_filter_selection(defaultUrlParams);
       // this.props.onGenerateUrlParamsString(defaultFilterUrlParams);
     } else {
 
@@ -203,6 +207,7 @@ export class Competitor extends React.PureComponent {
                       priceRangeChartSuccess={this.props.priceRangeChartSuccess}
                       filter_week_selection={this.props.competitor.filter_week_selection}
                       filter_selection={this.props.competitor.filter_selection}
+                      user_filter_selection={this.props.user_filter_selection}
 
                     />
                   )
@@ -216,19 +221,30 @@ export class Competitor extends React.PureComponent {
               marginLeft: '22%'
             }}>
               {/*Page title*/}
-              <div className="pageTitle">
-                {(() => {
-                  if (this.props.competitor.filter_week_selection) {
-                    return (
-                      <span>Competitor View - {(this.props.competitor.filter_week_selection).substring(11, 17)}</span>
-                    )
-                  } else {
-                    return (
-                      <span>Competitor View - 201709  </span>
-                    )
-                  }
-                })()}
-              </div>
+              {/*<div className="pageTitle">*/}
+                {/*{(() => {*/}
+                  {/*if (this.props.competitor.filter_week_selection) {*/}
+                    {/*return (*/}
+                      {/*<span>Competitor View - {(this.props.competitor.filter_week_selection).substring(11, 17)}</span>*/}
+                    {/*)*/}
+                  {/*} else {*/}
+                    {/*return (*/}
+                      {/*<span>Competitor View - 201709  </span>*/}
+                    {/*)*/}
+                  {/*}*/}
+                {/*})()}*/}
+              {/*</div>*/}
+
+              <div className="row">
+                <div className="col-xs-12">
+
+                  <Breadcrumb selected_week={(this.props.competitor.filter_week_selection).substring(11, this.props.competitor.filter_week_selection.length)}
+                              urlParamsString={this.props.competitor.user_filter_selection}/>
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/></div>
 
               <div className="row fixingPosition" style={{marginLeft: "0%", paddingTop: "-5px", marginRight: "0px"}}>
                 <div className="col-md-12 content-wrap">
@@ -313,7 +329,7 @@ export class Competitor extends React.PureComponent {
                   </Nav>
                   <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect}
                        className="tabsCustom">
-                    <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
+                    <NavItem className="tabsCustomListTime" eventKey="1" onClick={() => {
                       this.setState({activeKey2: "1"});
                       this.props.onPieChartSpinnerSuccess(0);
                       this.props.outPerformanceChartSuccess(0);
@@ -321,12 +337,12 @@ export class Competitor extends React.PureComponent {
                       this.props.onSaveKPIParam(kpiParmas);
                       this.props.onCompetitorPieChart();
                       this.props.onCompetitorOutperformance();
-                    }}><span className="tab_label">Value</span></NavItem>
-                    <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
+                    }}><span className="tab_label">&nbsp;&nbsp; Value &nbsp;&nbsp;</span></NavItem>
+
+                    <NavItem className="tabsCustomListTime" eventKey="2" onClick={() => {
                       this.setState({activeKey2: "2"});
                       this.props.onPieChartSpinnerSuccess(0);
                       this.props.outPerformanceChartSuccess(0);
-
                       kpiParmas = "kpi_type=volume";
                       this.props.onSaveKPIParam(kpiParmas);
                       this.props.onCompetitorPieChart();
@@ -921,6 +937,7 @@ function mapDispatchToProps(dispatch) {
     outPerformanceChartSuccess: (e) => dispatch(outPerformanceChartSuccess(e)),
     waterChartAsdaSuccess: (e) => dispatch(waterChartAsdaSuccess(e)),
     priceRangeChartSuccess: (e) => dispatch(priceRangeChartSuccess(e)),
+    user_filter_selection: (e) => dispatch(user_filter_selection(e)),
 
   };
 }

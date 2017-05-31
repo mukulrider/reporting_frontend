@@ -1,6 +1,6 @@
 /**
 *
-* Breadcrumb
+* BreadcrumbDSS
 *
 */
 
@@ -10,7 +10,7 @@ import Link from 'components/link';
 // import styled from 'styled-components';
 
 
-class Breadcrumb extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+class BreadcrumbDSS extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div>
@@ -29,7 +29,6 @@ class Breadcrumb extends React.PureComponent { // eslint-disable-line react/pref
         {(() => {
           // let this.props.promotion.urlParamsString
           if (this.props.urlParamsString) {
-            console.log('urlParamsString urlParamsString', this.props.urlParamsString);
             let urlParamString = this.props.urlParamsString;
             urlParamString = urlParamString.split('&')
             let urlParamObject = {};
@@ -66,8 +65,8 @@ class Breadcrumb extends React.PureComponent { // eslint-disable-line react/pref
   }
 }
 
-Breadcrumb.propTypes = {
+BreadcrumbDSS.propTypes = {
 
 };
 
-export default Breadcrumb;
+export default BreadcrumbDSS;

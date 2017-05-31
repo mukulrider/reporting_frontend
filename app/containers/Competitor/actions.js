@@ -30,6 +30,7 @@ import {
   OUTPERFORMANCE_CHART_SPINNER_SUCCESS,
   WATERFALL_CHART_ASDA_SPINNER_SUCCESS,
   PRICE_RANGE_CHART_SPINNER_SUCCESS,
+  USER_FILTER_SELECTION,
 
 } from './constants';
 
@@ -269,5 +270,11 @@ export function priceRangeChartSuccess(spinnerCheck) {
 }
 
 
-
-
+//PRICE RANGE CHART - ASDA SPINNER
+export function user_filter_selection(data) {
+  console.log('USER_FILTER_SELECTION',data);
+  return {
+    type: USER_FILTER_SELECTION,
+    data
+  }
+}

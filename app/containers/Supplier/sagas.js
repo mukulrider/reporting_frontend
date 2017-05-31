@@ -22,10 +22,12 @@ import {
   bubbleChartSpinnerCheckSuccess,
   barChartSpinnerCheckSuccess,
   tableChartSpinnerCheckSuccess,
+  GenerateUrlParamsString3,
 } from 'containers/Supplier/actions';
 import {take, call, put, select, cancel, takeLatest} from 'redux-saga/effects';
 import {LOCATION_CHANGE} from 'react-router-redux';
 import request from 'utils/request';
+import {MultiList} from 'react-multi-dropdown';
 // Individual exports for testing
 import {
   selectSupplierDomain
@@ -35,7 +37,7 @@ export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
 
-let gettingUserDetails = () =>{
+let gettingUserDetails = () => {
   //function to get values from cookie
   const getCookie = (name) => {
     const value = `; ${document.cookie}`;
@@ -50,7 +52,7 @@ let gettingUserDetails = () =>{
   const designation = getCookie('designation');
   const buyingController = getCookie('buying_controller');
   let buyer = getCookie('buyer');
-  let cookieParams= "";
+  let cookieParams = "";
 
   if ((typeof(buyer) == "undefined") || (buyer == "")) {
     buyer = "";
@@ -70,6 +72,7 @@ const userParamsAuth = gettingUserDetails();
 // let host_url = "127.0.0.1:3000"
 let host_url = "http://dvcmpapp00001uk.dev.global.tesco.org";
 // FOR SUPPLIER POPUP TABLE
+
 export function* generateDataFetch() {
   console.log('inside kpi');
   const urlName = yield select(selectSupplierDomain());
@@ -165,6 +168,15 @@ export function* generateDataFetch() {
 
   console.log('userParamsAuth for supp', userParamsAuth);
 
+  let storeParam = urlName.get('store_filter_param')
+  if (!(typeof(storeParam) == "undefined") && !(storeParam == "")) {
+    urlParams = urlParams + "&" + storeParam;
+    console.log("storeParam urlParams if", urlParams);
+  } else {
+    console.log("storeParam urlParams else", urlParams);
+  }
+
+
   if (!(typeof(userParamsAuth) == "undefined") && !(userParamsAuth == "")) {
     urlParams = urlParams + "&" + userParamsAuth;
   } else {
@@ -179,17 +191,8 @@ export function* generateDataFetch() {
   try {
 
     console.log('filter url', host_url + `/api/reporting/supplier_view_kpi?` + urlParams);
-    const data = yield call(request,
-      host_url + `/api/reporting/supplier_view_kpi?` + urlParams);
+    const data = yield call(request, host_url + `/api/reporting/supplier_view_kpi?` + urlParams);
 
-    // http://172.20.244.150:8001/api/reporting/supplier_view_kpi?
-    // tesco_week=201705&category_name=Frozen
-    // &parent_supplier=10397.%20-%20KARRO%20FOODS&supplier=14215.%20-%20EUROSTOCK%20FOODS%20HINDLEY%20LTD(MP
-    // &user_id=581677099185b02c5ad4b0e8e67605d9d109c004
-    // &user_name=harmanjeet.singh@mu-sigma.com
-    // &designation=Buyer
-    // &buying_controller_header=Meat%20Fish%20and%20Veg
-    // &buyer_header=Meat%20and%20Poultry
     yield put(kpiboxDataFetchSucess(data));
 
     let supplierViewKpiSpinnerCheck = 1;
@@ -277,6 +280,15 @@ export function* generateDataFetch4() {
   } else {
     console.log("weekurlparam urlParams else", urlParams);
   }
+
+  let storeParam = urlName.get('store_filter_param')
+  if (!(typeof(storeParam) == "undefined") && !(storeParam == "")) {
+    urlParams = urlParams + "&" + storeParam;
+    console.log("storeParam urlParams if", urlParams);
+  } else {
+    console.log("storeParam urlParams else", urlParams);
+  }
+
 
   if (!(typeof(userParamsAuth) == "undefined") && !(userParamsAuth == "")) {
     urlParams = urlParams + "&" + userParamsAuth;
@@ -389,6 +401,14 @@ export function* generateDataFetch3() {
     console.log("weekurlparam urlParams else", urlParams);
   }
 
+  let storeParam = urlName.get('store_filter_param')
+  if (!(typeof(storeParam) == "undefined") && !(storeParam == "")) {
+    urlParams = urlParams + "&" + storeParam;
+    console.log("storeParam urlParams if", urlParams);
+  } else {
+    console.log("storeParam urlParams else", urlParams);
+  }
+
   if (!(typeof(userParamsAuth) == "undefined") && !(userParamsAuth == "")) {
     urlParams = urlParams + "&" + userParamsAuth;
     console.log("userParamsAuth if", urlParams);
@@ -430,6 +450,13 @@ export function* generateSideFilter() {
   let urlParamsString = urlName.get('urlParamsString');
   console.log('in bigger urlParamsString', urlParamsString);
 
+  let urlParamsString2 = urlName.get('urlParamsString2');
+  console.log('in bigger urlParamsString2', urlParamsString2);
+
+  let urlParamsString3 = urlName.get('urlParamsString3');
+  console.log('in bigger urlParamsString3', urlParamsString3);
+
+
   if (typeof(urlParamsString) == "undefined") {
     urlParamsString = "";
   } else {
@@ -440,19 +467,29 @@ export function* generateSideFilter() {
     }
   }
 
-  if (!(urlParamsString == "")) {
-    urlParamsString = '?' + urlParamsString;
+  if (urlParamsString3 == 1) {
+    console.log('urlParamsString3 == 1 if',urlParamsString3);
+    if (!(urlParamsString2 == "")) {
+      urlParamsString = '?' + urlParamsString2;
+      console.log('urlParamsString3 == 1 if if',urlParamsString);
+    } else {
+      urlParamsString = '?';
+      console.log('urlParamsString3 == 1 if if else',urlParamsString);
+    }
   } else {
-    urlParamsString = '?';
+    urlParamsString = '?' + urlParamsString;
+    console.log('urlParamsString else',urlParamsString);
   }
-  console.log('in bigger before try', urlParamsString);
-  console.log('calling url', host_url + `/api/reporting/filter_supplier` + urlParamsString + '&' + userParamsAuth.replace('&', ''));
+  console.log('in bigger before try1', urlParamsString);
+  console.log('calling url', host_url + `/api/reporting/filter_supplier` + urlParamsString  + '&' + userParamsAuth.replace('&', ''));
+
 
   try {
     const filter_data = yield call(request,
-      host_url + `/api/reporting/filter_supplier` + urlParamsString + '&' + userParamsAuth);
+      host_url + `/api/reporting/filter_supplier` + urlParamsString  + '&' + userParamsAuth);
     console.log('filter_data', filter_data);
     yield put(generateSideFilterSuccess(filter_data));
+    yield put(GenerateUrlParamsString3(0));
   } catch (err) {
     // console.log(err);
   }
@@ -661,6 +698,14 @@ export function* generateTable() {
 
     }
 
+    let storeParam = urlName.get('store_filter_param')
+    if (!(typeof(storeParam) == "undefined") && !(storeParam == "")) {
+      urlParams = urlParams + "&" + storeParam;
+      console.log("storeParam urlParams if", urlParams);
+    } else {
+      console.log("storeParam urlParams else", urlParams);
+    }
+
     if (!(typeof(urlParams) == "undefined") && !(urlParams == "")) {
       urlParams = urlParams.replace('&', '');
     }
@@ -679,6 +724,14 @@ export function* generateTable() {
 
   else {
     console.log('data12');
+
+    let storeParam = urlName.get('store_filter_param')
+    if (!(typeof(storeParam) == "undefined") && !(storeParam == "")) {
+      urlParams = urlParams + "&" + storeParam;
+      console.log("storeParam urlParams if", urlParams);
+    } else {
+      console.log("storeParam urlParams else", urlParams);
+    }
 
     if (!(typeof(userParamsAuth) == "undefined") && !(userParamsAuth == "")) {
       urlParams = urlParams + "&" + userParamsAuth;
@@ -811,6 +864,14 @@ export function* generateGraph() {
   if (!(typeof(ajaxSelection) == "undefined") && !(ajaxSelection == "")) {
     urlParams = urlParams + '&' + ajaxSelection;
 
+    let storeParam = urlName.get('store_filter_param')
+    if (!(typeof(storeParam) == "undefined") && !(storeParam == "")) {
+      urlParams = urlParams + "&" + storeParam;
+      console.log("storeParam urlParams if", urlParams);
+    } else {
+      console.log("storeParam urlParams else", urlParams);
+    }
+
     if (!(typeof(userParamsAuth) == "undefined") && !(userParamsAuth == "")) {
       urlParams = urlParams + '&' + userParamsAuth;
       console.log('urlParams 5', urlParams);
@@ -839,6 +900,14 @@ export function* generateGraph() {
       console.log('urlParams 5', urlParams);
     } else {
 
+    }
+
+    let storeParam = urlName.get('store_filter_param')
+    if (!(typeof(storeParam) == "undefined") && !(storeParam == "")) {
+      urlParams = urlParams + "&" + storeParam;
+      console.log("storeParam urlParams if", urlParams);
+    } else {
+      console.log("storeParam urlParams else", urlParams);
     }
 
     if (!(typeof(urlParams) == "undefined") && !(urlParams == "")) {

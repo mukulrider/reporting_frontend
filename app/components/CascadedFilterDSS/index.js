@@ -42,7 +42,7 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
         let category = obj.id.split('__');
 
         console.log('queryString for time', queryString);
-        if (['store_type','commercial_name','category_name','buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])){
+        if (['store_type', 'commercial_name', 'category_name', 'buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])) {
           localUrlParamsString = localUrlParamsString + `${category[0]}=${category[category.length - 1]}&`;
         }
         queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
@@ -55,21 +55,21 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
     queryString = queryString.substring(0, queryString.length - 1);
     console.log('queryString 3 for time', queryString);
 
-    if(queryString.includes('tesco_week=')) {
-      if(queryString.includes('tesco_week=') && queryString.includes('date=')) {
+    if (queryString.includes('tesco_week=')) {
+      if (queryString.includes('tesco_week=') && queryString.includes('date=')) {
         queryString = queryString.substring(0, 33);
-        console.log('queryString with date',queryString);
+        console.log('queryString with date', queryString);
       } else {
         queryString = queryString.substring(0, 17);
-        console.log('queryString with week only',queryString);
+        console.log('queryString with week only', queryString);
       }
     } else {
       queryString = '';
     }
     // localStorage.setItem('weekParams', queryString);
     localStorage.setItem('weekParams', queryString);
-    let a  = localStorage.getItem('weekParams');
-    console.log('aaa',a);
+    let a = localStorage.getItem('weekParams');
+    console.log('aaa', a);
     this.props.onSaveWeek(queryString);
 
     // this.props.onGenerateUrlParamsString(queryString);
@@ -80,33 +80,25 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
   };
 
   checkboxUpdate1 = (selection) => {
-    console.log('Cascaded check', this.props);
-    let newUrl = this.props.location.pathname;
 
     let queryString = '';
     let queryString_without_week = '';
-    let queryString_for_week_date = '';
     let localUrlParamsString = '';
 
     [...this.refs.selector.querySelectorAll('input')].map(obj => {
       if (obj.checked == true) {
-
         let category = obj.id.split('__');
-
         console.log('queryString for product1', queryString);
         console.log('match', queryString.match(/tesco_week/gi));
-
         queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
         console.log('queryString 2 for product1', queryString);
-
         // aa
-        if (['store_type','commercial_name','category_name','buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])){
+        if (['store_type', 'commercial_name', 'category_name', 'buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])) {
           localUrlParamsString = localUrlParamsString + `${category[0]}=${category[category.length - 1]}&`;
         }
         if (category[0] !== "tesco_week" && category[0] !== "date") {
           // alert(category[0])
           queryString_without_week = queryString_without_week + `${category[0]}=${category[category.length - 1]}&`;
-
         }
       }
     });
@@ -116,35 +108,30 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
     // alert(queryString_without_week);
     console.log('queryString 3 for product1', queryString_without_week);
     localStorage.setItem('urlParams', localUrlParamsString);
-
-
-
     this.props.onCheckboxWeekChange(queryString_without_week);
     this.props.onGenerateSideFilter();
-
   };
 
   applyButtonFunctionality = () => {
     // console.log('Raunaks Cascaded check', this.props);
     // let newUrl = this.props.location.pathname;
     //
-    // let queryString = '';
-    // [...this.refs.selector.querySelectorAll('input')].map(obj => {
-    //   if (obj.checked == true)
-    //     console.log('Cascaded applyButtonFunctionality'); //, obj);
-    //   let category = obj.id.split('__');
-    //   //console.log('queryString', queryString);
-    //   queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
-    //
-    //
-    // });
+    let queryString = '';
+    [...this.refs.selector.querySelectorAll('input')].map(obj => {
+      if (obj.checked == true) {
+        console.log('Cascaded applyButtonFunctionality'); //, obj);
+        let category = obj.id.split('__');
+        //console.log('queryString', queryString);
+        queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
+      }
+    });
     // //
     // queryString = queryString.substring(0, queryString.length - 1);
     //  console.log('queryString->', queryString);
     //const urlParams = this.props.location.query;
-    // this.props.onSaveWeek();
-    // this.props.onGenerateUrlParamsString(queryString);
     this.props.ChartDataCall();
+    this.props.CardsDataCall();
+    this.props.loadKpi();
   };
 
   resetButtonFunctionality = () => {
@@ -165,167 +152,84 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
 
               <PanelGroup defaultActiveKey="11" accordion>
                 {(() => {
-                  if (this.props.week_data) {
-                    console.log("Cascading filter - filter_data", this.props.week_data);
-                    return (
-
-                      this.props.week_data.checkbox_list.map((obj, key) => {
-                        let panelHeader = (
-                          <div className="text-capitalize">
-                            {obj.title.replace(/_/g, ' ')}&nbsp;<span style={{color: "red"}}>*</span>&nbsp;
-                            <span className="accordion-toggle" style={{float: 'right'}}></span>
-                          </div>
-                        );
-                        return (
-                          <Panel header={panelHeader} eventKey={++key}>
-                            <div className="panel text-capitalize"
-                                 key={Date.now() + Math.random() + Math.random() + 10}>
-
-                              <div className="panel-body style-7"
-                                   style={{maxHeight: '250px', overflowX: 'hidden', fontSize: '9px'}}>
-                                {(() => {
-                                  let finalCheckbox = [];
-
-                                  {
-                                    obj.items.map(obj2 => {
-                                      finalCheckbox.push(
-                                        <Checkbox id={obj.title + '__' + obj2.title}
-                                                  label={obj2.title}
-                                                  style={{fontSize: '10px'}}
-                                                  checked={(() => {
-                                                    if (obj2.selected) {
-                                                      {/*alert()*/
-                                                      }
-                                                    }
-                                                    return obj2.resource.selected;
-                                                  })()}
-                                                  onChange={() => {
-
-                                                    let previous_selection = this.props.previous_selection;
-                                                    let selection = obj.title + "=" + obj2.title;
-
-                                                    console.log('selection for product', selection);
-                                                    this.checkboxUpdate(selection);
-                                                  }}
-                                                  isDisabled={!obj2.highlighted}
-                                                  valid={true}
-                                                  key={Date.now() + Math.random()}
-                                        />
-                                      )
-                                    })
-                                  }
-
-                                  // for replacing enabled to top
-                                  let finalled = [];
-                                  finalCheckbox.map(obj => {
-                                    {/*console.log(obj.props.checked);*/
-                                    }
-                                    if (!obj.props.isDisabled) {
-                                      finalled.push(obj)
-                                    }
-                                  });
-                                  finalCheckbox.map(obj => {
-                                    {/*console.log(obj.props.checked);*/
-                                    }
-                                    if (obj.props.isDisabled) {
-                                      finalled.push(obj)
-                                    }
-                                  });
-                                  return finalled
-
-                                })()}
-                              </div>
-                            </div>
-                          </Panel>
-                        )
-                      })
-                    )
-                  }
-                })()}
-              </PanelGroup>
-              <hr style={{
-                marginTop: '0px',
-                marginBottom: '-6%',
-                border: '0',
-                borderTop: '1px solid #eee',
-              }}></hr>
-              <PanelGroup defaultActiveKey="11" accordion>
-                {(() => {
                   if (this.props.filter_data) {
                     console.log("Cascading filter - filter_data", this.props.filter_data);
                     return (
 
                       this.props.filter_data.checkbox_list.map((obj, key) => {
                         let panelHeader = (
-                          <div className="text-capitalize">
+                          <div key={Date.now() + Math.random() + Math.random() + 10}
+                               className="text-capitalize">
                             {obj.title.replace(/_/g, ' ')}&nbsp;{obj.required ?
                             <span style={{color: 'red'}}>*</span> : '' } &nbsp;
                             <span className="accordion-toggle" style={{float: 'right'}}></span>
                           </div>
                         );
-                        return (
-                          <Panel header={panelHeader} eventKey={++key}>
-                            <div className="panel text-capitalize"
-                                 key={Date.now() + Math.random() + Math.random() + 10}>
+                        if (!['store_type','brand_name','product'].includes(obj.title)) {
+                          return (
+                            <Panel header={panelHeader} eventKey={++key}>
+                              <div className="panel text-capitalize"
+                                   key={Date.now() + Math.random() + Math.random() + 10}>
 
-                              <div className="panel-body style-7"
-                                   style={{maxHeight: '250px', overflowX: 'hidden', fontSize: '9px'}}>
-                                {(() => {
-                                  let finalCheckbox = [];
+                                <div className="panel-body style-7"
+                                     style={{maxHeight: '250px', overflowX: 'hidden', fontSize: '9px'}}>
+                                  {(() => {
+                                    let finalCheckbox = [];
 
-                                  {
-                                    obj.items.map(obj2 => {
-                                      finalCheckbox.push(
-                                        <Checkbox id={obj.title + '__' + obj2.title}
-                                                  label={obj2.title}
-                                                  style={{fontSize: '10px'}}
-                                                  checked={(() => {
-                                                    if (obj2.selected) {
-                                                      {/*alert()*/
+                                    {
+                                      obj.items.map(obj2 => {
+                                        finalCheckbox.push(
+                                          <Checkbox id={obj.title + '__' + obj2.title}
+                                                    label={obj2.title}
+                                                    style={{fontSize: '10px'}}
+                                                    checked={(() => {
+                                                      if (obj2.selected) {
+                                                        {/*alert()*/
+                                                        }
                                                       }
-                                                    }
-                                                    return obj2.resource.selected
-                                                  })()}
-                                                  onChange={() => {
+                                                      return obj2.resource.selected
+                                                    })()}
+                                                    onChange={() => {
 
-                                                    let previous_selection = this.props.previous_selection;
-                                                    let selection = obj.title + "=" + obj2.title;
+                                                      let previous_selection = this.props.previous_selection;
+                                                      let selection = obj.title + "=" + obj2.title;
 
-                                                    console.log('selection11', selection);
-                                                    this.checkboxUpdate1(selection)
-                                                  }}
-                                          // checked={obj.resource.selected}
-                                                  isDisabled={!obj2.highlighted}
-                                                  valid={true}
-                                                  key={Date.now() + Math.random()}
-                                        />
-                                      )
-                                    })
-                                  }
+                                                      console.log('selection11', selection);
+                                                      this.checkboxUpdate1(selection)
+                                                    }}
+                                            // checked={obj.resource.selected}
+                                                    isDisabled={!obj2.highlighted}
+                                                    valid={true}
+                                                    key={Date.now() + Math.random()}
+                                          />
+                                        )
+                                      })
+                                    }
 
-                                  // for replacing enabled to top
-                                  let finalled = [];
-                                  finalCheckbox.map(obj => {
-                                    {/*console.log(obj.props.checked);*/
-                                    }
-                                    if (!obj.props.isDisabled) {
-                                      finalled.push(obj)
-                                    }
-                                  });
-                                  finalCheckbox.map(obj => {
-                                    {/*console.log(obj.props.checked);*/
-                                    }
-                                    if (obj.props.isDisabled) {
-                                      finalled.push(obj)
-                                    }
-                                  });
-                                  return finalled
+                                    // for replacing enabled to top
+                                    let finalled = [];
+                                    finalCheckbox.map(obj => {
+                                      {/*console.log(obj.props.checked);*/
+                                      }
+                                      if (!obj.props.isDisabled) {
+                                        finalled.push(obj)
+                                      }
+                                    });
+                                    finalCheckbox.map(obj => {
+                                      {/*console.log(obj.props.checked);*/
+                                      }
+                                      if (obj.props.isDisabled) {
+                                        finalled.push(obj)
+                                      }
+                                    });
+                                    return finalled
 
-                                })()}
+                                  })()}
+                                </div>
                               </div>
-                            </div>
-                          </Panel>
-                        )
+                            </Panel>
+                          )
+                        }
                       })
                     )
                   }
@@ -404,19 +308,27 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                 <Button
                   style={{marginTop: "5px", width: "10px", minWidth: "170px", fontSize: "13px"}}
                   onClick={() => {
-                    //To un check all the buttons
                     let selection = '';
+                    localStorage.clear();
                     this.props.onCheckboxChange(selection);
+                    this.props.onGenerateUrlParamsString(selection);
+                    this.props.onCheckboxWeekChange(selection);
+                    this.props.onSaveWeek(selection);
+
+                    this.props.ChartDataCall();
+                    this.props.CardsDataCall();
                     this.props.onGenerateSideFilter();
+                    this.props.ongenerateWeekFilter();
                   }}>Clear filters</Button>
               </div>
             </div>
           )
-        })()}
+        })()};
       </div>
 
 
     );
+
   }
 }
 

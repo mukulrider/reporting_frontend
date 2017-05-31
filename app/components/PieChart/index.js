@@ -16,7 +16,7 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
   { console.log("Piechart inside createChart check 1",data);
     // let data = [10, 20];
     var containerWidth = document.getElementById(id).clientWidth;
-    let margin = {top: 100, right: 50, bottom: 30, left: 50},
+    let margin = {top: 100, right: 50, bottom: 50, left: 50},
       width = containerWidth - margin.left - margin.right,
       height = containerWidth - margin.top - margin.bottom,
       radius = Math.min(width, height) / 2.5 ;
