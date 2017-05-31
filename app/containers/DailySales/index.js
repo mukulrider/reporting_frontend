@@ -74,10 +74,12 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
     let kpiparam = 'val_type=1';
     this.props.onSaveKPIParam(kpiparam);
     this.props.onSaveWeekParam(dataWeekParam);
+
     this.props.CardsDataCall();
     this.props.ChartDataCall();
-    this.props.DSViewKpiSpinnerCheckSuccess(0);
     this.props.loadKpi();
+
+    this.props.DSViewKpiSpinnerCheckSuccess(0);
     this.props.onGetFilter();
     this.props.onGetWeekFilter();
   };
@@ -245,7 +247,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                              onCheckboxWeekChange={this.props.onCheckboxWeekChange}
                                              DSViewKpiSpinnerCheck={this.props.DSViewKpiSpinnerCheckSuccess}
                                              LineChartSpinnerCheck={this.props.LineChartSpinnerCheckSuccess}
-
+                                             CardsDataCall={this.props.CardsDataCall}
                                              week={this.props.DailySales.week}
                                              urlParamsString={this.props.DailySales.filter_week_selection}
 

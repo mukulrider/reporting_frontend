@@ -116,9 +116,6 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
     // alert(queryString_without_week);
     console.log('queryString 3 for product1', queryString_without_week);
     localStorage.setItem('urlParams', localUrlParamsString);
-
-
-
     this.props.onCheckboxWeekChange(queryString_without_week);
     this.props.onGenerateSideFilter();
 
@@ -128,23 +125,22 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
     // console.log('Raunaks Cascaded check', this.props);
     // let newUrl = this.props.location.pathname;
     //
-    // let queryString = '';
-    // [...this.refs.selector.querySelectorAll('input')].map(obj => {
-    //   if (obj.checked == true)
-    //     console.log('Cascaded applyButtonFunctionality'); //, obj);
-    //   let category = obj.id.split('__');
-    //   //console.log('queryString', queryString);
-    //   queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
-    //
-    //
-    // });
+    let queryString = '';
+    [...this.refs.selector.querySelectorAll('input')].map(obj => {
+      if (obj.checked == true) {
+        console.log('Cascaded applyButtonFunctionality'); //, obj);
+        let category = obj.id.split('__');
+        //console.log('queryString', queryString);
+        queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
+      }
+    });
     // //
     // queryString = queryString.substring(0, queryString.length - 1);
     //  console.log('queryString->', queryString);
     //const urlParams = this.props.location.query;
-    // this.props.onSaveWeek();
-    // this.props.onGenerateUrlParamsString(queryString);
     this.props.ChartDataCall();
+    this.props.CardsDataCall();
+    this.props.loadKpi();
   };
 
   resetButtonFunctionality = () => {
@@ -243,12 +239,6 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                   }
                 })()}
               </PanelGroup>
-              <hr style={{
-                marginTop: '0px',
-                marginBottom: '-6%',
-                border: '0',
-                borderTop: '1px solid #eee',
-              }}></hr>
               <PanelGroup defaultActiveKey="11" accordion>
                 {(() => {
                   if (this.props.filter_data) {
@@ -404,10 +394,17 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                 <Button
                   style={{marginTop: "5px", width: "10px", minWidth: "170px", fontSize: "13px"}}
                   onClick={() => {
-                    //To un check all the buttons
                     let selection = '';
+                    localStorage.clear();
                     this.props.onCheckboxChange(selection);
+                    this.props.onGenerateUrlParamsString(selection);
+                    this.props.onCheckboxWeekChange(selection);
+                    this.props.onSaveWeek(selection);
+
+                    this.props.ChartDataCall();
+                    this.props.CardsDataCall();
                     this.props.onGenerateSideFilter();
+                    this.props.ongenerateWeekFilter();
                   }}>Clear filters</Button>
               </div>
             </div>

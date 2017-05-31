@@ -58,8 +58,8 @@ let gettingUserDetails = () => {
 const userParams = gettingUserDetails();
 
 
-// let host_url="http://172.20.181.92:8002";
-let host_url="http://127.0.0.1:8000";
+let host_url="http://172.20.181.12:8001";
+// let host_url="http://127.0.0.1:8000";
 // All sagas to be loaded
 
 // FOR CARDS DATA
@@ -73,12 +73,12 @@ export function* cardData_pull() {
   const urlName = yield select(selectDailySalesDomain());
   console.log("Begin Card Data Pull");
   const kpiparam = urlName.get('kpi_param');
-  const week_filter = urlName.get('filter_week_selection');
+  const week_filter = urlName.get('week');
   const filter = urlName.get('filter_selection');
 
-  const data = yield call(request,host_url+"/api/reporting/data_daily_sales?"+'&'+kpiparam+'&'+filter+'&'+week_filter + '&'+ userParams);
+  const data = yield call(request,host_url+"/api/reporting/data_daily_sales?"+'&'+kpiparam+'&'+week_filter + '&'+ userParams);
   console.log("Line chart fetched data",data);
-  console.log("Along with the URL",host_url+"/api/reporting/data_daily_sales?"+'&'+kpiparam+'&'+filter+'&'+week_filter + '&'+ userParams);
+  console.log("Along with the URL",host_url+"/api/reporting/data_daily_sales?"+'&'+kpiparam+'&'+week_filter + '&'+ userParams);
   yield put(cardDataFetchSuccess(data));
 
   let LineChartSpinnerCheck = 1;
@@ -97,12 +97,11 @@ export function* chartData_pull() {
   const urlName = yield select(selectDailySalesDomain());
   console.log("Begin Line Chart Pull");
   const kpiparam = urlName.get('kpi_param');
-  const week_filter = urlName.get('filter_week_selection');
-  const filter = urlName.get('filter_selection');
+  const week_filter = urlName.get('week');
 
-  const data = yield call(request,host_url+"/api/reporting/graph_daily_sales?"+'&'+kpiparam+'&'+filter+'&'+week_filter + '&'+ userParams);
+  const data = yield call(request,host_url+"/api/reporting/graph_daily_sales?"+'&'+kpiparam+'&'+week_filter + '&'+ userParams);
   console.log("Line chart fetched data",data);
-  console.log("Along with the URL",host_url+"/api/reporting/graph_daily_sales?"+'&'+kpiparam+'&'+filter+'&'+week_filter + '&'+ userParams);
+  console.log("Along with the URL",host_url+"/api/reporting/graph_daily_sales?"+'&'+kpiparam+'&'+week_filter + '&'+ userParams);
   yield put(chartDataFetchSuccess(data));
 
   let LineChartSpinnerCheck = 1;
@@ -121,18 +120,6 @@ export function* doFilterFetch() {
 }
 
 export function* generateFilterFetch() {
-  // todo: update url
-
-  // let getCookie;
-  // getCookie = (name) => {
-  //   const value = `; ${document.cookie}`;
-  //   const parts = value.split(`; ${name}=`);
-  //   if (parts.length === 2) return parts.pop().split(';').shift();
-  // };
-  // const user_token = getCookie('token');
-  // const buyer = getCookie('buyer');
-  // const token = user_token.concat('___').concat(buyer)
-
   let urlName = yield select(selectDailySalesDomain());
   let urlParamsString = urlName.get('filter_week_selection');
   // let urlParamsString = urlName.get('filter_selection');
@@ -146,11 +133,6 @@ export function* generateFilterFetch() {
   }
   try {
     const data = yield call(request, host_url + '/api/reporting/filter_daily_sales?' + urlParamsString + '&' + userParams,
-      // {
-      //   headers: {
-      //     Authorization: token
-      //   }
-      // }
     );
     // const data = yield call(request, host_url+'/api/reporting/filter_data?' + urlParamsString);
 
@@ -198,7 +180,8 @@ export function* generateWeekFilterFetch() {
   if ((localStorage.getItem('weekParams') == "") || (localStorage.getItem('weekParams') === null) || (typeof(localStorage.getItem('weekParams')) === undefined)) {
 
     if (abc == 1) {
-      urlParams = '?' + 'tesco_week_flag=1';
+      urlParams = '?';
+      // urlParams = '?' + 'tesco_week_flag=1';
       console.log("flag check if", urlParams);
     } else {
       if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
