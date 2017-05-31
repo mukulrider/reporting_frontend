@@ -39,7 +39,7 @@ import {
   TREND_CHART_SPINNER,
 
   PRODUCTS_ON_PROMOTION_TABLE_SUCCESS, TREND_FOR_EACH_TAB_SUCCESS, PIE_CHART_FOR_EACH_TAB_SUCCESS, STORE_FILTER_PARAM,
-  MODAL_PRODUCT_NAME, MODAL_PRODUCT_DATA_SUCCESS
+  MODAL_PRODUCT_NAME, MODAL_PRODUCT_DATA_SUCCESS, MODAL_SAVE_TREND_CHART_TAB_PARAMS
 
 } from './constants';
 
@@ -209,6 +209,8 @@ function promotionReducer(state = initialState, action) {
       return state.set('pieChartData', action.data);
     case SAVE_TREND_CHART_TAB_PARAMS:
       return state.set('trendChartTabParam', action.data);
+    case MODAL_SAVE_TREND_CHART_TAB_PARAMS:
+      return state.set('modalTrendChartTabParam', action.data);
     case SAVE_METRIC_SELECTION_TAB:
       return state.set('metricSelected', action.data);
 
