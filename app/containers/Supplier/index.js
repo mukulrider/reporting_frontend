@@ -34,12 +34,13 @@ var SelectBox = React.createFactory(require('react-select-box/lib/select-box'))
 
 require('react-bootstrap-table/css/react-bootstrap-table.css')
 
-var div = React.createElement.bind(null,'div')
-var option = React.createElement.bind(null,'option')
-var h1 = React.createElement.bind(null,'h1')
+var div = React.createElement.bind(null, 'div')
+var option = React.createElement.bind(null, 'option')
+var h1 = React.createElement.bind(null, 'h1')
 
 
-var Example = React.createFactory(React.createClass({displayName: 'Example',
+var Example = React.createFactory(React.createClass({
+  displayName: 'Example',
   getInitialState: function () {
     return {
       color: null,
@@ -47,39 +48,54 @@ var Example = React.createFactory(React.createClass({displayName: 'Example',
     }
   },
   handleChange: function (color) {
-    this.setState({ color: color })
+    this.setState({color: color})
   },
   handleMultiChange: function (colors) {
-    this.setState({ colors: colors })
+    this.setState({colors: colors})
   },
   render: function () {
-    return(
-        SelectBox(
-          {
-            label: this.props.placeholder,
-            onChange: this.handleMultiChange,
-            value: this.state.colors,
-            multiple: true
-          },
-          option({value: 'red'}, 'Red')
-/*
-          option({value: 'green'}, 'Green'),
-          option({value: 'blue'}, 'Blue'),
-          option({value: 'black'}, 'Black'),
-          option({value: 'orange'}, 'Orange'),
-          option({value: 'greenish'}, 'Light greenish with a little bit of yellow')
-*/
-        )
+    let values = [];
+    // let values = {'value': ""};
+    this.props.filterdata.checkbox_list[8].items.map((item, key) => {
+      console.log('key', key);
+      values.push({'value': item.title});
+      console.log('values[key].value', values[key].value);
+      // values[key][value] = item.title;
+    })
+    console.log('values', this.props.filterdata.checkbox_list[8].items);
+    console.log('values1', values);
+    return (
+      SelectBox(
+        {
+          label: this.props.placeholder,
+          onChange: this.handleMultiChange,
+          value: this.state.colors,
+          // value: this.state.colors,
+          multiple: true
+        },
+        // values.map((item,key) => {
+        //   console.log('item[value]',item.value);
+        //   option({item},item.value)
+        // })
+
+
+         option({value: 'green'}, 'Green'),
+         option({value: 'green'}, 'Green'),
+        option({value: 'blue'}, 'Blue'),
+         option({value: 'black'}, 'Black'),
+         option({value: 'orange'}, 'Orange'),
+         option({value: 'greenish'}, 'Light greenish with a little bit of yellow')
+
+      )
     )
   }
 }))
 
 
-
 /*
-React.Bootstrap = require('react-bootstrap');
-React.Bootstrap.Select = require('react-bootstrap-select');
-*/
+ React.Bootstrap = require('react-bootstrap');
+ React.Bootstrap.Select = require('react-bootstrap-select');
+ */
 
 
 import Select from 'react-select';
@@ -120,35 +136,32 @@ import styles from './style.scss';
 
 
 /*
-const FLAVOURS = [
-  { label: 'Chocolate', value: 'chocolate' },
-  { label: 'Vanilla', value: 'vanilla' },
-  { label: 'Strawberry', value: 'strawberry' },
-  { label: 'Caramel', value: 'caramel' },
-  { label: 'Cookies and Cream', value: 'cookiescream' },
-  { label: 'Peppermint', value: 'peppermint' },
-];
-*/
+ const FLAVOURS = [
+ { label: 'Chocolate', value: 'chocolate' },
+ { label: 'Vanilla', value: 'vanilla' },
+ { label: 'Strawberry', value: 'strawberry' },
+ { label: 'Caramel', value: 'caramel' },
+ { label: 'Cookies and Cream', value: 'cookiescream' },
+ { label: 'Peppermint', value: 'peppermint' },
+ ];
+ */
 
 let flavours = [
-  { label: 'Chocolate1', value: 'chocolate' },
-  { label: 'Vanilla1', value: 'vanilla' },
-  { label: 'Strawberry', value: 'strawberry' },
-  { label: 'Caramel', value: 'caramel' },
-  { label: 'Cookies and Cream', value: 'cookiescream' },
-  { label: 'Peppermint', value: 'peppermint' },
+  {label: 'Chocolate1', value: 'chocolate'},
+  {label: 'Vanilla1', value: 'vanilla'},
+  {label: 'Strawberry', value: 'strawberry'},
+  {label: 'Caramel', value: 'caramel'},
+  {label: 'Cookies and Cream', value: 'cookiescream'},
+  {label: 'Peppermint', value: 'peppermint'},
 ];
 let flavours2 = [
-  { label1: 'Chocolate', value1: 'chocolate' },
-  { label1: 'Vanilla', value1: 'vanilla' },
-  { label1: 'Strawberry', value1: 'strawberry' },
-  { label1: 'Caramel', value1: 'caramel' },
-  { label1: 'Cookies and Cream', value1: 'cookiescream' },
-  { label1: 'Peppermint', value1: 'peppermint' },
+  {label1: 'Chocolate', value1: 'chocolate'},
+  {label1: 'Vanilla', value1: 'vanilla'},
+  {label1: 'Strawberry', value1: 'strawberry'},
+  {label1: 'Caramel', value1: 'caramel'},
+  {label1: 'Cookies and Cream', value1: 'cookiescream'},
+  {label1: 'Peppermint', value1: 'peppermint'},
 ];
-
-
-
 
 
 function glyphiconFormatter(cell) {
@@ -250,7 +263,6 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
     this.props.onSaveBubbleParam2(tableJSON);
     this.props.onGenerateCheckedList(checked, base_product_number)
   };
-
 
 
   render() {
@@ -463,15 +475,19 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                   <div className="col-xs-3">
                   </div>
 
-                  <Example placeholder="Parent Supplier"></Example>
-
-                  <Example placeholder="Supplier"></Example>
+                  {(() => {
+                    if (this.props.supplier.sideFilter) {
+                      return (
+                        <Example placeholder="Parent Supplier" filterdata={this.props.supplier.sideFilter}></Example>
+                      )
+                    }
+                  })()}
+                  <Example placeholder="Supplier"  filterdata={this.props.supplier.sideFilter}></Example>
 
                   <br/>
                   <br/>
                   <br/>
                   <br/></div>
-
 
 
                 <div className="row" style={{
