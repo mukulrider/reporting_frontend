@@ -6,25 +6,45 @@
 
 import {fromJS} from 'immutable';
 import {
-  DEFAULT_ACTION, WATERFALL_CONSTANT, WATERFALL_DATA_FETCH_SUCCESS, PIECHART_CONSTANT,
+  DEFAULT_ACTION,
+  WATERFALL_CONSTANT,
+  WATERFALL_DATA_FETCH_SUCCESS,
+  PIECHART_CONSTANT,
   PIECHART_DATA_FETCH_SUCCESS,
-  PRICE_RANGE_CONSTANT, PRICE_RANGE_DATA_FETCH_SUCCESS, WEEK_PARAM, KPI_PARAM, FILTER_CONSTANT,
-  FILTER_FETCH_SUCCESS, CHECKBOX_CHANGE, GENERATE_URL_PARAMS, GENERATE_URL_PARAMS_STRING,
-  SEND_URL_PARAMS, SAVE_PRICE_INDEX, OUTPERFORMANCE_CONSTANT, PRICE_OUTPERFORMACE_FETCH_SUCCESS,
-  PRICE_INDEX_CLICK, WEEK, CHECKBOX_WEEK_CHANGE, CHECKBOX_WEEK_CHANGE2, PIE_CHART_SPINNER_SUCCESS, OUTPERFORMANCE_CHART_SPINNER_SUCCESS,WATERFALL_CHART_ASDA_SPINNER_SUCCESS,
-  PRICE_RANGE_CHART_SPINNER_SUCCESS
+  PRICE_RANGE_CONSTANT,
+  PRICE_RANGE_DATA_FETCH_SUCCESS,
+  WEEK_PARAM,
+  KPI_PARAM,
+  FILTER_CONSTANT,
+  FILTER_FETCH_SUCCESS,
+  CHECKBOX_CHANGE,
+  GENERATE_URL_PARAMS,
+  GENERATE_URL_PARAMS_STRING,
+  SEND_URL_PARAMS,
+  SAVE_PRICE_INDEX,
+  OUTPERFORMANCE_CONSTANT,
+  PRICE_OUTPERFORMACE_FETCH_SUCCESS,
+  PRICE_INDEX_CLICK,
+  WEEK,
+  CHECKBOX_WEEK_CHANGE,
+  CHECKBOX_WEEK_CHANGE2,
+  PIE_CHART_SPINNER_SUCCESS,
+  OUTPERFORMANCE_CHART_SPINNER_SUCCESS,
+  WATERFALL_CHART_ASDA_SPINNER_SUCCESS,
+  PRICE_RANGE_CHART_SPINNER_SUCCESS,
+  USER_FILTER_SELECTION,
 } from './constants';
 
 
 const initialState = fromJS({
   piechart_data: {'tesco_share_data': '0'},
+  filter_week_selection: '',
   dataWeekUrlParams: '',
   urlParamsString: '',
   filter_selection: '',
   kpi_type: '',
   dataPriceIndexParam: '',
   chat_data: '',
-  filter_week_selection: '',
   dataPerformanceUrlParams: '',
   dataBubbleUrlParams: '',
   dataPageUrlParams: 'page=1',
@@ -153,20 +173,25 @@ function competitorReducer(state = initialState, action) {
       console.log("PIE_CHART_SPINNER_SUCCESS", action.spinnerCheck);
       return state.set('onPieChartSpinnerSuccess', action.spinnerCheck);
 
-      //OUTPERFORMANCE CHART - SPINNER
+    //OUTPERFORMANCE CHART - SPINNER
     case OUTPERFORMANCE_CHART_SPINNER_SUCCESS:
       console.log("OUTPERFORMANCE_CHART_SPINNER_SUCCESS", action.spinnerCheck);
       return state.set('outperformanceChartSpinnerSuccess', action.spinnerCheck);
 
-      //WATERFALL CHART - ASDA - SPINNER
+    //WATERFALL CHART - ASDA - SPINNER
     case WATERFALL_CHART_ASDA_SPINNER_SUCCESS:
       console.log("WATERFALL_CHART_ASDA_SPINNER_SUCCESS", action.spinnerCheck);
       return state.set('waterfallChartAsdaSpinnerSuccess', action.spinnerCheck);
 
- //WATERFALL CHART - ASDA - SPINNER
+    //WATERFALL CHART - ASDA - SPINNER
     case PRICE_RANGE_CHART_SPINNER_SUCCESS:
       console.log("PRICE_RANGE_CHART_SPINNER_SUCCESS", action.spinnerCheck);
       return state.set('priceRangeChartSpinnerSuccess', action.spinnerCheck);
+
+    //WATERFALL CHART - ASDA - SPINNER
+    case USER_FILTER_SELECTION:
+      console.log("USER_FILTER_SELECTION  ", action.data);
+      return state.set('user_filter_selection', action.data);
 
 
     // case UPDATE_CHART_DATA:

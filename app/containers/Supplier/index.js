@@ -24,7 +24,83 @@ import FiltersSupplier from 'components/FiltersSupplier';
 import RadioButton from 'components/radio_button';
 import Checkbox from 'components/checkbox';
 import Spinner from 'components/spinner';
+import Breadcrumb from 'components/Breadcrumb';
+import TopFilterSupplier from 'components/TopFilterSupplier';
+import Multiselect from 'components/MultiSelect';
+import createClass from 'create-react-class';
+
+var SelectBox = React.createFactory(require('react-select-box/lib/select-box'))
+
+
 require('react-bootstrap-table/css/react-bootstrap-table.css')
+
+var div = React.createElement.bind(null, 'div')
+var option = React.createElement.bind(null, 'option')
+var h1 = React.createElement.bind(null, 'h1')
+
+
+var Example = React.createFactory(React.createClass({
+  displayName: 'Example',
+  getInitialState: function () {
+    return {
+      color: null,
+      colors: []
+    }
+  },
+  handleChange: function (color) {
+    this.setState({color: color})
+  },
+  handleMultiChange: function (colors) {
+    this.setState({colors: colors})
+  },
+  render: function () {
+    let values = [];
+    // let values = {'value': ""};
+    this.props.filterdata.checkbox_list[8].items.map((item, key) => {
+      console.log('key', key);
+      values.push({'value': item.title});
+      console.log('values[key].value', values[key].value);
+      // values[key][value] = item.title;
+    })
+    console.log('values', this.props.filterdata.checkbox_list[8].items);
+    console.log('values1', values);
+    return (
+      SelectBox(
+        {
+          label: this.props.placeholder,
+          onChange: this.handleMultiChange,
+          value: this.state.colors,
+          // value: this.state.colors,
+          multiple: true
+        },
+        // values.map((item,key) => {
+        //   console.log('item[value]',item.value);
+        //   option({item},item.value)
+        // })
+
+
+         option({value: 'green'}, 'Green'),
+         option({value: 'green'}, 'Green'),
+        option({value: 'blue'}, 'Blue'),
+         option({value: 'black'}, 'Black'),
+         option({value: 'orange'}, 'Orange'),
+         option({value: 'greenish'}, 'Light greenish with a little bit of yellow')
+
+      )
+    )
+  }
+}))
+
+
+/*
+ React.Bootstrap = require('react-bootstrap');
+ React.Bootstrap.Select = require('react-bootstrap-select');
+ */
+
+
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
+
 
 import {
   kpibox,
@@ -36,6 +112,8 @@ import {
   checkboxWeekChange,
   SaveWeek,
   GenerateUrlParamsString,
+  GenerateUrlParamsString2,
+  GenerateUrlParamsString3,
   getWeekFilter,
   SaveStoreParam,
   generateTable,
@@ -51,9 +129,40 @@ import {
   bubbleChartSpinnerCheckSuccess,
   barChartSpinnerCheckSuccess,
   tableChartSpinnerCheckSuccess,
+  StoreFilterParam,
 
 } from './actions';
 import styles from './style.scss';
+
+
+/*
+ const FLAVOURS = [
+ { label: 'Chocolate', value: 'chocolate' },
+ { label: 'Vanilla', value: 'vanilla' },
+ { label: 'Strawberry', value: 'strawberry' },
+ { label: 'Caramel', value: 'caramel' },
+ { label: 'Cookies and Cream', value: 'cookiescream' },
+ { label: 'Peppermint', value: 'peppermint' },
+ ];
+ */
+
+let flavours = [
+  {label: 'Chocolate1', value: 'chocolate'},
+  {label: 'Vanilla1', value: 'vanilla'},
+  {label: 'Strawberry', value: 'strawberry'},
+  {label: 'Caramel', value: 'caramel'},
+  {label: 'Cookies and Cream', value: 'cookiescream'},
+  {label: 'Peppermint', value: 'peppermint'},
+];
+let flavours2 = [
+  {label1: 'Chocolate', value1: 'chocolate'},
+  {label1: 'Vanilla', value1: 'vanilla'},
+  {label1: 'Strawberry', value1: 'strawberry'},
+  {label1: 'Caramel', value1: 'caramel'},
+  {label1: 'Cookies and Cream', value1: 'cookiescream'},
+  {label1: 'Peppermint', value1: 'peppermint'},
+];
+
 
 function glyphiconFormatter(cell) {
   if (cell > 0) {
@@ -74,8 +183,12 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
   componentDidMount = () => {
     let defaultFilterUrlParams = localStorage.getItem('urlParams');
     if (defaultFilterUrlParams) {
-      console.log('defaultFilterUrlParams', defaultFilterUrlParams)
-      this.props.onGenerateUrlParamsString(defaultFilterUrlParams);
+      console.log('defaultFilterUrlParams  ', defaultFilterUrlParams)
+
+      this.props.onGenerateUrlParamsString3(1);
+      this.props.onGenerateUrlParamsString2(defaultFilterUrlParams);
+      this.props.onGenerateUrlParamsString(0);
+      // this.props.onGenerateUrlParamsString(defaultFilterUrlParams);
     } else {
       this.props.onGenerateUrlParamsString('');
     }
@@ -87,7 +200,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
     this.props.onKPIBoxASP();
     this.props.onSaveTopBottomKpi();
 
-    // //For table
+    // //For tableaa
     // this.props.onGenerateTable();
     // //For Bubble Graph
     // this.props.onFetchGraph();
@@ -117,6 +230,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
       suppKPIbar: false,
       suppNegotiationbar: false,
       suppTopBottombar: false,
+      myData: [{value: 'One', selected: true}, {value: 'Two'}],
     };
   }
 
@@ -149,6 +263,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
     this.props.onSaveBubbleParam2(tableJSON);
     this.props.onGenerateCheckedList(checked, base_product_number)
   };
+
 
   render() {
 
@@ -205,8 +320,8 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
     let TopBottomKpi = this.props.supplier.top_bottom_kpi;
     let dataPerformanceUrlParams = this.props.supplier.dataPerformanceUrlParams;
     let dataStoreUrlParams = this.props.supplier.dataStoreUrlParams;
+    let finalurlParamsString = '';
 
-    console.log('this.props', this.props);
 
     return (
       <div>
@@ -293,20 +408,87 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                   marginLeft: '22%'
                 }}>
                   {/*Page title*/}
-                  <div className="pageTitle">
-                    {(() => {
-                      if (this.props.supplier.filter_week_selection) {
-                        return (
-                          <span>Supplier View - {(this.props.supplier.filter_week_selection).substring(11, 17)}</span>
-                        )
-                      } else {
-                        return (
-                          <span>Supplier View - 201711  </span>
-                        )
-                      }
-                    })()}
-                  </div>
+
+                  {/*<div className="pageTitle">*/}
+                  {/*{(() => {*/}
+                  {/*if (this.props.supplier.filter_week_selection) {*/}
+                  {/*return (*/}
+                  {/*<span>Supplier View - {(this.props.supplier.filter_week_selection).substring(11, 17)}</span>*/}
+                  {/*)*/}
+                  {/*} else {*/}
+                  {/*return (*/}
+                  {/*<span>Supplier View - 201711  </span>*/}
+                  {/*)*/}
+                  {/*}*/}
+                  {/*})()}*/}
+                  {/*</div>*/}
+
+                  <div className="row">
+                    <div className="col-xs-12">
+                      {(() => {
+                        if (this.props.supplier.urlParamsString) {
+
+                          finalurlParamsString = this.props.supplier.urlParamsString;
+                          console.log('elseelse', finalurlParamsString);
+
+
+                        } else {
+                          console.log('if if if if', this.props.supplier.urlParamsString2);
+                          finalurlParamsString = this.props.supplier.urlParamsString2;
+                          console.log('ififif', finalurlParamsString);
+
+                        }
+                      })()}
+
+                      <Breadcrumb
+                        selected_week={(this.props.supplier.filter_week_selection).substring(11, this.props.supplier.filter_week_selection.length)}
+                        urlParamsString={finalurlParamsString}/>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/></div>
+
+                  {(() => {
+                    if (this.props.supplier.week_filter_data) {
+                      return (
+                        <TopFilterSupplier
+                          week_filter_data={this.props.supplier.week_filter_data}
+                          onSaveWeekFilterParam={this.props.onCheckboxWeekChange}
+
+                          onSaveStoreFilterParam={this.props.onSaveStoreFilterParam}
+                          onSaveWeekParam={this.props.onSaveWeekParam}
+
+                          onKPIBox={this.props.onKPIBox}
+                          ontopBottomChart={this.props.ontopBottomChart}
+
+                          barChartSpinnerCheck={this.props.barChartSpinnerCheckSuccess}
+                          supplierViewKpiSpinnerCheck={this.props.supplierViewKpiSpinnerCheckSuccess}
+                        />
+
+                      )
+                    }
+                  })()}
+
                 </div>
+                <div className="row">
+                  <div className="col-xs-3">
+                  </div>
+
+                  {(() => {
+                    if (this.props.supplier.sideFilter) {
+                      return (
+                        <Example placeholder="Parent Supplier" filterdata={this.props.supplier.sideFilter}></Example>
+                      )
+                    }
+                  })()}
+                  <Example placeholder="Supplier"  filterdata={this.props.supplier.sideFilter}></Example>
+
+                  <br/>
+                  <br/>
+                  <br/>
+                  <br/></div>
+
 
                 <div className="row" style={{
                   marginLeft: "0%",
@@ -318,95 +500,9 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                   <div className="col-md-12 content-wrap" style={{backgroundColor: "#f5f5f5"}}>
 
-                    <Nav style={{marginLeft: '1%', marginBottom: '0%'}} bsStyle="tabs" activeKey={this.state.activeKey1}
-                         onSelect={this.handleSelect} className="tabsCustom mainTab">
-                      <NavItem className="tabsCustomListTime" eventKey="1" onClick={() => {
-                        this.setState({activeKey1: "1"});
-                        this.props.supplierViewKpiSpinnerCheckSuccess(0);
-                        this.props.barChartSpinnerCheckSuccess(0);
-                        this.props.bubbleChartSpinnerCheckSuccess(0);
-                        this.props.tableChartSpinnerCheckSuccess(0);
-                        dataWeekUrlParams = "week_flag=1";
-                        this.props.onSaveWeekParam(dataWeekUrlParams);
-                        this.props.onKPIBox();
-                        {/*this.props.onSupplierTable();*/
-                        }
-                        this.props.onFetchGraph();
-                        this.props.onGenerateTable();
-                        this.props.ontopBottomChart();
-
-                      }}>
-                        <span className="tab_label">Selected Week</span></NavItem>
-
-                      <NavItem className="tabsCustomListTime" eventKey="2" onClick={() => {
-                        this.setState({activeKey1: "2"});
-                        this.props.supplierViewKpiSpinnerCheckSuccess(0);
-                        this.props.barChartSpinnerCheckSuccess(0);
-                        this.props.bubbleChartSpinnerCheckSuccess(0);
-                        this.props.tableChartSpinnerCheckSuccess(0);
-                        dataWeekUrlParams = "week_flag=2";
-                        this.props.onSaveWeekParam(dataWeekUrlParams);
-                        this.props.onKPIBox();
-                        {/*this.props.onSupplierTable();*/
-                        }
-                        this.props.onFetchGraph();
-                        this.props.onGenerateTable();
-                        this.props.ontopBottomChart();
-
-                      }}><span className="tab_label">Last 4 weeks</span></NavItem>
-
-                      <NavItem className="tabsCustomListTime" eventKey="3" onClick={() => {
-                        this.setState({activeKey1: "3"});
-                        this.props.supplierViewKpiSpinnerCheckSuccess(0);
-                        this.props.barChartSpinnerCheckSuccess(0);
-                        this.props.bubbleChartSpinnerCheckSuccess(0);
-                        this.props.tableChartSpinnerCheckSuccess(0);
-                        dataWeekUrlParams = "week_flag=3";
-                        this.props.onSaveWeekParam(dataWeekUrlParams);
-                        this.props.onKPIBox();
-                        {/*this.props.onSupplierTable();*/
-                        }
-                        this.props.onFetchGraph();
-                        this.props.onGenerateTable();
-                        this.props.ontopBottomChart();
-
-                      }}><span className="tab_label">Last 13 weeks</span></NavItem>
-                      <NavItem className="tabsCustomListTime" eventKey="4" onClick={() => {
-                        this.setState({activeKey1: "4"});
-                        this.props.supplierViewKpiSpinnerCheckSuccess(0);
-                        this.props.barChartSpinnerCheckSuccess(0);
-                        this.props.bubbleChartSpinnerCheckSuccess(0);
-                        this.props.tableChartSpinnerCheckSuccess(0);
-                        dataWeekUrlParams = "week_flag=4";
-                        this.props.onSaveWeekParam(dataWeekUrlParams);
-                        this.props.onKPIBox();
-                        {/*this.props.onSupplierTable();*/
-                        }
-                        this.props.onFetchGraph();
-                        this.props.onGenerateTable();
-                        this.props.ontopBottomChart();
-
-                      }}><span className="tab_label">Last 52 weeks</span></NavItem>
-
-                      <NavItem className="tabsCustomListTime" eventKey="5" onClick={() => {
-                        this.setState({activeKey1: "5"});
-                        this.props.supplierViewKpiSpinnerCheckSuccess(0);
-                        this.props.barChartSpinnerCheckSuccess(0);
-                        this.props.bubbleChartSpinnerCheckSuccess(0);
-                        this.props.tableChartSpinnerCheckSuccess(0);
-                        dataWeekUrlParams = "week_flag=5";
-                        this.props.onSaveWeekParam(dataWeekUrlParams);
-                        this.props.onKPIBox();
-                        {/*this.props.onSupplierTable();*/
-                        }
-                        this.props.onFetchGraph();
-                        this.props.onGenerateTable();
-                        this.props.ontopBottomChart();
-
-                      }}><span className="tab_label">YTD</span></NavItem>
-                    </Nav>
 
                     <div style={{height: '0px', width: '100%'}}>&nbsp;</div>
+
 
                     <Modal show={this.state.suppKPIbar} bsSize="lg"
                            aria-labelledby="contained-modal-title-lg"
@@ -463,7 +559,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                           <Nav bsStyle="tabs" style={{marginLeft: '1%'}} activeKey={this.state.activeKey2}
                                onSelect={this.handleSelect} className="tabsCustom  mainTab">
 
-                            <NavItem eventKey="1" className="tabsNavPanelList1" onClick={() => {
+                            <NavItem eventKey="1" className="tabsCustomListTime" onClick={() => {
                               this.setState({activeKey2: "1"});
                               this.props.supplierViewKpiSpinnerCheckSuccess(0);
                               this.props.barChartSpinnerCheckSuccess(0);
@@ -477,7 +573,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                             }}><span className="tab_label">Value</span>
                             </NavItem>
 
-                            <NavItem eventKey="2" className="tabsNavPanelList1" onClick={() => {
+                            <NavItem eventKey="2" className="tabsCustomListTime" onClick={() => {
                               this.setState({activeKey2: "2"});
                               this.props.supplierViewKpiSpinnerCheckSuccess(0);
                               this.props.barChartSpinnerCheckSuccess(0);
@@ -490,7 +586,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                               this.props.ontopBottomChart();
                             }}><span className="tab_label">Volume</span></NavItem>
 
-                            <NavItem eventKey="3" className="tabsNavPanelList1" onClick={() => {
+                            <NavItem eventKey="3" className="tabsCustomListTime" onClick={() => {
                               this.setState({activeKey2: "3"});
                               this.props.supplierViewKpiSpinnerCheckSuccess(0);
                               this.props.barChartSpinnerCheckSuccess(0);
@@ -503,7 +599,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                               this.props.ontopBottomChart();
                             }}><span className="tab_label">COGS</span></NavItem>
 
-                            <NavItem eventKey="4" className="tabsNavPanelList1" onClick={() => {
+                            <NavItem eventKey="4" className="tabsCustomListTime" onClick={() => {
                               this.setState({activeKey2: "4"});
                               this.props.supplierViewKpiSpinnerCheckSuccess(0);
                               this.props.barChartSpinnerCheckSuccess(0);
@@ -517,7 +613,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                               this.props.ontopBottomChart();
                             }}><span className="tab_label">CGM</span></NavItem>
 
-                            <NavItem eventKey="5" className="tabsNavPanelList1" onClick={() => {
+                            <NavItem eventKey="5" className="tabsCustomListTime" onClick={() => {
                               this.setState({activeKey2: "5"});
                               this.props.supplierViewKpiSpinnerCheckSuccess(0);
                               this.props.barChartSpinnerCheckSuccess(0);
@@ -530,7 +626,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                               this.props.ontopBottomChart();
                             }}><span className="tab_label">ASP</span></NavItem>
 
-                            <NavItem eventKey="6" className="tabsNavPanelList1" onClick={() => {
+                            <NavItem eventKey="6" className="tabsCustomListTime" onClick={() => {
                               this.setState({activeKey2: "6"});
                               this.props.supplierViewKpiSpinnerCheckSuccess(0);
                               this.props.barChartSpinnerCheckSuccess(0);
@@ -543,7 +639,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                               this.props.ontopBottomChart();
                             }}><span className="tab_label">Supplier Funding(exc VAT)</span></NavItem>
 
-                            <NavItem eventKey="7" className="tabsNavPanelList1" onClick={() => {
+                            <NavItem eventKey="7" className="tabsCustomListTime" onClick={() => {
                               this.setState({activeKey2: "7"});
                               this.props.supplierViewKpiSpinnerCheckSuccess(0);
                               this.props.barChartSpinnerCheckSuccess(0);
@@ -561,8 +657,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                       </div>
 
 
-
-                        <div className="coverBox">
+                      <div className="coverBox">
                         <div className="headerBox">
                           <h2 className="pageModuleMainTitle">Performance by KPI</h2>
                         </div>
@@ -596,37 +691,41 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                               <h4>
                                                   <span className={glyphiconFormatter(obj.sales_var_week)}>
                                                   </span>{(obj.sales_var_week) + '%'}
-                                                </h4><br></br>
-                                                <h5 className="kpiSubTitle"><b> {'WoW'} </b></h5>
-                                              </div>
-                                              <div className="col-xs-4">
-                                                <h4>
+                                              </h4>
+                                              &nbsp; &nbsp; <br></br>&nbsp; &nbsp;<span></span>&nbsp;
+
+                                              <h5 className="kpiSubTitle"><b> {'WoW'} </b></h5>
+                                            </div>
+                                            <div className="col-xs-4">
+                                              <h4>
                                                   <span className={glyphiconFormatter(obj.sales_var_year)}>
                                                   </span>{(obj.sales_var_year) + '%'}
-                                                </h4><br></br>
-                                                <h5 className="kpiSubTitle"><b> {'YoY'} </b></h5>
-                                              </div>
-                                              <div className="col-xs-4">
-                                                <h4>
+                                              </h4><br></br>
+                                              <div>&nbsp;</div>
+                                              <h5 className="kpiSubTitle"><b> {'YoY'} </b></h5>
+                                            </div>
+                                            <div className="col-xs-4">
+                                              <h4>
                                                   <span className={glyphiconFormatter(obj.sales_var_year_lfl)}>
                                                   </span>{(obj.sales_var_year_lfl) + '%'}
-                                                </h4><br></br>
-                                                <h5 className="kpiSubTitle"><b>{'LFL'}</b></h5>
-                                              </div>
+                                              </h4><br></br>
+                                              <div>&nbsp;</div>
+                                              <h5 className="kpiSubTitle"><b>{'LFL'}</b></h5>
                                             </div>
                                           </div>
+                                        </div>
 
-                                        </Panel>
-                                      </div>
-                                      <div className="col-md-4 col-sm-12" style={{backgroundColor: "#fafafa"}}>
-                                        <Panel>
-                                          <h3 className="pageModuleSubTitle"> Contribution to Growth </h3>
-                                          <div className="row">
-                                            <div className="col-xs-6" style={{textAlign: "center"}}>
-                                              <h3
-                                                style={{padding: "0px", margin: "0px"}}>  {obj.cw_sales_exclu_sup} </h3>
-                                            </div>
-                                            <div className="col-xs-6" style={{textAlign: "center"}}>
+                                      </Panel>
+                                    </div>
+                                    <div className="col-md-4 col-sm-12" style={{backgroundColor: "#fafafa"}}>
+                                      <Panel>
+                                        <h3 className="pageModuleSubTitle"> Contribution to Growth </h3>
+                                        <div className="row">
+                                          <div className="col-xs-6" style={{textAlign: "center"}}>
+                                            <h3
+                                              style={{padding: "0px", margin: "0px"}}>  {obj.cw_sales_exclu_sup} </h3>
+                                          </div>
+                                          <div className="col-xs-6" style={{textAlign: "center"}}>
 
                                             <h3 style={{padding: "0px", margin: "0px"}}>
                                               LFL: {obj.cw_sales_exclu_sup_lfl } </h3>
@@ -638,7 +737,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                             <div className="col-xs-4">
                                               <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
                                                 className={glyphiconFormatter(obj.sales_growth_wow_1)}></span>&nbsp;{(obj.sales_growth_wow_1) + ' % '}
-                                                of <br></br><span
+                                                <br></br> &nbsp; &nbsp;of <br></br>&nbsp; &nbsp;<span
                                                   className={glyphiconFormatter(obj.sales_growth_wow_2)}></span>&nbsp;{(obj.sales_growth_wow_2) + ' % '}
                                               </h4>
                                               <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'WoW'}</b>
@@ -647,7 +746,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                             <div className="col-xs-4">
                                               <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
                                                 className={glyphiconFormatter(obj.sales_growth_yoy_1)}></span>&nbsp;{(obj.sales_growth_yoy_1) + ' % '}
-                                                of <br></br><span
+                                                <br></br> &nbsp; &nbsp; of <br></br>&nbsp; &nbsp;<span
                                                   className={glyphiconFormatter(obj.sales_growth_yoy_2)}></span>&nbsp;{(obj.sales_growth_yoy_2) + ' % '}
                                               </h4>
                                               <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'YoY'}</b>
@@ -656,8 +755,9 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                             <div className="col-xs-4">
                                               <h4>&nbsp;&nbsp;&nbsp;&nbsp;<span
                                                 className={glyphiconFormatter(obj.sales_growth_yoy_lfl_1)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_1) + ' % '}
-                                                of <br></br><span style={{left: '-5px'}}
-                                                  className={glyphiconFormatter(obj.sales_growth_yoy_lfl_2)}></span>{(obj.sales_growth_yoy_lfl_2) + ' % '}
+                                                <br></br> &nbsp; &nbsp; of <br></br>&nbsp; &nbsp;<span
+                                                  style={{left: '-5px'}}
+                                                  className={glyphiconFormatter(obj.sales_growth_yoy_lfl_2)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_2) + ' % '}
                                               </h4>
                                               <h5 className="kpiSubTitle" style={{marginTop: '20px'}}><b>{'LFL'}</b>
                                               </h5>
@@ -665,210 +765,222 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                           </div>
                                         </div>
 
-                                        </Panel>
-                                      </div>
-                                      <div className="col-md-4 col-sm-12" style={{backgroundColor: "#fafafa"}}>
-                                        <Panel>
-                                          <h3 className="pageModuleSubTitle"> Parent Supplier's value share in
-                                            Category </h3>
-                                          {(() => {
-                                            if (obj.supp_imp_cat_sales != "---") {
-
-                                              return (
-                                                <div style={{
-                                                  fontSize: '20px',
-                                                  marginTop: '-10px'
-                                                }}>{obj.supp_imp_cat_sales}%</div>
-                                              )
-                                            }
-                                          })()}
-
-                                          <h3 className="pageModuleSubTitle"> Category's value share to Parent
-                                            Supplier </h3>
-                                          {(() => {
-                                            if (obj.cat_imp_supp_sales != "---") {
-
-                                              return (
-                                                <div style={{
-                                                  fontSize: '20px',
-                                                  marginTop: '-10px',
-                                                  marginBottom: '10px'
-                                                }}>{obj.cat_imp_supp_sales}%</div>
-                                              )
-                                            }
-                                          })()}
-
-                                        </Panel>
-                                      </div>
+                                      </Panel>
                                     </div>
+                                    <div className="col-md-4 col-sm-12" style={{backgroundColor: "#fafafa"}}>
+                                      <Panel>
+                                        <h3 className="pageModuleSubTitle"> Parent Supplier's value share in
+                                          Category </h3>
+                                        {(() => {
+                                          if (obj.supp_imp_cat_sales != "---") {
 
-                                    {/*<panel>*/}
-                                    {/*<div className="row mainBox">*/}
-                                    {/*<div className="col-md-6 col-sm-6" style={{backgroundColor: "#fafafa"}}>*/}
+                                            return (
+                                              <div style={{
+                                                fontSize: '20px',
+                                              }}>{obj.supp_imp_cat_sales}%</div>
+                                            )
+                                          }
+                                        })()}
 
+                                        <div style={{height: '1%', width: '100%'}}></div>
+                                        <br></br>
+                                        <h3 className="pageModuleSubTitle"> Category's value share to Parent
+                                          Supplier </h3>
+                                        {(() => {
+                                          if (obj.cat_imp_supp_sales != "---") {
 
-                                    {/*{(() => {*/}
-                                    {/*if (obj.supp_imp_cat_sales != "---") {*/}
+                                            return (
+                                              <div style={{
+                                                fontSize: '20px',
+                                              }}>{obj.cat_imp_supp_sales}% <br></br></div>
+                                            )
+                                          }
+                                        })()}
 
-                                    {/*return (*/}
-                                    {/*<div>*/}
-                                    {/*<div className="col-md-12 col-sm-6" style={{*/}
-                                    {/*textAlign: 'center',*/}
-                                    {/*borderTop: "1px solid #e5e8ea",*/}
-                                    {/*backgroundColor: "white",*/}
-                                    {/*margin: "0%",*/}
-                                    {/*borderLeft: "1px solid #e5e8ea",*/}
-                                    {/*borderRight: "1px solid #e5e8ea",*/}
-                                    {/*borderBottom: "1px solid #e5e8ea"*/}
-                                    {/*}}>*/}
-                                    {/*<h3 className="pageModuleSubTitle"> Parent Supplier's value share in*/}
-                                    {/*Category</h3>*/}
-                                    {/*<div style={{height: '15%', width: '100%'}}>&nbsp;</div>*/}
-                                    {/*<GaugeChart2 data={[obj.supp_imp_cat_sales]}*/}
-                                    {/*id="gauge1"/>*/}
-                                    {/*<div className="row" style={{marginTop: '-11%'}}>*/}
-                                    {/*<div className="col-xs-12"*/}
-                                    {/*style={{fontWeight: 'bold', fontSize: '14px'}}>*/}
-                                    {/*{obj.supp_imp_cat_sales}%*/}
-                                    {/*</div>*/}
-                                    {/*</div>*/}
-                                    {/*</div>*/}
-                                    {/*</div>*/}
-                                    {/*)*/}
-                                    {/*}*/}
-                                    {/*})()}*/}
-
-                                    {/*</div>*/}
-                                    {/*<div className="col-md-6 col-sm-6" style={{backgroundColor: "#fafafa"}}>*/}
-
-
-                                    {/*{(() => {*/}
-                                    {/*if (obj.cat_imp_supp_sales != "---") {*/}
-
-                                    {/*return (*/}
-                                    {/*<div>*/}
-                                    {/*<div className="col-md-12 col-sm-12 col-xs-12" style={{*/}
-                                    {/*textAlign: 'center',*/}
-                                    {/*borderTop: "1px solid #e5e8ea",*/}
-                                    {/*float: 'right',*/}
-                                    {/*backgroundColor: "white",*/}
-                                    {/*margin: "0%",*/}
-                                    {/*borderLeft: "1px solid #e5e8ea",*/}
-                                    {/*borderRight: "1px solid #e5e8ea",*/}
-                                    {/*borderBottom: "1px solid #e5e8ea"*/}
-                                    {/*}}>*/}
-                                    {/*<h3 className="pageModuleSubTitle"> Category's value share to Parent*/}
-                                    {/*Supplier </h3>*/}
-                                    {/*<div style={{height: '15%', width: '100%'}}>&nbsp;</div>*/}
-                                    {/*<GaugeChart2 data={[obj.cat_imp_supp_sales]}*/}
-                                    {/*id="gauge2"/>*/}
-                                    {/*<div className="row" style={{marginTop: '-11%'}}>*/}
-                                    {/*<div className="col-xs-12"*/}
-                                    {/*style={{fontWeight: 'bold', fontSize: '14px'}}>*/}
-                                    {/*{obj.cat_imp_supp_sales}%*/}
-                                    {/*</div>*/}
-                                    {/*</div>*/}
-                                    {/*</div>*/}
-                                    {/*</div>*/}
-                                    {/*)*/}
-                                    {/*}*/}
-                                    {/*})()}*/}
-                                    {/*/!*<SampleBarChart/>*!/*/}
-
-                                    {/*</div>*/}
-                                    {/*</div>*/}
-                                    {/*</panel>*/}
+                                      </Panel>
+                                    </div>
                                   </div>
-                                )
-                              })
-                            }
-                          })()}
+
+                                  {/*<panel>*/}
+                                  {/*<div className="row mainBox">*/}
+                                  {/*<div className="col-md-6 col-sm-6" style={{backgroundColor: "#fafafa"}}>*/}
 
 
-                          <Modal show={this.state.suppTopBottombar} bsSize="lg"
-                                 aria-labelledby="contained-modal-title-lg"
-                          >
-                            <Modal.Header>
+                                  {/*{(() => {*/}
+                                  {/*if (obj.supp_imp_cat_sales != "---") {*/}
 
-                              <Modal.Title id="contained-modal-title-sm"
-                                           style={{textAlign: 'center', fontSize: '14px'}}><span
-                                style={{
-                                  textAlign: 'center',
-                                  fontSize: '14px'
-                                }}><b>Assess Performance by Parent Supplier</b><span
-                                style={{textAlign: 'right', float: 'right'}}
-                                onClick={() => this.setState({suppTopBottombar: false})}><b>X</b></span></span>
-                                <div style={{textAlign: 'center'}}>
-                                  <div style={{textAlign: 'right'}}>
-                                  </div>
+                                  {/*return (*/}
+                                  {/*<div>*/}
+                                  {/*<div className="col-md-12 col-sm-6" style={{*/}
+                                  {/*textAlign: 'center',*/}
+                                  {/*borderTop: "1px solid #e5e8ea",*/}
+                                  {/*backgroundColor: "white",*/}
+                                  {/*margin: "0%",*/}
+                                  {/*borderLeft: "1px solid #e5e8ea",*/}
+                                  {/*borderRight: "1px solid #e5e8ea",*/}
+                                  {/*borderBottom: "1px solid #e5e8ea"*/}
+                                  {/*}}>*/}
+                                  {/*<h3 className="pageModuleSubTitle"> Parent Supplier's value share in*/}
+                                  {/*Category</h3>*/}
+                                  {/*<div style={{height: '15%', width: '100%'}}>&nbsp;</div>*/}
+                                  {/*<GaugeChart2 data={[obj.supp_imp_cat_sales]}*/}
+                                  {/*id="gauge1"/>*/}
+                                  {/*<div className="row" style={{marginTop: '-11%'}}>*/}
+                                  {/*<div className="col-xs-12"*/}
+                                  {/*style={{fontWeight: 'bold', fontSize: '14px'}}>*/}
+                                  {/*{obj.supp_imp_cat_sales}%*/}
+                                  {/*</div>*/}
+                                  {/*</div>*/}
+                                  {/*</div>*/}
+                                  {/*</div>*/}
+                                  {/*)*/}
+                                  {/*}*/}
+                                  {/*})()}*/}
+
+                                  {/*</div>*/}
+                                  {/*<div className="col-md-6 col-sm-6" style={{backgroundColor: "#fafafa"}}>*/}
+
+
+                                  {/*{(() => {*/}
+                                  {/*if (obj.cat_imp_supp_sales != "---") {*/}
+
+                                  {/*return (*/}
+                                  {/*<div>*/}
+                                  {/*<div className="col-md-12 col-sm-12 col-xs-12" style={{*/}
+                                  {/*textAlign: 'center',*/}
+                                  {/*borderTop: "1px solid #e5e8ea",*/}
+                                  {/*float: 'right',*/}
+                                  {/*backgroundColor: "white",*/}
+                                  {/*margin: "0%",*/}
+                                  {/*borderLeft: "1px solid #e5e8ea",*/}
+                                  {/*borderRight: "1px solid #e5e8ea",*/}
+                                  {/*borderBottom: "1px solid #e5e8ea"*/}
+                                  {/*}}>*/}
+                                  {/*<h3 className="pageModuleSubTitle"> Category's value share to Parent*/}
+                                  {/*Supplier </h3>*/}
+                                  {/*<div style={{height: '15%', width: '100%'}}>&nbsp;</div>*/}
+                                  {/*<GaugeChart2 data={[obj.cat_imp_supp_sales]}*/}
+                                  {/*id="gauge2"/>*/}
+                                  {/*<div className="row" style={{marginTop: '-11%'}}>*/}
+                                  {/*<div className="col-xs-12"*/}
+                                  {/*style={{fontWeight: 'bold', fontSize: '14px'}}>*/}
+                                  {/*{obj.cat_imp_supp_sales}%*/}
+                                  {/*</div>*/}
+                                  {/*</div>*/}
+                                  {/*</div>*/}
+                                  {/*</div>*/}
+                                  {/*)*/}
+                                  {/*}*/}
+                                  {/*})()}*/}
+                                  {/*/!*<SampleBarChart/>*!/*/}
+
+                                  {/*</div>*/}
+                                  {/*</div>*/}
+                                  {/*</panel>*/}
                                 </div>
-                              </Modal.Title>
-
-                            </Modal.Header>
-
-                            <Modal.Body style={{fontSize: '14px'}}>
-                              A comparison of suppliers based on various metric is pivotal to improved buyer- supplier
-                              negotiations. Empowered with data regarding how different suppliers offer similar products
-                              at varying prices, a buyer can make more informed decisions to grow his portfolio. The
-                              list
-                              of top and bottom suppliers will help critically evaluate engagements with buyers.
-                            </Modal.Body>
-                          </Modal>
-
-                          <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
+                              )
+                            })
+                          }
+                        })()}
 
 
-                          {/*<div className="pageTitle" style={{marginBottom: "20px"}}>*/}
-                          <div className="headerBox">
-                            <h2 className="pageModuleMainTitle">Assess performance by parent supplier</h2>
-                          </div>
+                        <Modal show={this.state.suppTopBottombar} bsSize="lg"
+                               aria-labelledby="contained-modal-title-lg"
+                        >
+                          <Modal.Header>
+
+                            <Modal.Title id="contained-modal-title-sm"
+                                         style={{textAlign: 'center', fontSize: '14px'}}><span
+                              style={{
+                                textAlign: 'center',
+                                fontSize: '14px'
+                              }}><b>Assess Performance by Parent Supplier</b><span
+                              style={{textAlign: 'right', float: 'right'}}
+                              onClick={() => this.setState({suppTopBottombar: false})}><b>X</b></span></span>
+                              <div style={{textAlign: 'center'}}>
+                                <div style={{textAlign: 'right'}}>
+                                </div>
+                              </div>
+                            </Modal.Title>
+
+                          </Modal.Header>
+
+                          <Modal.Body style={{fontSize: '14px'}}>
+                            A comparison of suppliers based on various metric is pivotal to improved buyer- supplier
+                            negotiations. Empowered with data regarding how different suppliers offer similar products
+                            at varying prices, a buyer can make more informed decisions to grow his portfolio. The
+                            list
+                            of top and bottom suppliers will help critically evaluate engagements with buyers.
+                          </Modal.Body>
+                        </Modal>
+
+                        <div style={{height: '15%', width: '100%'}}>&nbsp;</div>
+
+
+                        {/*<div className="pageTitle" style={{marginBottom: "20px"}}>*/}
+                        <div className="headerBox">
+                          <h2 className="pageModuleMainTitle">Assess performance by parent supplier</h2>
+                        </div>
 
                         {/*</div>*/}
 
 
-                      {/*<div className="row mainBox">*/}
+                        {/*<div className="row mainBox">*/}
                         {/**/}
-                      {/*</div>*/}
+                        {/*</div>*/}
 
-                          <div>
-                            <div className="row mainBox">
-                              <panel>
+                        <div>
+                          <div className="row mainBox">
+                            <panel>
 
-                               <div className="col-md-12 col-sm-12 col-xs-12 panel-body" style={{backgroundColor: "#f5f5f5"}}>
-                            {(() => {
-                              if (this.props.supplier.topBotData && this.props.supplier.barChartSpinnerCheck != 0) {
+                              <div className="col-md-12 col-sm-12 col-xs-12 panel-body"
+                                   style={{backgroundColor: "#f5f5f5"}}>
+                                {(() => {
+                                  if (this.props.supplier.topBotData && this.props.supplier.barChartSpinnerCheck != 0) {
 
-                                return (
+                                    return (
 
-                                <div>
-                                  <BootstrapTable
-                                    data={this.props.supplier.topBotData.dataframe} options={options}
-                                    striped={true}
-                                    hover
-                                    condensed
-                                    pagination={ true }
-                                    search={true}
-                                    exportCSV={true}
-                                  >
-                                    <TableHeaderColumn dataField="parent_supplier" isKey={true}
-                                                       tdStyle={ {whiteSpace: 'normal'} } width="30%"
-                                                       dataSort={true} dataAlign="left">Parent
-                                      Supplier</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="part_by_val" dataFormat={formatSales} dataSort={true} dataAlign="right">{this.state.paticipationByTab}</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="value_growth" dataFormat={formatSales} dataSort={true} dataAlign="right">{this.state.GrowthTab}</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="value_contri" dataFormat={formatSales} dataSort={true} dataAlign="right">{this.state.ContributionToGrowthTab}</TableHeaderColumn>
-                                  </BootstrapTable>
+                                      <div>
+                                        <BootstrapTable
+                                          data={this.props.supplier.topBotData.dataframe} options={options}
+                                          striped={true}
+                                          hover
+                                          condensed
+                                          pagination={ true }
+                                          search={true}
+                                          exportCSV={true}
+                                        >
+                                          <TableHeaderColumn dataField="parent_supplier" isKey={true}
+                                                             tdStyle={ {whiteSpace: 'normal'} } width="30%"
+                                                             dataSort={true} dataAlign="left">Parent
+                                            Supplier</TableHeaderColumn>
+                                          <TableHeaderColumn dataField="supplier" tdStyle={ {whiteSpace: 'normal'} }
+                                                             dataSort={true}
+                                                             dataAlign="left">Supplier</TableHeaderColumn>
+                                          <TableHeaderColumn dataField="product" tdStyle={ {whiteSpace: 'normal'} }
+                                                             dataSort={true}
+                                                             dataAlign="left">Product</TableHeaderColumn>
+                                          <TableHeaderColumn dataField="part_by_val" dataFormat={formatSales}
+                                                             dataSort={true}
+                                                             dataAlign="right">{this.state.paticipationByTab}</TableHeaderColumn>
+                                          <TableHeaderColumn dataField="value_growth" dataFormat={formatSales}
+                                                             dataSort={true}
+                                                             dataAlign="right">{this.state.GrowthTab}</TableHeaderColumn>
+                                          <TableHeaderColumn dataField="value_contri" dataFormat={formatSales}
+                                                             dataSort={true}
+                                                             dataAlign="right">{this.state.ContributionToGrowthTab}</TableHeaderColumn>
+                                        </BootstrapTable>
 
-                                </div>
-                                )
-                              }
-                              else {
-                                return (
-                                  <div className="row spinnerPositionBarChart"><Spinner /><h2>Please Wait a
-                                    Moment....!</h2></div>
-                                )
-                              }
-                            })()}
+                                      </div>
+                                    )
+                                  }
+                                  else {
+                                    return (
+                                      <div className="row spinnerPositionBarChart"><Spinner /><h2>Please Wait a
+                                        Moment....!</h2></div>
+                                    )
+                                  }
+                                })()}
 
                               </div>
 
@@ -906,9 +1018,9 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                         </Modal>
 
                         {/*<div className="pageTitle">*/}
-                          {/*<div className="headerBox">*/}
-                            {/*<h2 className="pageModuleMainTitle">Negotiation Opportunity</h2>*/}
-                          {/*</div>*/}
+                        {/*<div className="headerBox">*/}
+                        {/*<h2 className="pageModuleMainTitle">Negotiation Opportunity</h2>*/}
+                        {/*</div>*/}
                         <br/>
                         {/*</div>*/}
 
@@ -919,14 +1031,15 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                  this.setState({bubbleChartModal: false})
                                }}>
                           <Modal.Header closeButton>
-                            <Modal.Title id="contained-modal-title-sm text-center" className="pageModuleTitle">Please enter
+                            <Modal.Title id="contained-modal-title-sm text-center" className="pageModuleTitle">Please
+                              enter
                               necessary details</Modal.Title>
                           </Modal.Header>
                           <Modal.Body>
                             <div className="row" style={{marginLeft: "0px", marginRight: "0px"}}>
                               <div className="mainBox">
                           <span className="glyphicon glyphicon-info-sign pull-right"
-                                style={{marginRight: '10px', fontSize: '15px', marginTop: '10px',color:'#00539f'}}
+                                style={{marginRight: '10px', fontSize: '15px', marginTop: '10px', color: '#00539f'}}
                                 onClick={() => {
                                   this.setState({suppNegotiationbar: true});
                                 }}></span>
@@ -956,7 +1069,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                 </Nav>
                               </div>
 
-                                {/*------Performance quartile---- */}
+                              {/*------Performance quartile---- */}
 
                               {/*Header row*/}
                               <div className="col-md-12 col-sm-12 pageModuleSubTitle" style={{marginTop: '20px'}}>
@@ -1303,7 +1416,8 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                                         <div className="col-md-12 col-sm-12 col-xs-12 " style={{marginTop: '2%'}}>
                                           <div style={{float: "right"}}>
-                                            <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight
+                                            <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger"
+                                                            pullRight
                                                             style={{
                                                               backgroundColor: "transparent",
                                                               borderColor: "transparent",
@@ -1326,122 +1440,120 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                             //Passing array which updates opacity
                                                         selectedBubbleOpacity={this.props.supplier.prodArrayOpacity}
 
-                                              //Ajax calls to save prodArrayTable in state
-                                                          onSaveBubbleParam={this.props.onSaveBubbleParam}
+                                            //Ajax calls to save prodArrayTable in state
+                                                        onSaveBubbleParam={this.props.onSaveBubbleParam}
 
-                                              //Ajax calls to save prodArrayOpacity in state
-                                                          onSaveBubbleParam2={this.props.onSaveBubbleParam2}
+                                            //Ajax calls to save prodArrayOpacity in state
+                                                        onSaveBubbleParam2={this.props.onSaveBubbleParam2}
 
-                                              //To update graph and table
-                                                          onFetchGraph={this.props.onFetchGraph}
-                                                          onGenerateTable={this.props.onGenerateTable}
-                                            />
-                                            <i style={{fontSize: '12px'}}>*Size of the bubble corresponds to Rate of
-                                              Sales</i>
+                                            //To update graph and table
+                                                        onFetchGraph={this.props.onFetchGraph}
+                                                        onGenerateTable={this.props.onGenerateTable}
+                                          />
+                                          <i style={{fontSize: '12px'}}>*Size of the bubble corresponds to Rate of
+                                            Sales</i>
 
-                                            {/*<div className="resetButton" onClick={() => {*/}
-                                            {/*dataPerformanceUrlParams = '';*/}
-                                            {/*this.props.onSavePageParam("page=1");*/}
-                                            {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
-                                            {/*this.props.onFetchGraph();*/}
-                                            {/*this.props.onGenerateTable();*/}
-                                            {/*this.props.onRadioChecked('6');*/}
-                                            {/*}}><p>View Selections</p></div>*/}
+                                          {/*<div className="resetButton" onClick={() => {*/}
+                                          {/*dataPerformanceUrlParams = '';*/}
+                                          {/*this.props.onSavePageParam("page=1");*/}
+                                          {/*this.props.onSavePFilterParam(dataPerformanceUrlParams);*/}
+                                          {/*this.props.onFetchGraph();*/}
+                                          {/*this.props.onGenerateTable();*/}
+                                          {/*this.props.onRadioChecked('6');*/}
+                                          {/*}}><p>View Selections</p></div>*/}
 
-                                          </div>
-                                        )
+                                        </div>
+                                      )
+                                    }
+                                  })()}
+
+
+                                  {/*-----Bubble table-----*/}
+
+                                  <Panel>
+                                    <div>
+                                      {
+                                        (() => {
+
+                                          if (this.props.supplier.data && (this.props.supplier.tableChartSpinnerCheck == 1)) {
+
+
+                                            return (
+                                              <div>
+                                                <BootstrapTable
+                                                  data={this.props.supplier.data.table_data} options={options}
+                                                  striped={true}
+                                                  hover
+                                                  condensed
+                                                  pagination={ true }
+                                                  search={true}
+                                                  exportCSV={true}
+                                                >
+                                                  <TableHeaderColumn dataField="base_product_number" isKey={true}
+                                                                     dataAlign="center" dataSort={true} width="20%">Product
+                                                    ID</TableHeaderColumn>
+                                                  <TableHeaderColumn dataField="parent_supplier"
+                                                                     tdStyle={ {whiteSpace: 'normal'} } width="20%"
+                                                                     dataSort={true} dataAlign="center">Parent
+                                                    Supplier</TableHeaderColumn>
+                                                  <TableHeaderColumn dataField="sales_ty" dataFormat={formatSales}
+                                                                     dataSort={true}
+                                                                     dataAlign="center">Sales TY</TableHeaderColumn>
+                                                  <TableHeaderColumn dataField="volume_ty" dataFormat={formatVolume}
+                                                                     dataSort={true} dataAlign="center">Volume
+                                                    TY</TableHeaderColumn>
+                                                  <TableHeaderColumn dataField="cgm_ty" dataFormat={formatSales}
+                                                                     dataSort={true}
+                                                                     dataAlign="center">CGM TY</TableHeaderColumn>
+                                                  <TableHeaderColumn dataField="pps" dataSort={true}
+                                                                     dataAlign="center">PPS</TableHeaderColumn>
+                                                  <TableHeaderColumn dataField="cps" dataSort={true}
+                                                                     dataAlign="center">CPS</TableHeaderColumn>
+                                                  <TableHeaderColumn dataField="rate_of_sale" dataSort={true}
+                                                                     dataAlign="center">Rate
+                                                    of Sale</TableHeaderColumn>
+                                                </BootstrapTable>
+
+                                              </div>
+                                            );
+
+                                          }
+                                          else {
+                                            return (
+
+                                              <div className="text-center" colSpan="11"><Spinner /><h3>Please Wait a
+                                                Moment....!</h3></div>
+
+                                            );
+                                          }
+                                        })()
                                       }
-                                    })()}
+                                    </div>
+                                  </Panel>
 
 
-                                    {/*-----Bubble table-----*/}
-
-                                    <Panel>
-                                      <div>
-                                        {
-                                          (() => {
-
-                                            if (this.props.supplier.data && (this.props.supplier.tableChartSpinnerCheck == 1)) {
-
-
-                                              return (
-                                                <div>
-                                                  <BootstrapTable
-                                                    data={this.props.supplier.data.table_data} options={options}
-                                                    striped={true}
-                                                    hover
-                                                    condensed
-                                                    pagination={ true }
-                                                    search={true}
-                                                    exportCSV={true}
-                                                  >
-                                                    <TableHeaderColumn dataField="base_product_number" isKey={true}
-                                                                       dataAlign="center" dataSort={true} width="20%">Product
-                                                      ID</TableHeaderColumn>
-                                                    <TableHeaderColumn dataField="parent_supplier"
-                                                                       tdStyle={ {whiteSpace: 'normal'} } width="20%"
-                                                                       dataSort={true} dataAlign="center">Parent
-                                                      Supplier</TableHeaderColumn>
-                                                    <TableHeaderColumn dataField="sales_ty" dataFormat={formatSales}
-                                                                       dataSort={true}
-                                                                       dataAlign="center">Sales TY</TableHeaderColumn>
-                                                    <TableHeaderColumn dataField="volume_ty" dataFormat={formatVolume}
-                                                                       dataSort={true} dataAlign="center">Volume
-                                                      TY</TableHeaderColumn>
-                                                    <TableHeaderColumn dataField="cgm_ty" dataFormat={formatSales}
-                                                                       dataSort={true}
-                                                                       dataAlign="center">CGM TY</TableHeaderColumn>
-                                                    <TableHeaderColumn dataField="pps" dataSort={true}
-                                                                       dataAlign="center">PPS</TableHeaderColumn>
-                                                    <TableHeaderColumn dataField="cps" dataSort={true}
-                                                                       dataAlign="center">CPS</TableHeaderColumn>
-                                                    <TableHeaderColumn dataField="rate_of_sale" dataSort={true}
-                                                                       dataAlign="center">Rate
-                                                      of Sale</TableHeaderColumn>
-                                                  </BootstrapTable>
-
-                                                </div>
-                                              );
-
-                                            }
-                                            else {
-                                              return (
-
-                                                <div className="text-center" colSpan="11"><Spinner /><h3>Please Wait a
-                                                  Moment....!</h3></div>
-
-                                              );
-                                            }
-                                          })()
-                                        }
-                                      </div>
-                                    </Panel>
-
-
-                                  </div>
                                 </div>
+                              </div>
 
                             </div>
                           </Modal.Body>
                         </Modal>
 
-                        <div style={{textAlign:'center',marginBottom:'10px'}}>
-                        <Button buttonType={'primary'} onClick={() => {
-                          //For table
-                          this.props.onGenerateTable();
-                          //For Bubble Graph
-                          this.props.onFetchGraph();
-                          this.setState({bubbleChartModal: true})
-                        }}>Negotiation Opportunity</Button>
+                        <div style={{textAlign: 'center', marginBottom: '10px'}}>
+                          <Button buttonType={'primary'} onClick={() => {
+                            //For table
+                            this.props.onGenerateTable();
+                            //For Bubble Graph
+                            this.props.onFetchGraph();
+                            this.setState({bubbleChartModal: true})
+                          }}>Negotiation Opportunity</Button>
                         </div>
                       </div>
 
-                      </div>
                     </div>
                   </div>
                 </div>
-
-
+              </div>
             )
           }
         })()}
@@ -1513,10 +1625,22 @@ function mapDispatchToProps(dispatch) {
     onCheckboxWeekChange: (e) => dispatch(checkboxWeekChange(e)),
     onSaveWeek: (e) => dispatch(SaveWeek(e)),
 
+    onSaveStoreFilterParam: (e) => dispatch(StoreFilterParam(e)),
+
     //FOR GETTING FILTERS DATA
     onGenerateUrlParamsString: (e) => {
       return dispatch(GenerateUrlParamsString(e));
     },
+    //FOR GETTING FILTERS DATA ON INITIAL LOAD
+    onGenerateUrlParamsString2: (e) => {
+      return dispatch(GenerateUrlParamsString2(e));
+    },
+
+    //FLAG FOR KNOWING DEFAULT PAGE LOAD
+    onGenerateUrlParamsString3: (e) => {
+      return dispatch(GenerateUrlParamsString3(e));
+    },
+
     onGenerateCheckedList: (a, b) => dispatch(generateCheckedList(a, b)),
   }
 }

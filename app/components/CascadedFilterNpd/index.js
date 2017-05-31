@@ -43,25 +43,33 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
 
   updateUrl = (category) => {
     let queryString = '';
+    let queryStringNew = '';
     let urlParamsSingleSelect = '';
-    // [...this.refs.selector.querySelectorAll('input')].map(obj => {
-    //   if (obj.checked == true) {
-    //     console.log("Objects", obj);
 
-    console.log("Objects category1", category);
-    // category = category.split('__');
-    // let category = obj.id.split('__');
-    // console.log("Objects category", category);
-    // let category = category.split('__');
-    // let category = category.split('__');
+    [...this.refs.selector.querySelectorAll('input')].map(obj => {
+      if (obj.checked == true) {
 
-    // if (category[0] === 'buying_controller') {
-    //   this.props.onGenerateBuyingController(category[category.length - 1])
-    // }
-    // if (category[1] === 'category_director') {
-    //   // this.props.onGenerateBuyingController(category[category.length - 1])
-    //   this.props.onGenerateCategoryDirector(category[category.length - 2])
-    // }
+        let categoryNew = obj.id.split('__');
+        // let category = category.split('__');
+
+        console.log('obj11',categoryNew);
+
+        // let categoryNew = category.split('__');
+        // console.log('categoryNew',categoryNew);
+
+        queryStringNew = queryStringNew + `${categoryNew[0]}=${categoryNew[categoryNew.length - 1]}&`;
+        console.log('queryStringNew1',queryStringNew);
+
+      }
+    })
+
+    if (queryStringNew.includes('20')){
+      queryStringNew = queryStringNew.substring(14,queryStringNew.length - 1);
+      console.log('queryStringNew2',queryStringNew);
+    }
+
+    this.props.user_filter_selection(queryStringNew);
+
     if (['commercial_name', 'category_name', 'buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])) {
       urlParamsSingleSelect = category;
       // urlParamsSingleSelect = urlParamsSingleSelect + `${category[0]}=${category[category.length - 1]}`;
