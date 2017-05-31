@@ -52,9 +52,18 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
     let pie = d3.pie()
       .sort(null)
       .value(function(d) { return d.value; });
+
+    // var color = d3.scaleOrdinal()
+    //   .range(["#00bcd4","#69b24a","ccbaa1","#5c2957","#788f9c","#c74a52"]);
+    // let color_hash = ["#00bcd4","#69b24a","ccbaa1","#5c2957","#788f9c","#c74a52"];
+
     var color = d3.scaleOrdinal()
-      .range(["#c1c1c1","#d0d1e6","#a6bddb","#67a9cf","#3690c0","#02818a","#016450"]);
-    let color_hash = ["#c1c1c1","#d0d1e6","#a6bddb","#67a9cf","#3690c0","#02818a","#016450"];
+      .range(["#ffa626","#69b24a","c5cae9","#58bbd0","#e0bfe8","#ccbaa1"]);
+    let color_hash = ["#ffa626","#69b24a","c5cae9","#58bbd0","#e0bfe8","#ccbaa1"];
+
+    // var color = d3.scaleOrdinal()
+    //   .range(["#c1c1c1","#d0d1e6","#a6bddb","#67a9cf","#3690c0","#02818a","#016450"]);
+    // let color_hash = ["#c1c1c1","#d0d1e6","#a6bddb","#67a9cf","#3690c0","#02818a","#016450"];
     let svg = d3.select(`#${id}`);
     svg.selectAll("*").remove();
     console.log("Inside pie chart check 3",data);

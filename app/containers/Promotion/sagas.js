@@ -95,6 +95,7 @@ export function* generatePromoKpiDataFetch() {
   const weekurlparam = urlName.get('week_param');
   let urlParamsString = urlName.get('urlParamsString');
   let weekselection = urlName.get('weekurlParam');
+  let store_selection = urlName.get();
   if (!urlParamsString) {
     urlParamsString = ''
   }
@@ -841,6 +842,9 @@ export function* generateModalInfo() {
   let trendChartTabParam = urlName.get('trendChartTabParam');
   let metricSelected = urlName.get('metricSelected');
   let modalProductName = urlName.get('modalProductName');
+  let promo_type = urlName.get('modalTrendChartTabParam');
+
+
 
   let urlAppends = "";
 
@@ -879,6 +883,11 @@ export function* generateModalInfo() {
 
   if (modalProductName !== "") {
     urlAppends = urlAppends + '&selected=' + modalProductName;
+
+  }
+
+  if (promo_type !== "") {
+    urlAppends = urlAppends + '&'+ promo_type;
 
   }
 
