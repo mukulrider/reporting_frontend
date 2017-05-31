@@ -69,7 +69,7 @@ let gettingUserDetails = () => {
 
 const userParamsAuth = gettingUserDetails();
 
-let host_url = "http://172.20.181.92:8000";
+let host_url = "http://172.20.181.16:8001";
 
 // FOR SUPPLIER POPUP TABLE
 
@@ -486,7 +486,8 @@ export function* generateSideFilter() {
 
   try {
     const filter_data = yield call(request,
-      host_url + `/api/reporting/filter_supplier` + urlParamsString  + '&' + userParamsAuth);
+      host_url + `/api/reporting/filter_new_supplier` + urlParamsString  + '&' + userParamsAuth);
+      // host_url + `/api/reporting/filter_supplier` + urlParamsString  + '&' + userParamsAuth);
 
     /*,
      {
