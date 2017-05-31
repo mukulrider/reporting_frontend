@@ -12,7 +12,7 @@ import {
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-import {cardDataFetchSuccess,chartDataFetchSuccess,LineChartSpinnerCheckSuccess,
+import {cardsCallAction,cardDataFetchSuccess,chartDataFetchSuccess,LineChartSpinnerCheckSuccess,
   PromoKpiDataFetchSuccess, FilterFetchSuccess, WeekFilterFetchSuccess,DSViewKpiSpinnerCheckSuccess,
   defaultPageLoadCheck}
   from './actions';

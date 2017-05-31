@@ -162,7 +162,6 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
     };
 
     let formatMetric = (cell,flag="value") => {
-      console.log("Inside Format Metric",cell,flag);
       if (cell >= 1000 || cell <= -1000) {
         let rounded = Math.round(cell / 1000);
         if (flag == "volume") {
@@ -221,6 +220,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                         return (
                           <CascadedFilterDSS filter_data={this.props.DailySales.filter_data}
                             // week_data={this.props.promotion.filter_data.week_data}
+                                             CardsDataCall={this.props.CardsDataCall}
                                              ChartDataCall={this.props.ChartDataCall}
                                              week_data={this.props.DailySales.week_filter_data}
                                              location={this.props.location}
@@ -431,10 +431,10 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                       <h3 className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>Margin</h3>
                                       <div className="row">
                                         <div className="col-md-6 col-sm-6 col-xs-6 kpiSmall">
-                                          <h3>{formatMetric(e.current_day)}</h3>
+                                          <h3>{e.current_day}%</h3>
                                         </div>
                                         <div className="col-md-6 col-sm-6 col-xs-6">
-                                          <h3>LFL:{formatMetric(e.current_day_lfl)}</h3>
+                                          <h3>LFL:{e.current_day_lfl}%</h3>
                                         </div>
                                       </div>
                                       <div className="row">
