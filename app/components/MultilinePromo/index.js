@@ -26,7 +26,8 @@ console.log("HARSHIT",data)
 
     // Scale the range of the data
     x.domain(data.map(function(d) { return d.tesco_week.toString(); }));
-    y.domain([0, d3.max(data, function(d) {
+    y.domain([d3.min(data, function(d) {
+      return Math.min(+d.value_ty, +d.value_ly); }), d3.max(data, function(d) {
       return Math.max(+d.value_ty, +d.value_ly); })]);
 
     let xAxis = d3.axisBottom(x)
@@ -90,6 +91,7 @@ console.log("HARSHIT",data)
     svg.append("path")
       .data([data])
       .attr("class", "line")
+      .style("stroke", "#02958B")
       .attr("d", valueline)
       .on('mouseover', function(d) {
         // console.log("harshit");
@@ -108,7 +110,7 @@ console.log("HARSHIT",data)
     svg.append("path")
       .data([data])
       .attr("class", "line")
-      .style("stroke", "red")
+      .style("stroke", "#CFDB39")
       .attr("d", valueline2);
 
 
@@ -159,7 +161,7 @@ console.log("HARSHIT",data)
         return "translate(" + (legendWidth*i - width-20) +  "," + (height + margin.top + margin.bottom) + ")";
       });
 
-    let color_hash = ["steelblue","red"];
+    let color_hash = ["#02958B","#CFDB39"];
 
     legend.append("rect")
       .attr("x", frameWidth-5 )

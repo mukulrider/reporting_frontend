@@ -79,8 +79,8 @@ var Example = React.createFactory(React.createClass({
         // })
 
 
-         option({value: '10397. - KARRO FOODS'}, '10397. - KARRO FOODS'),
-         option({value: '1097. - MOY PARK (OSI)'}, '1097. - MOY PARK (OSI)'),
+        option({value: '10397. - KARRO FOODS'}, '10397. - KARRO FOODS'),
+        option({value: '1097. - MOY PARK (OSI)'}, '1097. - MOY PARK (OSI)'),
         option({value: '1827. - FRESHLINK FOODS'}, '1827. - FRESHLINK FOODS')
       )
     )
@@ -468,24 +468,23 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                   })()}
 
                 </div>
-                <div className="row">
+                <div className="row" style={{marginLeft: '335px'}}>
                   <div className="col-xs-3">
+                    <Example placeholder="Parent Supplier"></Example>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
                   </div>
-                  {(() => {
-                    if (this.props.supplier.sideFilter) {
-                      return (
-                        <Example placeholder="Parent Supplier"></Example>
-                      )
-                    }
-                  })()}
 
                   <div className="col-xs-3">
-                  <Example placeholder="Supplier"></Example>
+                    <Example placeholder="Supplier"></Example>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
                   </div>
-                  <br/>
-                  <br/>
-                  <br/>
-                  <br/></div>
+                </div>
 
 
                 <div className="row" style={{

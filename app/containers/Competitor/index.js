@@ -21,6 +21,7 @@ import WaterFallChart2 from 'components/WaterFallChart2';
 import Panel from 'components/panel';
 import Spinner from 'components/spinner';
 import Breadcrumb from 'components/Breadcrumb';
+import TopFilterCompetitor from 'components/TopFilterCompetitor';
 import {
   CompetitorWaterfall,
   CompetitorPieChart,
@@ -43,6 +44,7 @@ import {
   waterChartAsdaSuccess,
   priceRangeChartSuccess,
   user_filter_selection,
+  StoreFilterParam,
 
 } from './actions';
 
@@ -93,11 +95,11 @@ export class Competitor extends React.PureComponent {
         let buyer = '';
 
         if ((typeof(buyer_header) == "undefined") || (buyer_header == "")) {
-          buying_controller = 'buying_controller='+buyingcontroller;
+          buying_controller = 'buying_controller=' + buyingcontroller;
           console.log('buying_controller non empty', buying_controller);
           return buying_controller
         } else {
-          buyer = 'buyer='+buyer_header;
+          buyer = 'buyer=' + buyer_header;
           console.log('buyer non empty--', buyer);
           return buyer
         }
@@ -222,111 +224,144 @@ export class Competitor extends React.PureComponent {
             }}>
               {/*Page title*/}
               {/*<div className="pageTitle">*/}
-                {/*{(() => {*/}
-                  {/*if (this.props.competitor.filter_week_selection) {*/}
-                    {/*return (*/}
-                      {/*<span>Competitor View - {(this.props.competitor.filter_week_selection).substring(11, 17)}</span>*/}
-                    {/*)*/}
-                  {/*} else {*/}
-                    {/*return (*/}
-                      {/*<span>Competitor View - 201709  </span>*/}
-                    {/*)*/}
-                  {/*}*/}
-                {/*})()}*/}
+              {/*{(() => {*/}
+              {/*if (this.props.competitor.filter_week_selection) {*/}
+              {/*return (*/}
+              {/*<span>Competitor View - {(this.props.competitor.filter_week_selection).substring(11, 17)}</span>*/}
+              {/*)*/}
+              {/*} else {*/}
+              {/*return (*/}
+              {/*<span>Competitor View - 201709  </span>*/}
+              {/*)*/}
+              {/*}*/}
+              {/*})()}*/}
               {/*</div>*/}
 
               <div className="row">
                 <div className="col-xs-12">
 
-                  <Breadcrumb selected_week={(this.props.competitor.filter_week_selection).substring(11, this.props.competitor.filter_week_selection.length)}
-                              urlParamsString={this.props.competitor.user_filter_selection}/>
+                  <Breadcrumb
+                    selected_week={(this.props.competitor.filter_week_selection).substring(11, this.props.competitor.filter_week_selection.length)}
+                    urlParamsString={this.props.competitor.user_filter_selection}/>
                 </div>
                 <br/>
                 <br/>
                 <br/>
                 <br/></div>
 
+
+              {(() => {
+                if (this.props.competitor.filter_data) {
+                  return (
+                    <TopFilterCompetitor
+                      week_filter_data={this.props.competitor.filter_data.week_data}
+                      onSaveWeekFilterParam={this.props.onCheckboxWeekChange}
+                      //FOR SAVING STATE FOR SELECTED WEEK TAB
+                      onSaveWeekParam={this.props.onSaveWeekParam}
+
+                      //FOR SAVING STATE FOR SELECTED STORE TAB
+                      onSaveStoreFilterParam={this.props.onSaveStoreFilterParam}
+
+                      //FOR SELECTED WEEK TAB/DROPDOWN
+                      //SPINNERS
+                      onPieChartSpinnerSuccess={this.props.onPieChartSpinnerSuccess}
+                      outPerformanceChartSuccess={this.props.outPerformanceChartSuccess}
+                      waterChartAsdaSuccess={this.props.waterChartAsdaSuccess}
+                      priceRangeChartSuccess={this.props.priceRangeChartSuccess}
+                      //CHART/DATA CALLS
+                      onCompWaterfall={this.props.onCompWaterfall}
+                      onCompetitorPieChart={this.props.onCompetitorPieChart}
+                      onCompetitorPriceRange={this.props.onCompetitorPriceRange}
+                      onCompetitorOutperformance={this.props.onCompetitorOutperformance}
+                    />
+
+                  )
+                }
+              })()}
+
+
               <div className="row fixingPosition" style={{marginLeft: "0%", paddingTop: "-5px", marginRight: "0px"}}>
                 <div className="col-md-12 content-wrap">
 
-                  <Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect}
-                       className="tabsCustom">
-                    <NavItem className="tabsCustomListTime" eventKey="1" onClick={() => {
+                  {/*<Nav bsStyle="tabs" activeKey={this.state.activeKey1} onSelect={this.handleSelect}*/}
+                       {/*className="tabsCustom">*/}
+                    {/*<NavItem className="tabsCustomListTime" eventKey="1" onClick={() => {*/}
 
-                      dataWeekUrlParams = "week_flag=Current Week";
-                      this.setState({activeKey1: "1"});
-                      this.props.onPieChartSpinnerSuccess(0);
-                      this.props.outPerformanceChartSuccess(0);
-                      this.props.waterChartAsdaSuccess(0);
-                      this.props.priceRangeChartSuccess(0);
+                      {/*dataWeekUrlParams = "week_flag=Current Week";*/}
+                      {/*this.setState({activeKey1: "1"});*/}
+                      {/*this.props.onPieChartSpinnerSuccess(0);*/}
+                      {/*this.props.outPerformanceChartSuccess(0);*/}
+                      {/*this.props.waterChartAsdaSuccess(0);*/}
+                      {/*this.props.priceRangeChartSuccess(0);*/}
 
-                      this.props.onSaveWeekParam(dataWeekUrlParams);
-                      this.props.onCompWaterfall();
-                      this.props.onCompetitorPieChart();
-                      this.props.onCompetitorPriceRange();
-                      this.props.onCompetitorOutperformance();
+                      {/*this.props.onSaveWeekParam(dataWeekUrlParams);*/}
+                      {/*this.props.onCompWaterfall();*/}
+                      {/*this.props.onCompetitorPieChart();*/}
+                      {/*this.props.onCompetitorPriceRange();*/}
+                      {/*this.props.onCompetitorOutperformance();*/}
 
-                    }}><span className="tab_label">Selected Week</span></NavItem>
+                    {/*}}><span className="tab_label">Selected Week</span></NavItem>*/}
 
-                    <NavItem className="tabsCustomListTime" eventKey="2" onClick={() => {
-                      this.setState({activeKey1: "2"});
-                      this.props.onPieChartSpinnerSuccess(0);
-                      this.props.outPerformanceChartSuccess(0);
-                      this.props.waterChartAsdaSuccess(0);
-                      this.props.priceRangeChartSuccess(0);
-                      dataWeekUrlParams = "week_flag=Latest 4 Weeks";
-                      this.props.onSaveWeekParam(dataWeekUrlParams);
-                      this.props.onCompWaterfall();
-                      this.props.onCompetitorPieChart();
-                      this.props.onCompetitorPriceRange();
-                      this.props.onCompetitorOutperformance();
+                    {/*<NavItem className="tabsCustomListTime" eventKey="2" onClick={() => {*/}
+                      {/*this.setState({activeKey1: "2"});*/}
+                      {/*this.props.onPieChartSpinnerSuccess(0);*/}
+                      {/*this.props.outPerformanceChartSuccess(0);*/}
+                      {/*this.props.waterChartAsdaSuccess(0);*/}
+                      {/*this.props.priceRangeChartSuccess(0);*/}
+                      {/*dataWeekUrlParams = "week_flag=Latest 4 Weeks";*/}
+                      {/*this.props.onSaveWeekParam(dataWeekUrlParams);*/}
+                      {/*this.props.onCompWaterfall();*/}
+                      {/*this.props.onCompetitorPieChart();*/}
+                      {/*this.props.onCompetitorPriceRange();*/}
+                      {/*this.props.onCompetitorOutperformance();*/}
 
-                    }}><span className="tab_label">Last 4 weeks</span></NavItem>
+                    {/*}}><span className="tab_label">Last 4 weeks</span></NavItem>*/}
 
-                    <NavItem className="tabsCustomListTime" eventKey="3" onClick={() => {
-                      this.setState({activeKey1: "3"});
-                      this.props.onPieChartSpinnerSuccess(0);
-                      this.props.outPerformanceChartSuccess(0);
-                      this.props.waterChartAsdaSuccess(0);
-                      this.props.priceRangeChartSuccess(0);
-                      dataWeekUrlParams = "week_flag=Latest 13 Weeks";
-                      this.props.onSaveWeekParam(dataWeekUrlParams);
-                      this.props.onCompWaterfall();
-                      this.props.onCompetitorPieChart();
-                      this.props.onCompetitorPriceRange();
-                      this.props.onCompetitorOutperformance();
+                    {/*<NavItem className="tabsCustomListTime" eventKey="3" onClick={() => {*/}
+                      {/*this.setState({activeKey1: "3"});*/}
+                      {/*this.props.onPieChartSpinnerSuccess(0);*/}
+                      {/*this.props.outPerformanceChartSuccess(0);*/}
+                      {/*this.props.waterChartAsdaSuccess(0);*/}
+                      {/*this.props.priceRangeChartSuccess(0);*/}
+                      {/*dataWeekUrlParams = "week_flag=Latest 13 Weeks";*/}
+                      {/*this.props.onSaveWeekParam(dataWeekUrlParams);*/}
+                      {/*this.props.onCompWaterfall();*/}
+                      {/*this.props.onCompetitorPieChart();*/}
+                      {/*this.props.onCompetitorPriceRange();*/}
+                      {/*this.props.onCompetitorOutperformance();*/}
 
-                    }}><span className="tab_label">Last 13 weeks</span></NavItem>
-                    <NavItem className="tabsCustomListTime" eventKey="4" onClick={() => {
-                      this.setState({activeKey1: "4"});
-                      this.props.onPieChartSpinnerSuccess(0);
-                      this.props.outPerformanceChartSuccess(0);
-                      this.props.waterChartAsdaSuccess(0);
-                      this.props.priceRangeChartSuccess(0);
-                      dataWeekUrlParams = "week_flag=Latest 52 Weeks";
-                      this.props.onSaveWeekParam(dataWeekUrlParams);
-                      this.props.onCompWaterfall();
-                      this.props.onCompetitorPieChart();
-                      this.props.onCompetitorPriceRange();
-                      this.props.onCompetitorOutperformance();
+                    {/*}}><span className="tab_label">Last 13 weeks</span></NavItem>*/}
+                    {/*<NavItem className="tabsCustomListTime" eventKey="4" onClick={() => {*/}
+                      {/*this.setState({activeKey1: "4"});*/}
+                      {/*this.props.onPieChartSpinnerSuccess(0);*/}
+                      {/*this.props.outPerformanceChartSuccess(0);*/}
+                      {/*this.props.waterChartAsdaSuccess(0);*/}
+                      {/*this.props.priceRangeChartSuccess(0);*/}
+                      {/*dataWeekUrlParams = "week_flag=Latest 52 Weeks";*/}
+                      {/*this.props.onSaveWeekParam(dataWeekUrlParams);*/}
+                      {/*this.props.onCompWaterfall();*/}
+                      {/*this.props.onCompetitorPieChart();*/}
+                      {/*this.props.onCompetitorPriceRange();*/}
+                      {/*this.props.onCompetitorOutperformance();*/}
 
-                    }}><span className="tab_label">Last 52 weeks</span></NavItem>
+                    {/*}}><span className="tab_label">Last 52 weeks</span></NavItem>*/}
 
-                    <NavItem className="tabsCustomListTime" eventKey="5" onClick={() => {
-                      this.setState({activeKey1: "5"});
-                      this.props.onPieChartSpinnerSuccess(0);
-                      this.props.outPerformanceChartSuccess(0);
-                      this.props.waterChartAsdaSuccess(0);
-                      this.props.priceRangeChartSuccess(0);
-                      dataWeekUrlParams = "week_flag=YTD";
-                      this.props.onSaveWeekParam(dataWeekUrlParams);
-                      this.props.onCompWaterfall();
-                      this.props.onCompetitorPieChart();
-                      this.props.onCompetitorPriceRange();
-                      this.props.onCompetitorOutperformance();
+                    {/*<NavItem className="tabsCustomListTime" eventKey="5" onClick={() => {*/}
+                      {/*this.setState({activeKey1: "5"});*/}
+                      {/*this.props.onPieChartSpinnerSuccess(0);*/}
+                      {/*this.props.outPerformanceChartSuccess(0);*/}
+                      {/*this.props.waterChartAsdaSuccess(0);*/}
+                      {/*this.props.priceRangeChartSuccess(0);*/}
+                      {/*dataWeekUrlParams = "week_flag=YTD";*/}
+                      {/*this.props.onSaveWeekParam(dataWeekUrlParams);*/}
+                      {/*this.props.onCompWaterfall();*/}
+                      {/*this.props.onCompetitorPieChart();*/}
+                      {/*this.props.onCompetitorPriceRange();*/}
+                      {/*this.props.onCompetitorOutperformance();*/}
 
-                    }}><span className="tab_label">YTD</span></NavItem>
-                  </Nav>
+                    {/*}}><span className="tab_label">YTD</span></NavItem>*/}
+                  {/*</Nav>*/}
+
                   <Nav bsStyle="tabs" activeKey={this.state.activeKey2} onSelect={this.handleSelect}
                        className="tabsCustom">
                     <NavItem className="tabsCustomListTime" eventKey="1" onClick={() => {
@@ -502,7 +537,8 @@ export class Competitor extends React.PureComponent {
                         return (
                           <Panel>
                             <div className="row">
-                              <div className="col-md-12 col-sm-12 text-center" style={{backgroundColor: "#fff"}}><Spinner />Please
+                              <div className="col-md-12 col-sm-12 text-center" style={{backgroundColor: "#fff"}}>
+                                <Spinner />Please
                                 Wait a Moment....!
                               </div>
                             </div>
@@ -938,6 +974,8 @@ function mapDispatchToProps(dispatch) {
     waterChartAsdaSuccess: (e) => dispatch(waterChartAsdaSuccess(e)),
     priceRangeChartSuccess: (e) => dispatch(priceRangeChartSuccess(e)),
     user_filter_selection: (e) => dispatch(user_filter_selection(e)),
+
+    onSaveStoreFilterParam: (e) => dispatch(StoreFilterParam(e)),
 
   };
 }

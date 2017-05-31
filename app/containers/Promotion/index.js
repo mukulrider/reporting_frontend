@@ -47,6 +47,7 @@ import {
   promoParticipationBySplitSuccess,
   productsTableSplitSuccess,
   kpiDataSuccess,
+  modalSaveTrendChartTabParam,
   saveTrendChartTabParam, productsOnPromoTableFetch, trendChartDataFetch, pieChartDataFetch,
   saveMetricSelectionTabParam,
   trendChartSpinner, modalProductName, modalProductInfo, modalProductInfoSuccess, StoreFilterParam,
@@ -78,6 +79,8 @@ function triangleColumnFormatter(cell, row) {
     return '<i class="glyphicon glyphicon-minus-sign glyphiconNeutral"></i>&nbsp;' + cell + '%';
   }
 }
+
+
 
 export class Promotion extends React.PureComponent {
   componentDidMount = () => {
@@ -118,12 +121,33 @@ export class Promotion extends React.PureComponent {
       activeKey2: "1",
       activeKey3: "1",
       activeKey4: "1",
-      showModal: false
+      showModal: false,
+      navValue: "value"
     };
 
   }// eslint-disable-line react/prefer-stateless-function
 
   render() {
+    let formatMetric = (cell,flag="value") => {
+      if (cell >= 1000 || cell <= -1000) {
+        let rounded = Math.round(cell / 1000);
+        if (this.state.navValue == "volume") {
+          return (rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'K')
+        }
+        else {
+          return ('£ ' + rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'K');
+        }
+      }
+      else {
+        if (this.state.navValue == "volume") {
+          return (Math.round(cell));
+        }
+        else {
+          return ('£ '+ Math.round(cell));
+        }
+      }
+    }
+
     let kpiParam = this.props.promotion.kpi_param;
     let dataWeekParam = this.props.promotion.week_param;
     const options = {
@@ -450,6 +474,7 @@ export class Promotion extends React.PureComponent {
                     <NavItem className="tabsNavPanelList1" eventKey="1" onClick={() => {
                       this.setState({activeKey2: "1"});
                       this.setState({activeKey4: "1"});
+                      this.setState({navValue: "value"});
                       this.props.saveTrendChartTabParam("");
 
 
@@ -475,6 +500,7 @@ export class Promotion extends React.PureComponent {
                     <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
                       this.setState({activeKey2: "2"});
                       this.setState({activeKey4: "1"});
+                      this.setState({navValue: "volume"});
                       this.props.saveTrendChartTabParam("");
 
                       this.props.kpiDataSuccess(0);
@@ -492,6 +518,7 @@ export class Promotion extends React.PureComponent {
                     <NavItem className="tabsNavPanelList1" eventKey="3" onClick={() => {
                       this.setState({activeKey2: "3"});
                       this.setState({activeKey4: "1"});
+                      this.setState({navValue: "profit"});
                       this.props.saveTrendChartTabParam("");
 
                       this.props.kpiDataSuccess(0);
@@ -509,6 +536,7 @@ export class Promotion extends React.PureComponent {
                     <NavItem className="tabsNavPanelList1" eventKey="4" onClick={() => {
                       this.setState({activeKey2: "4"});
                       this.setState({activeKey4: "1"});
+                      this.setState({navValue: "giveaway"});
                       this.props.saveTrendChartTabParam("");
                       this.props.saveMetricSelectionTabParam('giveaway');
                       this.props.kpiDataSuccess(0);
@@ -526,6 +554,7 @@ export class Promotion extends React.PureComponent {
                     <NavItem className="tabsNavPanelList1" eventKey="5" onClick={() => {
                       this.setState({activeKey2: "5"});
                       this.setState({activeKey4: "1"});
+                      this.setState({navValue: "product_count"});
                       this.props.saveTrendChartTabParam("");
                       this.props.saveMetricSelectionTabParam('products_count');
                       this.props.kpiDataSuccess(0);
@@ -851,7 +880,7 @@ export class Promotion extends React.PureComponent {
                         return (
                           <div className="row mainBox">
                             <div className="col-md-4 col-sm-12 col-xs-12"
-                                 style={{ paddingLeft: '15px', paddingRight: '15px'}}>
+                                 style={{paddingLeft: '15px', paddingRight: '15px'}}>
                               <Panel>
                                 <div className="firstCard" style={{height: '150px'}}>
                                   <h3 className="pageModuleSubTitle" style={{marginTop: "-1px"}}>
@@ -1232,10 +1261,10 @@ export class Promotion extends React.PureComponent {
 
                   {/*MODAL for showing Promotion Participation  */}
                   <Modal show={this.state.promoPartTabInfo} bsSize="lg"
-                         dialogClassName={'xlModal'}
-                         aria-labelledby="contained-modal-title-lg">
-                    <Modal.Header>
+                         aria-labelledby="contained-modal-title-lg"
+                         dialogClassName={'xlModal'}>
 
+                    <Modal.Header>
                       <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
                         style={{textAlign: 'center', fontSize: '14px'}}><b>Promotion Participation</b><span
                         style={{textAlign: 'right', float: 'right'}}
@@ -1257,14 +1286,13 @@ export class Promotion extends React.PureComponent {
                         {/*Left---pie chart*/}
                         <div className="col-lg-3 col-md-4 col-sm-12 col-xs-12"
                              style={{
-                               minHeight: '380px',
+                               minHeight: '450px',
                                borderRadius: '1px',
                                border: '1px solid rgb(204, 204, 204)',
                                float: 'left',
                                width: '31%',
                                marginLeft: '1%',
                                marginTop: '2%',
-
                              }}>
 
                           {(() => {
@@ -1311,7 +1339,7 @@ export class Promotion extends React.PureComponent {
 
                         {/*Right--- line chart and tabs*/}
                         <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12" style={{
-                          minHeight: '380px',
+                          minHeight: '450px',
                           borderRadius: '1px',
                           border: '1px solid rgb(204, 204, 204)',
                           marginTop: '2%',
@@ -1323,9 +1351,8 @@ export class Promotion extends React.PureComponent {
                           <div className="col-xs-3" style={{paddingLeft: '0px'}}>
                             {/*Tabs & export button*/}
 
-
                             {/*Tabs*/}
-                            <span style={{float: "left"}}>
+                            <span style={{float: "left",marginLeft:"3%"}}>
 
                                 {(() => {
                                   if (this.props.promotion.promo_part_data) {
@@ -1427,10 +1454,14 @@ export class Promotion extends React.PureComponent {
                   </Modal>
 
                   {/*Row for pie chart and graph*/}
-                  <div className="row">
+                  <div className="row ">
 
 
-                    {/*<div className="mainBox">*/}
+                    <div className="mainBox" style={{
+                      marginLeft: '2%',
+                      marginRight: '2%',
+                      marginTop: '1%',
+                    }}>
                     {/*Left---pie chart*/}
                     <div className="col-lg-3 col-md-4 col-sm-12 col-xs-12"
                          style={{
@@ -1441,6 +1472,7 @@ export class Promotion extends React.PureComponent {
                            width: '35%',
                            marginLeft: '2%',
                            marginTop: '2%',
+                           background: 'white'
                          }}>
 
                       {(() => {
@@ -1493,7 +1525,8 @@ export class Promotion extends React.PureComponent {
                       marginTop: '2%',
                       marginLeft: '1%',
                       paddingLeft: '0px',
-                      width: '60%'
+                      width: '60%',
+                      background: 'white'
                     }}>
 
 
@@ -1590,12 +1623,22 @@ export class Promotion extends React.PureComponent {
 
                     </div>
                     {/*</div>*/}
+                      {(() => {
+                        if (this.props.promotion.kpi_param === 'kpi_type=value' || this.props.promotion.kpi_param === 'kpi_type=volume') {
+                          console.log("in promotion participation");
+                         return(
+                          <div className="text-right">
+                            <button className="btn btn-primary" onClick={() => {
+                              this.setState({promoPartTabInfo: true})
+                              this.props.loadPromoPart();
+                            }}>Promotion Participation
+                            </button>
+                          </div>
+                         )
+                        }
+                        else{return(<div> </div>)}
+                      })()}
 
-                    <div className="text-right">
-                      <button className="btn btn-success" onClick={() => {
-                        this.props.loadPromoPart();
-                      }}>Promotion Participation
-                      </button>
                     </div>
 
                   </div>
@@ -1636,10 +1679,12 @@ export class Promotion extends React.PureComponent {
                                 <TableHeaderColumn dataAlign={"right"} dataField='brand_name'
                                                    dataSort={true}>Brand</TableHeaderColumn>
                                 <TableHeaderColumn dataAlign={"right"} dataField='Promo TY'
-                                                   dataSort={true}>Promo {this.props.promotion.productsOnPromotion.col_name}
+                                                   dataSort={true}
+                                                   dataFormat={formatMetric}>Promo {this.props.promotion.productsOnPromotion.col_name}
                                   TY</TableHeaderColumn>
                                 <TableHeaderColumn dataAlign={"right"}
-                                                   dataField='Promo LY'>Promo {this.props.promotion.productsOnPromotion.col_name}
+                                                   dataField='Promo LY'
+                                                   dataFormat={formatMetric}>Promo {this.props.promotion.productsOnPromotion.col_name}
                                   LY</TableHeaderColumn>
                                 <TableHeaderColumn dataAlign={"right"} dataField='lfl_var'
                                                    dataFormat={ triangleColumnFormatter }><h6>LFL</h6>
@@ -1648,7 +1693,7 @@ export class Promotion extends React.PureComponent {
                                   Year?</TableHeaderColumn>
                                 <TableHeaderColumn dataAlign={"left"} dataField='Product Description'
                                                    dataFormat={(f, g) => {
-                                                     return <button className="btn btn-success"
+                                                     return <button className="btn btn-primary"
                                                                     onClick={(e, v, x, y) => {
                                                                       console.log('f:', f)
                                                                       console.log('g:', g)
@@ -1665,10 +1710,10 @@ export class Promotion extends React.PureComponent {
                                                    dataField={'product_id'}
                                                    dataFormat={(product_id) => {
                                                      return (
-                                                       <button className="btn btn-success" onClick={() => {
+                                                       <button className="btn btn-danger" onClick={() => {
                                                          console.log(product_id)
                                                          window.location = '/ranging/delist?long_description=' + product_id
-                                                       }}>Send to Delist
+                                                       }}>Delist
                                                        </button>
                                                      )
                                                    }}>&nbsp;</TableHeaderColumn>
@@ -1690,22 +1735,23 @@ export class Promotion extends React.PureComponent {
 
           </div>
 
+          {/* INFO MODAL */}
+
           <Modal show={this.state.showModal} bsSize="lg"
                  aria-labelledby="contained-modal-title-lg"
                  dialogClassName={'xlModal'}
                  onHide={() => {
                    this.setState({showModal: false})
-                 }}>
+                 }}
+          >
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}>
-                <b>Product Promotion Info.</b>
-
+                <b>Product Promotion Details</b>
                 <div style={{textAlign: 'center'}}>
                   <div style={{textAlign: 'right'}}>
                   </div>
                 </div>
               </Modal.Title>
-
             </Modal.Header>
             <Modal.Body style={{fontSize: '14px'}}>
               {(() => {
@@ -1944,11 +1990,7 @@ export class Promotion extends React.PureComponent {
                                         </div>
                                       )
                                     }
-
-
                                   })()}
-
-
                                   <div className={(() => {
                                     if (this.props.promotion.modalProductData.week_param == 'week_flag=Current Week') {
                                       return ("col-md-4 col-xs-12 col-sm-4 col-lg-4"
@@ -2088,8 +2130,8 @@ export class Promotion extends React.PureComponent {
                                                        console.log("-=-=-=-=" + (index + 1).toString())
                                                        this.setState({activeKey4: (index + 1).toString()});
                                                        this.props.trendChartSpinner(0);
-                                                       this.props.saveTrendChartTabParam(promoTypeParam);
-                                                       this.props.trendChartDataFetch();
+                                                       this.props.modalSaveTrendChartTabParam(promoTypeParam);
+                                                       this.props.onModalProductInfo();
                                                      }}>
                                               <span className="tab_label">{obj}</span></NavItem>)
 
@@ -2129,7 +2171,7 @@ export class Promotion extends React.PureComponent {
                             </div>
 
                             {(() => {
-                              if (this.props.promotion.modalProductData.trendChartData) {
+                              if (this.props.promotion.modalProductData.trendChartData.data_available=='yes') {
                                 console.log("--------------------", this.props.promotion.modalProductData.trendChartData)
                                 let label_ty = this.props.promotion.modalProductData.trendChartData.metric + " TY";
                                 let label_ly = this.props.promotion.modalProductData.trendChartData.metric + " LY";
@@ -2146,7 +2188,7 @@ export class Promotion extends React.PureComponent {
                               else {
                                 return (
 
-                                  <div className="text-center"><Spinner />Please Wait a Moment....!</div>
+                                  <div className="text-center"><h4>Selection does not apply to product</h4></div>
 
                                 );
                               }
@@ -2425,6 +2467,7 @@ function mapDispatchToProps(dispatch) {
 
     //------------After adding tabs-----------
     saveTrendChartTabParam: (e) => dispatch(saveTrendChartTabParam(e)),
+    modalSaveTrendChartTabParam: (e) => dispatch(modalSaveTrendChartTabParam(e)),
     productsOnPromoTableFetch: (e) => dispatch(productsOnPromoTableFetch(e)),
     trendChartDataFetch: (e) => dispatch(trendChartDataFetch(e)),
     pieChartDataFetch: (e) => dispatch(pieChartDataFetch(e)),

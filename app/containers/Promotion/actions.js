@@ -43,7 +43,7 @@ import {
 
   PIE_CHART_FOR_EACH_TAB, PIE_CHART_FOR_EACH_TAB_SUCCESS, TREND_FOR_EACH_TAB, TREND_FOR_EACH_TAB_SUCCESS,
   PRODUCTS_ON_PROMOTION_TABLE, PRODUCTS_ON_PROMOTION_TABLE_SUCCESS, STORE_FILTER_PARAM, MODAL_PRODUCT_NAME,
-  MODAL_PRODUCT_DATA_SUCCESS, MODAL_PRODUCT_DATA
+  MODAL_PRODUCT_DATA_SUCCESS, MODAL_PRODUCT_DATA, MODAL_SAVE_TREND_CHART_TAB_PARAMS
 
 } from './constants';
 
@@ -368,6 +368,15 @@ export function productsOnPromoTableSuccess(data) {
 export function saveTrendChartTabParam(data) {
   return {
     type: SAVE_TREND_CHART_TAB_PARAMS,
+    data
+  }
+}
+
+
+//-------------------------Trend chart Tabs ----------------------
+export function modalSaveTrendChartTabParam(data) {
+  return {
+    type: MODAL_SAVE_TREND_CHART_TAB_PARAMS,
     data
   }
 }

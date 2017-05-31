@@ -31,6 +31,7 @@ import {
   WATERFALL_CHART_ASDA_SPINNER_SUCCESS,
   PRICE_RANGE_CHART_SPINNER_SUCCESS,
   USER_FILTER_SELECTION,
+  STORE_FILTER_PARAM,
 
 } from './constants';
 
@@ -277,4 +278,13 @@ export function user_filter_selection(data) {
     type: USER_FILTER_SELECTION,
     data
   }
+}
+
+export function StoreFilterParam(data)
+{
+  console.log('StoreFilterParam = actions', data);
+  return {
+    type: STORE_FILTER_PARAM,
+    data,
+  };
 }

@@ -52,20 +52,20 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
         let categoryNew = obj.id.split('__');
         // let category = category.split('__');
 
-        console.log('obj11',categoryNew);
+        console.log('obj11', categoryNew);
 
         // let categoryNew = category.split('__');
         // console.log('categoryNew',categoryNew);
 
         queryStringNew = queryStringNew + `${categoryNew[0]}=${categoryNew[categoryNew.length - 1]}&`;
-        console.log('queryStringNew1',queryStringNew);
+        console.log('queryStringNew1', queryStringNew);
 
       }
     })
 
-    if (queryStringNew.includes('20')){
-      queryStringNew = queryStringNew.substring(14,queryStringNew.length - 1);
-      console.log('queryStringNew2',queryStringNew);
+    if (queryStringNew.includes('20')) {
+      queryStringNew = queryStringNew.substring(14, queryStringNew.length - 1);
+      console.log('queryStringNew2', queryStringNew);
     }
 
     this.props.user_filter_selection(queryStringNew);
@@ -88,11 +88,11 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
     this.props.onCheckboxChange(category);
     this.props.onGenerateSideFilter();
 
-    if(category.includes("commercial_name") || category.includes("category_name")){
+    if (category.includes("commercial_name") || category.includes("category_name")) {
 
     }
     else {
-    localStorage.setItem('urlParamsSingleSelect', category);
+      localStorage.setItem('urlParamsSingleSelect', category);
     }
   };
 
@@ -142,148 +142,17 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
         {(() => {
           return (
             <div id="style-7">
-              <PanelGroup defaultActiveKey="0" accordion>
-                {(() => {
-                  if (this.props.week_data) {
-                    console.log("Cascading filter - week", this.props.week_data);
-                    let panelHeader = (
 
-                      <div className=" ">Tesco Week
-                        <span style={{color: "red"}}>*</span>&nbsp;<span className="accordion-toggle" style={{
-                          float: 'right'
-                        }}></span>
-                      </div>
-                    );
-                    return (
-
-                      <Panel header={panelHeader} eventKey="1">
-                        <div className="panel selector">
-                          <div className="panel-body style-7" style={{
-                            maxHeight: '250px',
-                            overflowX: 'hidden', fontSize: '9px'
-                          }}>
-                            {(() => {
-                              console.log("Cascading filter ----------")
-                              let finalCheckbox = [];
-                              console.log('Cascading filter - week inside panel div', this.props.week_data);
-
-                              {
-                                this.props.week_data[0].items.map(obj2 => {
-                                  console.log("Cascading Filter Inside map", obj2)
-                                  finalCheckbox.push(
-                                    <Checkbox id={obj2.name }
-                                              label={obj2.name}
-                                              style={{fontSize: '10px'}}
-                                              checked={(() => {
-                                                return obj2.selected;
-                                              })()}
-                                              onChange={() => {
-
-
-                                                let previous_week_selection = this.props.previous_week_selection;
-                                                let selection = "tesco_week=" + obj2.name;
-                                                //For enabling un checking
-                                                {
-                                                  console.log('Cascaded Filter previous_week_selection', previous_week_selection);
-                                                }
-                                                {
-                                                  console.log('Cascaded Filter selection', selection);
-                                                }
-                                                if (previous_week_selection == selection) {
-                                                  selection = '';
-                                                }
-
-
-                                                this.props.onCheckboxWeekChange(selection);
-                                                this.props.onSaveWeek(selection);
-                                                this.props.onGenerateSideFilter();
-                                              }}
-
-                                              isDisabled={obj2.disabled}
-                                              valid={true}
-                                              key={Date.now() + Math.random()}
-                                    />
-                                  )
-
-                                })
-                              }
-
-                              // for replacing enabled to top
-                              let finalled = [];
-                              finalCheckbox.map(obj => {
-                                {/*console.log(obj.props.checked);*/
-                                }
-                                if (!obj.props.isDisabled) {
-                                  finalled.push(obj)
-                                }
-                              });
-                              finalCheckbox.map(obj => {
-                                {/*console.log(obj.props.checked);*/
-                                }
-                                if (obj.props.isDisabled) {
-                                  finalled.push(obj)
-                                }
-                              });
-                              return finalled
-
-                            })()}
-                          </div>
-                        </div>
-                      </Panel>
-
-
-
-                    )
-                  }
-                })()}
-              </PanelGroup>
               <hr style={{
                 marginTop: '0px',
-                marginBottom: '-6%',
+                marginBottom: '-1%',
                 border: '0',
                 borderTop: '1px solid #eee',
               }}></hr>
+
               <PanelGroup defaultActiveKey="11" accordion>
                 {(() => {
                   if (this.props.filter_data) {
-                    console.log("Cascading filter - filter_data", this.props.filter_data);
-                    console.log("Cascading filter - filter_data1", this.props.filter_data[0]);
-                    console.log("Cascading filter - week_data", this.props.week_data[0]);
-                    {/*for (let i = 0; i < this.props.filter_data[0].items.length; i++) {*/
-                    }
-                    {/*if (this.props.filter_data[2].items[i].selected == true) {*/
-                    }
-                    {/*console.log("Cascading filter - filter_data2 for loop", this.props.filter_data[0].items[i].selected);*/
-                    }
-                    {/*pHierarchyFilterCheck = true;*/
-                    }
-                    {/*} else {*/
-                    }
-                    {/*pHierarchyFilterCheck = false;*/
-                    }
-                    {/*}*/
-                    }
-                    {/*}*/
-                    }
-
-                    {/*for (let i = 0; i < this.props.week_data[0].items.length; i++) {*/
-                    }
-                    {/*if (this.props.week_data[0].items[i].selected == true) {*/
-                    }
-                    {/*console.log("Cascading filter - week_data1 for loop", this.props.week_data[0].items[i].selected);*/
-                    }
-                    {/*weekFilterCheck = true;*/
-                    }
-                    {/*} else {*/
-                    }
-                    {/*weekFilterCheck = false;*/
-                    }
-                    {/*}*/
-                    }
-                    {/*}*/
-                    }
-
-
                     return (
 
                       this.props.filter_data.map((obj, key) => {
@@ -294,83 +163,85 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
                             <span className="accordion-toggle" style={{float: 'right'}}></span>
                           </div>
                         );
-                        return (
-                          <Panel header={panelHeader} eventKey={++key}>
-                            {/*<div className="panel-heading">*/}
-                            {/*{obj.name}*/}
-                            {/*</div>*/}
-                            <div className="panel text-capitalize"
-                                 key={Date.now() + Math.random() + Math.random() + 10}>
+                        if (obj.title !== 'store_type') {
+                          return (
+                            <Panel header={panelHeader} eventKey={++key}>
+                              {/*<div className="panel-heading">*/}
+                              {/*{obj.name}*/}
+                              {/*</div>*/}
+                              <div className="panel text-capitalize"
+                                   key={Date.now() + Math.random() + Math.random() + 10}>
 
-                              <div className="panel-body style-7"
-                                   style={{maxHeight: '250px', overflowX: 'hidden', fontSize: '9px'}}>
-                                {(() => {
-                                  let finalCheckbox = [];
+                                <div className="panel-body style-7"
+                                     style={{maxHeight: '250px', overflowX: 'hidden', fontSize: '9px'}}>
+                                  {(() => {
+                                    let finalCheckbox = [];
 
-                                  {
-                                    obj.items.map(obj2 => {
-                                      finalCheckbox.push(
-                                        <Checkbox id={obj.name + '__' + obj2.name}
-                                                  label={obj2.name}
-                                                  style={{fontSize: '10px'}}
-                                                  checked={(() => {
-                                                    return obj2.selected
-                                                  })()}
-                                                  onChange={() => {
+                                    {
+                                      obj.items.map(obj2 => {
+                                        finalCheckbox.push(
+                                          <Checkbox id={obj.name + '__' + obj2.name}
+                                                    label={obj2.name}
+                                                    style={{fontSize: '10px'}}
+                                                    checked={(() => {
+                                                      return obj2.selected
+                                                    })()}
+                                                    onChange={() => {
 
-                                                    let previous_selection = this.props.previous_selection;
-                                                    let selection = obj.name + "=" + obj2.name;
+                                                      let previous_selection = this.props.previous_selection;
+                                                      let selection = obj.name + "=" + obj2.name;
 
-                                                    {/*let selection = obj.name + "__" + obj2.name;*/
-                                                    }
-                                                    //For enabling un checking
+                                                      {/*let selection = obj.name + "__" + obj2.name;*/
+                                                      }
+                                                      //For enabling un checking
 
-                                                    if (previous_selection == selection) {
-                                                      selection = '';
-                                                    }
-                                                    console.log('previous_selection--', previous_selection);
-                                                    console.log('selection--', selection);
+                                                      if (previous_selection == selection) {
+                                                        selection = '';
+                                                      }
+                                                      console.log('previous_selection--', previous_selection);
+                                                      console.log('selection--', selection);
 
-                                                    this.updateUrl(selection)
+                                                      this.updateUrl(selection)
 
 
-                                                    {/*this.updateUrl(obj.name+"__"+obj2.name)*/
-                                                    }
-                                                    {/*this.props.onCheckboxChange(selection);*/
-                                                    }
-                                                    {/*this.props.onGenerateSideFilter();*/
-                                                    }
-                                                  }}
-                                                  isDisabled={obj2.disabled}
-                                                  valid={true}
-                                                  key={Date.now() + Math.random()}
-                                        />
-                                      )
-                                    })
-                                  }
-
-                                  // for replacing enabled to top
-                                  let finalled = [];
-                                  finalCheckbox.map(obj => {
-
-                                    if (!obj.props.isDisabled) {
-                                      finalled.push(obj)
+                                                      {/*this.updateUrl(obj.name+"__"+obj2.name)*/
+                                                      }
+                                                      {/*this.props.onCheckboxChange(selection);*/
+                                                      }
+                                                      {/*this.props.onGenerateSideFilter();*/
+                                                      }
+                                                    }}
+                                                    isDisabled={obj2.disabled}
+                                                    valid={true}
+                                                    key={Date.now() + Math.random()}
+                                          />
+                                        )
+                                      })
                                     }
-                                  });
-                                  finalCheckbox.map(obj => {
-                                    {/*console.log(obj.props.checked);*/
-                                    }
-                                    if (obj.props.isDisabled) {
-                                      finalled.push(obj)
-                                    }
-                                  });
-                                  return finalled
 
-                                })()}
+                                    // for replacing enabled to top
+                                    let finalled = [];
+                                    finalCheckbox.map(obj => {
+
+                                      if (!obj.props.isDisabled) {
+                                        finalled.push(obj)
+                                      }
+                                    });
+                                    finalCheckbox.map(obj => {
+                                      {/*console.log(obj.props.checked);*/
+                                      }
+                                      if (obj.props.isDisabled) {
+                                        finalled.push(obj)
+                                      }
+                                    });
+                                    return finalled
+
+                                  })()}
+                                </div>
                               </div>
-                            </div>
-                          </Panel>
-                        )
+                            </Panel>
+                          )
+                        }
                       })
                     )
                   }
@@ -452,51 +323,7 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
                   } else {
                     this.setState({alertShow: true});
                   }
-                  {/*let filterDataWeek = this.props.filter_week_selection;*/
-                  }
-                  {/*let filterData = this.props.filter_selection;*/
-                  }
-                  {/*console.log('filterDataWeek', filterDataWeek);*/
-                  }
-                  {/*if (!(typeof(filterDataWeek) == "undefined") && !(typeof(filterData) == "undefined")) {*/
-                  }
-                  {/*console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek, filterData);*/
-                  }
-                  {/*if (filterDataWeek.includes("tesco_week") && filterData.includes("buying_controller=")) {*/
-                  }
-                  {/*console.log('tesco_weeek filterDataWeek', filterDataWeek);*/
-                  }
-                  {/*console.log('--filterData', filterData);*/
-                  }
-                  {/*this.props.onPieChartSpinnerSuccess(0);*/
-                  }
-                  {/*this.props.outPerformanceChartSuccess(0);*/
-                  }
-                  {/*this.props.waterChartAsdaSuccess(0);*/
-                  }
-                  {/*this.props.priceRangeChartSuccess(0);*/
-                  }
 
-                  {/*this.applyButtonFunctionality();*/
-                  }
-                  {/*}*/
-                  }
-                  {/*else {*/
-                  }
-                  {/*console.log('modal open');*/
-                  }
-                  {/*this.setState({alertShow: true});*/
-                  }
-                  {/*}*/
-                  }
-                  {/*} else {*/
-                  }
-                  {/*console.log('modal open');*/
-                  }
-                  {/*this.setState({alertShow: true});*/
-                  }
-                  {/*}*/
-                  }
                 }}>Apply Filters</Button>
 
               <Button
@@ -512,22 +339,10 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
 
                 }}>Clear Filters</Button>
 
-              {/*<Button style={{marginTop: "5px", marginLeft: "48px", width: "10px", "min-width": "170px", fontSize: "13px"}}*/}
-              {/*onClick={() => {*/}
-              {/*To un check all the buttons*/}
-              {/*let selection='';*/
-              }
-              {/*this.props.onCheckboxChange(selection);*/
-              }
-              {/*this.props.onGenerateSideFilter();*/
-              }
-
-              {/*this.resetButtonFunctionality();*/}
-
-              {/*}}>Load Default view</Button>*/}
             </div>
           )
         })()}
+
       </div>
 
 
