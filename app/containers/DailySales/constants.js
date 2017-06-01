@@ -31,7 +31,7 @@ export const WEEK_FILTER_CONSTANT ='app/DailySales/WEEK_FILTER_CONSTANT';
 export const WEEK_FILTER_FETCH_SUCCESS ='app/DailySales/WEEK_FILTER_FETCH_SUCCESS';
 export const WEEK_FILTER_PARAM ='app/DailySales/WEEK_FILTER_PARAM';
 
-export const STORE_FILTER_PARAM ='app/DailySales/STORE_FILTER_PARAM';
+export const STORE_FILTER_PARAM='app/DailySales/STORE_FILTER_PARAM';
 
 //export const GENERATE_TEXTBOX_QUERY_STRING = 'app/RangingNpdPage/GENERATE_TEXTBOX_QUERY_STRING';
 export const SEND_URL_PARAMS= 'app/DailySales/SEND_URL_PARAMS';

@@ -206,7 +206,6 @@ export function StoreFilterParam(data) {
   };
 }
 
-
 export function checkboxChange(data) {
   // console.log("Selection in reducer" + data);
   // alert(data)

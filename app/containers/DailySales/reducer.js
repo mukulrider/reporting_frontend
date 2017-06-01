@@ -22,6 +22,7 @@ import {
   GENERATE_URL_PARAMS,
   DS_VIEW_KPI_SPINNER,
   LINE_CHART_SPINNER,
+  STORE_FILTER_PARAM,
   WEEK,
   CHECKBOX_CHANGE,
   CHECKBOX_WEEK_CHANGE,
@@ -110,6 +111,9 @@ function dailySalesReducer(state = initialState, action) {
     case WEEK_FILTER_PARAM:
       console.log("reducer WEEK_FILTER_PARAM", action.data);
       return state.set('weekurlParam', action.data);
+    case STORE_FILTER_PARAM:
+      console.log("reducer STORE_FILTER_PARAM",action.data);
+      return state.set('store_filter_param',action.data);
 
     //SPINNER FOR DS VIEW KPI
     case DS_VIEW_KPI_SPINNER:
