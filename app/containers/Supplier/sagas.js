@@ -552,7 +552,7 @@ export function* generateWeekFilterFetch() {
     // }
 
 
-    const data = yield call(request, host_url + '/api/reporting/supplier_filter_data_week' + filter_week_selection);
+    const data = yield call(request, host_url + '/api/reporting/filter_data_week' + filter_week_selection);
 
     // console.log(host_url + '/api/reporting/filter_data_week' + filter_week_selection);
 

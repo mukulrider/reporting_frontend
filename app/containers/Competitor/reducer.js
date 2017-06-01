@@ -33,6 +33,7 @@ import {
   WATERFALL_CHART_ASDA_SPINNER_SUCCESS,
   PRICE_RANGE_CHART_SPINNER_SUCCESS,
   USER_FILTER_SELECTION,
+  STORE_FILTER_PARAM,
 } from './constants';
 
 
@@ -192,6 +193,10 @@ function competitorReducer(state = initialState, action) {
     case USER_FILTER_SELECTION:
       console.log("USER_FILTER_SELECTION  ", action.data);
       return state.set('user_filter_selection', action.data);
+
+    case STORE_FILTER_PARAM:
+      console.log("reducer STORE_FILTER_PARAM",action.data);
+      return state.set('store_filter_param',action.data);
 
 
     // case UPDATE_CHART_DATA:

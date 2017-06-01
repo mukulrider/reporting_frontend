@@ -285,10 +285,9 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                     let filterData = this.props.urlParamsString;
                     console.log('filterDataWeek', filterDataWeek);
                     console.log('filterData', filterData);
-                    if (!(typeof(filterDataWeek) == "undefined") && !(typeof(filterData) == "undefined")) {
+                    if (!(typeof(filterData) == "undefined")) {
                       console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek, filterData);
-                      if (filterDataWeek.includes("tesco_week") && filterDataWeek.includes("date") && filterData.includes("buying_controller=")
-                        && filterData.includes("store_type")) {
+                      if (filterData.includes("buying_controller=")) {
                         console.log('tesco_weeek filterDataWeek', filterDataWeek);
                         console.log('--filterData', filterData);
                         this.props.DSViewKpiSpinnerCheck(0);
@@ -313,7 +312,9 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                     this.props.onCheckboxChange(selection);
                     this.props.onGenerateUrlParamsString(selection);
                     this.props.onCheckboxWeekChange(selection);
+                    this.props.storeSelectionParams(storeSelection);
                     this.props.onSaveWeek(selection);
+                    this.props.onSaveDateFilterParam(selection);
 
                     this.props.ChartDataCall();
                     this.props.CardsDataCall();

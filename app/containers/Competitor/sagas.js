@@ -90,7 +90,14 @@ export function* generateCompetitorWaterfallDataFetch() {
 
   if (!(typeof(filterurlparam) == "undefined") && !(filterurlparam == "")) {
     urlAppends = urlAppends + '&' + filterurlparam;
-    console.log('urlAppends2', urlAppends);
+    console.log('urlAppends2 TESTING', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
+    urlAppends = urlAppends + '&' + weekselection;
+    console.log('urlAppends4 2', urlAppends);
   } else {
 
   }
@@ -101,6 +108,15 @@ export function* generateCompetitorWaterfallDataFetch() {
   } else {
 
   }
+
+  let storeParam = urlName.get('store_filter_param')
+  if (!(typeof(storeParam) == "undefined") && !(storeParam == "")) {
+    urlAppends = urlAppends + "&" + storeParam;
+    console.log("storeParam urlParams if", urlAppends);
+  } else {
+    console.log("storeParam urlParams else", urlAppends);
+  }
+
 
 
   if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
@@ -150,16 +166,6 @@ export function* generateCompetitorPieChartDataFetch() {
   console.log('Filter parameter', filterurlparam);
   console.log(`Pie Chart sagas.js${host_url}/api/reporting/competitor_market_share?${weekurlparam}&${kpiparam}&${filterurlparam}&${weekselection}&${userParams}`);
 
-  // let getCookie;
-  // getCookie = (name) => {
-  //   const value = `; ${document.cookie}`;
-  //   const parts = value.split(`; ${name}=`);
-  //   if (parts.length === 2) return parts.pop().split(';').shift();
-  // };
-  // const user_token = getCookie('token');
-  // const buyer = getCookie('buyer');
-  // const token = user_token.concat('___').concat(buyer)
-
 
   let urlAppends = ""
   if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
@@ -181,6 +187,14 @@ export function* generateCompetitorPieChartDataFetch() {
     console.log('urlAppends3 2', urlAppends);
   } else {
 
+  }
+
+  let storeParam = urlName.get('store_filter_param')
+  if (!(typeof(storeParam) == "undefined") && !(storeParam == "")) {
+    urlAppends = urlAppends + "&" + storeParam;
+    console.log("storeParam urlParams if", urlAppends);
+  } else {
+    console.log("storeParam urlParams else", urlAppends);
   }
 
   if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {
@@ -251,6 +265,14 @@ export function* generateCompetitorPriceRangeDataFetch() {
 
   }
 
+  let storeParam = urlName.get('store_filter_param')
+  if (!(typeof(storeParam) == "undefined") && !(storeParam == "")) {
+    urlAppends = urlAppends + "&" + storeParam;
+    console.log("storeParam urlParams if", urlAppends);
+  } else {
+    console.log("storeParam urlParams else", urlAppends);
+  }
+
   if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
     urlAppends = urlAppends + '&' + userParams;
     console.log('urlAppends4 3', urlAppends);
@@ -301,17 +323,6 @@ export function* generateCompetitorOutperformance() {
   console.log('Filter parameter', filterurlparam);
   console.log('Kpi parameter', kpiparam);
 
-  // let getCookie;
-  // getCookie = (name) => {
-  //   const value = `; ${document.cookie}`;
-  //   const parts = value.split(`; ${name}=`);
-  //   if (parts.length === 2) return parts.pop().split(';').shift();
-  // };
-  // const user_token = getCookie('token');
-  // const buyer = getCookie('buyer');
-  // const token = user_token.concat('___').concat(buyer)
-
-
   let urlAppends = ""
   if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
     urlAppends = urlAppends + '&' + weekurlparam;
@@ -332,6 +343,14 @@ export function* generateCompetitorOutperformance() {
     console.log('urlAppends3 4', urlAppends);
   } else {
 
+  }
+
+  let storeParam = urlName.get('store_filter_param')
+  if (!(typeof(storeParam) == "undefined") && !(storeParam == "")) {
+    urlAppends = urlAppends + "&" + storeParam;
+    console.log("storeParam urlParams if", urlAppends);
+  } else {
+    console.log("storeParam urlParams else", urlAppends);
   }
 
   if (!(typeof(weekselection) == "undefined") && !(weekselection == "")) {

@@ -2,6 +2,9 @@
 
 import {
   DEFAULT_ACTION,
+  PRODUCT_CONSTANT,
+  DAILY_TREND_CONSTANT,
+  CUM_TREND_CONSTANT,
   CARDS_CONSTANT,
   CHARTS_CONSTANT,
   FILTER_CONSTANT,
@@ -12,8 +15,8 @@ import {
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-import {cardDataFetchSuccess,chartDataFetchSuccess,LineChartSpinnerCheckSuccess,
-  PromoKpiDataFetchSuccess, FilterFetchSuccess, WeekFilterFetchSuccess,DSViewKpiSpinnerCheckSuccess,
+import {cardsCallAction,cardDataFetchSuccess,chartDataFetchSuccess,prodDailyTrendFetchSuccess,prodCumTrendFetchSuccess,LineChartSpinnerCheckSuccess,
+  FilterFetchSuccess, WeekFilterFetchSuccess,DSViewKpiSpinnerCheckSuccess,DailyTrendSpinnerCheckSuccess,CumTrendSpinnerCheckSuccess,
   defaultPageLoadCheck}
   from './actions';
 
@@ -73,12 +76,14 @@ export function* cardData_pull() {
   const urlName = yield select(selectDailySalesDomain());
   console.log("Begin Card Data Pull");
   const kpiparam = urlName.get('kpi_param');
-  const week_filter = urlName.get('filter_week_selection');
-  const filter = urlName.get('filter_selection');
+  const filter = urlName.get('filter_week_selection');
+  const storeType = urlName.get('store_filter_param');
+  const week_filter = urlName.get('week');
+  const date_filter = urlName.get('dateurlParam');
 
-  const data = yield call(request,host_url+"/api/reporting/data_daily_sales?"+'&'+kpiparam+'&'+filter+'&'+week_filter + '&'+ userParams);
+  const data = yield call(request,host_url+"/api/reporting/data_daily_sales?"+'&'+kpiparam+'&'+week_filter + '&' + filter + '&' + storeType + '&' + date_filter + '&'+ userParams);
   console.log("Line chart fetched data",data);
-  console.log("Along with the URL",host_url+"/api/reporting/data_daily_sales?"+'&'+kpiparam+'&'+filter+'&'+week_filter + '&'+ userParams);
+  console.log("Along with the URL",host_url+"/api/reporting/data_daily_sales?"+'&'+kpiparam+'&'+week_filter + '&' + filter +'&' + storeType + '&' + date_filter + '&'+ userParams);
   yield put(cardDataFetchSuccess(data));
 
   let LineChartSpinnerCheck = 1;
@@ -97,12 +102,15 @@ export function* chartData_pull() {
   const urlName = yield select(selectDailySalesDomain());
   console.log("Begin Line Chart Pull");
   const kpiparam = urlName.get('kpi_param');
-  const week_filter = urlName.get('filter_week_selection');
-  const filter = urlName.get('filter_selection');
+  const filter = urlName.get('filter_week_selection');
+  const storeType = urlName.get('store_filter_param');
+  const week_filter = urlName.get('week');
 
-  const data = yield call(request,host_url+"/api/reporting/graph_daily_sales?"+'&'+kpiparam+'&'+filter+'&'+week_filter + '&'+ userParams);
-  console.log("Line chart fetched data",data);
-  console.log("Along with the URL",host_url+"/api/reporting/graph_daily_sales?"+'&'+kpiparam+'&'+filter+'&'+week_filter + '&'+ userParams);
+
+
+  const data = yield call(request,host_url+"/api/reporting/graph_daily_sales?"+'&'+kpiparam+'&'+week_filter + '&' + filter +  '&' + storeType +'&'+ userParams);
+  console.log("Charts data fetched",data);
+  console.log("Along with the URL",host_url+"/api/reporting/graph_daily_sales?"+'&'+kpiparam+'&'+week_filter + '&' + filter + '&' + storeType +'&'+ userParams);
   yield put(chartDataFetchSuccess(data));
 
   let LineChartSpinnerCheck = 1;
@@ -110,7 +118,59 @@ export function* chartData_pull() {
 
 }
 
+export function* ProdDailyTrend_watcher() {
+  console.log('Chart_watcher triggered');
+  const watcher = yield takeLatest(DAILY_TREND_CONSTANT, dailyTrend_pull);
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
 
+export function* dailyTrend_pull() {
+  const urlName = yield select(selectDailySalesDomain());
+  console.log("Begin Product Daily Trend Pull");
+  const kpiparam = urlName.get('kpi_param');
+  const storeType = urlName.get('store_filter_param');
+  const week_filter = urlName.get('week');
+  const prod_filter = urlName.get('product');
+
+
+
+  const data = yield call(request,host_url+"/api/reporting/graph_daily_sales?"+'&'+kpiparam+'&'+week_filter +  '&' + storeType +'&'+ userParams + '&' + prod_filter);
+  console.log("Daily Trend data fetched",data);
+  console.log("Along with the URL",host_url+"/api/reporting/graph_daily_sales?"+'&'+kpiparam+'&'+week_filter + '&' + storeType +'&'+ userParams + '&' + prod_filter);
+  yield put(prodDailyTrendFetchSuccess(data));
+
+  let DailyTrendSpinnerCheck = 1;
+  yield put(DailyTrendSpinnerCheckSuccess(DailyTrendSpinnerCheck));
+
+}
+
+export function* ProdCumTrend_watcher() {
+  console.log('Chart_watcher triggered');
+  const watcher = yield takeLatest(CUM_TREND_CONSTANT, cumTrend_pull);
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+
+export function* cumTrend_pull() {
+  const urlName = yield select(selectDailySalesDomain());
+  console.log("Begin Product Cum Trend Pull");
+  const kpiparam = urlName.get('kpi_param');
+  const storeType = urlName.get('store_filter_param');
+  const week_filter = urlName.get('week');
+  const prod_filter = urlName.get('product');
+
+
+
+  const data = yield call(request,host_url+"/api/reporting/graph_daily_sales?"+'&'+kpiparam+'&'+week_filter +  '&' + storeType +'&'+ userParams + '&' + prod_filter);
+  console.log("Cumulative Trend data fetched",data);
+  console.log("Along with the URL",host_url+"/api/reporting/graph_daily_sales?"+'&'+kpiparam+'&'+week_filter + '&' + storeType +'&'+ userParams + '&' + prod_filter);
+  yield put(prodCumTrendFetchSuccess(data));
+
+  let DailyCumSpinnerCheck = 1;
+  yield put(CumTrendSpinnerCheckSuccess(DailyCumSpinnerCheck));
+
+}
 // FOR FILTER DATA
 
 export function* doFilterFetch() {
@@ -121,9 +181,6 @@ export function* doFilterFetch() {
 }
 
 export function* generateFilterFetch() {
-  // todo: update url
-
-
   let urlName = yield select(selectDailySalesDomain());
   let urlParamsString = urlName.get('filter_week_selection');
   // let urlParamsString = urlName.get('filter_selection');
@@ -138,12 +195,6 @@ export function* generateFilterFetch() {
   try {
     const data = yield call(request, host_url + '/api/reporting/filter_daily_sales?' + urlParamsString + '&' + userParams
     );
-    // const data = yield call(request, host_url+'/api/reporting/filter_data?' + urlParamsString);
-
-    // console.log(host_url+'/api/reporting/filter_data_week?');
-    // const data2 = yield call(request, host_url+'/api/reporting/filter_data_week?' +weekurlparams);
-    // console.log("sagas generateFilterFetch data2",data2)
-    // const filter_data = {"filter_data": data, "week_data": data2 }
     console.log("Filter data", data);
     yield put(FilterFetchSuccess(data));
 
@@ -162,29 +213,18 @@ export function* generateWeekFilterFetch() {
 
   console.log("Inside generateWeekFilterFetch");
   let urlName = yield select(selectDailySalesDomain());
-  // let weekurlparams1 = urlName.get('filter_week_selection');
-
-  //*********************** FILTERS PARAMETERS *****************************
-  // FOR TESCO WEEK
   let urlParams = "";
-  let filter_week_selection = '';
-  filter_week_selection = urlName.get('week');
+  let filter_week_selection = urlName.get('week');
   console.log("below filter", filter_week_selection);
   let abc = urlName.get('defaultPageLoadCheck');
   console.log("below filter1", abc);
 
-  // if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
-  //   filter_week_selection = urlName.get('week');
-  //
-  // } else {
-  //   filter_week_selection = "";
-  //
-  // }
 
   if ((localStorage.getItem('weekParams') == "") || (localStorage.getItem('weekParams') === null) || (typeof(localStorage.getItem('weekParams')) === undefined)) {
 
     if (abc == 1) {
-      urlParams = '?' + 'tesco_week_flag=1';
+      urlParams = '?';
+      // urlParams = '?' + 'tesco_week_flag=1';
       console.log("flag check if", urlParams);
     } else {
       if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
@@ -201,7 +241,7 @@ export function* generateWeekFilterFetch() {
   }
 
   try {
-    const data = yield call(request, host_url + '/api/reporting/filter_daily_tesco_week' + urlParams);
+    const data = yield call(request, host_url + '/api/reporting/dss_filter_week' + urlParams);
     // const data = yield call(request, host_url+'/api/reporting/product/filter_data_week?' + urlParams);
     console.log("Filter week data", data);
 
@@ -225,6 +265,8 @@ export default [
   defaultSaga,
   Cards_watcher,
   Charts_watcher,
+  ProdDailyTrend_watcher,
+  ProdCumTrend_watcher,
   doFilterFetch,
   WeekFilter_watcher,
   generateWeekFilterFetch
