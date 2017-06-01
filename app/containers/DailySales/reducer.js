@@ -9,8 +9,8 @@ import {
   DEFAULT_ACTION,
   CARDS_DATA_FETCH_SUCCESS,
   CHARTS_DATA_FETCH_SUCCESS,
-  PROD_DAILY_TREND_FETCH_SUCCESS,
-  PROD_CUM_TREND_FETCH_SUCCESS,
+  PROD_CARDS_DATA_FETCH_SUCCESS,
+  PROD_CHARTS_DATA_FETCH_SUCCESS,
   KPI_PARAM,
   FILTER_CONSTANT,
   KPI_CONSTANT,
@@ -24,8 +24,8 @@ import {
   GENERATE_URL_PARAMS,
   DS_VIEW_KPI_SPINNER,
   LINE_CHART_SPINNER,
-  DAILY_TREND_CHART_SPINNER,
-  CUM_TREND_CHART_SPINNER,
+  PROD_CARDS_SPINNER,
+  PROD_CHARTS_SPINNER,
   STORE_FILTER_PARAM,
   WEEK,
   PRODUCT_CONSTANT,
@@ -89,13 +89,13 @@ function dailySalesReducer(state = initialState, action) {
       console.log("reducer CHARTS_DATA_FETCH_SUCCESS", action.data)
       return state.set('charts_data', action.data);
 
-    case PROD_DAILY_TREND_FETCH_SUCCESS:
-      console.log("reducer PROD_DAILY_TREND_FETCH_SUCCESS", action.data)
-      return state.set('prod_daily_data', action.data);
+    case PROD_CARDS_DATA_FETCH_SUCCESS:
+      console.log("reducer PROD_CARDS_DATA_FETCH_SUCCESS", action.data)
+      return state.set('prod_cards_data', action.data);
 
-    case PROD_CUM_TREND_FETCH_SUCCESS:
-      console.log("reducer PROD_CUM_TREND_FETCH_SUCCESS", action.data)
-      return state.set('prod_cum_data', action.data);
+    case PROD_CHARTS_DATA_FETCH_SUCCESS:
+      console.log("reducer PROD_CHARTS_DATA_FETCH_SUCCESS", action.data)
+      return state.set('prod_charts_data', action.data);
 
     case KPI_PARAM:
       console.log("reducer KPI_PARAM", action.data);
@@ -133,14 +133,14 @@ function dailySalesReducer(state = initialState, action) {
       return state.set('LineChartSpinnerCheck', action.LineChartSpinnerCheck)
 
     //SPINNER FOR PROD DAILY TREND CHART
-    case DAILY_TREND_CHART_SPINNER:
-      console.log("DAILY_TREND_CHART_SPINNER", action.DailyTrendSpinnerCheck);
-      return state.set('DailyTrendSpinnerCheck', action.DailyTrendSpinnerCheck)
+    case PROD_CARDS_SPINNER:
+      console.log("PROD_CARDS_SPINNER", action.ProdCardsSpinnerCheck);
+      return state.set('ProdCardsSpinnerCheck', action.ProdCardsSpinnerCheck)
 
     //SPINNER FOR PROD CUM TREND CHART
-    case CUM_TREND_CHART_SPINNER:
-      console.log("CUM_TREND_CHART_SPINNER", action.CumTrendSpinnerCheck);
-      return state.set('CumTrendSpinnerCheck', action.CumTrendSpinnerCheck)
+    case PROD_CHARTS_SPINNER:
+      console.log("PROD_CHARTS_SPINNER", action.ProdChartsSpinnerCheck);
+      return state.set('ProdChartsSpinnerCheck', action.ProdChartsSpinnerCheck)
 
     //FOR FILTERS
     case GENERATE_URL_PARAMS:

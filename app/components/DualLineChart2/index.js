@@ -21,7 +21,7 @@ class DualLineChart2 extends React.PureComponent { // eslint-disable-line react/
     console.log('This is my data',data1);
 
     let containerWidth = document.getElementById(id).clientWidth;
-    let margin = {top: 30, right: 80, bottom: 80, left: 100},
+    let margin = {top: 30, right: 80, bottom: 80, left: 90},
       width = containerWidth - margin.left - margin.right,
       height = containerWidth*0.8 - margin.top - margin.bottom;
 
@@ -151,9 +151,9 @@ class DualLineChart2 extends React.PureComponent { // eslint-disable-line react/
       .attr('fill', z);
 
     legend.append('text')
-      .attr('x', width / 3 +2.5 * (margin.left))
+      .attr('x', width / 3 +3 * (margin.left))
       .attr('y', height+1.5*margin.top)
-      .attr('dy', '.95em')
+      .attr('dy', '.35em')
       .attr('text-anchor', 'middle')
       .text((d) => {
         if (d == 'tot_val') {

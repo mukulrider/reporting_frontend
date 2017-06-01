@@ -27,6 +27,17 @@ import BreadcrumbDSS from 'components/BreadcrumbDSS';
 var dateFormat = require('dateformat');
 require('react-bootstrap-table/css/react-bootstrap-table.css')
 
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
+
+var options1 = [
+  { value: 'one', label: 'One' },
+  { value: 'two', label: 'Two' },
+  { value: 'three', label: 'Three' },
+  { value: 'foiur', label: 'Four' },
+  { value: 'five', label: 'Five' }
+];
+
 import {
   PromoGiveawayData, cardsCallAction,
   chartCallAction, SaveKPIParam, generateUrlParamsString,
@@ -38,8 +49,10 @@ import {
   sendUrlParams,
   SaveWeek,
   saveProduct,
-  dailyProductTrend,
-  cumProductTrend,
+  productCardsData,
+  productChartsData,
+  prodCardsDataFetchSuccess,
+  prodChartsDataFetchSuccess,
   DSViewKpiSpinnerCheckSuccess,
   LineChartSpinnerCheckSuccess,
   checkboxChange,
@@ -92,16 +105,24 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
     this.props.onSendUrlParams(this.props.location.query);
   };
 
+  logChange=(selectedItem)=> {
+    console.log(selectedItem);
+    this.setState({
+      selectedValues: selectedItem
+    });
+  }
+
   cellButton = (cell, row, enumObject, rowIndex) => {
     return (
       <button
         type="button"
         className="btn btn-primary"
         onClick={() => {
-          this.setState({showDailySalesInfoModalFlag: true,product:row.product});
+          this.setState({showProductSalesInfoModalFlag: true,product:row.product});
           let product = "product="+row.product;
           this.props.onSaveProduct(product);
-          this.props.onDailyProductTrend();
+          this.props.onProductCardsData();
+          this.props.onProductChartsData();
         }}
       >View
       </button>
@@ -112,14 +133,13 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
     return (
       <button
         type="button"
-        className="btn btn-primary"
+        className="btn btn-danger"
         onClick={() => {
           this.setState({showCumSalesInfoModalFlag: true,product:row.product});
           let product = "product="+row.product;
           this.props.onSaveProduct(product);
-          this.props.onCumProductTrend();
         }}
-      >View
+      >Send To Delist
       </button>
     )
   }
@@ -130,8 +150,9 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
       activeKey1: "1",
       y_axis: "Sales Value",
       legendTY:"Sales TY",legendLY:"Sales LY",
-      showDailySalesInfoModalFlag:false,
+      showProductSalesInfoModalFlag:false,
       showCumSalesInfoModalFlag:false,
+      SelectProducts:"[]"
     };
 
   }
@@ -147,6 +168,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
       return "glyphicon glyphicon-minus-sign glyphiconNeutral";
     }
   }
+
+  prodList = [];
 
   render() {
     const options = {
@@ -164,16 +187,40 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
       sizePerPage: 5,  // which size per page you want to locate as default
       pageStartIndex: 1, // where to start counting the pages
       paginationSize: 3,  // the pagination bar size.
-      prePage: 'Prev', // Previous page button text
+/*      prePage: 'Prev', // Previous page button text
       nextPage: 'Next', // Next page button text
       firstPage: 'First', // First page button text
-      lastPage: 'Last', // Last page button text
+      lastPage: 'Last', // Last page button text*/
       paginationShowsTotal: this.renderShowsTotal,  // Accept bool or function
       paginationPosition: 'bottom',  // default is bottom, top and both is all available
       expandRowBgColor: 'rgb(242, 255, 163)'
       // hideSizePerPage: true > You can hide the dropdown for sizePerPage
       // alwaysShowAllBtns: true // Always show next and previous button
       // withFirstAndLast: false > Hide the going to First and Last page button
+    };
+
+    let onRowSelect=(row, isSelected, e)=> {
+      console.log("Row:",row);
+      this.prodList.push(row.product_id);
+      console.log("ProdList:",this.prodList);
+      this.setState({SelectProducts:this.prodList});
+    }
+
+    let onSelectAll=(isSelected, rows)=> {
+      if (isSelected) {
+        for (let i = 0; i < rows.length; i++) {
+          this.prodList.push(rows[i].product_id);
+          console.log("ProdList:",this.prodList);
+          this.setState({SelectProducts:this.prodList});
+        }
+      }
+    }
+
+    const selectRowProp = {
+      mode: 'checkbox',
+      clickToSelect: true,
+      onSelect: onRowSelect,
+      onSelectAll: onSelectAll
     };
 
     let formatMetric = (cell, flag = "value") => {
@@ -277,7 +324,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
 
                   <div style={{
                     width: '78%',
-                    marginLeft: '22%'
+                    marginLeft: '22%',
                   }}>
                     {(() => {
                       if (this.props.DailySales.filter_week_selection) {
@@ -293,21 +340,16 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                     <br/>
                     <br/>
                     <br/>
-                    {/*Page title*/}
-                    {/*<div className="pageTitle">*/}
-                    {/*{(() => {*/}
-                    {/*if (this.props.DailySales.cards_data && this.props.DailySales.cards_data.tesco_week) {*/}
-                    {/*return (*/}
-                    {/*<span className="pageModuleMainTitle"> Daily Sales View: {this.props.DailySales.cards_data.tesco_week}</span>*/}
-                    {/*)*/}
-                    {/*} else {*/}
-                    {/*return (*/}
-                    {/*<span className="pageModuleMainTitle">Daily Sales View </span>*/}
-                    {/*)*/}
-                    {/*}*/}
-                    {/*})()}*/}
-                    {/*</div>*/}
 
+{/*                    <Select menuContainerStyle={{'zIndex': 999}}
+                      value={this.state.selectedValues} multi={true} placeholder="Select something"
+                      options={options1}
+                      onChange={this.logChange}
+                    />
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>*/}
                     {(() => {
                       if (this.props.DailySales.week_filter_data && this.props.DailySales.filter_data) {
                         return (
@@ -654,7 +696,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                   return (
                                     <div>
                                       <BootstrapTable
-                                        data={this.props.DailySales.charts_data.dss_table} options={options}
+                                        data={this.props.DailySales.charts_data.dss_table} selectRow={selectRowProp} options={options}
                                         striped={true}
                                         hover
                                         condensed
@@ -662,12 +704,14 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                         search={true}
                                         exportCSV={true}
                                       >
-                                        <TableHeaderColumn width="225" tdStyle={ {whiteSpace: 'normal'} }
+                                        <TableHeaderColumn width="250" tdStyle={ {whiteSpace: 'normal'} }
                                                            dataField="product" isKey={true}
                                                            dataAlign="center" dataSort>Product
                                           Description</TableHeaderColumn>
                                         <TableHeaderColumn dataField="brand_indicator" dataSort={true}
                                                            dataAlign="center">Brand</TableHeaderColumn>
+                                        <TableHeaderColumn dataField="brand_name" dataSort={true}
+                                                           dataAlign="center">Brand Name</TableHeaderColumn>
                                         <TableHeaderColumn dataField="kpi_ty" dataFormat={formatMetric} dataSort={true}
                                                            dataAlign="center">TY</TableHeaderColumn>
                                         <TableHeaderColumn dataField="kpi_ly" dataFormat={formatMetric} dataSort={true}
@@ -676,9 +720,28 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                                            dataAlign="center">TY LFL</TableHeaderColumn>
                                         <TableHeaderColumn dataField="kpi_ly_lfl" dataFormat={formatMetric} dataSort={true}
                                                            dataAlign="center">LY LFL</TableHeaderColumn>
-                                        <TableHeaderColumn dataFormat={this.cellButton} tdStyle={ {whiteSpace: 'normal'} } dataAlign="center">Daily Trend</TableHeaderColumn>
-                                        <TableHeaderColumn dataFormat={this.cellButton2} tdStyle={ {whiteSpace: 'normal'} } dataAlign="center">Cumulative Trend</TableHeaderColumn>
+                                        <TableHeaderColumn dataFormat={this.cellButton} tdStyle={ {whiteSpace: 'normal'} } dataAlign="center">Sales Info</TableHeaderColumn>
                                       </BootstrapTable>
+                                      <button
+                                        type="button"
+                                        style={{float:'right',fontSize: "14px"}}
+                                        className="btn btn-danger"
+                                        onClick={() => {
+                                          let objString = '/ranging/delist?';
+                                          let selected=this.state.SelectProducts;
+                                          if(selected!=='[]'){
+                                            for(let i=0;i<selected.length;i++){
+                                              objString += 'base_product_number=' + selected[i] + '&'
+                                            }
+                                            objString = objString.slice(0, objString.length - 1);
+                                            console.log(objString);
+                                            window.location = objString;
+                                          }else{
+                                            alert("You have not selected any products to delist. Are you sure you want to see the delist impact?")
+                                          }
+                                        }}
+                                      >SEND TO DE-LIST
+                                      </button>
                                     </div>
                                   );
 
@@ -696,18 +759,22 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                           </div>
                         </div>
 
-                        <Modal show={this.state.showDailySalesInfoModalFlag}
-                               bsSize="lg"
-                               aria-labelledby="contained-modal-title-lg"
-                               dialogClassName={'xlModal'}
+                        <Modal show={this.state.showProductSalesInfoModalFlag}
+                               onHide={() => {this.setState({showProductSalesInfoModalFlag: false})
+                                 this.props.onProdCardsDataFetchSuccess(false);
+                                 this.props.onProdChartsDataFetchSuccess(false);
+                               }}
+                               bsSize="large" aria-labelledby="contained-modal-title-sm"
                         >
-                          <Modal.Header>
+                          <Modal.Header style={{backgroundColor:'#FFF'}}>
 
                             <Modal.Title id="contained-modal-title-sm" className="pageModuleTitle">
                         <span className="pageModuleTitle"><b>{this.state.y_axis} Trend : {this.state.product}</b>
                          <span style={{textAlign: 'right', float: 'right'}}
                                onClick={() =>
-                               {this.setState({showDailySalesInfoModalFlag: false})
+                               {this.setState({showProductSalesInfoModalFlag: false})
+                                 this.props.onProdCardsDataFetchSuccess(false);
+                                 this.props.onProdChartsDataFetchSuccess(false);
                                }}>
                           <b>X</b></span></span>
                             </Modal.Title>
@@ -716,28 +783,250 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                           <Modal.Body className="infoModalText">
                             <div>
                               {(() => {
-                                if (this.props.DailySales.prod_daily_data && this.props.DailySales.prod_daily_data.graph_data  && this.props.DailySales.CumTrendSpinnerCheck != 0) {
-                                  if (this.props.DailySales.prod_daily_data.graph_data.length != 0) {
-                                    return (
-                                      <Panel>
-                                        <DualLineChart2 x_axis="Week Day" y_axis={this.state.y_axis}
-                                                        legendTY={this.state.legendTY} legendLY={this.state.legendLY}
-                                                        id="prod_daily_sales"
-                                                        data={this.props.DailySales.prod_daily_data.graph_data.graph_data}/>
-                                      </Panel>
-                                    )
-                                  }
-                                  else {
-                                    return (
-                                      <div> No Sales for This Product in the Selected Week! </div>
-                                    )
-                                  }
+                                if (this.props.DailySales.prod_cards_data && this.props.DailySales.ProdCardsSpinnerCheck != 0) {
+                                  let a = this.props.DailySales.prod_cards_data.sales, b = this.props.DailySales.prod_cards_data.volume,
+                                    c = this.props.DailySales.prod_cards_data.cogs, d = this.props.DailySales.prod_cards_data.profit,
+                                    e = this.props.DailySales.prod_cards_data.margin;
+                                  return (
+                                    <div>
+                                      <div className="row mainBox" style={{textAlign: 'center'}}>
+                                        {/* Box for value */}
+                                        <div className="col-md-4 col-xs-4" style={{backgroundColor: "#fafafa"}}>
+                                          <Panel>
+                                            <h3 className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>Value</h3>
+                                            <div className="row">
+                                              <div className="col-md-6 col-sm-6 col-xs-6 kpiSmall">
+                                                <h3>{formatMetric(a.tot_sales)}</h3>
+                                              </div>
+                                              <div className="col-md-6 col-sm-6 col-xs-6">
+                                                <h3>LFL:{formatMetric(a.tot_sales_lfl)}</h3>
+                                              </div>
+                                            </div>
+                                            <div className="row">
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                <span className={this.formatGlyphicon(a.sales_var_wow)}></span>&nbsp;{a.sales_var_wow}%
+                                                <h4 className="kpiSubTitle"><b>WoW</b></h4>
+                                              </div>
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                <span className={this.formatGlyphicon(a.sales_var_yoy)}></span>&nbsp;{a.sales_var_yoy}%
+                                                <h4 className="kpiSubTitle"><b>YoY</b></h4>
+                                              </div>
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                <span className={this.formatGlyphicon(a.sales_var_lfl)}></span>&nbsp;{a.sales_var_lfl}%
+                                                <h4 className="kpiSubTitle"><b>LFL</b></h4>
+                                              </div>
+                                            </div>
+                                            <div className="row">
+                                              <div className="col-md-12">
+                                                <h3 style={{
+                                                  padding: "0px",
+                                                  margin: "0px",
+                                                  backgroundColor: "#e5e8ea"
+                                                }}>{formatMetric(a.tot_sales_wtd)}</h3>
+                                              </div>
+                                            </div>
+                                          </Panel>
+                                        </div>
+
+                                        <div className="col-md-4 col-xs-4" style={{backgroundColor: "#fafafa"}}>
+                                          <Panel>
+                                            <h3 className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>Volume</h3>
+                                            <div className="row">
+                                              <div className="col-md-6 col-sm-6 col-xs-6 kpiSmall">
+                                                <h3 >{formatMetric(b.tot_vol,"volume")}</h3>
+                                              </div>
+                                              <div className="col-md-6 col-sm-6 col-xs-6">
+                                                <h3>LFL:{formatMetric(b.tot_vol_lfl, "volume")}</h3>
+                                              </div>
+                                            </div>
+                                            <div className="row">
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                <span className={this.formatGlyphicon(b.vol_var_wow)}></span>&nbsp;{b.vol_var_wow}%
+                                                <h4 className="kpiSubTitle"><b>WoW</b></h4>
+                                              </div>
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                <span className={this.formatGlyphicon(b.vol_var_yoy)}></span>&nbsp;{b.vol_var_yoy}%
+                                                <h4 className="kpiSubTitle"><b>YoY</b></h4>
+                                              </div>
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                <span className={this.formatGlyphicon(b.vol_var_lfl)}></span>&nbsp;{b.vol_var_lfl}%
+                                                <h4 className="kpiSubTitle"><b>LFL</b></h4>
+                                              </div>
+                                            </div>
+                                            <div className="row">
+                                              <div className="col-md-12">
+                                                <h3 style={{padding: "0px", margin: "0px",backgroundColor:"#e5e8ea"}}>{formatMetric(b.tot_vol_wtd,"volume")}</h3>
+                                              </div>
+                                            </div>
+                                          </Panel>
+                                        </div>
+
+                                        <div className="col-md-4 col-xs-4" style={{backgroundColor: "#fafafa"}}>
+                                          <Panel>
+                                            <h3 className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>COGS</h3>
+                                            <div className="row">
+                                              <div className="col-md-6 col-sm-6 col-xs-6 kpiSmall">
+                                                <h3>{formatMetric(c.tot_cogs)}</h3>
+                                              </div>
+                                              <div className="col-md-6 col-sm-6 col-xs-6">
+                                                <h3>LFL:{formatMetric(c.tot_cogs_lfl)}</h3>
+                                              </div>
+                                            </div>
+                                            <div className="row">
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                <span className={this.formatGlyphicon(c.cogs_var_wow)}></span>&nbsp;{c.cogs_var_wow}%
+                                                <h4 className="kpiSubTitle"><b>WoW</b></h4>
+                                              </div>
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                <span className={this.formatGlyphicon(c.cogs_var_yoy)}></span>&nbsp;{c.cogs_var_yoy}%
+                                                <h4 className="kpiSubTitle"><b>YoY</b></h4>
+                                              </div>
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                <span className={this.formatGlyphicon(c.cogs_var_lfl)}></span>&nbsp;{c.cogs_var_lfl}%
+                                                <h4 className="kpiSubTitle"><b>LFL</b></h4>
+                                              </div>
+                                            </div>
+                                            <div className="row">
+                                              <div className="col-md-12">
+                                                <h3 style={{
+                                                  padding: "0px",
+                                                  margin: "0px",
+                                                  backgroundColor: "#e5e8ea"
+                                                }}>{formatMetric(c.tot_cogs_wtd)}</h3>
+                                              </div>
+                                            </div>
+                                          </Panel>
+                                        </div>
+
+                                      </div>
+
+                                      <div className="row mainBox" style={{textAlign: 'center'}}>
+                                        <div className="col-md-6 col-xs-6" style={{backgroundColor: "#fafafa"}}>
+                                          <Panel>
+                                            <h3 className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>Profit</h3>
+                                            <div className="row">
+                                              <div className="col-md-6 col-sm-6 col-xs-6 kpiSmall">
+                                                <h3>{formatMetric(d.tot_profit)}</h3>
+                                              </div>
+                                              <div className="col-md-6 col-sm-6 col-xs-6">
+                                                <h3>LFL:{formatMetric(d.tot_profit_lfl)}</h3>
+                                              </div>
+                                            </div>
+                                            <div className="row">
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                <span className={this.formatGlyphicon(d.profit_var_wow)}></span>&nbsp;{d.profit_var_wow}%
+                                                <h4 className="kpiSubTitle"><b>WoW</b></h4>
+                                              </div>
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                <span className={this.formatGlyphicon(d.profit_var_yoy)}></span>&nbsp;{d.profit_var_yoy}%
+                                                <h4 className="kpiSubTitle"><b>YoY</b></h4>
+                                              </div>
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                <span className={this.formatGlyphicon(d.profit_var_lfl)}></span>&nbsp;{d.profit_var_lfl}%
+                                                <h4 className="kpiSubTitle"><b>LFL</b></h4>
+                                              </div>
+                                            </div>
+                                            <div className="row">
+                                              <div className="col-md-12">
+                                                <h3 style={{
+                                                  padding: "0px",
+                                                  margin: "0px",
+                                                  backgroundColor: "#e5e8ea"
+                                                }}>{formatMetric(d.tot_profit_wtd)}</h3>
+                                              </div>
+                                            </div>
+                                          </Panel>
+                                        </div>
+
+                                        <div className="col-md-6 col-xs-6" style={{backgroundColor: "#fafafa"}}>
+                                          <Panel>
+                                            <h3 className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>Margin</h3>
+                                            <div className="row">
+                                              <div className="col-md-6 col-sm-6 col-xs-6 kpiSmall">
+                                                <h3>{e.current_day}%</h3>
+                                              </div>
+                                              <div className="col-md-6 col-sm-6 col-xs-6">
+                                                <h3>LFL:{e.current_day_lfl}%</h3>
+                                              </div>
+                                            </div>
+                                            <div className="row">
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                <span className={this.formatGlyphicon(b.vol_var_wow)}></span>&nbsp;{e.wow}%
+                                                <h4 className="kpiSubTitle"><b>WoW</b></h4>
+                                              </div>
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                <span className={this.formatGlyphicon(b.vol_var_yoy)}></span>&nbsp;{e.yoy}%
+                                                <h4 className="kpiSubTitle"><b>YoY</b></h4>
+                                              </div>
+                                              <div className="col-md-4 col-sm-4 col-xs-4">
+                                                <span className={this.formatGlyphicon(b.vol_var_lfl)}></span>&nbsp;{e.yoy_lfl}%
+                                                <h4 className="kpiSubTitle"><b>LFL</b></h4>
+                                              </div>
+                                            </div>
+                                            <div className="row">
+                                              <div className="col-md-12">
+                                                <h3 style={{padding: "0px", margin: "0px",backgroundColor:"#e5e8ea"}}><br></br></h3>
+                                              </div>
+                                            </div>
+                                          </Panel>
+                                        </div>
+
+                                      </div>
+                                    </div>
+
+                                  )
                                 }
                                 else {
                                   return (<div className="text-center"><Spinner />Please Wait a Moment....!</div>)
                                 }
                               })()}
                             </div>
+                            <div className="col-md-12">
+                              <h4 className="pageModuleMainTitle">Daily {this.state.y_axis} Trend
+                              </h4>
+                            </div>
+                            <div className="row">
+                              <div className="col-md-6 col-sm-6">
+                                {(() => {
+                                  if (this.props.DailySales.prod_charts_data && this.props.DailySales.prod_charts_data.graph_data  && this.props.DailySales.ProdChartsSpinnerCheck != 0) {
+                                    if (this.props.DailySales.prod_charts_data.graph_data.graph_data.length != 0) {
+                                      return (
+                                        <Panel style={{alignItems: "center"}}>
+                                          <DualLineChart2 x_axis="Week Day" y_axis={this.state.y_axis}
+                                                          legendTY={this.state.legendTY} legendLY={this.state.legendLY}
+                                                          id="prod_daily_sales"
+                                                          data={this.props.DailySales.prod_charts_data.graph_data.graph_data}/>
+                                        </Panel>
+                                      )
+                                    }
+                                    else {
+                                      return (
+                                        <div> No Sales for This Product in the Selected Week! </div>
+                                      )
+                                    }
+                                  }
+                                  else {
+                                    return (<div className="text-center"><Spinner />Please Wait a Moment....!</div>)
+                                  }
+                                })()}
+                              </div>
+                              <div className="col-md-6 col-sm-6">
+                                {(() => {
+                                  if (this.props.DailySales.prod_charts_data && this.props.DailySales.prod_charts_data.graph_data && this.props.DailySales.ProdChartsSpinnerCheck != 0) {
+                                    return (
+                                      <Panel style={{alignItems: "center"}}>
+                                        <MultiSeriesBarChart x_axis="Week Day" y_axis={this.state.y_axis} legendTY={this.state.legendTY} legendLY={this.state.legendLY}
+                                                             id="prod_cumulative_sales" data={this.props.DailySales.prod_charts_data.graph_data}/>
+                                      </Panel>
+                                    )
+                                  }
+                                  else {
+                                    return (<div className="text-center"><Spinner />Please Wait a Moment....!</div>)
+                                  }
+                                })()}
+                              </div>
+                            </div>
+
                           </Modal.Body>
                         </Modal>
 
@@ -817,8 +1106,10 @@ function mapDispatchToProps(dispatch) {
     onSaveWeek: (e) => dispatch(SaveWeek(e)),
     onCheckboxChange: (e) => dispatch(checkboxChange(e)),
     onSaveProduct: (e) => dispatch(saveProduct(e)),
-    onDailyProductTrend: (e) => dispatch(dailyProductTrend(e)),
-    onCumProductTrend: (e) => dispatch(cumProductTrend(e)),
+    onProductCardsData: (e) => dispatch(productCardsData(e)),
+    onProductChartsData: (e) => dispatch(productChartsData(e)),
+    onProdCardsDataFetchSuccess: (e) => dispatch(prodCardsDataFetchSuccess(e)),
+    onProdChartsDataFetchSuccess: (e) => dispatch(prodChartsDataFetchSuccess(e)),
     LineChartSpinnerCheckSuccess: (e) => dispatch(LineChartSpinnerCheckSuccess(e)),
     LineChartSpinnerCheck: (e) => dispatch(LineChartSpinnerCheckSuccess(e)),
     onCheckboxWeekChange: (e) => dispatch(checkboxWeekChange(e)),

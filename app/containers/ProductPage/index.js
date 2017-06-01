@@ -109,7 +109,8 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
       ty_text: "Sales TY in £",
       ly_text: "Sales LY in £",
       y_axis_text: "Sales Value",
-      page_title: "Value Performance"
+      page_title: "Value Performance",
+      SelectProducts:"[]"
     };
   }
 
@@ -180,20 +181,19 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
 
 
     let onRowSelect=(row, isSelected, e)=> {
-      this.prodList.push({"product": row.product});
+      console.log("Row:",row);
+      this.prodList.push(row.product_id);
       console.log("ProdList:",this.prodList);
       this.setState({SelectProducts:this.prodList});
     }
 
     let onSelectAll=(isSelected, rows)=> {
-      alert(`is select all: ${isSelected}`);
       if (isSelected) {
-
-      } else {
-        alert('unselect rows: ');
-      }
-      for (let i = 0; i < rows.length; i++) {
-        alert(rows[i].id);
+        for (let i = 0; i < rows.length; i++) {
+          this.prodList.push(rows[i].product_id);
+          console.log("ProdList:",this.prodList);
+          this.setState({SelectProducts:this.prodList});
+        }
       }
     }
 
@@ -239,8 +239,6 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                                   filter_week_selection={this.props.ProductPage.filter_week_selection}
                                   urlParamsString={this.props.ProductPage.urlParamsString}
                                   tabsAndApplySpinner={this.props.tabsAndApplySpinner}
-
-
                   />
                 )
               } else {
@@ -429,6 +427,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                           >
                             <TableHeaderColumn width="225" tdStyle={ {whiteSpace: 'normal'} } dataField="product" isKey={true}
                                                dataAlign="center" dataSort>Product Description</TableHeaderColumn>
+                            <TableHeaderColumn dataField="product_id" hidden dataAlign="center">Product</TableHeaderColumn>
                             <TableHeaderColumn dataField="x_ty" dataFormat={this.formatMetric} dataSort={true}
                                                dataAlign="center">TY</TableHeaderColumn>
                             <TableHeaderColumn dataField="x_ly" dataFormat={this.formatMetric} dataSort={true}
@@ -456,6 +455,26 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                             <TableHeaderColumn dataFormat={this.cellButton2} dataAlign="center">Trend</TableHeaderColumn>
                           </BootstrapTable>
                           <i style={{textAlign:"center",fontSize: "14px"}}>* Indicates this product was not present for the previous week/year</i>
+                          <button
+                            type="button"
+                            style={{float:'right',fontSize: "14px"}}
+                            className="btn btn-danger"
+                            onClick={() => {
+                              let objString = '/ranging/delist?';
+                              let selected=this.state.SelectProducts;
+                              if(selected!=='[]'){
+                                for(let i=0;i<selected.length;i++){
+                                  objString += 'base_product_number=' + selected[i] + '&'
+                                }
+                                objString = objString.slice(0, objString.length - 1);
+                                console.log(objString);
+                                window.location = objString;
+                              }else{
+                                alert("You have not selected any products to delist. Are you sure you want to see the delist impact?")
+                              }
+                            }}
+                          >SEND TO DE-LIST
+                          </button>
                         </div>
                       );
 

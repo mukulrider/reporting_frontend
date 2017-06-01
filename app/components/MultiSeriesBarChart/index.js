@@ -47,7 +47,7 @@ class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line r
     }
 
     let containerWidth = document.getElementById(id).clientWidth;
-    let margin = {top: 30, right: 0, bottom: 80, left: 100},
+    let margin = {top: 30, right: 0, bottom: 80, left: 90},
       width = containerWidth - margin.left - margin.right,
       height = containerWidth*0.8 - margin.top - margin.bottom;
 
