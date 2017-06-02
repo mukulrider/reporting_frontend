@@ -1714,7 +1714,7 @@ export class Promotion extends React.PureComponent {
                                                    dataFormat={formatMetric}>Promo {this.props.promotion.productsOnPromotion.col_name}
                                   LY</TableHeaderColumn>
                                 <TableHeaderColumn headerAlign ={"center"} dataAlign={"center"} dataField='lfl_var'
-                                                   dataFormat={ triangleColumnFormatter }><h6>LFL</h6>
+                                                   dataFormat={ triangleColumnFormatter }>LFL
                                   Variation</TableHeaderColumn>
                                 <TableHeaderColumn headerAlign ={"center"} dataAlign={"center"} dataField='promoted_ly_ind'>Promoted Last
                                   Year?</TableHeaderColumn>
