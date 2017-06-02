@@ -96,7 +96,6 @@ class SelectInput extends ValidatedField {
               className={selectClasses}
               {...selectProps}
             >
-              <option value="">{placeholder}</option>
               {this[renderOptions](data)}
             </select>
           </span>

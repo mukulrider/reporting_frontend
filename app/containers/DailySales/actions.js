@@ -8,7 +8,7 @@ import {
   DEFAULT_ACTION,
   CARDS_CONSTANT,CARDS_DATA_FETCH_SUCCESS,
   CHARTS_CONSTANT,CHARTS_DATA_FETCH_SUCCESS,
-  PRODUCT_CONSTANT,DAILY_TREND_CONSTANT,CUM_TREND_CONSTANT,PROD_DAILY_TREND_FETCH_SUCCESS,PROD_CUM_TREND_FETCH_SUCCESS,
+  PRODUCT_CONSTANT,PRODUCT_CARDS_CONSTANT,PRODUCT_CHARTS_CONSTANT,PROD_CARDS_DATA_FETCH_SUCCESS,PROD_CHARTS_DATA_FETCH_SUCCESS,
   KPI_PARAM,
   KPI_CONSTANT,
   WEEK_PARAM,
@@ -24,8 +24,8 @@ import {
   SEND_URL_PARAMS,
   DS_VIEW_KPI_SPINNER,
   LINE_CHART_SPINNER,
-  DAILY_TREND_CHART_SPINNER,
-  CUM_TREND_CHART_SPINNER,
+  PROD_CARDS_SPINNER,
+  PROD_CHARTS_SPINNER,
   WEEK,
   CHECKBOX_WEEK_CHANGE,
   STORE_FILTER_PARAM,
@@ -62,17 +62,17 @@ export function saveProduct(data) {
   };
 }
 
-export function dailyProductTrend(data) {
-  console.log('getdailyTrend = actions', data);
+export function productCardsData(data) {
+  console.log('getproductCardsData = actions', data);
   return {
-    type: DAILY_TREND_CONSTANT,
+    type: PRODUCT_CARDS_CONSTANT,
     data,
   };
 }
-export function cumProductTrend(data) {
-  console.log('getCumTrend = actions', data);
+export function productChartsData(data) {
+  console.log('getproductChartsData = actions', data);
   return {
-    type: CUM_TREND_CONSTANT,
+    type: PRODUCT_CHARTS_CONSTANT,
     data,
   };
 }
@@ -93,19 +93,19 @@ export function chartDataFetchSuccess(data)
   };
 }
 
-export function prodDailyTrendFetchSuccess(data)
+export function prodCardsDataFetchSuccess(data)
 {
-  console.log('PROD_DAILY_TREND_FETCH_SUCCESS',data)
+  console.log('PROD_CARDS_DATA_FETCH_SUCCESS',data)
   return {
-    type: PROD_DAILY_TREND_FETCH_SUCCESS,
+    type: PROD_CARDS_DATA_FETCH_SUCCESS,
     data,
   };
 }
-export function prodCumTrendFetchSuccess(data)
+export function prodChartsDataFetchSuccess(data)
 {
-  console.log('PROD_CUM_TREND_FETCH_SUCCESS',data)
+  console.log('PROD_CHARTS_DATA_FETCH_SUCCESS',data)
   return {
-    type: PROD_CUM_TREND_FETCH_SUCCESS,
+    type: PROD_CHARTS_DATA_FETCH_SUCCESS,
     data,
   };
 }
@@ -288,17 +288,17 @@ export function LineChartSpinnerCheckSuccess(LineChartSpinnerCheck) {
     LineChartSpinnerCheck
   }
 }
-export function DailyTrendSpinnerCheckSuccess(DailyTrendSpinnerCheck) {
-  console.log('DailyTrendSpinnerCheckSuccess', DailyTrendSpinnerCheck);
+export function prodCardsSpinnerCheckSuccess(ProdCardsSpinnerCheck) {
+  console.log('prodCardsSpinnerCheckSuccess', ProdCardsSpinnerCheck);
   return {
-    type: DAILY_TREND_CHART_SPINNER,
-    DailyTrendSpinnerCheck
+    type: PROD_CARDS_SPINNER,
+    ProdCardsSpinnerCheck
   }
 }
-export function CumTrendSpinnerCheckSuccess(CumTrendSpinnerCheck) {
-  console.log('CumTrendSpinnerCheckSuccess', CumTrendSpinnerCheck);
+export function prodChartsSpinnerCheckSuccess(ProdChartsSpinnerCheck) {
+  console.log('prodChartsSpinnerCheckSuccess', ProdChartsSpinnerCheck);
   return {
-    type: CUM_TREND_CHART_SPINNER,
-    CumTrendSpinnerCheck
+    type: PROD_CHARTS_SPINNER,
+    ProdChartsSpinnerCheck
   }
 }
