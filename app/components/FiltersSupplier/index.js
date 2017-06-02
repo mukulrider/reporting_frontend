@@ -289,7 +289,7 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                           }
 
                         }}>
-                  Clear filters
+                  Clear Filters
                 </Button>
               </div>
               {/*<Button onClick={() => {*/}
