@@ -122,10 +122,13 @@ export class Promotion extends React.PureComponent {
       activeKey3: "1",
       activeKey4: "1",
       showModal: false,
-      navValue: "value"
+      navValue: "value",
+      SelectProducts:"[]"
     };
 
   }// eslint-disable-line react/prefer-stateless-function
+
+  prodList = [];
 
   render() {
     let formatMetric = (cell,flag="value") => {
@@ -174,6 +177,29 @@ export class Promotion extends React.PureComponent {
       // withFirstAndLast: false > Hide the going to First and Last page button
     };
 
+    let onRowSelect=(row, isSelected, e)=> {
+      console.log("Row:",row);
+      this.prodList.push(row.product_id);
+      console.log("ProdList:",this.prodList);
+      this.setState({SelectProducts:this.prodList});
+    }
+
+    let onSelectAll=(isSelected, rows)=> {
+      if (isSelected) {
+        for (let i = 0; i < rows.length; i++) {
+          this.prodList.push(rows[i].product_id);
+          console.log("ProdList:",this.prodList);
+          this.setState({SelectProducts:this.prodList});
+        }
+      }
+    }
+
+    const selectRowProp = {
+      mode: 'checkbox',
+      clickToSelect: true,
+      onSelect: onRowSelect,
+      onSelectAll: onSelectAll
+    };
 
     let week_data = []
 
@@ -1664,6 +1690,7 @@ export class Promotion extends React.PureComponent {
                           return (
                             <div className="promoTable">
                               <BootstrapTable className="promoTable"
+                                              selectRow={selectRowProp}
                                               data={this.props.promotion.productsOnPromotion.table_data}
                                               options={options}
                                               striped={true}
@@ -1673,25 +1700,25 @@ export class Promotion extends React.PureComponent {
                                               search={true}
                                               pagination={true}
                               >
-                                <TableHeaderColumn dataAlign={"left"} width="35%" dataField='Product Description'
+                                <TableHeaderColumn headerAlign ={"center"} dataAlign={"left"} width="35%" dataField='Product Description'
                                                    isKey>Product
                                   Description</TableHeaderColumn>
-                                <TableHeaderColumn dataAlign={"right"} dataField='brand_name'
+                                <TableHeaderColumn headerAlign ={"center"} dataAlign={"left"} dataField='brand_name'
                                                    dataSort={true}>Brand</TableHeaderColumn>
-                                <TableHeaderColumn dataAlign={"right"} dataField='Promo TY'
+                                <TableHeaderColumn headerAlign ={"center"} dataAlign={"center"} dataField='Promo TY'
                                                    dataSort={true}
                                                    dataFormat={formatMetric}>Promo {this.props.promotion.productsOnPromotion.col_name}
                                   TY</TableHeaderColumn>
-                                <TableHeaderColumn dataAlign={"right"}
+                                <TableHeaderColumn headerAlign ={"center"} dataAlign={"center"}
                                                    dataField='Promo LY'
                                                    dataFormat={formatMetric}>Promo {this.props.promotion.productsOnPromotion.col_name}
                                   LY</TableHeaderColumn>
-                                <TableHeaderColumn dataAlign={"right"} dataField='lfl_var'
-                                                   dataFormat={ triangleColumnFormatter }><h6>LFL</h6>
+                                <TableHeaderColumn headerAlign ={"center"} dataAlign={"center"} dataField='lfl_var'
+                                                   dataFormat={ triangleColumnFormatter }>LFL
                                   Variation</TableHeaderColumn>
-                                <TableHeaderColumn dataAlign={"left"} dataField='promoted_ly_ind'>Promoted Last
+                                <TableHeaderColumn headerAlign ={"center"} dataAlign={"center"} dataField='promoted_ly_ind'>Promoted Last
                                   Year?</TableHeaderColumn>
-                                <TableHeaderColumn dataAlign={"left"} dataField='Product Description'
+                                <TableHeaderColumn headerAlign ={"center"} dataAlign={"center"} dataField='Product Description'
                                                    dataFormat={(f, g) => {
                                                      return <button className="btn btn-primary"
                                                                     onClick={(e, v, x, y) => {
@@ -1706,18 +1733,28 @@ export class Promotion extends React.PureComponent {
                                                                       this.setState({showModal: true})
                                                                     }}>Promo Info.</button>
                                                    }}>&nbsp;</TableHeaderColumn>
-                                <TableHeaderColumn dataAlign={"left"}
-                                                   dataField={'product_id'}
-                                                   dataFormat={(product_id) => {
-                                                     return (
-                                                       <button className="btn btn-danger" onClick={() => {
-                                                         console.log(product_id)
-                                                         window.location = '/ranging/delist?long_description=' + product_id
-                                                       }}>Delist
-                                                       </button>
-                                                     )
-                                                   }}>&nbsp;</TableHeaderColumn>
+
                               </BootstrapTable>
+                              <button
+                                type="button"
+                                style={{float:'right',fontSize: "14px"}}
+                                className="btn btn-danger"
+                                onClick={() => {
+                                  let objString = '/ranging/delist?';
+                                  let selected=this.state.SelectProducts;
+                                  if(selected!=='[]'){
+                                    for(let i=0;i<selected.length;i++){
+                                      objString += 'base_product_number=' + selected[i] + '&'
+                                    }
+                                    objString = objString.slice(0, objString.length - 1);
+                                    console.log(objString);
+                                    window.location = objString;
+                                  }else{
+                                    alert("You have not selected any products to delist. Are you sure you want to see the delist impact?")
+                                  }
+                                }}
+                              >SEND TO DE-LIST
+                              </button>
                             </div>
                           )
                         } else {

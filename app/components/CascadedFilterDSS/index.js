@@ -278,7 +278,7 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
 
               <div style={{textAlign: "center"}}>
                 <Button
-                  style={{marginTop: "5px", width: "10px", minWidth: "170px", fontSize: "13px"}}
+                  style={{marginTop: "5px", width: "10px"}}
                   onClick={() => {
 
                     let filterDataWeek = this.props.week;
@@ -302,10 +302,10 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                       console.log('modal open2');
                       this.setState({alertShow: true});
                     }
-                  }}>Apply Filters</Button>
+                  }}>Apply</Button>
                 <div style={{height: '1%', width: '100%'}}>&nbsp;</div>
                 <Button
-                  style={{marginTop: "5px", width: "10px", minWidth: "170px", fontSize: "13px"}}
+                  style={{marginTop: "5px", width: "10px",}}
                   onClick={() => {
                     let selection = '';
                     localStorage.clear();
@@ -320,7 +320,7 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                     this.props.CardsDataCall();
                     this.props.onGenerateSideFilter();
                     this.props.ongenerateWeekFilter();
-                  }}>Clear filters</Button>
+                  }}>Clear Filters</Button>
               </div>
             </div>
           )
