@@ -328,8 +328,8 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
                     console.log('modal open');
                     this.setState({alertShow: true});
                   }
-                }}>Apply</Button>
-                <Button style={{marginTop:"4px", marginLeft:"0 auto"}} buttonType={'secondary'}
+                }}>Apply Filters</Button>
+                <Button style={{marginTop:"4px", marginLeft:"0 auto"}} buttonType={'primary'}
 
                         onClick={() => {
                           console.log("Clear Filters Clicked");
@@ -345,7 +345,7 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
                           this.props.onCheckboxWeekChange(selection);
                           this.props.onSaveWeek(selection);
                           this.props.onGetFilter('');
-                        }}>Clear Filters Selection</Button></div>
+                        }}>Clear Filters</Button></div>
               {/*<Button onClick={() => {*/}
               {/*/!*this.props.onFilterReset();*!/*/}
               {/*}}>Reset Filters</Button>&nbsp;&nbsp;*/}

@@ -126,14 +126,14 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
         return ('£ ' + rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'K');
       }
     }
-    else {
-      if (this.state.y_axis_text == "Sales Volume") {
-      return (Math.round(cell));
-    }
-    else {
-      return ('£ '+ Math.round(cell));
+      else {
+        if (this.state.y_axis_text == "Sales Volume") {
+        return (Math.round(cell));
       }
-    }
+      else {
+        return ('£ '+ Math.round(cell));
+        }
+      }
   }
 
   formatGlyphicon = (cell) => {
@@ -142,8 +142,8 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
     }
     else if (cell < 0) {
       return '<i class="glyphicon glyphicon-triangle-bottom productTableNegative"></i>&nbsp' + cell + '%';
-    }else if (cell = "NA") {
-      return 'NA*';
+    }else if (cell = "-") {
+      return '-*';
     } else {
       return '<i class="glyphicon glyphicon-minus-sign productTableNeutral"></i>&nbsp' + cell + '%';
     }
@@ -167,10 +167,10 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
       sizePerPage: 5,  // which size per page you want to locate as default
       pageStartIndex: 1, // where to start counting the pages
       paginationSize: 3,  // the pagination bar size.
-      prePage: 'Prev', // Previous page button text
-      nextPage: 'Next', // Next page button text
-      firstPage: 'First', // First page button text
-      lastPage: 'Last', // Last page button text
+      // prePage: 'Prev', // Previous page button text
+      // nextPage: 'Next', // Next page button text
+      // firstPage: 'First', // First page button text
+      // lastPage: 'Last', // Last page button text
       paginationShowsTotal: this.renderShowsTotal,  // Accept bool or function
       paginationPosition: 'bottom',  // default is bottom, top and both is all available
       expandRowBgColor: 'rgb(242, 255, 163)'

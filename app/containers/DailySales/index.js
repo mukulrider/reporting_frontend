@@ -147,6 +147,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
   constructor(props) {
     super(props);
     this.state = {
+      collapsed: false,
       activeKey1: "1",
       y_axis: "Sales Value",
       legendTY:"Sales TY",legendLY:"Sales LY",
@@ -223,6 +224,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
       onSelectAll: onSelectAll
     };
 
+
     let formatMetric = (cell, flag = "value") => {
       if (cell >= 1000 || cell <= -1000) {
         let rounded = Math.round(cell / 1000);
@@ -238,12 +240,12 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
           return (Math.round(cell));
         }
         else {
-          return ('£ ' + Math.round(cell));
+          return ('£ '+ Math.round(cell));
         }
       }
     }
 
-    let kpiParmas = this.props.DailySales.kpi_param;
+    let kpiParams = this.props.DailySales.kpi_param;
     return (
       <div style={{background: "#fafafa"}}>
         <div>
@@ -267,21 +269,19 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                   marginRight: '0px'
                 }}>
 
-
-                  <div style={{
+                  <div className={this.state.collapsed ? 'collapse-filter' : 'expand-filter'}
+                    style={{
                     height: '100%',
                     position: 'fixed',
-                    width: '20%',
-                    paddingRight: '1%',
                     overflowX: 'hidden',
                     overflowY: 'scroll',
                     borderTop: '1px solid #ccc'
                   }}>
+
                     {(() => {
                       if (this.props.DailySales.week_filter_data && this.props.DailySales.filter_data) {
                         return (
                           <CascadedFilterDSS filter_data={this.props.DailySales.filter_data}
-                            // week_data={this.props.promotion.filter_data.week_data}
                                              CardsDataCall={this.props.CardsDataCall}
                                              ChartDataCall={this.props.ChartDataCall}
                                              week_data={this.props.DailySales.week_filter_data}
@@ -322,10 +322,15 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                     })()}
                   </div>
 
-                  <div style={{
-                    width: '78%',
-                    marginLeft: '22%',
-                  }}>
+                  {/* Collapse (or) Expand filters Button*/}
+                  <div style={{width:'1%',height:'20px',  marginLeft: this.state.collapsed ? '0%' : '20%',position:'fixed'}}>
+                    <div className="filterCollapseBar" onClick={() => {
+                      this.setState({collapsed: !this.state.collapsed})
+                    }}>{this.state.collapsed ? <span className="glyphicon glyphicon-forward"></span> : <span className="glyphicon glyphicon-backward"></span>}
+                    </div>
+                  </div>
+
+                  <div className={this.state.collapsed ? 'expand-content' : 'collapse-content'}>
                     {(() => {
                       if (this.props.DailySales.filter_week_selection) {
                         return (
@@ -605,8 +610,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                               <NavItem style={{fontSize: '16px', textAlign: 'center', margin: "0px"}}
                                        className="tabsCustomList" eventKey="1" onClick={() => {
                                 this.setState({activeKey1: "1", y_axis: "Sales Value",legendTY:"Sales TY",legendLY:"Sales LY"});
-                                kpiParmas = "val_type=1";
-                                this.props.onSaveKPIParam(kpiParmas);
+                                kpiParams = "val_type=1";
+                                this.props.onSaveKPIParam(kpiParams);
                                 this.props.ChartDataCall();
                                 this.props.DSViewKpiSpinnerCheckSuccess(0);
                                 this.props.LineChartSpinnerCheckSuccess(0);
@@ -614,8 +619,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                               <NavItem style={{fontSize: '16px', textAlign: 'center', margin: "0px"}}
                                        className="tabsCustomList" eventKey="2" onClick={() => {
                                 this.setState({activeKey1: "2", y_axis: "Volume",legendTY:"Volume TY",legendLY:"Volume LY"});
-                                kpiParmas = "val_type=2";
-                                this.props.onSaveKPIParam(kpiParmas);
+                                kpiParams = "val_type=2";
+                                this.props.onSaveKPIParam(kpiParams);
                                 this.props.ChartDataCall();
                                 this.props.DSViewKpiSpinnerCheckSuccess(0);
                                 this.props.LineChartSpinnerCheckSuccess(0);
@@ -623,8 +628,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                               <NavItem style={{fontSize: '16px', textAlign: 'center', margin: "0px"}}
                                        className="tabsCustomList" eventKey="3" onClick={() => {
                                 this.setState({activeKey1: "3", y_axis: "COGS",legendTY:"COGS TY",legendLY:"COGS LY"});
-                                kpiParmas = "val_type=3";
-                                this.props.onSaveKPIParam(kpiParmas);
+                                kpiParams = "val_type=3";
+                                this.props.onSaveKPIParam(kpiParams);
                                 this.props.ChartDataCall();
                                 this.props.DSViewKpiSpinnerCheckSuccess(0);
                                 this.props.LineChartSpinnerCheckSuccess(0);
@@ -632,8 +637,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                               <NavItem style={{fontSize: '16px', textAlign: 'center', margin: "0px"}}
                                        className="tabsCustomList" eventKey="4" onClick={() => {
                                 this.setState({activeKey1: "4", y_axis: "Profit",legendTY:"Profit TY",legendLY:"Profit LY"});
-                                kpiParmas = "val_type=4";
-                                this.props.onSaveKPIParam(kpiParmas);
+                                kpiParams = "val_type=4";
+                                this.props.onSaveKPIParam(kpiParams);
                                 this.props.ChartDataCall();
                                 this.props.DSViewKpiSpinnerCheckSuccess(0);
                                 this.props.LineChartSpinnerCheckSuccess(0);
@@ -712,7 +717,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                                            dataAlign="center">Brand</TableHeaderColumn>
                                         <TableHeaderColumn dataField="brand_name" dataSort={true}
                                                            dataAlign="center">Brand Name</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="kpi_ty" dataFormat={formatMetric} dataSort={true}
+                                        <TableHeaderColumn dataField="kpi_ty" dataSort={true} dataFormat={formatMetric}
                                                            dataAlign="center">TY</TableHeaderColumn>
                                         <TableHeaderColumn dataField="kpi_ly" dataFormat={formatMetric} dataSort={true}
                                                            dataAlign="center">LY</TableHeaderColumn>
