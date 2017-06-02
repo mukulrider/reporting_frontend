@@ -1700,14 +1700,6 @@ export class Promotion extends React.PureComponent {
                                               search={true}
                                               pagination={true}
                               >
-                                data={this.props.promotion.productsOnPromotion.table_data}
-                                options={options}
-                                striped={true}
-                                hover
-                                condensed
-                                exportCSV={true}
-                                search={true}
-                                pagination={true}>
                                 <TableHeaderColumn headerAlign ={"center"} dataAlign={"left"} width="35%" dataField='Product Description'
                                                    isKey>Product
                                   Description</TableHeaderColumn>
@@ -1741,6 +1733,7 @@ export class Promotion extends React.PureComponent {
                                                                       this.setState({showModal: true})
                                                                     }}>Promo Info.</button>
                                                    }}>&nbsp;</TableHeaderColumn>
+
                               </BootstrapTable>
                               <button
                                 type="button"
