@@ -25,7 +25,7 @@ export default class App extends React.PureComponent { // eslint-disable-line re
 
   componentWillMount() {
     const hostName = 'dvcmpweb00001uk.dev.global.tesco.org';
-    const hostPort = '80';
+    const hostPort = '';
     let getCookie;
     getCookie = (name) => {
       const value = `; ${document.cookie}`;
@@ -38,10 +38,10 @@ export default class App extends React.PureComponent { // eslint-disable-line re
     };
     const token = getCookie('token');
     if (token && this.props.location.pathname.includes('login')) {
-      // window.location = `http://${hostName}:${hostPort}/`;
+      window.location = `http://${hostName}:${hostPort}/`;
     }
     if (!token && !this.props.location.pathname.includes('login')) {
-      // window.location = `http://${hostName}:${hostPort}/login/`;
+      window.location = `http://${hostName}:${hostPort}/login/`;
     }
   };
 

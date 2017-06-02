@@ -48,11 +48,9 @@ class Header extends Component {
 
   static defaultProps = {
     links: [
-      { text: 'Login', icon: 'login', href: 'http://dvcmpweb00001uk.dev.global.tesco.org:80/login/' },
-      { text: 'Reporting', icon: 'reporting', href: 'http://dvcmpweb00001uk.dev.global.tesco.org:81/sales/executive/' },
-      { text: 'Pricing', icon: 'pricing', href: 'http://dvcmpweb00001uk.dev.global.tesco.org:83/pricing/home/' },
-      { text: 'Ranging', icon: 'ranging', href: 'http://dvcmpweb00001uk.dev.global.tesco.org:82/ranging' },
-      { text: 'Scenario Comparison', icon: 'scenario_comparison', href: 'http://dvcmpweb00001uk.dev.global.tesco.org:86/scenario/compare' },
+      { text: 'Reporting', icon: 'reporting', href: 'http://dvcmpweb00001uk.dev.global.tesco.org/reporting/executive/' },
+      { text: 'Ranging', icon: 'ranging', href: 'http://dvcmpweb00001uk.dev.global.tesco.org/ranging/scenario-tracker/' },
+      { text: 'Pricing', icon: 'pricing', href: 'http://dvcmpweb00001uk.dev.global.tesco.org/pricing/home/' },
       { text: 'Tesco.com', icon: 'home', href: 'http://www.tesco.com/' },
       { text: 'Contact us', icon: 'telephone', href: 'http://www.tesco.com/help/contact/' },
       { text: 'Help', icon: 'help', href: 'http://www.tesco.com/help/' }],
@@ -181,12 +179,12 @@ class Header extends Component {
               </div>
               <div className="row">
                 <Nav bsStyle="tabs" className="tabsNavPanel" style={{ marginWidth: '5%' }}>
-                  <NavItem className="tabsNavPanelList" href="/sales/executive/">Executive View</NavItem>
-                  <NavItem className="tabsNavPanelList" href="/sales/competitor/">Competitor View</NavItem>
-                  <NavItem className="tabsNavPanelList" href="/sales/promo/">Promotions View</NavItem>
-                  <NavItem className="tabsNavPanelList" href="/sales/supplier/">Supplier View</NavItem>
-                  <NavItem className="tabsNavPanelList" href="/sales/product">Product View</NavItem>
-                  <NavItem className="tabsNavPanelList" href="/sales/dailysales/">Daily Sales View</NavItem>
+                  <NavItem className="tabsNavPanelList" href="/reporting/executive/">Executive View</NavItem>
+                  <NavItem className="tabsNavPanelList" href="/reporting/dailysales/">Daily Sales View</NavItem>
+                  <NavItem className="tabsNavPanelList" href="/reporting/product">Product View</NavItem>
+                  <NavItem className="tabsNavPanelList" href="/reporting/promo/">Promotions View</NavItem>
+                  <NavItem className="tabsNavPanelList" href="/reporting/supplier/">Supplier View</NavItem>
+                  <NavItem className="tabsNavPanelList" href="/reporting/competitor/">Competitor View</NavItem>
                   <NavItem className="tabsNavPanelLogoutList" style={{ float: 'right', marginTop: '-8px' }}>
                     <span>
                       <span>
@@ -202,7 +200,7 @@ class Header extends Component {
                           };
                           const token = getCookie('token');
                           const hostName = 'dvcmpweb00001uk.dev.global.tesco.org';
-                          const hostPort = '80';
+                          const hostPort = '';
                           document.cookie = 'token'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
                           document.cookie = 'buyer'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
                           document.cookie = 'buying_controller'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);

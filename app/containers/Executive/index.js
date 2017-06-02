@@ -938,7 +938,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                 className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.value.var_yoy)}></span>
                                               {(this.props.Executive.overview_kpi_data.kpi.value.var_yoy) + '%'}
                                             </h4>
-                                            <h5 className="kpiSubTitle"><b>YOY</b></h5>
+                                            <h5 className="kpiSubTitle"><b>YoY</b></h5>
                                           </div>
                                         </div>
                                       </Panel>
@@ -987,7 +987,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                 className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.volume.var_yoy)}></span>
                                               {(this.props.Executive.overview_kpi_data.kpi.volume.var_yoy) + '%'}
                                             </h4>
-                                            <h5 className="kpiSubTitle"><b>YOY</b></h5>
+                                            <h5 className="kpiSubTitle"><b>YoY</b></h5>
                                           </div>
                                         </div>
                                       </Panel>
@@ -1035,7 +1035,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                 className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.cogs.var_yoy)}></span>
                                               {(this.props.Executive.overview_kpi_data.kpi.cogs.var_yoy) + '%'}
                                             </h4>
-                                            <h5 className="kpiSubTitle"><b>YOY</b></h5>
+                                            <h5 className="kpiSubTitle"><b>YoY</b></h5>
                                           </div>
                                         </div>
                                       </Panel>
@@ -1084,7 +1084,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                 className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.cgm.var_yoy)}></span>
                                               {(this.props.Executive.overview_kpi_data.kpi.cgm.var_yoy) + '%'}
                                             </h4>
-                                            <h5 className="kpiSubTitle"><b>YOY</b></h5>
+                                            <h5 className="kpiSubTitle"><b>YoY</b></h5>
                                           </div>
                                         </div>
                                       </Panel>
@@ -2604,7 +2604,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                     exportCSV={ true }
                                                     search={ true }
                                                     pagination striped hover condensed>
-                                      <TableHeaderColumn dataField='junior_buyer'
+                                      <TableHeaderColumn dataField={this.props.Executive.bestWorstPerformance.level}
                                                          dataAlign='center' isKey
                                                          tdStyle={{fontSize: '14px'}}
 
@@ -2633,7 +2633,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                                          thStyle={{whiteSpace: 'normal', fontSize: '14px'}}>YoY
                                         variation</TableHeaderColumn>
-                                      <TableHeaderColumn dataField='value_ly'
+                                      <TableHeaderColumn dataField='value_ty'
                                                          dataAlign='center'
                                                          dataFormat={formatVolume}
                                                          dataSort={true}

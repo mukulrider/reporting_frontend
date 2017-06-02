@@ -1783,7 +1783,6 @@ export function* generateBestWorstPerformance() {
     console.log('urlAppends10 generateBestWorstPerformance', urlAppends);
     const data = yield call(request, host_url + '/api/reporting/executive_best_worst_performance?' + urlAppends);
 
-    // const data = yield call(request, `http://172.20.181.92:8002/api/reporting/executive_best_worst_performance?week_flag=Current%20Week&kpi_type=Value&user_id=c13a9c506c8e6db5fb9f0307e3a472ba2b85dcd2&user_name=sam.augustine@mu-sigma.com&designation=Buyer&buying_controller_header=Meat%20Fish%20and%20Veg&buyer_header=Fish`);
     // const data = yield call(request, host_url + '/api/reporting/week_exec_filter_data?' + weekurlparams);
     // const data = yield call(request, host_url+'/api/reporting/week_exec_filter_data?' + weekurlparams + '&' + userParams);
 
@@ -1816,7 +1815,7 @@ export function* generateBestWorstPerformanceTable() {
     let urlParamsString = urlName.get('urlParamsString');
     let weekParamString = urlName.get('week_filter_param');
     let weekselection = urlName.get('weekurlParam');
-    let tableSelectedLevel = urlName.get('tableSelectedLevel');
+    let tableSelectedLevel = urlName.get('tableSelectedLevel'); /**/
     // alert(tableSelectedLevel)
     if (!urlParamsString) {
       urlParamsString = ''
@@ -1887,7 +1886,6 @@ export function* generateBestWorstPerformanceTable() {
     console.log('urlAppends11 generateBestWorstPerformanceTable', urlAppends);
     const data = yield call(request, host_url + '/api/reporting/exec_supplier_info?' + urlAppends);
 
-    // const data = yield call(request, `http://172.20.181.92:8000/api/reporting/exec_supplier_info?week_flag=Current%20Week&kpi_type=Value&selected_level=Coated%20Fish&selected_supplier=4894.%20-%20BIRDS%20EYE&user_id=c13a9c506c8e6db5fb9f0307e3a472ba2b85dcd2&user_name=sam.augustine@mu-sigma.com&designation=Buyer&buying_controller_header=Meat%20Fish%20and%20Veg&buyer_header=Fish%200`);
     // const data = yield call(request, host_url + '/api/reporting/week_exec_filter_data?' + weekurlparams);
     // const data = yield call(request, host_url+'/api/reporting/week_exec_filter_data?' + weekurlparams + '&' + userParams);
 

@@ -49,12 +49,12 @@ class PromoTopFilter extends React.PureComponent { // eslint-disable-line react/
                            this.props.productsTableSplitSuccess(0);
                            this.props.productsOnPromoTableFetch();
                            this.props.trendChartDataFetch();
-
+                           this.props.pieChartDataFetch();
                            this.props.loadKpi();
-                           this.props.loadSales();
-                           this.props.loadPromoGiveaway();
-                           this.props.loadPromoProd();
-                           this.props.loadPromoPart();
+                           // this.props.loadSales();
+                           // this.props.loadPromoGiveaway();
+                           // this.props.loadPromoProd();
+                           // this.props.loadPromoPart();
 
                          }}/>
           </div>

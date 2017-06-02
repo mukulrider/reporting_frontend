@@ -58,9 +58,9 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
      //  .attr("transform", "translate(" + margin.left+ "," + margin.top + ")");
       .attr("transform", "translate(" + (radius + margin.left) + " " + (radius + margin.top)+ ")");
 
-    setTimeout(function(){
-      d3.select('#'+id+'_svg').attr("width",null).attr("height",null)
-    },100)
+    // setTimeout(function(){
+    //   d3.select('#'+id+'_svg').attr("width",null).attr("height",null)
+    // },100)
     let g = svg.selectAll(".arc")
       .data(pie(data))
       .enter().append("g")
