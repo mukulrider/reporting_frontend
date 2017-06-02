@@ -468,23 +468,23 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                   })()}
 
                 </div>
-                <div className="row" style={{marginLeft: '335px'}}>
-                  <div className="col-xs-3">
-                    <Example placeholder="Parent Supplier"></Example>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                  </div>
+                {/*<div className="row" style={{marginLeft: '335px'}}>*/}
+                  {/*<div className="col-xs-3">*/}
+                    {/*<Example placeholder="Parent Supplier"></Example>*/}
+                    {/*<br/>*/}
+                    {/*<br/>*/}
+                    {/*<br/>*/}
+                    {/*<br/>*/}
+                  {/*</div>*/}
 
-                  <div className="col-xs-3">
-                    <Example placeholder="Supplier"></Example>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                  </div>
-                </div>
+                  {/*<div className="col-xs-3">*/}
+                    {/*<Example placeholder="Supplier"></Example>*/}
+                    {/*<br/>*/}
+                    {/*<br/>*/}
+                    {/*<br/>*/}
+                    {/*<br/>*/}
+                  {/*</div>*/}
+                {/*</div>*/}
 
 
                 <div className="row" style={{
