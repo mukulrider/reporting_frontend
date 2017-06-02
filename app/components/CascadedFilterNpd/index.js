@@ -287,7 +287,7 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
 
 
               <Button
-                style={{marginTop: "5px", marginLeft: "48px", width: "10px", "min-width": "170px", fontSize: "13px"}}
+                style={{marginTop: "5px", marginLeft: "48px", width: "10px"}}
                 onClick={() => {
                   pHierarchyFilterCheck = false;
                   for (let i = 0; i < this.props.filter_data[0].items.length; i++) {
@@ -324,10 +324,10 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
                     this.setState({alertShow: true});
                   }
 
-                }}>Apply Filters</Button>
-
+                }}>Apply</Button>
+              <div style={{height: '1%', width: '100%'}}>&nbsp;</div>
               <Button
-                style={{marginTop: "5px", marginLeft: "48px", width: "10px", "min-width": "170px", fontSize: "13px"}}
+                style={{marginTop: "5px", marginLeft: "48px", width: "10px"}}
                 onClick={() => {
                   //To un check all the buttons
                   let selection = '';

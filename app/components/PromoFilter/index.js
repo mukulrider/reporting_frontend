@@ -283,7 +283,7 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
                   this.props.onGenerateUrlParamsString(queryString);
                   this.props.generateSideFilter();
 
-                }}>Clear filters</Button>
+                }}>Clear Filters</Button>
                 <div style={{height: '1%', width: '100%'}}>&nbsp;</div>
                 {/*<Button onClick={() => {*/}
                 {/*let  selection = '';*/}
