@@ -14,7 +14,6 @@ import messages from './messages';
 class MultilinePromo extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   createMultilinePromoChart = (data,chart_id,label_ty,label_ly,xaxis_title,yaxis_title,no_pref,no_suffix,width=800,legend_width=650,legend_text_width=645) => {
 
-console.log("HARSHIT",data)
     // let frameWidth = document.getElementById(chart_id).clientWidth;
     let frameWidth = 600;
     let margin = {top: 20, right: 100, bottom: 50, left: 60};
@@ -158,7 +157,7 @@ console.log("HARSHIT",data)
       .data(data_label)
       .enter().append("g")
       .attr("transform", function (d, i) {
-        return "translate(" + (legendWidth*i - width-20) +  "," + (height + margin.top + margin.bottom) + ")";
+        return "translate(" + (legendWidth*i - width) +  "," + (height + margin.top + margin.bottom) + ")";
       });
 
     let color_hash = ["#02958B","#CFDB39"];
