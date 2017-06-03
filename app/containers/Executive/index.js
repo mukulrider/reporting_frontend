@@ -211,6 +211,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
   constructor(props) {
     super(props);
     this.state = {
+      collapsed: false,
       modalGraphTopBot: false,
       modalTableTopBot: false,
       lgValidation: false,
@@ -329,6 +330,15 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
           ]}
         />
 
+        <div className="row">
+          <div className="col-xs-12">
+            <Breadcrumb selected_week={(this.props.Executive.week_param).substring(10, this.props.Executive.week_param.length)}
+                        urlParamsString={this.props.Executive.urlParamsString}/>
+          </div>
+          <br/>
+          <br/>
+          <br/>
+          <br/></div>
 
         {/*Overview-external driver --modal*/}
         <Modal show={this.state.allImpGraphs} bsSize="large"
@@ -521,12 +531,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
           </Modal.Body>
 
         </Modal>
-
+        {/*Modal for detailed table*/}
         <Modal show={this.state.detailedTable} bsSize="large"
                dialogClassName={'xlModal'}
                aria-labelledby="contained-modal-title-sm"
                onHide={() => {
-                 this.setState({allImpGraphs: false})
+                 this.setState({detailedTable: false})
                }}>
           <Modal.Header closeButton>
             <Modal.Title id="" className="">External
@@ -540,8 +550,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                 return (
                   <BootstrapTable className="promoTable"
                                   data={this.props.Executive.roles_intent_data.roles_and_intent_detail}
+
                                   striped={true}
                                   condensed
+                                  hover
+                                  tableStyle={{background: 'white',fontSize:"15px"}}
                   >
                     <TableHeaderColumn dataAlign={"left"} dataField='buying_controller' isKey>Buying
                       Controller</TableHeaderColumn>
@@ -580,14 +593,14 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
         }}>
 
 
-          <div style={{
-            height: '80%',
-            position: 'fixed',
-            width: '20%',
-            overflowX: 'hidden',
-            overflowY: 'scroll',
-            borderTop: '1px solid #ccc'
-          }}>
+          <div className={this.state.collapsed ? 'collapse-filter' : 'expand-filter'}
+               style={{
+                 height: '100%',
+                 position: 'fixed',
+                 overflowX: 'hidden',
+                 overflowY: 'scroll',
+                 borderTop: '1px solid #ccc'
+               }}>
             {(() => {
               if (this.props.Executive.filter_data) {
                 console.log("Calling Filter index.js", this.props.Executive.filter_data.filter_data);
@@ -638,21 +651,16 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
           </div>
 
-          <div style={{
-            width: '78%',
-            marginLeft: '22%'
-          }}>
-
-            <div className="row">
-            <div className="col-xs-12">
-
-              <Breadcrumb selected_week={(this.props.Executive.week_param).substring(10, this.props.Executive.week_param.length)}
-                          urlParamsString={this.props.Executive.urlParamsString}/>
+          {/* Collapse (or) Expand filters Button*/}
+          <div style={{width:'1%',height:'20px',  marginLeft: this.state.collapsed ? '0%' : '20%',position:'fixed'}}>
+            <div className="filterCollapseBar" onClick={() => {
+              this.setState({collapsed: !this.state.collapsed})
+            }}>{this.state.collapsed ? <span className="glyphicon glyphicon-forward"></span> : <span className="glyphicon glyphicon-backward"></span>}
             </div>
-            <br/>
-            <br/>
-            <br/>
-            <br/></div>
+          </div>
+
+          <div className={this.state.collapsed ? 'expand-content' : 'collapse-content'} >
+<div className="topFilter"  style={{marginLeft:"2%"}}>
             {(() => {
               if (this.props.Executive.week_filter_data) {
                 return (
@@ -686,10 +694,10 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                              spinnerPriceKPi={this.props.spinnerPriceKPI}
                              spinnerKPI={this.props.spinnerKPI}
                   />
-
                 )
               }
             })()}
+</div>
             <div className="row " style={{marginLeft: "0%", paddingTop: "-5px", marginRight: "0px"}}>
               <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12 ">
                 <div className="mainBox">
@@ -847,20 +855,30 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             if (this.props.Executive.overviewKPISpinner && this.props.Executive.overview_kpi_data) {
                               return (
                                 <div>
-                                  <div className="row mainBox" style={{textAlign: 'center'}}>
+                                  <div className="row mainBox" style={{textAlign: 'center',height:"650px",backgroundColor: "#fafafa"}}>
                                     {/* Box for value */}
-                                    <div className="col-md-3 col-xs-3" style={{backgroundColor: "#fafafa"}}>
+                                    <div className="col-md-6 col-xs-6" style={{backgroundColor: "#fafafa"}}>
                                       <Panel>
                                         <h3 className="pageModuleSubTitle"> Value </h3>
-                                        <h3 style={{padding: "0px", margin: "0px"}}>
-                                          {this.props.Executive.overview_kpi_data.kpi.value.total}
-                                        </h3>
-
+                                        <div className="row">
+                                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                               style={{textAlign: 'center'}}>
+                                            <h3 style={{
+                                              padding: "0px",
+                                              margin: "0px"
+                                            }}>{this.props.Executive.overview_kpi_data.kpi.value.total}</h3>
+                                          </div>
+                                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                               style={{textAlign: 'center'}}>
+                                            <h3 style={{padding: "0px", margin: "0px"}}>
+                                              LFL &nbsp; {this.props.Executive.overview_kpi_data.kpi.value.total_lfl} </h3>
+                                          </div>
+                                        </div>
                                         <div className="row">
                                           {(() => {
                                             if (this.props.Executive.week_param == 'week_flag=Current Week') {
                                               return (
-                                                <div className="col-md-6 col-xs-12 kpiSmall">
+                                                <div className="col-md-4 col-xs-12 kpiSmall">
                                                   <h4>
                                                       <span
                                                         className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.value.var_wow)}></span>
@@ -878,12 +896,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                           <div className={(() => {
                                             if (this.props.Executive.week_param == 'week_flag=Current Week') {
                                               return (
-                                                "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                                "col-md-4 col-xs-12 col-sm-6 col-lg-4 kpismall"
                                               )
                                             }
                                             else {
                                               return (
-                                                "col-md-12 col-xs-12 col-sm-12 col-lg-12 kpismall"
+                                                "col-md-6 col-xs-12 col-sm-12 col-lg-6 kpismall"
                                               )
                                             }
                                           })()}>
@@ -894,23 +912,58 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             </h4>
                                             <h5 className="kpiSubTitle"><b>YOY</b></h5>
                                           </div>
+
+                                          {/*Code for lfl in overview-value*/}
+                                          <div className={(() => {
+                                            if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                              return (
+                                                "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
+                                              )
+                                            }
+                                            else {
+                                              return (
+                                                "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                              )
+                                            }
+                                          })()}>
+                                            <h4>
+
+                                               <span
+                                                 className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.value.var_lfl)}></span>
+                                              {(this.props.Executive.overview_kpi_data.kpi.value.var_lfl) + '%'}
+
+                                            </h4>
+                                            <h5 className="kpiSubTitle"><b>LFL</b></h5>
+                                          </div>
+
                                         </div>
                                       </Panel>
                                     </div>
 
                                     {/* Box for volume */}
-                                    <div className="col-md-3 col-xs-3" style={{backgroundColor: "#fafafa"}}>
+                                    <div className="col-md-6 col-xs-6" style={{backgroundColor: "#fafafa"}}>
                                       <Panel>
-                                        <h3 className="pageModuleSubTitle"> Volume</h3>
-                                        <h3 style={{padding: "0px", margin: "0px"}}>
-                                          {this.props.Executive.overview_kpi_data.kpi.volume.total}
-                                        </h3>
+                                        <h3 className="pageModuleSubTitle">Volume</h3>
+                                        <div className="row">
+                                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                               style={{textAlign: 'center'}}>
+                                            <h3 style={{
+                                              padding: "0px",
+                                              margin: "0px"
+                                            }}>{this.props.Executive.overview_kpi_data.kpi.volume.total}</h3>
+                                          </div>
+                                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                               style={{textAlign: 'center'}}>
+                                            <h3 style={{padding: "0px", margin: "0px"}}>
+                                              LFL &nbsp; {this.props.Executive.overview_kpi_data.kpi.volume.total_lfl} </h3>
+                                          </div>
+                                        </div>
                                         <div className="row">
 
                                           {(() => {
                                             if (this.props.Executive.week_param == 'week_flag=Current Week') {
                                               return (
-                                                <div className="col-md-6 col-xs-12 kpiSmall">
+                                                <div className="col-md-4 col-xs-12 kpiSmall">
                                                   <h4>
                                                       <span
                                                         className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.volume.var_wow)}></span>
@@ -925,12 +978,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                           <div className={(() => {
                                             if (this.props.Executive.week_param == 'week_flag=Current Week') {
                                               return (
-                                                "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                                "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
                                               )
                                             }
                                             else {
                                               return (
-                                                "col-md-12 col-xs-12 col-sm-12 col-lg-12 kpismall"
+                                                "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
                                               )
                                             }
                                           })()}>
@@ -941,21 +994,55 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             </h4>
                                             <h5 className="kpiSubTitle"><b>YOY</b></h5>
                                           </div>
+
+                                          {/*Code for lfl in overview-value*/}
+                                          <div className={(() => {
+                                            if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                              return (
+                                                "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
+                                              )
+                                            }
+                                            else {
+                                              return (
+                                                "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                              )
+                                            }
+                                          })()}>
+                                            <h4>
+
+                                               <span
+                                                 className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.volume.var_lfl)}></span>
+                                              {(this.props.Executive.overview_kpi_data.kpi.volume.var_lfl) + '%'}
+                                            </h4>
+                                            <h5 className="kpiSubTitle"><b>LFL</b></h5>
+                                          </div>
                                         </div>
                                       </Panel>
                                     </div>
+
                                     {/* Box for cogs */}
-                                    <div className="col-md-3 col-xs-3" style={{backgroundColor: "#fafafa"}}>
+                                    <div className="col-md-6 col-xs-6" style={{backgroundColor: "#fafafa"}}>
                                       <Panel>
                                         <h3 className="pageModuleSubTitle"> COGS </h3>
-                                        <h3 style={{padding: "0px", margin: "0px"}}>
-                                          {this.props.Executive.overview_kpi_data.kpi.cogs.total}
-                                        </h3>
+                                        <div className="row">
+                                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                               style={{textAlign: 'center'}}>
+                                            <h3 style={{
+                                              padding: "0px",
+                                              margin: "0px"
+                                            }}>{this.props.Executive.overview_kpi_data.kpi.cogs.total}</h3>
+                                          </div>
+                                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                               style={{textAlign: 'center'}}>
+                                            <h3 style={{padding: "0px", margin: "0px"}}>
+                                              LFL &nbsp; {this.props.Executive.overview_kpi_data.kpi.cogs.total_lfl} </h3>
+                                          </div>
+                                        </div>
                                         <div className="row">
                                           {(() => {
                                             if (this.props.Executive.week_param == 'week_flag=Current Week') {
                                               return (
-                                                <div className="col-md-6 col-xs-12 kpiSmall">
+                                                <div className="col-md-4 col-xs-12 kpiSmall">
                                                   <h4>
                                                       <span
                                                         className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.cogs.var_wow)}></span>
@@ -973,12 +1060,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                           <div className={(() => {
                                             if (this.props.Executive.week_param == 'week_flag=Current Week') {
                                               return (
-                                                "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                                "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
                                               )
                                             }
                                             else {
                                               return (
-                                                "col-md-12 col-xs-12 col-sm-12 col-lg-12 kpismall"
+                                                "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
                                               )
                                             }
                                           })()}>
@@ -989,22 +1076,54 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             </h4>
                                             <h5 className="kpiSubTitle"><b>YOY</b></h5>
                                           </div>
+
+                                          {/*Code for lfl in overview-value*/}
+                                          <div className={(() => {
+                                            if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                              return (
+                                                "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
+                                              )
+                                            }
+                                            else {
+                                              return (
+                                                "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                              )
+                                            }
+                                          })()}>
+                                            <h4>
+
+                                               <span
+                                                 className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.cogs.var_lfl)}></span>
+                                              {(this.props.Executive.overview_kpi_data.kpi.cogs.var_lfl) + '%'}
+                                            </h4>
+                                            <h5 className="kpiSubTitle"><b>LFL</b></h5>
+                                          </div>
                                         </div>
                                       </Panel>
                                     </div>
-                                    {/* Box for cgm */}
-                                    <div className="col-md-3" style={{backgroundColor: "#fafafa"}}>
+                                    {/* Box for profit */}
+                                    <div className="col-md-6" style={{backgroundColor: "#fafafa"}}>
                                       <Panel>
                                         <h3 className="pageModuleSubTitle"> Profit</h3>
-                                        <h3 style={{padding: "0px", margin: "0px"}}>
-                                          {this.props.Executive.overview_kpi_data.kpi.cgm.total}
-                                        </h3>
-
+                                        <div className="row">
+                                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                               style={{textAlign: 'center'}}>
+                                            <h3 style={{
+                                              padding: "0px",
+                                              margin: "0px"
+                                            }}>{this.props.Executive.overview_kpi_data.kpi.cgm.total}</h3>
+                                          </div>
+                                          <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6"
+                                               style={{textAlign: 'center'}}>
+                                            <h3 style={{padding: "0px", margin: "0px"}}>
+                                              LFL &nbsp; {this.props.Executive.overview_kpi_data.kpi.cgm.total_lfl} </h3>
+                                          </div>
+                                        </div>
                                         <div className="row">
                                           {(() => {
                                             if (this.props.Executive.week_param == 'week_flag=Current Week') {
                                               return (
-                                                <div className="col-md-6 col-xs-12 kpiSmall">
+                                                <div className="col-md-4 col-xs-12 kpiSmall">
                                                   <h4>
                                                       <span
                                                         className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.cgm.var_wow)}></span>
@@ -1022,12 +1141,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                           <div className={(() => {
                                             if (this.props.Executive.week_param == 'week_flag=Current Week') {
                                               return (
-                                                "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                                "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
                                               )
                                             }
                                             else {
                                               return (
-                                                "col-md-12 col-xs-12 col-sm-12 col-lg-12 kpismall"
+                                                "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
                                               )
                                             }
                                           })()}>
@@ -1038,38 +1157,77 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             </h4>
                                             <h5 className="kpiSubTitle"><b>YOY</b></h5>
                                           </div>
+                                          {/*Code for lfl in overview-value*/}
+                                          <div className={(() => {
+                                            if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                              return (
+                                                "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
+                                              )
+                                            }
+                                            else {
+                                              return (
+                                                "col-md-6 col-xs-12 col-sm-6 col-lg-6 kpismall"
+                                              )
+                                            }
+                                          })()}>
+                                            <h4>
+
+                                               <span
+                                                 className={glyphiconFormatter(this.props.Executive.overview_kpi_data.kpi.cgm.var_lfl)}></span>
+                                              {(this.props.Executive.overview_kpi_data.kpi.cgm.var_lfl) + '%'}
+                                            </h4>
+                                            <h5 className="kpiSubTitle"><b>LFL</b></h5>
+                                          </div>
                                         </div>
                                       </Panel>
                                     </div>
-
-                                    <div className="text-right">
-                                      <Button buttonType={'primary'} onClick={() => {
-                                        this.setState({allImpGraphs: true})
-                                      }}>Show KPI Trends</Button>
-                                    </div>
-                                  </div>
                                   <br/>
-                                  <div className="row mainBox"
-                                       style={{textAlign: 'center', backgroundColor: "#fafafa"}}>
                                     {/* Box for price */}
-                                    <div className="col-md-6 col-xs-6" style={{backgroundColor: "#eee #eee #ddd"}}>
+                                    <div className="col-md-6 col-xs-6" style={{backgroundColor: "#fafafa"}}>
                                       <Panel>
                                         <h3 className="col-md-6 col-xs-6 pageModuleSubTitle"
-                                            style={{marginBottom: "0px"}}> Price </h3>
-                                        <div className="row">
-                                          <h4 className="col-xs-6 kpiSubTitle"><b>ACP</b></h4>
-                                          <h4 className="col-xs-6">
-                                            £ {this.props.Executive.overview_kpi_data.price.ACP.abs}</h4>
+                                            style={{marginBottom: "0px",marginTop: "-0.5%"}}> Price </h3>
+                                        <div className="pricecard" style={{marginLeft:"10%"}}>
+                                          <div className="row">
+                                        <div className="col-xs-12 kpiSubTitle price_metrics_heading" style={{float:"right"}}>
+                                         <div className="col-xs-1"> </div>
+                                          <h4 className="col-xs-3 kpiSubTitle"><b>WoW</b></h4>
+                                        <h4 className="col-xs-3 kpiSubTitle"><b>YoY</b></h4>
+                                          <h4 className="col-xs-3 kpiSubTitle"><b>ABS</b></h4>
+                                        </div>
                                         </div>
                                         <div className="row">
-                                          <h4 className="col-xs-6 kpiSubTitle"><b>ASP</b></h4>
-                                          <h4 className="col-xs-6">
-                                            £ {this.props.Executive.overview_kpi_data.price.ASP.abs}</h4>
+                                          <h4 className="col-xs-1 kpiSubTitle"><b>ACP</b></h4>
+                                          <h4 className="col-xs-3">
+                                            {(this.props.Executive.overview_kpi_data.price.ACP.wow) + '%'}
+                                            </h4>
+                                          <h4 className="col-xs-3">
+                                            {(this.props.Executive.overview_kpi_data.price.ACP.yoy) + '%'}
+                                          </h4>
+                                          <h4 className="col-xs-3">
+                                            £{this.props.Executive.overview_kpi_data.price.ACP.abs}
+                                          </h4>
+                                        </div>
+                                        <div className="row">
+                                          <h4 className="col-xs-1 kpiSubTitle"><b>ASP</b></h4>
+                                          <h4 className="col-xs-3">
+                                            {(this.props.Executive.overview_kpi_data.price.ASP.wow) + '%'}
+                                          </h4>
+                                          <h4 className="col-xs-3">
+                                            {(this.props.Executive.overview_kpi_data.price.ASP.yoy) + '%'}
+                                          </h4>
+                                          <h4 className="col-xs-3">
+                                            £{this.props.Executive.overview_kpi_data.price.ASP.abs}
+                                          </h4>
+                                        </div>
                                         </div>
                                       </Panel>
                                     </div>
-                                    <div className="col-md-6 col-xs-6" style={{backgroundColor: "#eee #eee #ddd"}}>
+                                    {/*Box for Market Share*/}
+                                    <div className="col-md-6 col-xs-6" style={{backgroundColor: "#fafafa"}}>
+
                                       <Panel>
+                                        <div style={{height:"136px"}}>
                                         <h3 className="col-md-6 col-xs-6 pageModuleSubTitle"
                                             style={{marginBottom: "0px"}}> Market Share </h3>
                                         <div className="row">
@@ -1082,7 +1240,13 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                           <h4
                                             className="col-xs-6">{this.props.Executive.overview_kpi_data.market.opportunity}</h4>
                                         </div>
+                                        </div>
                                       </Panel>
+                                    </div>
+                                    <div className="trendButton" style={{float:"right",backgroundColor: "#fafafa"}}>
+                                      <Button buttonType={'primary'} onClick={() => {
+                                        this.setState({allImpGraphs: true})
+                                      }}>Show KPI Trends</Button>
                                     </div>
                                   </div>
                                 </div>
@@ -1167,6 +1331,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                           data={this.props.Executive.roles_intent_data.roles_and_intent}
                                                           striped={true}
                                                           condensed
+                                                          hover
+                                                          tableStyle={{background: 'white',fontSize:"15px"}}
                                           >
                                             <TableHeaderColumn dataAlign={"left"} dataField='buying_controller' isKey>Buying
                                               Controller</TableHeaderColumn>
@@ -1183,8 +1349,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                     })()}
                                   </div>
-                                  <div>
-                                    <Button buttonType={'primary'} onClick={() => {
+                                  <div >
+                                    <Button buttonType={'primary'} style={{marginTop:"2%",marginLeft:"20%",float:"right"}} onClick={() => {
                                       this.setState({detailedTable: true})
                                     }}>Detailed Info.</Button>
                                   </div>
@@ -1236,6 +1402,58 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                   if (this.props.Executive.overviewInternalDriverSpinner) {
                                     return (
                                       <div>
+
+                                        {/*Areas for waterfall chart for promo*/}
+                                        <div className="col-md-8 col-sm-8 col-xs-12  col-lg-8">
+                                          <Panel>
+                                            <h4 className="pageModuleSubTitle"> Promotion Contribution to growth
+                                              <div style={{float: "right"}}>
+                                                <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight
+                                                                style={{
+                                                                  backgroundColor: "transparent",
+                                                                  borderColor: "transparent",
+                                                                  color: "#00539f"
+                                                                }} id="dropButtonId">
+                                                  <MenuItem onClick={() => {
+                                                    saveImage(document.getElementById('waterfallChart_2_svg'), "overviewDriversInternalWaterfallChart")
+                                                  }
+                                                  }>Save As JPEG</MenuItem>
+                                                  <MenuItem onClick={() => {
+                                                    saveDataAsCSV(this.props.Executive.overview_drivers_internal_data.promo, "overviewDriversInternalWaterfallChart_data.csv")
+                                                  }
+                                                  }>Download CSV</MenuItem>
+                                                </DropdownButton>
+                                              </div>
+                                            </h4>
+                                            {(() => {
+                                              if (this.props.Executive.overview_drivers_internal_data)
+                                                return (
+                                                  <div>
+                                                    <WaterFallChartExec id="waterfallChart_2"
+                                                                        yAxisName="Price Index"
+                                                                        formatter="formatSales"
+                                                                        positive_text='negative'
+                                                                        negative_text='positive'
+                                                                        total_text='total1'
+                                                                        data={this.props.Executive.overview_drivers_internal_data.promo}
+                                                    />
+                                                  </div>
+                                                )
+                                            })()}
+                                          </Panel>
+                                          <button className="btn btn-primary"
+                                                  style={{
+                                                    marginLeft:"35%"
+                                                  }}
+                                                  onClick={() => {
+                                                    {/*this.setState({activeKey9: "1"});*/}
+                                                    let value_internal_tab = "promo";
+                                                    {/*this.setState({activeKey9: "2"});*/}
+                                                    this.props.onSaveValueInternal(value_internal_tab);
+                                                    this.setState({showInternalPromoModal: true});
+                                                  }}>Promotion Contribution Trend</button>
+                                        </div>
+
                                         <div className="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                                           <Panel style={{marginLeft: "15px"}}>
                                             <div>
@@ -1248,29 +1466,29 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                         <h4 className="pageModuleSubTitle"> KPI Contribution to
                                                           growth </h4>
                                                         <div className="row"
-                                                             style={{marginTop: '2%', marginBottom: '2%'}}>
-                                                        <div className="col-xs-12 overview-blk"
-                                                             style={{marginRight: "5px"}}>
-                                                          <div className="panel"
-                                                               style={{
-                                                                 border: '1px solid #E5E8EA',
-                                                                 height: '100px',
-                                                                 textAlign: 'center'
-                                                               }}>
-                                                        <h4 className="panel-heading tesco-heading h3"
-                                                            style={{textAlign: "center",marginTop: '2%'}}
-                                                        >
-                                                          <b>LFL Sales</b>
-                                                        </h4>
-                                                        <div className="panel-body">
+                                                             style={{marginTop: '2%', marginBottom: '6%'}}>
+                                                          <div className="col-xs-12 overview-blk"
+                                                               style={{marginRight: "5px"}}>
+                                                            <div className="panel"
+                                                                 style={{
+                                                                   border: '1px solid #E5E8EA',
+                                                                   height: '100px',
+                                                                   textAlign: 'center'
+                                                                 }}>
+                                                              <h4 className="panel-heading tesco-heading h3"
+                                                                  style={{textAlign: "center",marginTop: '2%'}}
+                                                              >
+                                                                <b>LFL Sales</b>
+                                                              </h4>
+                                                              <div className="panel-body">
                                                           <span className="overview-blk-value">
                                                           <span
                                                             className={glyphiconFormatter(this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var)}>
                                                           </span>{this.props.Executive.overview_drivers_internal_data.kpi.sales_lfl_var}%
                                                           </span>
-                                                        </div>
-                                                        </div>
-                                                        </div>
+                                                              </div>
+                                                            </div>
+                                                          </div>
 
                                                           <div className="col-xs-12 overview-blk"
                                                                style={{marginRight: "5px"}}>
@@ -1302,7 +1520,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                  }}>
                                                               <h4 className="panel-heading tesco-heading">
                                                                 <b>Items
-                                                                per Basket</b>
+                                                                  per Basket</b>
                                                               </h4>
                                                               <div className="panel-body">
                                                                   <span className="overview-blk-value">
@@ -1363,56 +1581,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                     this.setState({showExternalDriverModal: true});
                                                   }}>KPI Contribution Trend</button>
                                         </div>
-                                        <div className="col-md-8 col-sm-8 col-xs-12  col-lg-8">
-                                          <Panel>
-                                            <h4 className="pageModuleSubTitle"> Promotion Contribution to growth
-                                              <div style={{float: "right"}}>
-                                                <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight
-                                                                style={{
-                                                                  backgroundColor: "transparent",
-                                                                  borderColor: "transparent",
-                                                                  color: "#00539f"
-                                                                }} id="dropButtonId">
-                                                  <MenuItem onClick={() => {
-                                                    saveImage(document.getElementById('waterfallChart_2_svg'), "overviewDriversInternalWaterfallChart")
-                                                  }
-                                                  }>Save As JPEG</MenuItem>
-                                                  <MenuItem onClick={() => {
-                                                    saveDataAsCSV(this.props.Executive.overview_drivers_internal_data.promo, "overviewDriversInternalWaterfallChart_data.csv")
-                                                  }
-                                                  }>Download CSV</MenuItem>
-                                                </DropdownButton>
-                                              </div>
-                                            </h4>
-                                            {(() => {
-                                              if (this.props.Executive.overview_drivers_internal_data)
-                                                return (
-                                                  <div>
-                                                    <WaterFallChartExec id="waterfallChart_2"
-                                                                        yAxisName="Price Index"
-                                                                        formatter="formatSales"
-                                                                        positive_text='negative'
-                                                                        negative_text='positive'
-                                                                        total_text='total1'
-                                                                        data={this.props.Executive.overview_drivers_internal_data.promo}
-                                                    />
-                                                  </div>
-                                                )
-                                            })()}
-                                          </Panel>
 
-                                          <button className="btn btn-primary"
-                                                  style={{
-                                                    marginLeft:"35%"
-                                                  }}
-                                                  onClick={() => {
-                                                    {/*this.setState({activeKey9: "1"});*/}
-                                                    let value_internal_tab = "promo";
-                                                    {/*this.setState({activeKey9: "2"});*/}
-                                                    this.props.onSaveValueInternal(value_internal_tab);
-                                                    this.setState({showInternalPromoModal: true});
-                                                  }}>Promotion Contribution Trend</button>
-                                        </div>
                                       </div>
                                     )
                                   }
@@ -1610,7 +1779,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                 </Panel>
                               </div>
 
-
                               {/*Block for holidays table shown under external drivers tab and not in modal*/}
                               <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
                                 {(() => {
@@ -1684,7 +1852,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                         {(() => {
                                           if (this.props.Executive.drivers_internal_data && this.props.Executive.internalDriverSpinner) {
                                             if (this.props.Executive.drivers_internal_data.kpi_data_available_flag == 'yes') {
-                                              console.log("kpi_data_flag is available")
                                               return (
                                                 <StackedChart id="stackedChartKPI"
                                                               data={this.props.Executive.drivers_internal_data.kpi}
