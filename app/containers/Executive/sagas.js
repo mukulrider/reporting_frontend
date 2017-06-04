@@ -103,6 +103,7 @@ let gettingUserDetails = () => {
   return (cookieParams);
 };
 const userParams = gettingUserDetails();
+// alert(userParams)
 
 // let host_url="http://172.20.246.11:8000";
 let host_url="http://dvcmpapp00001uk.dev.global.tesco.org";
@@ -959,12 +960,12 @@ export function* generateWorstInfoFetch() {
 
   }
 
-  if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
-    urlAppends = urlAppends + '&' + userParams;
-    console.log('urlAppends1', urlAppends);
-  } else {
-
-  }
+  // if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
+  //   urlAppends = urlAppends + '&' + userParams;
+  //   console.log('urlAppends1', urlAppends);
+  // } else {
+  //
+  // }
 
 
   if (!(typeof(urlAppends) == "undefined") && !(urlAppends == "")) {

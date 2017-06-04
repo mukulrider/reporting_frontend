@@ -1,7 +1,6 @@
-/*
- *
- * Executive reducer
- *
+/*\
+
+
  */
 
 import { fromJS } from 'immutable';
@@ -85,7 +84,7 @@ const initialState = fromJS({
   top_name: 'None',
   bot_name: 'None',
   supplier_name: 'None',
-  value_internal_tab: 'kpi',
+  value_internal_tab: '',
   value_external_tab: 'sunshine',
   //Initial Data
 
