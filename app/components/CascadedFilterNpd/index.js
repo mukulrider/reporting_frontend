@@ -118,7 +118,7 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
     this.props.onCompetitorPriceRange();
     this.props.onCompWaterfall();
     this.props.onCompetitorOutperformance();
-
+    this.props.defaultGreyScreen(0);
   };
 
   resetButtonFunctionality = () => {
@@ -334,8 +334,7 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
                   this.props.onCheckboxChange(selection);
                   this.props.onGenerateSideFilter();
 
-                  {/*this.resetButtonFunctionality();*/
-                  }
+                  this.props.defaultGreyScreen(1);
 
                 }}>Clear Filters</Button>
 

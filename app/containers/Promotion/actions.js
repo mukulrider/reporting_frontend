@@ -43,7 +43,7 @@ import {
 
   PIE_CHART_FOR_EACH_TAB, PIE_CHART_FOR_EACH_TAB_SUCCESS, TREND_FOR_EACH_TAB, TREND_FOR_EACH_TAB_SUCCESS,
   PRODUCTS_ON_PROMOTION_TABLE, PRODUCTS_ON_PROMOTION_TABLE_SUCCESS, STORE_FILTER_PARAM, MODAL_PRODUCT_NAME,
-  MODAL_PRODUCT_DATA_SUCCESS, MODAL_PRODUCT_DATA, MODAL_SAVE_TREND_CHART_TAB_PARAMS
+  MODAL_PRODUCT_DATA_SUCCESS, MODAL_PRODUCT_DATA, MODAL_SAVE_TREND_CHART_TAB_PARAMS, DEFAULT_GREY_SCREEN
 
 } from './constants';
 
@@ -419,4 +419,14 @@ export function modalProductInfoSuccess(data) {
     type: MODAL_PRODUCT_DATA_SUCCESS,
     data
   }
+}
+
+//-------------------------DEFAULT SCREEN WHEN FILTERS ARE CLEARED----------------------
+export function defaultGreyScreen(data)
+{
+  console.log('defaultGreyScreen', data);
+  return {
+    type: DEFAULT_GREY_SCREEN,
+    data,
+  };
 }

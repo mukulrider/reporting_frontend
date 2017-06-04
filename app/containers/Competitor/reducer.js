@@ -34,6 +34,7 @@ import {
   PRICE_RANGE_CHART_SPINNER_SUCCESS,
   USER_FILTER_SELECTION,
   STORE_FILTER_PARAM,
+  DEFAULT_GREY_SCREEN,
 } from './constants';
 
 
@@ -195,8 +196,11 @@ function competitorReducer(state = initialState, action) {
       return state.set('user_filter_selection', action.data);
 
     case STORE_FILTER_PARAM:
-      console.log("reducer STORE_FILTER_PARAM",action.data);
-      return state.set('store_filter_param',action.data);
+      console.log("reducer STORE_FILTER_PARAM", action.data);
+      return state.set('store_filter_param', action.data);
+    case DEFAULT_GREY_SCREEN:
+      console.log("DEFAULT_GREY_SCREEN", action.data);
+      return state.set('defaultGreyScreen', action.data);
 
 
     // case UPDATE_CHART_DATA:
