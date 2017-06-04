@@ -182,9 +182,9 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
 
     svg.append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 0 + (margin.left)+840)
+      .attr("y", 0 + (margin.left)+627)
       // .attr("y", 0 - (width / 2))
-      .attr("x",0 - (height / 2))
+      .attr("x",0 - (height / 2)+10)
       .attr("dy", "1em")
       .style("text-anchor", "middle")
       .text(yaxis_title2);
