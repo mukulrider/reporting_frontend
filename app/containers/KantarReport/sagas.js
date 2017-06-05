@@ -4,11 +4,11 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import request from 'utils/request';
 
 import {
-  DEFAULT_KANTAR_FETCH,
+  KANTAR_DATA_CONSTANT,WEEK_FILTER,HIERARCHY_FILTER
 } from './constants';
 
 import {
-  fetchKantarDataSuccess
+  fetchWeekFilterDataSuccess,fetchHierarchyFilterDataSuccess,fetchKantarDataSuccess
 } from 'containers/KantarReport/actions';
 
 import {
@@ -55,11 +55,15 @@ const host_url = "http://127.0.0.1:8000";
 export function* generateKantarData() {
   const urlName = yield select(selectKantarReportDomain());
   console.log('urlName', urlName);
+  const week = urlName.get('week');
+  const category = urlName.get('category');
+  const retailer = urlName.get('retailer');
+  const supplier = urlName.get('supplier');
 
   try {
     let data = '';
-      data = yield call(request, `${host_url}/api/reporting/kantar?`);
-      console.log('This is my fetched drf dta', data);
+      data = yield call(request, `${host_url}/api/reporting/kantar_data?`+'&'+week +'&'+category +'&'+retailer +'&'+supplier);
+      console.log('This is my fetched Kantar dta', data);
     // // console.log(data);
     yield put(fetchKantarDataSuccess(data));
   } catch (err) {
@@ -67,11 +71,51 @@ export function* generateKantarData() {
   }
 }
 export function* callGenerateKantarData() {
-  const watcher = yield takeLatest(DEFAULT_KANTAR_FETCH, generateKantarData);
+  const watcher = yield takeLatest(KANTAR_DATA_CONSTANT, generateKantarData);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
 }
+
+export function* callGenerateWeekData() {
+  const watcher = yield takeLatest(WEEK_FILTER, generateWeekData);
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+
+export function* generateWeekData() {
+  const urlName = yield select(selectKantarReportDomain());
+
+  try {
+    let data = '';
+    data = yield call(request, `${host_url}/api/reporting/kantar_tesco_week_filter?`);
+    console.log('This is my fetched Tesco filter dta', data);
+    // // console.log(data);
+    yield put(fetchWeekFilterDataSuccess(data));
+  } catch (err) {
+  }
+}
+
+export function* callGenerateHierarchyData() {
+  const watcher = yield takeLatest(HIERARCHY_FILTER, generateHierarchyData);
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+export function* generateHierarchyData() {
+  const urlName = yield select(selectKantarReportDomain());
+
+  try {
+    let data = '';
+    data = yield call(request, `${host_url}/api/reporting/kantar_filter?`);
+    console.log('This is my fetched Hierarchy filter dta', data);
+    // // console.log(data);
+    yield put(fetchHierarchyFilterDataSuccess(data));
+  } catch (err) {
+  }
+}
 // All sagas to be loaded
 export default [
-  defaultSaga,callGenerateKantarData
+  defaultSaga,
+  callGenerateWeekData,
+  callGenerateHierarchyData,
+  callGenerateKantarData
 ];

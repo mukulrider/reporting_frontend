@@ -21,15 +21,17 @@ import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import {saveImage, saveDataAsCSV} from './../../utils/exportFunctions';
 import {FormattedMessage} from 'react-intl';
 require('react-bootstrap-table/css/react-bootstrap-table.css');
+import TopFilterKantar from 'components/TopFilterKantar';
 
-import { generateKantarReport}
+import { saveWeek,saveCategory, saveRetailer, saveSupplier, generateWeekData,generateHierarchyData,kantarDataCall}
 from './actions';
 
 export class KantarReport extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   componentDidMount = () => {
 
-    this.props.onGenerateKantarReport();
+    this.props.onGenerateWeekData();
+    this.props.onGenerateHierarchyData();
     console.log('Function called from index');
   };
 
@@ -61,27 +63,27 @@ export class KantarReport extends React.PureComponent { // eslint-disable-line r
     };
 
     return (
-      <Panel>
-        <Helmet
-          title="KantarReport"
-          meta={[
-            { name: 'description', content: 'Description of KantarReport' },
-          ]}
-        />
-        <div id="kantarReport">
-          <div style={{
-            height: '100%',
-            position: 'fixed',
-            width: '15%',
-            paddingRight: '1%',
-            overflowX: 'hidden',
-            overflowY: 'scroll',
-            borderTop: '1px solid #ccc'
-          }}>
+      <div>
+        <div className="row" style={{marginLeft:'5%'}}>
+          {(() => {
+            if (this.props.KantarReport.week_data && this.props.KantarReport.hierarchy_data) {
+              return (
+                <TopFilterKantar
+                  week_data = {this.props.KantarReport.week_data}
+                  hierarchy_data={this.props.KantarReport.hierarchy_data}
+                  onSaveWeek={this.props.onSaveWeek}
+                  onSaveCategory={this.props.onSaveCategory}
+                  onSaveRetailer={this.props.onSaveRetailer}
+                  onSaveSupplier={this.props.onSaveSupplier}
+                  KantarDataCall={this.props.onKantarDataCall}
 
-          </div>
+                />
+
+              )
+            }
+          })()}
         </div>
-        <div className="col-xs-10" style={{float: 'right'}}>
+        <div className="row" style={{float: 'right'}}>
           <div className="coverBox">
                     <div className="row mainBox" style={{textAlign: 'center'}}>
 
@@ -326,7 +328,7 @@ export class KantarReport extends React.PureComponent { // eslint-disable-line r
             </div>
           </div>
         </div>
-    </Panel>
+    </div>
     );
   }
 }
@@ -342,7 +344,13 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    onGenerateKantarReport: (e) => dispatch(generateKantarReport(e)),
+    onGenerateWeekData: (e) => dispatch(generateWeekData(e)),
+    onGenerateHierarchyData: (e) => dispatch(generateHierarchyData(e)),
+    onSaveWeek: (e) => dispatch(saveWeek(e)),
+    onSaveCategory: (e) => dispatch(saveCategory(e)),
+    onSaveRetailer: (e) => dispatch(saveRetailer(e)),
+    onSaveSupplier: (e) => dispatch(saveSupplier(e)),
+    onKantarDataCall: (e) => dispatch(kantarDataCall(e)),
   };
 }
 
