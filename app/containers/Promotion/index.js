@@ -116,7 +116,7 @@ export class Promotion extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-
+      collapsed: false,
       activeKey1: "1",
       activeKey2: "1",
       activeKey3: "1",
@@ -217,7 +217,15 @@ export class Promotion extends React.PureComponent {
             {name: 'description', content: 'Description of Promotion'},
           ]}
         />
+        <div className="row">
 
+          <Breadcrumb selected_week={this.props.promotion.kpi_data.selected_week}
+                      urlParamsString={this.props.promotion.urlParamsString}/>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
 
         <div className="row" style={{
           marginLeft: '0px',
@@ -225,14 +233,13 @@ export class Promotion extends React.PureComponent {
         }}>
 
           {/*Filters*/}
-          <div style={{
-            height: '100%',
-            position: 'fixed',
-            width: '20%',
-            /* padding-right: 5px; */
-            overflowX: 'hidden',
-            overflowY: 'scroll',
-            borderTop: '1px solid #ccc'
+          <div className={this.state.collapsed ? 'collapse-filter' : 'expand-filter'}
+               style={{
+                 height: '100%',
+                 position: 'fixed',
+                 overflowX: 'hidden',
+                 overflowY: 'scroll',
+                 borderTop: '1px solid #ccc'
           }}>
 
 
@@ -290,26 +297,22 @@ export class Promotion extends React.PureComponent {
             })()}
           </div>
 
+          {/* Collapse (or) Expand filters Button*/}
+          <div style={{width:'1%',height:'20px',  marginLeft: this.state.collapsed ? '0%' : '20%',position:'fixed'}}>
+            <div className="filterCollapseBar" onClick={() => {
+              this.setState({collapsed: !this.state.collapsed})
+            }}>{this.state.collapsed ? <span className="glyphicon glyphicon-forward"></span> : <span className="glyphicon glyphicon-backward"></span>}
+            </div>
+          </div>
 
-          <div style={{
-            width: '78%',
-            marginLeft: '22%'
-          }}>
+          <div className={this.state.collapsed ? 'expand-content' : 'collapse-content'}>
 
 
             <div className="row" style={{paddingTop: "-5px"}}>
               {/*<FormattedMessage {...messages.header} />*/}
 
               {/*Page title*/}
-              <div className="col-xs-12">
 
-                <Breadcrumb selected_week={this.props.promotion.kpi_data.selected_week}
-                            urlParamsString={this.props.promotion.urlParamsString}/>
-              </div>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
               {/*<div className="pageTitle">*/}
               {/*{(() => {*/}
               {/*if (this.props.promotion.kpi_data.selected_week) {*/}
@@ -489,9 +492,7 @@ export class Promotion extends React.PureComponent {
                       )
                     } else {
                       return (
-                        <div className="text-center">
-                          <Spinner/>
-                        </div>
+                        <div className="text-center"><Spinner />Please Wait a Moment....!</div>
                       )
                     }
                   })()}
