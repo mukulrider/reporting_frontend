@@ -26,6 +26,7 @@ import Checkbox from 'components/checkbox';
 import Spinner from 'components/spinner';
 import Breadcrumb from 'components/Breadcrumb';
 import TopFilterSupplier from 'components/TopFilterSupplier';
+import TopFilterSupplierBrand from 'components/TopFilterSupplierBrand';
 
 
 import Select from 'react-select';
@@ -38,6 +39,7 @@ require('react-bootstrap-table/css/react-bootstrap-table.css')
 import {
   kpibox,
   topBottomChart,
+  onSaveBrandFilterParam,
   SaveWeekParam,
   SaveKPIParam,
   kpibox_asp,
@@ -223,6 +225,15 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
         return (Math.round(cell));
       }
     }
+    let formatPercentage = (cell) => {
+      if (cell >= 1000 || cell <= -1000) {
+        let rounded = Math.round(cell / 1000);
+        return (rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'K' + '%');
+
+      } else {
+        return (Math.round(cell) + '%');
+      }
+    }
     let dataWeekUrlParams = this.props.supplier.week_param;
     let kpiParams = this.props.supplier.kpi_param;
     let TopBottomKpi = this.props.supplier.top_bottom_kpi;
@@ -335,8 +346,8 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
       console.log('otherFilterSelections2', otherFilterSelections2);
       let savingAllFilterParams1 = '';
       for (let i = 0; i < selectedItem.length; i++) {
-        console.log('this.state.selectedValuesBrand',this.state.selectedValuesBrand);
-        console.log('`brand_indicator=${this.state.selectedValuesBrand[this.state.selectedValuesBrand.length - 1].value}',`brand_indicator=${this.state.selectedValuesBrand[this.state.selectedValuesBrand.length - 1].value}`);
+        console.log('this.state.selectedValuesBrand', this.state.selectedValuesBrand);
+        console.log('`brand_indicator=${this.state.selectedValuesBrand[this.state.selectedValuesBrand.length - 1].value}', `brand_indicator=${this.state.selectedValuesBrand[this.state.selectedValuesBrand.length - 1].value}`);
         savingAllFilterParams1 = savingAllFilterParams1 + `brand_indicator=${this.state.selectedValuesBrand[this.state.selectedValuesBrand.length - 1].value}&`;
       }
       let savingAllFilterParams2 = '';
@@ -580,23 +591,25 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                 (() => {
                                   if (this.props.supplier.sideFilter) {
                                     return (
-                                      <Select menuContainerStyle={{'zIndex': 999}}
-                                              value={this.state.selectedValuesBrand} multi={true}  placeholder="Brand Indicator"
-                                              options={brand}
-                                              onChange={logChangeBrand}
+                                      <TopFilterSupplierBrand
+                                        onSaveBrandFilterParam={this.props.onSaveBrandFilterParam}
+
+                                        onKPIBox={this.props.onKPIBox}
+                                        ontopBottomChart={this.props.ontopBottomChart}
+
+                                        barChartSpinnerCheck={this.props.barChartSpinnerCheckSuccess}
+                                        supplierViewKpiSpinnerCheck={this.props.supplierViewKpiSpinnerCheckSuccess}
                                       />
                                     )
                                   }
                                 })()
                               }
-
                             </div>
-
                           </div>
 
                         </div>
 
-                        <div className="row" style={{width: '100%', height:'15px'}}></div>
+                        <div className="row" style={{width: '100%', height: '15px'}}></div>
 
                         <div className="col-md-12 content-wrap" style={{backgroundColor: "#f5f5f5"}}>
 
@@ -1078,13 +1091,15 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                                    tdStyle={ {whiteSpace: 'normal'} }
                                                                    dataSort={true}
                                                                    dataAlign="left">Product</TableHeaderColumn>
-                                                <TableHeaderColumn dataField="part_by_val" dataFormat={formatSales}
+                                                <TableHeaderColumn dataField="part_by_val" dataFormat={formatPercentage}
                                                                    dataSort={true}
                                                                    dataAlign="right">{this.state.paticipationByTab}</TableHeaderColumn>
-                                                <TableHeaderColumn dataField="value_growth" dataFormat={formatSales}
+                                                <TableHeaderColumn dataField="value_growth"
+                                                                   dataFormat={formatPercentage}
                                                                    dataSort={true}
                                                                    dataAlign="right">{this.state.GrowthTab}</TableHeaderColumn>
-                                                <TableHeaderColumn dataField="value_contri" dataFormat={formatSales}
+                                                <TableHeaderColumn dataField="value_contri"
+                                                                   dataFormat={formatPercentage}
                                                                    dataSort={true}
                                                                    dataAlign="right">{this.state.ContributionToGrowthTab}</TableHeaderColumn>
                                               </BootstrapTable>
@@ -1767,6 +1782,9 @@ function mapDispatchToProps(dispatch) {
     onGetFilter: (e) => dispatch(getWeekFilter(e)),
     ontopBottomChart: (e) => {
       return dispatch(topBottomChart(e));
+    },
+    onSaveBrandFilterParam: (e) => {
+      return dispatch(onSaveBrandFilterParam(e));
     },
     onSaveWeekParam: (e) => {
       return dispatch(SaveWeekParam(e));
