@@ -310,9 +310,11 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
                   let filterData = this.props.urlParamsString;
                   let hierarchyData = this.props.userParams;
                   console.log('filterDataWeek', filterDataWeek);
-                  if (!(typeof(filterDataWeek) == "undefined") && !(typeof(filterData) == "undefined")) {
+
+                  this.props.defaultGreyScreen(0);
+                  if (1 == 1) {
                     console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek, filterData);
-                    if (filterDataWeek.includes("tesco_week=") && (filterData.includes("buying_controller=") || hierarchyData.includes("buying_controller_header=")) ) {
+                    if (1 == 1) {
                       console.log('tesco_weeek filterDataWeek', filterDataWeek);
                       console.log('--filterData', filterData);
 
@@ -334,6 +336,7 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
 
                         onClick={() => {
                           console.log("Clear Filters Clicked");
+                          this.props.defaultGreyScreen(1);
                           this.props.onGenerateUrlParamsString('');
                           let previous_week_selection = this.props.previous_week_selection;
                           let selection = this.props.filter_week_selection;

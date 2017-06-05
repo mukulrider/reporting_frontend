@@ -31,4 +31,5 @@ export const SAVE_USER_PARAMS = 'app/Supplier/SAVE_USER_PARAMS';
 
 // APPLY AND TABS CLICK SPINNER
 export const TABS_APPLY_SPINNER = 'app/Supplier/TABS_APPLY_SPINNER';
+export const DEFAULT_GREY_SCREEN = 'app/Supplier/DEFAULT_GREY_SCREEN';
 

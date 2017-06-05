@@ -165,6 +165,7 @@ export const WEEK_FILTER_CONSTANT='app/Executive/WEEK_FILTER_CONSTANT';
 export const WEEK_FILTER_FETCH_SUCCESS='app/Executive/WEEK_FILTER_FETCH_SUCCESS';
 export const WEEK_FILTER_PARAM='app/Executive/WEEK_FILTER_PARAM';
 export const STORE_FILTER_PARAM='app/Executive/STORE_FILTER_PARAM';
+export const DEFAULT_GREY_SCREEN='app/Executive/DEFAULT_GREY_SCREEN';
 
 // --------- Updating the state with the url details
 

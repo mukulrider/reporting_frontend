@@ -32,6 +32,7 @@ import {
   PRICE_RANGE_CHART_SPINNER_SUCCESS,
   USER_FILTER_SELECTION,
   STORE_FILTER_PARAM,
+  DEFAULT_GREY_SCREEN,
 
 } from './constants';
 
@@ -285,6 +286,15 @@ export function StoreFilterParam(data)
   console.log('StoreFilterParam = actions', data);
   return {
     type: STORE_FILTER_PARAM,
+    data,
+  };
+}
+
+export function defaultGreyScreen(data)
+{
+  console.log('defaultGreyScreen', data);
+  return {
+    type: DEFAULT_GREY_SCREEN,
     data,
   };
 }
