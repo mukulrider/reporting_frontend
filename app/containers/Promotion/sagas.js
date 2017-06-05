@@ -87,7 +87,7 @@ let gettingUserDetails = () => {
 const userParams = gettingUserDetails();
 
 
-let host_url = "http://172.20.181.16:8001";
+let host_url = "http://10.1.161.11:8000";
 
 // FOR PROMO BOXES
 export function* generatePromoKpiDataFetch() {
@@ -757,10 +757,9 @@ export function* doPieChartDataFetch() {
   yield cancel(watcher);
 }
 
-
 // --------------------------- Trend Chart data-----------------------------------
 export function* generateTrendChartDataFetch() {
-
+// alert()
   const urlName = yield select(selectPromotionDomain());
   let week_param = urlName.get('week_param');
   let urlParamsString = urlName.get('urlParamsString');
@@ -768,10 +767,11 @@ export function* generateTrendChartDataFetch() {
   let kpi_param = urlName.get('kpi_param');
   let trendChartTabParam = urlName.get('trendChartTabParam');
   let metricSelected = urlName.get('metricSelected');
+  let lineChartType = urlName.get('lineChartType');
 
   let urlAppends = "";
 
- // Filter
+  // Filter
   if (urlParamsString!== "") {
     let urlParamsStringCheck = urlParamsString.substring(0, 2);
     if (urlParamsStringCheck == 20) {
@@ -804,6 +804,11 @@ export function* generateTrendChartDataFetch() {
 
   }
 
+  if (lineChartType !== "") {
+    urlAppends = urlAppends + '&line_chart_type=' + lineChartType;
+
+  }
+
   //user detail obtained from cookies
   if (userParams !== "") {
     urlAppends = urlAppends + '&' + userParams;
@@ -811,7 +816,7 @@ export function* generateTrendChartDataFetch() {
   }
 
   urlAppends = urlAppends.replace('&', '');
-
+  console.log(urlAppends);
   // const data = yield call(request, host_url + `/api/reporting/check_trend?` + urlAppends);
   const data = yield call(request, host_url + `/api/reporting/promo_trendchart?` + urlAppends);
   yield put(trendChartDataFetchSuccess(data));
@@ -828,7 +833,6 @@ export function* doTrendChartDataFetch() {
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
 }
-
 
 
 // --------------------------- Trend Chart data-----------------------------------

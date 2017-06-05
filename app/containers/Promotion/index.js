@@ -51,6 +51,7 @@ import {
   saveTrendChartTabParam, productsOnPromoTableFetch, trendChartDataFetch, pieChartDataFetch,
   saveMetricSelectionTabParam,
   trendChartSpinner, modalProductName, modalProductInfo, modalProductInfoSuccess, StoreFilterParam, defaultGreyScreen,
+  savePieChartType, saveLineChartType,
 } from './actions';
 
 function glyphiconFormatter(cell) {
@@ -115,6 +116,7 @@ export class Promotion extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      lineChartTypeTab:1,
       collapsed: false,
       activeKey1: "1",
       activeKey2: "1",
@@ -1645,6 +1647,31 @@ export class Promotion extends React.PureComponent {
                                 </div>
 
                                 {(() => {
+                                  if (this.props.promotion.kpi_param === 'kpi_type=value' || this.props.promotion.kpi_param === 'kpi_type=volume') {
+                                    return (
+                                      <div className="row text-center">
+                                        <Nav bsStyle="tabs" className="tabsCustomList2 secondaryTabs" justified activeKey={this.state.lineChartTypeTab} onSelect={() => {
+                                        }}>
+                                          <NavItem className="tabsCustomList2" eventKey={1} onClick={() => {
+                                            this.setState({lineChartTypeTab:1 })
+                                            this.props.trendChartSpinner(0);
+                                            this.props.onSaveLineChartType('absolute')
+                                            this.props.trendChartDataFetch()
+                                          }}><span  className="tab_label">Absolute</span></NavItem>
+                                          <NavItem className="tabsCustomList2" eventKey={2} onClick={() => {
+                                            this.setState({lineChartTypeTab: 2})
+                                            this.props.trendChartSpinner(0);
+                                            this.props.onSaveLineChartType('participation')
+                                            this.props.trendChartDataFetch()
+                                          }}><span  className="tab_label">Promotion</span></NavItem>
+                                        </Nav>
+                                      </div>
+                                    )
+                                  }
+                                })()}
+
+
+                                {(() => {
                                   if (this.props.promotion.trendChartData && this.props.promotion.trendChartSpinnerSuccess == 1) {
                                     console.log("--------------------", this.props.promotion.trendChartData)
                                     let label_ty = this.props.promotion.trendChartData.metric + " TY";
@@ -1768,7 +1795,8 @@ export class Promotion extends React.PureComponent {
                                       style={{float: 'right', fontSize: "14px"}}
                                       className="btn btn-danger"
                                       onClick={() => {
-                                        let objString = '/ranging/delist?';
+                                        // let objString = '/ranging/delist?';
+                                        let objString = '';
                                         let selected = this.state.SelectProducts;
                                         if (selected !== '[]') {
                                           for (let i = 0; i < selected.length; i++) {
@@ -1776,7 +1804,13 @@ export class Promotion extends React.PureComponent {
                                           }
                                           objString = objString.slice(0, objString.length - 1);
                                           console.log(objString);
-                                          window.location = objString;
+
+
+                                          let domain="localhost";
+                                          document.cookie = `PreselectionFromNego=1;domain=${domain};path=/;`;
+                                          document.cookie = `PreselectionFromNegoData=${objString};domain=${domain};path=/;`;
+                                          window.location = '/ranging/delist/'
+
                                         } else {
                                           alert("You have not selected any products to delist. Are you sure you want to see the delist impact?")
                                         }
@@ -2544,6 +2578,8 @@ function mapDispatchToProps(dispatch) {
     trendChartSpinner: (e) => dispatch(trendChartSpinner(e)),
     defaultGreyScreen: (e) => dispatch(defaultGreyScreen(e)),
 
+    onSavePieChartType: (e) => dispatch(savePieChartType(e)),
+    onSaveLineChartType: (e) => dispatch(saveLineChartType(e)),
 
     dispatch,
   };

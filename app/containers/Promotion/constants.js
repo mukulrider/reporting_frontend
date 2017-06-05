@@ -105,6 +105,8 @@ export const DEFAULT_GREY_SCREEN= 'app/Promotion/DEFAULT_GREY_SCREEN';
 
 
 
+export const SAVE_PIE_CHART_TYPE= 'app/Promotion/SAVE_PIE_CHART_TYPE';
+export const SAVE_LINE_CHART_TYPE= 'app/Promotion/SAVE_LINE_CHART_TYPE';
 
 
 
