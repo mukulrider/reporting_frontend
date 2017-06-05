@@ -8,6 +8,7 @@ import {
   DEFAULT_ACTION,
   KPI_CONSTANT,
   TOP_BOTTOM_CONSTANT,
+  BRAND_PARAM,
   KPI_DATA_FETCH_SUCCESS,
   SUPPLIER_TABLE_DATA_FETCH_SUCCESS,
   SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS,
@@ -174,6 +175,16 @@ export function topBottomChart() {
   console.log("action.js topBottomChart");
   return {
     type: TOP_BOTTOM_CONSTANT,
+
+  };
+}
+
+//SAVING BRAND FILTER PARAMS
+export function onSaveBrandFilterParam(data) {
+  console.log("action.js onSaveBrandFilterParam");
+  return {
+    type: BRAND_PARAM,
+    data
 
   };
 }
