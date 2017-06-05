@@ -78,12 +78,20 @@ class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line r
       .tickFormat((d) => {
         if ((d / 1000) >= 1 || (d / 1000) <= -1) {
           d = d / 1000;
-        }
-        if (y_axis == "Volume") {
-          return `${format(d)} K`;
+          if (y_axis == "Volume") {
+            return `${format(d)} K`;
+          }
+          else {
+            return `£ ${format(d)} K`;
+          }
         }
         else {
-          return `£ ${format(d)} K`;
+          if (y_axis == "Volume") {
+            return (Math.round(d));
+          }
+          else {
+            return ('£ ' + Math.round(d));
+          }
         }
       });
 

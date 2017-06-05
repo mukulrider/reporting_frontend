@@ -53,6 +53,8 @@ class TopFilterDSS extends React.PureComponent {
                 this.props.DSViewKpiSpinnerCheck(0);
                 this.props.LineChartSpinnerCheck(0);
                 this.props.storeSelectionParams(storeSelection);
+
+                this.props.cardDataFetchSuccess(false);
                 // Call to update the cards and charts
                 // let filter_params = JSON.stringify(this.props.onCheckboxWeekChange());
                 // let filterSelection = filter_params + storeSelection;
@@ -79,6 +81,7 @@ class TopFilterDSS extends React.PureComponent {
                 this.props.DSViewKpiSpinnerCheck(0);
                 this.props.LineChartSpinnerCheck(0);
 
+                this.props.cardDataFetchSuccess(false);
                 this.props.ongenerateWeekFilter();
                 this.props.loadKpi();
                 this.props.ChartDataCall();
@@ -99,6 +102,8 @@ class TopFilterDSS extends React.PureComponent {
                 this.props.onSaveDateFilterParam(selection);
                 this.props.DSViewKpiSpinnerCheck(0);
 
+                this.props.cardDataFetchSuccess(false);
+                this.props.prodCardsDataFetchSuccess(false);
                 this.props.loadKpi();
                 this.props.CardsDataCall();
 

@@ -53,6 +53,7 @@ import {
 } from 'containers/Promotion/selectors';
 import {modalProductInfoSuccess} from "./actions";
 
+let host_url = "http://127.0.0.1:8000";
 
 let gettingUserDetails = () => {
   //function to get values from cookie
@@ -86,8 +87,6 @@ let gettingUserDetails = () => {
 
 const userParams = gettingUserDetails();
 
-
-let host_url = "http://172.20.181.16:8001";
 
 // FOR PROMO BOXES
 export function* generatePromoKpiDataFetch() {
