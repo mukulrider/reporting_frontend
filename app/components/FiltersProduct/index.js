@@ -34,7 +34,7 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
         //   this.props.onGenerateCategoryDirector(category[category.length - 2])
         // }
         console.log('queryString', queryString);
-        if (['store_type','commercial_name','category_name','buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])){
+        if (['commercial_name','category_name','buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])){
           localUrlParamsString = localUrlParamsString + `${category[0]}=${category[category.length - 1]}&`;
         }
         queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
@@ -54,11 +54,6 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
     // browserHistory.push(newUrl + '?' + queryString);
   };
 
-  componentDidMount = () => {
-    // this.props.onGenerateUrlParamsString(this.props.location.search.substring(1, this.props.location.search.length));
-    // this.props.onGenerateFilterParamsString(this.props.location.search.substring(1, this.props.location.search.length));
-    // this.props.onGenerateTable();
-  };
   componentDidUpdate = () => {
     console.log('NewSelector componentDidUpdate', this.props.location);
     // this.props.onGenerateTable();
@@ -73,12 +68,6 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
 
   }
 
-
-  clearFilter = () => {
-    // this.props.onGenerateFilterParamsString('');
-     //this.props.onGenerateUrlParamsString('');
-    // this.props.onGenerateUrlParamsData();
-  };
 
   render() {
     return (

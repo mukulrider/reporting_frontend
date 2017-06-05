@@ -115,7 +115,12 @@ class DualLineChart2 extends React.PureComponent { // eslint-disable-line react/
     // Add the X Axis
     svg.append('g')
       .attr('transform', `translate(0,${height})`)
-      .call(xAxis);
+      .call(xAxis)
+      .selectAll('text')
+      .style('text-anchor', 'end')
+      .attr('dx', '-.8em')
+      .attr('dy', '.15em')
+      .attr('transform', 'rotate(-45)');
       // .selectAll('text')
       // .style('text-anchor', 'end')
       // .attr('dx', '-.8em')

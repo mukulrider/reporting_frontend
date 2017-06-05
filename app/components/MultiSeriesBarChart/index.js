@@ -152,12 +152,17 @@ class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line r
     svg.append("g")
       .attr("class", "chartAxisLabel")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x0));
+      .call(d3.axisBottom(x0))
+      .selectAll('text')
+      .style('text-anchor', 'end')
+      .attr('dx', '-.8em')
+      .attr('dy', '.15em')
+      .attr('transform', 'rotate(-45)');
       // .selectAll(".tick text");
       // .call(wrap, x0.bandwidth());
 
     svg.append("g")
-      .attr("class", "chartAxisLabel")
+      .attr("class", "chartAxisLabeadl")
       .call(yAxis);
 
     //AXIS TITLES
