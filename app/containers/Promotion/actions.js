@@ -43,7 +43,8 @@ import {
 
   PIE_CHART_FOR_EACH_TAB, PIE_CHART_FOR_EACH_TAB_SUCCESS, TREND_FOR_EACH_TAB, TREND_FOR_EACH_TAB_SUCCESS,
   PRODUCTS_ON_PROMOTION_TABLE, PRODUCTS_ON_PROMOTION_TABLE_SUCCESS, STORE_FILTER_PARAM, MODAL_PRODUCT_NAME,
-  MODAL_PRODUCT_DATA_SUCCESS, MODAL_PRODUCT_DATA, MODAL_SAVE_TREND_CHART_TAB_PARAMS
+  MODAL_PRODUCT_DATA_SUCCESS, MODAL_PRODUCT_DATA, MODAL_SAVE_TREND_CHART_TAB_PARAMS, DEFAULT_GREY_SCREEN,
+  SAVE_LINE_CHART_TYPE, SAVE_PIE_CHART_TYPE
 
 } from './constants';
 
@@ -417,6 +418,34 @@ export function modalProductInfo(data) {
 export function modalProductInfoSuccess(data) {
   return {
     type: MODAL_PRODUCT_DATA_SUCCESS,
+    data
+  }
+}
+
+//-------------------------DEFAULT SCREEN WHEN FILTERS ARE CLEARED----------------------
+export function defaultGreyScreen(data)
+{
+  console.log('defaultGreyScreen', data);
+  return {
+    type: DEFAULT_GREY_SCREEN,
+    data,
+  };
+}
+
+
+//-------------------------Trend chart SPINNER ----------------------
+export function savePieChartType(data) {
+  return {
+    type: SAVE_PIE_CHART_TYPE,
+    data
+  }
+}
+
+
+//-------------------------Trend chart SPINNER ----------------------
+export function saveLineChartType(data) {
+  return {
+    type: SAVE_LINE_CHART_TYPE,
     data
   }
 }

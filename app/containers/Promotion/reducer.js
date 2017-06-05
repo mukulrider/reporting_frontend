@@ -39,18 +39,20 @@ import {
   TREND_CHART_SPINNER,
 
   PRODUCTS_ON_PROMOTION_TABLE_SUCCESS, TREND_FOR_EACH_TAB_SUCCESS, PIE_CHART_FOR_EACH_TAB_SUCCESS, STORE_FILTER_PARAM,
-  MODAL_PRODUCT_NAME, MODAL_PRODUCT_DATA_SUCCESS, MODAL_SAVE_TREND_CHART_TAB_PARAMS
+  MODAL_PRODUCT_NAME, MODAL_PRODUCT_DATA_SUCCESS, MODAL_SAVE_TREND_CHART_TAB_PARAMS, DEFAULT_GREY_SCREEN,
+  SAVE_PIE_CHART_TYPE, SAVE_LINE_CHART_TYPE
 
 } from './constants';
 
 const initialState = fromJS({
-  week_param :'week_flag=Current Week',
-  kpi_param :'',
+  week_param: 'week_flag=Current Week',
+  kpi_param: '',
   urlParamsString: '',
   sales_param: '',
   giveaway_param: '',
   promo_prod_param: '',
   promo_part_param: '',
+  lineChartType: 'absolute',
   weekurlParam: '',
   kpi_data: {
     "asp": {
@@ -79,8 +81,8 @@ const initialState = fromJS({
       "total": "0"
     }
   },
-  trendChartTabParam:'',
-  metricSelected:'value'
+  trendChartTabParam: '',
+  metricSelected: 'value'
 
 });
 
@@ -155,8 +157,8 @@ function promotionReducer(state = initialState, action) {
       console.log("reducer WEEK_FILTER_PARAM", action.data);
       return state.set('weekurlParam', action.data)
     case STORE_FILTER_PARAM:
-      console.log("reducer STORE_FILTER_PARAM",action.data);
-      return state.set('store_filter_param',action.data);
+      console.log("reducer STORE_FILTER_PARAM", action.data);
+      return state.set('store_filter_param', action.data);
 
     //PIE CHART - SPINNER
     case PIE_CHART_SPINNER_SUCCESS:
@@ -198,6 +200,10 @@ function promotionReducer(state = initialState, action) {
       console.log("TREND_CHART_SPINNER", action.spinnerCheck);
       return state.set('trendChartSpinnerSuccess', action.spinnerCheck);
 
+    case SAVE_PIE_CHART_TYPE:
+      return state.set('pieChartType', action.data);
+    case SAVE_LINE_CHART_TYPE:
+      return state.set('lineChartType', action.data);
 
     //---------------------------After adding tabs------------------------
 
@@ -219,7 +225,10 @@ function promotionReducer(state = initialState, action) {
     case MODAL_PRODUCT_DATA_SUCCESS:
       return state.set('modalProductData', action.data);
 
-
+    //-------------------------DEFAULT SCREEN WHEN FILTERS ARE CLEARED----------------------
+    case DEFAULT_GREY_SCREEN:
+      console.log("DEFAULT_GREY_SCREEN", action.data);
+      return state.set('defaultGreyScreen', action.data);
 
     default:
       return state;

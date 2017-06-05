@@ -251,12 +251,12 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
                   let filterDataWeek = this.props.week_filter_param;
                   let filterData = this.props.urlParamsString;
                   console.log('filterDataWeek', filterDataWeek);
-                  if (!(typeof(filterData) == "undefined")) {
+                  if (1 == 1) {
                     console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek, filterData);
-                    if (filterData.includes("buying_controller")) {
+                    if (1 == 1) {
                       console.log('tesco_weeek filterDataWeek', filterDataWeek);
                       console.log('--filterData', filterData);
-
+                      this.props.defaultGreyScreen(0);
                       if (this.props.kpi_param == 'kpi_type=Overview') {
                         console.log("______________________ Only Overview function Called")
                         this.props.spinnerRolesAndIntent(0);
@@ -315,6 +315,7 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
                   let queryString = '';
                   this.props.onGenerateUrlParamsString(queryString);
                   this.props.generateSideFilter();
+                  this.props.defaultGreyScreen(1);
 
                 }}>Clear Filters</Button>
                 <div style={{height: '1%', width: '100%'}}>&nbsp;</div>

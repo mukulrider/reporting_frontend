@@ -16,7 +16,10 @@ import {Modal} from 'react-bootstrap';
 import styles from './style.scss';
 
 class FiltersSupplier extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  updateUrl = (category) => {
+
+
+  updateUrl2 = (category) => {
+    console.log('inside updateUrl', category);
     let queryString = '';
     let localUrlParamsString = '';
     [...this.refs.selector.querySelectorAll('input')].map((obj, index) => {
@@ -24,14 +27,49 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
         console.log(obj);
         let category = obj.id.split('__');
 
+        console.log('queryString', queryString);
+        console.log('category--', category);
 
-        // if (category[0] === 'buying_controller') {
-        //   this.props.onGenerateBuyingController(category[category.length - 1])
-        // }
-        // if (category[1] === 'category_director') {
-        //   // this.props.onGenerateBuyingController(category[category.length - 1])
-        //   this.props.onGenerateCategoryDirector(category[category.length - 2])
-        // }
+        if (['store_type', 'commercial_name', 'category_name', 'buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])) {
+          localUrlParamsString = localUrlParamsString + `${category[0]}=${category[category.length - 1]}&`;
+        }
+        queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
+      }
+    });
+    queryString = queryString.substring(0, queryString.length - 1);
+    console.log('11queryString--', queryString);
+    // let newvar = queryString.split('&');
+    // console.log('11newvar--', newvar);
+    this.setState({superQueryString: queryString});
+    console.log('this.state.superQueryString', this.state.superQueryString);
+    // APPEND URL PARAMS
+
+    this.props.onGenerateUrlParamsString(queryString);
+    localStorage.setItem('urlParams', localUrlParamsString);
+
+    // this.props.onGenerateFilterParamsString(queryString);
+    // this.props.onGenerateUrlParamsData();
+    // this.updateNewState(newUrl + '?' + queryString);
+    // browserHistory.push(newUrl + '?' + queryString);
+  };
+  queryStringForFiltersOutside = "";
+  updateUrl = (category1, pre_selected,item,totalFilterData, propsData, currentSelection) => {
+    console.log('inside updateUrl', category1);
+    console.log('inside totalFilterData Main', totalFilterData);
+    console.log('inside propsData', propsData);
+    console.log('inside currentSelection', currentSelection);
+    let queryString = '';
+    let queryStringForFilters = this.queryStringForFiltersOutside;
+    console.log('inside this.queryStringForFiltersOutside', this.queryStringForFiltersOutside);
+    console.log('inside queryStringForFilters00', queryStringForFilters);
+    let localUrlParamsString = '';
+    this.queryStringForFiltersOutside = this.queryStringForFiltersOutside + currentSelection + '&';
+    console.log('inside 1st queryStringForFilters', this.queryStringForFiltersOutside);
+    [...this.refs.selector.querySelectorAll('input')].map((obj, index) => {
+      if (obj.checked == true) {
+        console.log(obj);
+        let category = obj.id.split('__');
+
         console.log('queryString', queryString);
         console.log('category--', category);
 
@@ -40,35 +78,246 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
         // }else{
         //   queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
         // }
-        if (['store_type', 'commercial_name', 'category_name', 'buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])) {
+        if (['commercial_name', 'category_name', 'buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])) {
           localUrlParamsString = localUrlParamsString + `${category[0]}=${category[category.length - 1]}&`;
         }
         queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
+
+        console.log('inside totalFilterData', totalFilterData);
+        for(let i=0; i<totalFilterData.length; i++){
+          console.log('inside totalFilterData pre_selected', totalFilterData[i].pre_selected);
+          console.log('inside totalFilterData title', totalFilterData[i].title);
+          console.log('this.category ', category1);
+          let totalFilterDataItems = totalFilterData[i].items;
+
+          // if(category1 == ){}else {
+            if (!totalFilterData[i].pre_selected) {
+              for (let y = 0; y < totalFilterDataItems.length; y++) {
+                console.log('inside totalFilterData totalFilterDataItems', totalFilterDataItems);
+                console.log('inside totalFilterData totalFilterDataItems[y].title', totalFilterDataItems[y].title);
+                console.log('inside totalFilterData totalFilterDataItems[y].resource.selected', totalFilterDataItems[y].resource.selected);
+                if (totalFilterDataItems[y].resource.selected) {
+                  // queryStringForFilters = queryStringForFilters + currentSelection + '&';
+                  console.log('inside 2nd queryStringForFilters', queryStringForFilters);
+                  this.queryStringForFiltersOutside = this.queryStringForFiltersOutside + `${totalFilterData[i].title}=${totalFilterDataItems[y].title}&`;
+                  console.log('inside final this.queryStringForFiltersOutside', this.queryStringForFiltersOutside);
+                }
+              }
+            } else {
+              console.log('inside else',currentSelection);
+              console.log('category1 == totalFilterData[i].title',totalFilterData[i].title);
+              console.log('category1 == totalFilterData[i]',totalFilterData[i]);
+              console.log('category1 == totalFilterData[i]22',category1);
+              // if(category1 == totalFilterData[i].title){
+                console.log('category1 == totalFilterData[i] 11',category1,totalFilterData[i].title);
+                let individualBlock = totalFilterData[i].items
+                for (let y = 0; y < totalFilterDataItems.length; y++) {
+                  // if (seleted) {
+                  //   append
+                  // }
+                }
+              // }
+
+            }
+          // }
+
+        }
+
+        console.log('inside final this.queryStringForFiltersOutside', this.queryStringForFiltersOutside);
+
+        if(!pre_selected){
+          console.log('pre-selected item',item);
+          console.log('category, pre_selected',category, pre_selected);
+          queryStringForFilters = queryStringForFilters + `${category[0]}=${category[category.length - 1]}&`;
+          console.log('queryStringForFilters inside if',queryStringForFilters);
+        }
       }
     });
     queryString = queryString.substring(0, queryString.length - 1);
-
-    console.log('queryString2', queryString);
+    console.log('11queryString--', queryString);
+    console.log('queryStringForFilters--', queryStringForFilters);
+    // let newvar = queryString.split('&');
+    // console.log('11newvar--', newvar);
+    this.setState({superQueryString: queryString});
+    console.log('this.state.superQueryString', this.state.superQueryString);
     // APPEND URL PARAMS
 
+    this.props.onGenerateUrlParamsStringForFilters(this.queryStringForFiltersOutside);
     this.props.onGenerateUrlParamsString(queryString);
+
+    // this.props.onGenerateUrlParamsString(queryString);
     localStorage.setItem('urlParams', localUrlParamsString);
 
-    console.log('this.props.onGenerateUrlParamsString(queryString)', this.props.onGenerateUrlParamsString(queryString));
     // this.props.onGenerateFilterParamsString(queryString);
     // this.props.onGenerateUrlParamsData();
     // this.updateNewState(newUrl + '?' + queryString);
     // browserHistory.push(newUrl + '?' + queryString);
   };
 
+  updateUrl1 = (category, itemId) => {
+    console.log('inside updateUrl1', category, itemId);
+    let queryString = '';
+    let localUrlParamsString = '';
+    [...this.refs.selector.querySelectorAll('input')].map((obj, index) => {
+      if (obj.checked == true) {
+        console.log(obj);
+        let category = obj.id.split('__');
+
+        console.log('queryString', queryString);
+        console.log('category--', category);
+
+        if (['store_type', 'commercial_name', 'category_name', 'buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])) {
+          // localUrlParamsString = localUrlParamsString + `${category[0]}=${category[category.length - 1]}&`;
+        }
+
+        if (itemId == 'junior_buyer') {
+          console.log('itemId == junior_buyer', category);
+          console.log('itemId == junior_buyer queryString', queryString);
+          let newvar = (this.state.superQueryString).split('&');
+          console.log('11newvar', newvar);
+
+          let storingValuesofKeys = [];
+          let finalApiParams = '';
+          for (let i = 0; i < newvar.length; i++) {
+            if (newvar[i].includes('product_subgroup') || newvar[i].includes('brand_indicator') || newvar[i].includes('parent_supplier') || newvar[i].includes('supplier')) {
+              console.log('11newvar if', newvar);
+              storingValuesofKeys.push(newvar[i]);
+            }
+          }
+
+          for (let i = 0; i < storingValuesofKeys.length; i++) {
+            finalApiParams = finalApiParams + storingValuesofKeys[i] + '&';
+          }
+          console.log('storingValuesofKeys', storingValuesofKeys);
+
+
+          console.log('finalApiParams', finalApiParams);
+          this.setState({superQueryString3: finalApiParams})
+
+          console.log('this.state.superQueryString3', this.state.superQueryString3);
+
+
+        } else if (itemId == 'product_subgroup') {
+
+
+          console.log('itemId == junior_buyer', category);
+          console.log('itemId == junior_buyer queryString', queryString);
+          let newvar = (this.state.superQueryString).split('&');
+          console.log('11newvar', newvar);
+
+          let storingValuesofKeys = [];
+          let finalApiParams = '';
+          for (let i = 0; i < newvar.length; i++) {
+            if (newvar[i].includes('brand_indicator') || newvar[i].includes('parent_supplier') || newvar[i].includes('supplier')) {
+              console.log('11newvar if', newvar);
+              storingValuesofKeys.push(newvar[i]);
+            }
+          }
+
+          for (let i = 0; i < storingValuesofKeys.length; i++) {
+            finalApiParams = finalApiParams + storingValuesofKeys[i] + '&';
+          }
+          console.log('storingValuesofKeys', storingValuesofKeys);
+
+
+          console.log('finalApiParams', finalApiParams);
+
+          this.setState({superQueryString3: finalApiParams});
+
+
+        } else if (itemId == 'brand_indicator') {
+
+
+          console.log('itemId == junior_buyer', category);
+          console.log('itemId == junior_buyer queryString', queryString);
+          let newvar = (this.state.superQueryString).split('&');
+          console.log('11newvar', newvar);
+
+          let storingValuesofKeys = [];
+          let finalApiParams = '';
+          for (let i = 0; i < newvar.length; i++) {
+            if (newvar[i].includes('parent_supplier') || newvar[i].includes('supplier')) {
+              console.log('11newvar if', newvar);
+              storingValuesofKeys.push(newvar[i]);
+            }
+          }
+
+          for (let i = 0; i < storingValuesofKeys.length; i++) {
+            finalApiParams = finalApiParams + storingValuesofKeys[i] + '&';
+          }
+          console.log('storingValuesofKeys', storingValuesofKeys);
+
+
+          console.log('finalApiParams', finalApiParams);
+          this.setState({superQueryString3: finalApiParams});
+
+        } else if (itemId == 'parent_supplier') {
+
+
+          console.log('itemId == junior_buyer', category);
+          console.log('itemId == junior_buyer queryString', queryString);
+          let newvar = (this.state.superQueryString).split('&');
+          console.log('11newvar', newvar);
+
+          let storingValuesofKeys = [];
+          let finalApiParams = '';
+          for (let i = 0; i < newvar.length; i++) {
+            if (newvar[i].includes('supplier')) {
+              console.log('11newvar if', newvar);
+              storingValuesofKeys.push(newvar[i]);
+            }
+          }
+
+          for (let i = 0; i < storingValuesofKeys.length; i++) {
+            finalApiParams = finalApiParams + storingValuesofKeys[i] + '&';
+          }
+          console.log('storingValuesofKeys', storingValuesofKeys);
+
+
+          console.log('finalApiParams', finalApiParams);
+          this.setState({superQueryString3: finalApiParams});
+
+        }
+
+
+      }
+    });
+    console.log('queryString3', queryString);
+    queryString = queryString.substring(0, queryString.length - 1);
+
+    console.log('queryString2', queryString);
+    console.log('category2', category);
+    console.log('this.state.superQueryString3', this.state.superQueryString3);
+    // APPEND URL PARAMS
+
+    // this.props.onGenerateUrlParamsString(queryString);
+    this.props.onGenerateUrlParamsString(this.state.superQueryString3);
+    localStorage.setItem('urlParams', localUrlParamsString);
+
+    // this.props.onGenerateFilterParamsString(queryString);
+    // this.props.onGenerateUrlParamsData();
+    // this.updateNewState(newUrl + '?' + queryString);
+    // browserHistory.push(newUrl + '?' + queryString);
+  };
+
+  totalFilterData = this.props.sideFilter.checkbox_list;
+
   componentDidMount = () => {
     console.log('location->>> ');
+    // totalFilterData = this.props.sideFilter.checkbox_list;
+
+    // console.log('totalFilterData->>> ',totalFilterData);
+    // console.log('this.props.sideFilter.checkbox_list->>> ',this.props.sideFilter.checkbox_list);
     // this.props.onGenerateUrlParamsString(this.props.location.search.substring(1, this.props.location.search.length));
     // this.props.onGenerateFilterParamsString(this.props.location.search.substring(1, this.props.location.search.length));
     // this.props.onGenerateTable();
   };
   componentDidUpdate = () => {
-    console.log('NewSelector componentDidUpdate', this.props.location);
+    // totalFilterData = this.props.sideFilter.checkbox_list;
+    // console.log('NewSelector componentDidUpdate', this.props.location);
+    //
+    // console.log('totalFilterData->>> U',totalFilterData);
+    // console.log('this.props.sideFilter.checkbox_list->>> U',this.props.sideFilter.checkbox_list);
     // this.props.onGenerateTable();
   };
 
@@ -76,7 +325,9 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
     super(props);
     this.state = {
       alertShow: false,
-      alertmsg: "Please Select the Mandatory Filters (marked with star)."
+      alertmsg: "Please Select the Mandatory Filters (marked with star).",
+      superQueryString: "",
+      superQueryString3: "",
     };
 
   }
@@ -92,6 +343,7 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
     let pHierarchyFilterCheck = true;
     let weekFilterCheck = true;
     console.log("Cascading filters", this.props.sideFilter.checkbox_list[2]);
+
     return (
 
       <div ref={'selector'}>
@@ -125,7 +377,7 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                     </div>
                   );
 
-                  if (item.title != 'store_type') {
+                  if (item.title != 'store_type' && item.title != 'brand_indicator'&& item.title != 'parent_supplier' && item.title != 'supplier') {
                     return (
 
                       <Panel header={panelHeader} eventKey={++key}>
@@ -178,7 +430,18 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                                                  key={item.id + '__' + obj.title}
                                                  name={obj.title.toLowerCase()}
                                                  onChange={() => {
-                                                   this.updateUrl(item.id)
+                                                   console.log('item.id', item);
+                                                   console.log('obj.title', obj);
+                                                   let params = item.id + '=' + obj.title;
+                                                   // if (item.pre_selected) {
+                                                   // console.log('item.pre_selected true', item.pre_selected);
+                                                   //this.updateUrl1(params, item.id, item.pre_selected)
+                                                   //} else {
+                                                   //console.log('item.pre_selected false', item.pre_selected);
+                                                   //this.updateUrl(item.id,item.pre_selected)
+                                                   //}
+                                                   //this.updateUrl1(item.id)
+                                                   this.updateUrl(item.id, item.pre_selected,item,this.totalFilterData,this.props.sideFilter.checkbox_list,params)
                                                  }}
                                                  checked={obj.resource.selected}
                                                  isDisabled={!obj.highlighted}
@@ -263,30 +526,32 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
               <div className="text-center">
                 <Button onClick={() => {
 
-                  pHierarchyFilterCheck = false;
-                  for (let i = 0; i < this.props.sideFilter[0].items.length; i++) {
-                    if (this.props.sideFilter[2].items[i].selected == true) {
-                      console.log("Cascading filter - filter_data2 for loop", this.props.sideFilter[0].items[i].selected);
-                      pHierarchyFilterCheck = true;
-                      console.log('pHierarchyFilterCheck11', pHierarchyFilterCheck);
-                    } else {
-                      pHierarchyFilterCheck = false;
-                      console.log('pHierarchyFilterCheck22', pHierarchyFilterCheck);
-                    }
-                  }
+                  {/*pHierarchyFilterCheck = false;*/}
+                  {/*for (let i = 0; i < this.props.sideFilter[0].items.length; i++) {*/}
+                    {/*if (this.props.sideFilter[2].items[i].selected == true) {*/}
+                      {/*console.log("Cascading filter - filter_data2 for loop", this.props.sideFilter[0].items[i].selected);*/}
+                      {/*pHierarchyFilterCheck = true;*/}
+                      {/*console.log('pHierarchyFilterCheck11', pHierarchyFilterCheck);*/}
+                    {/*} else {*/}
+                      {/*pHierarchyFilterCheck = false;*/}
+                      {/*console.log('pHierarchyFilterCheck22', pHierarchyFilterCheck);*/}
+                    {/*}*/}
+                  {/*}*/}
                   this.props.supplierViewKpiSpinnerCheck(0);
                   this.props.barChartSpinnerCheck(0);
                   this.props.onKPIBox();
                   this.props.ontopBottomChart();
+                  this.props.defaultGreyScreen(0);
 
                 }}>Apply</Button></div>
               <br/>
               <div className="text-center">
                 <Button buttonType={'primary'}
                         onClick={() => {
+                          this.props.defaultGreyScreen(1);
                           this.props.onGenerateUrlParamsString('');
-                          {/*this.updateUrl()*/
-                          }
+                          this.props.onGenerateUrlParamsString2('');
+                          this.props.onGenerateUrlParamsString2('');
 
                         }}>
                   Clear Filters

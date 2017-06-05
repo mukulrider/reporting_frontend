@@ -19,6 +19,7 @@ import {
   GENERATE_URL_PARAMS_STRING,
   GENERATE_URL_PARAMS_STRING2,
   GENERATE_URL_PARAMS_STRING3,
+  GENERATE_URL_PARAMS_STRING_FOR_FILTERS,
   FILTERS_DATA_SUCCESS,
   WEEK_FILTER_FETCH_SUCCESS,
   WEEK_FILTER_CONSTANT,
@@ -40,6 +41,7 @@ import {
   BAR_CHART_SPINNER,
   TABLE_SPINNER,
   STORE_FILTER_PARAM,
+  DEFAULT_GREY_SCREEN,
 } from './constants';
 
 
@@ -233,6 +235,16 @@ export function GenerateUrlParamsString(data) {
   };
 }
 
+// FOR GETTING FILTERS DATA (FOR DOING AJAX CALL) - DOING NEW AJAX CALLS
+
+export function onGenerateUrlParamsStringForFilters(data) {
+  console.log('filters1',data);
+  return {
+    type: GENERATE_URL_PARAMS_STRING_FOR_FILTERS,
+    data,
+  };
+}
+
 // FOR GETTING FILTERS DATA (FOR DOING AJAX CALL) ON DEFAULT PAGE LOAD
 
 export function GenerateUrlParamsString2(data) {
@@ -358,3 +370,12 @@ export function StoreFilterParam(data)
   };
 }
 
+
+export function defaultGreyScreen(data)
+{
+  console.log('defaultGreyScreen', data);
+  return {
+    type: DEFAULT_GREY_SCREEN,
+    data,
+  };
+}

@@ -69,16 +69,14 @@ let gettingUserDetails = () => {
 
 const userParamsAuth = gettingUserDetails();
 
-// let host_url = "127.0.0.1:3000"
-let host_url = "http://dvcmpapp00001uk.dev.global.tesco.org";
+let host_url = "http://172.20.181.16:8001";
+
 // FOR SUPPLIER POPUP TABLE
 
 export function* generateDataFetch() {
   console.log('inside kpi');
   const urlName = yield select(selectSupplierDomain());
   // const weekurlparam = urlName.get('week_param');
-  // const kpiparam = urlName.get('kpi_param');
-
 
   // CREATING 1 PARAMETER FOR APPENDING TO URL
 
@@ -456,28 +454,34 @@ export function* generateSideFilter() {
   let urlParamsString3 = urlName.get('urlParamsString3');
   console.log('in bigger urlParamsString3', urlParamsString3);
 
+let newUrlparamsForFilters = urlName.get('newUrlparamsForFilters');
+  console.log('in bigger newUrlparamsForFilters', newUrlparamsForFilters);
+
 
   if (typeof(urlParamsString) == "undefined") {
     urlParamsString = "";
   } else {
+    console.log('inside else000',urlParamsString);
     let urlParamsStringCheck = urlParamsString.substring(0, 2);
 
     if (urlParamsStringCheck == 20) {
+      console.log('inside else200',urlParamsString);
       urlParamsString = urlParamsString.substring(14, urlParamsString.length);
     }
   }
 
   if (urlParamsString3 == 1) {
-    console.log('urlParamsString3 == 1 if',urlParamsString3);
+    console.log('urlParamsString3 == 1 if0',urlParamsString3);
     if (!(urlParamsString2 == "")) {
       urlParamsString = '?' + urlParamsString2;
-      console.log('urlParamsString3 == 1 if if',urlParamsString);
+      console.log('urlParamsString3 == 1 if if0',urlParamsString);
     } else {
       urlParamsString = '?';
-      console.log('urlParamsString3 == 1 if if else',urlParamsString);
+      console.log('urlParamsString3 == 1 if if else0',urlParamsString);
     }
   } else {
-    urlParamsString = '?' + urlParamsString;
+    urlParamsString = '?' + newUrlparamsForFilters;
+    // urlParamsString = '?' + urlParamsString;
     console.log('urlParamsString else',urlParamsString);
   }
   console.log('in bigger before try1', urlParamsString);
@@ -486,7 +490,8 @@ export function* generateSideFilter() {
 
   try {
     const filter_data = yield call(request,
-      host_url + `/api/reporting/filter_supplier` + urlParamsString  + '&' + userParamsAuth);
+      host_url + `/api/reporting/filter_new_supplier` + urlParamsString  + '&' + userParamsAuth);
+      // host_url + `/api/reporting/filter_supplier` + urlParamsString  + '&' + userParamsAuth);
     console.log('filter_data', filter_data);
     yield put(generateSideFilterSuccess(filter_data));
     yield put(GenerateUrlParamsString3(0));

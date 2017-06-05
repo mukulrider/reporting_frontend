@@ -38,6 +38,8 @@ import {
   BAR_CHART_SPINNER,
   TABLE_SPINNER,
   STORE_FILTER_PARAM,
+  DEFAULT_GREY_SCREEN,
+  GENERATE_URL_PARAMS_STRING_FOR_FILTERS,
 } from './constants';
 
 const initialState = fromJS({
@@ -66,6 +68,7 @@ const initialState = fromJS({
   dataStoreUrlParams: '',
   dataWeekUrlParams: '',
   filter_week_selection: '',
+  newUrlparamsForFilters: '',
   checkedList: [],
   chartData: [
     {
@@ -248,9 +251,15 @@ function supplierReducer(state = initialState, action) {
       return state.set('tableChartSpinnerCheck', action.tableChartSpinnerCheck)
 
     case STORE_FILTER_PARAM:
-      console.log("reducer STORE_FILTER_PARAM",action.data);
-      return state.set('store_filter_param',action.data);
+      console.log("reducer STORE_FILTER_PARAM", action.data);
+      return state.set('store_filter_param', action.data);
+    case DEFAULT_GREY_SCREEN:
+      console.log("DEFAULT_GREY_SCREEN", action.data);
+      return state.set('defaultGreyScreen', action.data);
 
+      case GENERATE_URL_PARAMS_STRING_FOR_FILTERS:
+      console.log("GENERATE_URL_PARAMS_STRING_FOR_FILTERS", action.data);
+      return state.set('newUrlparamsForFilters', action.data);
 
     default:
       return state;

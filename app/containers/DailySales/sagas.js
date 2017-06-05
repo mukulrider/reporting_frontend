@@ -46,7 +46,7 @@ let gettingUserDetails = () => {
   let buyer = getCookie('buyer');
   let cookieParams = "";
 
-  if ((typeof(buyer) == "undefined") || (buyer == "")) {
+  if ((typeof(buyer) === "undefined") || (buyer === "")) {
     buyer = "";
     cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}`;
     console.log('buyer empty', buyer);
@@ -61,8 +61,8 @@ let gettingUserDetails = () => {
 const userParams = gettingUserDetails();
 
 
-// let host_url="http://10.1.244.200:8000";
-let host_url="http://dvcmpapp00001uk.dev.global.tesco.org";
+let host_url="http://172.20.181.92:8000";
+// let host_url="http://127.0.0.1:8000";
 // All sagas to be loaded
 
 // FOR CARDS DATA
@@ -195,7 +195,7 @@ export function* generateFilterFetch() {
     // urlParamsString = '?' + urlParamsString;
   }
   try {
-    const data = yield call(request, host_url + '/api/reporting/filter_daily_sales?' + urlParamsString + '&' + userParams
+    const data = yield call(request, host_url + '/api/reporting/filter_daily_sales?' + urlParamsString + '&' + userParams,
     );
     console.log("Filter data", data);
     yield put(FilterFetchSuccess(data));

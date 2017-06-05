@@ -100,9 +100,13 @@ export const PRODUCTS_ON_PROMOTION_TABLE_SUCCESS= 'app/Promotion/PRODUCTS_ON_PRO
 export const SAVE_TREND_CHART_TAB_PARAMS= 'app/Promotion/SAVE_TREND_CHART_TAB_PARAMS';
 export const MODAL_SAVE_TREND_CHART_TAB_PARAMS= 'app/Promotion/MODAL_SAVE_TREND_CHART_TAB_PARAMS';
 export const SAVE_METRIC_SELECTION_TAB= 'app/Promotion/SAVE_METRIC_SELECTION_TAB';
+//-------------------------DEFAULT SCREEN WHEN FILTERS ARE CLEARED----------------------
+export const DEFAULT_GREY_SCREEN= 'app/Promotion/DEFAULT_GREY_SCREEN';
 
 
 
+export const SAVE_PIE_CHART_TYPE= 'app/Promotion/SAVE_PIE_CHART_TYPE';
+export const SAVE_LINE_CHART_TYPE= 'app/Promotion/SAVE_LINE_CHART_TYPE';
 
 
 

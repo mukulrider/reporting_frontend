@@ -1,5 +1,21 @@
 @import "./../../stylesheet";
 
+.collapse-filter {
+  width: 0%;
+}
+.expand-filter {
+  width: 20%;
+}
+.collapse-content {
+  width: 78%;
+  marginLeft: '22%';
+  float:right;
+}
+.expand-content {
+  width: 98%;
+  float:right;
+}
+
 .xlModal{
   width: 90%;
 }
@@ -436,4 +452,16 @@
 
 .tabsCustomList2.active span.tab_label{
   border-bottom: #048EC3 solid 4px;
+}
+
+
+.selectAttrituteIndicator{
+  font:Tesco;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+  height: 1000px;
+  background-color: lightgray;
+  color: #00539f;
+  margin-top: 24px;
 }

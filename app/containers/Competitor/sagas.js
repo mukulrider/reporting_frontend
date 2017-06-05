@@ -62,9 +62,7 @@ let gettingUserDetails = () => {
 };
 const userParams = gettingUserDetails();
 
-
-const host_url = 'http://dvcmpapp00001uk.dev.global.tesco.org';
-// const host_url = 'http://10.1.244.154:8000';
+const host_url = 'http://172.20.181.16:8001';
 // All sagas to be loaded
 
 // FOR COMPETITOR WATERFALL CHART
@@ -78,12 +76,13 @@ export function* generateCompetitorWaterfallDataFetch() {
   console.log('Filter parameter', filterurlparam);
   console.log('Waterfall param', waterfallparam);
 
+
   // //paramString = paramString + '&week=' + urlParams;
   // paramString = paramString.replace('&', '');
   let urlAppends = "";
   if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
     urlAppends = urlAppends + '&' + weekurlparam;
-    console.log('urlAppends1', urlAppends);
+    console.log('urlAppends1 TESTING', urlAppends);
   } else {
 
   }
@@ -104,7 +103,7 @@ export function* generateCompetitorWaterfallDataFetch() {
 
   if (!( typeof(waterfallparam) == "undefined") && !(waterfallparam == "")) {
     urlAppends = urlAppends + '&' + waterfallparam;
-    console.log('urlAppends3', urlAppends);
+    console.log('urlAppends3 TESTING', urlAppends);
   } else {
 
   }
@@ -121,20 +120,22 @@ export function* generateCompetitorWaterfallDataFetch() {
 
   if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
     urlAppends = urlAppends + '&' + userParams;
-    console.log('urlAppends4', urlAppends);
+    console.log('urlAppends4 TESTING', urlAppends);
   } else {
 
   }
 
-  console.log('urlAppends5', urlAppends);
+  console.log('urlAppends5 TESTING', urlAppends);
 
   if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
     urlAppends = urlAppends.replace('&', '');
   }
-  console.log('urlAppends6', urlAppends);
+  console.log('urlAppends6 TESTING', urlAppends);
 
   const data = yield call(request,
-    `${host_url}/api/reporting/competitor_price_index?` + urlAppends
+    `${host_url}/api/reporting/competitor_price_index?` + urlAppends,
+    // `${host_url}/api/reporting/competitor_price_index?${weekurlparam}&${filterurlparam}&${waterfallparam}&${weekselection}&${userParams}`,
+
   );
   console.log('Heres the kpi data', data);
   let spinnerCheck = 1;
@@ -219,7 +220,13 @@ export function* generateCompetitorPieChartDataFetch() {
 
 
   const data = yield call(request,
-    `${host_url}/api/reporting/competitor_market_share?` + urlAppends
+    `${host_url}/api/reporting/competitor_market_share?` + urlAppends,
+    // `${host_url}/api/reporting/competitor_market_share?${weekurlparam}&${kpiparam}&${filterurlparam}&${weekselection}&${userParams}`,
+    // {
+    //   headers: {
+    //     Authorization: token
+    //   }
+    // }
   );
   console.log('Heres the kpi data', data);
   let spinnerCheck = 1;
@@ -242,6 +249,16 @@ export function* generateCompetitorPriceRangeDataFetch() {
   const weekselection = urlName.get('filter_week_selection');
   // console.log("inside sagas.js", urlParams);
   console.log('generateCompetitorPriceRangeDataFetch sagas.js', `${host_url}/api/reporting/competitor_view_range?${weekurlparam}&${filterurlparam}&${weekselection}&${userParams}`);
+
+  // let getCookie;
+  // getCookie = (name) => {
+  //   const value = `; ${document.cookie}`;
+  //   const parts = value.split(`; ${name}=`);
+  //   if (parts.length === 2) return parts.pop().split(';').shift();
+  // };
+  // const user_token = getCookie('token');
+  // const buyer = getCookie('buyer');
+  // const token = user_token.concat('___').concat(buyer)
 
   let urlAppends = ""
   if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
@@ -290,7 +307,13 @@ export function* generateCompetitorPriceRangeDataFetch() {
 
 
   const data = yield call(request,
-    `${host_url}/api/reporting/competitor_view_range?` + urlAppends
+    `${host_url}/api/reporting/competitor_view_range?` + urlAppends,
+    // `${host_url}/api/reporting/competitor_view_range?${weekurlparam}&${filterurlparam}&${weekselection}&${userParams}`,
+    // {
+    //   headers: {
+    //     Authorization: token
+    //   }
+    // }
   );
   console.log('Heres the kpi data', data);
 
@@ -362,7 +385,7 @@ export function* generateCompetitorOutperformance() {
 
   if (!(typeof(userParams) == "undefined") && !(userParams == "")) {
     urlAppends = urlAppends + '&' + userParams;
-    console.log('urlAppends3 4', urlAppends);
+    console.log('urlAppends3  4', urlAppends);
   } else {
 
   }
@@ -377,9 +400,15 @@ export function* generateCompetitorOutperformance() {
 
 
   try {
-  const data = yield call(request,
-    `${host_url}/api/reporting/competitor_market_outperformance?` + urlAppends
-      );
+    const data = yield call(request,
+      `${host_url}/api/reporting/competitor_market_outperformance?` + urlAppends,
+      // `${host_url}/api/reporting/competitor_market_outperformance?${weekurlparam}&${kpiparam}&${filterurlparam}&${weekselection}&${userParams}`,
+      // {
+      //   headers: {
+      //     Authorization: token
+      //   }
+      // }
+    );
 
     console.log('generateCompetitorOutperformance', data);
     let spinnerCheck = 1;

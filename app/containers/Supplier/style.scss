@@ -903,3 +903,32 @@ input[type=checkbox]:hover {
   position: absolute;
   left: -99999em;
 }
+
+//FOR COLLAPSE/EXPAND BUTTON
+
+.collapse-filter {
+  width: 0%;
+}
+.expand-filter {
+  width: 20%;
+}
+.collapse-content {
+  width: 78%;
+  marginLeft: '22%';
+  float:right;
+}
+.expand-content {
+  width: 98%;
+  float:right;
+}
+
+.selectAttrituteIndicator{
+  font:Tesco;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+  height: 1000px;
+  background-color: lightgray;
+  color: #00539f;
+  margin-top: 24px;
+}
