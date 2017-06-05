@@ -61,8 +61,8 @@ let gettingUserDetails = () => {
 const userParams = gettingUserDetails();
 
 
-let host_url="http://172.20.181.92:8000";
-// let host_url="http://127.0.0.1:8000";
+//let host_url="http://172.20.244.157:8000";
+let host_url="http://127.0.0.1:8000";
 // All sagas to be loaded
 
 // FOR CARDS DATA
@@ -80,6 +80,13 @@ export function* cardData_pull() {
   const storeType = urlName.get('store_filter_param');
   const week_filter = urlName.get('week');
   const date_filter = urlName.get('dateurlParam');
+
+  let urlAppends = "";
+
+  if (!(typeof(week_filter) == "undefined") && !(week_filter == "")) {
+    urlAppends = urlAppends + '&' + week_filter;
+    console.log('urlAppends1', urlAppends);
+  }
 
   const data = yield call(request,host_url+"/api/reporting/data_daily_sales?"+'&'+kpiparam+'&'+week_filter + '&' + filter + '&' + storeType + '&' + date_filter + '&'+ userParams);
   console.log("Line chart fetched data",data);
@@ -133,7 +140,6 @@ export function* prodCardsData_pull() {
   const week_filter = urlName.get('week');
   const date_filter = urlName.get('dateurlParam');
   const prod_filter = urlName.get('product');
-
 
 
 

@@ -231,9 +231,8 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
                     console.log('modal open');
                     this.setState({alertShow: true});
                   }
-                }}>Apply</Button>
-                <div style={{height: '1%', width: '100%'}}>&nbsp;</div>
-                <Button style={{marginTop:"4px", marginLeft:"0 auto"}}
+                }}>Apply Filters</Button>
+                <Button style={{marginTop:"4px", marginLeft:"0 auto"}} buttonType={'primary'}
 
                         onClick={() => {
                           console.log("Clear Filters Clicked");

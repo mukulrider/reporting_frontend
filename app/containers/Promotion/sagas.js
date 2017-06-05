@@ -53,7 +53,6 @@ import {
 } from 'containers/Promotion/selectors';
 import {modalProductInfoSuccess} from "./actions";
 
-
 let gettingUserDetails = () => {
   //function to get values from cookie
   const getCookie = (name) => {

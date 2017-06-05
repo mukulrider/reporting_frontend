@@ -51,6 +51,7 @@ import {
   saveProduct,
   productCardsData,
   productChartsData,
+  cardDataFetchSuccess,
   prodCardsDataFetchSuccess,
   prodChartsDataFetchSuccess,
   DSViewKpiSpinnerCheckSuccess,
@@ -121,6 +122,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
           this.setState({showProductSalesInfoModalFlag: true,product:row.product});
           let product = "product="+row.product;
           this.props.onSaveProduct(product);
+          this.props.prodCardsDataFetchSuccess(false);
           this.props.onProductCardsData();
           this.props.onProductChartsData();
         }}
@@ -147,6 +149,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
   constructor(props) {
     super(props);
     this.state = {
+      collapsed: false,
       activeKey1: "1",
       y_axis: "Sales Value",
       legendTY:"Sales TY",legendLY:"Sales LY",
@@ -223,6 +226,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
       onSelectAll: onSelectAll
     };
 
+
     let formatMetric = (cell, flag = "value") => {
       if (cell >= 1000 || cell <= -1000) {
         let rounded = Math.round(cell / 1000);
@@ -238,12 +242,12 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
           return (Math.round(cell));
         }
         else {
-          return ('£ ' + Math.round(cell));
+          return ('£ '+ Math.round(cell));
         }
       }
     }
 
-    let kpiParmas = this.props.DailySales.kpi_param;
+    let kpiParams = this.props.DailySales.kpi_param;
     return (
       <div style={{background: "#fafafa"}}>
         <div>
@@ -253,6 +257,21 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
               {name: 'description', content: 'Description of DailySales'},
             ]}
           />
+
+          {(() => {
+            if (this.props.DailySales.filter_week_selection) {
+              return (
+                <BreadcrumbDSS
+                  selected_week={this.props.DailySales.week.replace(/tesco_week/g, '  ').replace(/date/g, '  ').replace(/_/g, '  ').replace(/=/g, '  ').replace('&', '  > ')}
+                  urlParamsString={this.props.DailySales.filter_week_selection}/>
+
+              )
+            }
+          })()}
+          <br/>
+          <br/>
+          <br/>
+          <br/>
 
           {(() => {
             if (this.props.DailySales.DSViewKpiSpinner != 1 && this.props.DailySales.DSViewKpiSpinner == 11) {
@@ -267,21 +286,19 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                   marginRight: '0px'
                 }}>
 
-
-                  <div style={{
+                  <div className={this.state.collapsed ? 'collapse-filter' : 'expand-filter'}
+                    style={{
                     height: '100%',
                     position: 'fixed',
-                    width: '20%',
-                    paddingRight: '1%',
                     overflowX: 'hidden',
                     overflowY: 'scroll',
                     borderTop: '1px solid #ccc'
                   }}>
+
                     {(() => {
                       if (this.props.DailySales.week_filter_data && this.props.DailySales.filter_data) {
                         return (
                           <CascadedFilterDSS filter_data={this.props.DailySales.filter_data}
-                            // week_data={this.props.promotion.filter_data.week_data}
                                              CardsDataCall={this.props.CardsDataCall}
                                              ChartDataCall={this.props.ChartDataCall}
                                              week_data={this.props.DailySales.week_filter_data}
@@ -322,25 +339,15 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                     })()}
                   </div>
 
-                  <div style={{
-                    width: '78%',
-                    marginLeft: '22%',
-                  }}>
-                    {(() => {
-                      if (this.props.DailySales.filter_week_selection) {
-                        return (
-                          <BreadcrumbDSS
-                            selected_week={this.props.DailySales.week.replace(/tesco_week/g, '  ').replace(/date/g, '  ').replace(/_/g, '  ').replace(/=/g, '  ').replace('&', '  > ')}
-                            urlParamsString={this.props.DailySales.filter_week_selection}/>
+                  {/* Collapse (or) Expand filters Button*/}
+                  <div style={{width:'1%',height:'20px',  marginLeft: this.state.collapsed ? '0%' : '20%',position:'fixed'}}>
+                    <div className="filterCollapseBar" onClick={() => {
+                      this.setState({collapsed: !this.state.collapsed})
+                    }}>{this.state.collapsed ? <span className="glyphicon glyphicon-forward"></span> : <span className="glyphicon glyphicon-backward"></span>}
+                    </div>
+                  </div>
 
-                        )
-                      }
-                    })()}
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-
+                  <div className={this.state.collapsed ? 'expand-content' : 'collapse-content'}>
 {/*                    <Select menuContainerStyle={{'zIndex': 999}}
                       value={this.state.selectedValues} multi={true} placeholder="Select something"
                       options={options1}
@@ -385,6 +392,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                             week={this.props.DailySales.week}
                             urlParamsString={this.props.DailySales.filter_week_selection}
                             storeSelectionParams={this.props.onSaveStoreFilterParam}
+                            cardDataFetchSuccess={this.props.cardDataFetchSuccess}
+                            prodCardsDataFetchSuccess={this.props.prodCardsDataFetchSuccess}
 
                           />
 
@@ -417,16 +426,16 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                       </div>
                                       <div className="row">
                                         <div className="col-md-4 col-sm-4 col-xs-4">
-                                          <span className={this.formatGlyphicon(a.sales_var_wow)}></span>&nbsp;{a.sales_var_wow}%
-                                          <h4 className="kpiSubTitle"><b>WoW</b></h4>
+                                          <h4><span className={this.formatGlyphicon(a.sales_var_wow)}></span>&nbsp;{a.sales_var_wow}%</h4>
+                                          <h5 className="kpiSubTitle"><b>WoW</b></h5>
                                         </div>
                                         <div className="col-md-4 col-sm-4 col-xs-4">
-                                          <span className={this.formatGlyphicon(a.sales_var_yoy)}></span>&nbsp;{a.sales_var_yoy}%
-                                          <h4 className="kpiSubTitle"><b>YoY</b></h4>
+                                          <h4><span className={this.formatGlyphicon(a.sales_var_yoy)}></span>&nbsp;{a.sales_var_yoy}%</h4>
+                                          <h5 className="kpiSubTitle"><b>YoY</b></h5>
                                         </div>
                                         <div className="col-md-4 col-sm-4 col-xs-4">
-                                          <span className={this.formatGlyphicon(a.sales_var_lfl)}></span>&nbsp;{a.sales_var_lfl}%
-                                          <h4 className="kpiSubTitle"><b>LFL</b></h4>
+                                          <h4><span className={this.formatGlyphicon(a.sales_var_lfl)}></span>&nbsp;{a.sales_var_lfl}%</h4>
+                                          <h5 className="kpiSubTitle"><b>LFL</b></h5>
                                         </div>
                                       </div>
                                       <div className="row">
@@ -454,16 +463,16 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                       </div>
                                       <div className="row">
                                         <div className="col-md-4 col-sm-4 col-xs-4">
-                                          <span className={this.formatGlyphicon(b.vol_var_wow)}></span>&nbsp;{b.vol_var_wow}%
-                                          <h4 className="kpiSubTitle"><b>WoW</b></h4>
+                                          <h4><span className={this.formatGlyphicon(b.vol_var_wow)}></span>&nbsp;{b.vol_var_wow}%</h4>
+                                          <h5 className="kpiSubTitle"><b>WoW</b></h5>
                                         </div>
                                         <div className="col-md-4 col-sm-4 col-xs-4">
-                                          <span className={this.formatGlyphicon(b.vol_var_yoy)}></span>&nbsp;{b.vol_var_yoy}%
-                                          <h4 className="kpiSubTitle"><b>YoY</b></h4>
+                                          <h4><span className={this.formatGlyphicon(b.vol_var_yoy)}></span>&nbsp;{b.vol_var_yoy}%</h4>
+                                          <h5 className="kpiSubTitle"><b>YoY</b></h5>
                                         </div>
                                         <div className="col-md-4 col-sm-4 col-xs-4">
-                                          <span className={this.formatGlyphicon(b.vol_var_lfl)}></span>&nbsp;{b.vol_var_lfl}%
-                                          <h4 className="kpiSubTitle"><b>LFL</b></h4>
+                                          <h4><span className={this.formatGlyphicon(b.vol_var_lfl)}></span>&nbsp;{b.vol_var_lfl}%</h4>
+                                          <h5 className="kpiSubTitle"><b>LFL</b></h5>
                                         </div>
                                       </div>
                                       <div className="row">
@@ -487,16 +496,16 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                       </div>
                                       <div className="row">
                                         <div className="col-md-4 col-sm-4 col-xs-4">
-                                          <span className={this.formatGlyphicon(c.cogs_var_wow)}></span>&nbsp;{c.cogs_var_wow}%
-                                          <h4 className="kpiSubTitle"><b>WoW</b></h4>
+                                          <h4><span className={this.formatGlyphicon(c.cogs_var_wow)}></span>&nbsp;{c.cogs_var_wow}%</h4>
+                                          <h5 className="kpiSubTitle"><b>WoW</b></h5>
                                         </div>
                                         <div className="col-md-4 col-sm-4 col-xs-4">
-                                          <span className={this.formatGlyphicon(c.cogs_var_yoy)}></span>&nbsp;{c.cogs_var_yoy}%
-                                          <h4 className="kpiSubTitle"><b>YoY</b></h4>
+                                          <h4><span className={this.formatGlyphicon(c.cogs_var_yoy)}></span>&nbsp;{c.cogs_var_yoy}%</h4>
+                                          <h5 className="kpiSubTitle"><b>YoY</b></h5>
                                         </div>
                                         <div className="col-md-4 col-sm-4 col-xs-4">
-                                          <span className={this.formatGlyphicon(c.cogs_var_lfl)}></span>&nbsp;{c.cogs_var_lfl}%
-                                          <h4 className="kpiSubTitle"><b>LFL</b></h4>
+                                          <h4><span className={this.formatGlyphicon(c.cogs_var_lfl)}></span>&nbsp;{c.cogs_var_lfl}%</h4>
+                                          <h5 className="kpiSubTitle"><b>LFL</b></h5>
                                         </div>
                                       </div>
                                       <div className="row">
@@ -528,16 +537,16 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                       </div>
                                       <div className="row">
                                         <div className="col-md-4 col-sm-4 col-xs-4">
-                                          <span className={this.formatGlyphicon(d.profit_var_wow)}></span>&nbsp;{d.profit_var_wow}%
-                                          <h4 className="kpiSubTitle"><b>WoW</b></h4>
+                                          <h4><span className={this.formatGlyphicon(d.profit_var_wow)}></span>&nbsp;{d.profit_var_wow}%</h4>
+                                          <h5 className="kpiSubTitle"><b>WoW</b></h5>
                                         </div>
                                         <div className="col-md-4 col-sm-4 col-xs-4">
-                                          <span className={this.formatGlyphicon(d.profit_var_yoy)}></span>&nbsp;{d.profit_var_yoy}%
-                                          <h4 className="kpiSubTitle"><b>YoY</b></h4>
+                                          <h4><span className={this.formatGlyphicon(d.profit_var_yoy)}></span>&nbsp;{d.profit_var_yoy}%</h4>
+                                          <h5 className="kpiSubTitle"><b>YoY</b></h5>
                                         </div>
                                         <div className="col-md-4 col-sm-4 col-xs-4">
-                                          <span className={this.formatGlyphicon(d.profit_var_lfl)}></span>&nbsp;{d.profit_var_lfl}%
-                                          <h4 className="kpiSubTitle"><b>LFL</b></h4>
+                                          <h4><span className={this.formatGlyphicon(d.profit_var_lfl)}></span>&nbsp;{d.profit_var_lfl}%</h4>
+                                          <h5 className="kpiSubTitle"><b>LFL</b></h5>
                                         </div>
                                       </div>
                                       <div className="row">
@@ -565,16 +574,16 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                       </div>
                                       <div className="row">
                                         <div className="col-md-4 col-sm-4 col-xs-4">
-                                          <span className={this.formatGlyphicon(b.vol_var_wow)}></span>&nbsp;{e.wow}%
-                                          <h4 className="kpiSubTitle"><b>WoW</b></h4>
+                                          <h4><span className={this.formatGlyphicon(b.vol_var_wow)}></span>&nbsp;{e.wow}%</h4>
+                                          <h5 className="kpiSubTitle"><b>WoW</b></h5>
                                         </div>
                                         <div className="col-md-4 col-sm-4 col-xs-4">
-                                          <span className={this.formatGlyphicon(b.vol_var_yoy)}></span>&nbsp;{e.yoy}%
-                                          <h4 className="kpiSubTitle"><b>YoY</b></h4>
+                                          <h4><span className={this.formatGlyphicon(b.vol_var_yoy)}></span>&nbsp;{e.yoy}%</h4>
+                                          <h5 className="kpiSubTitle"><b>YoY</b></h5>
                                         </div>
                                         <div className="col-md-4 col-sm-4 col-xs-4">
-                                          <span className={this.formatGlyphicon(b.vol_var_lfl)}></span>&nbsp;{e.yoy_lfl}%
-                                          <h4 className="kpiSubTitle"><b>LFL</b></h4>
+                                          <h4><span className={this.formatGlyphicon(b.vol_var_lfl)}></span>&nbsp;{e.yoy_lfl}%</h4>
+                                          <h5 className="kpiSubTitle"><b>LFL</b></h5>
                                         </div>
                                       </div>
                                       <div className="row">
@@ -605,8 +614,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                               <NavItem style={{fontSize: '16px', textAlign: 'center', margin: "0px"}}
                                        className="tabsCustomList" eventKey="1" onClick={() => {
                                 this.setState({activeKey1: "1", y_axis: "Sales Value",legendTY:"Sales TY",legendLY:"Sales LY"});
-                                kpiParmas = "val_type=1";
-                                this.props.onSaveKPIParam(kpiParmas);
+                                kpiParams = "val_type=1";
+                                this.props.onSaveKPIParam(kpiParams);
                                 this.props.ChartDataCall();
                                 this.props.DSViewKpiSpinnerCheckSuccess(0);
                                 this.props.LineChartSpinnerCheckSuccess(0);
@@ -614,8 +623,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                               <NavItem style={{fontSize: '16px', textAlign: 'center', margin: "0px"}}
                                        className="tabsCustomList" eventKey="2" onClick={() => {
                                 this.setState({activeKey1: "2", y_axis: "Volume",legendTY:"Volume TY",legendLY:"Volume LY"});
-                                kpiParmas = "val_type=2";
-                                this.props.onSaveKPIParam(kpiParmas);
+                                kpiParams = "val_type=2";
+                                this.props.onSaveKPIParam(kpiParams);
                                 this.props.ChartDataCall();
                                 this.props.DSViewKpiSpinnerCheckSuccess(0);
                                 this.props.LineChartSpinnerCheckSuccess(0);
@@ -623,8 +632,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                               <NavItem style={{fontSize: '16px', textAlign: 'center', margin: "0px"}}
                                        className="tabsCustomList" eventKey="3" onClick={() => {
                                 this.setState({activeKey1: "3", y_axis: "COGS",legendTY:"COGS TY",legendLY:"COGS LY"});
-                                kpiParmas = "val_type=3";
-                                this.props.onSaveKPIParam(kpiParmas);
+                                kpiParams = "val_type=3";
+                                this.props.onSaveKPIParam(kpiParams);
                                 this.props.ChartDataCall();
                                 this.props.DSViewKpiSpinnerCheckSuccess(0);
                                 this.props.LineChartSpinnerCheckSuccess(0);
@@ -632,8 +641,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                               <NavItem style={{fontSize: '16px', textAlign: 'center', margin: "0px"}}
                                        className="tabsCustomList" eventKey="4" onClick={() => {
                                 this.setState({activeKey1: "4", y_axis: "Profit",legendTY:"Profit TY",legendLY:"Profit LY"});
-                                kpiParmas = "val_type=4";
-                                this.props.onSaveKPIParam(kpiParmas);
+                                kpiParams = "val_type=4";
+                                this.props.onSaveKPIParam(kpiParams);
                                 this.props.ChartDataCall();
                                 this.props.DSViewKpiSpinnerCheckSuccess(0);
                                 this.props.LineChartSpinnerCheckSuccess(0);
@@ -712,7 +721,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                                            dataAlign="center">Brand</TableHeaderColumn>
                                         <TableHeaderColumn dataField="brand_name" dataSort={true}
                                                            dataAlign="center">Brand Name</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="kpi_ty" dataFormat={formatMetric} dataSort={true}
+                                        <TableHeaderColumn dataField="kpi_ty" dataSort={true} dataFormat={formatMetric}
                                                            dataAlign="center">TY</TableHeaderColumn>
                                         <TableHeaderColumn dataField="kpi_ly" dataFormat={formatMetric} dataSort={true}
                                                            dataAlign="center">LY</TableHeaderColumn>
@@ -804,16 +813,16 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                             </div>
                                             <div className="row">
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(a.sales_var_wow)}></span>&nbsp;{a.sales_var_wow}%
-                                                <h4 className="kpiSubTitle"><b>WoW</b></h4>
+                                                <h4><span className={this.formatGlyphicon(a.sales_var_wow)}></span>&nbsp;{a.sales_var_wow}%</h4>
+                                                <h5 className="kpiSubTitle"><b>WoW</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(a.sales_var_yoy)}></span>&nbsp;{a.sales_var_yoy}%
-                                                <h4 className="kpiSubTitle"><b>YoY</b></h4>
+                                                <h4><span className={this.formatGlyphicon(a.sales_var_yoy)}></span>&nbsp;{a.sales_var_yoy}%</h4>
+                                                <h5 className="kpiSubTitle"><b>YoY</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(a.sales_var_lfl)}></span>&nbsp;{a.sales_var_lfl}%
-                                                <h4 className="kpiSubTitle"><b>LFL</b></h4>
+                                                <h4><span className={this.formatGlyphicon(a.sales_var_lfl)}></span>&nbsp;{a.sales_var_lfl}%</h4>
+                                                <h5 className="kpiSubTitle"><b>LFL</b></h5>
                                               </div>
                                             </div>
                                             <div className="row">
@@ -841,16 +850,16 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                             </div>
                                             <div className="row">
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(b.vol_var_wow)}></span>&nbsp;{b.vol_var_wow}%
-                                                <h4 className="kpiSubTitle"><b>WoW</b></h4>
+                                                <h4><span className={this.formatGlyphicon(b.vol_var_wow)}></span>&nbsp;{b.vol_var_wow}%</h4>
+                                                <h5 className="kpiSubTitle"><b>WoW</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(b.vol_var_yoy)}></span>&nbsp;{b.vol_var_yoy}%
-                                                <h4 className="kpiSubTitle"><b>YoY</b></h4>
+                                                <h4><span className={this.formatGlyphicon(b.vol_var_yoy)}></span>&nbsp;{b.vol_var_yoy}%</h4>
+                                                <h5 className="kpiSubTitle"><b>YoY</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(b.vol_var_lfl)}></span>&nbsp;{b.vol_var_lfl}%
-                                                <h4 className="kpiSubTitle"><b>LFL</b></h4>
+                                                <h4><span className={this.formatGlyphicon(b.vol_var_lfl)}></span>&nbsp;{b.vol_var_lfl}%</h4>
+                                                <h5 className="kpiSubTitle"><b>LFL</b></h5>
                                               </div>
                                             </div>
                                             <div className="row">
@@ -874,16 +883,16 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                             </div>
                                             <div className="row">
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(c.cogs_var_wow)}></span>&nbsp;{c.cogs_var_wow}%
-                                                <h4 className="kpiSubTitle"><b>WoW</b></h4>
+                                                <h4><span className={this.formatGlyphicon(c.cogs_var_wow)}></span>&nbsp;{c.cogs_var_wow}%</h4>
+                                                <h5 className="kpiSubTitle"><b>WoW</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(c.cogs_var_yoy)}></span>&nbsp;{c.cogs_var_yoy}%
-                                                <h4 className="kpiSubTitle"><b>YoY</b></h4>
+                                                <h4><span className={this.formatGlyphicon(c.cogs_var_yoy)}></span>&nbsp;{c.cogs_var_yoy}%</h4>
+                                                <h5 className="kpiSubTitle"><b>YoY</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(c.cogs_var_lfl)}></span>&nbsp;{c.cogs_var_lfl}%
-                                                <h4 className="kpiSubTitle"><b>LFL</b></h4>
+                                                <h4><span className={this.formatGlyphicon(c.cogs_var_lfl)}></span>&nbsp;{c.cogs_var_lfl}%</h4>
+                                                <h5 className="kpiSubTitle"><b>LFL</b></h5>
                                               </div>
                                             </div>
                                             <div className="row">
@@ -914,16 +923,16 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                             </div>
                                             <div className="row">
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(d.profit_var_wow)}></span>&nbsp;{d.profit_var_wow}%
-                                                <h4 className="kpiSubTitle"><b>WoW</b></h4>
+                                                <h4><span className={this.formatGlyphicon(d.profit_var_wow)}></span>&nbsp;{d.profit_var_wow}%</h4>
+                                                <h5 className="kpiSubTitle"><b>WoW</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(d.profit_var_yoy)}></span>&nbsp;{d.profit_var_yoy}%
-                                                <h4 className="kpiSubTitle"><b>YoY</b></h4>
+                                                <h4><span className={this.formatGlyphicon(d.profit_var_yoy)}></span>&nbsp;{d.profit_var_yoy}%</h4>
+                                                <h5 className="kpiSubTitle"><b>YoY</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(d.profit_var_lfl)}></span>&nbsp;{d.profit_var_lfl}%
-                                                <h4 className="kpiSubTitle"><b>LFL</b></h4>
+                                                <h4><span className={this.formatGlyphicon(d.profit_var_lfl)}></span>&nbsp;{d.profit_var_lfl}%</h4>
+                                                <h5 className="kpiSubTitle"><b>LFL</b></h5>
                                               </div>
                                             </div>
                                             <div className="row">
@@ -951,16 +960,16 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                             </div>
                                             <div className="row">
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(b.vol_var_wow)}></span>&nbsp;{e.wow}%
-                                                <h4 className="kpiSubTitle"><b>WoW</b></h4>
+                                                <h4><span className={this.formatGlyphicon(b.vol_var_wow)}></span>&nbsp;{e.wow}%</h4>
+                                                <h5 className="kpiSubTitle"><b>WoW</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(b.vol_var_yoy)}></span>&nbsp;{e.yoy}%
-                                                <h4 className="kpiSubTitle"><b>YoY</b></h4>
+                                                <h4><span className={this.formatGlyphicon(b.vol_var_yoy)}></span>&nbsp;{e.yoy}%</h4>
+                                                <h5 className="kpiSubTitle"><b>YoY</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
-                                                <span className={this.formatGlyphicon(b.vol_var_lfl)}></span>&nbsp;{e.yoy_lfl}%
-                                                <h4 className="kpiSubTitle"><b>LFL</b></h4>
+                                                <h4><span className={this.formatGlyphicon(b.vol_var_lfl)}></span>&nbsp;{e.yoy_lfl}%</h4>
+                                                <h5 className="kpiSubTitle"><b>LFL</b></h5>
                                               </div>
                                             </div>
                                             <div className="row">
@@ -1087,6 +1096,9 @@ function mapDispatchToProps(dispatch) {
     onSaveKPIParam: (e) => dispatch(SaveKPIParam(e)),
     DSViewKpiSpinnerCheckSuccess: (e) => dispatch(DSViewKpiSpinnerCheckSuccess(e)),
     DSViewKpiSpinnerCheck: (e) => dispatch(DSViewKpiSpinnerCheckSuccess(e)),
+
+    cardDataFetchSuccess: (e) => dispatch(cardDataFetchSuccess(e)),
+    prodCardsDataFetchSuccess: (e) => dispatch(prodCardsDataFetchSuccess(e)),
     CardsDataCall: (e) => dispatch(cardsCallAction(e)),
     ChartDataCall: (e) => dispatch(chartCallAction(e)),
     onSaveWeekParam: (e) => dispatch(SaveWeekParam(e)),

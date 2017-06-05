@@ -159,7 +159,7 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                       this.props.filter_data.checkbox_list.map((obj, key) => {
                         let panelHeader = (
                           <div key={Date.now() + Math.random() + Math.random() + 10}
-                               className="text-capitalize">
+                               className="text-capitalize" style={{paddingRight:'1%'}}>
                             {obj.title.replace(/_/g, ' ')}&nbsp;{obj.required ?
                             <span style={{color: 'red'}}>*</span> : '' } &nbsp;
                             <span className="accordion-toggle" style={{float: 'right'}}></span>

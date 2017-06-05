@@ -1816,7 +1816,7 @@ export function* generateBestWorstPerformanceTable() {
     let urlParamsString = urlName.get('urlParamsString');
     let weekParamString = urlName.get('week_filter_param');
     let weekselection = urlName.get('weekurlParam');
-    let tableSelectedLevel = urlName.get('tableSelectedLevel'); /**/
+    let tableSelectedLevel = urlName.get('tableSelectedLevel');
     // alert(tableSelectedLevel)
     if (!urlParamsString) {
       urlParamsString = ''

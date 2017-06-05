@@ -23,6 +23,7 @@ import makeSelectProductPage from './selectors';
 import messages from './messages';
 import TopFilterProduct from "components/TopFilterProduct";
 require('react-bootstrap-table/css/react-bootstrap-table.css')
+import Breadcrumb from 'components/Breadcrumb';
 var dateFormat = require('dateformat');
 
 import {
@@ -139,14 +140,14 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
         return ('£ ' + rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'K');
       }
     }
-    else {
-      if (this.state.y_axis_text == "Sales Volume") {
+      else {
+        if (this.state.y_axis_text == "Sales Volume") {
         return (Math.round(cell));
       }
       else {
         return ('£ ' + Math.round(cell));
+        }
       }
-    }
   }
 
   formatGlyphicon = (cell) => {
@@ -155,8 +156,8 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
     }
     else if (cell < 0) {
       return '<i class="glyphicon glyphicon-triangle-bottom productTableNegative"></i>&nbsp' + cell + '%';
-    } else if (cell = "NA") {
-      return 'NA*';
+    }else if (cell = "-") {
+      return '-*';
     } else {
       return '<i class="glyphicon glyphicon-minus-sign productTableNeutral"></i>&nbsp' + cell + '%';
     }
@@ -175,16 +176,15 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
       }, {
         text: '15', value: 15
       }, {
-        text: 'All',
-        value: this.props.ProductPage.data && this.props.ProductPage.data.table_data ? this.props.ProductPage.data.table_data.length : 0
+        text: 'All', value: this.props.ProductPage.data && this.props.ProductPage.data.table_data ? this.props.ProductPage.data.table_data.length :0
       }], // you can change the dropdown list for size per page
       sizePerPage: 5,  // which size per page you want to locate as default
       pageStartIndex: 1, // where to start counting the pages
       paginationSize: 3,  // the pagination bar size.
-      prePage: 'Prev', // Previous page button text
-      nextPage: 'Next', // Next page button text
-      firstPage: 'First', // First page button text
-      lastPage: 'Last', // Last page button text
+      // prePage: 'Prev', // Previous page button text
+      // nextPage: 'Next', // Next page button text
+      // firstPage: 'First', // First page button text
+      // lastPage: 'Last', // Last page button text
       paginationShowsTotal: this.renderShowsTotal,  // Accept bool or function
       paginationPosition: 'bottom',  // default is bottom, top and both is all available
       expandRowBgColor: 'rgb(242, 255, 163)'
@@ -218,23 +218,37 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
       onSelectAll: onSelectAll
     };
     return (
-      <Panel>
+      <div>
         <Helmet
           title="Products"
           meta={[
             {name: 'description', content: 'Description of Products'},
           ]}
         />
+
+        {(() => {
+            if (this.props.ProductPage.filter_week_selection) {
+            return (
+            <Breadcrumb
+            selected_week={(this.props.ProductPage.filter_week_selection).substring(10, this.props.ProductPage.filter_week_selection.length)}
+            urlParamsString={this.props.ProductPage.urlParamsString}/>
+            )
+          }
+        })()}
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+
         <div id="productPage" ref="productPage">
-          <div style={{
-            height: '100%',
-            position: 'fixed',
-            width: '18%',
-            paddingRight: '1%',
-            overflowX: 'hidden',
-            overflowY: 'scroll',
-            borderTop: '1px solid #ccc'
-          }}>
+          <div className={this.state.collapsed ? 'collapse-filter' : 'expand-filter'}
+               style={{
+                 height: '100%',
+                 position: 'fixed',
+                 overflowX: 'hidden',
+                 overflowY: 'scroll',
+                 borderTop: '1px solid #ccc'
+               }}>
 
 
             {(() => {
@@ -265,21 +279,30 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
 
 
           </div>
-          <div className="col-xs-10" style={{float: 'right'}}>
-            <div className="col-xs-12">
-              <div className="pageTitle">
-                {(() => {
-                  if (this.props.ProductPage.filter_week_selection) {
-                    return (
-                      <span>Product View - {(this.props.ProductPage.filter_week_selection).substring(11, 17)}</span>
-                    )
-                  } else {
-                    return (
-                      <span>Product View - {this.props.ProductPage.data && this.props.ProductPage.data.latest_week ? this.props.ProductPage.data.latest_week:"Latest Week"}  </span>
-                    )
-                  }
-                })()}
-              </div>
+
+          {/* Collapse (or) Expand filters Button*/}
+          <div style={{width:'1%',height:'20px',  marginLeft: this.state.collapsed ? '0%' : '20%',position:'fixed'}}>
+            <div className="filterCollapseBar" onClick={() => {
+              this.setState({collapsed: !this.state.collapsed})
+            }}>{this.state.collapsed ? <span className="glyphicon glyphicon-forward"></span> : <span className="glyphicon glyphicon-backward"></span>}
+            </div>
+          </div>
+
+          <div className={this.state.collapsed ? 'expand-content' : 'collapse-content'}>
+            <div>
+              {/*<div className="pageTitle">*/}
+                {/*{(() => {*/}
+                  {/*if (this.props.ProductPage.filter_week_selection) {*/}
+                    {/*return (*/}
+                      {/*<span>Product View - {(this.props.ProductPage.filter_week_selection).substring(11, 17)}</span>*/}
+                    {/*)*/}
+                  {/*} else {*/}
+                    {/*return (*/}
+                      {/*<span>Product View - {this.props.ProductPage.data && this.props.ProductPage.data.latest_week ? this.props.ProductPage.data.latest_week:"Latest Week"}  </span>*/}
+                    {/*)*/}
+                  {/*}*/}
+                {/*})()}*/}
+              {/*</div>*/}
               <div>
                 {(() => {
                   if (this.props.ProductPage.week_filter_data) {
@@ -479,8 +502,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                           else {
                             return (
 
-                              <div className="text-center" colSpan="11" style={{textAlign: 'center'}}><Spinner />Please
-                                Wait a Moment....!</div>
+                        <div className="text-center" colSpan="11" style={{textAlign: 'center'}}><Spinner />Please Wait a Moment....!</div>
 
                             );
                           }
@@ -753,7 +775,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
 
 
         </div>
-      </Panel>
+      </div>
     );
   }
 }

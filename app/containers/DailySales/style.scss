@@ -1,5 +1,24 @@
 @import "./../../stylesheet";
 
+
+.collapse-filter {
+  width: 0%;
+}
+
+.expand-filter {
+  width: 20%;
+}
+
+.collapse-content {
+  width: 78%;
+  marginLeft: '22%';
+  float:right;
+}
+
+.expand-content {
+  width: 98%;
+  float:right;
+}
 .col-half-offset{
   margin-left:4.166666667%
 }
