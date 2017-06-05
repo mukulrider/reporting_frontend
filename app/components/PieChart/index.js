@@ -84,7 +84,7 @@ class PieChart extends React.PureComponent { // eslint-disable-line react/prefer
       .attr("class", "arc")
       .on('mouseover', function(d) {
         console.log("pie mouseover",d);
-        tooltip.html("Value : " + Math.round(d.value*100/total)+'%');
+        tooltip.html("Value : " + Math.round((d.value/total)*100)+'%');
         tooltip.style("visibility", "visible");
       })
       .on('mousemove', function() {

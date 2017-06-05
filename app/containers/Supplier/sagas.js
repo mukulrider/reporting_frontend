@@ -69,7 +69,7 @@ let gettingUserDetails = () => {
 
 const userParamsAuth = gettingUserDetails();
 
-let host_url = "http://172.20.181.16:8001";
+let host_url = "http://dvcmpapp00001uk.dev.global.tesco.org";
 
 // FOR SUPPLIER POPUP TABLE
 

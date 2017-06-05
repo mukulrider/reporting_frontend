@@ -212,6 +212,7 @@ export function* generateRolesAndIntentDataFetch() {
   let urlParamsString = urlName.get('urlParamsString');
   let weekParamString = urlName.get('week_filter_param');
   let weekselection = urlName.get('weekurlParam');
+  let storeParamString = urlName.get('store_filter_param');
   if (!urlParamsString) {
     urlParamsString = ''
   }
@@ -232,6 +233,14 @@ export function* generateRolesAndIntentDataFetch() {
   let urlAppends = "";
   if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
     urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+
+  if (!(typeof(storeParamString) == "undefined") && !(storeParamString == "")) {
+    urlAppends = urlAppends + '&' + storeParamString;
     console.log('urlAppends1', urlAppends);
   } else {
 
@@ -299,6 +308,7 @@ export function* generateBudgetForecastDataFetch() {
   let urlParamsString = urlName.get('urlParamsString');
   let weekParamString = urlName.get('week_filter_param');
   let weekselection = urlName.get('weekurlParam');
+  let storeParamString = urlName.get('store_filter_param');
   if (!urlParamsString) {
     urlParamsString = ''
   }
@@ -328,6 +338,15 @@ export function* generateBudgetForecastDataFetch() {
   } else {
 
   }
+
+
+  if (!(typeof(storeParamString) == "undefined") && !(storeParamString == "")) {
+    urlAppends = urlAppends + '&' + storeParamString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
 
   if (!(typeof(weekParamString) == "undefined") && !(weekParamString == "")) {
     urlAppends = urlAppends + '&' + weekParamString;
@@ -381,6 +400,7 @@ export function* generateOverviewKPITrendDataFetch() {
   let urlParamsString = urlName.get('urlParamsString');
   let weekParamString = urlName.get('week_filter_param');
   let weekselection = urlName.get('weekurlParam');
+  let storeParamString = urlName.get('store_filter_param');
   if (!urlParamsString) {
     urlParamsString = ''
   }
@@ -406,6 +426,14 @@ export function* generateOverviewKPITrendDataFetch() {
 
   if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
     urlAppends = urlAppends + '&' + urlParamsString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+
+  if (!(typeof(storeParamString) == "undefined") && !(storeParamString == "")) {
+    urlAppends = urlAppends + '&' + storeParamString;
     console.log('urlAppends1', urlAppends);
   } else {
 
@@ -466,6 +494,7 @@ export function* generateOverviewDriversInternalDataFetch() {
   let urlParamsString = urlName.get('urlParamsString');
   let weekParamString = urlName.get('week_filter_param');
   let weekselection = urlName.get('weekurlParam');
+  let storeParamString = urlName.get('store_filter_param');
   if (!urlParamsString) {
     urlParamsString = ''
   }
@@ -476,6 +505,14 @@ export function* generateOverviewDriversInternalDataFetch() {
     if (urlParamsStringCheck == 20) {
       urlParamsString = urlParamsString.substring(14, urlParamsString.length);
     }
+  }
+
+
+  if (!(typeof(storeParamString) == "undefined") && !(storeParamString == "")) {
+    urlAppends = urlAppends + '&' + storeParamString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
   }
   // const kpiparam = urlName.get('kpi_param');
 
@@ -547,6 +584,7 @@ export function* generateOverviewDriversExternalDataFetch() {
   let urlParamsString = urlName.get('urlParamsString');
   let weekParamString = urlName.get('week_filter_param');
   let weekselection = urlName.get('weekurlParam');
+  let storeParamString = urlName.get('store_filter_param');
   if (!urlParamsString) {
     urlParamsString = ''
   }
@@ -558,6 +596,15 @@ export function* generateOverviewDriversExternalDataFetch() {
       urlParamsString = urlParamsString.substring(14, urlParamsString.length);
     }
   }
+
+
+  if (!(typeof(storeParamString) == "undefined") && !(storeParamString == "")) {
+    urlAppends = urlAppends + '&' + storeParamString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
   // const kpiparam = urlName.get('kpi_param');
 
   let urlAppends = "";
@@ -628,6 +675,7 @@ export function* generateKpiBoxesDataFetch() {
   let urlParamsString = urlName.get('urlParamsString');
   let weekParamString = urlName.get('week_filter_param');
   let weekselection = urlName.get('weekurlParam');
+  let storeParamString = urlName.get('store_filter_param');
   if (!urlParamsString) {
     urlParamsString = ''
   }
@@ -644,6 +692,14 @@ export function* generateKpiBoxesDataFetch() {
   let urlAppends = "";
   if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
     urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+
+  if (!(typeof(storeParamString) == "undefined") && !(storeParamString == "")) {
+    urlAppends = urlAppends + '&' + storeParamString;
     console.log('urlAppends1', urlAppends);
   } else {
 
@@ -709,6 +765,7 @@ export function* generateBestWorstFetch() {
   let urlParamsString = urlName.get('urlParamsString');
   let weekParamString = urlName.get('week_filter_param');
   let weekselection = urlName.get('weekurlParam');
+  let storeParamString = urlName.get('store_filter_param');
   if (!urlParamsString) {
     urlParamsString = ''
   }
@@ -730,8 +787,18 @@ export function* generateBestWorstFetch() {
 
   }
 
+
   if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
     urlAppends = urlAppends + '&' + urlParamsString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+
+
+  if (!(typeof(storeParamString) == "undefined") && !(storeParamString == "")) {
+    urlAppends = urlAppends + '&' + storeParamString;
     console.log('urlAppends1', urlAppends);
   } else {
 
@@ -795,6 +862,7 @@ export function* generateBestInfoFetch() {
   let urlParamsString = urlName.get('urlParamsString');
   let weekParamString = urlName.get('week_filter_param');
   let weekselection = urlName.get('weekurlParam');
+  let storeParamString = urlName.get('store_filter_param');
   if (!urlParamsString) {
     urlParamsString = ''
   }
@@ -816,6 +884,14 @@ export function* generateBestInfoFetch() {
   let urlAppends = "";
   if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
     urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+
+  if (!(typeof(storeParamString) == "undefined") && !(storeParamString == "")) {
+    urlAppends = urlAppends + '&' + storeParamString;
     console.log('urlAppends1', urlAppends);
   } else {
 
@@ -893,6 +969,7 @@ export function* generateWorstInfoFetch() {
   let urlParamsString = urlName.get('urlParamsString');
   let weekParamString = urlName.get('week_filter_param');
   let weekselection = urlName.get('weekurlParam');
+  let storeParamString = urlName.get('store_filter_param');
   if (!urlParamsString) {
     urlParamsString = ''
   }
@@ -924,6 +1001,15 @@ export function* generateWorstInfoFetch() {
   } else {
 
   }
+
+
+  if (!(typeof(storeParamString) == "undefined") && !(storeParamString == "")) {
+    urlAppends = urlAppends + '&' + storeParamString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
 
   if (!(typeof(weekParamString) == "undefined") && !(weekParamString == "")) {
     urlAppends = urlAppends + '&' + weekParamString;
@@ -996,6 +1082,7 @@ export function* generateSupplierInfoFetch() {
   let urlParamsString = urlName.get('urlParamsString');
   let weekParamString = urlName.get('week_filter_param');
   let weekselection = urlName.get('weekurlParam');
+  let storeParamString = urlName.get('store_filter_param');
   if (!urlParamsString) {
     urlParamsString = ''
   }
@@ -1040,6 +1127,14 @@ export function* generateSupplierInfoFetch() {
 
   if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
     urlAppends = urlAppends + '&' + urlParamsString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+
+  if (!(typeof(storeParamString) == "undefined") && !(storeParamString == "")) {
+    urlAppends = urlAppends + '&' + storeParamString;
     console.log('urlAppends1', urlAppends);
   } else {
 
@@ -1118,6 +1213,7 @@ export function* generateTopSupplierInfoFetch() {
   let urlParamsString = urlName.get('urlParamsString');
   let weekParamString = urlName.get('week_filter_param');
   let weekselection = urlName.get('weekurlParam');
+  let storeParamString = urlName.get('store_filter_param');
   if (!urlParamsString) {
     urlParamsString = ''
   }
@@ -1145,6 +1241,14 @@ export function* generateTopSupplierInfoFetch() {
   let urlAppends = "";
   if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
     urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+
+  if (!(typeof(storeParamString) == "undefined") && !(storeParamString == "")) {
+    urlAppends = urlAppends + '&' + storeParamString;
     console.log('urlAppends1', urlAppends);
   } else {
 
@@ -1229,6 +1333,7 @@ export function* generateBotSupplierInfoFetch() {
   let urlParamsString = urlName.get('urlParamsString');
   let weekParamString = urlName.get('week_filter_param');
   let weekselection = urlName.get('weekurlParam');
+  let storeParamString = urlName.get('store_filter_param');
   if (!urlParamsString) {
     urlParamsString = ''
   }
@@ -1257,6 +1362,14 @@ export function* generateBotSupplierInfoFetch() {
   let urlAppends = "";
   if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
     urlAppends = urlAppends + '&' + weekurlparam;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+
+  if (!(typeof(storeParamString) == "undefined") && !(storeParamString == "")) {
+    urlAppends = urlAppends + '&' + storeParamString;
     console.log('urlAppends1', urlAppends);
   } else {
 
@@ -1340,6 +1453,7 @@ export function* generateDriversInternalFetch() {
   let urlParamsString = urlName.get('urlParamsString');
   let weekParamString = urlName.get('week_filter_param');
   let weekselection = urlName.get('weekurlParam');
+  let storeParamString = urlName.get('store_filter_param');
   if (!urlParamsString) {
     urlParamsString = ''
   }
@@ -1364,6 +1478,14 @@ export function* generateDriversInternalFetch() {
 
   if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
     urlAppends = urlAppends + '&' + urlParamsString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+
+  if (!(typeof(storeParamString) == "undefined") && !(storeParamString == "")) {
+    urlAppends = urlAppends + '&' + storeParamString;
     console.log('urlAppends1', urlAppends);
   } else {
 
@@ -1431,6 +1553,7 @@ export function* generateDriversExternalFetch() {
   let urlParamsString = urlName.get('urlParamsString');
   let weekParamString = urlName.get('week_filter_param');
   let weekselection = urlName.get('weekurlParam');
+  let storeParamString = urlName.get('store_filter_param');
   if (!urlParamsString) {
     urlParamsString = ''
   }
@@ -1461,6 +1584,14 @@ export function* generateDriversExternalFetch() {
 
   if (!(typeof(weekParamString) == "undefined") && !(weekParamString == "")) {
     urlAppends = urlAppends + '&' + weekParamString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+
+  if (!(typeof(storeParamString) == "undefined") && !(storeParamString == "")) {
+    urlAppends = urlAppends + '&' + storeParamString;
     console.log('urlAppends1', urlAppends);
   } else {
 
@@ -1521,6 +1652,7 @@ export function* generatePriceKPIFetch() {
   let urlParamsString = urlName.get('urlParamsString');
   let weekParamString = urlName.get('week_filter_param');
   let weekselection = urlName.get('weekurlParam');
+  let storeParamString = urlName.get('store_filter_param');
   if (!urlParamsString) {
     urlParamsString = ''
   }
@@ -1545,6 +1677,14 @@ export function* generatePriceKPIFetch() {
 
   if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
     urlAppends = urlAppends + '&' + urlParamsString;
+    console.log('urlAppends1', urlAppends);
+  } else {
+
+  }
+
+
+  if (!(typeof(storeParamString) == "undefined") && !(storeParamString == "")) {
+    urlAppends = urlAppends + '&' + storeParamString;
     console.log('urlAppends1', urlAppends);
   } else {
 
@@ -1722,6 +1862,7 @@ export function* generateBestWorstPerformance() {
     let urlParamsString = urlName.get('urlParamsString');
     let weekParamString = urlName.get('week_filter_param');
     let weekselection = urlName.get('weekurlParam');
+    let storeParamString = urlName.get('store_filter_param');
     if (!urlParamsString) {
       urlParamsString = ''
     }
@@ -1743,12 +1884,12 @@ export function* generateBestWorstPerformance() {
 
     }
     //
-    // if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
-    //   urlAppends = urlAppends + '&' + urlParamsString;
-    //   console.log('urlAppends1', urlAppends);
-    // } else {
-    //
-    // }
+    if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
+      urlAppends = urlAppends + '&' + urlParamsString;
+      console.log('urlAppends1', urlAppends);
+    } else {
+
+    }
 
     if (!(typeof(weekParamString) == "undefined") && !(weekParamString == "")) {
       urlAppends = urlAppends + '&' + weekParamString;
@@ -1759,6 +1900,14 @@ export function* generateBestWorstPerformance() {
 
     if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
       urlAppends = urlAppends + '&' + kpiparam;
+      console.log('urlAppends1', urlAppends);
+    } else {
+
+    }
+
+
+    if (!(typeof(storeParamString) == "undefined") && !(storeParamString == "")) {
+      urlAppends = urlAppends + '&' + storeParamString;
       console.log('urlAppends1', urlAppends);
     } else {
 
@@ -1810,13 +1959,14 @@ export function* doGenerateBestWorstPerformance() {
 export function* generateBestWorstPerformanceTable() {
   try {
     // todo: update url
-    console.log("Inside generateWeekFilterFetch")
+    console.log("Inside generateBestWorstPerformanceTable")
     const urlName = yield select(selectExecutiveDomain());
     const weekurlparam = urlName.get('week_param');
     let urlParamsString = urlName.get('urlParamsString');
     let weekParamString = urlName.get('week_filter_param');
     let weekselection = urlName.get('weekurlParam');
-    let tableSelectedLevel = urlName.get('tableSelectedLevel');
+    let storeParamString = urlName.get('store_filter_param');
+    let tableSelectedLevel = urlName.get('tableSelectedLevel'); /**/
     // alert(tableSelectedLevel)
     if (!urlParamsString) {
       urlParamsString = ''
@@ -1834,6 +1984,14 @@ export function* generateBestWorstPerformanceTable() {
     let urlAppends = "";
     if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
       urlAppends = urlAppends + '&' + weekurlparam;
+      console.log('urlAppends1', urlAppends);
+    } else {
+
+    }
+
+
+    if (!(typeof(storeParamString) == "undefined") && !(storeParamString == "")) {
+      urlAppends = urlAppends + '&' + storeParamString;
       console.log('urlAppends1', urlAppends);
     } else {
 

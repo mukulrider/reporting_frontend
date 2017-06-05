@@ -665,7 +665,7 @@ export class Promotion extends React.PureComponent {
                                     </div>
                                     <div className="col-md-6 col-xs-6">
                                       <h3 style={{padding: "0px", margin: "0px"}}>
-                                        LFL&#58;&nbsp; {this.props.promotion.kpi_data.total.total_lfl} </h3>
+                                        LFL TY&#58;&nbsp; {this.props.promotion.kpi_data.total.total_lfl} </h3>
                                     </div>
                                   </div>
 
@@ -729,7 +729,7 @@ export class Promotion extends React.PureComponent {
                                       style={{marginTop: '20px'}}>
                                     </span>{(this.props.promotion.kpi_data.total.var_total_lfl) + '%'}
                                         </h4>
-                                        <h5 className="kpiSubTitle"><b>LFL</b></h5>
+                                        <h5 className="kpiSubTitle"><b>LFL TY</b></h5>
                                       </div>
                                     </div>
                                   </div>
@@ -759,7 +759,7 @@ export class Promotion extends React.PureComponent {
                                     </div>
                                     <div className="col-md-6 col-xs-6">
                                       <h3 style={{padding: "0px", margin: "0px"}}>
-                                        LFL&#58;&nbsp;{this.props.promotion.kpi_data.promo.promo_lfl} </h3>
+                                        LFL TY&#58;&nbsp;{this.props.promotion.kpi_data.promo.promo_lfl} </h3>
                                     </div>
                                   </div>
 
@@ -831,7 +831,7 @@ export class Promotion extends React.PureComponent {
                                       style={{marginTop: '20px'}}></span>
                                           {(this.props.promotion.kpi_data.promo.var_promo_lfl) + '%'}
                                         </h4>
-                                        <h5 className="kpiSubTitle"><b>LFL</b></h5>
+                                        <h5 className="kpiSubTitle"><b>LFL TY</b></h5>
                                       </div>
                                     </div>
                                   </div>
@@ -856,7 +856,7 @@ export class Promotion extends React.PureComponent {
                                     </div>
                                     <div className="col-md-6 col-xs-6">
                                       <h3 style={{padding: "0px", margin: "0px"}}>
-                                        LFL&#58;&nbsp; {this.props.promotion.kpi_data.nonpromo.nonpromo_lfl} </h3>
+                                        LFL TY&#58;&nbsp; {this.props.promotion.kpi_data.nonpromo.nonpromo_lfl} </h3>
                                     </div>
                                   </div>
 
@@ -922,7 +922,7 @@ export class Promotion extends React.PureComponent {
                                       style={{marginTop: '20px'}}></span>
                                           {(this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl) + '%'}
                                         </h4>
-                                        <h5 className="kpiSubTitle"><b>LFL</b></h5>
+                                        <h5 className="kpiSubTitle"><b>LFL TY</b></h5>
                                       </div>
                                     </div>
                                   </div>
@@ -1107,7 +1107,7 @@ export class Promotion extends React.PureComponent {
                                         {/*style={{marginTop: '20px'}}></span>*/}
                                         {/*{(this.props.promotion.kpi_data.promo.var_promo_lfl) + '%'}*/}
                                         {/*</h4>*/}
-                                        {/*<h5 className="kpiSubTitle"><b>LFL</b></h5>*/}
+                                        {/*<h5 className="kpiSubTitle"><b>LFL TY</b></h5>*/}
                                       </div>
                                     </div>
                                   </div>
@@ -1132,7 +1132,7 @@ export class Promotion extends React.PureComponent {
                                     </div>
                                     {/*<div className="col-md-6 col-xs-6">*/}
                                     {/*<h3 style={{padding: "0px", margin: "0px"}}>*/}
-                                    {/*LFL&#58;&nbsp; {this.props.promotion.kpi_data.nonpromo.nonpromo_lfl} </h3>*/}
+                                    {/*LFL TY&#58;&nbsp; {this.props.promotion.kpi_data.nonpromo.nonpromo_lfl} </h3>*/}
                                     {/*</div>*/}
                                   </div>
 
@@ -1198,7 +1198,7 @@ export class Promotion extends React.PureComponent {
                                         {/*style={{marginTop: '20px'}}></span>*/}
                                         {/*{(this.props.promotion.kpi_data.nonpromo.var_nonpromo_lfl) + '%'}*/}
                                         {/*</h4>*/}
-                                        {/*<h5 className="kpiSubTitle"><b>LFL</b></h5>*/}
+                                        {/*<h5 className="kpiSubTitle"><b>LFL TY</b></h5>*/}
                                       </div>
                                     </div>
                                   </div>
@@ -1235,7 +1235,7 @@ export class Promotion extends React.PureComponent {
                                     </div>
                                     <div className="col-md-6 col-xs-6">
                                       <h3 style={{padding: "0px", margin: "0px"}}>
-                                        LFL&#58;&nbsp; {this.props.promotion.kpi_data.total.total_lfl} </h3>
+                                        LFL TY&#58;&nbsp; {this.props.promotion.kpi_data.total.total_lfl} </h3>
                                     </div>
                                   </div>
 
@@ -1299,7 +1299,7 @@ export class Promotion extends React.PureComponent {
                                       style={{marginTop: '20px'}}>
                                     </span>{(this.props.promotion.kpi_data.total.var_total_lfl) + '%'}
                                         </h4>
-                                        <h5 className="kpiSubTitle"><b>LFL</b></h5>
+                                        <h5 className="kpiSubTitle"><b>LFL TY</b></h5>
                                       </div>
                                     </div>
                                   </div>
@@ -1827,10 +1827,12 @@ export class Promotion extends React.PureComponent {
                                   TY</TableHeaderColumn>
                                 <TableHeaderColumn headerAlign={"center"} dataAlign={"center"}
                                                    dataField='Promo LY'
+                                                   dataSort={true}
                                                    dataFormat={formatMetric}>Promo {this.props.promotion.productsOnPromotion.col_name}
                                   LY</TableHeaderColumn>
                                 <TableHeaderColumn headerAlign={"center"} dataAlign={"center"} dataField='lfl_var'
-                                                   dataFormat={ triangleColumnFormatter }>LFL
+                                                   dataSort={true}
+                                                   dataFormat={ triangleColumnFormatter }>LFL TY
                                   Variation</TableHeaderColumn>
                                 <TableHeaderColumn headerAlign={"center"} dataAlign={"center"}
                                                    dataField='promoted_ly_ind'>Promoted Last
@@ -1869,10 +1871,10 @@ export class Promotion extends React.PureComponent {
                                     console.log(objString);
 
 
-                                    let domain = "localhost";
+                                    let domain = "dvcmpweb00001uk.dev.global.tesco.org";
                                     document.cookie = `PreselectionFromNego=1;domain=${domain};path=/;`;
                                     document.cookie = `PreselectionFromNegoData=${objString};domain=${domain};path=/;`;
-                                    window.location = '/ranging/delist/'
+                                    window.location = 'http://dvcmpweb00001uk.dev.global.tesco.org/ranging/delist/'
 
                                   } else {
                                     alert("You have not selected any products to delist. Are you sure you want to see the delist impact?")
@@ -1943,7 +1945,7 @@ export class Promotion extends React.PureComponent {
                                 </div>
                                 <div className="col-md-6 col-xs-6">
                                   <h3 style={{padding: "0px", margin: "0px"}}>
-                                    LFL&#8208;&nbsp; {this.props.promotion.modalProductData.kpi_data.total.total_lfl} </h3>
+                                    LFL TY&#8208;&nbsp; {this.props.promotion.modalProductData.kpi_data.total.total_lfl} </h3>
                                 </div>
                               </div>
 
@@ -2007,7 +2009,7 @@ export class Promotion extends React.PureComponent {
                                       style={{marginTop: '20px'}}>
                                     </span>{(this.props.promotion.modalProductData.kpi_data.total.var_total_lfl) + '%'}
                                     </h4>
-                                    <h5 className="kpiSubTitle"><b>LFL</b></h5>
+                                    <h5 className="kpiSubTitle"><b>LFL TY</b></h5>
                                   </div>
                                 </div>
                               </div>
@@ -2038,7 +2040,7 @@ export class Promotion extends React.PureComponent {
                                 </div>
                                 <div className="col-md-6 col-xs-6">
                                   <h3 style={{padding: "0px", margin: "0px"}}>
-                                    LFL&#8208;&nbsp;{this.props.promotion.modalProductData.kpi_data.promo.promo_lfl} </h3>
+                                    LFL TY&#8208;&nbsp;{this.props.promotion.modalProductData.kpi_data.promo.promo_lfl} </h3>
                                 </div>
                               </div>
 
@@ -2110,7 +2112,7 @@ export class Promotion extends React.PureComponent {
                                       style={{marginTop: '20px'}}></span>
                                       {(this.props.promotion.modalProductData.kpi_data.promo.var_promo_lfl) + '%'}
                                     </h4>
-                                    <h5 className="kpiSubTitle"><b>LFL</b></h5>
+                                    <h5 className="kpiSubTitle"><b>LFL TY</b></h5>
                                   </div>
                                 </div>
                               </div>
@@ -2135,7 +2137,7 @@ export class Promotion extends React.PureComponent {
                                 </div>
                                 <div className="col-md-6 col-xs-6">
                                   <h3 style={{padding: "0px", margin: "0px"}}>
-                                    LFL&#8208;&nbsp; {this.props.promotion.modalProductData.kpi_data.nonpromo.nonpromo_lfl} </h3>
+                                    LFL TY&#8208;&nbsp; {this.props.promotion.modalProductData.kpi_data.nonpromo.nonpromo_lfl} </h3>
                                 </div>
                               </div>
 
@@ -2197,7 +2199,7 @@ export class Promotion extends React.PureComponent {
                                       style={{marginTop: '20px'}}></span>
                                       {(this.props.promotion.modalProductData.kpi_data.nonpromo.var_nonpromo_lfl) + '%'}
                                     </h4>
-                                    <h5 className="kpiSubTitle"><b>LFL</b></h5>
+                                    <h5 className="kpiSubTitle"><b>LFL TY</b></h5>
                                   </div>
                                 </div>
                               </div>
@@ -2406,16 +2408,16 @@ export class Promotion extends React.PureComponent {
                 <ul> Non Promo volume variation YoY: The variation of a given measure of non promo volume for a set
                   time period this year versus the equivalent time period last year (week).
                 </ul>
-                <ul> Promo sales variation LFL: The variation of a given measure of promo LFL sales for a set time
+                <ul> Promo sales variation LFL TY: The variation of a given measure of promo LFL TY sales for a set time
                   period this year versus the equivalent time period last year (week).
                 </ul>
-                <ul> Non Promo sales variation LFL: The variation of a given measure of non promo LFL sales for a set
+                <ul> Non Promo sales variation LFL TY: The variation of a given measure of non promo LFL TY sales for a set
                   time period this year versus the equivalent time period last year (week).
                 </ul>
-                <ul> Promo volume variation LFL: The variation of a given measure of promo LFL volume for a set time
+                <ul> Promo volume variation LFL TY: The variation of a given measure of promo LFL TY volume for a set time
                   period this year versus the equivalent time period last year (week).
                 </ul>
-                <ul> Non Promo volume variation LFL: The variation of a given measure of non promo LFL volume for a
+                <ul> Non Promo volume variation LFL TY: The variation of a given measure of non promo LFL TY volume for a
                   set time period this year versus the equivalent time period last year (week).
                 </ul>
                 <ul> Number of products on promotion: Count of products flagged as promotion</ul>
@@ -2514,16 +2516,16 @@ export class Promotion extends React.PureComponent {
                 <ul> Non Promo volume variation YoY: The variation of a given measure of non promo volume for a set
                   time period this year versus the equivalent time period last year (week).
                 </ul>
-                <ul> Promo sales variation LFL: The variation of a given measure of promo LFL sales for a set time
+                <ul> Promo sales variation LFL TY: The variation of a given measure of promo LFL TY sales for a set time
                   period this year versus the equivalent time period last year (week).
                 </ul>
-                <ul> Non Promo sales variation LFL: The variation of a given measure of non promo LFL sales for a set
+                <ul> Non Promo sales variation LFL TY: The variation of a given measure of non promo LFL TY sales for a set
                   time period this year versus the equivalent time period last year (week).
                 </ul>
-                <ul> Promo volume variation LFL: The variation of a given measure of promo LFL volume for a set time
+                <ul> Promo volume variation LFL TY: The variation of a given measure of promo LFL TY volume for a set time
                   period this year versus the equivalent time period last year (week).
                 </ul>
-                <ul> Non Promo volume variation LFL: The variation of a given measure of non promo LFL volume for a
+                <ul> Non Promo volume variation LFL TY: The variation of a given measure of non promo LFL TY volume for a
                   set time period this year versus the equivalent time period last year (week).
                 </ul>
                 <ul> Number of products on promotion: Count of products flagged as promotion</ul>

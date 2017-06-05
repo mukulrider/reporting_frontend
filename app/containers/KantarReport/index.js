@@ -21,7 +21,7 @@ import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import {saveImage, saveDataAsCSV} from './../../utils/exportFunctions';
 import {FormattedMessage} from 'react-intl';
 require('react-bootstrap-table/css/react-bootstrap-table.css');
-import TopFilterKantar from 'components/TopFilterKantar';
+// import TopFilterKantar from 'components/TopFilterKantar';
 
 import { saveWeek,saveCategory, saveRetailer, saveSupplier, generateWeekData,generateHierarchyData,kantarDataCall}
 from './actions';
