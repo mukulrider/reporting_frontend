@@ -174,6 +174,15 @@ export function* generateDataFetch() {
     console.log("storeParam urlParams else", urlParams);
   }
 
+  //BRAND PARAMS
+  let brandParam = urlName.get('brandParam')
+  if (!(typeof(brandParam) == "undefined") && !(brandParam == "")) {
+    urlParams = urlParams + "&" + brandParam;
+    console.log("brandParam urlParams if", urlParams);
+  } else {
+    console.log("brandParam urlParams else", urlParams);
+  }
+
 
   if (!(typeof(userParamsAuth) == "undefined") && !(userParamsAuth == "")) {
     urlParams = urlParams + "&" + userParamsAuth;
@@ -285,6 +294,15 @@ export function* generateDataFetch4() {
     console.log("storeParam urlParams if", urlParams);
   } else {
     console.log("storeParam urlParams else", urlParams);
+  }
+
+  //BRAND PARAMS
+  let brandParam = urlName.get('brandParam')
+  if (!(typeof(brandParam) == "undefined") && !(brandParam == "")) {
+    urlParams = urlParams + "&" + brandParam;
+    console.log("brandParam urlParams if", urlParams);
+  } else {
+    console.log("brandParam urlParams else", urlParams);
   }
 
 
@@ -407,6 +425,15 @@ export function* generateDataFetch3() {
     console.log("storeParam urlParams else", urlParams);
   }
 
+  //BRAND PARAMS
+  let brandParam = urlName.get('brandParam')
+  if (!(typeof(brandParam) == "undefined") && !(brandParam == "")) {
+    urlParams = urlParams + "&" + brandParam;
+    console.log("brandParam urlParams if", urlParams);
+  } else {
+    console.log("brandParam urlParams else", urlParams);
+  }
+
   if (!(typeof(userParamsAuth) == "undefined") && !(userParamsAuth == "")) {
     urlParams = urlParams + "&" + userParamsAuth;
     console.log("userParamsAuth if", urlParams);
@@ -454,44 +481,44 @@ export function* generateSideFilter() {
   let urlParamsString3 = urlName.get('urlParamsString3');
   console.log('in bigger urlParamsString3', urlParamsString3);
 
-let newUrlparamsForFilters = urlName.get('newUrlparamsForFilters');
+  let newUrlparamsForFilters = urlName.get('newUrlparamsForFilters');
   console.log('in bigger newUrlparamsForFilters', newUrlparamsForFilters);
 
 
   if (typeof(urlParamsString) == "undefined") {
     urlParamsString = "";
   } else {
-    console.log('inside else000',urlParamsString);
+    console.log('inside else000', urlParamsString);
     let urlParamsStringCheck = urlParamsString.substring(0, 2);
 
     if (urlParamsStringCheck == 20) {
-      console.log('inside else200',urlParamsString);
+      console.log('inside else200', urlParamsString);
       urlParamsString = urlParamsString.substring(14, urlParamsString.length);
     }
   }
 
   if (urlParamsString3 == 1) {
-    console.log('urlParamsString3 == 1 if0',urlParamsString3);
+    console.log('urlParamsString3 == 1 if0', urlParamsString3);
     if (!(urlParamsString2 == "")) {
       urlParamsString = '?' + urlParamsString2;
-      console.log('urlParamsString3 == 1 if if0',urlParamsString);
+      console.log('urlParamsString3 == 1 if if0', urlParamsString);
     } else {
       urlParamsString = '?';
-      console.log('urlParamsString3 == 1 if if else0',urlParamsString);
+      console.log('urlParamsString3 == 1 if if else0', urlParamsString);
     }
   } else {
     urlParamsString = '?' + newUrlparamsForFilters;
     // urlParamsString = '?' + urlParamsString;
-    console.log('urlParamsString else',urlParamsString);
+    console.log('urlParamsString else', urlParamsString);
   }
   console.log('in bigger before try1', urlParamsString);
-  console.log('calling url', host_url + `/api/reporting/filter_supplier` + urlParamsString  + '&' + userParamsAuth.replace('&', ''));
+  console.log('calling url', host_url + `/api/reporting/filter_supplier` + urlParamsString + '&' + userParamsAuth.replace('&', ''));
 
 
   try {
     const filter_data = yield call(request,
-      host_url + `/api/reporting/filter_new_supplier` + urlParamsString  + '&' + userParamsAuth);
-      // host_url + `/api/reporting/filter_supplier` + urlParamsString  + '&' + userParamsAuth);
+      host_url + `/api/reporting/filter_new_supplier` + urlParamsString + '&' + userParamsAuth);
+    // host_url + `/api/reporting/filter_supplier` + urlParamsString  + '&' + userParamsAuth);
     console.log('filter_data', filter_data);
     yield put(generateSideFilterSuccess(filter_data));
     yield put(GenerateUrlParamsString3(0));
@@ -711,6 +738,15 @@ export function* generateTable() {
       console.log("storeParam urlParams else", urlParams);
     }
 
+    //BRAND PARAM
+    let brandParam = urlName.get('brandParam')
+    if (!(typeof(brandParam) == "undefined") && !(brandParam == "")) {
+      urlParams = urlParams + "&" + brandParam;
+      console.log("brandParam urlParams if", urlParams);
+    } else {
+      console.log("brandParam urlParams else", urlParams);
+    }
+
     if (!(typeof(urlParams) == "undefined") && !(urlParams == "")) {
       urlParams = urlParams.replace('&', '');
     }
@@ -736,6 +772,14 @@ export function* generateTable() {
       console.log("storeParam urlParams if", urlParams);
     } else {
       console.log("storeParam urlParams else", urlParams);
+    }
+
+    let brandParam = urlName.get('brandParam')
+    if (!(typeof(brandParam) == "undefined") && !(brandParam == "")) {
+      urlParams = urlParams + "&" + brandParam;
+      console.log("brandParam urlParams if", urlParams);
+    } else {
+      console.log("brandParam urlParams else", urlParams);
     }
 
     if (!(typeof(userParamsAuth) == "undefined") && !(userParamsAuth == "")) {
@@ -877,6 +921,15 @@ export function* generateGraph() {
       console.log("storeParam urlParams else", urlParams);
     }
 
+    //BRAND PARAM
+    let brandParam = urlName.get('brandParam')
+    if (!(typeof(brandParam) == "undefined") && !(brandParam == "")) {
+      urlParams = urlParams + "&" + brandParam;
+      console.log("storeParam urlParams if", urlParams);
+    } else {
+      console.log("storeParam urlParams else", urlParams);
+    }
+
     if (!(typeof(userParamsAuth) == "undefined") && !(userParamsAuth == "")) {
       urlParams = urlParams + '&' + userParamsAuth;
       console.log('urlParams 5', urlParams);
@@ -913,6 +966,15 @@ export function* generateGraph() {
       console.log("storeParam urlParams if", urlParams);
     } else {
       console.log("storeParam urlParams else", urlParams);
+    }
+
+    //BRAND PARAM
+    let brandParam = urlName.get('brandParam')
+    if (!(typeof(brandParam) == "undefined") && !(brandParam == "")) {
+      urlParams = urlParams + "&" + brandParam;
+      console.log("brandParam urlParams if", urlParams);
+    } else {
+      console.log("brandParam urlParams else", urlParams);
     }
 
     if (!(typeof(urlParams) == "undefined") && !(urlParams == "")) {

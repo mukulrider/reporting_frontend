@@ -40,6 +40,7 @@ import {
   STORE_FILTER_PARAM,
   DEFAULT_GREY_SCREEN,
   GENERATE_URL_PARAMS_STRING_FOR_FILTERS,
+  BRAND_PARAM,
 } from './constants';
 
 const initialState = fromJS({
@@ -56,6 +57,7 @@ const initialState = fromJS({
   reducer1: {'sales_growth_yoy_lfl_2': '---'},
   week_param: '',
   kpi_param: '',
+  brandParam: '',
   top_bottom_kpi: '',
   prodArrayTable: '[]',
   prodArrayOpacity: '[]',
@@ -257,9 +259,13 @@ function supplierReducer(state = initialState, action) {
       console.log("DEFAULT_GREY_SCREEN", action.data);
       return state.set('defaultGreyScreen', action.data);
 
-      case GENERATE_URL_PARAMS_STRING_FOR_FILTERS:
+    case GENERATE_URL_PARAMS_STRING_FOR_FILTERS:
       console.log("GENERATE_URL_PARAMS_STRING_FOR_FILTERS", action.data);
       return state.set('newUrlparamsForFilters', action.data);
+
+    case BRAND_PARAM:
+      console.log("BRAND_PARAM", action.data);
+      return state.set('brandParam', action.data);
 
     default:
       return state;

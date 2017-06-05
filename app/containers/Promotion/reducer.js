@@ -39,7 +39,8 @@ import {
   TREND_CHART_SPINNER,
 
   PRODUCTS_ON_PROMOTION_TABLE_SUCCESS, TREND_FOR_EACH_TAB_SUCCESS, PIE_CHART_FOR_EACH_TAB_SUCCESS, STORE_FILTER_PARAM,
-  MODAL_PRODUCT_NAME, MODAL_PRODUCT_DATA_SUCCESS, MODAL_SAVE_TREND_CHART_TAB_PARAMS, DEFAULT_GREY_SCREEN
+  MODAL_PRODUCT_NAME, MODAL_PRODUCT_DATA_SUCCESS, MODAL_SAVE_TREND_CHART_TAB_PARAMS, DEFAULT_GREY_SCREEN,
+  SAVE_PIE_CHART_TYPE, SAVE_LINE_CHART_TYPE
 
 } from './constants';
 
@@ -51,6 +52,7 @@ const initialState = fromJS({
   giveaway_param: '',
   promo_prod_param: '',
   promo_part_param: '',
+  lineChartType: 'absolute',
   weekurlParam: '',
   kpi_data: {
     "asp": {
@@ -198,6 +200,10 @@ function promotionReducer(state = initialState, action) {
       console.log("TREND_CHART_SPINNER", action.spinnerCheck);
       return state.set('trendChartSpinnerSuccess', action.spinnerCheck);
 
+    case SAVE_PIE_CHART_TYPE:
+      return state.set('pieChartType', action.data);
+    case SAVE_LINE_CHART_TYPE:
+      return state.set('lineChartType', action.data);
 
     //---------------------------After adding tabs------------------------
 

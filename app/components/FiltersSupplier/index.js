@@ -53,18 +53,17 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
     // browserHistory.push(newUrl + '?' + queryString);
   };
   queryStringForFiltersOutside = "";
-  updateUrl = (category1, pre_selected,item,totalFilterData, propsData, currentSelection) => {
+  updateUrl = (category1, pre_selected, item, totalFilterData, propsData, currentSelection) => {
     console.log('inside updateUrl', category1);
     console.log('inside totalFilterData Main', totalFilterData);
     console.log('inside propsData', propsData);
     console.log('inside currentSelection', currentSelection);
     let queryString = '';
     let queryStringForFilters = this.queryStringForFiltersOutside;
-    console.log('inside this.queryStringForFiltersOutside', this.queryStringForFiltersOutside);
-    console.log('inside queryStringForFilters00', queryStringForFilters);
+
     let localUrlParamsString = '';
     this.queryStringForFiltersOutside = this.queryStringForFiltersOutside + currentSelection + '&';
-    console.log('inside 1st queryStringForFilters', this.queryStringForFiltersOutside);
+
     [...this.refs.selector.querySelectorAll('input')].map((obj, index) => {
       if (obj.checked == true) {
         console.log(obj);
@@ -73,85 +72,49 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
         console.log('queryString', queryString);
         console.log('category--', category);
 
-        // if(category.length===1) {
-        //   // queryString = queryString + "tesco_week="+`${category[category.length - 1]}&`;
-        // }else{
-        //   queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
-        // }
         if (['commercial_name', 'category_name', 'buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])) {
           localUrlParamsString = localUrlParamsString + `${category[0]}=${category[category.length - 1]}&`;
         }
         queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
 
         console.log('inside totalFilterData', totalFilterData);
-        for(let i=0; i<totalFilterData.length; i++){
-          console.log('inside totalFilterData pre_selected', totalFilterData[i].pre_selected);
-          console.log('inside totalFilterData title', totalFilterData[i].title);
-          console.log('this.category ', category1);
+        for (let i = 0; i < totalFilterData.length; i++) {
           let totalFilterDataItems = totalFilterData[i].items;
-
-          // if(category1 == ){}else {
-            if (!totalFilterData[i].pre_selected) {
-              for (let y = 0; y < totalFilterDataItems.length; y++) {
-                console.log('inside totalFilterData totalFilterDataItems', totalFilterDataItems);
-                console.log('inside totalFilterData totalFilterDataItems[y].title', totalFilterDataItems[y].title);
-                console.log('inside totalFilterData totalFilterDataItems[y].resource.selected', totalFilterDataItems[y].resource.selected);
-                if (totalFilterDataItems[y].resource.selected) {
-                  // queryStringForFilters = queryStringForFilters + currentSelection + '&';
-                  console.log('inside 2nd queryStringForFilters', queryStringForFilters);
-                  this.queryStringForFiltersOutside = this.queryStringForFiltersOutside + `${totalFilterData[i].title}=${totalFilterDataItems[y].title}&`;
-                  console.log('inside final this.queryStringForFiltersOutside', this.queryStringForFiltersOutside);
-                }
+          if (!totalFilterData[i].pre_selected) {
+            for (let y = 0; y < totalFilterDataItems.length; y++) {
+              if (totalFilterDataItems[y].resource.selected) {
+                this.queryStringForFiltersOutside = this.queryStringForFiltersOutside + `${totalFilterData[i].title}=${totalFilterDataItems[y].title}&`;
               }
-            } else {
-              console.log('inside else',currentSelection);
-              console.log('category1 == totalFilterData[i].title',totalFilterData[i].title);
-              console.log('category1 == totalFilterData[i]',totalFilterData[i]);
-              console.log('category1 == totalFilterData[i]22',category1);
-              // if(category1 == totalFilterData[i].title){
-                console.log('category1 == totalFilterData[i] 11',category1,totalFilterData[i].title);
-                let individualBlock = totalFilterData[i].items
-                for (let y = 0; y < totalFilterDataItems.length; y++) {
-                  // if (seleted) {
-                  //   append
-                  // }
-                }
-              // }
-
             }
-          // }
-
+          } else {
+            console.log('inside else', currentSelection);
+            console.log('category1 == totalFilterData[i].title', totalFilterData[i].title);
+            console.log('category1 == totalFilterData[i]', totalFilterData[i]);
+            console.log('category1 == totalFilterData[i]22', category1);
+            console.log('category1 == totalFilterData[i] 11', category1, totalFilterData[i].title);
+            let individualBlock = totalFilterData[i].items
+            for (let y = 0; y < totalFilterDataItems.length; y++) {
+              // if (seleted) {
+              //   append
+              // }
+            }
+          }
         }
-
         console.log('inside final this.queryStringForFiltersOutside', this.queryStringForFiltersOutside);
-
-        if(!pre_selected){
-          console.log('pre-selected item',item);
-          console.log('category, pre_selected',category, pre_selected);
+        if (!pre_selected) {
           queryStringForFilters = queryStringForFilters + `${category[0]}=${category[category.length - 1]}&`;
-          console.log('queryStringForFilters inside if',queryStringForFilters);
         }
       }
     });
     queryString = queryString.substring(0, queryString.length - 1);
-    console.log('11queryString--', queryString);
-    console.log('queryStringForFilters--', queryStringForFilters);
-    // let newvar = queryString.split('&');
-    // console.log('11newvar--', newvar);
     this.setState({superQueryString: queryString});
-    console.log('this.state.superQueryString', this.state.superQueryString);
-    // APPEND URL PARAMS
 
+    // APPEND URL PARAMS
     this.props.onGenerateUrlParamsStringForFilters(this.queryStringForFiltersOutside);
     this.props.onGenerateUrlParamsString(queryString);
 
-    // this.props.onGenerateUrlParamsString(queryString);
     localStorage.setItem('urlParams', localUrlParamsString);
 
-    // this.props.onGenerateFilterParamsString(queryString);
-    // this.props.onGenerateUrlParamsData();
-    // this.updateNewState(newUrl + '?' + queryString);
-    // browserHistory.push(newUrl + '?' + queryString);
   };
 
   updateUrl1 = (category, itemId) => {
@@ -305,20 +268,9 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
   componentDidMount = () => {
     console.log('location->>> ');
     // totalFilterData = this.props.sideFilter.checkbox_list;
-
-    // console.log('totalFilterData->>> ',totalFilterData);
-    // console.log('this.props.sideFilter.checkbox_list->>> ',this.props.sideFilter.checkbox_list);
-    // this.props.onGenerateUrlParamsString(this.props.location.search.substring(1, this.props.location.search.length));
-    // this.props.onGenerateFilterParamsString(this.props.location.search.substring(1, this.props.location.search.length));
-    // this.props.onGenerateTable();
   };
   componentDidUpdate = () => {
-    // totalFilterData = this.props.sideFilter.checkbox_list;
-    // console.log('NewSelector componentDidUpdate', this.props.location);
-    //
-    // console.log('totalFilterData->>> U',totalFilterData);
-    // console.log('this.props.sideFilter.checkbox_list->>> U',this.props.sideFilter.checkbox_list);
-    // this.props.onGenerateTable();
+
   };
 
   constructor(props) {
@@ -377,7 +329,7 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                     </div>
                   );
 
-                  if (item.title != 'store_type' && item.title != 'brand_indicator'&& item.title != 'parent_supplier' && item.title != 'supplier') {
+                  if (item.title != 'store_type' && item.title != 'brand_indicator' && item.title != 'parent_supplier' && item.title != 'supplier') {
                     return (
 
                       <Panel header={panelHeader} eventKey={++key}>
@@ -441,7 +393,7 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                                                    //this.updateUrl(item.id,item.pre_selected)
                                                    //}
                                                    //this.updateUrl1(item.id)
-                                                   this.updateUrl(item.id, item.pre_selected,item,this.totalFilterData,this.props.sideFilter.checkbox_list,params)
+                                                   this.updateUrl(item.id, item.pre_selected, item, this.totalFilterData, this.props.sideFilter.checkbox_list, params)
                                                  }}
                                                  checked={obj.resource.selected}
                                                  isDisabled={!obj.highlighted}
@@ -526,17 +478,28 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
               <div className="text-center">
                 <Button onClick={() => {
 
-                  {/*pHierarchyFilterCheck = false;*/}
-                  {/*for (let i = 0; i < this.props.sideFilter[0].items.length; i++) {*/}
-                    {/*if (this.props.sideFilter[2].items[i].selected == true) {*/}
-                      {/*console.log("Cascading filter - filter_data2 for loop", this.props.sideFilter[0].items[i].selected);*/}
-                      {/*pHierarchyFilterCheck = true;*/}
-                      {/*console.log('pHierarchyFilterCheck11', pHierarchyFilterCheck);*/}
-                    {/*} else {*/}
-                      {/*pHierarchyFilterCheck = false;*/}
-                      {/*console.log('pHierarchyFilterCheck22', pHierarchyFilterCheck);*/}
-                    {/*}*/}
-                  {/*}*/}
+                  {/*pHierarchyFilterCheck = false;*/
+                  }
+                  {/*for (let i = 0; i < this.props.sideFilter[0].items.length; i++) {*/
+                  }
+                  {/*if (this.props.sideFilter[2].items[i].selected == true) {*/
+                  }
+                  {/*console.log("Cascading filter - filter_data2 for loop", this.props.sideFilter[0].items[i].selected);*/
+                  }
+                  {/*pHierarchyFilterCheck = true;*/
+                  }
+                  {/*console.log('pHierarchyFilterCheck11', pHierarchyFilterCheck);*/
+                  }
+                  {/*} else {*/
+                  }
+                  {/*pHierarchyFilterCheck = false;*/
+                  }
+                  {/*console.log('pHierarchyFilterCheck22', pHierarchyFilterCheck);*/
+                  }
+                  {/*}*/
+                  }
+                  {/*}*/
+                  }
                   this.props.supplierViewKpiSpinnerCheck(0);
                   this.props.barChartSpinnerCheck(0);
                   this.props.onKPIBox();
@@ -549,6 +512,9 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                 <Button buttonType={'primary'}
                         onClick={() => {
                           this.props.defaultGreyScreen(1);
+                          this.queryStringForFiltersOutside = "";
+                          localStorage.setItem('urlParams', "");
+                          this.props.onGenerateUrlParamsStringForFilters('');
                           this.props.onGenerateUrlParamsString('');
                           this.props.onGenerateUrlParamsString2('');
                           this.props.onGenerateUrlParamsString2('');
