@@ -1760,23 +1760,23 @@ export class Promotion extends React.PureComponent {
 
                       </div>
                       {/*</div>*/}
-                      {(() => {
-                        if (this.props.promotion.kpi_param === 'kpi_type=value' || this.props.promotion.kpi_param === 'kpi_type=volume') {
-                          console.log("in promotion participation");
-                          return (
-                            <div className="text-right">
-                              <button className="btn btn-primary" onClick={() => {
-                                this.setState({promoPartTabInfo: true})
-                                this.props.loadPromoPart();
-                              }}>Promotion Participation
-                              </button>
-                            </div>
-                          )
-                        }
-                        else {
-                          return (<div></div>)
-                        }
-                      })()}
+                      {/*{(() => {*/}
+                        {/*if (this.props.promotion.kpi_param === 'kpi_type=value' || this.props.promotion.kpi_param === 'kpi_type=volume') {*/}
+                          {/*console.log("in promotion participation");*/}
+                          {/*return (*/}
+                            {/*<div className="text-right">*/}
+                              {/*<button className="btn btn-primary" onClick={() => {*/}
+                                {/*this.setState({promoPartTabInfo: true})*/}
+                                {/*this.props.loadPromoPart();*/}
+                              {/*}}>Promotion Participation*/}
+                              {/*</button>*/}
+                            {/*</div>*/}
+                          {/*)*/}
+                        {/*}*/}
+                        {/*else {*/}
+                          {/*return (<div></div>)*/}
+                        {/*}*/}
+                      {/*})()}*/}
 
                     </div>
 
