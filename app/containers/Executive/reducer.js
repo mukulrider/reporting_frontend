@@ -1,7 +1,6 @@
-/*
- *
- * Executive reducer
- *
+/*\
+
+
  */
 
 import { fromJS } from 'immutable';
@@ -69,7 +68,7 @@ import {
   KPI_SPINNER_FLAG,
   INTERNAL_DRIVER_SPINNER_FLAG,
   EXTERNAL_DRIVER_SPINNER_FLAG,
-  PRICE_KPI_SPINNER_FLAG, GENERATE_BEST_WORST_PERFORMANCE_SUCCESS, GENERATE_BEST_WORST_PERFORMANCE_TABLE_SUCCESS,
+  PRICE_KPI_SPINNER_FLAG, GENERATE_BEST_WORST_PERFORMANCE_SUCCESS, GENERATE_BEST_WORST_PERFORMANCE_TABLE_SUCCESS,DEFAULT_GREY_SCREEN,
   STORE_FILTER_PARAM
 } from './constants';
 
@@ -85,7 +84,7 @@ const initialState = fromJS({
   top_name: 'None',
   bot_name: 'None',
   supplier_name: 'None',
-  value_internal_tab: 'kpi',
+  value_internal_tab: '',
   value_external_tab: 'sunshine',
   //Initial Data
 
@@ -408,6 +407,10 @@ function executiveReducer(state = initialState, action) {
       return state.set('tableSelectedLevel',action.data)
     case GENERATE_BEST_WORST_PERFORMANCE_TABLE_SUCCESS:
       return state.set('bestWorstPerformanceTable',action.data)
+
+    case DEFAULT_GREY_SCREEN:
+      console.log("DEFAULT_GREY_SCREEN", action.data);
+      return state.set('defaultGreyScreen', action.data);
 
     default:
       return state;

@@ -65,7 +65,7 @@ import {
   INTERNAL_DRIVER_SPINNER_FLAG,
   EXTERNAL_DRIVER_SPINNER_FLAG,
   KPI_SPINNER_FLAG,
-  PRICE_KPI_SPINNER_FLAG, GENERATE_BEST_WORST_PERFORMANCE, STORE_FILTER_PARAM
+  PRICE_KPI_SPINNER_FLAG, GENERATE_BEST_WORST_PERFORMANCE, STORE_FILTER_PARAM, DEFAULT_GREY_SCREEN
 } from './constants';
 
 export function defaultAction() {
@@ -670,6 +670,15 @@ export function generateBestWorstPerformanceTableSuccess(data) {
   console.log('spinnerPriceKPI = actions', data);
   return {
     type: GENERATE_BEST_WORST_PERFORMANCE_TABLE_SUCCESS,
+    data,
+  };
+}
+
+export function defaultGreyScreen(data)
+{
+  console.log('defaultGreyScreen', data);
+  return {
+    type: DEFAULT_GREY_SCREEN,
     data,
   };
 }

@@ -51,8 +51,8 @@ let gettingUserDetails = () =>{
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-const host_url = "http://127.0.0.1:8000";
-// let host_url = "http://172.20.244.228:8000"
+// const host_url = "http://127.0.0.1:8000";
+let host_url = "http://172.20.181.12:8001"
 
 
 /* GENERATE SIDE FILTER*/
@@ -60,15 +60,6 @@ export function* generateSideFilter() {
   const urlName = yield select(selectProductPageDomain());
   const userParams = gettingUserDetails();
   yield put(saveUserParams(userParams));
-  // let getCookie;
-  // getCookie = (name) => {
-  //   const value = `; ${document.cookie}`;
-  //   const parts = value.split(`; ${name}=`);
-  //   if (parts.length === 2) return parts.pop().split(';').shift();
-  // };
-  // const user_token = getCookie('token');
-  // const buyer = getCookie('buyer');
-  // const token = user_token.concat('___').concat(buyer)
 
   console.log('urlName for sideFilter', urlName);
   let urlParamsString = urlName.get('urlParamsString');
@@ -110,13 +101,7 @@ export function* generateSideFilter() {
 
     // const data = yield call(request, `http://172.20.244.141:8002/api/product_impact/filter_data/?${urlParamsString}`);
     const filter_data = yield call(request,
-      `${host_url}/api/reporting/filter_data_product?` + urlAppends,
-      // {
-      //   headers: {
-      //     Authorization: token
-      //   }
-      // }
-      );
+      `${host_url}/api/reporting/filter_data_product?` + urlAppends);
 
     yield put(generateSideFilterSuccess(filter_data));
   } catch (err) {
@@ -136,10 +121,11 @@ export function* generateWeekFilter() {
   console.log('urlName', urlName);
   const urlParamsWeekFlag = urlName.get('dataWeekParams');
   const urlParamsMetricFlag = urlName.get('dataMetricParams');
+  const urlStoreFlag = urlName.get('store_filter_param');
   const userParams = gettingUserDetails();
 //  const urlParamsWeekFilter = urlName.get('filter_week_selection');
 
-  let urlParams = `${urlParamsWeekFlag}&${urlParamsMetricFlag}`;
+  let urlParams = `${urlParamsWeekFlag}&${urlParamsMetricFlag}&${urlStoreFlag}`;
 
   let urlParamsWeekFilter = "";
   urlParamsWeekFilter = urlName.get('filter_week_selection');

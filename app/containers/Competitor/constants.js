@@ -74,3 +74,6 @@ export const PRICE_RANGE_CHART_SPINNER_SUCCESS = 'app/competitor/PRICE_RANGE_CHA
 export const USER_FILTER_SELECTION = 'app/competitor/USER_FILTER_SELECTION';
 
 export const STORE_FILTER_PARAM = 'app/competitor/STORE_FILTER_PARAM';
+
+//DEFAULT GREY SCREEN
+export const DEFAULT_GREY_SCREEN = 'app/competitor/DEFAULT_GREY_SCREEN';

@@ -1,9 +1,29 @@
 @import "./../../stylesheet";
 
+.collapse-filter {
+  width: 0%;
+}
+.expand-filter {
+  width: 20%;
+}
+.collapse-content {
+  width: 78%;
+  marginLeft: '22%';
+  float:right;
+}
+.expand-content {
+  width: 98%;
+  float:right;
+}
+
 .xlModal{
   width: 90%;
 }
-
+//
+//.modal-content{
+//  width:1000px;
+//  height:700px;
+//}
 //.modal-dialog{
 //  margin: 5% !important;
 //}
@@ -425,7 +445,6 @@ div.col-md-6.col-xs-12.col-sm-6.col-lg-6{
   font-weight: 700;
   text-align: center;
   height: 1000px;
-  width: 100%;
   background-color: lightgray;
   color: #00539f;
   margin-top: 24px;

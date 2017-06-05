@@ -240,11 +240,12 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
                   let filterDataWeek = this.props.weekurlParam;
                   let filterData = this.props.urlParamsString;
 
-                  if (!(typeof(filterDataWeek) == "undefined") && !(typeof(filterData) == "undefined")) {
+                  if (1 == 1) {
                     console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek);
-                    if (filterDataWeek.includes("tesco_week") && filterData.includes("buying_controller=")) {
+                    if (1 == 1) {
                       console.log('tesco_weeek filterDataWeek', filterDataWeek);
                       console.log('--filterData', filterData);
+                      this.props.defaultGreyScreen(0);
                       this.props.pieChartSuccess(0);
                       this.props.kpiDataSuccess(0);
                       {/*this.props.promoGiveAwaySuccess(0);*/
@@ -276,6 +277,7 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
                 }}>Apply</Button>
                 <div style={{height: '1%', width: '100%'}}>&nbsp;</div>
                 <Button buttonType={'primary'} onClick={() => {
+                  this.props.defaultGreyScreen(1);
                   let selection = '';
                   this.props.onSaveWeekFilterParam(selection);
                   this.props.ongenerateWeekFilter();

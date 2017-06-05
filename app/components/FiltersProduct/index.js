@@ -87,105 +87,6 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
         {(() => {
           return (
             <div id="style-7">
-              <PanelGroup defaultActiveKey="0" accordion>
-                {(() => {
-                  if (this.props.week_data) {
-                    console.log("Cascading filter - week", this.props.week_data);
-                    var panelHeader = (
-
-                      <div>Tesco Week
-                        <span style={{color: "red"}}>*</span>&nbsp;<span className="accordion-toggle"
-                                                                         style={{float: 'right'}}></span></div>
-                    );
-                    return (
-
-                      <Panel header={panelHeader} eventKey="1">
-                        <div className="panel selector">
-                          <div className="panel-body style-7" style={{
-                            maxHeight: '250px',
-                            overflowX: 'hidden', fontSize: '9px'
-                          }}>
-                            {(() => {
-                              console.log("Cascading filter ----------")
-                              let finalCheckbox = [];
-                              console.log('Cascading filter - week inside panel div', this.props.week_data);
-
-                              {
-                                this.props.week_data[0].items.map(obj2 => {
-                                  //   console.log("Cascading Filter Inside map", obj2)
-                                  finalCheckbox.push(
-                                    <Checkbox key={Date.now() + Math.random()}
-                                              id={obj2.name.toString()  }
-                                              label={obj2.name.toString() }
-                                              style={{fontSize: '10px'}}
-                                              checked={(() => {
-                                                return obj2.selected;
-                                              })()}
-                                              onChange={() => {
-
-                                                let previous_week_selection = this.props.previous_week_selection;
-                                                let selection = "tesco_week=" + obj2.name;
-                                                //For enabling un checking
-                                                console.log('Cascaded Filter previous_week_selection', previous_week_selection);
-                                                console.log('Cascaded Filter selection', selection);
-                                                if (previous_week_selection == selection) {
-                                                  selection = '';
-                                                }
-                                                this.props.onCheckboxWeekChange(selection);
-                                                this.props.onSaveWeek(selection);
-                                                this.props.onGetFilter('');
-                                                {/*this.props.onGenerateSideFilter();*/
-                                                }
-                                              }}
-
-                                              isDisabled={obj2.disabled}
-                                              valid={true}
-                                    />
-                                  )
-
-                                })
-                              }
-
-                              // for replacing enabled to top
-                              let finalled = [];
-                              finalCheckbox.map(obj => {
-                                if (!obj.props.isDisabled) {
-                                  finalled.push(obj)
-                                }
-                              });
-                              finalCheckbox.map(obj => {
-                                if (obj.props.isDisabled) {
-                                  finalled.push(obj)
-                                }
-                              });
-                              return finalled
-
-                            })()}
-                          </div>
-                        </div>
-                      </Panel>
-
-
-
-                    )
-                  }
-                })()}
-              </PanelGroup>
-              <hr style={{
-                marginTop: '0px',
-                marginBottom: '-6%',
-                border: '0',
-                borderTop: '1px solid #eee',
-              }}></hr>
-              {/*<div id="style-7" style={{*/}
-              {/*height: '52%',*/}
-              {/*width: '19%',*/}
-              {/*position: 'fixed',*/}
-              {/*overflow: 'scroll',*/}
-              {/*paddingRight: '5px',*/}
-              {/*overflowX: 'hidden',*/}
-              {/*borderTop: '1px solid #ccc',*/}
-              {/*}}>*/}
 
               <PanelGroup defaultActiveKey="1" accordion>
                 {this.props.sideFilter.checkbox_list.map((item, key) => {
@@ -310,9 +211,11 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
                   let filterData = this.props.urlParamsString;
                   let hierarchyData = this.props.userParams;
                   console.log('filterDataWeek', filterDataWeek);
-                  if (!(typeof(filterDataWeek) == "undefined") && !(typeof(filterData) == "undefined")) {
+
+                  this.props.defaultGreyScreen(0);
+                  if (1 == 1) {
                     console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek, filterData);
-                    if (filterDataWeek.includes("tesco_week=") && (filterData.includes("buying_controller=") || hierarchyData.includes("buying_controller_header=")) ) {
+                    if (1 == 1) {
                       console.log('tesco_weeek filterDataWeek', filterDataWeek);
                       console.log('--filterData', filterData);
 
@@ -333,22 +236,17 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
 
                         onClick={() => {
                           console.log("Clear Filters Clicked");
+                          this.props.defaultGreyScreen(1);
                           this.props.onGenerateUrlParamsString('');
-                          let previous_week_selection = this.props.previous_week_selection;
-                          let selection = this.props.filter_week_selection;
+                          // let previous_week_selection = this.props.previous_week_selection;
+                          // let selection = this.props.filter_week_selection;
                           //For enabling un checking
                           console.log('Cascaded Filter previous_week_selection', previous_week_selection);
                           console.log('Cascaded Filter selection', selection);
-                          if (previous_week_selection == selection) {
-                            selection = '';
-                          }
-                          this.props.onCheckboxWeekChange(selection);
-                          this.props.onSaveWeek(selection);
+
                           this.props.onGetFilter('');
                         }}>Clear Filters</Button></div>
-              {/*<Button onClick={() => {*/}
-              {/*/!*this.props.onFilterReset();*!/*/}
-              {/*}}>Reset Filters</Button>&nbsp;&nbsp;*/}
+
             </div>
           )
         })()}
