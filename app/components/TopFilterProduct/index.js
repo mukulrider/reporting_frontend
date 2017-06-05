@@ -74,7 +74,7 @@ class TopFilterProduct extends React.PureComponent { // eslint-disable-line reac
               valueUpdated={(e, v) => {
                 console.log('value updated', e, v);
                 // console.log(e.target.value)
-		if (v == 'Current Week') {
+		if (v == 'Selected Week') {
 			v = 'Latest Week';
 		}
 		else if (v == 'Latest 4 Weeks'){
