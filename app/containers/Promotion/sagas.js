@@ -86,7 +86,7 @@ let gettingUserDetails = () => {
 const userParams = gettingUserDetails();
 
 
-let host_url = "http://dvcmpapp00001uk.dev.global.tesco.org";
+let host_url = "http://10.1.181.18:8000";
 
 // FOR PROMO BOXES
 export function* generatePromoKpiDataFetch() {

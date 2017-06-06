@@ -44,12 +44,14 @@ export default class App extends React.PureComponent { // eslint-disable-line re
     if (!token && !this.props.location.pathname.includes('login')) {
       window.location = `http://${hostName}:${hostPort}/login/`;
     }
+
+    console.log('location->',this.props.location)
   };
 
   render() {
     return (
       <div>
-        <Header />
+        <Header location={this.props.location}/>
         <MuiThemeProvider>
 
           <div className="container-fluid" style={{marginTop: '120px'}}>

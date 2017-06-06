@@ -48,12 +48,12 @@ class Header extends Component {
 
   static defaultProps = {
     links: [
-      { text: 'Reporting', icon: 'reporting', href: 'http://dvcmpweb00001uk.dev.global.tesco.org/reporting/executive/' },
-      { text: 'Ranging', icon: 'ranging', href: 'http://dvcmpweb00001uk.dev.global.tesco.org/ranging/scenario-tracker/' },
-      { text: 'Pricing', icon: 'pricing', href: 'http://dvcmpweb00001uk.dev.global.tesco.org/pricing/home/' },
-      { text: 'Tesco.com', icon: 'home', href: 'http://www.tesco.com/' },
-      { text: 'Contact us', icon: 'telephone', href: 'http://www.tesco.com/help/contact/' },
-      { text: 'Help', icon: 'help', href: 'http://www.tesco.com/help/' }],
+      {text: 'Reporting', icon: 'reporting', href: 'http://dvcmpweb00001uk.dev.global.tesco.org/reporting/executive/'},
+      {text: 'Ranging', icon: 'ranging', href: 'http://dvcmpweb00001uk.dev.global.tesco.org/ranging/scenario-tracker/'},
+      {text: 'Pricing', icon: 'pricing', href: 'http://dvcmpweb00001uk.dev.global.tesco.org/pricing/home/'},
+      {text: 'Tesco.com', icon: 'home', href: 'http://www.tesco.com/'},
+      {text: 'Contact us', icon: 'telephone', href: 'http://www.tesco.com/help/contact/'},
+      {text: 'Help', icon: 'help', href: 'http://www.tesco.com/help/'}],
     logo: {
       href: 'http://www.tesco.com',
       imageSrc: tesco,
@@ -135,18 +135,26 @@ class Header extends Component {
       'ui-component__header',
       this.props.classes
     );
-    const { contentClass, links, logo, skipNavigationText } = this.props;
+    const {contentClass, links, logo, skipNavigationText} = this.props;
 
     const utilityClasses = classNames(
       'ui-component__utility_bar',
-      { 'visibility-hidden': this.state.mobileMenuVisible }
+      {'visibility-hidden': this.state.mobileMenuVisible}
     );
 
     const contentClasses = classNames(
       'ui-component__header__content',
-      { 'visibility-hidden': this.state.mobileMenuVisible }
+      {'visibility-hidden': this.state.mobileMenuVisible}
     );
 
+    const topLinks = [
+      {href: "/reporting/executive/", name: 'Executive View'},
+      {href: "/reporting/dailysales/", name: 'Daily Sales View'},
+      {href: "/reporting/product/", name: 'Product View'},
+      {href: "/reporting/promo/", name: 'Promotions View'},
+      {href: "/reporting/supplier/", name: 'Supplier View'},
+      {href: "/reporting/competitor/", name: 'Competitor View'},
+      ];
     return (
       <div className={classes}>
         {this.props.children}
@@ -164,32 +172,44 @@ class Header extends Component {
         </div>
         <div className={contentClasses}>
           <Grid>
-            <div className="Row" >
+            <div className="Row">
               <div className="col-md-2 col-sm-2 col-sx-2">
                 {
-                (logo,
-                  <div className="ui-component__header__tesco-logo">
-                    <Logo {...logo} id="logo" />
-                  </div>
-                )
-              }
+                  (logo,
+                      <div className="ui-component__header__tesco-logo">
+                        <Logo {...logo} id="logo"/>
+                      </div>
+                  )
+                }
               </div>
               <div className="ui-component__header__content--right">
-                <RoundedIconButton icon="menu" onClick={this.handleClick} label="Menu" />
+                <RoundedIconButton icon="menu" onClick={this.handleClick} label="Menu"/>
               </div>
               <div className="row">
-                <Nav bsStyle="tabs" className="tabsNavPanel" style={{ marginWidth: '5%' }}>
-                  <NavItem className="tabsNavPanelList" href="/reporting/executive/">Executive View</NavItem>
-                  <NavItem className="tabsNavPanelList" href="/reporting/dailysales/">Daily Sales View</NavItem>
-                  <NavItem className="tabsNavPanelList" href="/reporting/product">Product View</NavItem>
-                  <NavItem className="tabsNavPanelList" href="/reporting/promo/">Promotions View</NavItem>
-                  <NavItem className="tabsNavPanelList" href="/reporting/supplier/">Supplier View</NavItem>
-                  <NavItem className="tabsNavPanelList" href="/reporting/competitor/">Competitor View</NavItem>
-                  <NavItem className="tabsNavPanelLogoutList" style={{ float: 'right', marginTop: '-8px' }}>
+                <Nav bsStyle="tabs" className="tabsNavPanel" style={{marginWidth: '5%'}}>
+                  {/*<NavItem className={"tabsNavPanelList "} href="/reporting/executive/">Executive View</NavItem>*/}
+                  {/*<NavItem className={"tabsNavPanelList "} href="/reporting/dailysales/">Daily Sales View</NavItem>*/}
+                  {/*<NavItem className={"tabsNavPanelList "} href="/reporting/product">Product View</NavItem>*/}
+                  {/*<NavItem className={"tabsNavPanelList "} href="/reporting/promo/">Promotions View</NavItem>*/}
+                  {/*<NavItem className={"tabsNavPanelList "} href="/reporting/supplier/">Supplier View</NavItem>*/}
+                  {/*<NavItem className={"tabsNavPanelList "} href="/reporting/competitor/">Competitor View</NavItem>*/}
+                  {(()=>{
+                    return topLinks.map(obj=>{
+                      return (
+                        <NavItem className={this.props.location.pathname === obj.href ? 'tabsNavPanelList tabsCustomListActive' : 'tabsNavPanelList'} href={obj.href}>{obj.name}</NavItem>
+                      )
+                    })
+                  })()}
+                  <NavItem className="tabsNavPanelLogoutList" style={{float: 'right', marginTop: '-8px'}}>
                     <span>
                       <span>
-                      <DropdownButton title="" className="	glyphicon glyphicon-user" pullRight style={{ backgroundColor: 'transparent', borderColor: 'transparent', color: '#00539f', fontSize:"18px"}}>
-                        <MenuItem style={{textDecoration:"none"}}><span ><b>Hi,User</b></span></MenuItem>
+                      <DropdownButton title="" className="	glyphicon glyphicon-user" pullRight style={{
+                        backgroundColor: 'transparent',
+                        borderColor: 'transparent',
+                        color: '#00539f',
+                        fontSize: "18px"
+                      }}>
+                        <MenuItem style={{textDecoration: "none"}}><span ><b>Hi,User</b></span></MenuItem>
                         <MenuItem onClick={() => {
                           localStorage.clear();
                           const getCookie = (name) => {

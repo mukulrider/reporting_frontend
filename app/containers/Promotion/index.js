@@ -92,7 +92,29 @@ export class Promotion extends React.PureComponent {
       // console.log('defaultFilterUrlParams', defaultFilterUrlParams);
       this.props.onGenerateUrlParamsString(defaultFilterUrlParams);
     } else {
-      this.props.onGenerateUrlParamsString('');
+      const getCookie = (name) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) {
+          return parts.pop().split(';').shift();
+        }
+      };
+      //fetching values from cookie
+      const userId = getCookie('token');
+      const userName = getCookie('user');
+      const designation = getCookie('designation');
+      const buyingController = getCookie('buying_controller');
+      const buyer = getCookie('buyer');
+      if(buyer && buyingController) {
+        this.props.onGenerateUrlParamsString(`buying_controller=${buyingController}&buyer=${buyer}`);
+
+      } else if (buyingController) {
+        this.props.onGenerateUrlParamsString(`buying_controller=${buyingController}`);
+
+      } else {
+        this.props.onGenerateUrlParamsString(``);
+
+      }
     }
 
     let dataWeekParam = 'week_flag=Current Week';
@@ -135,7 +157,7 @@ export class Promotion extends React.PureComponent {
   render() {
     let formatMetric = (cell, flag = "value") => {
       if (cell >= 1000 || cell <= -1000) {
-        let rounded = Math.round(cell / 1000);
+        let rounded = Math.floor(cell / 1000);
         if (this.state.navValue == "volume") {
           return (rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'K')
         }
@@ -665,7 +687,7 @@ export class Promotion extends React.PureComponent {
                                     </div>
                                     <div className="col-md-6 col-xs-6">
                                       <h3 style={{padding: "0px", margin: "0px"}}>
-                                        LFL TY&#58;&nbsp; {this.props.promotion.kpi_data.total.total_lfl} </h3>
+                                        LFL TY&nbsp; {this.props.promotion.kpi_data.total.total_lfl} </h3>
                                     </div>
                                   </div>
 
@@ -759,7 +781,7 @@ export class Promotion extends React.PureComponent {
                                     </div>
                                     <div className="col-md-6 col-xs-6">
                                       <h3 style={{padding: "0px", margin: "0px"}}>
-                                        LFL TY&#58;&nbsp;{this.props.promotion.kpi_data.promo.promo_lfl} </h3>
+                                        LFL TY&nbsp;{this.props.promotion.kpi_data.promo.promo_lfl} </h3>
                                     </div>
                                   </div>
 
@@ -856,7 +878,7 @@ export class Promotion extends React.PureComponent {
                                     </div>
                                     <div className="col-md-6 col-xs-6">
                                       <h3 style={{padding: "0px", margin: "0px"}}>
-                                        LFL TY&#58;&nbsp; {this.props.promotion.kpi_data.nonpromo.nonpromo_lfl} </h3>
+                                        LFL TY&nbsp; {this.props.promotion.kpi_data.nonpromo.nonpromo_lfl} </h3>
                                     </div>
                                   </div>
 
@@ -1744,7 +1766,8 @@ export class Promotion extends React.PureComponent {
                                 <MultilinePromo data={this.props.promotion.trendChartData.trend}
                                                 id="linechart" label_ty={label_ty}
                                                 label_ly={label_ly} xaxis_title="Tesco Week"
-                                                no_pref={this.props.promotion.trendChartData.no_pref} no_suffix=''
+                                                no_pref={this.props.promotion.trendChartData.no_pref}
+                                                no_suffix={this.props.promotion.trendChartData.no_suffix}
                                                 yaxis_title={this.props.promotion.trendChartData.metric}/>
                               );
                             }
@@ -1933,7 +1956,7 @@ export class Promotion extends React.PureComponent {
                              style={{backgroundColor: "#fafafa", paddingLeft: '15px', paddingRight: '15px'}}>
 
                           <Panel>
-                            <div className="firstCard" style={{height: '150px'}}>
+                            <div className="firstCard text-center" style={{height: '150px'}}>
                               <h3 className="pageModuleSubTitle" style={{marginTop: "-1px"}}>
                                 Total {this.props.promotion.modalProductData.kpi_data.kpi_name} </h3>
                               <div className="row">
@@ -1945,7 +1968,7 @@ export class Promotion extends React.PureComponent {
                                 </div>
                                 <div className="col-md-6 col-xs-6">
                                   <h3 style={{padding: "0px", margin: "0px"}}>
-                                    LFL TY&#8208;&nbsp; {this.props.promotion.modalProductData.kpi_data.total.total_lfl} </h3>
+                                    LFL TY&nbsp; {this.props.promotion.modalProductData.kpi_data.total.total_lfl} </h3>
                                 </div>
                               </div>
 
@@ -2026,7 +2049,7 @@ export class Promotion extends React.PureComponent {
                                height: '30px'
                              }}>
                           <Panel>
-                            <div className="secondCard" style={{height: "150px"}}>
+                            <div className="secondCard text-center" style={{height: "150px"}}>
                               <h3 className="pageModuleSubTitle" style={{marginTop: "-1px"}}>
                                 Promo {this.props.promotion.modalProductData.kpi_data.kpi_name} </h3>
 
@@ -2040,7 +2063,7 @@ export class Promotion extends React.PureComponent {
                                 </div>
                                 <div className="col-md-6 col-xs-6">
                                   <h3 style={{padding: "0px", margin: "0px"}}>
-                                    LFL TY&#8208;&nbsp;{this.props.promotion.modalProductData.kpi_data.promo.promo_lfl} </h3>
+                                    LFL TY&nbsp; {this.props.promotion.modalProductData.kpi_data.promo.promo_lfl} </h3>
                                 </div>
                               </div>
 
@@ -2123,7 +2146,7 @@ export class Promotion extends React.PureComponent {
                         <div className="col-md-4 col-sm-12 col-xs-12"
                              style={{backgroundColor: "#fafafa", paddingLeft: '15px', paddingRight: '15px'}}>
                           <Panel>
-                            <div className="thirdCard" style={{height: "150px"}}>
+                            <div className="thirdCard text-center" style={{height: "150px"}}>
                               <h3 className="pageModuleSubTitle" style={{marginTop: "-1px"}}> Non
                                 Promo {this.props.promotion.modalProductData.kpi_data.kpi_name} </h3>
 
@@ -2137,7 +2160,7 @@ export class Promotion extends React.PureComponent {
                                 </div>
                                 <div className="col-md-6 col-xs-6">
                                   <h3 style={{padding: "0px", margin: "0px"}}>
-                                    LFL TY&#8208;&nbsp; {this.props.promotion.modalProductData.kpi_data.nonpromo.nonpromo_lfl} </h3>
+                                    LFL TY&nbsp; {this.props.promotion.modalProductData.kpi_data.nonpromo.nonpromo_lfl} </h3>
                                 </div>
                               </div>
 
@@ -2349,7 +2372,7 @@ export class Promotion extends React.PureComponent {
                                                   id="linechartModal" label_ty={label_ty}
                                                   label_ly={label_ly} xaxis_title="Tesco Week"
                                                   no_pref={this.props.promotion.modalProductData.trendChartData.no_pref}
-                                                  no_suffix=''
+                                                  no_suffix={this.props.promotion.modalProductData.trendChartData.no_suffix}
                                                   yaxis_title={this.props.promotion.modalProductData.trendChartData.metric}/>
                                 );
                               }

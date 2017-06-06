@@ -391,8 +391,17 @@
   border-color: #00539f !important;
 }
 
+.tabsCustomListActive {
+  background: #efefef !important;
+  //border:4px solid black;
+  //border-bottom: 20px solid #00539f;
+  text-decoration: none !important;
+  border-color: #00539f !important;
+}
+.tabsCustomListActive:active {
+  background: #efefef !important;
 
-
+}
 //Tabs For the Navigation Panel
 
 .tabsNavPanel{
