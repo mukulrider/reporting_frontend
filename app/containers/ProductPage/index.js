@@ -461,7 +461,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                                 }
                                 objString = objString.slice(0, objString.length - 1);
                                 console.log(objString);
-let domain="172.20.181.12";
+                                let domain="172.20.181.12";
                                 document.cookie = `PreselectionFromNego=1;domain=${domain};path=/;`;
                                 document.cookie = `PreselectionFromNegoData=${objString};domain=${domain};path=/;`;
                                 console.log("Document",document);
@@ -750,9 +750,6 @@ let domain="172.20.181.12";
                    </div>
                    */}
                 </div>
-              )
-            }
-          })()}
 
 
         </div>
