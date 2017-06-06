@@ -93,7 +93,7 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
         queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
         console.log('queryString 2 for product1', queryString);
         // aa
-        if (['store_type', 'commercial_name', 'category_name', 'buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])) {
+        if (['commercial_name', 'category_name', 'buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])) {
           localUrlParamsString = localUrlParamsString + `${category[0]}=${category[category.length - 1]}&`;
         }
         if (category[0] !== "tesco_week" && category[0] !== "date") {

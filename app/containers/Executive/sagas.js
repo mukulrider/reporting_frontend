@@ -105,7 +105,7 @@ let gettingUserDetails = () => {
 const userParams = gettingUserDetails();
 // alert(userParams)
 
-let host_url="http://10.1.181.18:8000";
+let host_url="http://127.0.0.1:8000";
 // let host_url="http://dvcmpapp00001uk.dev.global.tesco.org";
 
 // All sagas to be loaded

@@ -24,6 +24,7 @@ import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import TopFilterDSS from 'components/TopFilterDSS';
 
 import BreadcrumbDSS from 'components/BreadcrumbDSS';
+import Breadcrumb from 'components/Breadcrumb';
 var dateFormat = require('dateformat');
 require('react-bootstrap-table/css/react-bootstrap-table.css')
 
@@ -70,10 +71,30 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
     if (defaultFilterUrlParams) {
       console.log('defaultFilterUrlParams--', defaultFilterUrlParams);
       this.props.onCheckboxWeekChange(defaultFilterUrlParams);
-      // this.props.onGenerateUrlParamsString(defaultFilterUrlParams);
     } else {
-      this.props.onCheckboxWeekChange('');
-      // this.props.onGenerateUrlParamsString('');
+      const getCookie = (name) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) {
+          return parts.pop().split(';').shift();
+        }
+      };
+      //fetching values from cookie
+      const userId = getCookie('token');
+      const userName = getCookie('user');
+      const designation = getCookie('designation');
+      const buyingController = getCookie('buying_controller');
+      const buyer = getCookie('buyer');
+      if(buyer && buyingController) {
+        this.props.onCheckboxWeekChange(`buying_controller=${buyingController}&buyer=${buyer}`);
+
+      } else if (buyingController) {
+        this.props.onCheckboxWeekChange(`buying_controller=${buyingController}`);
+
+      } else {
+        this.props.onCheckboxWeekChange(``);
+
+      }
     }
 
 
@@ -254,16 +275,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
             ]}
           />
 
-          {(() => {
-            if (this.props.DailySales.filter_week_selection) {
-              return (
-                <BreadcrumbDSS
-                  selected_week={this.props.DailySales.week.replace(/tesco_week/g, '  ').replace(/date/g, '  ').replace(/_/g, '  ').replace(/=/g, '  ').replace('&', '  > ')}
-                  urlParamsString={this.props.DailySales.filter_week_selection}/>
-
-              )
-            }
-          })()}
+        <Breadcrumb
+          urlParamsString={this.props.DailySales.filter_week_selection}/>
           <br/>
           <br/>
           <br/>

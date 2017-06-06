@@ -341,7 +341,6 @@ export function* generateWeekFilterFetch() {
   try {
     console.log('Inside generateWeekFilterFetch');
     const urlName = yield select(selectProductPageDomain());
-    console.log('Tesco Week Filter urlName:', urlName);
     let weekurlparams = '';
 
     let filter_week_selection,default_tesco_week = '';

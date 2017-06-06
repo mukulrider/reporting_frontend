@@ -63,8 +63,31 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
       console.log('defaultFilterUrlParams', defaultFilterUrlParams);
       this.props.onGenerateUrlParamsString(defaultFilterUrlParams);
     } else {
-      this.props.onGenerateUrlParamsString('');
+      const getCookie = (name) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) {
+          return parts.pop().split(';').shift();
+        }
+      };
+      //fetching values from cookie
+      const userId = getCookie('token');
+      const userName = getCookie('user');
+      const designation = getCookie('designation');
+      const buyingController = getCookie('buying_controller');
+      const buyer = getCookie('buyer');
+      if(buyer && buyingController) {
+        this.props.onGenerateUrlParamsString(`buying_controller=${buyingController}&buyer=${buyer}`);
+
+      } else if (buyingController) {
+        this.props.onGenerateUrlParamsString(`buying_controller=${buyingController}`);
+
+      } else {
+        this.props.onGenerateUrlParamsString(``);
+
+      }
     }
+
 
 
     let dataWeekParams = this.props.ProductPage.dataWeekParams;
