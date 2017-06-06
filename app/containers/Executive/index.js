@@ -286,7 +286,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
     };
     let cellButton = (row, cell) => {
-      console.log('<<<<<<row', row, cell)
+      console.log('<<<<<<row', row, cell.level)
       return (
         <div>
           <button className="btn btn-success" onClick={() => {
@@ -294,7 +294,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
             // this.props.onSaveSupplierName(suppName);
             // this.setState({botsuppInfo: true});
             suppName = 'None';
-            this.props.onGenerateBestWorstPerformanceTable(row);
+            this.props.onGenerateBestWorstPerformanceTable(cell.level);
             this.setState({topsuppInfo: true});
           }}>Supplier Info
           </button>
@@ -308,7 +308,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
       return (
         <div>
           <button className="btn btn-success" onClick={() => {
-            topName = this.props.Executive.best_worst_data.top_5[row].name;
+            topName = cell.level;
             topName = "selected_level=" + topName;
             this.props.onSaveTopName(topName);
             let topbotflag = 'top';
@@ -629,7 +629,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               loadOverviewDriversExternal={ this.props.loadOverviewDriversExternal}
                               loadKpiBoxes={ this.props.loadKpiBoxes}
                               loadBestWorst={ this.props.loadBestWorst}
+                              loadBestInfoData = {this.props.loadBestInfoData}
                               loadDriversInternalData={ this.props.loadDriversInternalData}
+                              onGenerateBestWorstPerformance={ this.props.onGenerateBestWorstPerformance}
 
                               loadDriversExternalData={ this.props.loadDriversExternalData}
                               loadPriceKPIData={ this.props.loadPriceKPIData}
@@ -698,10 +700,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             loadOverviewDriversExternal={ this.props.loadOverviewDriversExternal}
                             loadKpiBoxes={ this.props.loadKpiBoxes}
                             loadBestWorst={ this.props.loadBestWorst}
+                            loadBestInfoData = {this.props.loadBestInfoData}
                             loadDriversInternalData={ this.props.loadDriversInternalData}
-
+                            onGenerateBestWorstPerformance={ this.props.onGenerateBestWorstPerformance}
                             loadDriversExternalData={ this.props.loadDriversExternalData}
                             loadPriceKPIData={ this.props.loadPriceKPIData}
+                            kpi_param={this.props.Executive.kpi_param}
                             kpi_type={this.props.Executive.kpi_param}
                             spinnerRolesAndIntent={this.props.spinnerRolesAndIntent}
                             spinnerOverviewKPITrend={this.props.spinnerOverviewKPITrend}
@@ -1246,24 +1250,47 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                           </div>
                                           {/*Box for Market Share*/}
                                           <div className="col-md-6 col-xs-6" style={{backgroundColor: "#fafafa"}}>
-
                                             <Panel>
-                                              <div style={{height: "136px"}}>
-                                                <h3 className="col-md-6 col-xs-6 pageModuleSubTitle"
-                                                    style={{marginBottom: "0px"}}> Market Share </h3>
+                                              <h3 className="col-md-6 col-xs-6 pageModuleSubTitle"
+                                                  style={{marginBottom: "0px",marginTop: "-0.5%"}}> Market </h3>
+                                              <div className="pricecard" style={{marginLeft:"10%"}}>
                                                 <div className="row">
-                                                  <h4 className="col-xs-6 kpiSubTitle"><b>Value Share</b></h4>
-                                                  <h4
-                                                    className="col-xs-6">{this.props.Executive.overview_kpi_data.market.share}%</h4>
+                                                  <div className="col-xs-12 kpiSubTitle price_metrics_heading" style={{float:"right"}}>
+                                                    <div className="col-xs-1"> </div>
+                                                    <h4 className="col-xs-3 kpiSubTitle"><b>WoW</b></h4>
+                                                    <h4 className="col-xs-3 kpiSubTitle"><b>YoY</b></h4>
+                                                    <h4 className="col-xs-3 kpiSubTitle"><b>ABS</b></h4>
+                                                  </div>
                                                 </div>
                                                 <div className="row">
-                                                  <h4 className="col-xs-6 kpiSubTitle"><b>Opportunity</b></h4>
-                                                  <h4
-                                                    className="col-xs-6">{this.props.Executive.overview_kpi_data.market.opportunity}</h4>
+                                                  <h4 className="col-xs-1 kpiSubTitle"><b>Market Share</b></h4>
+                                                  <h4 className="col-xs-3">
+                                                    {(this.props.Executive.overview_kpi_data.market.share.wow) + '%'}
+                                                  </h4>
+                                                  <h4 className="col-xs-3">
+                                                    {(this.props.Executive.overview_kpi_data.market.share.yoy) + '%'}
+                                                  </h4>
+                                                  <h4 className="col-xs-3">
+                                                    {(this.props.Executive.overview_kpi_data.market.share.abs) + '%'}
+                                                  </h4>
+                                                </div>
+                                                <div className="row">
+                                                  <h4 className="col-xs-1 kpiSubTitle"><b>Opport.</b></h4>
+                                                  <h4 className="col-xs-3">
+                                                    {(this.props.Executive.overview_kpi_data.market.opportunity.wow) + '%'}
+                                                  </h4>
+                                                  <h4 className="col-xs-3">
+                                                    {(this.props.Executive.overview_kpi_data.market.opportunity.yoy) + '%'}
+                                                  </h4>
+                                                  <h4 className="col-xs-3">
+                                                    {this.props.Executive.overview_kpi_data.market.opportunity.abs}
+                                                  </h4>
                                                 </div>
                                               </div>
                                             </Panel>
                                           </div>
+
+
                                           <div className="trendButton" style={{float: "right", backgroundColor: "#fafafa"}}>
                                             <Button buttonType={'primary'} onClick={() => {
                                               this.setState({allImpGraphs: true})
@@ -1957,6 +1984,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                       Contribution Trend</Modal.Title>
                                   </Modal.Header>
                                   <Modal.Body>
+                                    <div className=" row mainBox">
                                     {/*Code for external drivers */}
                                     <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
                                       <h2 className="pageModuleSubTitle">Promotion</h2>
@@ -1978,7 +2006,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                       })()}
                                     </div>
 
-
+                                    </div>
                                   </Modal.Body>
 
                                 </Modal>
@@ -3010,7 +3038,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                           exportCSV={ true }
                                                           search={ true }
                                                           pagination striped hover condensed>
-                                            <TableHeaderColumn dataField='junior_buyer'
+                                            <TableHeaderColumn dataField='level'
                                                                dataAlign='center' isKey
                                                                tdStyle={{fontSize: '14px'}}
 
@@ -3039,6 +3067,17 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                                                thStyle={{whiteSpace: 'normal', fontSize: '14px'}}>YoY
                                               variation</TableHeaderColumn>
+                                            <TableHeaderColumn dataField='value_ty'
+                                                               dataAlign='center'
+                                                               dataFormat={formatVolume}
+                                                               dataSort={true}
+                                                               tdStyle={{fontSize: '14px',}}
+
+                                                               thStyle={{
+                                                                 whiteSpace: 'normal',
+                                                                 fontSize: '14px'
+                                                               }}>{this.props.Executive.bestWorstPerformance.kpi_type} &nbsp;
+                                              TY</TableHeaderColumn>
                                             <TableHeaderColumn dataField='value_ly'
                                                                dataAlign='center'
                                                                dataFormat={formatVolume}

@@ -240,9 +240,9 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
                   let filterDataWeek = this.props.weekurlParam;
                   let filterData = this.props.urlParamsString;
 
-                  if (1 == 1) {
-                    console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek);
-                    if (1 == 1) {
+
+
+
                       console.log('tesco_weeek filterDataWeek', filterDataWeek);
                       console.log('--filterData', filterData);
                       this.props.defaultGreyScreen(0);
@@ -257,22 +257,15 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
                       this.props.productsTableSplitSuccess(0);
                       this.props.productsOnPromoTableFetch();
                       this.props.trendChartDataFetch();
-
+                      this.props.pieChartDataFetch();
                       this.props.loadKpi();
                       this.props.loadSales();
                       this.props.loadPromoGiveaway();
                       this.props.loadPromoProd();
                       this.props.loadPromoPart();
 
-                    }
-                    else {
-                      console.log('modal open');
-                      this.setState({alertShow: true});
-                    }
-                  } else {
-                    console.log('modal open');
-                    this.setState({alertShow: true});
-                  }
+
+
 
                 }}>Apply</Button>
                 <div style={{height: '1%', width: '100%'}}>&nbsp;</div>

@@ -62,7 +62,8 @@ let gettingUserDetails = () => {
 };
 const userParams = gettingUserDetails();
 
-const host_url = 'http://172.20.181.16:8001';
+let host_url="http://dvcmpapp00001uk.dev.global.tesco.org";
+// const host_url = 'http://172.20.181.16:8001';
 // All sagas to be loaded
 
 // FOR COMPETITOR WATERFALL CHART

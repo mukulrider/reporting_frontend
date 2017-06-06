@@ -40,20 +40,46 @@ class TopFilter extends React.PureComponent { // eslint-disable-line react/prefe
 
                            }
 
-                           this.props.spinnerRolesAndIntent(0);
-                           this.props.spinnerOverviewKPI(0);
-                           this.props.spinnerOverviewKPITrend(0);
-                           this.props.spinnerOverviewInternalDrivers(0);
-                           this.props.spinnerOverviewExternalDrivers(0);
+                           if (this.props.kpi_param == 'kpi_type=Overview') {
+                             console.log("______________________ Only Overview function Called")
+                             this.props.spinnerRolesAndIntent(0);
+                             this.props.spinnerOverviewKPI(0);
+                             this.props.spinnerOverviewKPITrend(0);
+                             this.props.spinnerOverviewInternalDrivers(0);
+                             this.props.spinnerOverviewExternalDrivers(0);
 
-                           this.props.loadOverviewKpi();
-                           this.props.loadOverviewKpiTrend();
-                           this.props.loadOverviewDriversInternal();
-                           this.props.loadOverviewDriversExternal();
-                           this.props.loadRolesAndIntent();
-                           this.props.loadBudgetAndForecast();
+                             this.props.loadOverviewKpi();
+                             this.props.loadOverviewKpiTrend();
+                             this.props.loadOverviewDriversInternal();
+                             this.props.loadOverviewDriversExternal();
+                             this.props.loadRolesAndIntent();
+                             this.props.loadBudgetAndForecast();
 
-                         }}/>
+                           }
+                           else {
+                             if (this.props.kpi_param == 'kpi_type=Price') {
+                               console.log("______________________ Only Price function Called")
+                               this.props.spinnerPriceKPI(0);
+                               this.props.loadPriceKPIData();
+
+
+                             }
+
+                             else {
+                               console.log("______________________ Only KPI functions Called")
+                               this.props.spinnerInternalDrivers(0);
+                               this.props.spinnerExternalDrivers(0);
+                               this.props.spinnerKPI(0);
+                               this.props.loadKpiBoxes();
+                               this.props.loadBestWorst();
+                               this.props.loadDriversInternalData();
+                               this.props.loadDriversExternalData();
+                               this.props.loadBestInfoData();
+                               this.props.onGenerateBestWorstPerformance();
+                             }
+
+
+                           }}}/>
           </div>
           <div className="col-xs-3">
             <SelectInput label={'week'} name={'week'} id={'week_select'} data={week_data}
@@ -66,6 +92,8 @@ class TopFilter extends React.PureComponent { // eslint-disable-line react/prefe
                            let selection = "tesco_week=" + v;
                            this.props.onSaveWeekFilterParam(selection);
 
+                           if (this.props.kpi_param == 'kpi_type=Overview') {
+                           console.log("______________________ Only Overview function Called")
                            this.props.spinnerRolesAndIntent(0);
                            this.props.spinnerOverviewKPI(0);
                            this.props.spinnerOverviewKPITrend(0);
@@ -79,7 +107,31 @@ class TopFilter extends React.PureComponent { // eslint-disable-line react/prefe
                            this.props.loadRolesAndIntent();
                            this.props.loadBudgetAndForecast();
 
-                         }}/>
+                         }
+                           else {
+                           if (this.props.kpi_param == 'kpi_type=Price') {
+                           console.log("______________________ Only Price function Called")
+                           this.props.spinnerPriceKPI(0);
+                           this.props.loadPriceKPIData();
+
+
+                         }
+
+                           else {
+                           console.log("______________________ Only KPI functions Called")
+                           this.props.spinnerInternalDrivers(0);
+                           this.props.spinnerExternalDrivers(0);
+                           this.props.spinnerKPI(0);
+                           this.props.loadKpiBoxes();
+                           this.props.loadBestWorst();
+                           this.props.loadDriversInternalData();
+                           this.props.loadDriversExternalData();
+                           this.props.loadBestInfoData();
+                             this.props.onGenerateBestWorstPerformance();
+                         }
+
+
+                         }}}/>
           </div>
           <div className="col-xs-3">
             <SelectInput label={'week'} name={'week'} id={'week_select'}
@@ -93,6 +145,8 @@ class TopFilter extends React.PureComponent { // eslint-disable-line react/prefe
                            let selection = "week_flag=" + v;
                            this.props.onSaveWeekParam(selection);
 
+                           if (this.props.kpi_param == 'kpi_type=Overview') {
+                           console.log("______________________ Only Overview function Called")
                            this.props.spinnerRolesAndIntent(0);
                            this.props.spinnerOverviewKPI(0);
                            this.props.spinnerOverviewKPITrend(0);
@@ -106,7 +160,30 @@ class TopFilter extends React.PureComponent { // eslint-disable-line react/prefe
                            this.props.loadRolesAndIntent();
                            this.props.loadBudgetAndForecast();
 
-                         }}/>
+                         }
+                           else {
+                           if (this.props.kpi_param == 'kpi_type=Price') {
+                           console.log("______________________ Only Price function Called")
+                           this.props.spinnerPriceKPI(0);
+                           this.props.loadPriceKPIData();
+
+
+                         }
+
+                           else {
+                           console.log("______________________ Only KPI functions Called")
+                           this.props.spinnerInternalDrivers(0);
+                           this.props.spinnerExternalDrivers(0);
+                           this.props.spinnerKPI(0);
+                           this.props.loadKpiBoxes();
+                           this.props.loadBestWorst();
+                           this.props.loadDriversInternalData();
+                           this.props.loadDriversExternalData();
+                           this.props.loadBestInfoData();
+                             this.props.onGenerateBestWorstPerformance();
+                         }
+
+                         }}}/>
           </div>
         </div>
 

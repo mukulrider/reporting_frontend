@@ -291,7 +291,8 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
                           this.props.loadBestWorst();
                           this.props.loadDriversInternalData();
                           this.props.loadDriversExternalData();
-
+                          this.props.loadBestInfoData();
+                          this.props.onGenerateBestWorstPerformance();
                         }
 
                       }

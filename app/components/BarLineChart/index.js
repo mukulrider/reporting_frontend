@@ -60,10 +60,10 @@ class BarLineChart extends React.PureComponent { // eslint-disable-line react/pr
       return d.label_week;
     }));
 
-    setTimeout(function(){
-      console.log("Removing height and width from BarLineChart :",id)
-      d3.select("#" + id + '_svg').attr("height",null).attr("width",null)
-    },100);
+    // setTimeout(function(){
+    //   console.log("Removing height and width from BarLineChart :",id)
+    //   d3.select("#" + id + '_svg').attr("height",null).attr("width",null)
+    // },100);
 
     let a=d3.min(data, function (d) {
       return +d.tesco_growth});

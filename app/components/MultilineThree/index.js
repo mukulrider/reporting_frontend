@@ -119,7 +119,7 @@ class MultilineThree extends React.PureComponent { // eslint-disable-line react/
     // setTimeout(function(){
     //   d3.select('#' + chart_id + '_svg').attr("height",null).attr("width",null);
     // },200)
-    // // Add the valueline path.
+    // Add the valueline path.
     svg.append("path")
       .data([data])
       .attr("class", "line")

@@ -6,9 +6,7 @@ import Logo from '../logo';
 import RoundedIconButton from '../rounded_icon_button';
 import Grid from '../grid';
 import tesco from './../../assets/images/tesco.svg';
-import { Nav } from 'react-bootstrap';
-import { NavItem } from 'react-bootstrap';
-import { DropdownButton, MenuItem } from 'react-bootstrap';
+import { Nav, NavItem, DropdownButton, MenuItem } from 'react-bootstrap';
 
 function renderBackLink(backLink) {
   return backLink ?
@@ -50,10 +48,9 @@ class Header extends Component {
 
   static defaultProps = {
     links: [
-      { text: 'Login', icon: 'login', href: 'http://10.1.244.200:3000/login/' },
-      { text: 'Reporting', icon: 'reporting', href: 'http://10.1.244.200:3001/' },
-      { text: 'Pricing', icon: 'pricing', href: 'http://10.1.244.200:3002/pricing' },
-      { text: 'Ranging', icon: 'ranging', href: 'http://10.1.244.200:3003/ranging' },
+      { text: 'Reporting', icon: 'reporting', href: 'http://dvcmpweb00001uk.dev.global.tesco.org/reporting/executive/' },
+      { text: 'Ranging', icon: 'ranging', href: 'http://dvcmpweb00001uk.dev.global.tesco.org/ranging/scenario-tracker/' },
+      { text: 'Pricing', icon: 'pricing', href: 'http://dvcmpweb00001uk.dev.global.tesco.org/pricing/home/' },
       { text: 'Tesco.com', icon: 'home', href: 'http://www.tesco.com/' },
       { text: 'Contact us', icon: 'telephone', href: 'http://www.tesco.com/help/contact/' },
       { text: 'Help', icon: 'help', href: 'http://www.tesco.com/help/' }],
@@ -182,21 +179,19 @@ class Header extends Component {
               </div>
               <div className="row">
                 <Nav bsStyle="tabs" className="tabsNavPanel" style={{ marginWidth: '5%' }}>
-                  <NavItem className="tabsNavPanelList" href="/sales/executive/">Executive View</NavItem>
-                  <NavItem className="tabsNavPanelList" href="/sales/competitor/">Competitor View</NavItem>
-                  <NavItem className="tabsNavPanelList" href="/sales/promo/">Promotions View</NavItem>
-                  <NavItem className="tabsNavPanelList" href="/sales/supplier/">Supplier View</NavItem>
-                  <NavItem className="tabsNavPanelList" href="/sales/product">Product View</NavItem>
-                  <NavItem className="tabsNavPanelList" href="/sales/dailysales/">Daily Sales View</NavItem>
+                  <NavItem className="tabsNavPanelList" href="/reporting/executive/">Executive View</NavItem>
+                  <NavItem className="tabsNavPanelList" href="/reporting/dailysales/">Daily Sales View</NavItem>
+                  <NavItem className="tabsNavPanelList" href="/reporting/product">Product View</NavItem>
+                  <NavItem className="tabsNavPanelList" href="/reporting/promo/">Promotions View</NavItem>
+                  <NavItem className="tabsNavPanelList" href="/reporting/supplier/">Supplier View</NavItem>
+                  <NavItem className="tabsNavPanelList" href="/reporting/competitor/">Competitor View</NavItem>
                   <NavItem className="tabsNavPanelLogoutList" style={{ float: 'right', marginTop: '-8px' }}>
                     <span>
-                      {/*<span style={{float:"left" }}>*/}
-                        {/*<h4> Menu </h4>*/}
-                      {/*</span>*/}
                       <span>
                       <DropdownButton title="" className="	glyphicon glyphicon-user" pullRight style={{ backgroundColor: 'transparent', borderColor: 'transparent', color: '#00539f', fontSize:"18px"}}>
                         <MenuItem style={{textDecoration:"none"}}><span ><b>Hi,User</b></span></MenuItem>
                         <MenuItem onClick={() => {
+                          localStorage.clear();
                           const getCookie = (name) => {
                             const value = `; ${document.cookie}`;
                             const parts = value.split(`; ${name}=`);
@@ -205,15 +200,25 @@ class Header extends Component {
                             }
                           };
                           const token = getCookie('token');
-                          const hostName = '172.20.181.99';
-                          const hostPort = '3001';
+                          const hostName = 'dvcmpweb00001uk.dev.global.tesco.org';
+                          const hostPort = '';
                           document.cookie = 'token'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
-                          document.cookie = 'user_id'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
-                          document.cookie = 'user_name'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
-                          document.cookie = 'designation'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
-                          document.cookie = 'buying_controller'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
-                          document.cookie = 'session_id'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
                           document.cookie = 'buyer'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
+                          document.cookie = 'buying_controller'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
+                          document.cookie = 'category_director'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
+                          document.cookie = 'commercial_director'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
+                          document.cookie = 'designation'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
+                          document.cookie = 'email_id'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
+                          document.cookie = 'first_name'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
+                          document.cookie = 'junior_buyer'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
+                          document.cookie = 'key'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
+                          document.cookie = 'last_name'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
+                          document.cookie = 'login_timestamp'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
+                          document.cookie = 'middle_name'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
+                          document.cookie = 'product_sub_group_description'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
+                          document.cookie = 'token'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
+                          document.cookie = 'tpx_id'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
+                          document.cookie = 'user'.concat(`=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=${hostName};Path=/;`);
                           window.location = `http://${hostName}:${hostPort}/login/`;
                         }}>Logout</MenuItem>
                       </DropdownButton></span>

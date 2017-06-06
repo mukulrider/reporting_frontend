@@ -483,11 +483,12 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                                 }
                                 objString = objString.slice(0, objString.length - 1);
                                 console.log(objString);
-                                let domain="172.20.181.12";
+                                let domain="dvcmpweb00001uk.dev.global.tesco.org";
                                 document.cookie = `PreselectionFromNego=1;domain=${domain};path=/;`;
                                 document.cookie = `PreselectionFromNegoData=${objString};domain=${domain};path=/;`;
                                 console.log("Document",document);
-                                console.log("Document Cookie",document.cookie);                                window.location = '/ranging/delist/';
+                                console.log("Document Cookie",document.cookie);
+                                window.location = 'http://dvcmpweb00001uk.dev.global.tesco.org/ranging/delist/';
                               }else{
                                 alert("You have not selected any products to delist. Are you sure you want to see the delist impact?")
                               }

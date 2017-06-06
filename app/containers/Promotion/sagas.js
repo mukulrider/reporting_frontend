@@ -86,7 +86,7 @@ let gettingUserDetails = () => {
 const userParams = gettingUserDetails();
 
 
-let host_url = "http://10.1.161.11:8000";
+let host_url = "http://dvcmpapp00001uk.dev.global.tesco.org";
 
 // FOR PROMO BOXES
 export function* generatePromoKpiDataFetch() {
@@ -94,7 +94,7 @@ export function* generatePromoKpiDataFetch() {
   const weekurlparam = urlName.get('week_param');
   let urlParamsString = urlName.get('urlParamsString');
   let weekselection = urlName.get('weekurlParam');
-  let store_selection = urlName.get();
+  let store_selection = urlName.get('store_filter_param');
   if (!urlParamsString) {
     urlParamsString = ''
   }
@@ -120,6 +120,13 @@ export function* generatePromoKpiDataFetch() {
 
   if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
     urlAppends = urlAppends + '&' + urlParamsString;
+    // console.log('urlAppends1 2', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(store_selection) == "undefined") && !(store_selection == "")) {
+    urlAppends = urlAppends + '&' + store_selection;
     // console.log('urlAppends1 2', urlAppends);
   } else {
 
@@ -203,6 +210,13 @@ export function* generatePromoSalesDataFetch() {
   if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
     urlAppends = urlAppends + '&' + weekurlparam;
     // console.log('urlAppends2', urlAppends);
+  } else {
+
+  }
+
+  if (!(typeof(store_selection) == "undefined") && !(store_selection == "")) {
+    urlAppends = urlAppends + '&' + store_selection;
+    // console.log('urlAppends1 2', urlAppends);
   } else {
 
   }
@@ -390,6 +404,14 @@ export function* generatePromoProdDataFetch() {
 
   }
 
+  if (!(typeof(store_selection) == "undefined") && !(store_selection == "")) {
+    urlAppends = urlAppends + '&' + store_selection;
+    // console.log('urlAppends1 2', urlAppends);
+  } else {
+
+  }
+
+
   if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
     urlAppends = urlAppends + '&' + urlParamsString;
     console.log('urlAppends1', urlAppends);
@@ -454,6 +476,8 @@ export function* generatePromoPartDataFetch() {
   let promopartparam = urlName.get('promo_part_param');
   let weekselection = urlName.get('weekurlParam');
   const kpiparam = urlName.get('kpi_param');
+  let store_selection = urlName.get('store_filter_param');
+
   if (!urlParamsString) {
     urlParamsString = ''
   }
@@ -473,6 +497,14 @@ export function* generatePromoPartDataFetch() {
   } else {
 
   }
+
+  if (!(typeof(store_selection) == "undefined") && !(store_selection == "")) {
+    urlAppends = urlAppends + '&' + store_selection;
+    // console.log('urlAppends1 2', urlAppends);
+  } else {
+
+  }
+
 
   if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
     urlAppends = urlAppends + '&' + urlParamsString;
@@ -640,6 +672,7 @@ export function* generateProductsOnPromo() {
   let urlParamsString = urlName.get('urlParamsString');
   let weekurlParam = urlName.get('weekurlParam');
   let kpi_param = urlName.get('kpi_param');
+  let store_selection = urlName.get('store_filter_param');
 
   let urlAppends = "";
 
@@ -661,7 +694,10 @@ export function* generateProductsOnPromo() {
     urlAppends = urlAppends + '&' + weekurlParam;
 
   }
-
+  if (!(typeof(store_selection) == "undefined") && !(store_selection == "")) {
+    urlAppends = urlAppends + '&' + store_selection;
+    // console.log('urlAppends1 2', urlAppends);
+  }
   if (kpi_param !== "") {
     urlAppends = urlAppends + '&' + kpi_param;
 
@@ -700,6 +736,7 @@ export function* generatePieChartDataFetch() {
   let weekurlParam = urlName.get('weekurlParam');
   let kpi_param = urlName.get('kpi_param');
   let metricSelected = urlName.get('metricSelected');
+  let store_selection = urlName.get('store_filter_param');
 
   let urlAppends = "";
 
@@ -715,6 +752,11 @@ export function* generatePieChartDataFetch() {
   // Week selection
   if (week_param !== "") {
     urlAppends = urlAppends + '&' + week_param;
+  }
+
+  if (!(typeof(store_selection) == "undefined") && !(store_selection == "")) {
+    urlAppends = urlAppends + '&' + store_selection;
+    // console.log('urlAppends1 2', urlAppends);
   }
 
   if(weekurlParam !== "") {
@@ -756,9 +798,10 @@ export function* doPieChartDataFetch() {
   yield cancel(watcher);
 }
 
+
 // --------------------------- Trend Chart data-----------------------------------
 export function* generateTrendChartDataFetch() {
-// alert()
+
   const urlName = yield select(selectPromotionDomain());
   let week_param = urlName.get('week_param');
   let urlParamsString = urlName.get('urlParamsString');
@@ -766,11 +809,12 @@ export function* generateTrendChartDataFetch() {
   let kpi_param = urlName.get('kpi_param');
   let trendChartTabParam = urlName.get('trendChartTabParam');
   let metricSelected = urlName.get('metricSelected');
+  let store_selection = urlName.get('store_filter_param');
   let lineChartType = urlName.get('lineChartType');
 
   let urlAppends = "";
 
-  // Filter
+ // Filter
   if (urlParamsString!== "") {
     let urlParamsStringCheck = urlParamsString.substring(0, 2);
     if (urlParamsStringCheck == 20) {
@@ -782,6 +826,16 @@ export function* generateTrendChartDataFetch() {
   // Week selection
   if (week_param !== "") {
     urlAppends = urlAppends + '&' + week_param;
+  }
+
+  if (!(typeof(store_selection) == "undefined") && !(store_selection == "")) {
+    urlAppends = urlAppends + '&' + store_selection;
+    // console.log('urlAppends1 2', urlAppends);
+  }
+
+  if (!(typeof(lineChartType) == "undefined") && !(lineChartType == "")) {
+    urlAppends = urlAppends + '&line_chart_type=' + lineChartType;
+
   }
 
   if(weekurlParam !== "") {
@@ -800,11 +854,6 @@ export function* generateTrendChartDataFetch() {
 
   if (metricSelected !== "") {
     urlAppends = urlAppends + '&metric=' + metricSelected;
-
-  }
-
-  if (lineChartType !== "") {
-    urlAppends = urlAppends + '&line_chart_type=' + lineChartType;
 
   }
 
@@ -834,6 +883,7 @@ export function* doTrendChartDataFetch() {
 }
 
 
+
 // --------------------------- Trend Chart data-----------------------------------
 export function* generateModalInfo() {
 
@@ -846,7 +896,7 @@ export function* generateModalInfo() {
   let metricSelected = urlName.get('metricSelected');
   let modalProductName = urlName.get('modalProductName');
   let promo_type = urlName.get('modalTrendChartTabParam');
-
+  let store_selection = urlName.get('store_filter_param');
 
 
   let urlAppends = "";
@@ -860,15 +910,15 @@ export function* generateModalInfo() {
  //    urlAppends = urlAppends + '&' + urlParamsString;
  //  }
  //
- //  // Week selection
- //  if (week_param !== "") {
- //    urlAppends = urlAppends + '&' + week_param;
- //  }
- //
- //  if(weekurlParam !== "") {
- //    urlAppends = urlAppends + '&' + weekurlParam;
- //
- //  }
+  // Week selection
+  if (week_param !== "") {
+    urlAppends = urlAppends + '&' + week_param;
+  }
+
+  if(weekurlParam !== "") {
+    urlAppends = urlAppends + '&' + weekurlParam;
+
+  }
  //
   if (kpi_param !== "") {
     urlAppends = urlAppends + '&' + kpi_param;
@@ -889,7 +939,7 @@ export function* generateModalInfo() {
 
   }
 
-  if (promo_type !== "") {
+  if (promo_type) {
     urlAppends = urlAppends + '&'+ promo_type;
 
   }
@@ -899,7 +949,10 @@ export function* generateModalInfo() {
     // urlAppends = urlAppends ;
 
   }
-
+  if (!(typeof(store_selection) == "undefined") && !(store_selection == "")) {
+    urlAppends = urlAppends + '&' + store_selection;
+    // console.log('urlAppends1 2', urlAppends);
+  }
   urlAppends = urlAppends.replace('&', '');
 
   // const data = yield call(request, host_url + `/api/reporting/check_trend?` + urlAppends);

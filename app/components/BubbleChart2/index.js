@@ -36,9 +36,9 @@ class BubbleChart2 extends React.PureComponent { // eslint-disable-line react/pr
       //class to make it responsive
       .classed("svg-content-responsive", true);
 
-    setTimeout(function(){
-      d3.select('#bubbleChart2_svg').attr("width",null).attr("height",null);
-    },200)
+    // setTimeout(function(){
+    //   d3.select('#bubbleChart2_svg').attr("width",null).attr("height",null);
+    // },200)
     let colorArray = ['#00838f', '#33691e'];
     let opacity = [1, 0.4];
 
