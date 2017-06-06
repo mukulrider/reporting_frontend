@@ -21,6 +21,7 @@ import {saveImage, saveDataAsCSV} from './../../utils/exportFunctions';
 import {createStructuredSelector} from 'reselect';
 import makeSelectProductPage from './selectors';
 import messages from './messages';
+import TopFilterProduct from "components/TopFilterProduct";
 require('react-bootstrap-table/css/react-bootstrap-table.css')
 var dateFormat = require('dateformat');
 
@@ -29,8 +30,9 @@ import {
 } from './selectors';
 
 import {
-  saveWeekParam, productPageValues, saveMetricParam,saveProduct,saveProductForTrend,productTrend,fetchSaveWeekParam, generateUrlParamsString, checkboxWeekChange,
-  SaveWeek, getWeekFilter, tabsAndApplySpinner
+  saveWeekParam, productPageValues, saveMetricParam,saveProduct,saveProductForTrend,productTrend, fetchSaveWeekParam, generateUrlParamsString, checkboxWeekChange,
+  SaveWeek, getWeekFilter, tabsAndApplySpinner,
+  StoreFilterParam,
 } from './actions';
 
 import styles from './style.scss';
@@ -265,54 +267,32 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   }
                 })()}
               </div>
-              <Nav bsStyle="tabs" className="tabsCustom" activeKey={this.state.activeKey}>
-                <NavItem style={{fontSize: '16px', width: '16%', textAlign: 'center'}}
-                         className=" tabsCustomList" eventKey="1" onClick={() => {
-                  this.setState({activeKey: "1",dataWeekParams:"Latest Week"});
-                  this.props.tabsAndApplySpinner(0);
-                  let dataWeekParams = "week_flag=Latest Week";
-                  this.props.onSaveWeekParam(dataWeekParams);
-                }}
-                ><span className="tab_label">Selected Week</span></NavItem>
-                <NavItem style={{fontSize: '16px', width: '16%', textAlign: 'center'}}
-                         className="tabsCustomListTime" eventKey="2" onClick={() => {
-                  this.setState({activeKey: "2",dataWeekParams:"4"});
-                  this.props.tabsAndApplySpinner(0);
-                  let dataWeekParams = "week_flag=4";
-                  this.props.onSaveWeekParam(dataWeekParams);
-                }}
-                ><span className="tab_label">Last 4 Weeks</span></NavItem>
-                <NavItem style={{fontSize: '16px', width: '16%', textAlign: 'center'}}
-                         className="tabsCustomListTime" eventKey="3" onClick={() => {
-                  this.setState({activeKey: "3",dataWeekParams:"13"});
-                  this.props.tabsAndApplySpinner(0);
-                  let dataWeekParams = "week_flag=13";
-                  this.props.onSaveWeekParam(dataWeekParams);
-                }}
-                ><span className="tab_label">Last 13 Weeks</span></NavItem>
-                <NavItem style={{fontSize: '16px', width: '16%', textAlign: 'center'}}
-                         className="tabsCustomListTime" eventKey="4" onClick={() => {
-                  this.setState({activeKey: "4",dataWeekParams:"26"});
-                  this.props.tabsAndApplySpinner(0);
-                  let dataWeekParams = "week_flag=26";
-                  this.props.onSaveWeekParam(dataWeekParams);
-                }}
-                ><span className="tab_label">Last 26 Weeks</span></NavItem>
-                <NavItem style={{fontSize: '16px', width: '16%', textAlign: 'center'}}
-                         className="tabsCustomListTime" eventKey="5" onClick={() => {
-                  this.setState({activeKey: "5",dataWeekParams:"YTD"});
-                  this.props.tabsAndApplySpinner(0);
-                  let dataWeekParams = "week_flag=YTD";
-                  this.props.onSaveWeekParam(dataWeekParams);
-                }}
-                ><span className="tab_label">YTD</span></NavItem>
-                {/*<NavItem style={{ fontSize: '16px' ,width:'16%',textAlign:'center'}}
-                 className="tabsCustomListTime" eventKey="6" onClick={() => {
-                 this.setState({activeKey: "6"});
-                 let dataWeekParams="week_flag=PTD";
-                 }}
-                 ><span className="tab_label">PTD</b></NavItem>*/}
-              </Nav>
+              <div>
+                {(() => {
+                  if (this.props.ProductPage.week_filter_data) {
+                    return (
+                      <TopFilterProduct
+                        sideFilter={this.props.ProductPage.sideFilter}
+                        location={this.props.location}
+                        userParams={this.props.ProductPage.userParams}
+                        week_filter_data={this.props.ProductPage.week_filter_data}
+                        previous_week_selection={this.props.ProductPage.filter_week_selection}
+                        onSaveWeekParam = {this.props.onSaveWeekParam}
+                        onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}
+                        onProductPage={this.props.onProductPageValues}
+                        onSaveWeek={this.props.onSaveWeek}
+                        onCheckboxWeekChange={this.props.onCheckboxWeekChange}
+                        onGetFilter={this.props.onGetFilter}
+                        filter_week_selection={this.props.ProductPage.filter_week_selection}
+                        urlParamsString={this.props.ProductPage.urlParamsString}
+                        tabsAndApplySpinner={this.props.tabsAndApplySpinner}
+                        onSaveStoreFilterParam={this.props.onSaveStoreFilterParam}
+                      />
+                    )
+                  }
+                })()}
+              </div>
+
             </div>
 
             <div className="col-xs-12">
@@ -460,7 +440,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                             style={{float:'right',fontSize: "14px"}}
                             className="btn btn-danger"
                             onClick={() => {
-                              let objString = '/ranging/delist?';
+                              let objString = '';
                               let selected=this.state.SelectProducts;
                               if(selected!=='[]'){
                                 for(let i=0;i<selected.length;i++){
@@ -468,7 +448,13 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                                 }
                                 objString = objString.slice(0, objString.length - 1);
                                 console.log(objString);
-                                window.location = objString;
+
+                                let domain="172.20.181.12";
+                                document.cookie = `PreselectionFromNego=1;domain=${domain};path=/;`;
+                                document.cookie = `PreselectionFromNegoData=${objString};domain=${domain};path=/;`;
+                                console.log("Document",document);
+                                console.log("Document Cookie",document.cookie);
+                                window.location = '/ranging/delist/';
                               }else{
                                 alert("You have not selected any products to delist. Are you sure you want to see the delist impact?")
                               }
@@ -771,7 +757,7 @@ function mapDispatchToProps(dispatch) {
     onGetFilter: (e) => dispatch(getWeekFilter(e)),
 //  onGenerateSideFilter: (e) => dispatch(generateSideFilter(e)),
 //  onFetchSaveWeekParam: (e) => dispatch(fetchSaveWeekParam(e)),
-
+    onSaveStoreFilterParam: (e) => dispatch(StoreFilterParam(e)),
     tabsAndApplySpinner: (e) => dispatch(tabsAndApplySpinner(e)),
 
   };

@@ -9,10 +9,11 @@ import {
   DEFAULT_ACTION,WEEK_FILTER_CONSTANT,SAVE_WEEK_PARAM,SAVE_METRIC_PARAM,SAVE_PRODUCT,SAVE_PRODUCT_TREND,FETCH_SAVE_SUPPLIER_INFO_SUCCESS,FETCH_SAVE_PRODUCT_TREND_SUCCESS ,
   FETCH_SAVE_WEEK_PARAM, FETCH_SAVE_WEEK_PARAM_SUCCESS,GENERATE_SIDE_FILTER_SUCCESS,GENERATE_URL_PARAMS_STRING, WEEK_FILTER_FETCH_SUCCESS,
   CHECKBOX_WEEK_CHANGE,DEFAULT_TESCO_WEEK,SAVE_USER_PARAMS,
-  WEEK, TABS_APPLY_SPINNER
+  WEEK, TABS_APPLY_SPINNER, STORE_FILTER_PARAM,
 } from './constants';
 
-const initialState = fromJS({dataWeekParams:'week_flag=Latest Week',dataMetricParams:'metric_flag=Value'
+const initialState = fromJS({dataWeekParams:'week_flag=Latest Week',dataMetricParams:'metric_flag=Value',
+  store_filter_param:'store_type=Express&store_type=Main Estate'
 });
 
 function productPageReducer(state = initialState, action) {
@@ -51,6 +52,9 @@ function productPageReducer(state = initialState, action) {
       console.log("Success in updating sideFilter state in Reducer", action.data);
       return state.set('sideFilter', action.data);
 
+    case STORE_FILTER_PARAM:
+      console.log("reducer STORE_FILTER_PARAM",action.data);
+      return state.set('store_filter_param',action.data);
 
     case GENERATE_URL_PARAMS_STRING:
       console.log("Updating the urlParamsString in Reducer",action.data)

@@ -28,6 +28,7 @@ export const WEEK_FILTER_FETCH_SUCCESS = 'app/Supplier/WEEK_FILTER_FETCH_SUCCESS
 export const CHECKBOX_WEEK_CHANGE = 'app/Supplier/CHECKBOX_WEEK_CHANGE';
 export const WEEK = 'app/Supplier/WEEK';
 export const SAVE_USER_PARAMS = 'app/Supplier/SAVE_USER_PARAMS';
+export const STORE_FILTER_PARAM = 'app/Supplier/STORE_FILTER_PARAM';
 
 // APPLY AND TABS CLICK SPINNER
 export const TABS_APPLY_SPINNER = 'app/Supplier/TABS_APPLY_SPINNER';
