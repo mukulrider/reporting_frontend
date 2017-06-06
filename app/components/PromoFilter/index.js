@@ -103,30 +103,6 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
                     return (
                       <Panel header={panelHeader} eventKey={++key}>
                         <div className="panel selector">
-                          {/*<div className="panel-heading">*/}
-                          {/*<input type="text" value={this.props.filterSearch}*/}
-                          {/*onChange={(e) => {*/}
-                          {/*// console.log(e);*/}
-                          {/*let search = e.target.value.toLowerCase();*/}
-                          {/*if (!search) return*/}
-
-                          {/*let parent = e.target.parentNode;*/}
-                          {/*while (parent.classList.contains('selector')) {*/}
-                          {/*parent = parent.parentNode;*/}
-                          {/*}*/}
-                          {/*parent = parent.parentNode;*/}
-                          {/*let inputText = parent.querySelectorAll(`input[name*=${search}]`);*/}
-                          {/*// console.log(inputText);*/}
-
-                          {/*// inputText.map(obj=>{*/}
-                          {/*//   obj.setAttribute('hidden')*/}
-                          {/*// })*/}
-
-                          {/*// for (let i = 0; i < inputText.length; i++) {*/}
-                          {/*//   inputText[i].setAttribute("hidden", true)*/}
-                          {/*// }*/}
-                          {/*}}/>*/}
-                          {/*</div>*/}
                           <div className="panel-body style-7"
                                style={{maxHeight: '250px', overflowX: 'hidden'}}>
                             {item.items.map(obj => {
@@ -224,13 +200,6 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
 
 
                 </Modal.Body>
-                {/*<Modal.Footer>*/}
-                {/*<Button*/}
-                {/*onClick={() => {*/}
-                {/*this.setState({alertShow: false})*/}
-                {/*}}*/}
-                {/*style={{display: 'block', margin: '0 auto'}}>Close</Button>*/}
-                {/*</Modal.Footer>*/}
               </Modal>
 
 
@@ -239,10 +208,6 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
 
                   let filterDataWeek = this.props.weekurlParam;
                   let filterData = this.props.urlParamsString;
-
-
-
-
                       console.log('tesco_weeek filterDataWeek', filterDataWeek);
                       console.log('--filterData', filterData);
                       this.props.defaultGreyScreen(0);
@@ -263,10 +228,6 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
                       this.props.loadPromoGiveaway();
                       this.props.loadPromoProd();
                       this.props.loadPromoPart();
-
-
-
-
                 }}>Apply</Button>
                 <div style={{height: '1%', width: '100%'}}>&nbsp;</div>
                 <Button buttonType={'primary'} onClick={() => {
@@ -280,23 +241,7 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
 
                 }}>Clear Filters</Button>
                 <div style={{height: '1%', width: '100%'}}>&nbsp;</div>
-                {/*<Button onClick={() => {*/}
-                {/*let  selection = '';*/}
-                {/*this.props.onSaveWeekFilterParam(selection);*/}
-                {/*this.props.ongenerateWeekFilter();*/}
-                {/*let queryString='';*/}
-                {/*this.props.onGenerateUrlParamsString(queryString);*/}
-                {/*this.props.generateSideFilter();*/}
-                {/*this.props.loadKpi();*/}
-                {/*this.props.loadSales();*/}
-                {/*this.props.loadPromoGiveaway();*/}
-                {/*this.props.loadPromoProd();*/}
-                {/*this.props.loadPromoPart();*/}
-                {/*}}>Load default</Button>*/}
               </div>
-              {/*<Button onClick={() => {*/}
-              {/*/!*this.props.onFilterReset();*!/*/}
-              {/*}}>Reset Filters</Button>&nbsp;&nbsp;*/}
             </div>
           )
         })()}

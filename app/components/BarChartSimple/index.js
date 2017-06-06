@@ -77,14 +77,13 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
     g.append("g")
       .call(d3.axisLeft(y).tickFormat(function(d) {
         return formatVolume(d);
-
       }))
       .append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 6)
+      .attr("y", -60)
+      .attr("x",0 - (height / 2))
       .attr("dy", "0.71em")
       .attr("text-anchor", "end")
-
       .text("value");
 
 

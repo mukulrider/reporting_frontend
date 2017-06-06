@@ -41,6 +41,8 @@ import {
   DEFAULT_GREY_SCREEN,
   GENERATE_URL_PARAMS_STRING_FOR_FILTERS,
   BRAND_PARAM,
+  GENERATE_URL_PARAMS_STRING_PARENT,
+  GENERATE_URL_PARAMS_STRING_SUPPLIER,
 } from './constants';
 
 const initialState = fromJS({
@@ -71,6 +73,8 @@ const initialState = fromJS({
   dataWeekUrlParams: '',
   filter_week_selection: '',
   newUrlparamsForFilters: '',
+  parentParam: '',
+  supplierParam: '',
   checkedList: [],
   chartData: [
     {
@@ -116,24 +120,19 @@ function supplierReducer(state = initialState, action) {
       return state;
 
     case KPI_CONSTANT:
-      console.log("reducer.js KPI CONSTANT", action.data);
       return state.set('reducer', action.data);
     case KPI_ASP_CONSTANT:
-      console.log("reducer.js KPI ASP CONTANT", action.data);
       return state.set('reducer', action.data);
     case TOP_BOTTOM_CONSTANT:
-      console.log("reducer.js TOP BOTTOM CONTANT", action.data);
       return state.set('topBotVar', action.data);
 
     case SAVE_BUBBLE_PARAM2:
-      console.log("Bubble array in reducer2", action.data);
       return state.set('prodArrayOpacity', action.data);
 
     case KPI_DATA_FETCH_SUCCESS:
-      console.log("reducer.js KPI data", action.data);
       return state.set('reducer1', action.data);
+
     case KPI_DATA_ASP_FETCH_SUCCESS:
-      console.log("reducer.js KPI data ASP", action.data);
       return state.set('reducer1', action.data);
 
 // FOR SAVING FILTERS DATA GOT FROM AJAX CALL IN REDUCER/STATE
@@ -145,26 +144,22 @@ function supplierReducer(state = initialState, action) {
       return state.set('chartData', action.data);
 
     case SAVE_PERF_PARAM:
-      console.log("-----------------updated---------------", action.data);
       return state.set('dataPerformanceUrlParams', action.data);
 
-
     case SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS:
-      // console.log("reducer SUPPLIER_TOP_BOTTOM_FETCH_SUCCESS", action.data);
       return state.set('topBotData', action.data);
+
     case WEEK_PARAM:
-      // console.log("reducer WEEK_PARAM", action.data);
-      return state.set('week_param', action.data)
+      return state.set('week_param', action.data);
+
     case KPI_PARAM:
-      // console.log("reducer KPI_PARAM", action.data);
-      return state.set('kpi_param', action.data)
+      return state.set('kpi_param', action.data);
+
     case TOP_BOTTOM_KPI:
-      // console.log("reducer TOP_BOTTOM_KPI", action.data);
       return state.set('top_bottom_kpi', action.data);
 
     //STORING FILTERS SELECTED BY USER
     case GENERATE_URL_PARAMS_STRING:
-      console.log("testing", action.data);
       if (action.data === 0) {
         return state
       } else {
@@ -180,7 +175,6 @@ function supplierReducer(state = initialState, action) {
       return state.set('urlParamsString3', action.data);
 
     case SAVE_BUBBLE_PARAM:
-      console.log("Bubble array in reducer", action.data);
       return state.set('prodArrayTable', action.data);
 
     case SAVE_STORE_PARAM:
@@ -188,40 +182,34 @@ function supplierReducer(state = initialState, action) {
 
     //FOR WEEK FILTER DATA
     case WEEK_FILTER_FETCH_SUCCESS:
-      console.log("reducer WEEK_FILTER_FETCH_SUCCESS", action.data);
       return state.set('week_filter_data', action.data)
 
     case CHECKBOX_WEEK_CHANGE:
-      console.log('CHECKBOX_WEEK_CHANGE reducer', action.data);
       return state.set('filter_week_selection', action.data);
 
     //For table
     case GENERATE_TABLE_SUCCESS:
-      console.log('generate_table_success..................')
       return state.set('data', action.data);
+
     case GENERATE_TEXTBOX_QUERY_STRING:
-      // console.log('generate_table_success..................')
       return state.set('textBoxQueryString', action.data);
 
     case SAVE_PAGE_PARAM:
-      // console.log('generate_table_success..................')
       return state.set('dataPageUrlParams', action.data);
 
     case RADIO_CHECK_PARAM:
-      console.log("RADIO_CHECK_PARAM", action.data);
       return state.set('radioChecked', action.data);
 
     case WEEK:
-      console.log("reducer WEEK", action.data);
       return state.set('week', action.data)
 
     case GENERATE_CHECKED_LIST:
       return state.set('checkedList', (() => {
-        console.log(state.get('checkedList'));
+        // console.log(state.get('checkedList'));
         let entireChangedPrices = state.get('checkedList');
-        console.log('entireChangedPrices', entireChangedPrices);
+        // console.log('entireChangedPrices', entireChangedPrices);
         const toDelete = new Set([action.base_product_number]);
-        console.log('toDelete', toDelete);
+        // console.log('toDelete', toDelete);
         const newArray = entireChangedPrices.filter(obj => !toDelete.has(obj.productId));
         // console.log(newArray, action.checked, action.base_product_number);
         return [...newArray,
@@ -234,38 +222,38 @@ function supplierReducer(state = initialState, action) {
 
     //SPINNER FOR SUPPLIER VIEW KPI
     case SUPPLIER_VIEW_KPI_SPINNER:
-      console.log("SUPPLIER_VIEW_KPI_SPINNER", action.supplierViewKpiSpinnerCheck);
       return state.set('supplierViewKpiSpinner', action.supplierViewKpiSpinnerCheck)
 
     //SPINNER FOR BUBBLE CHART
     case BUBBLE_CHART_SPINNER:
-      console.log("BUBBLE_CHART_SPINNER", action.bubbleChartSpinnerCheck);
       return state.set('bubbleChartSpinnerCheck', action.bubbleChartSpinnerCheck)
 
     //SPINNER FOR BAR CHART
     case BAR_CHART_SPINNER:
-      console.log("BAR_CHART_SPINNER", action.barChartSpinnerCheck);
       return state.set('barChartSpinnerCheck', action.barChartSpinnerCheck)
 
     //SPINNER FOR TABLE
     case TABLE_SPINNER:
-      console.log("TABLE_SPINNER", action.tableChartSpinnerCheck);
       return state.set('tableChartSpinnerCheck', action.tableChartSpinnerCheck)
 
     case STORE_FILTER_PARAM:
-      console.log("reducer STORE_FILTER_PARAM", action.data);
       return state.set('store_filter_param', action.data);
+
     case DEFAULT_GREY_SCREEN:
-      console.log("DEFAULT_GREY_SCREEN", action.data);
       return state.set('defaultGreyScreen', action.data);
 
     case GENERATE_URL_PARAMS_STRING_FOR_FILTERS:
-      console.log("GENERATE_URL_PARAMS_STRING_FOR_FILTERS", action.data);
       return state.set('newUrlparamsForFilters', action.data);
 
     case BRAND_PARAM:
-      console.log("BRAND_PARAM", action.data);
       return state.set('brandParam', action.data);
+
+    case GENERATE_URL_PARAMS_STRING_PARENT:
+      return state.set('parentParam', action.data);
+
+    //FOR SENDING FILTER DATA - SUPPLIER
+    case GENERATE_URL_PARAMS_STRING_SUPPLIER:
+      return state.set('supplierParam', action.data);
 
     default:
       return state;

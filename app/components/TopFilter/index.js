@@ -135,7 +135,7 @@ class TopFilter extends React.PureComponent { // eslint-disable-line react/prefe
           </div>
           <div className="col-xs-3">
             <SelectInput label={'week'} name={'week'} id={'week_select'}
-                         data={[{rowText: 'Current Week'}, {rowText: 'Latest 4 Weeks'}, {rowText: 'Latest 13 Weeks'}, {rowText: 'Latest 26 Weeks'}, {rowText: 'YTD'}]}
+                         data={[{rowText: 'Selected Week'}, {rowText: 'Latest 4 Weeks'}, {rowText: 'Latest 13 Weeks'}, {rowText: 'Latest 26 Weeks'}, {rowText: 'YTD'}]}
                          valid
                          fieldBlurred={() => {
                          }}

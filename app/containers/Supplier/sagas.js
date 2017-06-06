@@ -7,6 +7,7 @@ import {
   WEEK_FILTER_CONSTANT,
   GRAPH_FETCH,
   GENERATE_TABLE,
+  GENERATE_SIDE_FILTER,
 } from './constants';
 import {
   kpiboxDataFetchSucess,
@@ -57,7 +58,6 @@ let gettingUserDetails = () => {
   if ((typeof(buyer) == "undefined") || (buyer == "")) {
     buyer = "";
     cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}`;
-    console.log('buyer empty', buyer);
   } else {
     cookieParams = `user_id=${userId}&user_name=${userName}&designation=${designation}&buying_controller_header=${buyingController}&buyer_header=${buyer}`;
     console.log('buyer non - empty', buyer);
@@ -69,12 +69,12 @@ let gettingUserDetails = () => {
 
 const userParamsAuth = gettingUserDetails();
 
-let host_url = "127.0.0.1:8000";
+let host_url = "http://172.20.181.16:8001";
+// let host_url = "127.0.0.1:8000";
 
 // FOR SUPPLIER POPUP TABLE
 
 export function* generateDataFetch() {
-  console.log('inside kpi');
   const urlName = yield select(selectSupplierDomain());
   // const weekurlparam = urlName.get('week_param');
 
@@ -89,17 +89,13 @@ export function* generateDataFetch() {
 
   if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
     filter_week_selection = urlName.get('filter_week_selection');
-    console.log("filter_week_selection if", filter_week_selection);
   } else {
     filter_week_selection = "";
-    console.log("filter_week_selection else", filter_week_selection);
   }
 
   if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
     urlParams = filter_week_selection + '&';
-    console.log("filter_week_selection urlParams if", urlParams);
   } else {
-    console.log("filter_week_selection urlParams else", urlParams);
   }
 
 
@@ -118,10 +114,7 @@ export function* generateDataFetch() {
 
   if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
     urlParams = urlParams + "&" + urlParamsString;
-    console.log("urlParamsString urlParams if", urlParams);
-
   } else {
-    console.log("urlParamsString urlParams else", urlParams);
   }
 
   //*********************** FILTERS PARAMETERS ENDED ***********************
@@ -132,17 +125,13 @@ export function* generateDataFetch() {
 
   if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
     kpiparam = urlName.get('kpi_param');
-    console.log("urlParams if", urlParams);
   } else {
     kpiparam = "";
-    console.log("kpiparam else", kpiparam);
   }
 
   if (!(typeof(kpiparam) == "undefined") && !(kpiparam == "")) {
     urlParams = urlParams + "&" + kpiparam;
-    console.log("urlParams urlParams if", urlParams);
   } else {
-    console.log("urlParams urlParams else", urlParams);
   }
 
   //*********************** WEEK TAB PARAMETERS *********************************
@@ -151,10 +140,8 @@ export function* generateDataFetch() {
 
   if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
     weekurlparam = urlName.get('week_param') + '&';
-    console.log("weekurlparam if", weekurlparam);
   } else {
     weekurlparam = "";
-    console.log("weekurlparam else", weekurlparam);
   }
 
   if (!(typeof(weekurlparam) == "undefined") && !(weekurlparam == "")) {
@@ -181,6 +168,24 @@ export function* generateDataFetch() {
     console.log("brandParam urlParams if", urlParams);
   } else {
     console.log("brandParam urlParams else", urlParams);
+  }
+
+  //PARENT SUPPLIER PARAMS
+  let parentParam = urlName.get('parentParam')
+  if (!(typeof(parentParam) == "undefined") && !(parentParam == "")) {
+    urlParams = urlParams + "&" + parentParam;
+    console.log("parentParam urlParams if", urlParams);
+  } else {
+    console.log("parentParam urlParams else", urlParams);
+  }
+
+  //SUPPLIER PARAMS
+  let supplierParam = urlName.get('supplierParam')
+  if (!(typeof(supplierParam) == "undefined") && !(supplierParam == "")) {
+    urlParams = urlParams + "&" + supplierParam;
+    console.log("parentParam urlParams if", urlParams);
+  } else {
+    console.log("parentParam urlParams else", urlParams);
   }
 
 
@@ -303,6 +308,24 @@ export function* generateDataFetch4() {
     console.log("brandParam urlParams if", urlParams);
   } else {
     console.log("brandParam urlParams else", urlParams);
+  }
+
+//PARENT SUPPLIER PARAMS
+  let parentParam = urlName.get('parentParam')
+  if (!(typeof(parentParam) == "undefined") && !(parentParam == "")) {
+    urlParams = urlParams + "&" + parentParam;
+    console.log("parentParam urlParams if", urlParams);
+  } else {
+    console.log("parentParam urlParams else", urlParams);
+  }
+
+  //PARENT SUPPLIER PARAMS
+  let supplierParam = urlName.get('supplierParam')
+  if (!(typeof(supplierParam) == "undefined") && !(supplierParam == "")) {
+    urlParams = urlParams + "&" + supplierParam;
+    console.log("supplierParam urlParams if", urlParams);
+  } else {
+    console.log("supplierParam urlParams else", urlParams);
   }
 
 
@@ -434,6 +457,24 @@ export function* generateDataFetch3() {
     console.log("brandParam urlParams else", urlParams);
   }
 
+  //PARENT SUPPLIER PARAMS
+  let parentParam = urlName.get('parentParam')
+  if (!(typeof(parentParam) == "undefined") && !(parentParam == "")) {
+    urlParams = urlParams + "&" + parentParam;
+    console.log("brandParam urlParams if", urlParams);
+  } else {
+    console.log("brandParam urlParams else", urlParams);
+  }
+
+  //SUPPLIER PARAMS
+  let supplierParam = urlName.get('supplierParam')
+  if (!(typeof(supplierParam) == "undefined") && !(supplierParam == "")) {
+    urlParams = urlParams + "&" + supplierParam;
+    console.log("supplierParam urlParams if", urlParams);
+  } else {
+    console.log("supplierParam urlParams else", urlParams);
+  }
+
   if (!(typeof(userParamsAuth) == "undefined") && !(userParamsAuth == "")) {
     urlParams = urlParams + "&" + userParamsAuth;
     console.log("userParamsAuth if", urlParams);
@@ -507,8 +548,27 @@ export function* generateSideFilter() {
       console.log('urlParamsString3 == 1 if if else0', urlParamsString);
     }
   } else {
-    urlParamsString = '?' + newUrlparamsForFilters;
-    // urlParamsString = '?' + urlParamsString;
+    // urlParamsString = '?' + newUrlparamsForFilters;
+
+    //PARENT SUPPLIER PARAMS
+    let parentParam = urlName.get('parentParam')
+    if (!(typeof(parentParam) == "undefined") && !(parentParam == "")) {
+      urlParamsString = urlParamsString + "&" + parentParam;
+      console.log("brandParam urlParams if", urlParamsString);
+    } else {
+      console.log("brandParam urlParams else", urlParamsString);
+    }
+
+    //SUPPLIER PARAMS
+    let supplierParam = urlName.get('supplierParam')
+    if (!(typeof(supplierParam) == "undefined") && !(supplierParam == "")) {
+      urlParamsString = urlParamsString + "&" + supplierParam;
+      console.log("brandParam urlParams if", urlParamsString);
+    } else {
+      console.log("brandParam urlParams else", urlParamsString);
+    }
+
+    urlParamsString = '?' + urlParamsString;
     console.log('urlParamsString else', urlParamsString);
   }
   console.log('in bigger before try1', urlParamsString);
@@ -518,7 +578,7 @@ export function* generateSideFilter() {
   try {
     const filter_data = yield call(request,
       host_url + `/api/reporting/filter_new_supplier` + urlParamsString + '&' + userParamsAuth);
-    // host_url + `/api/reporting/filter_supplier` + urlParamsString  + '&' + userParamsAuth);
+      // host_url + `/api/reporting/filter_supplier` + urlParamsString + '&' + userParamsAuth);
     console.log('filter_data', filter_data);
     yield put(generateSideFilterSuccess(filter_data));
     yield put(GenerateUrlParamsString3(0));
@@ -530,7 +590,7 @@ export function* generateSideFilter() {
 //FOR GETTING FILTERS DATA
 export function* doGenerateSideFilter() {
   console.log('filters prod called');
-  const watcher = yield takeLatest(GENERATE_URL_PARAMS_STRING, generateSideFilter);
+  const watcher = yield takeLatest(GENERATE_SIDE_FILTER, generateSideFilter);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
 }
@@ -584,13 +644,9 @@ export function* generateWeekFilterFetch() {
     // }
 
 
-    const data = yield call(request, host_url + '/api/reporting/filter_data_week' + filter_week_selection);
+    const data = yield call(request, host_url + '/api/reporting/supplier_filter_data_week' + filter_week_selection);
+    // const data = yield call(request, host_url + '/api/reporting/filter_data_week' + filter_week_selection);
 
-    // console.log(host_url + '/api/reporting/filter_data_week' + filter_week_selection);
-
-    // const data = yield call(request, `http://10.1.161.82:8002/ranging/npd_view/filter_data?`);
-
-    console.log("Filter week data", data);
     yield put(WeekFilterFetchSuccess(data));
   } catch (err) {
     console.log(err);
@@ -599,7 +655,6 @@ export function* generateWeekFilterFetch() {
 
 
 export function* doWeekFilterFetch() {
-  console.log('sagas doFilterFetch ', WEEK_FILTER_CONSTANT);
   const watcher = yield takeLatest(WEEK_FILTER_CONSTANT, generateWeekFilterFetch);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
@@ -668,9 +723,8 @@ export function* generateTable() {
 
   if (!(typeof(filter_week_selection) == "undefined") && !(filter_week_selection == "")) {
     urlParams = filter_week_selection + '&';
-    console.log("filter_week_selection urlParams if", urlParams);
   } else {
-    console.log("filter_week_selection urlParams else", urlParams);
+
   }
 
   // FOR OTHER FILTERS EXCEPT TESCO WEEK
@@ -688,10 +742,9 @@ export function* generateTable() {
 
   if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
     urlParams = urlParams + "&" + urlParamsString;
-    console.log("urlParamsString urlParams if", urlParams);
 
   } else {
-    console.log("urlParamsString urlParams else", urlParams);
+
   }
 
   //*********************** FILTERS PARAMETERS ENDED ***********************
@@ -719,7 +772,6 @@ export function* generateTable() {
   ajaxSelection = SelectionState;
   // ajaxSelection = SelectionState.replace('&', '');
 
-  console.log('ddd', ajaxSelection);
 
   if (!(typeof(ajaxSelection) == "undefined") && !(ajaxSelection == "")) {
     urlParams = urlParams + '&' + ajaxSelection;
@@ -733,53 +785,68 @@ export function* generateTable() {
     let storeParam = urlName.get('store_filter_param')
     if (!(typeof(storeParam) == "undefined") && !(storeParam == "")) {
       urlParams = urlParams + "&" + storeParam;
-      console.log("storeParam urlParams if", urlParams);
     } else {
-      console.log("storeParam urlParams else", urlParams);
+
     }
 
     //BRAND PARAM
     let brandParam = urlName.get('brandParam')
     if (!(typeof(brandParam) == "undefined") && !(brandParam == "")) {
       urlParams = urlParams + "&" + brandParam;
-      console.log("brandParam urlParams if", urlParams);
     } else {
-      console.log("brandParam urlParams else", urlParams);
+    }
+
+    //PARENT SUPPLIER PARAM
+    let parentParam = urlName.get('parentParam')
+    if (!(typeof(parentParam) == "undefined") && !(parentParam == "")) {
+      urlParams = urlParams + "&" + parentParam;
+    } else {
+    }
+
+    //SUPPLIER PARAM
+    let supplierParam = urlName.get('supplierParam')
+    if (!(typeof(supplierParam) == "undefined") && !(supplierParam == "")) {
+      urlParams = urlParams + "&" + supplierParam;
+    } else {
     }
 
     if (!(typeof(urlParams) == "undefined") && !(urlParams == "")) {
       urlParams = urlParams.replace('&', '');
     }
 
-    console.log('urlParams 7', urlParams);
-
-
     const data = yield call(request, host_url + `/api/reporting/supplier_view_table_bubble?` + urlParams);
-
     yield put(generateTableSuccess(data));
-
     let tableChartSpinnerCheck = 1;
     yield put(tableChartSpinnerCheckSuccess(tableChartSpinnerCheck));
 
   }
 
   else {
-    console.log('data12');
-
     let storeParam = urlName.get('store_filter_param')
     if (!(typeof(storeParam) == "undefined") && !(storeParam == "")) {
       urlParams = urlParams + "&" + storeParam;
-      console.log("storeParam urlParams if", urlParams);
     } else {
-      console.log("storeParam urlParams else", urlParams);
+
     }
 
     let brandParam = urlName.get('brandParam')
     if (!(typeof(brandParam) == "undefined") && !(brandParam == "")) {
       urlParams = urlParams + "&" + brandParam;
-      console.log("brandParam urlParams if", urlParams);
     } else {
-      console.log("brandParam urlParams else", urlParams);
+    }
+
+    //PARENT SUPPLIER PARAMS
+    let parentParam = urlName.get('parentParam')
+    if (!(typeof(parentParam) == "undefined") && !(parentParam == "")) {
+      urlParams = urlParams + "&" + parentParam;
+    } else {
+    }
+
+    //SUPPLIER PARAMS
+    let supplierParam = urlName.get('supplierParam')
+    if (!(typeof(supplierParam) == "undefined") && !(supplierParam == "")) {
+      urlParams = urlParams + "&" + supplierParam;
+    } else {
     }
 
     if (!(typeof(userParamsAuth) == "undefined") && !(userParamsAuth == "")) {
@@ -792,41 +859,24 @@ export function* generateTable() {
       urlParams = urlParams.replace('&', '');
     }
 
-    console.log('urlParams 7', urlParams);
-
     const data = yield call(request, host_url + `/api/reporting/supplier_view_table_bubble?` + urlParams);
-
     yield put(generateTableSuccess(data));
-
     let tableChartSpinnerCheck = 1;
     yield put(tableChartSpinnerCheckSuccess(tableChartSpinnerCheck));
-
   }
-
-
 }
 
 export function* doGenerateTable() {
-  console.log('smaller fn');
   const watcher = yield takeLatest(GENERATE_TABLE, generateTable);
-
   yield take(LOCATION_CHANGE);
-
   yield cancel(watcher)
-
 }
 
 /* GENERATE GRAPH */
 
 export function* generateGraph() {
-  console.log('bbb');
   let urlName = yield select(selectSupplierDomain());
   //  Getting the url parameters for filters
-  console.log('bbb');
-  // let urlParams = urlName.get('urlParamsString');
-
-  // let weekParams = urlName.get('week_param');
-
   let storeParams = urlName.get('dataStoreUrlParams');
   let performanceParams = urlName.get('dataPerformanceUrlParams');
 
@@ -840,13 +890,10 @@ export function* generateGraph() {
   // }
 
   if (storeParams !== '') {
-
     SelectionState = SelectionState + '&' + storeParams
-
   }
 
   if (performanceParams !== '') {
-
     SelectionState = SelectionState + '&' + performanceParams
   }
 
@@ -881,10 +928,7 @@ export function* generateGraph() {
 
   if (!(typeof(urlParamsString) == "undefined") && !(urlParamsString == "")) {
     urlParams = urlParams + "&" + urlParamsString;
-    console.log("urlParamsString urlParams if", urlParams);
-
   } else {
-    console.log("urlParamsString urlParams else", urlParams);
   }
 
   //*********************** FILTERS PARAMETERS ENDED ***********************
@@ -916,23 +960,32 @@ export function* generateGraph() {
     let storeParam = urlName.get('store_filter_param')
     if (!(typeof(storeParam) == "undefined") && !(storeParam == "")) {
       urlParams = urlParams + "&" + storeParam;
-      console.log("storeParam urlParams if", urlParams);
     } else {
-      console.log("storeParam urlParams else", urlParams);
     }
 
     //BRAND PARAM
     let brandParam = urlName.get('brandParam')
     if (!(typeof(brandParam) == "undefined") && !(brandParam == "")) {
       urlParams = urlParams + "&" + brandParam;
-      console.log("storeParam urlParams if", urlParams);
     } else {
-      console.log("storeParam urlParams else", urlParams);
+    }
+
+    //PARENT SUPPLIER PARAM
+    let parentParam = urlName.get('parentParam')
+    if (!(typeof(parentParam) == "undefined") && !(parentParam == "")) {
+      urlParams = urlParams + "&" + parentParam;
+    } else {
+    }
+
+    //SUPPLIER PARAM
+    let supplierParam = urlName.get('supplierParam')
+    if (!(typeof(supplierParam) == "undefined") && !(supplierParam == "")) {
+      urlParams = urlParams + "&" + supplierParam;
+    } else {
     }
 
     if (!(typeof(userParamsAuth) == "undefined") && !(userParamsAuth == "")) {
       urlParams = urlParams + '&' + userParamsAuth;
-      console.log('urlParams 5', urlParams);
     } else {
 
     }
@@ -941,12 +994,8 @@ export function* generateGraph() {
       urlParams = urlParams.replace('&', '');
     }
 
-    console.log('urlParams 7', urlParams);
-
     const data = yield call(request, host_url + `/api/reporting/supplier_view_chart_bubble?` + urlParams);
-
     yield put(fetchGraphSuccess(data));
-
     let bubbleChartSpinnerCheck = 1;
     yield put(bubbleChartSpinnerCheckSuccess(bubbleChartSpinnerCheck));
   }
@@ -955,7 +1004,6 @@ export function* generateGraph() {
 
     if (!(typeof(userParamsAuth) == "undefined") && !(userParamsAuth == "")) {
       urlParams = urlParams + '&' + userParamsAuth;
-      console.log('urlParams 5', urlParams);
     } else {
 
     }
@@ -963,43 +1011,45 @@ export function* generateGraph() {
     let storeParam = urlName.get('store_filter_param')
     if (!(typeof(storeParam) == "undefined") && !(storeParam == "")) {
       urlParams = urlParams + "&" + storeParam;
-      console.log("storeParam urlParams if", urlParams);
     } else {
-      console.log("storeParam urlParams else", urlParams);
     }
 
     //BRAND PARAM
     let brandParam = urlName.get('brandParam')
     if (!(typeof(brandParam) == "undefined") && !(brandParam == "")) {
       urlParams = urlParams + "&" + brandParam;
-      console.log("brandParam urlParams if", urlParams);
     } else {
-      console.log("brandParam urlParams else", urlParams);
+    }
+
+    //PARENT SUPPLIER PARAM
+    let parentParam = urlName.get('parentParam')
+    if (!(typeof(parentParam) == "undefined") && !(parentParam == "")) {
+      urlParams = urlParams + "&" + parentParam;
+    } else {
+    }
+
+    //SUPPLIER PARAM
+    let supplierParam = urlName.get('supplierParam')
+    if (!(typeof(supplierParam) == "undefined") && !(supplierParam == "")) {
+      urlParams = urlParams + "&" + supplierParam;
+    } else {
     }
 
     if (!(typeof(urlParams) == "undefined") && !(urlParams == "")) {
       urlParams = urlParams.replace('&', '');
     }
 
-    console.log('urlParams 7', urlParams);
     const data = yield call(request, host_url + `/api/reporting/supplier_view_chart_bubble?` + urlParams);
-
     yield put(fetchGraphSuccess(data));
-
     let bubbleChartSpinnerCheck = 1;
     yield put(bubbleChartSpinnerCheckSuccess(bubbleChartSpinnerCheck));
-
-
   }
 
 }
 
 export function* doGenerateGraph() {
-  console.log('aaa');
   const watcher = yield takeLatest(GRAPH_FETCH, generateGraph);
-
   yield take(LOCATION_CHANGE);
-
   yield cancel(watcher)
 }
 

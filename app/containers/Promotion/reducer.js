@@ -81,7 +81,8 @@ const initialState = fromJS({
       "total": "0"
     }
   },
-  trendChartTabParam: '',
+  trendChartTabParam: 'promo_type=Total Promo',
+  modalTrendChartTabParam: 'promo_type=Total Promo',
   metricSelected: 'value'
 
 });
