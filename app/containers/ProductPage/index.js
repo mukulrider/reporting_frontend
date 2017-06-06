@@ -45,6 +45,8 @@ import {
   tabsAndApplySpinner,
   defaultGreyScreen,
   StoreFilterParam,
+  fetchSaveSupplierInfoSuccess,
+  fetchProductTrendInfoSuccess,
 } from './actions';
 
 import styles from './style.scss';
@@ -218,7 +220,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
       onSelectAll: onSelectAll
     };
     return (
-      <div>
+      <div style={{marginLeft: '-14px'}}>
         <Helmet
           title="Products"
           meta={[
@@ -515,6 +517,10 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   {/*Supplier Info Modal*/}
                   <Modal show={this.state.showSupplierInfoModalFlag} bsSize="lg" style={{marginTop: '10%'}}
                          aria-labelledby="contained-modal-title-lg"
+                         onHide={() => {
+                           this.setState({showSupplierInfoModalFlag: false})
+                           this.props.onFetchSaveSupplierInfoSuccess(false);
+                         }}
                   >
                     <Modal.Header>
 
@@ -523,6 +529,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                          <span style={{textAlign: 'right', float: 'right'}}
                                onClick={() => {
                                  this.setState({showSupplierInfoModalFlag: false})
+                                 this.props.onFetchSaveSupplierInfoSuccess(false);
                                }}>
                           <b>X</b></span></span>
                       </Modal.Title>
@@ -583,6 +590,10 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   {/*Trend LineChart Modal*/}
                   <Modal show={this.state.showSalesTrendModalFlag} bsSize="lg" style={{marginTop: '10%'}}
                          aria-labelledby="contained-modal-title-lg"
+                         onHide={() => {
+                           this.setState({showSalesTrendModalFlag: false})
+                           this.props.onFetchProductTrendInfoSuccess(false);
+                         }}
                   >
                     <Modal.Header>
 
@@ -591,6 +602,7 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                          <span style={{textAlign: 'right', float: 'right'}}
                                onClick={() => {
                                  this.setState({showSalesTrendModalFlag: false})
+                                 this.props.onFetchProductTrendInfoSuccess(false);
                                }}>
                           <b>X</b></span></span>
                       </Modal.Title>
@@ -797,6 +809,8 @@ function mapDispatchToProps(dispatch) {
     onSaveProduct: (e) => dispatch(saveProduct(e)),
     onSaveProductForTrend: (e) => dispatch(saveProductForTrend(e)),
     onProductTrend: (e) => dispatch(productTrend(e)),
+    onFetchSaveSupplierInfoSuccess: (e) => dispatch(fetchSaveSupplierInfoSuccess(e)),
+    onFetchProductTrendInfoSuccess: (e) => dispatch(fetchProductTrendInfoSuccess(e)),
     onGenerateUrlParamsString: (e) => dispatch(generateUrlParamsString(e)),
     onSaveWeek: (e) => dispatch(SaveWeek(e)),
     onCheckboxWeekChange: (e) => dispatch(checkboxWeekChange(e)),

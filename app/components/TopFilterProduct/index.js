@@ -35,7 +35,7 @@ class TopFilterProduct extends React.PureComponent { // eslint-disable-line reac
                 console.log('value updated');
                 // console.log(e.target.value);
                 if (v == 'All Stores') {
-                  this.props.onSaveStoreFilterParam('store_type=Express&store_type=Main Estate');
+                  this.props.onSaveStoreFilterParam();
                 } else {
                   this.props.onSaveStoreFilterParam('store_type=' + v);
                 }

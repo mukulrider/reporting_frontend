@@ -1021,7 +1021,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                     style={{
                                       textAlign: 'center',
                                       fontSize: '14px'
-                                    }}><b>Assess Performance by Parent Supplier</b><span
+                                    }}><b>Assess Performance By Parent Supplier</b><span
                                     style={{textAlign: 'right', float: 'right'}}
                                     onClick={() => this.setState({suppTopBottombar: false})}><b>X</b></span></span>
                                     <div style={{textAlign: 'center'}}>
@@ -1048,7 +1048,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                               {/*<div className="pageTitle" style={{marginBottom: "20px"}}>*/}
                               <div className="headerBox">
-                                <h2 className="pageModuleMainTitle">Assess performance by parent supplier</h2>
+                                <h2 className="pageModuleMainTitle">Assess Performance By Parent Supplier</h2>
                               </div>
 
                               {/*</div>*/}
@@ -1168,9 +1168,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                        this.setState({bubbleChartModal: false})
                                      }}>
                                 <Modal.Header closeButton>
-                                  <Modal.Title id="contained-modal-title-sm text-center" className="pageModuleTitle">Please
-                                    enter
-                                    necessary details</Modal.Title>
+                                  <Modal.Title id="contained-modal-title-sm text-center" className="pageModuleTitle">Negotiation Opporutnity</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
                                   <div className="row" style={{marginLeft: "0px", marginRight: "0px"}}>

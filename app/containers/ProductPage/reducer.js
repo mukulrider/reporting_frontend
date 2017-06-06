@@ -28,8 +28,7 @@ import {
   STORE_FILTER_PARAM,
 } from './constants';
 
-const initialState = fromJS({dataWeekParams:'week_flag=Latest Week',dataMetricParams:'metric_flag=Value',
-  store_filter_param:'store_type=Express&store_type=Main Estate',dataWeekParams: 'week_flag=Latest Week', dataMetricParams: 'metric_flag=Value'
+const initialState = fromJS({dataWeekParams:'week_flag=Latest Week',dataMetricParams:'metric_flag=Value'
 });
 
 function productPageReducer(state = initialState, action) {

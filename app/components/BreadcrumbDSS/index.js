@@ -21,7 +21,7 @@ class BreadcrumbDSS extends React.PureComponent { // eslint-disable-line react/p
                border: '1px solid transparent',
                position: 'fixed',
                width: '100%',
-               zIndex: 100,
+               zIndex: 5,
                marginTop: '-2px',
                borderRadius: '3px',
                boxShadow: '0px 0 0px 0 rgba(100, 100, 100, 0.2), 0 3px 6px 0 rgba(100, 100, 010, 0.19)'

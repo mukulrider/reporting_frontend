@@ -51,8 +51,8 @@ let gettingUserDetails = () =>{
 export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
-let host_url="http://dvcmpapp00001uk.dev.global.tesco.org";
-// const host_url = "http://127.0.0.1:8000";
+// let host_url="http://dvcmpapp00001uk.dev.global.tesco.org";
+const host_url = "http://127.0.0.1:8000";
 //let host_url = "http://172.20.181.12:8001"
 
 
@@ -126,7 +126,14 @@ export function* generateWeekFilter() {
   const userParams = gettingUserDetails();
 //  const urlParamsWeekFilter = urlName.get('filter_week_selection');
 
-  let urlParams = `${urlParamsWeekFlag}&${urlParamsMetricFlag}&${urlStoreFlag}`;
+  let urlParams = "";
+  if (!(typeof(urlStoreFlag) == "undefined") && !(urlStoreFlag == "")) {
+    urlParams = `${urlParamsWeekFlag}&${urlParamsMetricFlag}&${urlStoreFlag}`;
+    console.log("With store_filter_param", urlParams);
+  } else {
+    urlParams = `${urlParamsWeekFlag}&${urlParamsMetricFlag}`;
+  }
+
 
   let urlParamsWeekFilter = "";
   urlParamsWeekFilter = urlName.get('filter_week_selection');
@@ -188,21 +195,25 @@ export function* generateProductSupplierInfo() {
   const urlProductParams = urlName.get('dataProduct');
   const urlParamsWeekFlag = urlName.get('dataWeekParams');
   const urlParamsMetricFlag = urlName.get('dataMetricParams');
+  const urlStoreFlag = urlName.get('store_filter_param');
   const userParams = gettingUserDetails();
 
-  let urlParams = `${urlProductParams}&${urlParamsWeekFlag}&${urlParamsMetricFlag}`;
+  let urlParams = "";
+  if (!(typeof(urlStoreFlag) == "undefined") && !(urlStoreFlag == "")) {
+    urlParams = `${urlProductParams}&${urlParamsWeekFlag}&${urlParamsMetricFlag}&${urlStoreFlag}`;
+  } else {
+    urlParams = `${urlProductParams}&${urlParamsWeekFlag}&${urlParamsMetricFlag}`;
+  }
 
   let urlParamsWeekFilter = "";
   urlParamsWeekFilter = urlName.get('filter_week_selection');
   if (!(typeof(urlParamsWeekFilter) == "undefined") && !(urlParamsWeekFilter == "")) {
     urlParamsWeekFilter = urlName.get('filter_week_selection');
     urlParams = `${urlParams}&${urlParamsWeekFilter}`;
-    console.log("filter_week_selection", urlParamsWeekFilter);
   } else {
     urlParamsWeekFilter = "";
   }
-  console.log("Week Filter:",urlParamsWeekFilter);
-  console.log(urlParams);
+
 
   let urlparamsHierarchyFilter = urlName.get('urlParamsString');
   if (typeof(urlparamsHierarchyFilter) == "undefined") {
@@ -244,9 +255,16 @@ export function* generateProductTrendInfo() {
   const urlProductParams = urlName.get('dataProduct');
   const urlParamsWeekFlag = urlName.get('dataWeekParams');
   const urlParamsMetricFlag = urlName.get('dataMetricParams');
+  const urlStoreFlag = urlName.get('store_filter_param');
   const userParams = gettingUserDetails();
 
-  let urlParams = `${urlProductParams}&${urlParamsWeekFlag}&${urlParamsMetricFlag}`;
+  let urlParams = "";
+  if (!(typeof(urlStoreFlag) == "undefined") && !(urlStoreFlag == "")) {
+    urlParams = `${urlProductParams}&${urlParamsWeekFlag}&${urlParamsMetricFlag}&${urlStoreFlag}`;
+  } else {
+    urlParams = `${urlProductParams}&${urlParamsWeekFlag}&${urlParamsMetricFlag}`;
+  }
+
 
   let urlParamsWeekFilter = "";
   urlParamsWeekFilter = urlName.get('filter_week_selection');

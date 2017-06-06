@@ -25,8 +25,8 @@ export default class App extends React.PureComponent { // eslint-disable-line re
 
 
   componentWillMount() {
-    const hostName = 'dvcmpweb00001uk.dev.global.tesco.org';
-    const hostPort = '';
+    const hostName = '172.20.244.155';
+    const hostPort = '3000';
     let getCookie;
     getCookie = (name) => {
       const value = `; ${document.cookie}`;

@@ -116,7 +116,6 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
           this.setState({showProductSalesInfoModalFlag: true,product:row.product});
           let product = "product="+row.product;
           this.props.onSaveProduct(product);
-          this.props.prodCardsDataFetchSuccess(false);
           this.props.onProductCardsData();
           this.props.onProductChartsData();
         }}
@@ -246,7 +245,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
 
     let kpiParams = this.props.DailySales.kpi_param;
     return (
-      <div style={{background: "#fafafa"}}>
+      <div style={{background: "#fafafa",marginLeft: '-14px'}}>
         <div>
           <Helmet
             title="DailySales"
@@ -916,8 +915,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                               <Modal show={this.state.showProductSalesInfoModalFlag}
                                      onHide={() => {
                                        this.setState({showProductSalesInfoModalFlag: false})
-                                       this.props.onProdCardsDataFetchSuccess(false);
-                                       this.props.onProdChartsDataFetchSuccess(false);
+                                       this.props.prodCardsDataFetchSuccess(false);
+                                       this.props.prodChartsDataFetchSuccess(false);
                                      }}
                                      bsSize="large" aria-labelledby="contained-modal-title-sm"
                               >
@@ -928,8 +927,8 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                              <span style={{textAlign: 'right', float: 'right'}}
                                    onClick={() => {
                                      this.setState({showProductSalesInfoModalFlag: false})
-                                     this.props.onProdCardsDataFetchSuccess(false);
-                                     this.props.onProdChartsDataFetchSuccess(false);
+                                     this.props.prodCardsDataFetchSuccess(false);
+                                     this.props.prodChartsDataFetchSuccess(false);
                                    }}>
                               <b>X</b></span></span>
                                   </Modal.Title>
@@ -1358,7 +1357,6 @@ function mapDispatchToProps(dispatch) {
     DSViewKpiSpinnerCheck: (e) => dispatch(DSViewKpiSpinnerCheckSuccess(e)),
 
     cardDataFetchSuccess: (e) => dispatch(cardDataFetchSuccess(e)),
-    prodCardsDataFetchSuccess: (e) => dispatch(prodCardsDataFetchSuccess(e)),
     CardsDataCall: (e) => dispatch(cardsCallAction(e)),
     ChartDataCall: (e) => dispatch(chartCallAction(e)),
     onSaveWeekParam: (e) => dispatch(SaveWeekParam(e)),
@@ -1380,8 +1378,8 @@ function mapDispatchToProps(dispatch) {
     onSaveProduct: (e) => dispatch(saveProduct(e)),
     onProductCardsData: (e) => dispatch(productCardsData(e)),
     onProductChartsData: (e) => dispatch(productChartsData(e)),
-    onProdCardsDataFetchSuccess: (e) => dispatch(prodCardsDataFetchSuccess(e)),
-    onProdChartsDataFetchSuccess: (e) => dispatch(prodChartsDataFetchSuccess(e)),
+    prodCardsDataFetchSuccess: (e) => dispatch(prodCardsDataFetchSuccess(e)),
+    prodChartsDataFetchSuccess: (e) => dispatch(prodChartsDataFetchSuccess(e)),
     LineChartSpinnerCheckSuccess: (e) => dispatch(LineChartSpinnerCheckSuccess(e)),
     LineChartSpinnerCheck: (e) => dispatch(LineChartSpinnerCheckSuccess(e)),
     onCheckboxWeekChange: (e) => dispatch(checkboxWeekChange(e)),
