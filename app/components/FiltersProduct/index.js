@@ -47,7 +47,6 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
     this.props.onGenerateUrlParamsString(queryString);
     localStorage.setItem('urlParams', localUrlParamsString);
 
-    console.log('this.props.onGenerateUrlParamsString(queryString)', this.props.onGenerateUrlParamsString(queryString));
     // this.props.onGenerateFilterParamsString(queryString);
     // this.props.onGenerateUrlParamsData();
     // this.updateNewState(newUrl + '?' + queryString);
@@ -86,75 +85,78 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
                       <span className="accordion-toggle" style={{float: 'right'}}></span>
                     </div>
                   );
-                  return (
 
-                    <Panel header={panelHeader} eventKey={++key} key={Date.now() + Math.random()}>
-                      <div className="panel text-capitalize">
+                  if (item.title != 'store_type') {
+                    return (
 
-                        <div className="panel-body style-7"
-                             style={{maxHeight: '250px', overflowX: 'hidden', fontSize: '9px'}}>
-                          {item.items.map(obj => {
-                            if (obj.highlighted) {
-                              if (item.input_type == 'RadioButton') {
-                                return <RadioButton id={item.id + '__' + item.category_director + '__' + obj.title}
-                                                    label={obj.title}
-                                                    valid={true}
-                                                    key={item.id + '__' + obj.title}
-                                                    name={obj.title.toLowerCase() }
-                                                    onChange={() => {
-                                                      this.updateUrl(item.id)
-                                                    }}
-                                                    checked={obj.resource.selected}
-                                                    isDisabled={!obj.highlighted}
+                      <Panel header={panelHeader} eventKey={++key} key={Date.now() + Math.random()}>
+                        <div className="panel text-capitalize">
+
+                          <div className="panel-body style-7"
+                               style={{maxHeight: '250px', overflowX: 'hidden', fontSize: '9px'}}>
+                            {item.items.map(obj => {
+                              if (obj.highlighted) {
+                                if (item.input_type == 'RadioButton') {
+                                  return <RadioButton id={item.id + '__' + item.category_director + '__' + obj.title}
+                                                      label={obj.title}
+                                                      valid={true}
+                                                      key={item.id + '__' + obj.title}
+                                                      name={obj.title.toLowerCase() }
+                                                      onChange={() => {
+                                                        this.updateUrl(item.id)
+                                                      }}
+                                                      checked={obj.resource.selected}
+                                                      isDisabled={!obj.highlighted}
+                                  />
+                                }
+                                return <Checkbox style="font-size:12px;"
+                                                 id={item.id + '__' + item.category_director + '__' + obj.title}
+                                                 label={obj.title}
+                                                 valid={true}
+                                                 key={item.id + '__' + obj.title}
+                                                 name={obj.title.toLowerCase()}
+                                                 onChange={() => {
+                                                   this.updateUrl(item.id)
+                                                 }}
+                                                 checked={obj.resource.selected}
+                                                 isDisabled={!obj.highlighted}
                                 />
                               }
-                              return <Checkbox style="font-size:12px;"
-                                               id={item.id + '__' + item.category_director + '__' + obj.title}
-                                               label={obj.title}
-                                               valid={true}
-                                               key={item.id + '__' + obj.title}
-                                               name={obj.title.toLowerCase()}
-                                               onChange={() => {
-                                                 this.updateUrl(item.id)
-                                               }}
-                                               checked={obj.resource.selected}
-                                               isDisabled={!obj.highlighted}
-                              />
-                            }
-                          })}
-                          <hr/>
-                          {item.items.map(obj => {
-                            if (!obj.highlighted) {
-                              if (item.input_type == 'RadioButton') {
-                                return <RadioButton id={item.id + '__' + item.category_director + '__' + obj.title}
-                                                    label={obj.title}
-                                                    valid={true}
-                                                    key={item.id + '__' + obj.title}
-                                                    name={obj.title.toLowerCase() }
-                                                    onChange={() => {
-                                                      this.updateUrl(item.id)
-                                                    }}
-                                                    checked={obj.resource.selected}
-                                                    isDisabled={!obj.highlighted}
+                            })}
+                            <hr/>
+                            {item.items.map(obj => {
+                              if (!obj.highlighted) {
+                                if (item.input_type == 'RadioButton') {
+                                  return <RadioButton id={item.id + '__' + item.category_director + '__' + obj.title}
+                                                      label={obj.title}
+                                                      valid={true}
+                                                      key={item.id + '__' + obj.title}
+                                                      name={obj.title.toLowerCase() }
+                                                      onChange={() => {
+                                                        this.updateUrl(item.id)
+                                                      }}
+                                                      checked={obj.resource.selected}
+                                                      isDisabled={!obj.highlighted}
+                                  />
+                                }
+                                return <Checkbox style="font-size:12px,width:230px;"
+                                                 id={item.id + '__' + item.category_director + '__' + obj.title}
+                                                 label={obj.title} valid={true}
+                                                 key={item.id + '__' + obj.title}
+                                                 name={obj.title.toLowerCase() }
+                                                 onChange={() => {
+                                                   this.updateUrl(item.category_director)
+                                                 }}
+                                                 checked={obj.resource.selected}
+                                                 isDisabled={!obj.highlighted}
                                 />
                               }
-                              return <Checkbox style="font-size:12px,width:230px;"
-                                               id={item.id + '__' + item.category_director + '__' + obj.title}
-                                               label={obj.title} valid={true}
-                                               key={item.id + '__' + obj.title}
-                                               name={obj.title.toLowerCase() }
-                                               onChange={() => {
-                                                 this.updateUrl(item.category_director)
-                                               }}
-                                               checked={obj.resource.selected}
-                                               isDisabled={!obj.highlighted}
-                              />
-                            }
-                          })}
+                            })}
+                          </div>
                         </div>
-                      </div>
-                    </Panel>
-                  )
+                      </Panel>
+                    )
+                  }
                 })}
               </PanelGroup>
 
@@ -221,8 +223,9 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
                   //   console.log('modal open');
                   //   this.setState({alertShow: true});
                   // }
-                }}>Apply Filters</Button>
-                <Button style={{marginTop:"4px", marginLeft:"0 auto"}} buttonType={'primary'}
+                }}>Apply</Button>
+                <div style={{height: '1%', width: '100%'}}>&nbsp;</div>
+                <Button style={{marginLeft:"0 auto"}}
 
                         onClick={() => {
                           this.props.defaultGreyScreen(1);

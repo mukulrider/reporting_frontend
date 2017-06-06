@@ -230,7 +230,7 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
                       this.props.loadPromoPart();
                 }}>Apply</Button>
                 <div style={{height: '1%', width: '100%'}}>&nbsp;</div>
-                <Button buttonType={'primary'} onClick={() => {
+                <Button onClick={() => {
                   this.props.defaultGreyScreen(1);
                   let selection = '';
                   this.props.onSaveWeekFilterParam(selection);

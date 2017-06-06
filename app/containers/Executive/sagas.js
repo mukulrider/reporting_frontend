@@ -105,7 +105,7 @@ let gettingUserDetails = () => {
 const userParams = gettingUserDetails();
 // alert(userParams)
 
-let host_url="http://10.1.181.18:8000";
+let host_url="http://172.20.181.16:8001";
 // let host_url="http://dvcmpapp00001uk.dev.global.tesco.org";
 
 // All sagas to be loaded
@@ -1794,7 +1794,8 @@ export function* generateFilterFetch() {
     console.log('urlAppends6', urlAppends);
 
     // localStorage.setItem('urlAppends', urlAppends);
-    const data = yield call(request, host_url + '/api/reporting/exec_filter_data?' + urlAppends);
+    const data = yield call(request, host_url + '/api/reporting/exec_new_filter_data?' + urlAppends);
+    // const data = yield call(request, host_url + '/api/reporting/exec_filter_data?' + urlAppends);
 
     yield put(FilterFetchSuccess(data));
   } catch (err) {

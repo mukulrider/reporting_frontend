@@ -352,6 +352,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                           ----- Please select the filters to get started ------</div>
                       )
                     }
+
                     else {
                       return (
 
