@@ -145,7 +145,7 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
   render() {
     return (
 
-      <div className="row" ref={'selector'}>
+      <div ref={'selector'}>
         {(() => {
           return (
             <div id="style-7">
@@ -167,9 +167,8 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                         );
                         if (!['store_type','brand_name','product'].includes(obj.title)) {
                           return (
-                            <Panel header={panelHeader} eventKey={++key}>
-                              <div className="panel text-capitalize"
-                                   key={Date.now() + Math.random() + Math.random() + 10}>
+                            <Panel header={panelHeader} eventKey={++key}> key={Date.now() + Math.random() + Math.random() + 10}
+                              <div className="panel text-capitalize">
 
                                 <div className="panel-body style-7"
                                      style={{maxHeight: '250px', overflowX: 'hidden', fontSize: '9px'}}>
@@ -179,12 +178,13 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                                     {
                                       obj.items.map(obj2 => {
                                         finalCheckbox.push(
-                                          <Checkbox id={obj.title + '__' + obj2.title}
+                                          <Checkbox key={Date.now() + Math.random()}
+                                                    id={obj.title + '__' + obj2.title}
                                                     label={obj2.title}
                                                     style={{fontSize: '10px'}}
                                                     checked={(() => {
                                                       if (obj2.selected) {
-                                                        {/*alert()*/
+                                                        {
                                                         }
                                                       }
                                                       return obj2.resource.selected
@@ -200,7 +200,6 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                                             // checked={obj.resource.selected}
                                                     isDisabled={!obj2.highlighted}
                                                     valid={true}
-                                                    key={Date.now() + Math.random()}
                                           />
                                         )
                                       })

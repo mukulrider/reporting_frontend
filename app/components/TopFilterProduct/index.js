@@ -67,14 +67,14 @@ class TopFilterProduct extends React.PureComponent { // eslint-disable-line reac
           <div className="col-xs-3">
             <SelectInput
               label={'week'} name={'week'} id={'week_select'}
-              data={[{rowText: 'Current Week'}, {rowText: 'Latest 4 Weeks'}, {rowText: 'Latest 13 Weeks'}, {rowText: 'Latest 26 Weeks'}, {rowText: 'YTD'}]}
+              data={[{rowText: 'Selected Week'}, {rowText: 'Latest 4 Weeks'}, {rowText: 'Latest 13 Weeks'}, {rowText: 'Latest 26 Weeks'}, {rowText: 'YTD'}]}
               valid
               fieldBlurred={() => {
               }}
               valueUpdated={(e, v) => {
                 console.log('value updated', e, v);
                 // console.log(e.target.value)
-		if (v == 'Current Week') {
+		if (v == 'Selected Week') {
 			v = 'Latest Week';
 		}
 		else if (v == 'Latest 4 Weeks'){

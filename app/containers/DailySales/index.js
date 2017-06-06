@@ -30,13 +30,6 @@ require('react-bootstrap-table/css/react-bootstrap-table.css')
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
-var options1 = [
-  { value: 'one', label: 'One' },
-  { value: 'two', label: 'Two' },
-  { value: 'three', label: 'Three' },
-  { value: 'foiur', label: 'Four' },
-  { value: 'five', label: 'Five' }
-];
 
 import {
   PromoGiveawayData, cardsCallAction,
@@ -412,7 +405,6 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                             return (
                               <div>
                                 <div className="row mainBox" style={{textAlign: 'center'}}>
-                                  {/* Box for value */}
                                   <div className="col-md-4 col-xs-4" style={{backgroundColor: "#fafafa"}}>
                                     <Panel>
                                       <h3 className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>Value</h3>
@@ -775,7 +767,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                }}
                                bsSize="large" aria-labelledby="contained-modal-title-sm"
                         >
-                          <Modal.Header style={{backgroundColor:'#FFF'}}>
+                          <Modal.Header>
 
                             <Modal.Title id="contained-modal-title-sm" className="pageModuleTitle">
                         <span className="pageModuleTitle"><b>{this.state.y_axis} Trend : {this.state.product}</b>
