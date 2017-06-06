@@ -61,8 +61,8 @@ let gettingUserDetails = () => {
 const userParams = gettingUserDetails();
 
 
-//let host_url="http://dvcmpapp00001uk.dev.global.tesco.org";
- let host_url="http://127.0.0.1:8000";
+let host_url="http://172.20.181.16:8001";
+// let host_url="http://127.0.0.1:8000";
 // All sagas to be loaded
 
 // FOR CARDS DATA
@@ -80,13 +80,6 @@ export function* cardData_pull() {
   const storeType = urlName.get('store_filter_param');
   const week_filter = urlName.get('week');
   const date_filter = urlName.get('dateurlParam');
-
-  let urlAppends = "";
-
-  if (!(typeof(week_filter) == "undefined") && !(week_filter == "")) {
-    urlAppends = urlAppends + '&' + week_filter;
-    console.log('urlAppends1', urlAppends);
-  }
 
   const data = yield call(request,host_url+"/api/reporting/data_daily_sales?"+'&'+kpiparam+'&'+week_filter + '&' + filter + '&' + storeType + '&' + date_filter + '&'+ userParams);
   console.log("Line chart fetched data",data);
@@ -140,6 +133,7 @@ export function* prodCardsData_pull() {
   const week_filter = urlName.get('week');
   const date_filter = urlName.get('dateurlParam');
   const prod_filter = urlName.get('product');
+
 
 
 
@@ -201,7 +195,8 @@ export function* generateFilterFetch() {
     // urlParamsString = '?' + urlParamsString;
   }
   try {
-    const data = yield call(request, host_url + '/api/reporting/filter_daily_sales?' + urlParamsString + '&' + userParams,
+    const data = yield call(request, host_url + '/api/reporting/filter_new_daily_sales?' + urlParamsString + '&' + userParams,
+    // const data = yield call(request, host_url + '/api/reporting/filter_daily_sales?' + urlParamsString + '&' + userParams,
     );
     console.log("Filter data", data);
     yield put(FilterFetchSuccess(data));

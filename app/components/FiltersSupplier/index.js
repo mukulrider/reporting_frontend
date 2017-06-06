@@ -273,8 +273,7 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                 }}>Apply</Button></div>
               <br/>
               <div className="text-center">
-                <Button buttonType={'primary'}
-                        onClick={() => {
+                <Button onClick={() => {
 
                           this.props.onGenerateUrlParamsString('');
                           this.props.onGenerateUrlParamsString2('');

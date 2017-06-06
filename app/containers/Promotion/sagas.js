@@ -86,7 +86,7 @@ let gettingUserDetails = () => {
 const userParams = gettingUserDetails();
 
 
-let host_url = "http://10.1.181.18:8000";
+let host_url = "http://172.20.181.16:8001";
 
 // FOR PROMO BOXES
 export function* generatePromoKpiDataFetch() {
@@ -612,7 +612,8 @@ export function* generateFilterFetch() {
     // console.log('urlAppends6', urlAppends);
 
 
-    const data = yield call(request,host_url + '/api/reporting/promo_filter_data?' + urlAppends);
+    const data = yield call(request,host_url + '/api/reporting/promo_new_filter_data?' + urlAppends);
+    // const data = yield call(request,host_url + '/api/reporting/promo_filter_data?' + urlAppends);
 
     yield put(FilterFetchSuccess(data));
   } catch (err) {

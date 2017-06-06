@@ -52,8 +52,8 @@ export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
 // let host_url="http://dvcmpapp00001uk.dev.global.tesco.org";
-const host_url = "http://127.0.0.1:8000";
-//let host_url = "http://172.20.181.12:8001"
+// const host_url = "http://127.0.0.1:8000";
+let host_url = "http://172.20.181.16:8001"
 
 
 /* GENERATE SIDE FILTER*/
@@ -102,7 +102,8 @@ export function* generateSideFilter() {
 
     // const data = yield call(request, `http://172.20.244.141:8002/api/product_impact/filter_data/?${urlParamsString}`);
     const filter_data = yield call(request,
-      `${host_url}/api/reporting/filter_data_product?` + urlAppends);
+      `${host_url}/api/reporting/filter_new_data_product?` + urlAppends);
+      // `${host_url}/api/reporting/filter_data_product?` + urlAppends);
 
     yield put(generateSideFilterSuccess(filter_data));
   } catch (err) {
