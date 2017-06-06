@@ -32,6 +32,7 @@ import {
   CHECKBOX_CHANGE,
   CHECKBOX_WEEK_CHANGE,
   DEFAULT_PAGE_LOAD_CHECK,
+  DEFAULT_GREY_SCREEN
 } from './constants';
 
 
@@ -166,6 +167,10 @@ function dailySalesReducer(state = initialState, action) {
     case DEFAULT_PAGE_LOAD_CHECK:
       console.log('DEFAULT_PAGE_LOAD_CHECK reducer', action.data);
       return state.set('defaultPageLoadCheck', action.data);
+
+    case DEFAULT_GREY_SCREEN:
+      console.log("DEFAULT_GREY_SCREEN", action.data);
+      return state.set('defaultGreyScreen', action.data);
 
     default:
       return state;

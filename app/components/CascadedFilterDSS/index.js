@@ -129,6 +129,7 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
     // queryString = queryString.substring(0, queryString.length - 1);
     //  console.log('queryString->', queryString);
     //const urlParams = this.props.location.query;
+    this.props.defaultGreyScreen(0);
     this.props.ChartDataCall();
     this.props.CardsDataCall();
     this.props.loadKpi();
@@ -167,7 +168,7 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                         );
                         if (!['store_type','brand_name','product'].includes(obj.title)) {
                           return (
-                            <Panel header={panelHeader} eventKey={++key}> key={Date.now() + Math.random() + Math.random() + 10}
+                            <Panel header={panelHeader} eventKey={++key}>
                               <div className="panel text-capitalize">
 
                                 <div className="panel-body style-7"
@@ -311,10 +312,11 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                     this.props.onCheckboxChange(selection);
                     this.props.onGenerateUrlParamsString(selection);
                     this.props.onCheckboxWeekChange(selection);
-                    this.props.storeSelectionParams(storeSelection);
+//                    this.props.storeSelectionParams(storeSelection);
                     this.props.onSaveWeek(selection);
                     this.props.onSaveDateFilterParam(selection);
 
+                    this.props.defaultGreyScreen(1);
                     this.props.ChartDataCall();
                     this.props.CardsDataCall();
                     this.props.onGenerateSideFilter();

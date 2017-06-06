@@ -30,6 +30,7 @@ import {
   CHECKBOX_WEEK_CHANGE,
   STORE_FILTER_PARAM,
   DEFAULT_PAGE_LOAD_CHECK,
+  DEFAULT_GREY_SCREEN
 } from './constants';
 
 export function defaultAction() {
@@ -301,4 +302,13 @@ export function prodChartsSpinnerCheckSuccess(ProdChartsSpinnerCheck) {
     type: PROD_CHARTS_SPINNER,
     ProdChartsSpinnerCheck
   }
+}
+
+export function defaultGreyScreen(data)
+{
+  console.log('defaultGreyScreen', data);
+  return {
+    type: DEFAULT_GREY_SCREEN,
+    data,
+  };
 }

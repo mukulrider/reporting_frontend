@@ -257,7 +257,6 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                   <FiltersProduct sideFilter={this.props.ProductPage.sideFilter}
                                   location={this.props.location}
                                   userParams={this.props.ProductPage.userParams}
-                                  week_data={this.props.ProductPage.week_filter_data}
                                   previous_week_selection={this.props.ProductPage.filter_week_selection}
                                   onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}
                                   onProductPage={this.props.onProductPageValues}
