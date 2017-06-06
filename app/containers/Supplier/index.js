@@ -52,6 +52,7 @@ import {
   onGenerateUrlParamsStringParent,
   onGenerateUrlParamsStringSupplier,
   onGenerateUrlParamsStringForFilters,
+  onGenerateSideFilter,
   getWeekFilter,
   SaveStoreParam,
   generateTable,
@@ -98,8 +99,10 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
       this.props.onGenerateUrlParamsString3(1);
       this.props.onGenerateUrlParamsString2(defaultFilterUrlParams);
       this.props.onGenerateUrlParamsString(0);
+      this.props.onGenerateSideFilter();
     } else {
       this.props.onGenerateUrlParamsString('');
+      this.props.onGenerateSideFilter();
     }
 
     this.props.supplierViewKpiSpinnerCheckSuccess(0);
@@ -260,14 +263,20 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
     ];
 
     let getOptions = (opt) => {
+      console.log('opt', opt);
       for (let i = 0; i < opt.length; i++) {
-        suppList.push({'label': opt[i].title, 'value': opt[i].title})
+        if (opt[i].highlighted) {
+          suppList.push({'label': opt[i].title, 'value': opt[i].title})
+        }
       }
+      console.log('opt2', opt);
     }
 
     let getOptions2 = (opt) => {
       for (let i = 0; i < opt.length; i++) {
-        suppList2.push({'label': opt[i].title, 'value': opt[i].title})
+        if (opt[i].highlighted) {
+          suppList2.push({'label': opt[i].title, 'value': opt[i].title})
+        }
       }
     }
 
@@ -280,42 +289,52 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
       this.setState({
         selectedValues: selectedItem
       });
-      console.log('this.state.selectedValues',this.state.selectedValues, '\n', '>>>');
-      console.log('parentSupplierSelection 2',parentSupplierSelection, '\n', '>>>');
+      console.log('this.state.selectedValues', this.state.selectedValues, '\n', '>>>');
+      console.log('parentSupplierSelection 2', parentSupplierSelection, '\n', '>>>');
       let otherFilterSelections1 = this.props.supplier.urlParamsString;
       let otherFilterSelections2 = this.props.supplier.urlParamsString2;
+      let supplierParam = this.props.supplier.supplierParam;
 
       let savingAllFilterParams1 = '';
       for (let i = 0; i < parentSupplierSelection.length; i++) {
-      // for (let i = 0; i < selectedItem.length; i++) {
+        // for (let i = 0; i < selectedItem.length; i++) {
         savingAllFilterParams1 = savingAllFilterParams1 + `parent_supplier=${parentSupplierSelection[parentSupplierSelection.length - 1].value}&`;
         // savingAllFilterParams1 = savingAllFilterParams1 + `parent_supplier=${this.state.selectedValues[this.state.selectedValues.length - 1].value}&`;
       }
       let savingAllFilterParams2 = '';
       for (let i = 0; i < parentSupplierSelection.length; i++) {
-      // for (let i = 0; i < selectedItem.length; i++) {
+        // for (let i = 0; i < selectedItem.length; i++) {
         // for (let i = 0; i < this.state.selectedValues.length; i++) {
         savingAllFilterParams2 = savingAllFilterParams2 + `parent_supplier=${parentSupplierSelection[parentSupplierSelection.length - 1].value}&`;
         // savingAllFilterParams2 = savingAllFilterParams2 + `parent_supplier=${this.state.selectedValues[this.state.selectedValues.length - 1].value}&`;
       }
 
-      console.log('savingAllFilterParams1..',savingAllFilterParams1);
-      console.log('savingAllFilterParams1..',otherFilterSelections1);
-      console.log('savingAllFilterParams2..',savingAllFilterParams2);
-      console.log('savingAllFilterParams2..',otherFilterSelections2);
+      console.log('savingAllFilterParams1..', savingAllFilterParams1);
+      console.log('savingAllFilterParams1..', otherFilterSelections1);
+      console.log('savingAllFilterParams2..', savingAllFilterParams2);
+      console.log('savingAllFilterParams2..', otherFilterSelections2);
       // console.log('this.state.selectedValues',this.state.selectedValues);
       // this.props.onGenerateUrlParamsString2(otherFilterSelections2 + '&' + savingAllFilterParams2);
       // this.props.onGenerateUrlParamsString(otherFilterSelections1 + '&' + savingAllFilterParams1);
+
       this.props.onGenerateUrlParamsStringParent(savingAllFilterParams1);
 
       this.props.supplierViewKpiSpinnerCheck(0);
       this.props.barChartSpinnerCheck(0);
       this.props.onKPIBox();
       this.props.ontopBottomChart();
+
+      let filterCallingParams = otherFilterSelections1;
+      if (supplierParam != '') {
+        filterCallingParams = filterCallingParams + +'&' + supplierParam;
+      }
+
       this.props.onGenerateUrlParamsString(otherFilterSelections1);
+      this.props.onGenerateSideFilter();
+
     }
 
-    console.log('After logchange this.state.selectedValues',this.state.selectedValues, '\n', '>>>');
+    console.log('After logchange this.state.selectedValues', this.state.selectedValues, '\n', '>>>');
 
     let supplierSelection = [];
     let logChange2 = (selectedItem) => {
@@ -328,6 +347,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
       let otherFilterSelections1 = this.props.supplier.urlParamsString;
       let otherFilterSelections2 = this.props.supplier.urlParamsString2;
+      let parentParam = this.props.supplier.parentParam;
 
       let savingAllFilterParams1 = '';
       for (let i = 0; i < supplierSelection.length; i++) {
@@ -346,7 +366,9 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
       this.props.barChartSpinnerCheck(0);
       this.props.onKPIBox();
       this.props.ontopBottomChart();
-      this.props.onGenerateUrlParamsStringParent(otherFilterSelections1);
+
+      this.props.onGenerateUrlParamsString(otherFilterSelections1);
+      this.props.onGenerateSideFilter();
     }
 
     let logChangeBrand = (selectedItem) => {
@@ -435,6 +457,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                          location={this.props.location}
                           // onDataUrlParams={this.props.DataUrlParams}
                           // onUrlParamsData={this.props.onUrlParamsData}
+                                         onGenerateSideFilter={this.props.onGenerateSideFilter}
                                          onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}
                                          onGenerateUrlParamsString2={this.props.onGenerateUrlParamsString2}
                                          onGenerateUrlParamsStringForFilters={this.props.onGenerateUrlParamsStringForFilters}
@@ -457,6 +480,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                          urlParamsString={this.props.supplier.urlParamsString}
                                          filter_week_selection={this.props.supplier.filter_week_selection}
                                          defaultGreyScreen={this.props.defaultGreyScreen}
+                          // parentSupplierSelection={this.parentSupplierSelection}
 
 
                           // onGenerateFilterParamsString={this.props.onGenerateFilterParamsString}
@@ -549,7 +573,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                 (() => {
                                   if (this.props.supplier.sideFilter) {
                                     this.setState({options2: this.props.supplier.sideFilter.checkbox_list[8].items})
-                                    getOptions(this.state.options2);
+                                    getOptions(this.props.supplier.sideFilter.checkbox_list[8].items);
                                     return (
                                       <Select menuContainerStyle={{'zIndex': 999}}
                                               value={this.state.selectedValues} multi={true}
@@ -584,23 +608,23 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                             </div>
 
                             {/*<div className="col-xs-3">*/}
-                              {/*{*/}
-                                {/*(() => {*/}
-                                  {/*if (this.props.supplier.sideFilter) {*/}
-                                    {/*return (*/}
-                                      {/*<TopFilterSupplierBrand*/}
-                                        {/*onSaveBrandFilterParam={this.props.onSaveBrandFilterParam}*/}
+                            {/*{*/}
+                            {/*(() => {*/}
+                            {/*if (this.props.supplier.sideFilter) {*/}
+                            {/*return (*/}
+                            {/*<TopFilterSupplierBrand*/}
+                            {/*onSaveBrandFilterParam={this.props.onSaveBrandFilterParam}*/}
 
-                                        {/*onKPIBox={this.props.onKPIBox}*/}
-                                        {/*ontopBottomChart={this.props.ontopBottomChart}*/}
+                            {/*onKPIBox={this.props.onKPIBox}*/}
+                            {/*ontopBottomChart={this.props.ontopBottomChart}*/}
 
-                                        {/*barChartSpinnerCheck={this.props.barChartSpinnerCheckSuccess}*/}
-                                        {/*supplierViewKpiSpinnerCheck={this.props.supplierViewKpiSpinnerCheckSuccess}*/}
-                                      {/*/>*/}
-                                    {/*)*/}
-                                  {/*}*/}
-                                {/*})()*/}
-                              {/*}*/}
+                            {/*barChartSpinnerCheck={this.props.barChartSpinnerCheckSuccess}*/}
+                            {/*supplierViewKpiSpinnerCheck={this.props.supplierViewKpiSpinnerCheckSuccess}*/}
+                            {/*/>*/}
+                            {/*)*/}
+                            {/*}*/}
+                            {/*})()*/}
+                            {/*}*/}
                             {/*</div>*/}
                           </div>
 
@@ -1805,6 +1829,12 @@ function mapDispatchToProps(dispatch) {
     onGenerateUrlParamsString: (e) => {
       return dispatch(GenerateUrlParamsString(e));
     },
+
+    //FOR GETTING FILTERS DATA
+    onGenerateSideFilter: (e) => {
+      return dispatch(onGenerateSideFilter(e));
+    },
+
     //FOR SENDING FILTERS DATA - PARENT SUPPLIER
     onGenerateUrlParamsStringParent: (e) => {
       return dispatch(onGenerateUrlParamsStringParent(e));

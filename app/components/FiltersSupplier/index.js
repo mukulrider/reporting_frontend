@@ -35,11 +35,6 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
         console.log('queryString', queryString);
         console.log('category--', category);
 
-        // if(category.length===1) {
-        //   // queryString = queryString + "tesco_week="+`${category[category.length - 1]}&`;
-        // }else{
-        //   queryString = queryString + `${category[0]}=${category[category.length - 1]}&`;
-        // }
         if (['store_type', 'commercial_name', 'category_name', 'buying_controller', 'buyer', 'junior_buyer', 'product_subgroup'].includes(category[0])) {
           localUrlParamsString = localUrlParamsString + `${category[0]}=${category[category.length - 1]}&`;
         }
@@ -53,11 +48,8 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
 
     this.props.onGenerateUrlParamsString(queryString);
     localStorage.setItem('urlParams', localUrlParamsString);
+    this.props.onGenerateSideFilter();
 
-    // this.props.onGenerateFilterParamsString(queryString);
-    // this.props.onGenerateUrlParamsData();
-    // this.updateNewState(newUrl + '?' + queryString);
-    // browserHistory.push(newUrl + '?' + queryString);
   };
 
   componentDidMount = () => {
@@ -287,6 +279,8 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
                           this.props.onGenerateUrlParamsString('');
                           this.props.onGenerateUrlParamsString2('');
                           this.props.defaultGreyScreen(1);
+                          this.props.onGenerateSideFilter();
+                          {/*this.parentSupplierSelection = 0;*/}
                           {/*this.updateUrl()*/
                           }
 

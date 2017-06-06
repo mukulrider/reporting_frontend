@@ -23,6 +23,7 @@ import {
   GENERATE_URL_PARAMS_STRING_PARENT,
   GENERATE_URL_PARAMS_STRING_SUPPLIER,
   GENERATE_URL_PARAMS_STRING_FOR_FILTERS,
+  GENERATE_SIDE_FILTER,
   FILTERS_DATA_SUCCESS,
   WEEK_FILTER_FETCH_SUCCESS,
   WEEK_FILTER_CONSTANT,
@@ -214,11 +215,18 @@ export function SaveTopBottomParam(data) {
   };
 }
 
-// FOR GETTING FILTERS DATA (FOR DOING AJAX CALL)
+// FOR GETTING FILTERS DATA (FOR STORING FILTER DATA)
 export function GenerateUrlParamsString(data) {
   return {
     type: GENERATE_URL_PARAMS_STRING,
     data,
+  };
+}
+
+// FOR GETTING FILTERS DATA (FOR DOING AJAX CALL) - NEW
+export function onGenerateSideFilter() {
+  return {
+    type: GENERATE_SIDE_FILTER
   };
 }
 

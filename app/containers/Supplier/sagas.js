@@ -7,6 +7,7 @@ import {
   WEEK_FILTER_CONSTANT,
   GRAPH_FETCH,
   GENERATE_TABLE,
+  GENERATE_SIDE_FILTER,
 } from './constants';
 import {
   kpiboxDataFetchSucess,
@@ -576,8 +577,8 @@ export function* generateSideFilter() {
 
   try {
     const filter_data = yield call(request,
-      // host_url + `/api/reporting/filter_new_supplier` + urlParamsString + '&' + userParamsAuth);
-      host_url + `/api/reporting/filter_supplier` + urlParamsString + '&' + userParamsAuth);
+      host_url + `/api/reporting/filter_new_supplier` + urlParamsString + '&' + userParamsAuth);
+      // host_url + `/api/reporting/filter_supplier` + urlParamsString + '&' + userParamsAuth);
     console.log('filter_data', filter_data);
     yield put(generateSideFilterSuccess(filter_data));
     yield put(GenerateUrlParamsString3(0));
@@ -589,7 +590,7 @@ export function* generateSideFilter() {
 //FOR GETTING FILTERS DATA
 export function* doGenerateSideFilter() {
   console.log('filters prod called');
-  const watcher = yield takeLatest(GENERATE_URL_PARAMS_STRING, generateSideFilter);
+  const watcher = yield takeLatest(GENERATE_SIDE_FILTER, generateSideFilter);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
 }

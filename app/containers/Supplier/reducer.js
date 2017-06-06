@@ -73,6 +73,8 @@ const initialState = fromJS({
   dataWeekUrlParams: '',
   filter_week_selection: '',
   newUrlparamsForFilters: '',
+  parentParam: '',
+  supplierParam: '',
   checkedList: [],
   chartData: [
     {
