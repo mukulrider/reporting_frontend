@@ -49,6 +49,8 @@ import {
   GenerateUrlParamsString,
   GenerateUrlParamsString2,
   GenerateUrlParamsString3,
+  onGenerateUrlParamsStringParent,
+  onGenerateUrlParamsStringSupplier,
   onGenerateUrlParamsStringForFilters,
   getWeekFilter,
   SaveStoreParam,
@@ -71,7 +73,6 @@ import {
 } from './actions';
 import styles from './style.scss';
 
-
 function glyphiconFormatter(cell) {
   if (cell > 0) {
     let classType = "glyphicon glyphicon-triangle-top glyphiconPositive";
@@ -86,6 +87,7 @@ function glyphiconFormatter(cell) {
   }
 
 }
+
 export class Supplier extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   componentDidMount = () => {
@@ -108,7 +110,6 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
     this.props.onSaveTopBottomKpi();
 
   };
-
 
   constructor(props) {
     super(props);
@@ -143,7 +144,6 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
     };
   }
 
-
   inputUpdate = (checked, base_product_number) => {
     this.props.onGenerateCheckedList(checked, base_product_number)
   };
@@ -173,6 +173,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
     this.props.onSaveBubbleParam2(tableJSON);
     this.props.onGenerateCheckedList(checked, base_product_number)
   };
+
   options3 = [];
 
   render() {
@@ -225,6 +226,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
         return (Math.round(cell));
       }
     }
+
     let formatPercentage = (cell) => {
       if (cell >= 1000 || cell <= -1000) {
         let rounded = Math.round(cell / 1000);
@@ -234,6 +236,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
         return (Math.round(cell) + '%');
       }
     }
+
     let dataWeekUrlParams = this.props.supplier.week_param;
     let kpiParams = this.props.supplier.kpi_param;
     let TopBottomKpi = this.props.supplier.top_bottom_kpi;
@@ -255,99 +258,107 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
       {'label': 'OL', 'value': 'OL'},
       {'label': 'BRAND', 'value': 'BRAND'},
     ];
-    let getOptions = (opt) => {
-      console.log("Inside getOptions:", this.state.options2);
 
+    let getOptions = (opt) => {
       for (let i = 0; i < opt.length; i++) {
         suppList.push({'label': opt[i].title, 'value': opt[i].title})
       }
-      console.log("My SuppList:", suppList);
     }
 
     let getOptions2 = (opt) => {
-      console.log("Inside getOptions:", this.state.options3);
-
       for (let i = 0; i < opt.length; i++) {
         suppList2.push({'label': opt[i].title, 'value': opt[i].title})
       }
-      console.log("My SuppList:", suppList2);
     }
 
-
+    let parentSupplierSelection = [];
     let logChange = (selectedItem) => {
+
       console.log('selectedItem', selectedItem);
+      parentSupplierSelection = selectedItem;
+      console.log('parentSupplierSelection', parentSupplierSelection);
       this.setState({
         selectedValues: selectedItem
       });
-      console.log('this.state.selectedValues', this.state.selectedValues);
+      console.log('this.state.selectedValues',this.state.selectedValues, '\n', '>>>');
+      console.log('parentSupplierSelection 2',parentSupplierSelection, '\n', '>>>');
       let otherFilterSelections1 = this.props.supplier.urlParamsString;
       let otherFilterSelections2 = this.props.supplier.urlParamsString2;
-      console.log('otherFilterSelections1', otherFilterSelections1);
-      console.log('otherFilterSelections2', otherFilterSelections2);
+
       let savingAllFilterParams1 = '';
-      for (let i = 0; i < selectedItem.length; i++) {
-        savingAllFilterParams1 = savingAllFilterParams1 + `parent_supplier=${this.state.selectedValues[this.state.selectedValues.length - 1].value}&`;
+      for (let i = 0; i < parentSupplierSelection.length; i++) {
+      // for (let i = 0; i < selectedItem.length; i++) {
+        savingAllFilterParams1 = savingAllFilterParams1 + `parent_supplier=${parentSupplierSelection[parentSupplierSelection.length - 1].value}&`;
+        // savingAllFilterParams1 = savingAllFilterParams1 + `parent_supplier=${this.state.selectedValues[this.state.selectedValues.length - 1].value}&`;
       }
       let savingAllFilterParams2 = '';
-      for (let i = 0; i < this.state.selectedValues.length; i++) {
-        savingAllFilterParams2 = savingAllFilterParams2 + `parent_supplier=${this.state.selectedValues[this.state.selectedValues.length - 1].value}&`;
+      for (let i = 0; i < parentSupplierSelection.length; i++) {
+      // for (let i = 0; i < selectedItem.length; i++) {
+        // for (let i = 0; i < this.state.selectedValues.length; i++) {
+        savingAllFilterParams2 = savingAllFilterParams2 + `parent_supplier=${parentSupplierSelection[parentSupplierSelection.length - 1].value}&`;
+        // savingAllFilterParams2 = savingAllFilterParams2 + `parent_supplier=${this.state.selectedValues[this.state.selectedValues.length - 1].value}&`;
       }
 
-      console.log('savingAllFilterParams1', savingAllFilterParams1);
-      console.log('savingAllFilterParams2', savingAllFilterParams1);
-      this.props.onGenerateUrlParamsString2(otherFilterSelections2 + '&' + savingAllFilterParams2);
-      this.props.onGenerateUrlParamsString(otherFilterSelections1 + '&' + savingAllFilterParams1);
+      console.log('savingAllFilterParams1..',savingAllFilterParams1);
+      console.log('savingAllFilterParams1..',otherFilterSelections1);
+      console.log('savingAllFilterParams2..',savingAllFilterParams2);
+      console.log('savingAllFilterParams2..',otherFilterSelections2);
+      // console.log('this.state.selectedValues',this.state.selectedValues);
+      // this.props.onGenerateUrlParamsString2(otherFilterSelections2 + '&' + savingAllFilterParams2);
+      // this.props.onGenerateUrlParamsString(otherFilterSelections1 + '&' + savingAllFilterParams1);
+      this.props.onGenerateUrlParamsStringParent(savingAllFilterParams1);
 
       this.props.supplierViewKpiSpinnerCheck(0);
       this.props.barChartSpinnerCheck(0);
       this.props.onKPIBox();
       this.props.ontopBottomChart();
+      this.props.onGenerateUrlParamsString(otherFilterSelections1);
     }
 
+    console.log('After logchange this.state.selectedValues',this.state.selectedValues, '\n', '>>>');
+
+    let supplierSelection = [];
     let logChange2 = (selectedItem) => {
-      console.log('selectedItem', selectedItem);
+
+      supplierSelection = selectedItem;
+
       this.setState({
         selectedValues1: selectedItem
       });
-      console.log('this.state.selectedValues1', this.state.selectedValues1);
+
       let otherFilterSelections1 = this.props.supplier.urlParamsString;
       let otherFilterSelections2 = this.props.supplier.urlParamsString2;
-      console.log('otherFilterSelections1', otherFilterSelections1);
-      console.log('otherFilterSelections2', otherFilterSelections2);
+
       let savingAllFilterParams1 = '';
-      for (let i = 0; i < selectedItem.length; i++) {
-        savingAllFilterParams1 = savingAllFilterParams1 + `supplier=${this.state.selectedValues1[this.state.selectedValues1.length - 1].value}&`;
+      for (let i = 0; i < supplierSelection.length; i++) {
+        savingAllFilterParams1 = savingAllFilterParams1 + `supplier=${supplierSelection[supplierSelection.length - 1].value}&`;
       }
       let savingAllFilterParams2 = '';
-      for (let i = 0; i < this.state.selectedValues1.length; i++) {
-        savingAllFilterParams2 = savingAllFilterParams2 + `supplier=${this.state.selectedValues1[this.state.selectedValues1.length - 1].value}&`;
+      for (let i = 0; i < supplierSelection.length; i++) {
+        savingAllFilterParams2 = savingAllFilterParams2 + `supplier=${supplierSelection[supplierSelection.length - 1].value}&`;
       }
 
-      console.log('savingAllFilterParams1', savingAllFilterParams1);
-      console.log('savingAllFilterParams2', savingAllFilterParams1);
-      this.props.onGenerateUrlParamsString2(otherFilterSelections2 + '&' + savingAllFilterParams2);
-      this.props.onGenerateUrlParamsString(otherFilterSelections1 + '&' + savingAllFilterParams1);
+      // this.props.onGenerateUrlParamsString2(otherFilterSelections2 + '&' + savingAllFilterParams2);
+      // this.props.onGenerateUrlParamsString(otherFilterSelections1 + '&' + savingAllFilterParams1);
+      this.props.onGenerateUrlParamsStringSupplier(savingAllFilterParams1);
 
       this.props.supplierViewKpiSpinnerCheck(0);
       this.props.barChartSpinnerCheck(0);
       this.props.onKPIBox();
       this.props.ontopBottomChart();
+      this.props.onGenerateUrlParamsStringParent(otherFilterSelections1);
     }
 
     let logChangeBrand = (selectedItem) => {
-      console.log('selectedItem', selectedItem);
       this.setState({
         selectedValuesBrand: selectedItem
       });
-      console.log('this.state.selectedValuesBrand', this.state.selectedValuesBrand);
+
       let otherFilterSelections1 = this.props.supplier.urlParamsString;
       let otherFilterSelections2 = this.props.supplier.urlParamsString2;
-      console.log('otherFilterSelections1', otherFilterSelections1);
-      console.log('otherFilterSelections2', otherFilterSelections2);
+
       let savingAllFilterParams1 = '';
       for (let i = 0; i < selectedItem.length; i++) {
-        console.log('this.state.selectedValuesBrand', this.state.selectedValuesBrand);
-        console.log('`brand_indicator=${this.state.selectedValuesBrand[this.state.selectedValuesBrand.length - 1].value}', `brand_indicator=${this.state.selectedValuesBrand[this.state.selectedValuesBrand.length - 1].value}`);
         savingAllFilterParams1 = savingAllFilterParams1 + `brand_indicator=${this.state.selectedValuesBrand[this.state.selectedValuesBrand.length - 1].value}&`;
       }
       let savingAllFilterParams2 = '';
@@ -355,8 +366,6 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
         savingAllFilterParams2 = savingAllFilterParams2 + `brand_indicator=${this.state.selectedValuesBrand[this.state.selectedValuesBrand.length - 1].value}&`;
       }
 
-      console.log('savingAllFilterParams1', savingAllFilterParams1);
-      console.log('savingAllFilterParams2', savingAllFilterParams1);
       this.props.onGenerateUrlParamsString2(otherFilterSelections2 + '&' + savingAllFilterParams2);
       this.props.onGenerateUrlParamsString(otherFilterSelections1 + '&' + savingAllFilterParams1);
 
@@ -380,16 +389,9 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
           <div className="col-xs-12">
             {(() => {
               if (this.props.supplier.urlParamsString) {
-
                 finalurlParamsString = this.props.supplier.urlParamsString;
-                console.log('elseelse', finalurlParamsString);
-
-
               } else {
-                console.log('if if if if', this.props.supplier.urlParamsString2);
                 finalurlParamsString = this.props.supplier.urlParamsString2;
-                console.log('ififif', finalurlParamsString);
-
               }
             })()}
 
@@ -416,7 +418,6 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                 marginRight: '0px'
               }}>
 
-
                 {/*Filters*/}
                 <div className={this.state.collapsed ? 'collapse-filter' : 'expand-filter'}
                      style={{
@@ -427,7 +428,6 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                        borderTop: '1px solid #ccc'
                      }}>
 
-
                   {(() => {
                     if (this.props.supplier.sideFilter) {
                       return (
@@ -436,6 +436,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                           // onDataUrlParams={this.props.DataUrlParams}
                           // onUrlParamsData={this.props.onUrlParamsData}
                                          onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}
+                                         onGenerateUrlParamsString2={this.props.onGenerateUrlParamsString2}
                                          onGenerateUrlParamsStringForFilters={this.props.onGenerateUrlParamsStringForFilters}
                                          week_data={this.props.supplier.week_filter_data}
                                          onKPIBox={ this.props.onKPIBox}
@@ -547,9 +548,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                               {
                                 (() => {
                                   if (this.props.supplier.sideFilter) {
-                                    console.log('this.props.supplier.sidefilter', this.props.supplier.sideFilter.checkbox_list[8].items);
                                     this.setState({options2: this.props.supplier.sideFilter.checkbox_list[8].items})
-                                    console.log('this.state.options2', this.state.options2);
                                     getOptions(this.state.options2);
                                     return (
                                       <Select menuContainerStyle={{'zIndex': 999}}
@@ -569,14 +568,12 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                               {
                                 (() => {
                                   if (this.props.supplier.sideFilter) {
-                                    console.log('this.props.supplier.sidefilter', this.props.supplier.sideFilter.checkbox_list[9].items);
                                     this.setState({options3: this.props.supplier.sideFilter.checkbox_list[9].items})
-                                    console.log('this.state.options2', this.state.options2);
                                     getOptions2(this.state.options3);
                                     return (
                                       <Select menuContainerStyle={{'zIndex': 999}}
                                               value={this.state.selectedValues1} multi={true} placeholder="Supplier"
-                                              options={suppList}
+                                              options={suppList2}
                                               onChange={logChange2}
                                       />
                                     )
@@ -586,25 +583,25 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
                             </div>
 
-                            <div className="col-xs-3">
-                              {
-                                (() => {
-                                  if (this.props.supplier.sideFilter) {
-                                    return (
-                                      <TopFilterSupplierBrand
-                                        onSaveBrandFilterParam={this.props.onSaveBrandFilterParam}
+                            {/*<div className="col-xs-3">*/}
+                              {/*{*/}
+                                {/*(() => {*/}
+                                  {/*if (this.props.supplier.sideFilter) {*/}
+                                    {/*return (*/}
+                                      {/*<TopFilterSupplierBrand*/}
+                                        {/*onSaveBrandFilterParam={this.props.onSaveBrandFilterParam}*/}
 
-                                        onKPIBox={this.props.onKPIBox}
-                                        ontopBottomChart={this.props.ontopBottomChart}
+                                        {/*onKPIBox={this.props.onKPIBox}*/}
+                                        {/*ontopBottomChart={this.props.ontopBottomChart}*/}
 
-                                        barChartSpinnerCheck={this.props.barChartSpinnerCheckSuccess}
-                                        supplierViewKpiSpinnerCheck={this.props.supplierViewKpiSpinnerCheckSuccess}
-                                      />
-                                    )
-                                  }
-                                })()
-                              }
-                            </div>
+                                        {/*barChartSpinnerCheck={this.props.barChartSpinnerCheckSuccess}*/}
+                                        {/*supplierViewKpiSpinnerCheck={this.props.supplierViewKpiSpinnerCheckSuccess}*/}
+                                      {/*/>*/}
+                                    {/*)*/}
+                                  {/*}*/}
+                                {/*})()*/}
+                              {/*}*/}
+                            {/*</div>*/}
                           </div>
 
                         </div>
@@ -1739,11 +1736,9 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
   }
 }
 
-
 Supplier.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
-
 
 const mapStateToProps = createStructuredSelector({
   supplier: makeSelectSupplier(),
@@ -1809,6 +1804,14 @@ function mapDispatchToProps(dispatch) {
     //FOR GETTING FILTERS DATA
     onGenerateUrlParamsString: (e) => {
       return dispatch(GenerateUrlParamsString(e));
+    },
+    //FOR SENDING FILTERS DATA - PARENT SUPPLIER
+    onGenerateUrlParamsStringParent: (e) => {
+      return dispatch(onGenerateUrlParamsStringParent(e));
+    },
+    //FOR SENDING FILTERS DATA - SUPPLIER
+    onGenerateUrlParamsStringSupplier: (e) => {
+      return dispatch(onGenerateUrlParamsStringSupplier(e));
     },
     //FOR GETTING FILTERS
     onGenerateUrlParamsStringForFilters: (e) => {
