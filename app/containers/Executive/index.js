@@ -278,6 +278,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
     )
   }
 
+
+
   render() {
 
     const options = {
@@ -312,6 +314,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
       }
 
     };
+
+   let addPerc = (i) => {
+      return (i.toString() +'%');
+    };
+
     let cellButton = (row, cell) => {
       console.log('<<<<<<row', row, cell.level)
       return (
@@ -329,9 +336,9 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
       )
     }
 
-
+    //modal for trended performance in value
     let cellButton2 = (row, cell, x) => {
-      console.log('>>>>>row', row, cell, x);
+      console.log('trended perfomance hhh', row, cell, x);
       return (
         <div>
           <button className="btn btn-success" onClick={() => {
@@ -1243,34 +1250,36 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                   <div className="col-xs-12 kpiSubTitle price_metrics_heading"
                                                        style={{float: "right"}}>
                                                     <div className="col-xs-1"></div>
+                                                    {/*Commenting heading based on clients feedback*/}
+                                                    <div className="col-xs-3 kpiSubTitle"></div>
                                                     <h4 className="col-xs-3 kpiSubTitle"><b>WoW</b></h4>
                                                     <h4 className="col-xs-3 kpiSubTitle"><b>YoY</b></h4>
-                                                    <h4 className="col-xs-3 kpiSubTitle"><b>ABS</b></h4>
                                                   </div>
                                                 </div>
                                                 <div className="row">
                                                   <h4 className="col-xs-1 kpiSubTitle"><b>ACP</b></h4>
+                                                  <h4 className="col-xs-3">
+                                                    £{this.props.Executive.overview_kpi_data.price.ACP.abs}
+                                                  </h4>
                                                   <h4 className="col-xs-3">
                                                     {(this.props.Executive.overview_kpi_data.price.ACP.wow) + '%'}
                                                   </h4>
                                                   <h4 className="col-xs-3">
                                                     {(this.props.Executive.overview_kpi_data.price.ACP.yoy) + '%'}
                                                   </h4>
-                                                  <h4 className="col-xs-3">
-                                                    £{this.props.Executive.overview_kpi_data.price.ACP.abs}
-                                                  </h4>
                                                 </div>
                                                 <div className="row">
                                                   <h4 className="col-xs-1 kpiSubTitle"><b>ASP</b></h4>
+                                                  <h4 className="col-xs-3">
+                                                    £{this.props.Executive.overview_kpi_data.price.ASP.abs}
+                                                  </h4>
                                                   <h4 className="col-xs-3">
                                                     {(this.props.Executive.overview_kpi_data.price.ASP.wow) + '%'}
                                                   </h4>
                                                   <h4 className="col-xs-3">
                                                     {(this.props.Executive.overview_kpi_data.price.ASP.yoy) + '%'}
                                                   </h4>
-                                                  <h4 className="col-xs-3">
-                                                    £{this.props.Executive.overview_kpi_data.price.ASP.abs}
-                                                  </h4>
+
                                                 </div>
                                               </div>
                                             </Panel>
@@ -1284,22 +1293,24 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                 <div className="row">
                                                   <div className="col-xs-12 kpiSubTitle price_metrics_heading" style={{float:"right"}}>
                                                     <div className="col-xs-1"> </div>
+                                                    <div className="col-xs-3 kpiSubTitle"></div>
                                                     <h4 className="col-xs-3 kpiSubTitle"><b>WoW</b></h4>
                                                     <h4 className="col-xs-3 kpiSubTitle"><b>YoY</b></h4>
-                                                    <h4 className="col-xs-3 kpiSubTitle"><b>ABS</b></h4>
+
                                                   </div>
                                                 </div>
                                                 <div className="row">
                                                   <h4 className="col-xs-1 kpiSubTitle"><b>Market Share</b></h4>
+                                                  <h4 className="col-xs-3">
+                                                    {(this.props.Executive.overview_kpi_data.market.share.abs) + '%'}
+                                                  </h4>
                                                   <h4 className="col-xs-3">
                                                     {(this.props.Executive.overview_kpi_data.market.share.wow) + '%'}
                                                   </h4>
                                                   <h4 className="col-xs-3">
                                                     {(this.props.Executive.overview_kpi_data.market.share.yoy) + '%'}
                                                   </h4>
-                                                  <h4 className="col-xs-3">
-                                                    {(this.props.Executive.overview_kpi_data.market.share.abs) + '%'}
-                                                  </h4>
+
                                                 </div>
                                                 <div className="row">
                                                   <h4 className="col-xs-1 kpiSubTitle"><b>Opport.</b></h4>
@@ -1379,7 +1390,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                             <div className="col-xs-6">
                                               <Panel>
-                                                <div className="pageModuleTitle">Value vs Forecast</div>
+                                                <div className="pageModuleTitle">Value vs. Forecast</div>
                                                 <div
                                                   className="cardNumbers">{this.props.Executive.budget_forecast_data.budget_value}%
                                                 </div>
@@ -1388,7 +1399,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                             <div className="col-xs-6">
                                               <Panel>
-                                                <div className="pageModuleTitle">Value vs Budget</div>
+                                                <div className="pageModuleTitle">Value vs. Budget</div>
                                                 <div
                                                   className="cardNumbers">{this.props.Executive.budget_forecast_data.forecast_value}%
                                                 </div>
@@ -1699,8 +1710,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             <div className="row">
                                               <h3 style={{textAlign: "center"}}>{
                                                 this.props.Executive.overview_drivers_external_data.sunshine.avg
-
-                                              }</h3>
+                                              } hrs</h3>
                                             </div>
 
                                             <div className="row">
@@ -1761,7 +1771,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                               <h3 style={{textAlign: "center"}}>{
                                                 this.props.Executive.overview_drivers_external_data.rainfall.avg
 
-                                              }</h3>
+                                              } hrs</h3>
                                             </div>
                                             <div className="row">
                                               <div className="panel-body cardPanel">
@@ -1817,7 +1827,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             <img style={{height: 100, width: 100, marginLeft: '32%'}} src={imgTemperature}/>
                                             <div className="row">
                                               <h3
-                                                style={{textAlign: "center"}}>{this.props.Executive.overview_drivers_external_data.temperature.avg}</h3>
+                                                style={{textAlign: "center"}}>{this.props.Executive.overview_drivers_external_data.temperature.avg}°C</h3>
                                             </div>
                                             <div className="row">
                                               <div className="panel-body cardPanel">
@@ -3082,6 +3092,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                }}>{this.props.Executive.bestWorstPerformance.rolled_up_level}</TableHeaderColumn>
                                             <TableHeaderColumn dataField='sales_share'
                                                                dataAlign='center'
+                                                               dataFormat={addPerc}
                                                                dataSort={true}
                                                                tdStyle={{fontSize: '14px'}}
 
@@ -3090,12 +3101,14 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             <TableHeaderColumn dataField='cont_to_grwth'
                                                                dataAlign='center'
                                                                dataSort={true}
+                                                               dataFormat={addPerc}
                                                                tdStyle={{fontSize: '14px',}}
 
                                                                thStyle={{whiteSpace: 'normal', fontSize: '14px'}}>Contribution
                                               to Growth</TableHeaderColumn>
                                             <TableHeaderColumn dataField='yoy_var'
                                                                dataAlign='center'
+                                                               dataFormat={addPerc}
                                                                dataSort={true}
                                                                tdStyle={{fontSize: '14px'}}
 
@@ -3200,31 +3213,36 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                    dataField='parent_supplier' isKey>Parent Supplier</TableHeaderColumn>
 
                 <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                   dataFormat={addPerc}
                                    dataSort={true}
                                    dataAlign={"left"}
                                    dataField='imp_to_ps'>Importance to Parent Supplier</TableHeaderColumn>
                 <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                   dataFormat={addPerc}
                                    dataSort={true}
                                    dataAlign={"left"}
                                    dataField='imp_to_categ'>Importance to Category</TableHeaderColumn>
                 <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                   dataFormat={addPerc}
                                    dataSort={true}
                                    dataAlign={"left"}
                                    dataField='sales_share'>Sales Share</TableHeaderColumn>
 
                 <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                   dataFormat={addPerc}
                                    dataSort={true}
                                    dataAlign={"left"}
                                    dataField='cont_to_grwth'>Contribution to growth</TableHeaderColumn>
 
                 <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
+                                   dataFormat={addPerc}
                                    dataSort={true}
                                    dataAlign={"left"}
-                                   dataField='yoy_var'>YoY Vari
-                  ation</TableHeaderColumn>
+                                   dataField='yoy_var'>YoY Variation</TableHeaderColumn>
               </BootstrapTable>
             </Modal.Body>
           </Modal>
+
 
           {/*MODAL FOR bot - Supplier Info*/}
 
@@ -3244,7 +3262,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   </div>
                 </div>
               </Modal.Title>
-
             </Modal.Header>
             <Modal.Body style={{fontSize: '14px'}}>
               <div className="row">
@@ -3271,7 +3288,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             this.props.onSaveSupplierName(suppName);
                             this.setState({activeKey8: "2"});
                             this.props.loadBotSupplierInfoData();
-
                           }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
                             style={{textDecoration: 'none'}}>{this.props.Executive.worst_info_data.bot_5_supp[1].parent_supplier}</b></NavItem>
 
@@ -3292,7 +3308,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             this.props.loadBotSupplierInfoData();
 
                           }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                            style={{textDecoration: 'none'}}>{this.props.Executive.worst_info_data.bot_5_supp[3].parent_supplier}</b></NavItem>
+                            style={{textDecoration: 'none'}}>{this.props.Executive.worst_info_data.bot_5_supp[3].parent_supplier} %</b></NavItem>
 
                           <NavItem className="tabsCustomList2" eventKey="5" onClick={() => {
                             suppName = this.props.Executive.worst_info_data.bot_5_supp[4].parent_supplier;
@@ -3301,8 +3317,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                             this.setState({activeKey8: "5"});
                             this.props.loadBotSupplierInfoData();
                           }} style={{fontSize: '20px', fontFamily: 'Tesco', textDecoration: 'none'}}><b
-                            style={{textDecoration: 'none'}}>{this.props.Executive.worst_info_data.bot_5_supp[4].parent_supplier}</b></NavItem>
-
+                            style={{textDecoration: 'none'}}>{this.props.Executive.worst_info_data.bot_5_supp[4].parent_supplier}%</b></NavItem>
                         </Nav>
                       );
                     }
