@@ -1,5 +1,21 @@
 @import "./../../stylesheet";
 
+.collapse-filter {
+  width: 0%;
+}
+.expand-filter {
+  width: 20%;
+}
+.collapse-content {
+  width: 78%;
+  marginLeft: '22%';
+  float:right;
+}
+.expand-content {
+  width: 98%;
+  float:right;
+}
+
 .ts-blk-proview-head {
   text-align: center;
   color: #ffffff !important;
@@ -223,4 +239,20 @@
   background: #fff !important;
   border:0px !important;
   color: #00539f !important;
+}
+
+.defaultPage {
+  height: 500px !important;
+  background: lightgray;
+}
+
+.selectAttrituteIndicator{
+  font:Tesco;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+  height: 1000px;
+  background-color: lightgray;
+  color: #00539f;
+  margin-top: 24px;
 }

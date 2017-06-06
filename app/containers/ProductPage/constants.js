@@ -32,4 +32,5 @@ export const STORE_FILTER_PARAM = 'app/Supplier/STORE_FILTER_PARAM';
 
 // APPLY AND TABS CLICK SPINNER
 export const TABS_APPLY_SPINNER = 'app/Supplier/TABS_APPLY_SPINNER';
+export const DEFAULT_GREY_SCREEN = 'app/Supplier/DEFAULT_GREY_SCREEN';
 
