@@ -1984,6 +1984,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                       Contribution Trend</Modal.Title>
                                   </Modal.Header>
                                   <Modal.Body>
+                                    <div className=" row mainBox">
                                     {/*Code for external drivers */}
                                     <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
                                       <h2 className="pageModuleSubTitle">Promotion</h2>
@@ -2005,7 +2006,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                       })()}
                                     </div>
 
-
+                                    </div>
                                   </Modal.Body>
 
                                 </Modal>

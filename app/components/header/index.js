@@ -191,6 +191,7 @@ class Header extends Component {
                       <DropdownButton title="" className="	glyphicon glyphicon-user" pullRight style={{ backgroundColor: 'transparent', borderColor: 'transparent', color: '#00539f', fontSize:"18px"}}>
                         <MenuItem style={{textDecoration:"none"}}><span ><b>Hi,User</b></span></MenuItem>
                         <MenuItem onClick={() => {
+                          localStorage.clear();
                           const getCookie = (name) => {
                             const value = `; ${document.cookie}`;
                             const parts = value.split(`; ${name}=`);
