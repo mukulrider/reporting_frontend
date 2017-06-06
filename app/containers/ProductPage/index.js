@@ -289,262 +289,162 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
             </div>
           </div>
 
-          <div className={this.state.collapsed ? 'expand-content' : 'collapse-content'}>
-            <div>
-              {/*<div className="pageTitle">*/}
-                {/*{(() => {*/}
-                  {/*if (this.props.ProductPage.filter_week_selection) {*/}
-                    {/*return (*/}
-                      {/*<span>Product View - {(this.props.ProductPage.filter_week_selection).substring(11, 17)}</span>*/}
-                    {/*)*/}
-                  {/*} else {*/}
-                    {/*return (*/}
-                      {/*<span>Product View - {this.props.ProductPage.data && this.props.ProductPage.data.latest_week ? this.props.ProductPage.data.latest_week:"Latest Week"}  </span>*/}
-                    {/*)*/}
-                  {/*}*/}
-                {/*})()}*/}
-              {/*</div>*/}
-              <div>
-                {(() => {
-                  if (this.props.ProductPage.week_filter_data) {
-                    return (
-                      <TopFilterProduct
-                        sideFilter={this.props.ProductPage.sideFilter}
-                        location={this.props.location}
-                        userParams={this.props.ProductPage.userParams}
-                        week_filter_data={this.props.ProductPage.week_filter_data}
-                        previous_week_selection={this.props.ProductPage.filter_week_selection}
-                        onSaveWeekParam = {this.props.onSaveWeekParam}
-                        onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}
-                        onProductPage={this.props.onProductPageValues}
-                        onSaveWeek={this.props.onSaveWeek}
-                        onCheckboxWeekChange={this.props.onCheckboxWeekChange}
-                        onGetFilter={this.props.onGetFilter}
-                        filter_week_selection={this.props.ProductPage.filter_week_selection}
-                        urlParamsString={this.props.ProductPage.urlParamsString}
-                        tabsAndApplySpinner={this.props.tabsAndApplySpinner}
-                        onSaveStoreFilterParam={this.props.onSaveStoreFilterParam}
-                      />
-                    )
-                  }
-                })()}
-              </div>
-
-            </div>
-
-                  <div className="col-xs-12">
-                    <Nav bsStyle="tabs" className="tabsCustom tabsCustomInner" activeKey={this.state.activeKey2}
-                         onSelect={this.handleSelect}>
-                      <NavItem style={{fontSize: '16px'}}
-                               eventKey="7" className="tabsNavPanelList1" onClick={() => {
-                        this.setState({
-                          activeKey2: "7",
-                          ty_text: "Sales TY in £",
-                          ly_text: "Sales LY in £",
-                          y_axis_text: "Sales Value",
-                          page_title: "Value Performance"
-                        });
-                        this.props.tabsAndApplySpinner(0);
-                        let dataMetricParams = "metric_flag=Value";
-                        this.props.onSaveMetricParam(dataMetricParams);
-                      }}
-                      ><span className="tab_label">Value</span></NavItem>
-                      <NavItem style={{fontSize: '16px'}}
-                               eventKey="8" className="tabsNavPanelList1" onClick={() => {
-                        this.setState({
-                          activeKey2: "8",
-                          ty_text: "Volume TY in units",
-                          ly_text: "Volume LY in units",
-                          y_axis_text: "Sales Volume",
-                          page_title: "Volume Performance"
-                        });
-                        this.props.tabsAndApplySpinner(0);
-                        let dataMetricParams = "metric_flag=Volume";
-
-                        this.props.onSaveMetricParam(dataMetricParams);
-                      }}
-                      ><span className="tab_label">Volume</span></NavItem>
-                      <NavItem style={{fontSize: '16px'}}
-                               eventKey="9" className="tabsNavPanelList1" onClick={() => {
-                        this.setState({
-                          activeKey2: "9",
-                          ty_text: "COGS TY in £",
-                          ly_text: "COGS LY in £",
-                          y_axis_text: "COGS",
-                          page_title: "COGS Performance"
-                        });
-                        this.props.tabsAndApplySpinner(0);
-                        let dataMetricParams = "metric_flag=cogs";
-                        this.props.onSaveMetricParam(dataMetricParams);
-                      }}
-                      ><span className="tab_label">COGS</span></NavItem>
-                      <NavItem style={{fontSize: '16px'}}
-                               eventKey="10" className="tabsNavPanelList1" onClick={() => {
-                        this.setState({
-                          activeKey2: "10",
-                          ty_text: "Profit TY in £",
-                          ly_text: "Profit LY in £",
-                          y_axis_text: "Profit",
-                          page_title: "Profit Performance"
-                        });
-                        this.props.tabsAndApplySpinner(0);
-                        let dataMetricParams = "metric_flag=cgm";
-                        this.props.onSaveMetricParam(dataMetricParams);
-                      }}
-                      ><span className="tab_label">CGM</span></NavItem>
-                      {/*<NavItem style={{fontSize: '16px'}}
-                       eventKey="11" className="tabsNavPanelList1" onClick={() => {
-                       this.setState({
-                       activeKey2: "11",
-                       ty_text: "Waste Value TY",
-                       ly_text: "Waste Value LY",
-                       y_axis_text: "Waste Value",
-                       page_title: "Waste Performance"
-                       });
-                       this.props.tabsAndApplySpinner(0);
-                       let dataMetricParams = "metric_flag=Waste";
-                       this.props.onSaveMetricParam(dataMetricParams);
-                       }}
-                       ><span className="tab_label">Waste</span></NavItem>*/}
-                      {/*                <NavItem style={{ fontSize: '16px' }}
-                       eventKey="12" className="tabsCustomList" onClick={() => {
-                       this.setState({activeKey: "12"});
-                       let dataMetricParams="metric_flag=Stock";
-                       this.props.onSaveMetricParam(dataMetricParams);
-                       }}
-                       ><b className="tab_label">Stock</b></NavItem>
-                       <NavItem style={{ fontSize: '16px' }}
-                       eventKey="13" className="tabsCustomList" onClick={() => {
-                       this.setState({activeKey: "13"});
-                       let dataMetricParams="metric_flag=Price";
-                       this.props.onSaveMetricParam(dataMetricParams);
-                       }}
-                       ><b className="tab_label">Price</b></NavItem>*/}
-                    </Nav>
-                  </div>
-                  <div className="col-xs-12">
-                    <h2 className="pageModuleMainTitle col-xs-12">
-                      <b>Products {this.state.y_axis_text} Info </b>
-                    </h2>
+          {(() => {
+              if (this.props.ProductPage.defaultGreyScreen) {
+                return (
+                  <div
+                    className={this.state.collapsed ? 'expand-content selectAttrituteIndicator' : 'collapse-content selectAttrituteIndicator'}>
+                    ----- Please select the filters to get started ------</div>
+                )
+              }
+              else {
+                return (
+                  <div className={this.state.collapsed ? 'expand-content' : 'collapse-content'}>
                     <div>
-                      {
-                        (() => {
-                          if (this.props.ProductPage.data && this.props.ProductPage.data.table_data && this.props.ProductPage.tabsApplySpinner) {
-//console.log("This is table data length:",this.props.ProductPage.data.table_data.length);
-                      return (
-                        <div>
-                          <BootstrapTable
-                            data={this.props.ProductPage.data.table_data} selectRow={selectRowProp} options={options}
-                            striped={true}
-                            hover
-                            condensed
-                            pagination={ true }
-                            search={true}
-                            exportCSV={true}
-                          >
-                            <TableHeaderColumn width="225" tdStyle={ {whiteSpace: 'normal'} } dataField="product" isKey={true}
-                                               dataAlign="center" dataSort>Product Description</TableHeaderColumn>
-                            <TableHeaderColumn dataField="product_id" hidden dataAlign="center">Product</TableHeaderColumn>
-                            <TableHeaderColumn dataField="x_ty" dataFormat={this.formatMetric} dataSort={true}
-                                               dataAlign="center">TY</TableHeaderColumn>
-                            <TableHeaderColumn dataField="x_ly" dataFormat={this.formatMetric} dataSort={true}
-                                               dataAlign="center">LY</TableHeaderColumn>
-                            <TableHeaderColumn dataField="x_lw" dataFormat={this.formatMetric} dataSort={true}
-                                               dataAlign="center">LW</TableHeaderColumn>
-                            <TableHeaderColumn dataField="x_lfl_ty" dataFormat={this.formatMetric} dataSort={true}
-                                               dataAlign="center">LFL TY</TableHeaderColumn>
-                            <TableHeaderColumn dataField="x_lfl_ly" dataFormat={this.formatMetric} dataSort={true}
-                                               dataAlign="center">LFL LY</TableHeaderColumn>
-                            <TableHeaderColumn dataField="wow" width="11%" hidden={(()=>{
-                              if (this.state.dataWeekParams=="Latest Week"){
-                                return false;
-                              }
-                              else {
-                                return true;
-                              }
-                            })()}  dataFormat={this.formatGlyphicon} dataSort={true}
-                                               dataAlign="center">WOW % Change</TableHeaderColumn>
-                            <TableHeaderColumn dataField="yoy" width="11%" dataFormat={this.formatGlyphicon} dataSort={true}
-                                               dataAlign="center">YOY % Change</TableHeaderColumn>
-                            <TableHeaderColumn dataField="lfl_percent" width="11%" dataFormat={this.formatGlyphicon} dataSort={true}
-                                               dataAlign="center">LFL % Change</TableHeaderColumn>
-                            <TableHeaderColumn dataFormat={this.cellButton} tdStyle={ {whiteSpace: 'normal'} } dataAlign="center">Supplier Info</TableHeaderColumn>
-                            <TableHeaderColumn dataFormat={this.cellButton2} dataAlign="center">Trend</TableHeaderColumn>
-                          </BootstrapTable>
-                          <i style={{textAlign:"center",fontSize: "14px"}}>* Indicates this product was not present for the previous week/year</i>
-                          <button
-                            type="button"
-                            style={{float:'right',fontSize: "14px"}}
-                            className="btn btn-danger"
-                            onClick={() => {
-                              let objString = '';
-                              let selected=this.state.SelectProducts;
-                              if(selected!=='[]'){
-                                for(let i=0;i<selected.length;i++){
-                                  objString += 'base_product_number=' + selected[i] + '&'
-                                }
-                                objString = objString.slice(0, objString.length - 1);
-                                console.log(objString);
-                                let domain="dvcmpweb00001uk.dev.global.tesco.org";
-                                document.cookie = `PreselectionFromNego=1;domain=${domain};path=/;`;
-                                document.cookie = `PreselectionFromNegoData=${objString};domain=${domain};path=/;`;
-                                console.log("Document",document);
-                                console.log("Document Cookie",document.cookie);
-                                window.location = 'http://dvcmpweb00001uk.dev.global.tesco.org/ranging/delist/';
-                              }else{
-                                alert("You have not selected any products to delist. Are you sure you want to see the delist impact?")
-                              }
-                            }}
-                          >SEND TO DE-LIST
-                          </button>
-                        </div>
-                      );
-
-                          }
-                          else {
+                      {/*<div className="pageTitle">*/}
+                      {/*{(() => {*/}
+                      {/*if (this.props.ProductPage.filter_week_selection) {*/}
+                      {/*return (*/}
+                      {/*<span>Product View - {(this.props.ProductPage.filter_week_selection).substring(11, 17)}</span>*/}
+                      {/*)*/}
+                      {/*} else {*/}
+                      {/*return (*/}
+                      {/*<span>Product View - {this.props.ProductPage.data && this.props.ProductPage.data.latest_week ? this.props.ProductPage.data.latest_week:"Latest Week"}  </span>*/}
+                      {/*)*/}
+                      {/*}*/}
+                      {/*})()}*/}
+                      {/*</div>*/}
+                      <div>
+                        {(() => {
+                          if (this.props.ProductPage.week_filter_data) {
                             return (
-
-                        <div className="text-center" colSpan="11" style={{textAlign: 'center'}}><Spinner />Please Wait a Moment....!</div>
-
-                            );
+                              <TopFilterProduct
+                                sideFilter={this.props.ProductPage.sideFilter}
+                                location={this.props.location}
+                                userParams={this.props.ProductPage.userParams}
+                                week_filter_data={this.props.ProductPage.week_filter_data}
+                                previous_week_selection={this.props.ProductPage.filter_week_selection}
+                                onSaveWeekParam={this.props.onSaveWeekParam}
+                                onGenerateUrlParamsString={this.props.onGenerateUrlParamsString}
+                                onProductPage={this.props.onProductPageValues}
+                                onSaveWeek={this.props.onSaveWeek}
+                                onCheckboxWeekChange={this.props.onCheckboxWeekChange}
+                                onGetFilter={this.props.onGetFilter}
+                                filter_week_selection={this.props.ProductPage.filter_week_selection}
+                                urlParamsString={this.props.ProductPage.urlParamsString}
+                                tabsAndApplySpinner={this.props.tabsAndApplySpinner}
+                                onSaveStoreFilterParam={this.props.onSaveStoreFilterParam}
+                              />
+                            )
                           }
-                        })()
-                      }
+                        })()}
+                      </div>
 
                     </div>
-                  </div>
 
-                  {/*Supplier Info Modal*/}
-                  <Modal show={this.state.showSupplierInfoModalFlag} bsSize="lg" style={{marginTop: '10%'}}
-                         aria-labelledby="contained-modal-title-lg"
-                         onHide={() => {
-                           this.setState({showSupplierInfoModalFlag: false})
-                           this.props.onFetchSaveSupplierInfoSuccess(false);
+                    <div className="col-xs-12">
+                      <Nav bsStyle="tabs" className="tabsCustom tabsCustomInner" activeKey={this.state.activeKey2}
+                           onSelect={this.handleSelect}>
+                        <NavItem style={{fontSize: '16px'}}
+                                 eventKey="7" className="tabsNavPanelList1" onClick={() => {
+                          this.setState({
+                            activeKey2: "7",
+                            ty_text: "Sales TY in £",
+                            ly_text: "Sales LY in £",
+                            y_axis_text: "Sales Value",
+                            page_title: "Value Performance"
+                          });
+                          this.props.tabsAndApplySpinner(0);
+                          let dataMetricParams = "metric_flag=Value";
+                          this.props.onSaveMetricParam(dataMetricParams);
+                        }}
+                        ><span className="tab_label">Value</span></NavItem>
+                        <NavItem style={{fontSize: '16px'}}
+                                 eventKey="8" className="tabsNavPanelList1" onClick={() => {
+                          this.setState({
+                            activeKey2: "8",
+                            ty_text: "Volume TY in units",
+                            ly_text: "Volume LY in units",
+                            y_axis_text: "Sales Volume",
+                            page_title: "Volume Performance"
+                          });
+                          this.props.tabsAndApplySpinner(0);
+                          let dataMetricParams = "metric_flag=Volume";
+
+                          this.props.onSaveMetricParam(dataMetricParams);
+                        }}
+                        ><span className="tab_label">Volume</span></NavItem>
+                        <NavItem style={{fontSize: '16px'}}
+                                 eventKey="9" className="tabsNavPanelList1" onClick={() => {
+                          this.setState({
+                            activeKey2: "9",
+                            ty_text: "COGS TY in £",
+                            ly_text: "COGS LY in £",
+                            y_axis_text: "COGS",
+                            page_title: "COGS Performance"
+                          });
+                          this.props.tabsAndApplySpinner(0);
+                          let dataMetricParams = "metric_flag=cogs";
+                          this.props.onSaveMetricParam(dataMetricParams);
+                        }}
+                        ><span className="tab_label">COGS</span></NavItem>
+                        <NavItem style={{fontSize: '16px'}}
+                                 eventKey="10" className="tabsNavPanelList1" onClick={() => {
+                          this.setState({
+                            activeKey2: "10",
+                            ty_text: "Profit TY in £",
+                            ly_text: "Profit LY in £",
+                            y_axis_text: "Profit",
+                            page_title: "Profit Performance"
+                          });
+                          this.props.tabsAndApplySpinner(0);
+                          let dataMetricParams = "metric_flag=cgm";
+                          this.props.onSaveMetricParam(dataMetricParams);
+                        }}
+                        ><span className="tab_label">CGM</span></NavItem>
+                        {/*<NavItem style={{fontSize: '16px'}}
+                         eventKey="11" className="tabsNavPanelList1" onClick={() => {
+                         this.setState({
+                         activeKey2: "11",
+                         ty_text: "Waste Value TY",
+                         ly_text: "Waste Value LY",
+                         y_axis_text: "Waste Value",
+                         page_title: "Waste Performance"
+                         });
+                         this.props.tabsAndApplySpinner(0);
+                         let dataMetricParams = "metric_flag=Waste";
+                         this.props.onSaveMetricParam(dataMetricParams);
                          }}
-                  >
-                    <Modal.Header>
-
-                      <Modal.Title id="contained-modal-title-sm" className="pageModuleTitle">
-                        <span className="pageModuleTitle"><b>{this.state.infoModalHeader}</b>
-                         <span style={{textAlign: 'right', float: 'right'}}
-                               onClick={() => {
-                                 this.setState({showSupplierInfoModalFlag: false})
-                                 this.props.onFetchSaveSupplierInfoSuccess(false);
-                               }}>
-                          <b>X</b></span></span>
-                      </Modal.Title>
-
-                    </Modal.Header>
-                    <Modal.Body className="infoModalText">
+                         ><span className="tab_label">Waste</span></NavItem>*/}
+                        {/*                <NavItem style={{ fontSize: '16px' }}
+                         eventKey="12" className="tabsCustomList" onClick={() => {
+                         this.setState({activeKey: "12"});
+                         let dataMetricParams="metric_flag=Stock";
+                         this.props.onSaveMetricParam(dataMetricParams);
+                         }}
+                         ><b className="tab_label">Stock</b></NavItem>
+                         <NavItem style={{ fontSize: '16px' }}
+                         eventKey="13" className="tabsCustomList" onClick={() => {
+                         this.setState({activeKey: "13"});
+                         let dataMetricParams="metric_flag=Price";
+                         this.props.onSaveMetricParam(dataMetricParams);
+                         }}
+                         ><b className="tab_label">Price</b></NavItem>*/}
+                      </Nav>
+                    </div>
+                    <div className="col-xs-12">
+                      <h2 className="pageModuleMainTitle col-xs-12">
+                        <b>Products {this.state.y_axis_text} Info </b>
+                      </h2>
                       <div>
                         {
                           (() => {
-                            if (this.props.ProductPage.supplier_info && this.props.ProductPage.supplier_info.data && this.props.ProductPage.tabsApplySpinner) {
-
+                            if (this.props.ProductPage.data && this.props.ProductPage.data.table_data && this.props.ProductPage.tabsApplySpinner) {
                               return (
                                 <div>
                                   <BootstrapTable
-                                    data={this.props.ProductPage.supplier_info.data} options={options}
+                                    data={this.props.ProductPage.data.table_data} selectRow={selectRowProp}
+                                    options={options}
                                     striped={true}
                                     hover
                                     condensed
@@ -552,23 +452,72 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                                     search={true}
                                     exportCSV={true}
                                   >
-                                    <TableHeaderColumn isKey={true} width="225" tdStyle={ {whiteSpace: 'normal'} }
-                                                       dataField="parent_supplier" dataSort={true}
-                                                       dataAlign="center">Parent Supplier</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="metric_ty" dataSort={true} dataAlign="center"
-                                                       dataFormat={this.formatMetric}>{this.state.y_axis_text}
-                                      TY</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="metric_ly" dataSort={true} dataAlign="center"
-                                                       dataFormat={this.formatMetric}>{this.state.y_axis_text}
-                                      LY</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="metric_ty_lfl" dataSort={true} dataAlign="center"
-                                                       dataFormat={this.formatMetric}>{this.state.y_axis_text} TY
-                                      LFL</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="metric_ly_lfl" dataSort={true} dataAlign="center"
-                                                       dataFormat={this.formatMetric}>{this.state.y_axis_text} LY
-                                      LFL</TableHeaderColumn>
+                                    <TableHeaderColumn width="225" tdStyle={ {whiteSpace: 'normal'} }
+                                                       dataField="product"
+                                                       isKey={true}
+                                                       dataAlign="center" dataSort>Product
+                                      Description</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="product_id" hidden
+                                                       dataAlign="center">Product</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="x_ty" dataFormat={this.formatMetric} dataSort={true}
+                                                       dataAlign="center">TY</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="x_ly" dataFormat={this.formatMetric} dataSort={true}
+                                                       dataAlign="center">LY</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="x_lw" dataFormat={this.formatMetric} dataSort={true}
+                                                       dataAlign="center">LW</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="x_lfl_ty" dataFormat={this.formatMetric}
+                                                       dataSort={true}
+                                                       dataAlign="center">LFL TY</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="x_lfl_ly" dataFormat={this.formatMetric}
+                                                       dataSort={true}
+                                                       dataAlign="center">LFL LY</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="wow" width="11%" hidden={(() => {
+                                      if (this.state.dataWeekParams == "Latest Week") {
+                                        return false;
+                                      }
+                                      else {
+                                        return true;
+                                      }
+                                    })()} dataFormat={this.formatGlyphicon} dataSort={true}
+                                                       dataAlign="center">WOW % Change</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="yoy" width="11%" dataFormat={this.formatGlyphicon}
+                                                       dataSort={true}
+                                                       dataAlign="center">YOY % Change</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="lfl_percent" width="11%"
+                                                       dataFormat={this.formatGlyphicon} dataSort={true}
+                                                       dataAlign="center">LFL % Change</TableHeaderColumn>
+                                    <TableHeaderColumn dataFormat={this.cellButton} tdStyle={ {whiteSpace: 'normal'} }
+                                                       dataAlign="center">Supplier Info</TableHeaderColumn>
+                                    <TableHeaderColumn dataFormat={this.cellButton2}
+                                                       dataAlign="center">Trend</TableHeaderColumn>
                                   </BootstrapTable>
-
+                                  <i style={{textAlign: "center", fontSize: "14px"}}>* Indicates this product was not
+                                    present for the previous week/year</i>
+                                  <button
+                                    type="button"
+                                    style={{float: 'right', fontSize: "14px"}}
+                                    className="btn btn-danger"
+                                    onClick={() => {
+                                      let objString = '';
+                                      let selected = this.state.SelectProducts;
+                                      if (selected !== '[]') {
+                                        for (let i = 0; i < selected.length; i++) {
+                                          objString += 'base_product_number=' + selected[i] + '&'
+                                        }
+                                        objString = objString.slice(0, objString.length - 1);
+                                        console.log(objString);
+                                        let domain = "dvcmpweb00001uk.dev.global.tesco.org";
+                                        document.cookie = `PreselectionFromNego=1;domain=${domain};path=/;`;
+                                        document.cookie = `PreselectionFromNegoData=${objString};domain=${domain};path=/;`;
+                                        console.log("Document", document);
+                                        console.log("Document Cookie", document.cookie);
+                                        window.location = 'http://dvcmpweb00001uk.dev.global.tesco.org/ranging/delist/';
+                                      } else {
+                                        alert("You have not selected any products to delist. Are you sure you want to see the delist impact?")
+                                      }
+                                    }}
+                                  >SEND TO DE-LIST
+                                  </button>
                                 </div>
                               );
 
@@ -576,7 +525,8 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                             else {
                               return (
 
-                                <div className="text-center" colSpan="11"><Spinner />Please Wait a Moment....!</div>
+                                <div className="text-center" colSpan="11" style={{textAlign: 'center'}}><Spinner />Please
+                                  Wait a Moment....!</div>
 
                               );
                             }
@@ -584,208 +534,177 @@ export class ProductPage extends React.PureComponent { // eslint-disable-line re
                         }
 
                       </div>
-                    </Modal.Body>
-                  </Modal>
+                    </div>
 
-                  {/*Trend LineChart Modal*/}
-                  <Modal show={this.state.showSalesTrendModalFlag} bsSize="lg" style={{marginTop: '10%'}}
-                         aria-labelledby="contained-modal-title-lg"
-                         onHide={() => {
-                           this.setState({showSalesTrendModalFlag: false})
-                           this.props.onFetchProductTrendInfoSuccess(false);
-                         }}
-                  >
-                    <Modal.Header>
+                    {/*Supplier Info Modal*/}
+                    <Modal show={this.state.showSupplierInfoModalFlag} bsSize="lg" style={{marginTop: '10%'}}
+                           aria-labelledby="contained-modal-title-lg"
+                           onHide={() => {
+                             this.setState({showSupplierInfoModalFlag: false})
+                             this.props.onFetchSaveSupplierInfoSuccess(false);
+                           }}
+                    >
+                      <Modal.Header>
 
-                      <Modal.Title id="contained-modal-title-sm" className="pageModuleTitle">
-                        <span className="pageModuleTitle"><b>{this.state.y_axis_text} Trend : {this.state.product}</b>
-                         <span style={{textAlign: 'right', float: 'right'}}
-                               onClick={() => {
-                                 this.setState({showSalesTrendModalFlag: false})
-                                 this.props.onFetchProductTrendInfoSuccess(false);
-                               }}>
-                          <b>X</b></span></span>
-                      </Modal.Title>
+                        <Modal.Title id="contained-modal-title-sm" className="pageModuleTitle">
+                              <span className="pageModuleTitle"><b>{this.state.infoModalHeader}</b>
+                               <span style={{textAlign: 'right', float: 'right'}}
+                                     onClick={() => {
+                                       this.setState({showSupplierInfoModalFlag: false})
+                                       this.props.onFetchSaveSupplierInfoSuccess(false);
+                                     }}>
+                                <b>X</b></span></span>
+                        </Modal.Title>
 
-                    </Modal.Header>
-                    <Modal.Body className="infoModalText">
-                      <div>
-                        {(() => {
-                          if (this.props.ProductPage.product_trend && this.props.ProductPage.product_trend.data && this.props.ProductPage.tabsApplySpinner) {
+                      </Modal.Header>
+                      <Modal.Body className="infoModalText">
+                        <div>
+                          {
+                            (() => {
+                              if (this.props.ProductPage.supplier_info && this.props.ProductPage.supplier_info.data && this.props.ProductPage.tabsApplySpinner) {
 
+                                return (
+                                  <div>
+                                    <BootstrapTable
+                                      data={this.props.ProductPage.supplier_info.data} options={options}
+                                      striped={true}
+                                      hover
+                                      condensed
+                                      pagination={ true }
+                                      search={true}
+                                      exportCSV={true}
+                                    >
+                                      <TableHeaderColumn isKey={true} width="225" tdStyle={ {whiteSpace: 'normal'} }
+                                                         dataField="parent_supplier" dataSort={true}
+                                                         dataAlign="center">Parent Supplier</TableHeaderColumn>
+                                      <TableHeaderColumn dataField="metric_ty" dataSort={true} dataAlign="center"
+                                                         dataFormat={this.formatMetric}>{this.state.y_axis_text}
+                                        TY</TableHeaderColumn>
+                                      <TableHeaderColumn dataField="metric_ly" dataSort={true} dataAlign="center"
+                                                         dataFormat={this.formatMetric}>{this.state.y_axis_text}
+                                        LY</TableHeaderColumn>
+                                      <TableHeaderColumn dataField="metric_ty_lfl" dataSort={true} dataAlign="center"
+                                                         dataFormat={this.formatMetric}>{this.state.y_axis_text} TY
+                                        LFL</TableHeaderColumn>
+                                      <TableHeaderColumn dataField="metric_ly_lfl" dataSort={true} dataAlign="center"
+                                                         dataFormat={this.formatMetric}>{this.state.y_axis_text} LY
+                                        LFL</TableHeaderColumn>
+                                    </BootstrapTable>
 
-                            return (
-                              <div>
-                                <div style={{float: "right"}}>
-                                  <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight
-                                                  style={{
-                                                    backgroundColor: "transparent",
-                                                    borderColor: "transparent",
-                                                    color: "#00539f"
-                                                  }} id="dropButtonId">
-                                    <MenuItem onClick={() => {
-                                      saveImage(this.refs.chartImage.refs.image, "Products " + this.state.y_axis_text + " Trend " + dateFormat(this.state.now, "dS mmmm yyyy, h:MM:ss"))
-                                    }
-                                    }>Save As JPEG</MenuItem>
-                                    <MenuItem onClick={() => {
-                                      saveDataAsCSV(this.props.ProductPage.product_trend.data, "Products " + this.state.y_axis_text + " Trend_" + dateFormat(this.state.now, "dS mmmm yyyy, h:MM:ss") + ".csv")
-                                    }
-                                    }>Download CSV</MenuItem>
-                                  </DropdownButton>
-                                </div>
-                                <DualLineChart ref="chartImage" ty_text={this.state.ty_text}
-                                               ly_text={this.state.ly_text}
-                                               y_axis_text={this.state.y_axis_text}
-                                               data={this.props.ProductPage.product_trend.data}/>
-                              </div>
-                            )
+                                  </div>
+                                );
 
+                              }
+                              else {
+                                return (
 
-                          } else {
-                            return (
-                              <div className="text-center" colSpan="11"><Spinner />Please Wait a Moment....!</div>
-                            );
+                                  <div className="text-center" colSpan="11"><Spinner />Please Wait a Moment....!</div>
+
+                                );
+                              }
+                            })()
                           }
-                        })()}
-                      </div>
-                    </Modal.Body>
-                  </Modal>
 
-                  {/*<div >
-                   <div className="col-xs-12">
-                   <h2 className="pageModuleMainTitle">{this.state.page_title}</h2>
-                   </div>
-                   <div className="col-xs-12">
-                   <div className="col-xs-3" style={{marginTop: '8%'}}>
+                        </div>
+                      </Modal.Body>
+                    </Modal>
 
-                   {(() => {
-                   if (this.props.ProductPage.data && this.props.ProductPage.data.comp_data  && this.props.ProductPage.tabsApplySpinner) {
-                   return this.props.ProductPage.data.comp_data.map((obj) => {
+                    {/*Trend LineChart Modal*/}
+                    <Modal show={this.state.showSalesTrendModalFlag} bsSize="lg" style={{marginTop: '10%'}}
+                           aria-labelledby="contained-modal-title-lg"
+                           onHide={() => {
+                             this.setState({showSalesTrendModalFlag: false})
+                             this.props.onFetchProductTrendInfoSuccess(false);
+                           }}
+                    >
+                      <Modal.Header>
 
-                   console.log("ProductPage:");
-                   console.log(this.refs.productPage);
-                   let divToprint=this.refs.productPage;
-                   let width=parseFloat(divToprint.getAttribute("width"));
-                   let height=parseFloat(divToprint.getAttribute("height"));
-                   let newWin=window.open('','printMap');
-                   console.log("NewWin:",newWin);
-                   $(newWin.document).ready(function() {
-                   let printDocHead = $('<head></head>').append($('style[type="text/css"]').clone());
-                   console.log("DivToPrintHtml",printDocHead);
-                   let printDocBodyHtml = $(divToprint).html().replace(/sizePerPage: 5/g, "sizePerPage: 25");
-                   //console.log("DocBodyHtml:",printDocBodyHtml);
-                   let printDocBody = $('<body></body>').html(printDocBodyHtml);
-                   let printDoc = $('<html></html>').append(printDocHead).append(printDocBody);
-                   //console.log("PrintDoc:",printDoc);
-                   newWin.document.write(printDoc[0].outerHTML);
-                   //newWin.document.close();
-                   newWin.focus();
-                   setTimeout(function(){
-                   newWin.print();
-                   console.log("print Fired:");
-                   //newWin.close();
-                   }, 5);
-                   });
-                   return (
-                   <table key={obj.metric_title }
-                   className="table table-hover table-striped table-bordered table_cust">
-                   <thead style={{verticalAlign: 'middle', color: '#FFFFFF'}}>
-                   <tr>
-                   <th colSpan="12" className="pageModuleSubTitle"><b>{obj.metric_title}</b></th>
-                   </tr>
-                   <tr>
-                   <th colSpan="6" style={{
-                   verticalAlign: 'middle',
-                   fontSize: '18px',
-                   backgroundColor: '#1782CA',
-                   textAlign: 'center'
-                   }}>
-                   {(() => {
-                   if (this.state.y_axis_text == 'Sales Volume') {
+                        <Modal.Title id="contained-modal-title-sm" className="pageModuleTitle">
+                              <span className="pageModuleTitle"><b>{this.state.y_axis_text}
+                                Trend : {this.state.product}</b>
+                               <span style={{textAlign: 'right', float: 'right'}}
+                                     onClick={() => {
+                                       this.setState({showSalesTrendModalFlag: false})
+                                       this.props.onFetchProductTrendInfoSuccess(false);
+                                     }}>
+                                <b>X</b></span></span>
+                        </Modal.Title>
+
+                      </Modal.Header>
+                      <Modal.Body className="infoModalText">
+                        <div>
+                          {(() => {
+                            if (this.props.ProductPage.product_trend && this.props.ProductPage.product_trend.data && this.props.ProductPage.tabsApplySpinner) {
 
 
-                   return (obj.metric_all / 1000).toFixed(0) + 'K'
+                              return (
+                                <div>
+                                  <div style={{float: "right"}}>
+                                    <DropdownButton title="" className="glyphicon glyphicon-menu-hamburger" pullRight
+                                                    style={{
+                                                      backgroundColor: "transparent",
+                                                      borderColor: "transparent",
+                                                      color: "#00539f"
+                                                    }} id="dropButtonId">
+                                      <MenuItem onClick={() => {
+                                        saveImage(this.refs.chartImage.refs.image, "Products " + this.state.y_axis_text + " Trend " + dateFormat(this.state.now, "dS mmmm yyyy, h:MM:ss"))
+                                      }
+                                      }>Save As JPEG</MenuItem>
+                                      <MenuItem onClick={() => {
+                                        saveDataAsCSV(this.props.ProductPage.product_trend.data, "Products " + this.state.y_axis_text + " Trend_" + dateFormat(this.state.now, "dS mmmm yyyy, h:MM:ss") + ".csv")
+                                      }
+                                      }>Download CSV</MenuItem>
+                                    </DropdownButton>
+                                  </div>
+                                  <DualLineChart ref="chartImage" ty_text={this.state.ty_text}
+                                                 ly_text={this.state.ly_text}
+                                                 y_axis_text={this.state.y_axis_text}
+                                                 data={this.props.ProductPage.product_trend.data}/>
+                                </div>
+                              )
 
 
-                   } else {
-                   return '£ ' + (obj.metric_all / 1000).toFixed(0) + 'K'
-                   }
-                   })()}
-                   </th>
-                   <th colSpan="6" style={{
-                   verticalAlign: 'middle',
-                   fontSize: '18px',
-                   backgroundColor: '#1782CA',
-                   textAlign: 'center'
-                   }}>
-                   {(() => {
-                   if (this.state.y_axis_text == 'Sales Volume') {
+                            } else {
+                              return (
+                                <div className="text-center" colSpan="11"><Spinner />Please Wait a Moment....!</div>
+                              );
+                            }
+                          })()}
+                        </div>
+                      </Modal.Body>
+                    </Modal>
 
-
-                                    return 'LFL: ' + (obj.metric_lfl / 1000).toFixed(0) + 'K'
-
-
-                   }else {
-                   return 'LFL: £ ' + (obj.metric_lfl / 1000).toFixed(0) + 'K'
-                   }
-                   }
-                   )()}
-                   </th>
-                   </tr>
-                   </thead>
-                   <tbody>
-                   <tr style={{ verticalAlign: 'middle',color:'#000000',backgroundColor:'#FFFFFF' }}>
-                   <td colSpan="4"><span className={(() => {
-                   if (obj.wow_change > 0) {
-                   return "glyphicon glyphicon-triangle-top productTablePositive"
-                   } else {
-                   return "glyphicon glyphicon-triangle-bottom productTableNegative"
-                   }
-                   })()}>&nbsp;</span> <span style={{fontSize:'16px'}}>{(obj.wow_change)+'%'} </span>
-                   <br/><br/><h4 style={{color:'#00539f'}}>WOW</h4></td>
-                   <td colSpan="4"><span className={(() => {
-                   if (obj.yoy_change > 0) {
-                   return "glyphicon glyphicon-triangle-top productTablePositive"
-                   } else {
-                   return "glyphicon glyphicon-triangle-bottom productTableNegative"
-                   }
-                   })()}>&nbsp;</span> <span style={{fontSize:'16px'}}>{(obj.yoy_change)+'%'} </span>
-                   <br/><br/><h4 style={{color:'#00539f'}}>YOY</h4></td>
-                   <td colSpan="4"><span className={(() => {
-                   if (obj.lfl_change > 0) {
-                   return "glyphicon glyphicon-triangle-top productTablePositive"
-                   } else {
-                   return "glyphicon glyphicon-triangle-bottom productTableNegative"
-                   }
-                   })()}>&nbsp;</span> <span style={{fontSize:'16px'}}>{(obj.lfl_change)+'%'} </span>
-                   <br/><br/><h4 style={{color:'#00539f'}}>LFL</h4></td>
-                   </tr>
-
-                   </tbody>
-                   </table>
-                   )
-
-                   });
-                   } else {
-                   return (
-
-                   <div className="row">
-                   <div className="col-md-9 col-sm-9 col-xs-9 text-center" style={{marginTop: '-17%'}}><Spinner />Please Wait a Moment....!</div>
-                   </div>
-
-                   );
-                   }
-                   })()}
-
-                   </div>
-
-                   </div>
-
-                   </div>
-                   */}
-                </div>
-
-
+                    {/*
+                     console.log("ProductPage:");
+                     console.log(this.refs.productPage);
+                     let divToprint=this.refs.productPage;
+                     let width=parseFloat(divToprint.getAttribute("width"));
+                     let height=parseFloat(divToprint.getAttribute("height"));
+                     let newWin=window.open('','printMap');
+                     console.log("NewWin:",newWin);
+                     $(newWin.document).ready(function() {
+                     let printDocHead = $('<head></head>').append($('style[type="text/css"]').clone());
+                     console.log("DivToPrintHtml",printDocHead);
+                     let printDocBodyHtml = $(divToprint).html().replace(/sizePerPage: 5/g, "sizePerPage: 25");
+                     //console.log("DocBodyHtml:",printDocBodyHtml);
+                     let printDocBody = $('<body></body>').html(printDocBodyHtml);
+                     let printDoc = $('<html></html>').append(printDocHead).append(printDocBody);
+                     //console.log("PrintDoc:",printDoc);
+                     newWin.document.write(printDoc[0].outerHTML);
+                     //newWin.document.close();
+                     newWin.focus();
+                     setTimeout(function(){
+                     newWin.print();
+                     console.log("print Fired:");
+                     //newWin.close();
+                     }, 5);
+                     });
+                     */}
+                  </div>
+                )
+              }
+            }
+          )()}
         </div>
       </div>
     );

@@ -195,36 +195,36 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
 
               <div className="text-center">
                 <Button onClick={() => {
-                  console.log('apply');
-                  let filterDataWeek = this.props.filter_week_selection;
-                  let filterData = this.props.urlParamsString;
-                  let hierarchyData = this.props.userParams;
-                  console.log('filterDataWeek', filterDataWeek);
-
                   this.props.defaultGreyScreen(0);
-                  if (1 == 1) {
-                    console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek, filterData);
-                    if (1 == 1) {
-                      console.log('tesco_weeek filterDataWeek', filterDataWeek);
-                      console.log('--filterData', filterData);
+                  this.props.tabsAndApplySpinner(0);
+                  this.props.onProductPage();
 
-                      this.props.tabsAndApplySpinner(0);
-                      this.props.onProductPage();
+                  // let filterDataWeek = this.props.filter_week_selection;
+                  // let filterData = this.props.urlParamsString;
+                  // let hierarchyData = this.props.userParams;
+                  // console.log('filterDataWeek', filterDataWeek);
 
-                    }
-                    else {
-                      console.log('modal open');
-                      this.setState({alertShow: true});
-                    }
-                  } else {
-                    console.log('modal open');
-                    this.setState({alertShow: true});
-                  }
+                  // if (1 == 1) {
+                  //   console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek, filterData);
+                  //   if (1 == 1) {
+                  //     console.log('tesco_weeek filterDataWeek', filterDataWeek);
+                  //     console.log('--filterData', filterData);
+                  //
+                  //
+                  //
+                  //   }
+                  //   else {
+                  //     console.log('modal open');
+                  //     this.setState({alertShow: true});
+                  //   }
+                  // } else {
+                  //   console.log('modal open');
+                  //   this.setState({alertShow: true});
+                  // }
                 }}>Apply Filters</Button>
                 <Button style={{marginTop:"4px", marginLeft:"0 auto"}} buttonType={'primary'}
 
                         onClick={() => {
-                          console.log("Clear Filters Clicked");
                           this.props.defaultGreyScreen(1);
                           this.props.onGenerateUrlParamsString('');
                           // let previous_week_selection = this.props.previous_week_selection;

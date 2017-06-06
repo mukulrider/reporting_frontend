@@ -280,28 +280,29 @@ class CascadedFilterDSS extends React.PureComponent { // eslint-disable-line rea
                 <Button
                   style={{marginTop: "5px", width: "10px"}}
                   onClick={() => {
+                    this.props.DSViewKpiSpinnerCheck(0);
+                    this.props.LineChartSpinnerCheck(0);
+                    this.applyButtonFunctionality();
 
-                    let filterDataWeek = this.props.week;
-                    let filterData = this.props.urlParamsString;
-                    console.log('filterDataWeek', filterDataWeek);
-                    console.log('filterData', filterData);
-                    if (!(typeof(filterData) == "undefined")) {
-                      console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek, filterData);
-                      if (filterData.includes("buying_controller=")) {
-                        console.log('tesco_weeek filterDataWeek', filterDataWeek);
-                        console.log('--filterData', filterData);
-                        this.props.DSViewKpiSpinnerCheck(0);
-                        this.props.LineChartSpinnerCheck(0);
-                        this.applyButtonFunctionality();
-                      }
-                      else {
-                        console.log('modal open1');
-                        this.setState({alertShow: true});
-                      }
-                    } else {
-                      console.log('modal open2');
-                      this.setState({alertShow: true});
-                    }
+                    // let filterDataWeek = this.props.week;
+                    // let filterData = this.props.urlParamsString;
+                    // console.log('filterDataWeek', filterDataWeek);
+                    // console.log('filterData', filterData);
+                    // if (!(typeof(filterData) == "undefined")) {
+                    //   console.log('tesco_weeek   filterDataWeek undefined ', filterDataWeek, filterData);
+                    //   if (filterData.includes("buying_controller=")) {
+                    //     console.log('tesco_weeek filterDataWeek', filterDataWeek);
+                    //     console.log('--filterData', filterData);
+                    //
+                    //   }
+                    //   else {
+                    //     console.log('modal open1');
+                    //     this.setState({alertShow: true});
+                    //   }
+                    // } else {
+                    //   console.log('modal open2');
+                    //   this.setState({alertShow: true});
+                    // }
                   }}>Apply</Button>
                 <div style={{height: '1%', width: '100%'}}>&nbsp;</div>
                 <Button
