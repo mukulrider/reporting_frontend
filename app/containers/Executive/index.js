@@ -143,16 +143,43 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
   componentDidMount = () => {
     console.log('localStorage->', localStorage);
     let defaultFilterUrlParams = localStorage.getItem('urlParams');
+
     if (defaultFilterUrlParams) {
-      console.log('defaultFilterUrlParams', defaultFilterUrlParams)
-      this.props.loadBestInfoData();
+      // console.log('defaultFilterUrlParams', defaultFilterUrlParams);
       this.props.onGenerateUrlParamsString(defaultFilterUrlParams);
     } else {
-      this.props.onGenerateUrlParamsString('');
+      const getCookie = (name) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) {
+          return parts.pop().split(';').shift();
+        }
+      };
+      //fetching values from cookie
+      const userId = getCookie('token');
+      const userName = getCookie('user');
+      const designation = getCookie('designation');
+      const buyingController = getCookie('buying_controller');
+      const buyer = getCookie('buyer');
+      if(buyer && buyingController) {
+        this.props.onGenerateUrlParamsString(`buying_controller=${buyingController}&buyer=${buyer}`);
+
+      } else if (buyingController) {
+        this.props.onGenerateUrlParamsString(`buying_controller=${buyingController}`);
+
+      } else {
+        this.props.onGenerateUrlParamsString(``);
+
+      }
     }
+
+
+
 
     this.props.onGetFilter();
     this.props.onGetWeekFilter();
+
+
 
     // saurav
     // this.props.onGenerateBestWorstPerformance();
@@ -895,7 +922,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                 <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6"
                                                      style={{textAlign: 'center'}}>
                                                   <h3 style={{padding: "0px", margin: "0px"}}>
-                                                    LFL &nbsp; {this.props.Executive.overview_kpi_data.kpi.value.total_lfl} </h3>
+                                                    LFL TY &nbsp; {this.props.Executive.overview_kpi_data.kpi.value.total_lfl} </h3>
                                                 </div>
                                               </div>
                                               <div className="row">
@@ -979,7 +1006,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                 <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6"
                                                      style={{textAlign: 'center'}}>
                                                   <h3 style={{padding: "0px", margin: "0px"}}>
-                                                    LFL &nbsp; {this.props.Executive.overview_kpi_data.kpi.volume.total_lfl} </h3>
+                                                    LFL TY &nbsp; {this.props.Executive.overview_kpi_data.kpi.volume.total_lfl} </h3>
                                                 </div>
                                               </div>
                                               <div className="row">
@@ -1059,7 +1086,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                 <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6"
                                                      style={{textAlign: 'center'}}>
                                                   <h3 style={{padding: "0px", margin: "0px"}}>
-                                                    LFL &nbsp; {this.props.Executive.overview_kpi_data.kpi.cogs.total_lfl} </h3>
+                                                    LFL TY &nbsp; {this.props.Executive.overview_kpi_data.kpi.cogs.total_lfl} </h3>
                                                 </div>
                                               </div>
                                               <div className="row">
@@ -1140,7 +1167,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                 <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6"
                                                      style={{textAlign: 'center'}}>
                                                   <h3 style={{padding: "0px", margin: "0px"}}>
-                                                    LFL &nbsp; {this.props.Executive.overview_kpi_data.kpi.cgm.total_lfl} </h3>
+                                                    LFL TY &nbsp; {this.props.Executive.overview_kpi_data.kpi.cgm.total_lfl} </h3>
                                                 </div>
                                               </div>
                                               <div className="row">
@@ -2485,7 +2512,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                   <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6"
                                                        style={{textAlign: 'center'}}>
                                                     <h3 style={{padding: "0px", margin: "0px"}}>
-                                                      LFL &nbsp; {this.props.Executive.kpi_boxes_data.total_value.total_lfl} </h3>
+                                                      LFL TY &nbsp; {this.props.Executive.kpi_boxes_data.total_value.total_lfl} </h3>
                                                   </div>
                                                 </div>
                                                 <div className="row">
@@ -2580,7 +2607,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                   <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6"
                                                        style={{textAlign: 'center'}}>
                                                     <h3 style={{padding: "0px", margin: "0px"}}>
-                                                      LFL &nbsp; {this.props.Executive.kpi_boxes_data.growth.total_lfl} </h3>
+                                                      LFL TY &nbsp; {this.props.Executive.kpi_boxes_data.growth.total_lfl} </h3>
                                                   </div>
                                                 </div>
                                                 <div className="row">
@@ -3046,6 +3073,13 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                  whiteSpace: 'normal',
                                                                  fontSize: '14px'
                                                                }}>{this.props.Executive.bestWorstPerformance.level}</TableHeaderColumn>
+                                            <TableHeaderColumn dataField='rolled_up_level'
+                                                               dataAlign='center'
+                                                               tdStyle={{fontSize: '14px'}}
+                                                               thStyle={{
+                                                                 whiteSpace: 'normal',
+                                                                 fontSize: '14px'
+                                                               }}>{this.props.Executive.bestWorstPerformance.rolled_up_level}</TableHeaderColumn>
                                             <TableHeaderColumn dataField='sales_share'
                                                                dataAlign='center'
                                                                dataSort={true}
@@ -3186,7 +3220,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                 <TableHeaderColumn tdStyle={{whiteSpace: 'normal'}}
                                    dataSort={true}
                                    dataAlign={"left"}
-                                   dataField='yoy_var'>YoY Variation</TableHeaderColumn>
+                                   dataField='yoy_var'>YoY Vari
+                  ation</TableHeaderColumn>
               </BootstrapTable>
             </Modal.Body>
           </Modal>
