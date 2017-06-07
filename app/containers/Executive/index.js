@@ -1771,8 +1771,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             <div className="row">
                                               <h3 style={{textAlign: "center"}}>{
                                                 this.props.Executive.overview_drivers_external_data.rainfall.avg
-
-                                              } hrs</h3>
+                                              }</h3>
                                             </div>
                                             <div className="row">
                                               <div className="panel-body cardPanel">
