@@ -93,17 +93,51 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
   componentDidMount = () => {
     let defaultFilterUrlParams = localStorage.getItem('urlParams');
-    if (defaultFilterUrlParams) {
-      console.log('defaultFilterUrlParams', defaultFilterUrlParams)
+    // if (defaultFilterUrlParams) {
+    //   console.log('defaultFilterUrlParams', defaultFilterUrlParams)
+    //
+    //   // this.props.onGenerateUrlParamsString3(1);
+    //   // this.props.onGenerateUrlParamsString2(defaultFilterUrlParams);
+    //   this.props.onGenerateUrlParamsString(defaultFilterUrlParams);
+    //   // this.props.onGenerateUrlParamsString(0);
+    //   // this.props.onGenerateSideFilter();
+    // } else {
+    //   this.props.onGenerateUrlParamsString('');
+    //   this.props.onGenerateSideFilter();
+    // }
 
-      this.props.onGenerateUrlParamsString3(1);
-      this.props.onGenerateUrlParamsString2(defaultFilterUrlParams);
-      this.props.onGenerateUrlParamsString(0);
+    if (defaultFilterUrlParams) {
+      // console.log('defaultFilterUrlParams', defaultFilterUrlParams);
+      this.props.onGenerateUrlParamsString(defaultFilterUrlParams);
       this.props.onGenerateSideFilter();
     } else {
-      this.props.onGenerateUrlParamsString('');
-      this.props.onGenerateSideFilter();
+      const getCookie = (name) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) {
+          return parts.pop().split(';').shift();
+        }
+      };
+      //fetching values from cookie
+      const userId = getCookie('token');
+      const userName = getCookie('user');
+      const designation = getCookie('designation');
+      const buyingController = getCookie('buying_controller');
+      const buyer = getCookie('buyer');
+      if (buyer && buyingController) {
+        this.props.onGenerateUrlParamsString(`buying_controller=${buyingController}&buyer=${buyer}`);
+        this.props.onGenerateSideFilter();
+
+      } else if (buyingController) {
+        this.props.onGenerateUrlParamsString(`buying_controller=${buyingController}`);
+        this.props.onGenerateSideFilter();
+
+      } else {
+        this.props.onGenerateUrlParamsString(``);
+        this.props.onGenerateSideFilter();
+      }
     }
+
 
     this.props.supplierViewKpiSpinnerCheckSuccess(0);
     this.props.onGetFilter();
@@ -873,7 +907,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                 <div className="col-xs-6" style={{textAlign: "center"}}>
 
                                                   <h3 style={{padding: "0px", margin: "0px"}}>
-                                                    LFL: {obj.cw_sales_exclu_sup_lfl } </h3>
+                                                    LFL TY {obj.cw_sales_exclu_sup_lfl } </h3>
                                                 </div>
                                               </div>
                                               <br></br>
