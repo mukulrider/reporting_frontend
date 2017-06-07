@@ -98,13 +98,14 @@ export class Competitor extends React.PureComponent {
         if ((typeof(buyer_header) == "undefined") || (buyer_header == "")) {
           buying_controller = 'buying_controller=' + buyingcontroller;
           console.log('buying_controller non empty', buying_controller);
+          this.props.user_filter_selection(`buying_controller=${buyingcontroller}`);
           return buying_controller
         } else {
           buyer = 'buyer=' + buyer_header;
           console.log('buyer non empty--', buyer);
+          this.props.user_filter_selection(`buying_controller=${buyingController}&${buyer}`);
           return buyer
         }
-
       };
       let filterParams = gettingUserDetails();
 
