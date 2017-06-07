@@ -103,7 +103,7 @@ export class Competitor extends React.PureComponent {
         } else {
           buyer = 'buyer=' + buyer_header;
           console.log('buyer non empty--', buyer);
-          this.props.user_filter_selection(`buying_controller=${buyingController}&${buyer}`);
+          this.props.user_filter_selection(`buying_controller=${buyingcontroller}&${buyer}`);
           return buyer
         }
       };

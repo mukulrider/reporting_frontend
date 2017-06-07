@@ -90,7 +90,7 @@ function glyphiconFormatter(cell) {
   else if (cell < 0) {
     return "glyphicon glyphicon-triangle-bottom glyphiconNegative";
   } else {
-    return "glyphicon glyphicon-minus-sign glyphiconNeutral";
+    return "";
   }
 }
 
@@ -101,7 +101,7 @@ function triangleColumnFormatter(cell, row) {
   else if (cell < 0) {
     return '<i class="glyphicon glyphicon-triangle-bottom glyphiconNegative"></i>' + cell + '%';
   } else {
-    return '<i class="glyphicon glyphicon-minus-sign glyphiconNeutral"></i>' + cell + '%';
+    return '<i class=""></i>' + cell + '%';
   }
 }
 
@@ -294,6 +294,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
       sizePerPage: 5,  // which size per page you want to locate as default
       pageStartIndex: 1, // where to start counting the pages
       paginationSize: 3,  // the pagination bar size.
+      noDataText:"Loading..."
     };
 
 
@@ -324,9 +325,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
       return (
         <div>
           <button className="btn btn-success" onClick={() => {
-            // let suppName = 'None';
-            // this.props.onSaveSupplierName(suppName);
-            // this.setState({botsuppInfo: true});
             suppName = 'None';
             this.props.onGenerateBestWorstPerformanceTable(cell.level);
             this.setState({topsuppInfo: true});
@@ -383,9 +381,16 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                onHide={() => {
                  this.setState({allImpGraphs: false})
                }}>
-          <Modal.Header closeButton>
-            <Modal.Title id="" className="">External
-              Drivers</Modal.Title>
+          <Modal.Header>
+            <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
+              style={{textAlign: 'center', fontSize: '20px'}}><b>KPI Trends</b><span
+              style={{textAlign: 'right', float: 'right'}}
+              onClick={() => this.setState({allImpGraphs: false})}><b>X</b></span></span>
+              <div style={{textAlign: 'center'}}>
+                <div style={{textAlign: 'right'}}>
+                </div>
+              </div>
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
 
@@ -411,7 +416,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                               }
                               }>Save As JPEG</MenuItem>
                               <MenuItem onClick={() => {
-                                saveDataAsCSV(this.props.Executive.overview_kpi_trend_data.sales_trend, "kpiSalesValueTrend.csv")
+                                saveDataAsCSV(this.props.Executive.overview_kpi_trend_data.value_trend, "kpiSalesValueTrend.csv")
                               }
                               }>Download CSV</MenuItem>
                             </DropdownButton>
@@ -420,12 +425,12 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                         {(() => {
                           if (this.props.Executive.overview_kpi_trend_data) {
-                            console.log("overview_kpi_trend_data value line chart data", this.props.Executive.overview_kpi_trend_data.sales_trend);
+                            console.log("overview_kpi_trend_data value line chart data", this.props.Executive.overview_kpi_trend_data.value_trend);
                             return (
                               <div className="col-md-6 col-sm-12 col-xs-12">
                                 <MultilinePromo
-                                  data={this.props.Executive.overview_kpi_trend_data.sales_trend}
-                                  id="overview_value_line" label_ty="Sales TY" label_ly="Sales LY"
+                                  data={this.props.Executive.overview_kpi_trend_data.value_trend}
+                                  id="overview_value_line" label_ty="Value TY" label_ly="Value LY"
                                   xaxis_title="Tesco Week" no_pref='£' no_suffix=''
                                   yaxis_title='Value'
                                   chart_width="600" legend_width="450" legend_text_width="445"/>
@@ -578,9 +583,16 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                onHide={() => {
                  this.setState({detailedTable: false})
                }}>
-          <Modal.Header closeButton>
-            <Modal.Title id="" className="">External
-              Drivers</Modal.Title>
+          <Modal.Header>
+            <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
+              style={{textAlign: 'center', fontSize: '20px'}}><b>Detailed Information</b><span
+              style={{textAlign: 'right', float: 'right'}}
+              onClick={() => this.setState({detailedTable: false})}><b>X</b></span></span>
+              <div style={{textAlign: 'center'}}>
+                <div style={{textAlign: 'right'}}>
+                </div>
+              </div>
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
 
@@ -590,7 +602,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                 return (
                   <BootstrapTable className="promoTable"
                                   data={this.props.Executive.roles_intent_data.roles_and_intent_detail}
-
                                   striped={true}
                                   condensed
                                   hover
@@ -934,7 +945,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                               </div>
                                               <div className="row">
                                                 {(() => {
-                                                  if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                  if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                     return (
                                                       <div className="col-md-4 col-xs-12 kpiSmall">
                                                         <h4>
@@ -952,7 +963,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                                                 <div className={(() => {
-                                                  if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                  if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                     return (
                                                       "col-md-4 col-xs-12 col-sm-6 col-lg-4 kpismall"
                                                     )
@@ -973,7 +984,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                                 {/*Code for lfl in overview-value*/}
                                                 <div className={(() => {
-                                                  if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                  if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                     return (
                                                       "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
                                                     )
@@ -1019,7 +1030,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                               <div className="row">
 
                                                 {(() => {
-                                                  if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                  if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                     return (
                                                       <div className="col-md-4 col-xs-12 kpiSmall">
                                                         <h4>
@@ -1034,7 +1045,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                 })()}
 
                                                 <div className={(() => {
-                                                  if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                  if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                     return (
                                                       "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
                                                     )
@@ -1055,7 +1066,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                                 {/*Code for lfl in overview-value*/}
                                                 <div className={(() => {
-                                                  if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                  if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                     return (
                                                       "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
                                                     )
@@ -1098,7 +1109,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                               </div>
                                               <div className="row">
                                                 {(() => {
-                                                  if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                  if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                     return (
                                                       <div className="col-md-4 col-xs-12 kpiSmall">
                                                         <h4>
@@ -1116,7 +1127,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                                                 <div className={(() => {
-                                                  if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                  if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                     return (
                                                       "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
                                                     )
@@ -1137,7 +1148,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                                 {/*Code for lfl in overview-value*/}
                                                 <div className={(() => {
-                                                  if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                  if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                     return (
                                                       "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
                                                     )
@@ -1179,7 +1190,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                               </div>
                                               <div className="row">
                                                 {(() => {
-                                                  if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                  if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                     return (
                                                       <div className="col-md-4 col-xs-12 kpiSmall">
                                                         <h4>
@@ -1197,7 +1208,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                                                 <div className={(() => {
-                                                  if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                  if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                     return (
                                                       "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
                                                     )
@@ -1217,7 +1228,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                 </div>
                                                 {/*Code for lfl in overview-value*/}
                                                 <div className={(() => {
-                                                  if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                  if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                     return (
                                                       "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
                                                     )
@@ -1293,34 +1304,34 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                 <div className="row">
                                                   <div className="col-xs-12 kpiSubTitle price_metrics_heading" style={{float:"right"}}>
                                                     <div className="col-xs-1"> </div>
-                                                    <div className="col-xs-3 kpiSubTitle"></div>
-                                                    <h4 className="col-xs-3 kpiSubTitle"><b>WoW</b></h4>
-                                                    <h4 className="col-xs-3 kpiSubTitle"><b>YoY</b></h4>
+                                                    <div className="col-xs-4 kpiSubTitle"></div>
+                                                    {/*<h4 className="col-xs-3 kpiSubTitle"><b>WoW</b></h4>*/}
+                                                    <h4 className="col-xs-4 kpiSubTitle"><b>YoY</b></h4>
 
                                                   </div>
                                                 </div>
                                                 <div className="row">
-                                                  <h4 className="col-xs-1 kpiSubTitle"><b>Market Share</b></h4>
-                                                  <h4 className="col-xs-3">
+                                                  <h4 className="col-xs-1 kpiSubTitle"><b>Share</b></h4>
+                                                  <h4 className="col-xs-4 ">
                                                     {(this.props.Executive.overview_kpi_data.market.share.abs) + '%'}
                                                   </h4>
-                                                  <h4 className="col-xs-3">
-                                                    {(this.props.Executive.overview_kpi_data.market.share.wow) + '%'}
-                                                  </h4>
-                                                  <h4 className="col-xs-3">
+                                                  {/*<h4 className="col-xs-3">*/}
+                                                    {/*{(this.props.Executive.overview_kpi_data.market.share.wow) + '%'}*/}
+                                                  {/*</h4>*/}
+                                                  <h4 className="col-xs-4">
                                                     {(this.props.Executive.overview_kpi_data.market.share.yoy) + '%'}
                                                   </h4>
 
                                                 </div>
                                                 <div className="row">
-                                                  <h4 className="col-xs-1 kpiSubTitle"><b>Opport.</b></h4>
-                                                  <h4 className="col-xs-3">
+                                                  <h4 className="col-xs-1 kpiSubTitle"><b style={{marginLeft:"-150%"}}>Opportunity</b></h4>
+                                                  <h4 className="col-xs-4">
                                                     {this.props.Executive.overview_kpi_data.market.opportunity.abs}
                                                   </h4>
-                                                  <h4 className="col-xs-3">
-                                                    {(this.props.Executive.overview_kpi_data.market.opportunity.wow) + '%'}
-                                                  </h4>
-                                                  <h4 className="col-xs-3">
+                                                  {/*<h4 className="col-xs-3">*/}
+                                                    {/*{(this.props.Executive.overview_kpi_data.market.opportunity.wow) + '%'}*/}
+                                                  {/*</h4>*/}
+                                                  <h4 className="col-xs-4">
                                                     {(this.props.Executive.overview_kpi_data.market.opportunity.yoy) + '%'}
                                                   </h4>
 
@@ -1535,20 +1546,18 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                         )
                                                     })()}
                                                   </Panel>
-                                                  <button className="btn btn-primary"
-                                                          style={{
-                                                            marginLeft: "35%"
-                                                          }}
-                                                          onClick={() => {
-                                                            {/*this.setState({activeKey9: "1"});*/
-                                                            }
+                                                  <div style={{
+                                                         marginLeft: "35%"
+                                                       }}>
+                                                  <Button
+                                                    buttonType={'primary'}
+                                                    onClick={() => {
                                                             let value_internal_tab = "promo";
-                                                            {/*this.setState({activeKey9: "2"});*/
-                                                            }
                                                             this.props.onSaveValueInternal(value_internal_tab);
                                                             this.setState({showInternalPromoModal: true});
                                                           }}>Promotion Contribution Trend
-                                                  </button>
+                                                  </Button>
+                                                  </div>
                                                 </div>
 
                                                 <div className="col-md-4 col-sm-4 col-xs-12 col-lg-4">
@@ -1667,18 +1676,19 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                                     </div>
                                                   </Panel>
-                                                  <button className="btn btn-primary"
-                                                          style={{
-                                                            marginLeft: "32%"
-                                                          }}
+                                                  <div style={{
+                                                    marginLeft: "32%"
+                                                  }}>
+                                                  <Button buttonType={'primary'}
                                                           onClick={() => {
                                                             let value_internal_tab = "kpi";
                                                             this.setState({activeKey9: "1"});
                                                             this.props.onSaveValueInternal(value_internal_tab);
                                                             this.setState({showExternalDriverModal: true});
                                                           }}>KPI Contribution Trend
-                                                  </button>
-                                                </div>
+                                                  </Button>
+                                                  </div>
+                                                  </div>
 
                                               </div>
                                             )
@@ -1718,7 +1728,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                               <div className="panel-body cardPanel">
 
                                                 {(() => {
-                                                  if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                  if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                     return (
                                                       <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall"
                                                            style={{textAlign: "center"}}>
@@ -1737,7 +1747,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                                                 <div className={(() => {
-                                                  if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                  if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                     return (
                                                       "col-md-6 col-xs-12 col-sm-6 col-lg-6"
                                                     )
@@ -1776,7 +1786,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                             <div className="row">
                                               <div className="panel-body cardPanel">
                                                 {(() => {
-                                                  if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                  if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                     return (
                                                       <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall"
                                                            style={{textAlign: "center"}}>
@@ -1795,7 +1805,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                                                 <div className={(() => {
-                                                  if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                  if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                     return (
                                                       "col-md-6 col-xs-12 col-sm-6 col-lg-6"
                                                     )
@@ -1833,7 +1843,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                               <div className="panel-body cardPanel">
 
                                                 {(() => {
-                                                  if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                  if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                     return (
                                                       <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6 kpiSmall"
                                                            style={{textAlign: "center"}}>
@@ -1852,7 +1862,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                                                 <div className={(() => {
-                                                  if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                  if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                     return (
                                                       "col-md-6 col-xs-12 col-sm-6 col-lg-6"
                                                     )
@@ -1931,9 +1941,16 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                        onHide={() => {
                                          this.setState({showExternalDriverModal: false})
                                        }}>
-                                  <Modal.Header closeButton>
-                                    <Modal.Title id="contained-modal-title-sm text-center" className="pageModuleSubTitle">Internal
-                                      Drivers</Modal.Title>
+                                  <Modal.Header>
+                                    <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
+                                      style={{textAlign: 'center', fontSize: '20px'}}><b>KPI Contribution Trend</b><span
+                                      style={{textAlign: 'right', float: 'right'}}
+                                      onClick={() => this.setState({showExternalDriverModal: false})}><b>X</b></span></span>
+                                      <div style={{textAlign: 'center'}}>
+                                        <div style={{textAlign: 'right'}}>
+                                        </div>
+                                      </div>
+                                    </Modal.Title>
                                   </Modal.Header>
                                   <Modal.Body>
                                     {/*Overview-internal driver -- kpi contribution trend modal  */}
@@ -2016,9 +2033,16 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                        onHide={() => {
                                          this.setState({showInternalPromoModal: false})
                                        }}>
-                                  <Modal.Header closeButton>
-                                    <Modal.Title id="contained-modal-title-sm text-center" className="pageModuleSubTitle">Promotion
-                                      Contribution Trend</Modal.Title>
+                                  <Modal.Header>
+                                    <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
+                                      style={{textAlign: 'center', fontSize: '20px'}}><b>Promotion Contribution </b><span
+                                      style={{textAlign: 'right', float: 'right'}}
+                                      onClick={() => this.setState({showInternalPromoModal: false})}><b>X</b></span></span>
+                                      <div style={{textAlign: 'center'}}>
+                                        <div style={{textAlign: 'right'}}>
+                                        </div>
+                                      </div>
+                                    </Modal.Title>
                                   </Modal.Header>
                                   <Modal.Body>
                                     <div className=" row mainBox">
@@ -2286,8 +2310,23 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
                                               <div className="row">
                                                 <div className="panel-body cardPanel">
+                                                  {(() => {
+                                                    if (this.props.Executive.week_param == 'week_flag=Selected Week') {
+                                                      return (
+                                                        <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpiSmall">
+                                                          <h4>
+                                              <span
+                                                className={glyphiconFormatter(this.props.Executive.price_kpi_data.ASPInfl_var_wow)}>
+                                              </span>{this.props.Executive.price_kpi_data.ASPInfl_var_wow}%
+                                                          </h4>
+                                                          <h5 className="kpiSubTitle"><b>WoW</b></h5>
+                                                        </div>
+                                                      )
+                                                    }
+
+                                                  })()}
                                                   <div className={(() => {
-                                                    if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                    if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                       return (
                                                         "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
                                                       )
@@ -2307,7 +2346,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                   </div>
 
                                                   <div className={(() => {
-                                                    if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                    if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                       return (
                                                         "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
                                                       )
@@ -2325,24 +2364,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                     </h4>
                                                     <h5 className="kpiSubTitle"><b>LFL</b></h5>
                                                   </div>
-
-                                                  {(() => {
-                                                    if (this.props.Executive.week_param == 'week_flag=Current Week') {
-                                                      return (
-                                                        <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpiSmall">
-                                                          <h4>
-                                              <span
-                                                className={glyphiconFormatter(this.props.Executive.price_kpi_data.ASPInfl_var_wow)}>
-                                              </span>{this.props.Executive.price_kpi_data.ASPInfl_var_wow}%
-                                                          </h4>
-                                                          <h5 className="kpiSubTitle"><b>WoW</b></h5>
-                                                        </div>
-                                                      )
-                                                    }
-
-                                                  })()}
-
-
                                                 </div>
                                               </div>
 
@@ -2367,7 +2388,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                               <div className="row">
                                                 <div className="panel-body cardPanel">
                                                   <div className={(() => {
-                                                    if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                    if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                       return (
                                                         "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
                                                       )
@@ -2387,7 +2408,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                   </div>
 
                                                   <div className={(() => {
-                                                    if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                    if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                       return (
                                                         "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
                                                       )
@@ -2407,7 +2428,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                   </div>
 
                                                   {(() => {
-                                                    if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                    if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                       return (
                                                         <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpiSmall">
                                                           <h4>
@@ -2447,7 +2468,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                 <div className="panel-body cardPanel">
 
                                                   {(() => {
-                                                    if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                    if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                       return (
                                                         <div className="col-md-12 col-xs-12 col-sm-12 col-lg-12 kpiSmall">
                                                           <h4>
@@ -2529,7 +2550,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                   <div className="panel-body cardPanel">
 
                                                     {(() => {
-                                                      if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                      if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                         return (
                                                           <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
                                                             <h4>
@@ -2546,7 +2567,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                                                     <div className={(() => {
-                                                      if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                      if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                         return (
                                                           "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
                                                         )
@@ -2565,7 +2586,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                       <h5 className="kpiSubTitle"><b>YoY</b></h5>
                                                     </div>
                                                     <div className={(() => {
-                                                      if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                      if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                         return (
                                                           "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
                                                         )
@@ -2624,7 +2645,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                   <div className="panel-body cardPanel">
 
                                                     {(() => {
-                                                      if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                      if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                         return (
                                                           <div className="col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall">
                                                             <h4>
@@ -2644,7 +2665,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                                                     <div className={(() => {
-                                                      if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                      if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                         return (
                                                           "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
                                                         )
@@ -2667,7 +2688,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                     </div>
 
                                                     <div className={(() => {
-                                                      if (this.props.Executive.week_param == 'week_flag=Current Week') {
+                                                      if (this.props.Executive.week_param == 'week_flag=Selected Week') {
                                                         return (
                                                           "col-md-4 col-xs-12 col-sm-4 col-lg-4 kpismall"
                                                         )
@@ -2806,9 +2827,16 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                              onHide={() => {
                                                this.setState({modalGraphTopBot: false})
                                              }}>
-                                        <Modal.Header closeButton>
-                                          <Modal.Title id="contained-modal-title-sm text-center" className="bodySubTitle">Trended
-                                            Performance</Modal.Title>
+                                        <Modal.Header>
+                                          <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
+                                            style={{textAlign: 'center', fontSize: '20px'}}><b>Trended Performance</b><span
+                                            style={{textAlign: 'right', float: 'right'}}
+                                            onClick={() => this.setState({modalGraphTopBot: false})}><b>X</b></span></span>
+                                            <div style={{textAlign: 'center'}}>
+                                              <div style={{textAlign: 'right'}}>
+                                              </div>
+                                            </div>
+                                          </Modal.Title>
                                         </Modal.Header>
                                         <Modal.Body>
 
@@ -2826,7 +2854,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
 
 
                                                             {/*Row for Multiline Chart*/}
-                                                            <div className="row">
+                                                            <div className="row" style={{marginLeft:"2%"}}>
                                                               <div
                                                                 className="col-md-12 col-xs-12 col-sm-12 col-lg-12">
                                                                 <MultilinePromo
@@ -2838,17 +2866,14 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                   no_pref={this.props.Executive.best_info_data.no_pref}
                                                                   no_suffix=''
                                                                   yaxis_title={this.props.Executive.best_info_data.kpi_type}/>
-
-
                                                               </div>
                                                             </div>
                                                             {/*Row for KPIs*/}
                                                             <div className="row">
                                                               <div className="panel-body cardPanel">
-                                                                <div
-                                                                  className="col-sm-12 col-md-12 col-xs-12-lg-12">
+                                                                <div className="col-sm-12 col-md-12 col-xs-12-lg-12">
                                                                   <div
-                                                                    className="col-md-3 col-xs-12 col-sm-3 col-lg-3 kpismall"
+                                                                    className="col-md-4 col-xs-12 col-sm-3 col-lg-4 kpismall"
                                                                     style={{
                                                                       borderRight: "1px solid rgb(229, 232, 234)",
                                                                       padding: "0",
@@ -2863,7 +2888,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                   </div>
 
                                                                   <div
-                                                                    className="col-md-3 col-xs-12 col-sm-3 col-lg-3 kpismall"
+                                                                    className="col-md-4 col-xs-12 col-sm-3 col-lg-4 kpismall"
                                                                     style={{
                                                                       borderRight: "1px solid rgb(229, 232, 234)",
                                                                       padding: "0",
@@ -2878,8 +2903,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                       growth</h4>
                                                                   </div>
 
-                                                                  <div
-                                                                    className="col-md-3 col-xs-12 col-sm-3 col-lg-3 kpismall"
+                                                                    <div
+                                                                    className="col-md-4 col-xs-12 col-sm-3 col-lg-4 kpismall"
                                                                     style={{
                                                                       borderRight: "1px solid rgb(229, 232, 234)",
                                                                       padding: "0",
@@ -2889,12 +2914,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                       {this.props.Executive.best_info_data.sales_share}%
                                                                     </h4>
                                                                     <h4 className="kpiSubTitle">Sales Share</h4>
-                                                                  </div>
-
-                                                                  <div
-                                                                    className="col-md-3 col-xs-12 col-sm-3 col-lg-3 kpismall"
-                                                                    style={{padding: '3%'}}>
-
                                                                   </div>
                                                                 </div>
                                                               </div>
@@ -2932,7 +2951,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                              onHide={() => {
                                                this.setState({modalTableTopBot: false})
                                              }}>
-                                        <Modal.Header closeButton>
+                                        <Modal.Header>
                                           <Modal.Title id="contained-modal-title-sm text-center" className="bodySubTitle">Trended
                                             Performance</Modal.Title>
                                         </Modal.Header>
@@ -2964,8 +2983,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                   no_pref={this.props.Executive.best_info_data.no_pref}
                                                                   no_suffix=''
                                                                   yaxis_title={this.props.Executive.best_info_data.kpi_type}/>
-
-
                                                               </div>
                                                             </div>
                                                             {/*Row for KPIs*/}
@@ -3185,7 +3202,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                  }}
           >
             <Modal.Header>
-
               <Modal.Title id="contained-modal-title-sm" style={{textAlign: 'center', fontSize: '14px'}}><span
                 style={{textAlign: 'center', fontSize: '20px'}}><b>Supplier Info</b><span
                 style={{textAlign: 'right', float: 'right'}}

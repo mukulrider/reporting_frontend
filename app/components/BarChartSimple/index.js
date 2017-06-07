@@ -20,7 +20,6 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
     // creating legend object for chart
     let data_label = [{"label":"Budget"},{"label":"Sales"},{"label":"Forecast"}] // defining the legend label variable
 
-
     let tooltip = d3.select("body")
       .append("div")
       .style("position", "absolute")
@@ -42,6 +41,7 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
       height = containerWidth*0.5 - margin.top - margin.bottom;
     var x = d3.scaleBand().rangeRound([0, width]).padding(0.3),
       y = d3.scaleLinear().rangeRound([height, 0]);
+
     svg
       .attr("height",height+margin.top +margin.bottom*2)
       .attr("width",width+ margin.right + margin.left)
@@ -57,7 +57,6 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
 
     var g = svg.append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
 
     x.domain(data.map(function(d) { return d.label; }));
     y.domain([0, d3.max(data, function(d) { return d.value; })]);
@@ -87,8 +86,7 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
       .enter().append("rect")
       .attr("class", "bar")
       .on('mouseover', function(d) {
-        console.log("bar mouseover",d);
-      tooltip.html(d.label+":"+d.value);
+      tooltip.html(d.label+":"+formatVolume(d.value));
         tooltip.style("visibility", "visible");
       })
       .on('mousemove', function() {
@@ -103,6 +101,7 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
       .attr("fill", function (d, i) {
         return color_hash[i];
       });
+
 
     //For legends
     let legendWidth = containerWidth/3;
