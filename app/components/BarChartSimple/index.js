@@ -20,6 +20,20 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
     // creating legend object for chart
     let data_label = [{"label":"Budget"},{"label":"Sales"},{"label":"Forecast"}] // defining the legend label variable
 
+
+    let tooltip = d3.select("body")
+      .append("div")
+      .style("position", "absolute")
+      .classed("tooltip_bubble",true)
+      .style("z-index", "10")
+      .style("visibility", "hidden")
+      .style("color", "white")
+      .style("padding", "8px")
+      .style("background-color", "rgba(0, 0, 0, 0.75)")
+      .style("border-radius", "6px")
+      .style("font", "15px sans-serif")
+      .text("tooltip");
+
     let svg = d3.select('#'+chart_id + '_svg');
     svg.selectAll("*").remove();
 
@@ -57,7 +71,6 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
       }
     };
 
-
     g.append("g")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x));
@@ -67,14 +80,22 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
       .attr("transform","translate(20,0)")
       .call(d3.axisLeft(y).tickFormat(function(d) {
         return formatVolume(d);
-      }))
-      ;
-
+      }));
 
     g.selectAll(".bar")
       .data(data)
       .enter().append("rect")
       .attr("class", "bar")
+      .on('mouseover', function(d) {
+        console.log("bar mouseover",d);
+      tooltip.html(d.label+":"+d.value);
+        tooltip.style("visibility", "visible");
+      })
+      .on('mousemove', function() {
+        // console.log("y--"+(d3.event.pageY)+"x-----"+(d3.event.pageX))
+        return tooltip.style("top", (d3.event.pageY-100)+"px").style("left",(d3.event.pageX+5)+"px");
+      })
+      .on('mouseout', function(){return tooltip.style("visibility", "hidden");})
       .attr("x", function(d) { return x(d.label); })
       .attr("y", function(d) { return y(d.value); })
       .attr("width", x.bandwidth())
@@ -83,6 +104,7 @@ class BarChartSimple extends React.PureComponent { // eslint-disable-line react/
         return color_hash[i];
       });
 
+    //For legends
     let legendWidth = containerWidth/3;
     let legend = svg.append("svg")
       .attr("font-family", "Tesco")

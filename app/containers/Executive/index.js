@@ -366,11 +366,11 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
         />
 
         <div className="row">
-          <div className="col-xs-12">
+
             <Breadcrumb
               selected_week={(this.props.Executive.week_param).substring(10, this.props.Executive.week_param.length)}
               urlParamsString={this.props.Executive.urlParamsString}/>
-          </div>
+
           <br/>
           <br/>
           <br/>
@@ -1315,14 +1315,15 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                 <div className="row">
                                                   <h4 className="col-xs-1 kpiSubTitle"><b>Opport.</b></h4>
                                                   <h4 className="col-xs-3">
+                                                    {this.props.Executive.overview_kpi_data.market.opportunity.abs}
+                                                  </h4>
+                                                  <h4 className="col-xs-3">
                                                     {(this.props.Executive.overview_kpi_data.market.opportunity.wow) + '%'}
                                                   </h4>
                                                   <h4 className="col-xs-3">
                                                     {(this.props.Executive.overview_kpi_data.market.opportunity.yoy) + '%'}
                                                   </h4>
-                                                  <h4 className="col-xs-3">
-                                                    {this.props.Executive.overview_kpi_data.market.opportunity.abs}
-                                                  </h4>
+
                                                 </div>
                                               </div>
                                             </Panel>
@@ -2276,7 +2277,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                               <div className="row">
                                                 <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
                                                   <h3 style={{margin: "0"}}>
-                                                    Inflation  &nbsp; {this.props.Executive.price_kpi_data.ASP_abs}</h3>
+                                                    {this.props.Executive.price_kpi_data.ASP_abs}</h3>
                                                 </div>
                                                 <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
                                                   <h3 style={{margin: "0"}}>Fisher
@@ -2356,7 +2357,7 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                               <div className="row">
                                                 <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
                                                   <h3 style={{margin: "0"}}>
-                                                    Inflation  &nbsp; {this.props.Executive.price_kpi_data.ACP_abs}</h3>
+                                                    {this.props.Executive.price_kpi_data.ACP_abs}</h3>
                                                 </div>
                                                 <div className="col-md-6 col-xs-12 col-sm-6 col-lg-6">
                                                   <h3 style={{margin: "0"}}>Fisher
@@ -2914,7 +2915,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                   <div><h3>Loading...</h3></div>
                                                 )
                                               }
-
                                             }
                                             else {
                                               console.log("Executive.top_name == Not None");
@@ -3028,9 +3028,6 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                                                                         suppName = 'None';
                                                                         this.props.onSaveSupplierName(suppName);
                                                                         this.setState({topsuppInfo: true});
-                                                                        {/*Load functions here*/
-                                                                        }
-
                                                                       }}
                                                                     >
                                                                       Supplier Info
@@ -3199,10 +3196,8 @@ export class Executive extends React.PureComponent { // eslint-disable-line reac
                   </div>
                 </div>
               </Modal.Title>
-
             </Modal.Header>
             <Modal.Body style={{fontSize: '14px'}}>
-              {/*{this.props.Executive.bestWorstPerformanceTable}*/}
               <BootstrapTable className="promoTable"
                               data={this.props.Executive.bestWorstPerformanceTable}
                               pagination={true} options={options}

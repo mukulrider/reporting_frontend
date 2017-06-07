@@ -106,7 +106,7 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
                       <span className="accordion-toggle" style={{float: 'right'}}></span>
                     </div>
                   );
-                  if (item.title!='store_type') {
+                  if (!['store_type', 'brand_name', 'product'].includes(item.title)) {
 
                   return (
                     <Panel header={panelHeader} eventKey={++key}>
@@ -310,11 +310,33 @@ class ExecFilter extends React.PureComponent { // eslint-disable-line react/pref
                 }}>Apply</Button>
                 <div style={{height: '1%', width: '100%'}}>&nbsp;</div>
                 <Button onClick={() => {
+                  const getCookie = (name) => {
+                    const value = `; ${document.cookie}`;
+                    const parts = value.split(`; ${name}=`);
+                    if (parts.length === 2) {
+                      return parts.pop().split(';').shift();
+                    }
+                  };
+                  //fetching values from cookie
+                  const userId = getCookie('token');
+                  const userName = getCookie('user');
+                  const designation = getCookie('designation');
+                  const buyingController = getCookie('buying_controller');
+                  const buyer = getCookie('buyer');
+                  if (buyer && buyingController) {
+                    this.props.onGenerateUrlParamsString(`buying_controller=${buyingController}&buyer=${buyer}`);
+
+                  } else if (buyingController) {
+                    this.props.onGenerateUrlParamsString(`buying_controller=${buyingController}`);
+
+                  }
+
+
                   let selection = '';
                   this.props.onSaveWeekFilterParam(selection);
                   this.props.ongenerateWeekFilter();
                   let queryString = '';
-                  this.props.onGenerateUrlParamsString(queryString);
+                  {/*this.props.onGenerateUrlParamsString(queryString);*/}
                   this.props.generateSideFilter();
                   this.props.defaultGreyScreen(1);
 
