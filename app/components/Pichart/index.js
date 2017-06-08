@@ -130,6 +130,7 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
       .text("WoW :  ")
       .attr("font-size", '18px')
       .attr("font-weight", 'bold')
+      .style("visibility", 'hidden')
       // .text(function (d) {
       //   let wowText = "WoW:" + wowValue;
       //   return wowText;
@@ -141,6 +142,7 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
       .attr("y", radius + 43)
       .attr("x", -5)
       .append("xhtml:span")
+      .style("visibility", 'hidden')
       // .attr("class", "control glyphicon glyphicon-triangle-top glyphiconPositive");
       .attr("class", function (d) {
         if(wowValue > 0) {
@@ -164,6 +166,7 @@ class Pichart extends React.PureComponent { // eslint-disable-line react/prefer-
         return wowText;
       })
       .attr("font-size", '18px')
+      .style("visibility", 'hidden')
 
   }
 

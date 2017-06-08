@@ -135,7 +135,7 @@ export class Competitor extends React.PureComponent {
       collapsed: false,
       activeKey1: "1",
       activeKey2: "1",
-      activeKey3: "1",
+      activeKey3: "2",
       compMarketPerfInfo: false,
       compPriceIndexInfo: false,
       compPriceRaneInfo: false
@@ -602,7 +602,7 @@ export class Competitor extends React.PureComponent {
                       <Nav bsStyle="tabs" activeKey={this.state.activeKey3} onSelect={this.handleSelect}
                            className="tabsCustom">
 
-                        <NavItem className="tabsNavPanelList1" eventKey="2" onClick={() => {
+                        <NavItem className="tabsCustomListTime" eventKey="2" onClick={() => {
                           this.setState({activeKey3: "2"});
                           this.props.waterChartAsdaSuccess(0);
                           console.log("Own label/Brand button pressed");
@@ -611,7 +611,7 @@ export class Competitor extends React.PureComponent {
                           this.props.onSavePriceIndexParam(dataPriceIndexParam);
                           this.props.onCompWaterfall();
                         }}><span className="tab_label">Own Label/Brand</span></NavItem>
-                        <NavItem className="tabsNavPanelList1" eventKey="3" onClick={() => {
+                        <NavItem className="tabsCustomListTime" eventKey="3" onClick={() => {
                           this.setState({activeKey3: "3"});
                           this.props.waterChartAsdaSuccess(0);
                           console.log("Basket button pressed");

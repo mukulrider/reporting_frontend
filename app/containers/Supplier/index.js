@@ -926,7 +926,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                         </div>
                                                         <div className="col-xs-6">
                                                           <h3 style={{padding: "0px", margin: "0px"}}>
-                                                            LFL: {obj.sales_lfl} </h3>
+                                                            LFL TY {obj.sales_lfl} </h3>
                                                         </div>
                                                       </div>
 
@@ -1017,7 +1017,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                           </div>
                                                           <div className="col-xs-6">
                                                             <h3 style={{padding: "0px", margin: "0px"}}>
-                                                              LFL: {obj.sales_lfl} </h3>
+                                                              LFL TY {obj.sales_lfl} </h3>
                                                           </div>
                                                         </div>
 
@@ -1205,7 +1205,6 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                             </div>
                                                           </div>
                                                         </div>
-
                                                       </Panel>
                                                     </div>
                                                     <div className="col-md-4 col-sm-12"
@@ -1222,7 +1221,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                           </div>
                                                           <div className="col-xs-6">
                                                             <h3 style={{padding: "0px", margin: "0px"}}>
-                                                              LFL: {obj.sales_lfl} </h3>
+                                                              LFL TY {obj.sales_lfl} </h3>
                                                           </div>
                                                         </div>
 
@@ -1375,7 +1374,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                         </div>
                                                         <div className="col-xs-6">
                                                           <h3 style={{padding: "0px", margin: "0px"}}>
-                                                            LFL: {obj.sales_lfl} </h3>
+                                                            LFL TY {obj.sales_lfl} </h3>
                                                         </div>
                                                       </div>
 
@@ -1467,7 +1466,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                           </div>
                                                           <div className="col-xs-6">
                                                             <h3 style={{padding: "0px", margin: "0px"}}>
-                                                              LFL: {obj.sales_lfl} </h3>
+                                                              LFL TY {obj.sales_lfl} </h3>
                                                           </div>
                                                         </div>
 
@@ -1675,7 +1674,7 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                           </div>
                                                           <div className="col-xs-6">
                                                             <h3 style={{padding: "0px", margin: "0px"}}>
-                                                              LFL: {obj.sales_lfl} </h3>
+                                                              LFL TY {obj.sales_lfl} </h3>
                                                           </div>
                                                         </div>
 
@@ -1914,10 +1913,10 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                                    tdStyle={ {whiteSpace: 'normal'} }
                                                                    dataSort={true}
                                                                    dataAlign="left">Supplier</TableHeaderColumn>
-                                                <TableHeaderColumn dataField="product"
-                                                                   tdStyle={ {whiteSpace: 'normal'} }
-                                                                   dataSort={true}
-                                                                   dataAlign="left">Product</TableHeaderColumn>
+                                                {/*<TableHeaderColumn dataField="product"*/}
+                                                                   {/*tdStyle={ {whiteSpace: 'normal'} }*/}
+                                                                   {/*dataSort={true}*/}
+                                                                   {/*dataAlign="left">Product</TableHeaderColumn>*/}
                                                 <TableHeaderColumn dataField="part_by_val" dataFormat={formatPercentage}
                                                                    dataSort={true}
                                                                    dataAlign="right">{this.state.paticipationByTab}</TableHeaderColumn>
