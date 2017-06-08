@@ -332,6 +332,30 @@ class CascadedFilterNpd extends React.PureComponent { // eslint-disable-line rea
                   //To un check all the buttons
                   let selection = '';
                   this.props.onCheckboxChange(selection);
+
+                  const getCookie = (name) => {
+                    const value = `; ${document.cookie}`;
+                    const parts = value.split(`; ${name}=`);
+                    if (parts.length === 2) {
+                      return parts.pop().split(';').shift();
+                    }
+                  };
+                  //fetching values from cookie
+                  const userId = getCookie('token');
+                  const userName = getCookie('user');
+                  const designation = getCookie('designation');
+                  const buyingController = getCookie('buying_controller');
+                  const buyer = getCookie('buyer');
+                  if (buyer && buyingController) {
+                    this.props.user_filter_selection(`buying_controller=${buyingController}&buyer=${buyer}`);
+                    this.props.onCheckboxChange(`buyer=${buyer}`);
+
+                  } else if (buyingController) {
+                    this.props.user_filter_selection(`buying_controller=${buyingController}`);
+                    this.props.onCheckboxChange(`buying_controller=${buyingController}`);
+
+                  }
+
                   this.props.onGenerateSideFilter();
 
                   this.props.defaultGreyScreen(1);

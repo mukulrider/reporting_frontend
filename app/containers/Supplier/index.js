@@ -93,17 +93,51 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
   componentDidMount = () => {
     let defaultFilterUrlParams = localStorage.getItem('urlParams');
-    if (defaultFilterUrlParams) {
-      console.log('defaultFilterUrlParams', defaultFilterUrlParams)
+    // if (defaultFilterUrlParams) {
+    //   console.log('defaultFilterUrlParams', defaultFilterUrlParams)
+    //
+    //   // this.props.onGenerateUrlParamsString3(1);
+    //   // this.props.onGenerateUrlParamsString2(defaultFilterUrlParams);
+    //   this.props.onGenerateUrlParamsString(defaultFilterUrlParams);
+    //   // this.props.onGenerateUrlParamsString(0);
+    //   // this.props.onGenerateSideFilter();
+    // } else {
+    //   this.props.onGenerateUrlParamsString('');
+    //   this.props.onGenerateSideFilter();
+    // }
 
-      this.props.onGenerateUrlParamsString3(1);
-      this.props.onGenerateUrlParamsString2(defaultFilterUrlParams);
-      this.props.onGenerateUrlParamsString(0);
+    if (defaultFilterUrlParams) {
+      // console.log('defaultFilterUrlParams', defaultFilterUrlParams);
+      this.props.onGenerateUrlParamsString(defaultFilterUrlParams);
       this.props.onGenerateSideFilter();
     } else {
-      this.props.onGenerateUrlParamsString('');
-      this.props.onGenerateSideFilter();
+      const getCookie = (name) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) {
+          return parts.pop().split(';').shift();
+        }
+      };
+      //fetching values from cookie
+      const userId = getCookie('token');
+      const userName = getCookie('user');
+      const designation = getCookie('designation');
+      const buyingController = getCookie('buying_controller');
+      const buyer = getCookie('buyer');
+      if (buyer && buyingController) {
+        this.props.onGenerateUrlParamsString(`buying_controller=${buyingController}&buyer=${buyer}`);
+        this.props.onGenerateSideFilter();
+
+      } else if (buyingController) {
+        this.props.onGenerateUrlParamsString(`buying_controller=${buyingController}`);
+        this.props.onGenerateSideFilter();
+
+      } else {
+        this.props.onGenerateUrlParamsString(``);
+        this.props.onGenerateSideFilter();
+      }
     }
+
 
     this.props.supplierViewKpiSpinnerCheckSuccess(0);
     this.props.onGetFilter();
@@ -281,6 +315,8 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
     }
 
     let parentSupplierSelection = [];
+    let savingAllFilterParams1 = '';
+    console.log('outside fn savingAllFilterParams1', savingAllFilterParams1);
     let logChange = (selectedItem) => {
 
       console.log('selectedItem', selectedItem);
@@ -295,12 +331,13 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
       let otherFilterSelections2 = this.props.supplier.urlParamsString2;
       let supplierParam = this.props.supplier.supplierParam;
 
-      let savingAllFilterParams1 = '';
       for (let i = 0; i < parentSupplierSelection.length; i++) {
         // for (let i = 0; i < selectedItem.length; i++) {
-        savingAllFilterParams1 = savingAllFilterParams1 + `parent_supplier=${parentSupplierSelection[parentSupplierSelection.length - 1].value}&`;
+        savingAllFilterParams1 = savingAllFilterParams1 + `parent_supplier=${parentSupplierSelection[i].value}&`;
+        console.log('inside for loop savingAllFilterParams1', savingAllFilterParams1);
         // savingAllFilterParams1 = savingAllFilterParams1 + `parent_supplier=${this.state.selectedValues[this.state.selectedValues.length - 1].value}&`;
       }
+      console.log('outside for loop savingAllFilterParams1', savingAllFilterParams1);
       let savingAllFilterParams2 = '';
       for (let i = 0; i < parentSupplierSelection.length; i++) {
         // for (let i = 0; i < selectedItem.length; i++) {
@@ -351,12 +388,13 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
 
       let savingAllFilterParams1 = '';
       for (let i = 0; i < supplierSelection.length; i++) {
-        savingAllFilterParams1 = savingAllFilterParams1 + `supplier=${supplierSelection[supplierSelection.length - 1].value}&`;
+        savingAllFilterParams1 = savingAllFilterParams1 + `supplier=${supplierSelection[i].value}&`;
       }
       let savingAllFilterParams2 = '';
       for (let i = 0; i < supplierSelection.length; i++) {
         savingAllFilterParams2 = savingAllFilterParams2 + `supplier=${supplierSelection[supplierSelection.length - 1].value}&`;
       }
+      console.log('supplier savingAllFilterParams1', savingAllFilterParams1);
 
       // this.props.onGenerateUrlParamsString2(otherFilterSelections2 + '&' + savingAllFilterParams2);
       // this.props.onGenerateUrlParamsString(otherFilterSelections1 + '&' + savingAllFilterParams1);
@@ -813,141 +851,909 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                   return this.props.supplier.reducer1.map((obj) => {
                                     return (
                                       <div>
-                                        <div className="row mainBox" style={{textAlign: 'center'}}>
-                                          <div className="col-md-4 col-sm-12" style={{backgroundColor: "#fafafa"}}>
-                                            <Panel>
-                                              <h3 className="pageModuleSubTitle"> {obj.title} </h3>
-                                              <div className="row">
-                                                <div className="col-xs-6">
-                                                  <h3 style={{padding: "0px", margin: "0px"}}>  {obj.sales} </h3>
-                                                </div>
-                                                <div className="col-xs-6">
-                                                  <h3 style={{padding: "0px", margin: "0px"}}>
-                                                    LFL: {obj.sales_lfl} </h3>
-                                                </div>
-                                              </div>
+                                        {(() => {
 
-                                              <div className="row" style={{marginTop: '5%'}}>
-                                                <div className="panel-body cardPanel">
-                                                  <div className="col-xs-4">
-                                                    <h4>
+                                          if ((this.props.supplier.week_param.includes("week_flag=1")) || (this.props.supplier.week_param == '') || (typeof(this.props.supplier.week_param) == undefined)) {
+                                            console.log("if of week_flag ==1");
+                                            if (((this.props.supplier.kpi_param.includes("ASP"))) || ((this.props.supplier.kpi_param.includes("SKU")))) {
+                                              return (
+                                                <div className="row mainBox" style={{textAlign: 'center'}}>
+                                                  <div className="col-md-4 col-sm-12"
+                                                       style={{backgroundColor: "#fafafa", visibility: 'hidden'}}>
+                                                    <Panel>
+                                                      <h3 className="pageModuleSubTitle"> Contribution to Growth </h3>
+                                                      <div className="row">
+                                                        <div className="col-xs-6" style={{textAlign: "center"}}>
+                                                          <h3
+                                                            style={{
+                                                              padding: "0px",
+                                                              margin: "0px"
+                                                            }}>  {obj.cw_sales_exclu_sup} </h3>
+                                                        </div>
+                                                        <div className="col-xs-6" style={{textAlign: "center"}}>
+
+                                                          <h3 style={{padding: "0px", margin: "0px"}}>
+                                                            LFL TY {obj.cw_sales_exclu_sup_lfl } </h3>
+                                                        </div>
+                                                      </div>
+                                                      <br></br>
+                                                      <div className="row">
+                                                        <div className="panel-body cardPanel">
+                                                          <div className="col-xs-4">
+                                                            <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                              className={glyphiconFormatter(obj.sales_growth_wow_1)}></span>&nbsp;{(obj.sales_growth_wow_1) + ' % '}
+                                                              <br></br> &nbsp; &nbsp;of <br></br>&nbsp; &nbsp;<span
+                                                                className={glyphiconFormatter(obj.sales_growth_wow_2)}></span>&nbsp;{(obj.sales_growth_wow_2) + ' % '}
+                                                            </h4>
+                                                            <h5 className="kpiSubTitle" style={{marginTop: '20px'}}>
+                                                              <b>{'WoW'}</b>
+                                                            </h5>
+                                                          </div>
+                                                          <div className="col-xs-4">
+                                                            <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                              className={glyphiconFormatter(obj.sales_growth_yoy_1)}></span>&nbsp;{(obj.sales_growth_yoy_1) + ' % '}
+                                                              <br></br> &nbsp; &nbsp; of <br></br>&nbsp; &nbsp;<span
+                                                                className={glyphiconFormatter(obj.sales_growth_yoy_2)}></span>&nbsp;{(obj.sales_growth_yoy_2) + ' % '}
+                                                            </h4>
+                                                            <h5 className="kpiSubTitle" style={{marginTop: '20px'}}>
+                                                              <b>{'YoY'}</b>
+                                                            </h5>
+                                                          </div>
+                                                          <div className="col-xs-4">
+                                                            <h4>&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                              className={glyphiconFormatter(obj.sales_growth_yoy_lfl_1)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_1) + ' % '}
+                                                              <br></br> &nbsp; &nbsp; of <br></br>&nbsp; &nbsp;<span
+                                                                style={{left: '-5px'}}
+                                                                className={glyphiconFormatter(obj.sales_growth_yoy_lfl_2)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_2) + ' % '}
+                                                            </h4>
+                                                            <h5 className="kpiSubTitle" style={{marginTop: '20px'}}>
+                                                              <b>{'LFL'}</b>
+                                                            </h5>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+
+                                                    </Panel>
+                                                  </div>
+                                                  <div className="col-md-4 col-sm-12"
+                                                       style={{backgroundColor: "#fafafa"}}>
+                                                    <Panel>
+                                                      <h3 className="pageModuleSubTitle"> {obj.title} </h3>
+                                                      <div className="row">
+                                                        <div className="col-xs-6">
+                                                          <h3
+                                                            style={{padding: "0px", margin: "0px"}}>  {obj.sales} </h3>
+                                                        </div>
+                                                        <div className="col-xs-6">
+                                                          <h3 style={{padding: "0px", margin: "0px"}}>
+                                                            LFL: {obj.sales_lfl} </h3>
+                                                        </div>
+                                                      </div>
+
+                                                      <div className="row" style={{marginTop: '5%'}}>
+                                                        <div className="panel-body cardPanel">
+                                                          <div className="col-xs-4">
+                                                            <h4>
                                                   <span className={glyphiconFormatter(obj.sales_var_week)}>
                                                   </span>{(obj.sales_var_week) + '%'}
-                                                    </h4>
-                                                    &nbsp; &nbsp; <br></br>&nbsp; &nbsp;<span></span>&nbsp;
+                                                            </h4>
+                                                            &nbsp; &nbsp; <br></br>&nbsp; &nbsp;<span></span>&nbsp;
 
-                                                    <h5 className="kpiSubTitle"><b> {'WoW'} </b></h5>
-                                                  </div>
-                                                  <div className="col-xs-4">
-                                                    <h4>
+                                                            <h5 className="kpiSubTitle"><b> {'WoW'} </b></h5>
+                                                          </div>
+                                                          <div className="col-xs-4">
+                                                            <h4>
                                                   <span className={glyphiconFormatter(obj.sales_var_year)}>
                                                   </span>{(obj.sales_var_year) + '%'}
-                                                    </h4><br></br>
-                                                    <div>&nbsp;</div>
-                                                    <h5 className="kpiSubTitle"><b> {'YoY'} </b></h5>
-                                                  </div>
-                                                  <div className="col-xs-4">
-                                                    <h4>
+                                                            </h4><br></br>
+                                                            <div>&nbsp;</div>
+                                                            <h5 className="kpiSubTitle"><b> {'YoY'} </b></h5>
+                                                          </div>
+                                                          <div className="col-xs-4">
+                                                            <h4>
                                                   <span className={glyphiconFormatter(obj.sales_var_year_lfl)}>
                                                   </span>{(obj.sales_var_year_lfl) + '%'}
-                                                    </h4><br></br>
-                                                    <div>&nbsp;</div>
-                                                    <h5 className="kpiSubTitle"><b>{'LFL'}</b></h5>
+                                                            </h4><br></br>
+                                                            <div>&nbsp;</div>
+                                                            <h5 className="kpiSubTitle"><b>{'LFL'}</b></h5>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+
+                                                    </Panel>
+                                                  </div>
+                                                  <div className="col-md-4 col-sm-12"
+                                                       style={{backgroundColor: "#fafafa", visibility: 'hidden'}}>
+                                                    <Panel>
+                                                      <h3 className="pageModuleSubTitle"> Parent Supplier's value share
+                                                        in
+                                                        Category </h3>
+                                                      {(() => {
+                                                        if (obj.supp_imp_cat_sales != "---") {
+
+                                                          return (
+                                                            <div style={{
+                                                              fontSize: '20px',
+                                                            }}>{obj.supp_imp_cat_sales}%</div>
+                                                          )
+                                                        }
+                                                      })()}
+
+                                                      <div style={{height: '1%', width: '100%'}}></div>
+                                                      <br></br>
+                                                      <h3 className="pageModuleSubTitle"> Category's value share to
+                                                        Parent
+                                                        Supplier </h3>
+                                                      {(() => {
+                                                        if (obj.cat_imp_supp_sales != "---") {
+
+                                                          return (
+                                                            <div style={{
+                                                              fontSize: '20px',
+                                                            }}>{obj.cat_imp_supp_sales}% <br></br></div>
+                                                          )
+                                                        }
+                                                      })()}
+
+                                                    </Panel>
                                                   </div>
                                                 </div>
-                                              </div>
+                                              )
+                                            } else {
+                                              if ((this.props.supplier.supplierParam != '') || (this.props.supplier.parentParam != '')) {
+                                                return (
+                                                  <div className="row mainBox" style={{textAlign: 'center'}}>
+                                                    <div className="col-md-4 col-sm-12"
+                                                         style={{backgroundColor: "#fafafa"}}>
+                                                      <Panel>
+                                                        <h3 className="pageModuleSubTitle"> Contribution to Growth </h3>
+                                                        <div className="row">
+                                                          <div className="col-xs-6" style={{textAlign: "center"}}>
+                                                            <h3
+                                                              style={{
+                                                                padding: "0px",
+                                                                margin: "0px"
+                                                              }}>  {obj.cw_sales_exclu_sup} </h3>
+                                                          </div>
+                                                          <div className="col-xs-6" style={{textAlign: "center"}}>
 
-                                            </Panel>
-                                          </div>
-                                          <div className="col-md-4 col-sm-12" style={{backgroundColor: "#fafafa"}}>
-                                            <Panel>
-                                              <h3 className="pageModuleSubTitle"> Contribution to Growth </h3>
-                                              <div className="row">
-                                                <div className="col-xs-6" style={{textAlign: "center"}}>
-                                                  <h3
-                                                    style={{
-                                                      padding: "0px",
-                                                      margin: "0px"
-                                                    }}>  {obj.cw_sales_exclu_sup} </h3>
-                                                </div>
-                                                <div className="col-xs-6" style={{textAlign: "center"}}>
+                                                            <h3 style={{padding: "0px", margin: "0px"}}>
+                                                              LFL TY {obj.cw_sales_exclu_sup_lfl } </h3>
+                                                          </div>
+                                                        </div>
+                                                        <br></br>
+                                                        <div className="row">
+                                                          <div className="panel-body cardPanel">
+                                                            <div className="col-xs-4">
+                                                              <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                                className={glyphiconFormatter(obj.sales_growth_wow_1)}></span>&nbsp;{(obj.sales_growth_wow_1) + ' % '}
+                                                                <br></br> &nbsp; &nbsp;of <br></br>&nbsp; &nbsp;<span
+                                                                  className={glyphiconFormatter(obj.sales_growth_wow_2)}></span>&nbsp;{(obj.sales_growth_wow_2) + ' % '}
+                                                              </h4>
+                                                              <h5 className="kpiSubTitle" style={{marginTop: '20px'}}>
+                                                                <b>{'WoW'}</b>
+                                                              </h5>
+                                                            </div>
+                                                            <div className="col-xs-4">
+                                                              <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                                className={glyphiconFormatter(obj.sales_growth_yoy_1)}></span>&nbsp;{(obj.sales_growth_yoy_1) + ' % '}
+                                                                <br></br> &nbsp; &nbsp; of <br></br>&nbsp; &nbsp;<span
+                                                                  className={glyphiconFormatter(obj.sales_growth_yoy_2)}></span>&nbsp;{(obj.sales_growth_yoy_2) + ' % '}
+                                                              </h4>
+                                                              <h5 className="kpiSubTitle" style={{marginTop: '20px'}}>
+                                                                <b>{'YoY'}</b>
+                                                              </h5>
+                                                            </div>
+                                                            <div className="col-xs-4">
+                                                              <h4>&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                                className={glyphiconFormatter(obj.sales_growth_yoy_lfl_1)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_1) + ' % '}
+                                                                <br></br> &nbsp; &nbsp; of <br></br>&nbsp; &nbsp;<span
+                                                                  style={{left: '-5px'}}
+                                                                  className={glyphiconFormatter(obj.sales_growth_yoy_lfl_2)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_2) + ' % '}
+                                                              </h4>
+                                                              <h5 className="kpiSubTitle" style={{marginTop: '20px'}}>
+                                                                <b>{'LFL'}</b>
+                                                              </h5>
+                                                            </div>
+                                                          </div>
+                                                        </div>
 
-                                                  <h3 style={{padding: "0px", margin: "0px"}}>
-                                                    LFL: {obj.cw_sales_exclu_sup_lfl } </h3>
-                                                </div>
-                                              </div>
-                                              <br></br>
-                                              <div className="row">
-                                                <div className="panel-body cardPanel">
-                                                  <div className="col-xs-4">
-                                                    <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                                                      className={glyphiconFormatter(obj.sales_growth_wow_1)}></span>&nbsp;{(obj.sales_growth_wow_1) + ' % '}
-                                                      <br></br> &nbsp; &nbsp;of <br></br>&nbsp; &nbsp;<span
-                                                        className={glyphiconFormatter(obj.sales_growth_wow_2)}></span>&nbsp;{(obj.sales_growth_wow_2) + ' % '}
-                                                    </h4>
-                                                    <h5 className="kpiSubTitle" style={{marginTop: '20px'}}>
-                                                      <b>{'WoW'}</b>
-                                                    </h5>
+                                                      </Panel>
+                                                    </div>
+                                                    <div className="col-md-4 col-sm-12"
+                                                         style={{backgroundColor: "#fafafa"}}>
+                                                      <Panel>
+                                                        <h3 className="pageModuleSubTitle"> {obj.title} </h3>
+                                                        <div className="row">
+                                                          <div className="col-xs-6">
+                                                            <h3
+                                                              style={{
+                                                                padding: "0px",
+                                                                margin: "0px"
+                                                              }}>  {obj.sales} </h3>
+                                                          </div>
+                                                          <div className="col-xs-6">
+                                                            <h3 style={{padding: "0px", margin: "0px"}}>
+                                                              LFL: {obj.sales_lfl} </h3>
+                                                          </div>
+                                                        </div>
+
+                                                        <div className="row" style={{marginTop: '5%'}}>
+                                                          <div className="panel-body cardPanel">
+                                                            <div className="col-xs-4">
+                                                              <h4>
+                                                  <span className={glyphiconFormatter(obj.sales_var_week)}>
+                                                  </span>{(obj.sales_var_week) + '%'}
+                                                              </h4>
+                                                              &nbsp; &nbsp; <br></br>&nbsp; &nbsp;<span></span>&nbsp;
+
+                                                              <h5 className="kpiSubTitle"><b> {'WoW'} </b></h5>
+                                                            </div>
+                                                            <div className="col-xs-4">
+                                                              <h4>
+                                                  <span className={glyphiconFormatter(obj.sales_var_year)}>
+                                                  </span>{(obj.sales_var_year) + '%'}
+                                                              </h4><br></br>
+                                                              <div>&nbsp;</div>
+                                                              <h5 className="kpiSubTitle"><b> {'YoY'} </b></h5>
+                                                            </div>
+                                                            <div className="col-xs-4">
+                                                              <h4>
+                                                  <span className={glyphiconFormatter(obj.sales_var_year_lfl)}>
+                                                  </span>{(obj.sales_var_year_lfl) + '%'}
+                                                              </h4><br></br>
+                                                              <div>&nbsp;</div>
+                                                              <h5 className="kpiSubTitle"><b>{'LFL'}</b></h5>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+
+                                                      </Panel>
+                                                    </div>
+                                                    <div className="col-md-4 col-sm-12"
+                                                         style={{backgroundColor: "#fafafa"}}>
+                                                      <Panel>
+                                                        <h3 className="pageModuleSubTitle"> Parent Supplier's value
+                                                          share
+                                                          in
+                                                          Category </h3>
+                                                        {(() => {
+                                                          if (obj.supp_imp_cat_sales != "---") {
+
+                                                            return (
+                                                              <div style={{
+                                                                fontSize: '20px',
+                                                              }}>{obj.supp_imp_cat_sales}%</div>
+                                                            )
+                                                          }
+                                                        })()}
+
+                                                        <div style={{height: '1%', width: '100%'}}></div>
+                                                        <br></br>
+                                                        <h3 className="pageModuleSubTitle"> Category's value share to
+                                                          Parent
+                                                          Supplier </h3>
+                                                        {(() => {
+                                                          if (obj.cat_imp_supp_sales != "---") {
+
+                                                            return (
+                                                              <div style={{
+                                                                fontSize: '20px',
+                                                              }}>{obj.cat_imp_supp_sales}% <br></br></div>
+                                                            )
+                                                          }
+                                                        })()}
+
+                                                      </Panel>
+                                                    </div>
                                                   </div>
-                                                  <div className="col-xs-4">
-                                                    <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                                                      className={glyphiconFormatter(obj.sales_growth_yoy_1)}></span>&nbsp;{(obj.sales_growth_yoy_1) + ' % '}
-                                                      <br></br> &nbsp; &nbsp; of <br></br>&nbsp; &nbsp;<span
-                                                        className={glyphiconFormatter(obj.sales_growth_yoy_2)}></span>&nbsp;{(obj.sales_growth_yoy_2) + ' % '}
-                                                    </h4>
-                                                    <h5 className="kpiSubTitle" style={{marginTop: '20px'}}>
-                                                      <b>{'YoY'}</b>
-                                                    </h5>
+                                                )
+                                              } else {
+                                                return (
+                                                  <div className="row mainBox" style={{textAlign: 'center'}}>
+                                                    <div className="col-md-4 col-sm-12"
+                                                         style={{backgroundColor: "#fafafa", visibility: 'hidden'}}>
+                                                      <Panel>
+                                                        <h3 className="pageModuleSubTitle"> Contribution to Growth </h3>
+                                                        <div className="row">
+                                                          <div className="col-xs-6" style={{textAlign: "center"}}>
+                                                            <h3
+                                                              style={{
+                                                                padding: "0px",
+                                                                margin: "0px"
+                                                              }}>  {obj.cw_sales_exclu_sup} </h3>
+                                                          </div>
+                                                          <div className="col-xs-6" style={{textAlign: "center"}}>
+
+                                                            <h3 style={{padding: "0px", margin: "0px"}}>
+                                                              LFL TY {obj.cw_sales_exclu_sup_lfl } </h3>
+                                                          </div>
+                                                        </div>
+                                                        <br></br>
+                                                        <div className="row">
+                                                          <div className="panel-body cardPanel">
+                                                            <div className="col-xs-4">
+                                                              <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                                className={glyphiconFormatter(obj.sales_growth_wow_1)}></span>&nbsp;{(obj.sales_growth_wow_1) + ' % '}
+                                                                <br></br> &nbsp; &nbsp;of <br></br>&nbsp; &nbsp;<span
+                                                                  className={glyphiconFormatter(obj.sales_growth_wow_2)}></span>&nbsp;{(obj.sales_growth_wow_2) + ' % '}
+                                                              </h4>
+                                                              <h5 className="kpiSubTitle" style={{marginTop: '20px'}}>
+                                                                <b>{'WoW'}</b>
+                                                              </h5>
+                                                            </div>
+                                                            <div className="col-xs-4">
+                                                              <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                                className={glyphiconFormatter(obj.sales_growth_yoy_1)}></span>&nbsp;{(obj.sales_growth_yoy_1) + ' % '}
+                                                                <br></br> &nbsp; &nbsp; of <br></br>&nbsp; &nbsp;<span
+                                                                  className={glyphiconFormatter(obj.sales_growth_yoy_2)}></span>&nbsp;{(obj.sales_growth_yoy_2) + ' % '}
+                                                              </h4>
+                                                              <h5 className="kpiSubTitle" style={{marginTop: '20px'}}>
+                                                                <b>{'YoY'}</b>
+                                                              </h5>
+                                                            </div>
+                                                            <div className="col-xs-4">
+                                                              <h4>&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                                className={glyphiconFormatter(obj.sales_growth_yoy_lfl_1)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_1) + ' % '}
+                                                                <br></br> &nbsp; &nbsp; of <br></br>&nbsp; &nbsp;<span
+                                                                  style={{left: '-5px'}}
+                                                                  className={glyphiconFormatter(obj.sales_growth_yoy_lfl_2)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_2) + ' % '}
+                                                              </h4>
+                                                              <h5 className="kpiSubTitle" style={{marginTop: '20px'}}>
+                                                                <b>{'LFL'}</b>
+                                                              </h5>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+
+                                                      </Panel>
+                                                    </div>
+                                                    <div className="col-md-4 col-sm-12"
+                                                         style={{backgroundColor: "#fafafa"}}>
+                                                      <Panel>
+                                                        <h3 className="pageModuleSubTitle"> {obj.title} </h3>
+                                                        <div className="row">
+                                                          <div className="col-xs-6">
+                                                            <h3
+                                                              style={{
+                                                                padding: "0px",
+                                                                margin: "0px"
+                                                              }}>  {obj.sales} </h3>
+                                                          </div>
+                                                          <div className="col-xs-6">
+                                                            <h3 style={{padding: "0px", margin: "0px"}}>
+                                                              LFL: {obj.sales_lfl} </h3>
+                                                          </div>
+                                                        </div>
+
+                                                        <div className="row" style={{marginTop: '5%'}}>
+                                                          <div className="panel-body cardPanel">
+                                                            <div className="col-xs-4">
+                                                              <h4>
+                                                  <span className={glyphiconFormatter(obj.sales_var_week)}>
+                                                  </span>{(obj.sales_var_week) + '%'}
+                                                              </h4>
+                                                              &nbsp; &nbsp; <br></br>&nbsp; &nbsp;<span></span>&nbsp;
+
+                                                              <h5 className="kpiSubTitle"><b> {'WoW'} </b></h5>
+                                                            </div>
+                                                            <div className="col-xs-4">
+                                                              <h4>
+                                                  <span className={glyphiconFormatter(obj.sales_var_year)}>
+                                                  </span>{(obj.sales_var_year) + '%'}
+                                                              </h4><br></br>
+                                                              <div>&nbsp;</div>
+                                                              <h5 className="kpiSubTitle"><b> {'YoY'} </b></h5>
+                                                            </div>
+                                                            <div className="col-xs-4">
+                                                              <h4>
+                                                  <span className={glyphiconFormatter(obj.sales_var_year_lfl)}>
+                                                  </span>{(obj.sales_var_year_lfl) + '%'}
+                                                              </h4><br></br>
+                                                              <div>&nbsp;</div>
+                                                              <h5 className="kpiSubTitle"><b>{'LFL'}</b></h5>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+
+                                                      </Panel>
+                                                    </div>
+                                                    <div className="col-md-4 col-sm-12"
+                                                         style={{backgroundColor: "#fafafa", visibility: 'hidden'}}>
+                                                      <Panel>
+                                                        <h3 className="pageModuleSubTitle"> Parent Supplier's value
+                                                          share
+                                                          in
+                                                          Category </h3>
+                                                        {(() => {
+                                                          if (obj.supp_imp_cat_sales != "---") {
+
+                                                            return (
+                                                              <div style={{
+                                                                fontSize: '20px',
+                                                              }}>{obj.supp_imp_cat_sales}%</div>
+                                                            )
+                                                          }
+                                                        })()}
+
+                                                        <div style={{height: '1%', width: '100%'}}></div>
+                                                        <br></br>
+                                                        <h3 className="pageModuleSubTitle"> Category's value share to
+                                                          Parent
+                                                          Supplier </h3>
+                                                        {(() => {
+                                                          if (obj.cat_imp_supp_sales != "---") {
+
+                                                            return (
+                                                              <div style={{
+                                                                fontSize: '20px',
+                                                              }}>{obj.cat_imp_supp_sales}% <br></br></div>
+                                                            )
+                                                          }
+                                                        })()}
+
+                                                      </Panel>
+                                                    </div>
                                                   </div>
-                                                  <div className="col-xs-4">
-                                                    <h4>&nbsp;&nbsp;&nbsp;&nbsp;<span
-                                                      className={glyphiconFormatter(obj.sales_growth_yoy_lfl_1)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_1) + ' % '}
-                                                      <br></br> &nbsp; &nbsp; of <br></br>&nbsp; &nbsp;<span
-                                                        style={{left: '-5px'}}
-                                                        className={glyphiconFormatter(obj.sales_growth_yoy_lfl_2)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_2) + ' % '}
-                                                    </h4>
-                                                    <h5 className="kpiSubTitle" style={{marginTop: '20px'}}>
-                                                      <b>{'LFL'}</b>
-                                                    </h5>
+                                                )
+                                              }
+                                            }
+                                          }
+                                          else {
+                                            console.log("else of week_flag ==1");
+                                            if (((this.props.supplier.kpi_param.includes("ASP"))) || ((this.props.supplier.kpi_param.includes("SKU")))) {
+                                              return (
+                                                <div className="row mainBox" style={{textAlign: 'center'}}>
+                                                  <div className="col-md-4 col-sm-12"
+                                                       style={{backgroundColor: "#fafafa", visibility: 'hidden'}}>
+                                                    <Panel>
+                                                      <h3 className="pageModuleSubTitle"> Contribution to Growth </h3>
+                                                      <div className="row">
+                                                        <div className="col-xs-6" style={{textAlign: "center"}}>
+                                                          <h3
+                                                            style={{
+                                                              padding: "0px",
+                                                              margin: "0px"
+                                                            }}>  {obj.cw_sales_exclu_sup} </h3>
+                                                        </div>
+                                                        <div className="col-xs-6" style={{textAlign: "center"}}>
+
+                                                          <h3 style={{padding: "0px", margin: "0px"}}>
+                                                            LFL TY {obj.cw_sales_exclu_sup_lfl } </h3>
+                                                        </div>
+                                                      </div>
+                                                      <br></br>
+                                                      <div className="row">
+                                                        <div className="panel-body cardPanel">
+                                                          <div className="col-xs-4">
+                                                            <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                              className={glyphiconFormatter(obj.sales_growth_wow_1)}></span>&nbsp;{(obj.sales_growth_wow_1) + ' % '}
+                                                              <br></br> &nbsp; &nbsp;of <br></br>&nbsp; &nbsp;<span
+                                                                className={glyphiconFormatter(obj.sales_growth_wow_2)}></span>&nbsp;{(obj.sales_growth_wow_2) + ' % '}
+                                                            </h4>
+                                                            <h5 className="kpiSubTitle" style={{marginTop: '20px'}}>
+                                                              <b>{'WoW'}</b>
+                                                            </h5>
+                                                          </div>
+                                                          <div className="col-xs-4">
+                                                            <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                              className={glyphiconFormatter(obj.sales_growth_yoy_1)}></span>&nbsp;{(obj.sales_growth_yoy_1) + ' % '}
+                                                              <br></br> &nbsp; &nbsp; of <br></br>&nbsp; &nbsp;<span
+                                                                className={glyphiconFormatter(obj.sales_growth_yoy_2)}></span>&nbsp;{(obj.sales_growth_yoy_2) + ' % '}
+                                                            </h4>
+                                                            <h5 className="kpiSubTitle" style={{marginTop: '20px'}}>
+                                                              <b>{'YoY'}</b>
+                                                            </h5>
+                                                          </div>
+                                                          <div className="col-xs-4">
+                                                            <h4>&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                              className={glyphiconFormatter(obj.sales_growth_yoy_lfl_1)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_1) + ' % '}
+                                                              <br></br> &nbsp; &nbsp; of <br></br>&nbsp; &nbsp;<span
+                                                                style={{left: '-5px'}}
+                                                                className={glyphiconFormatter(obj.sales_growth_yoy_lfl_2)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_2) + ' % '}
+                                                            </h4>
+                                                            <h5 className="kpiSubTitle" style={{marginTop: '20px'}}>
+                                                              <b>{'LFL'}</b>
+                                                            </h5>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+
+                                                    </Panel>
+                                                  </div>
+                                                  <div className="col-md-4 col-sm-12"
+                                                       style={{backgroundColor: "#fafafa"}}>
+                                                    <Panel>
+                                                      <h3 className="pageModuleSubTitle"> {obj.title} </h3>
+                                                      <div className="row">
+                                                        <div className="col-xs-6">
+                                                          <h3
+                                                            style={{
+                                                              padding: "0px",
+                                                              margin: "0px"
+                                                            }}>  {obj.sales} </h3>
+                                                        </div>
+                                                        <div className="col-xs-6">
+                                                          <h3 style={{padding: "0px", margin: "0px"}}>
+                                                            LFL: {obj.sales_lfl} </h3>
+                                                        </div>
+                                                      </div>
+
+                                                      <div className="row" style={{marginTop: '5%'}}>
+                                                        <div className="panel-body cardPanel">
+                                                          <div className="col-xs-4">
+                                                            <h4>
+                                        <span className={glyphiconFormatter(obj.sales_var_year)}>
+                                        </span>{(obj.sales_var_year) + '%'}
+                                                            </h4><br></br>
+                                                            <div>&nbsp;</div>
+                                                            <h5 className="kpiSubTitle"><b> {'YoY'} </b></h5>
+                                                          </div>
+                                                          <div className="col-xs-4" style={{visibility: 'hidden'}}>
+                                                            <h4>
+                                        <span className={glyphiconFormatter(obj.sales_var_week)}>
+                                        </span>{(obj.sales_var_week) + '%'}
+                                                            </h4>
+                                                            &nbsp; &nbsp; <br></br>&nbsp; &nbsp;<span></span>&nbsp;
+
+                                                            <h5 className="kpiSubTitle"><b> {'WoW'} </b></h5>
+                                                          </div>
+                                                          <div className="col-xs-4">
+                                                            <h4>
+                                        <span className={glyphiconFormatter(obj.sales_var_year_lfl)}>
+                                        </span>{(obj.sales_var_year_lfl) + '%'}
+                                                            </h4><br></br>
+                                                            <div>&nbsp;</div>
+                                                            <h5 className="kpiSubTitle"><b>{'LFL'}</b></h5>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+
+                                                    </Panel>
+                                                  </div>
+                                                  <div className="col-md-4 col-sm-12"
+                                                       style={{backgroundColor: "#fafafa", visibility: 'hidden'}}>
+                                                    <Panel>
+                                                      <h3 className="pageModuleSubTitle"> Parent Supplier's value
+                                                        share
+                                                        in
+                                                        Category </h3>
+                                                      {(() => {
+                                                        if (obj.supp_imp_cat_sales != "---") {
+
+                                                          return (
+                                                            <div style={{
+                                                              fontSize: '20px',
+                                                            }}>{obj.supp_imp_cat_sales}%</div>
+                                                          )
+                                                        }
+                                                      })()}
+
+                                                      <div style={{height: '1%', width: '100%'}}></div>
+                                                      <br></br>
+                                                      <h3 className="pageModuleSubTitle"> Category's value share to
+                                                        Parent
+                                                        Supplier </h3>
+                                                      {(() => {
+                                                        if (obj.cat_imp_supp_sales != "---") {
+
+                                                          return (
+                                                            <div style={{
+                                                              fontSize: '20px',
+                                                            }}>{obj.cat_imp_supp_sales}% <br></br></div>
+                                                          )
+                                                        }
+                                                      })()}
+
+                                                    </Panel>
                                                   </div>
                                                 </div>
-                                              </div>
+                                              )
+                                            } else {
+                                              if ((this.props.supplier.supplierParam != '') || (this.props.supplier.parentParam != '')) {
+                                                return (
+                                                  <div className="row mainBox" style={{textAlign: 'center'}}>
+                                                    <div className="col-md-4 col-sm-12"
+                                                         style={{backgroundColor: "#fafafa"}}>
+                                                      <Panel>
+                                                        <h3 className="pageModuleSubTitle"> Contribution to Growth </h3>
+                                                        <div className="row">
+                                                          <div className="col-xs-6" style={{textAlign: "center"}}>
+                                                            <h3
+                                                              style={{
+                                                                padding: "0px",
+                                                                margin: "0px"
+                                                              }}>  {obj.cw_sales_exclu_sup} </h3>
+                                                          </div>
+                                                          <div className="col-xs-6" style={{textAlign: "center"}}>
 
-                                            </Panel>
-                                          </div>
-                                          <div className="col-md-4 col-sm-12" style={{backgroundColor: "#fafafa"}}>
-                                            <Panel>
-                                              <h3 className="pageModuleSubTitle"> Parent Supplier's value share in
-                                                Category </h3>
-                                              {(() => {
-                                                if (obj.supp_imp_cat_sales != "---") {
+                                                            <h3 style={{padding: "0px", margin: "0px"}}>
+                                                              LFL TY {obj.cw_sales_exclu_sup_lfl } </h3>
+                                                          </div>
+                                                        </div>
+                                                        <br></br>
+                                                        <div className="row">
+                                                          <div className="panel-body cardPanel">
+                                                            <div className="col-xs-4">
+                                                              <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                                className={glyphiconFormatter(obj.sales_growth_yoy_1)}></span>&nbsp;{(obj.sales_growth_yoy_1) + ' % '}
+                                                                <br></br> &nbsp; &nbsp; of <br></br>&nbsp; &nbsp;<span
+                                                                  className={glyphiconFormatter(obj.sales_growth_yoy_2)}></span>&nbsp;{(obj.sales_growth_yoy_2) + ' % '}
+                                                              </h4>
+                                                              <h5 className="kpiSubTitle" style={{marginTop: '20px'}}>
+                                                                <b>{'YoY'}</b>
+                                                              </h5>
+                                                            </div>
+                                                            <div className="col-xs-4" style={{visibility: 'hidden'}}>
+                                                              <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                                className={glyphiconFormatter(obj.sales_growth_wow_1)}></span>&nbsp;{(obj.sales_growth_wow_1) + ' % '}
+                                                                <br></br> &nbsp; &nbsp;of <br></br>&nbsp; &nbsp;<span
+                                                                  className={glyphiconFormatter(obj.sales_growth_wow_2)}></span>&nbsp;{(obj.sales_growth_wow_2) + ' % '}
+                                                              </h4>
+                                                              <h5 className="kpiSubTitle" style={{marginTop: '20px'}}>
+                                                                <b>{'WoW'}</b>
+                                                              </h5>
+                                                            </div>
+                                                            <div className="col-xs-4">
+                                                              <h4>&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                                className={glyphiconFormatter(obj.sales_growth_yoy_lfl_1)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_1) + ' % '}
+                                                                <br></br> &nbsp; &nbsp; of <br></br>&nbsp; &nbsp;<span
+                                                                  style={{left: '-5px'}}
+                                                                  className={glyphiconFormatter(obj.sales_growth_yoy_lfl_2)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_2) + ' % '}
+                                                              </h4>
+                                                              <h5 className="kpiSubTitle" style={{marginTop: '20px'}}>
+                                                                <b>{'LFL'}</b>
+                                                              </h5>
+                                                            </div>
+                                                          </div>
+                                                        </div>
 
-                                                  return (
-                                                    <div style={{
-                                                      fontSize: '20px',
-                                                    }}>{obj.supp_imp_cat_sales}%</div>
-                                                  )
-                                                }
-                                              })()}
+                                                      </Panel>
+                                                    </div>
+                                                    <div className="col-md-4 col-sm-12"
+                                                         style={{backgroundColor: "#fafafa"}}>
+                                                      <Panel>
+                                                        <h3 className="pageModuleSubTitle"> {obj.title} </h3>
+                                                        <div className="row">
+                                                          <div className="col-xs-6">
+                                                            <h3
+                                                              style={{
+                                                                padding: "0px",
+                                                                margin: "0px"
+                                                              }}>  {obj.sales} </h3>
+                                                          </div>
+                                                          <div className="col-xs-6">
+                                                            <h3 style={{padding: "0px", margin: "0px"}}>
+                                                              LFL: {obj.sales_lfl} </h3>
+                                                          </div>
+                                                        </div>
 
-                                              <div style={{height: '1%', width: '100%'}}></div>
-                                              <br></br>
-                                              <h3 className="pageModuleSubTitle"> Category's value share to Parent
-                                                Supplier </h3>
-                                              {(() => {
-                                                if (obj.cat_imp_supp_sales != "---") {
+                                                        <div className="row" style={{marginTop: '5%'}}>
+                                                          <div className="panel-body cardPanel">
+                                                            <div className="col-xs-4">
+                                                              <h4>
+                                        <span className={glyphiconFormatter(obj.sales_var_year)}>
+                                        </span>{(obj.sales_var_year) + '%'}
+                                                              </h4><br></br>
+                                                              <div>&nbsp;</div>
+                                                              <h5 className="kpiSubTitle"><b> {'YoY'} </b></h5>
+                                                            </div>
+                                                            <div className="col-xs-4" style={{visibility: 'hidden'}}>
+                                                              <h4>
+                                        <span className={glyphiconFormatter(obj.sales_var_week)}>
+                                        </span>{(obj.sales_var_week) + '%'}
+                                                              </h4>
+                                                              &nbsp; &nbsp; <br></br>&nbsp; &nbsp;<span></span>&nbsp;
 
-                                                  return (
-                                                    <div style={{
-                                                      fontSize: '20px',
-                                                    }}>{obj.cat_imp_supp_sales}% <br></br></div>
-                                                  )
-                                                }
-                                              })()}
+                                                              <h5 className="kpiSubTitle"><b> {'WoW'} </b></h5>
+                                                            </div>
+                                                            <div className="col-xs-4">
+                                                              <h4>
+                                        <span className={glyphiconFormatter(obj.sales_var_year_lfl)}>
+                                        </span>{(obj.sales_var_year_lfl) + '%'}
+                                                              </h4><br></br>
+                                                              <div>&nbsp;</div>
+                                                              <h5 className="kpiSubTitle"><b>{'LFL'}</b></h5>
+                                                            </div>
+                                                          </div>
+                                                        </div>
 
-                                            </Panel>
-                                          </div>
-                                        </div>
+                                                      </Panel>
+                                                    </div>
+                                                    <div className="col-md-4 col-sm-12"
+                                                         style={{backgroundColor: "#fafafa"}}>
+                                                      <Panel>
+                                                        <h3 className="pageModuleSubTitle"> Parent Supplier's value
+                                                          share
+                                                          in
+                                                          Category </h3>
+                                                        {(() => {
+                                                          if (obj.supp_imp_cat_sales != "---") {
+
+                                                            return (
+                                                              <div style={{
+                                                                fontSize: '20px',
+                                                              }}>{obj.supp_imp_cat_sales}%</div>
+                                                            )
+                                                          }
+                                                        })()}
+
+                                                        <div style={{height: '1%', width: '100%'}}></div>
+                                                        <br></br>
+                                                        <h3 className="pageModuleSubTitle"> Category's value share to
+                                                          Parent
+                                                          Supplier </h3>
+                                                        {(() => {
+                                                          if (obj.cat_imp_supp_sales != "---") {
+
+                                                            return (
+                                                              <div style={{
+                                                                fontSize: '20px',
+                                                              }}>{obj.cat_imp_supp_sales}% <br></br></div>
+                                                            )
+                                                          }
+                                                        })()}
+
+                                                      </Panel>
+                                                    </div>
+                                                  </div>
+                                                )
+                                              } else {
+                                                return (
+                                                  <div className="row mainBox" style={{textAlign: 'center'}}>
+                                                    <div className="col-md-4 col-sm-12"
+                                                         style={{backgroundColor: "#fafafa", visibility: 'hidden'}}>
+                                                      <Panel>
+                                                        <h3 className="pageModuleSubTitle"> Contribution to Growth </h3>
+                                                        <div className="row">
+                                                          <div className="col-xs-6" style={{textAlign: "center"}}>
+                                                            <h3
+                                                              style={{
+                                                                padding: "0px",
+                                                                margin: "0px"
+                                                              }}>  {obj.cw_sales_exclu_sup} </h3>
+                                                          </div>
+                                                          <div className="col-xs-6" style={{textAlign: "center"}}>
+
+                                                            <h3 style={{padding: "0px", margin: "0px"}}>
+                                                              LFL TY {obj.cw_sales_exclu_sup_lfl } </h3>
+                                                          </div>
+                                                        </div>
+                                                        <br></br>
+                                                        <div className="row">
+                                                          <div className="panel-body cardPanel">
+                                                            <div className="col-xs-4">
+                                                              <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                                className={glyphiconFormatter(obj.sales_growth_yoy_1)}></span>&nbsp;{(obj.sales_growth_yoy_1) + ' % '}
+                                                                <br></br> &nbsp; &nbsp; of <br></br>&nbsp; &nbsp;<span
+                                                                  className={glyphiconFormatter(obj.sales_growth_yoy_2)}></span>&nbsp;{(obj.sales_growth_yoy_2) + ' % '}
+                                                              </h4>
+                                                              <h5 className="kpiSubTitle" style={{marginTop: '20px'}}>
+                                                                <b>{'YoY'}</b>
+                                                              </h5>
+                                                            </div>
+                                                            <div className="col-xs-4" style={{
+                                                              backgroundColor: "#fafafa",
+                                                              visibility: 'hidden'
+                                                            }}>
+                                                              <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                                className={glyphiconFormatter(obj.sales_growth_wow_1)}></span>&nbsp;{(obj.sales_growth_wow_1) + ' % '}
+                                                                <br></br> &nbsp; &nbsp;of <br></br>&nbsp; &nbsp;<span
+                                                                  className={glyphiconFormatter(obj.sales_growth_wow_2)}></span>&nbsp;{(obj.sales_growth_wow_2) + ' % '}
+                                                              </h4>
+                                                              <h5 className="kpiSubTitle" style={{marginTop: '20px'}}>
+                                                                <b>{'WoW'}</b>
+                                                              </h5>
+                                                            </div>
+                                                            <div className="col-xs-4">
+                                                              <h4>&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                                className={glyphiconFormatter(obj.sales_growth_yoy_lfl_1)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_1) + ' % '}
+                                                                <br></br> &nbsp; &nbsp; of <br></br>&nbsp; &nbsp;<span
+                                                                  style={{left: '-5px'}}
+                                                                  className={glyphiconFormatter(obj.sales_growth_yoy_lfl_2)}></span>&nbsp;{(obj.sales_growth_yoy_lfl_2) + ' % '}
+                                                              </h4>
+                                                              <h5 className="kpiSubTitle" style={{marginTop: '20px'}}>
+                                                                <b>{'LFL'}</b>
+                                                              </h5>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+
+                                                      </Panel>
+                                                    </div>
+                                                    <div className="col-md-4 col-sm-12"
+                                                         style={{backgroundColor: "#fafafa"}}>
+                                                      <Panel>
+                                                        <h3 className="pageModuleSubTitle"> {obj.title} </h3>
+                                                        <div className="row">
+                                                          <div className="col-xs-6">
+                                                            <h3
+                                                              style={{
+                                                                padding: "0px",
+                                                                margin: "0px"
+                                                              }}>  {obj.sales} </h3>
+                                                          </div>
+                                                          <div className="col-xs-6">
+                                                            <h3 style={{padding: "0px", margin: "0px"}}>
+                                                              LFL: {obj.sales_lfl} </h3>
+                                                          </div>
+                                                        </div>
+
+                                                        <div className="row" style={{marginTop: '5%'}}>
+                                                          <div className="panel-body cardPanel">
+                                                            <div className="col-xs-4">
+                                                              <h4>
+                                        <span className={glyphiconFormatter(obj.sales_var_year)}>
+                                        </span>{(obj.sales_var_year) + '%'}
+                                                              </h4><br></br>
+                                                              <div>&nbsp;</div>
+                                                              <h5 className="kpiSubTitle"><b> {'YoY'} </b></h5>
+                                                            </div>
+                                                            <div className="col-xs-4" style={{visibility: 'hidden'}}>
+                                                              <h4>
+                                        <span className={glyphiconFormatter(obj.sales_var_week)}>
+                                        </span>{(obj.sales_var_week) + '%'}
+                                                              </h4>
+                                                              &nbsp; &nbsp; <br></br>&nbsp; &nbsp;<span></span>&nbsp;
+
+                                                              <h5 className="kpiSubTitle"><b> {'WoW'} </b></h5>
+                                                            </div>
+                                                            <div className="col-xs-4">
+                                                              <h4>
+                                        <span className={glyphiconFormatter(obj.sales_var_year_lfl)}>
+                                        </span>{(obj.sales_var_year_lfl) + '%'}
+                                                              </h4><br></br>
+                                                              <div>&nbsp;</div>
+                                                              <h5 className="kpiSubTitle"><b>{'LFL'}</b></h5>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+
+                                                      </Panel>
+                                                    </div>
+                                                    <div className="col-md-4 col-sm-12"
+                                                         style={{backgroundColor: "#fafafa", visibility: 'hidden'}}>
+                                                      <Panel>
+                                                        <h3 className="pageModuleSubTitle"> Parent Supplier's value
+                                                          share
+                                                          in
+                                                          Category </h3>
+                                                        {(() => {
+                                                          if (obj.supp_imp_cat_sales != "---") {
+
+                                                            return (
+                                                              <div style={{
+                                                                fontSize: '20px',
+                                                              }}>{obj.supp_imp_cat_sales}%</div>
+                                                            )
+                                                          }
+                                                        })()}
+
+                                                        <div style={{height: '1%', width: '100%'}}></div>
+                                                        <br></br>
+                                                        <h3 className="pageModuleSubTitle"> Category's value share to
+                                                          Parent
+                                                          Supplier </h3>
+                                                        {(() => {
+                                                          if (obj.cat_imp_supp_sales != "---") {
+
+                                                            return (
+                                                              <div style={{
+                                                                fontSize: '20px',
+                                                              }}>{obj.cat_imp_supp_sales}% <br></br></div>
+                                                            )
+                                                          }
+                                                        })()}
+
+                                                      </Panel>
+                                                    </div>
+                                                  </div>
+                                                )
+                                              }
+                                            }
+                                          }
+                                        })()}
+
 
                                         {/*<panel>*/}
                                         {/*<div className="row mainBox">*/}
@@ -1189,7 +1995,8 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                        this.setState({bubbleChartModal: false})
                                      }}>
                                 <Modal.Header closeButton>
-                                  <Modal.Title id="contained-modal-title-sm text-center" className="pageModuleTitle">Negotiation Opporutnity</Modal.Title>
+                                  <Modal.Title id="contained-modal-title-sm text-center" className="pageModuleTitle">Negotiation
+                                    Opporutnity</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
                                   <div className="row" style={{marginLeft: "0px", marginRight: "0px"}}>
@@ -1731,10 +2538,11 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                               <div style={{textAlign: 'center', marginBottom: '10px'}}>
                                 <Button buttonType={'primary'} onClick={() => {
                                   //For table
-                                  this.props.onGenerateTable();
+                                  {/*this.props.onGenerateTable();*/}
                                   //For Bubble Graph
-                                  this.props.onFetchGraph();
-                                  this.setState({bubbleChartModal: true})
+                                  {/*this.props.onFetchGraph();*/}
+                                  {/*this.setState({bubbleChartModal: true})*/}
+                                  window.location="/ranging/negotiation/"
                                 }}>Negotiation Opportunity</Button>
                               </div>
                             </div>

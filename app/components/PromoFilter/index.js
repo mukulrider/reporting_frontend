@@ -231,12 +231,33 @@ class PromoFilter extends React.PureComponent { // eslint-disable-line react/pre
                 }}>Apply</Button>
                 <div style={{height: '1%', width: '100%'}}>&nbsp;</div>
                 <Button onClick={() => {
+                  const getCookie = (name) => {
+                    const value = `; ${document.cookie}`;
+                    const parts = value.split(`; ${name}=`);
+                    if (parts.length === 2) {
+                      return parts.pop().split(';').shift();
+                    }
+                  };
+                  //fetching values from cookie
+                  const userId = getCookie('token');
+                  const userName = getCookie('user');
+                  const designation = getCookie('designation');
+                  const buyingController = getCookie('buying_controller');
+                  const buyer = getCookie('buyer');
+                  if (buyer && buyingController) {
+                    this.props.onGenerateUrlParamsString(`buying_controller=${buyingController}&buyer=${buyer}`);
+
+                  } else if (buyingController) {
+                    this.props.onGenerateUrlParamsString(`buying_controller=${buyingController}`);
+
+                  }
+
                   this.props.defaultGreyScreen(1);
                   let selection = '';
                   this.props.onSaveWeekFilterParam(selection);
                   this.props.ongenerateWeekFilter();
                   let queryString = '';
-                  this.props.onGenerateUrlParamsString(queryString);
+                  {/*this.props.onGenerateUrlParamsString(queryString);*/}
                   this.props.generateSideFilter();
 
                 }}>Clear Filters</Button>

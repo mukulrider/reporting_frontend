@@ -254,17 +254,6 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
               <div className="text-center">
                 <Button onClick={() => {
 
-                  {/*pHierarchyFilterCheck = false;*/}
-                  {/*for (let i = 0; i < this.props.sideFilter[0].items.length; i++) {*/}
-                    {/*if (this.props.sideFilter[2].items[i].selected == true) {*/}
-                      {/*console.log("Cascading filter - filter_data2 for loop", this.props.sideFilter[0].items[i].selected);*/}
-                      {/*pHierarchyFilterCheck = true;*/}
-                      {/*console.log('pHierarchyFilterCheck11', pHierarchyFilterCheck);*/}
-                    {/*} else {*/}
-                      {/*pHierarchyFilterCheck = false;*/}
-                      {/*console.log('pHierarchyFilterCheck22', pHierarchyFilterCheck);*/}
-                    {/*}*/}
-                  {/*}*/}
                   this.props.supplierViewKpiSpinnerCheck(0);
                   this.props.barChartSpinnerCheck(0);
                   this.props.onKPIBox();
@@ -275,21 +264,38 @@ class FiltersSupplier extends React.PureComponent { // eslint-disable-line react
               <div className="text-center">
                 <Button onClick={() => {
 
-                          this.props.onGenerateUrlParamsString('');
+
+                  const getCookie = (name) => {
+                    const value = `; ${document.cookie}`;
+                    const parts = value.split(`; ${name}=`);
+                    if (parts.length === 2) {
+                      return parts.pop().split(';').shift();
+                    }
+                  };
+                  //fetching values from cookie
+                  const userId = getCookie('token');
+                  const userName = getCookie('user');
+                  const designation = getCookie('designation');
+                  const buyingController = getCookie('buying_controller');
+                  const buyer = getCookie('buyer');
+                  if (buyer && buyingController) {
+                    this.props.onGenerateUrlParamsString(`buying_controller=${buyingController}&buyer=${buyer}`);
+                    this.props.onGenerateSideFilter();
+
+                  } else if (buyingController) {
+                    this.props.onGenerateUrlParamsString(`buying_controller=${buyingController}`);
+                    this.props.onGenerateSideFilter();
+
+                  }
+                          {/*this.props.onGenerateUrlParamsString('');*/}
                           this.props.onGenerateUrlParamsString2('');
                           this.props.defaultGreyScreen(1);
                           this.props.onGenerateSideFilter();
-                          {/*this.parentSupplierSelection = 0;*/}
-                          {/*this.updateUrl()*/
-                          }
 
                         }}>
                   Clear Filters
                 </Button>
               </div>
-              {/*<Button onClick={() => {*/}
-              {/*/!*this.props.onFilterReset();*!/*/}
-              {/*}}>Reset Filters</Button>&nbsp;&nbsp;*/}
             </div>
           )
         })()}
