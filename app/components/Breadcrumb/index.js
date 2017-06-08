@@ -48,7 +48,7 @@ class Breadcrumb extends React.PureComponent { // eslint-disable-line react/pref
               <div>
                 {Object.keys(urlParamObject).map(obj=>{
                   return (
-                    <Link arrow="right" className="back-link"> {urlParamObject[obj].length < 2 ? urlParamObject[obj].join(', ') :  urlParamObject[obj][1] + ' + ' + (urlParamObject[obj].length - 1)+ ''}</Link>
+                    <Link key={Date.now() + Math.random() + Math.random()} arrow="right" className="back-link"> {urlParamObject[obj].length < 2 ? urlParamObject[obj].join(', ') :  urlParamObject[obj][1] + ' + ' + (urlParamObject[obj].length - 1)+ ''}</Link>
                   )
                 })}
                 {/*<Link arrow="right" className="back-link"> {this.props.selected_week}</Link>*/}
@@ -57,7 +57,7 @@ class Breadcrumb extends React.PureComponent { // eslint-disable-line react/pref
             )
           } else {
             return (
-              <Link arrow="left" className="back-link"></Link>
+              <Link key={Date.now() + Math.random() + Math.random() + 10} arrow="left" className="back-link"></Link>
             )
           }
         })()}

@@ -52,8 +52,8 @@ export function* defaultSaga() {
   // See example in containers/HomePage/sagas.js
 }
 // let host_url="http://dvcmpapp00001uk.dev.global.tesco.org";
-// const host_url = "http://127.0.0.1:8000";
-let host_url = "http://172.20.181.16:8001"
+const host_url = "http://127.0.0.1:8000";
+//let host_url = "http://172.20.181.16:8001"
 
 
 /* GENERATE SIDE FILTER*/

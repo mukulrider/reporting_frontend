@@ -438,7 +438,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                       <div className="row mainBox" style={{textAlign: 'center'}}>
                                         <div className="col-md-4 col-xs-4" style={{backgroundColor: "#fafafa"}}>
                                           <Panel>
-                                            <h3 className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>
+                                            <div className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>
                                               Value<br/>
                                               {(()=>{
                                                   if (this.props.DailySales.dateurlParam){
@@ -453,7 +453,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                                   }
                                                 }
                                               )()}
-                                            </h3>
+                                            </div>
 
                                             <div className="row">
                                               <div className="col-md-6 col-sm-6 col-xs-6 kpiSmall">
@@ -497,7 +497,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
 
                                         <div className="col-md-4 col-xs-4" style={{backgroundColor: "#fafafa"}}>
                                           <Panel>
-                                            <h3 className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>
+                                            <div className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>
                                               Volume<br/>
                                               {(()=>{
                                                   if (this.props.DailySales.dateurlParam){
@@ -512,7 +512,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                                   }
                                                 }
                                               )()}
-                                            </h3>
+                                            </div>
 
                                             <div className="row">
                                               <div className="col-md-6 col-sm-6 col-xs-6 kpiSmall">
@@ -553,7 +553,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
 
                                         <div className="col-md-4 col-xs-4" style={{backgroundColor: "#fafafa"}}>
                                           <Panel>
-                                            <h3 className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>
+                                            <div className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>
                                               COGS<br/>
                                               {(()=>{
                                                   if (this.props.DailySales.dateurlParam){
@@ -568,7 +568,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                                   }
                                                 }
                                               )()}
-                                            </h3>
+                                            </div>
                                             <div className="row">
                                               <div className="col-md-6 col-sm-6 col-xs-6 kpiSmall">
                                                 <h3>{formatMetric(c.tot_cogs)}</h3>
@@ -612,7 +612,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                       <div className="row mainBox" style={{textAlign: 'center'}}>
                                         <div className="col-md-6 col-xs-6" style={{backgroundColor: "#fafafa"}}>
                                           <Panel>
-                                            <h3 className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>
+                                            <div className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>
                                               Profit<br/>
                                               {(()=>{
                                                   if (this.props.DailySales.dateurlParam){
@@ -627,7 +627,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                                   }
                                                 }
                                               )()}
-                                            </h3>
+                                            </div>
                                             <div className="row">
                                               <div className="col-md-6 col-sm-6 col-xs-6 kpiSmall">
                                                 <h3>{formatMetric(d.tot_profit)}</h3>
@@ -667,7 +667,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
 
                                         <div className="col-md-6 col-xs-6" style={{backgroundColor: "#fafafa"}}>
                                           <Panel>
-                                            <h3 className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>
+                                            <div className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>
                                               Margin %<br/>
                                               {(()=>{
                                                   if (this.props.DailySales.dateurlParam){
@@ -682,7 +682,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                                   }
                                                 }
                                               )()}
-                                            </h3>
+                                            </div>
                                             <div className="row">
                                               <div className="col-md-6 col-sm-6 col-xs-6 kpiSmall">
                                                 <h3>{round(e.current_day,1)}%</h3>
@@ -802,11 +802,35 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                         if (this.props.DailySales.charts_data.graph_data.graph_data.length != 0) {
                                           return (
                                             <Panel style={{alignItems: "center"}}>
+                                              <div className="col-xs-12">
+                                              <div className="col-md-9 col-sm-12 col-xs-12" style={{textAlign: "center"}}>
+                                                <h3 className="pageModuleSubTitle" style={{marginTop: "12px"}}>Daily Trend</h3>
+                                              </div>
+                                              {/*Daily Sales Line chart*/}
+                                              <div>
+                                                    <span style={{float: "right"}}>
+                                                      <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                                                        backgroundColor: "transparent",
+                                                        borderColor: "transparent",
+                                                        color: "#00539f"
+                                                      }} id="dropButtonId">
+                                                        <MenuItem onClick={() => {
+                                                          saveImage(document.getElementById('daily_sales_svg'), "daily_trend")
+                                                        }
+                                                        }>Save As JPEG</MenuItem>
+                                                        <MenuItem onClick={() => {
+                                                          saveDataAsCSV(this.props.DailySales.charts_data.graph_data.graph_data, "daily_trend_data.csv")
+                                                        }
+                                                        }>Download CSV</MenuItem>
+                                                      </DropdownButton>
+                                                    </span>
+                                              </div>
                                               <DualLineChart2 x_axis="Week Day" y_axis="Daily Trend"
                                                               legendTY={this.state.legendTY}
                                                               legendLY={this.state.legendLY}
                                                               id="daily_sales"
                                                               data={this.props.DailySales.charts_data.graph_data.graph_data}/>
+                                              </div>
                                             </Panel>
                                           )
                                         }
@@ -826,11 +850,35 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                       if (this.props.DailySales.charts_data && this.props.DailySales.charts_data.graph_data && this.props.DailySales.LineChartSpinnerCheck != 0) {
                                         return (
                                           <Panel style={{alignItems: "center"}}>
-                                            <MultiSeriesBarChart x_axis="Week Day" y_axis="Cumulative Value"
-                                                                 legendTY="WTD TY"
-                                                                 legendLY="WTD LY"
-                                                                 id="cumulative_sales"
-                                                                 data={this.props.DailySales.charts_data.graph_data}/>
+                                            <div className="col-xs-12">
+                                              <div className="col-md-9 col-sm-12 col-xs-12" style={{textAlign: "center"}}>
+                                                <h3 className="pageModuleSubTitle" style={{marginTop: "12px"}}>Cumulative Trend</h3>
+                                              </div>
+                                              {/*Cumulative Sales Line chart*/}
+                                              <div>
+                                                <span style={{float: "right"}}>
+                                                  <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                                                    backgroundColor: "transparent",
+                                                    borderColor: "transparent",
+                                                    color: "#00539f"
+                                                  }} id="dropButtonId">
+                                                    <MenuItem onClick={() => {
+                                                      saveImage(document.getElementById('cumulative_sales_svg'), "cumulative_trend_barChart")
+                                                    }
+                                                    }>Save As JPEG</MenuItem>
+                                                    <MenuItem onClick={() => {
+                                                      saveDataAsCSV(this.props.DailySales.charts_data.graph_data.cum_graph_data, "cumulative_trend_barChart_data.csv")
+                                                    }
+                                                    }>Download CSV</MenuItem>
+                                                  </DropdownButton>
+                                                </span>
+                                              </div>
+                                              <MultiSeriesBarChart x_axis="Week Day" y_axis="Cumulative Values"
+                                                                   legendTY="WTD TY"
+                                                                   legendLY="WTD LY"
+                                                                   id="cumulative_sales"
+                                                                   data={this.props.DailySales.charts_data.graph_data}/>
+                                            </div>
                                           </Panel>
                                         )
                                       }
@@ -963,7 +1011,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                               {/* Box for value */}
                                               <div className="col-md-4 col-xs-4" style={{backgroundColor: "#fafafa"}}>
                                                 <Panel>
-                                                  <h3 className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>
+                                                  <div className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>
                                                     Value<br/>
                                                     {(()=>{
                                                         if (this.props.DailySales.dateurlParam){
@@ -978,7 +1026,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                                         }
                                                       }
                                                     )()}
-                                                  </h3>
+                                                  </div>
                                                   <div className="row">
                                                     <div className="col-md-6 col-sm-6 col-xs-6 kpiSmall">
                                                       <h3>{formatMetric(a.tot_sales)}</h3>
@@ -1018,7 +1066,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
 
                                               <div className="col-md-4 col-xs-4" style={{backgroundColor: "#fafafa"}}>
                                                 <Panel>
-                                                  <h3 className="pageModuleSubTitle"
+                                                  <div className="pageModuleSubTitle"
                                                       style={{padding: "0px", margin: "0px"}}>
                                                     Volume<br/>
                                                     {(()=>{
@@ -1034,7 +1082,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                                         }
                                                       }
                                                     )()}
-                                                  </h3>
+                                                  </div>
                                                   <div className="row">
                                                     <div className="col-md-6 col-sm-6 col-xs-6 kpiSmall">
                                                       <h3 >{formatMetric(b.tot_vol, "volume")}</h3>
@@ -1074,7 +1122,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
 
                                               <div className="col-md-4 col-xs-4" style={{backgroundColor: "#fafafa"}}>
                                                 <Panel>
-                                                  <h3 className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>
+                                                  <div className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>
                                                     COGS<br/>
                                                     {(()=>{
                                                         if (this.props.DailySales.dateurlParam){
@@ -1089,7 +1137,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                                         }
                                                       }
                                                     )()}
-                                                  </h3>
+                                                  </div>
                                                   <div className="row">
                                                     <div className="col-md-6 col-sm-6 col-xs-6 kpiSmall">
                                                       <h3>{formatMetric(c.tot_cogs)}</h3>
@@ -1132,7 +1180,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                             <div className="row mainBox" style={{textAlign: 'center'}}>
                                               <div className="col-md-6 col-xs-6" style={{backgroundColor: "#fafafa"}}>
                                                 <Panel>
-                                                  <h3 className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>
+                                                  <div className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>
                                                     Profit<br/>
                                                     {(()=>{
                                                         if (this.props.DailySales.dateurlParam){
@@ -1147,7 +1195,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                                         }
                                                       }
                                                     )()}
-                                                  </h3>
+                                                  </div>
                                                   <div className="row">
                                                     <div className="col-md-6 col-sm-6 col-xs-6 kpiSmall">
                                                       <h3>{formatMetric(d.tot_profit)}</h3>
@@ -1187,7 +1235,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
 
                                               <div className="col-md-6 col-xs-6" style={{backgroundColor: "#fafafa"}}>
                                                 <Panel>
-                                                  <h3 className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>
+                                                  <div className="pageModuleSubTitle" style={{padding: "0px", margin: "0px"}}>
                                                     Margin %<br/>
                                                     {(()=>{
                                                         if (this.props.DailySales.dateurlParam){
@@ -1202,7 +1250,7 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                                         }
                                                       }
                                                     )()}
-                                                  </h3>
+                                                  </div>
                                                   <div className="row">
                                                     <div className="col-md-6 col-sm-6 col-xs-6 kpiSmall">
                                                       <h3>{round(e.current_day,1)}%</h3>
@@ -1261,11 +1309,35 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                           if (this.props.DailySales.prod_charts_data.graph_data.graph_data.length != 0) {
                                             return (
                                               <Panel style={{alignItems: "center"}}>
-                                                <DualLineChart2 x_axis="Week Day" y_axis="Daily Trend"
-                                                                legendTY={this.state.legendTY}
-                                                                legendLY={this.state.legendLY}
-                                                                id="prod_daily_sales"
-                                                                data={this.props.DailySales.prod_charts_data.graph_data.graph_data}/>
+                                                <div className="col-xs-12">
+                                                  <div className="col-md-9 col-sm-12 col-xs-12" style={{textAlign: "center"}}>
+                                                    <h3 className="pageModuleSubTitle" style={{marginTop: "12px"}}>Daily Trend</h3>
+                                                  </div>
+                                                  {/*Daily Product Sales Line chart*/}
+                                                  <div>
+                                                    <span style={{float: "right"}}>
+                                                      <DropdownButton className="glyphicon glyphicon-menu-hamburger" pullRight style={{
+                                                        backgroundColor: "transparent",
+                                                        borderColor: "transparent",
+                                                        color: "#00539f"
+                                                      }} id="dropButtonId">
+                                                        <MenuItem onClick={() => {
+                                                          saveImage(document.getElementById('prod_daily_sales_svg'), "product_daily_lineChart_trend")
+                                                        }
+                                                        }>Save As JPEG</MenuItem>
+                                                        <MenuItem onClick={() => {
+                                                          saveDataAsCSV(this.props.DailySales.prod_charts_data.graph_data.graph_data, "product_daily_trend_lineChart_data.csv")
+                                                        }
+                                                        }>Download CSV</MenuItem>
+                                                      </DropdownButton>
+                                                    </span>
+                                                  </div>
+                                                  <DualLineChart2 x_axis="Week Day" y_axis="Daily Trend"
+                                                                  legendTY={this.state.legendTY}
+                                                                  legendLY={this.state.legendLY}
+                                                                  id="prod_daily_sales"
+                                                                  data={this.props.DailySales.prod_charts_data.graph_data.graph_data}/>
+                                                </div>
                                               </Panel>
                                             )
                                           }
@@ -1284,15 +1356,49 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                     <div className="col-md-6 col-sm-6">
                                       {(() => {
                                         if (this.props.DailySales.prod_charts_data && this.props.DailySales.prod_charts_data.graph_data && this.props.DailySales.ProdChartsSpinnerCheck != 0) {
-                                          return (
-                                            <Panel style={{alignItems: "center"}}>
-                                              <MultiSeriesBarChart x_axis="Week Day" y_axis="Cumulative Value"
-                                                                   legendTY="WTD TY"
-                                                                   legendLY="WTD LY"
-                                                                   id="prod_cumulative_sales"
-                                                                   data={this.props.DailySales.prod_charts_data.graph_data}/>
-                                            </Panel>
-                                          )
+                                          if (this.props.DailySales.prod_charts_data.graph_data.cum_graph_data.length != 0) {
+                                            return (
+                                              <Panel style={{alignItems: "center"}}>
+                                                <div className="col-xs-12">
+                                                  <div className="col-md-9 col-sm-12 col-xs-12"
+                                                       style={{textAlign: "center"}}>
+                                                    <h3 className="pageModuleSubTitle" style={{marginTop: "12px"}}>
+                                                      Cumulative Trend</h3>
+                                                  </div>
+                                                  {/*Cumulative Product Sales Bar chart*/}
+                                                  <div>
+                                                    <span style={{float: "right"}}>
+                                                      <DropdownButton className="glyphicon glyphicon-menu-hamburger"
+                                                                      pullRight style={{
+                                                        backgroundColor: "transparent",
+                                                        borderColor: "transparent",
+                                                        color: "#00539f"
+                                                      }} id="dropButtonId">
+                                                        <MenuItem onClick={() => {
+                                                          saveImage(document.getElementById('prod_cumulative_sales_svg'), "product_cumulative_barChart_trend")
+                                                        }
+                                                        }>Save As JPEG</MenuItem>
+                                                        <MenuItem onClick={() => {
+                                                          saveDataAsCSV(this.props.DailySales.prod_charts_data.graph_data.cum_graph_data, "product_daily_trend_lineChart_data.csv")
+                                                        }
+                                                        }>Download CSV</MenuItem>
+                                                      </DropdownButton>
+                                                    </span>
+                                                  </div>
+                                                  <MultiSeriesBarChart x_axis="Week Day" y_axis="Cumulative Value"
+                                                                       legendTY="WTD TY"
+                                                                       legendLY="WTD LY"
+                                                                       id="prod_cumulative_sales"
+                                                                       data={this.props.DailySales.prod_charts_data.graph_data}/>
+                                                </div>
+                                              </Panel>
+                                            )
+                                          }
+                                          else {
+                                            return (
+                                              <div> No Sales for This Product in the Selected Week! </div>
+                                            )
+                                          }
                                         }
                                         else {
                                           return (
@@ -1305,43 +1411,6 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                 </Modal.Body>
                               </Modal>
 
-                              <Modal show={this.state.showCumSalesInfoModalFlag} bsSize="lg"
-                                     aria-labelledby="contained-modal-title-lg"
-                              >
-                                <Modal.Header>
-
-                                  <Modal.Title id="contained-modal-title-sm" className="pageModuleTitle">
-                            <span className="pageModuleTitle"><b>{this.state.y_axis}
-                              Cum Trend : {this.state.product}</b>
-                             <span style={{textAlign: 'right', float: 'right'}}
-                                   onClick={() => {
-                                     this.setState({showCumSalesInfoModalFlag: false})
-                                   }}>
-                              <b>X</b></span></span>
-                                  </Modal.Title>
-
-                                </Modal.Header>
-                                <Modal.Body className="infoModalText">
-                                  <div>
-                                    {(() => {
-                                      if (this.props.DailySales.prod_cum_data && this.props.DailySales.prod_cum_data.graph_data && this.props.DailySales.CumTrendSpinnerCheck != 0) {
-                                        return (
-                                          <Panel style={{alignItems: "center"}}>
-                                            <MultiSeriesBarChart x_axis="Week Day" y_axis={this.state.y_axis}
-                                                                 legendTY={this.state.legendTY}
-                                                                 legendLY={this.state.legendLY}
-                                                                 id="prod_cumulative_sales"
-                                                                 data={this.props.DailySales.prod_cum_data.graph_data}/>
-                                          </Panel>
-                                        )
-                                      }
-                                      else {
-                                        return (<div className="text-center"><Spinner />Please Wait a Moment....!</div>)
-                                      }
-                                    })()}
-                                  </div>
-                                </Modal.Body>
-                              </Modal>
                             </div>
                           </div>
                         </div>

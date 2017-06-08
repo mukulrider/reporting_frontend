@@ -86,7 +86,7 @@ class FiltersProduct extends React.PureComponent { // eslint-disable-line react/
                     </div>
                   );
 
-                  if (item.title != 'store_type') {
+                  if (item.title != 'store_type' && item.title != 'product' && item.title != 'brand_name') {
                     return (
 
                       <Panel header={panelHeader} eventKey={++key} key={Date.now() + Math.random()}>
