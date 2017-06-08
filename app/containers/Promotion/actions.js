@@ -44,7 +44,7 @@ import {
   PIE_CHART_FOR_EACH_TAB, PIE_CHART_FOR_EACH_TAB_SUCCESS, TREND_FOR_EACH_TAB, TREND_FOR_EACH_TAB_SUCCESS,
   PRODUCTS_ON_PROMOTION_TABLE, PRODUCTS_ON_PROMOTION_TABLE_SUCCESS, STORE_FILTER_PARAM, MODAL_PRODUCT_NAME,
   MODAL_PRODUCT_DATA_SUCCESS, MODAL_PRODUCT_DATA, MODAL_SAVE_TREND_CHART_TAB_PARAMS, DEFAULT_GREY_SCREEN,
-  SAVE_LINE_CHART_TYPE, SAVE_PIE_CHART_TYPE
+  SAVE_LINE_CHART_TYPE, SAVE_PIE_CHART_TYPE, SAVE_MODAL_LINE_CHART_TYPE
 
 } from './constants';
 
@@ -446,6 +446,14 @@ export function savePieChartType(data) {
 export function saveLineChartType(data) {
   return {
     type: SAVE_LINE_CHART_TYPE,
+    data
+  }
+}
+
+//-------------------------Trend chart SPINNER ----------------------
+export function saveModalLineChartType(data) {
+  return {
+    type: SAVE_MODAL_LINE_CHART_TYPE,
     data
   }
 }

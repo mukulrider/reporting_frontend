@@ -35,22 +35,22 @@ export const KPI_PARAM = 'app/Promotion/KPI_PARAM';
 
 
 //Filter Constants
-export const FILTER_CONSTANT='app/Promotion/FILTER_CONSTANT';
+export const FILTER_CONSTANT = 'app/Promotion/FILTER_CONSTANT';
 
-export const FILTER_FETCH_SUCCESS='app/Promotion/FILTER_FETCH_SUCCESS';
+export const FILTER_FETCH_SUCCESS = 'app/Promotion/FILTER_FETCH_SUCCESS';
 export const CHECKBOX_CHANGE = 'app/Promotion/CHECKBOX_CHANGE';
 
-export const WEEK_FILTER_CONSTANT='app/Promotion/WEEK_FILTER_CONSTANT';
-export const WEEK_FILTER_FETCH_SUCCESS='app/Promotion/WEEK_FILTER_FETCH_SUCCESS';
-export const WEEK_FILTER_PARAM='app/Promotion/WEEK_FILTER_PARAM';
-export const STORE_FILTER_PARAM='app/Promotion/STORE_FILTER_PARAM';
-export const MODAL_PRODUCT_NAME='app/Promotion/MODAL_PRODUCT_NAME';
-export const MODAL_PRODUCT_DATA='app/Promotion/MODAL_PRODUCT_DATA';
-export const MODAL_PRODUCT_DATA_SUCCESS='app/Promotion/MODAL_PRODUCT_DATA_SUCCESS';
+export const WEEK_FILTER_CONSTANT = 'app/Promotion/WEEK_FILTER_CONSTANT';
+export const WEEK_FILTER_FETCH_SUCCESS = 'app/Promotion/WEEK_FILTER_FETCH_SUCCESS';
+export const WEEK_FILTER_PARAM = 'app/Promotion/WEEK_FILTER_PARAM';
+export const STORE_FILTER_PARAM = 'app/Promotion/STORE_FILTER_PARAM';
+export const MODAL_PRODUCT_NAME = 'app/Promotion/MODAL_PRODUCT_NAME';
+export const MODAL_PRODUCT_DATA = 'app/Promotion/MODAL_PRODUCT_DATA';
+export const MODAL_PRODUCT_DATA_SUCCESS = 'app/Promotion/MODAL_PRODUCT_DATA_SUCCESS';
 
 //export const GENERATE_TEXTBOX_QUERY_STRING = 'app/RangingNpdPage/GENERATE_TEXTBOX_QUERY_STRING';
-export const SEND_URL_PARAMS= 'app/Promotion/SEND_URL_PARAMS';
-export const SAVE_WEEK_PARAM= 'app/Promotion/SAVE_WEEK_PARAM';
+export const SEND_URL_PARAMS = 'app/Promotion/SEND_URL_PARAMS';
+export const SAVE_WEEK_PARAM = 'app/Promotion/SAVE_WEEK_PARAM';
 
 //Params for the pie and line chart nav
 export const SALES_PARAM = 'app/Promotion/SALES_PARAM';
@@ -95,22 +95,21 @@ export const PIE_CHART_FOR_EACH_TAB = 'app/Promotion/PIE_CHART_FOR_EACH_TAB';
 export const PIE_CHART_FOR_EACH_TAB_SUCCESS = 'app/Promotion/PIE_CHART_FOR_EACH_TAB_SUCCESS';
 export const TREND_FOR_EACH_TAB = 'app/Promotion/TREND_FOR_EACH_TAB';
 export const TREND_FOR_EACH_TAB_SUCCESS = 'app/Promotion/TREND_FOR_EACH_TAB_SUCCESS';
-export const PRODUCTS_ON_PROMOTION_TABLE= 'app/Promotion/PRODUCTS_ON_PROMOTION_TABLE';
-export const PRODUCTS_ON_PROMOTION_TABLE_SUCCESS= 'app/Promotion/PRODUCTS_ON_PROMOTION_TABLE_SUCCESS';
-export const SAVE_TREND_CHART_TAB_PARAMS= 'app/Promotion/SAVE_TREND_CHART_TAB_PARAMS';
-export const MODAL_SAVE_TREND_CHART_TAB_PARAMS= 'app/Promotion/MODAL_SAVE_TREND_CHART_TAB_PARAMS';
-export const SAVE_METRIC_SELECTION_TAB= 'app/Promotion/SAVE_METRIC_SELECTION_TAB';
+export const PRODUCTS_ON_PROMOTION_TABLE = 'app/Promotion/PRODUCTS_ON_PROMOTION_TABLE';
+export const PRODUCTS_ON_PROMOTION_TABLE_SUCCESS = 'app/Promotion/PRODUCTS_ON_PROMOTION_TABLE_SUCCESS';
+export const SAVE_TREND_CHART_TAB_PARAMS = 'app/Promotion/SAVE_TREND_CHART_TAB_PARAMS';
+export const MODAL_SAVE_TREND_CHART_TAB_PARAMS = 'app/Promotion/MODAL_SAVE_TREND_CHART_TAB_PARAMS';
+export const SAVE_METRIC_SELECTION_TAB = 'app/Promotion/SAVE_METRIC_SELECTION_TAB';
 //-------------------------DEFAULT SCREEN WHEN FILTERS ARE CLEARED----------------------
-export const DEFAULT_GREY_SCREEN= 'app/Promotion/DEFAULT_GREY_SCREEN';
+export const DEFAULT_GREY_SCREEN = 'app/Promotion/DEFAULT_GREY_SCREEN';
 
 
+export const SAVE_PIE_CHART_TYPE = 'app/Promotion/SAVE_PIE_CHART_TYPE';
+export const SAVE_LINE_CHART_TYPE = 'app/Promotion/SAVE_LINE_CHART_TYPE';
+export const SAVE_MODAL_LINE_CHART_TYPE = 'app/Promotion/SAVE_MODAL_LINE_CHART_TYPE';
 
-export const SAVE_PIE_CHART_TYPE= 'app/Promotion/SAVE_PIE_CHART_TYPE';
-export const SAVE_LINE_CHART_TYPE= 'app/Promotion/SAVE_LINE_CHART_TYPE';
 
-
-
-PIE_CHART_FOR_EACH_TAB,TREND_FOR_EACH_TAB,PRODUCTS_ON_PROMOTION_TABLE
+//PIE_CHART_FOR_EACH_TAB,TREND_FOR_EACH_TAB,PRODUCTS_ON_PROMOTION_TABLE
 
 
 
