@@ -6,3 +6,14 @@
 .arc path {
   stroke: #fff;
 }
+
+.glyphiconPositive { color: green; }
+
+.glyphiconNegative { color: red; }
+
+.glyphiconNeutral { color: #FFA626; }
+
+.control.glyphicon {
+  position: static;
+  font-size: 23px;
+}

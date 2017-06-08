@@ -1006,6 +1006,56 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                     <div className="col-md-4 col-sm-12"
                                                          style={{backgroundColor: "#fafafa"}}>
                                                       <Panel>
+                                                        <h3 className="pageModuleSubTitle"> {obj.title} </h3>
+                                                        <div className="row">
+                                                          <div className="col-xs-6">
+                                                            <h3
+                                                              style={{
+                                                                padding: "0px",
+                                                                margin: "0px"
+                                                              }}>  {obj.sales} </h3>
+                                                          </div>
+                                                          <div className="col-xs-6">
+                                                            <h3 style={{padding: "0px", margin: "0px"}}>
+                                                              LFL: {obj.sales_lfl} </h3>
+                                                          </div>
+                                                        </div>
+
+                                                        <div className="row" style={{marginTop: '5%'}}>
+                                                          <div className="panel-body cardPanel">
+                                                            <div className="col-xs-4">
+                                                              <h4>
+                                                  <span className={glyphiconFormatter(obj.sales_var_week)}>
+                                                  </span>{(obj.sales_var_week) + '%'}
+                                                              </h4>
+                                                              &nbsp; &nbsp; <br></br>&nbsp; &nbsp;<span></span>&nbsp;
+
+                                                              <h5 className="kpiSubTitle"><b> {'WoW'} </b></h5>
+                                                            </div>
+                                                            <div className="col-xs-4">
+                                                              <h4>
+                                                  <span className={glyphiconFormatter(obj.sales_var_year)}>
+                                                  </span>{(obj.sales_var_year) + '%'}
+                                                              </h4><br></br>
+                                                              <div>&nbsp;</div>
+                                                              <h5 className="kpiSubTitle"><b> {'YoY'} </b></h5>
+                                                            </div>
+                                                            <div className="col-xs-4">
+                                                              <h4>
+                                                  <span className={glyphiconFormatter(obj.sales_var_year_lfl)}>
+                                                  </span>{(obj.sales_var_year_lfl) + '%'}
+                                                              </h4><br></br>
+                                                              <div>&nbsp;</div>
+                                                              <h5 className="kpiSubTitle"><b>{'LFL'}</b></h5>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+
+                                                      </Panel>
+                                                    </div>
+                                                    <div className="col-md-4 col-sm-12"
+                                                         style={{backgroundColor: "#fafafa"}}>
+                                                      <Panel>
                                                         <h3 className="pageModuleSubTitle"> Contribution to Growth </h3>
                                                         <div className="row">
                                                           <div className="col-xs-6" style={{textAlign: "center"}}>
@@ -1054,56 +1104,6 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                               <h5 className="kpiSubTitle" style={{marginTop: '20px'}}>
                                                                 <b>{'LFL'}</b>
                                                               </h5>
-                                                            </div>
-                                                          </div>
-                                                        </div>
-
-                                                      </Panel>
-                                                    </div>
-                                                    <div className="col-md-4 col-sm-12"
-                                                         style={{backgroundColor: "#fafafa"}}>
-                                                      <Panel>
-                                                        <h3 className="pageModuleSubTitle"> {obj.title} </h3>
-                                                        <div className="row">
-                                                          <div className="col-xs-6">
-                                                            <h3
-                                                              style={{
-                                                                padding: "0px",
-                                                                margin: "0px"
-                                                              }}>  {obj.sales} </h3>
-                                                          </div>
-                                                          <div className="col-xs-6">
-                                                            <h3 style={{padding: "0px", margin: "0px"}}>
-                                                              LFL: {obj.sales_lfl} </h3>
-                                                          </div>
-                                                        </div>
-
-                                                        <div className="row" style={{marginTop: '5%'}}>
-                                                          <div className="panel-body cardPanel">
-                                                            <div className="col-xs-4">
-                                                              <h4>
-                                                  <span className={glyphiconFormatter(obj.sales_var_week)}>
-                                                  </span>{(obj.sales_var_week) + '%'}
-                                                              </h4>
-                                                              &nbsp; &nbsp; <br></br>&nbsp; &nbsp;<span></span>&nbsp;
-
-                                                              <h5 className="kpiSubTitle"><b> {'WoW'} </b></h5>
-                                                            </div>
-                                                            <div className="col-xs-4">
-                                                              <h4>
-                                                  <span className={glyphiconFormatter(obj.sales_var_year)}>
-                                                  </span>{(obj.sales_var_year) + '%'}
-                                                              </h4><br></br>
-                                                              <div>&nbsp;</div>
-                                                              <h5 className="kpiSubTitle"><b> {'YoY'} </b></h5>
-                                                            </div>
-                                                            <div className="col-xs-4">
-                                                              <h4>
-                                                  <span className={glyphiconFormatter(obj.sales_var_year_lfl)}>
-                                                  </span>{(obj.sales_var_year_lfl) + '%'}
-                                                              </h4><br></br>
-                                                              <div>&nbsp;</div>
-                                                              <h5 className="kpiSubTitle"><b>{'LFL'}</b></h5>
                                                             </div>
                                                           </div>
                                                         </div>
@@ -1456,6 +1456,56 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                     <div className="col-md-4 col-sm-12"
                                                          style={{backgroundColor: "#fafafa"}}>
                                                       <Panel>
+                                                        <h3 className="pageModuleSubTitle"> {obj.title} </h3>
+                                                        <div className="row">
+                                                          <div className="col-xs-6">
+                                                            <h3
+                                                              style={{
+                                                                padding: "0px",
+                                                                margin: "0px"
+                                                              }}>  {obj.sales} </h3>
+                                                          </div>
+                                                          <div className="col-xs-6">
+                                                            <h3 style={{padding: "0px", margin: "0px"}}>
+                                                              LFL: {obj.sales_lfl} </h3>
+                                                          </div>
+                                                        </div>
+
+                                                        <div className="row" style={{marginTop: '5%'}}>
+                                                          <div className="panel-body cardPanel">
+                                                            <div className="col-xs-4">
+                                                              <h4>
+                                        <span className={glyphiconFormatter(obj.sales_var_year)}>
+                                        </span>{(obj.sales_var_year) + '%'}
+                                                              </h4><br></br>
+                                                              <div>&nbsp;</div>
+                                                              <h5 className="kpiSubTitle"><b> {'YoY'} </b></h5>
+                                                            </div>
+                                                            <div className="col-xs-4" style={{visibility: 'hidden'}}>
+                                                              <h4>
+                                        <span className={glyphiconFormatter(obj.sales_var_week)}>
+                                        </span>{(obj.sales_var_week) + '%'}
+                                                              </h4>
+                                                              &nbsp; &nbsp; <br></br>&nbsp; &nbsp;<span></span>&nbsp;
+
+                                                              <h5 className="kpiSubTitle"><b> {'WoW'} </b></h5>
+                                                            </div>
+                                                            <div className="col-xs-4">
+                                                              <h4>
+                                        <span className={glyphiconFormatter(obj.sales_var_year_lfl)}>
+                                        </span>{(obj.sales_var_year_lfl) + '%'}
+                                                              </h4><br></br>
+                                                              <div>&nbsp;</div>
+                                                              <h5 className="kpiSubTitle"><b>{'LFL'}</b></h5>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+
+                                                      </Panel>
+                                                    </div>
+                                                    <div className="col-md-4 col-sm-12"
+                                                         style={{backgroundColor: "#fafafa"}}>
+                                                      <Panel>
                                                         <h3 className="pageModuleSubTitle"> Contribution to Growth </h3>
                                                         <div className="row">
                                                           <div className="col-xs-6" style={{textAlign: "center"}}>
@@ -1504,56 +1554,6 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                                                               <h5 className="kpiSubTitle" style={{marginTop: '20px'}}>
                                                                 <b>{'LFL'}</b>
                                                               </h5>
-                                                            </div>
-                                                          </div>
-                                                        </div>
-
-                                                      </Panel>
-                                                    </div>
-                                                    <div className="col-md-4 col-sm-12"
-                                                         style={{backgroundColor: "#fafafa"}}>
-                                                      <Panel>
-                                                        <h3 className="pageModuleSubTitle"> {obj.title} </h3>
-                                                        <div className="row">
-                                                          <div className="col-xs-6">
-                                                            <h3
-                                                              style={{
-                                                                padding: "0px",
-                                                                margin: "0px"
-                                                              }}>  {obj.sales} </h3>
-                                                          </div>
-                                                          <div className="col-xs-6">
-                                                            <h3 style={{padding: "0px", margin: "0px"}}>
-                                                              LFL: {obj.sales_lfl} </h3>
-                                                          </div>
-                                                        </div>
-
-                                                        <div className="row" style={{marginTop: '5%'}}>
-                                                          <div className="panel-body cardPanel">
-                                                            <div className="col-xs-4">
-                                                              <h4>
-                                        <span className={glyphiconFormatter(obj.sales_var_year)}>
-                                        </span>{(obj.sales_var_year) + '%'}
-                                                              </h4><br></br>
-                                                              <div>&nbsp;</div>
-                                                              <h5 className="kpiSubTitle"><b> {'YoY'} </b></h5>
-                                                            </div>
-                                                            <div className="col-xs-4" style={{visibility: 'hidden'}}>
-                                                              <h4>
-                                        <span className={glyphiconFormatter(obj.sales_var_week)}>
-                                        </span>{(obj.sales_var_week) + '%'}
-                                                              </h4>
-                                                              &nbsp; &nbsp; <br></br>&nbsp; &nbsp;<span></span>&nbsp;
-
-                                                              <h5 className="kpiSubTitle"><b> {'WoW'} </b></h5>
-                                                            </div>
-                                                            <div className="col-xs-4">
-                                                              <h4>
-                                        <span className={glyphiconFormatter(obj.sales_var_year_lfl)}>
-                                        </span>{(obj.sales_var_year_lfl) + '%'}
-                                                              </h4><br></br>
-                                                              <div>&nbsp;</div>
-                                                              <h5 className="kpiSubTitle"><b>{'LFL'}</b></h5>
                                                             </div>
                                                           </div>
                                                         </div>
@@ -2538,11 +2538,14 @@ export class Supplier extends React.PureComponent { // eslint-disable-line react
                               <div style={{textAlign: 'center', marginBottom: '10px'}}>
                                 <Button buttonType={'primary'} onClick={() => {
                                   //For table
-                                  {/*this.props.onGenerateTable();*/}
+                                  {/*this.props.onGenerateTable();*/
+                                  }
                                   //For Bubble Graph
-                                  {/*this.props.onFetchGraph();*/}
-                                  {/*this.setState({bubbleChartModal: true})*/}
-                                  window.location="/ranging/negotiation/"
+                                  {/*this.props.onFetchGraph();*/
+                                  }
+                                  {/*this.setState({bubbleChartModal: true})*/
+                                  }
+                                  window.location = "/ranging/negotiation/"
                                 }}>Negotiation Opportunity</Button>
                               </div>
                             </div>
