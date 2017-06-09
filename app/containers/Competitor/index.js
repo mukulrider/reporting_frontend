@@ -439,7 +439,7 @@ export class Competitor extends React.PureComponent {
 
                       <div className="row">
                         <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12 panel-body ts-blk-proview">
-                          <div className="col-md-12 col-sm-12" style={{backgroundColor: "#fff", border: "1px solid #ccc"}}>
+                          <div style={{backgroundColor: "#fff", border: "1px solid #ccc"}}>
                             <div className="col-md-9 col-sm-9 col-xs-9">
                               <h4 className="pageModuleSubTitle"><b>Market Share</b></h4>
                             </div>
@@ -465,54 +465,51 @@ export class Competitor extends React.PureComponent {
                             {(() => {
 
                               if (this.props.competitor.piechart_data.pie_chart_value && (this.props.competitor.onPieChartSpinnerSuccess == 1)) {
-                                console.log("pie chart data", this.props.competitor.piechart_data);
+                                console.log("pie chart data --- ", this.props.competitor.piechart_data);
                                 return (
                                   <div>
 
                                     <Pichart ref="competitorPieChartComp"
-                                             data={this.props.competitor.piechart_data.pie_chart_value} id="piechart"/>
+                                             data={this.props.competitor.piechart_data.pie_chart_value} id="piechart" wowValue={this.props.competitor.piechart_data.tesco_share_data} />
                                   </div>
                                 )
                               }
                               else {
                                 return (
-
                                   <div className="row">
                                     <div className="col-md-9 col-sm-9 col-xs-9 text-center"><Spinner />Please Wait a
                                       Moment....!
                                     </div>
                                   </div>
-
-
                                 );
                               }
                             })()}
                             <div>
-                              {(() => {
+                              {/*{(() => {*/}
 
-                                if (this.props.competitor.piechart_data && (this.props.competitor.onPieChartSpinnerSuccess == 1)) {
-                                  return (
+                                {/*if (this.props.competitor.piechart_data && (this.props.competitor.onPieChartSpinnerSuccess == 1)) {*/}
+                                  {/*return (*/}
 
-                                    <div className="panel-body wowformatting">
+                                    {/*<div className="panel-body wowformatting">*/}
 
-                      <span
-                        className={(() => {
-                          if (this.props.competitor.piechart_data.tesco_share_data > 0) {
-                            return "glyphicon glyphicon-triangle-top glyphiconPositive"
-                          }
-                          else if (this.props.competitor.piechart_data.tesco_share_data < 0) {
-                            return "glyphicon glyphicon-triangle-bottom glyphiconNegative"
-                          } else {
-                            return "glyphicon glyphicon-minus-sign glyphiconNeutral"
-                          }
-                        })()}>{this.props.competitor.piechart_data.tesco_share_data}
+                      {/*<span*/}
+                        {/*className={(() => {*/}
+                          {/*if (this.props.competitor.piechart_data.tesco_share_data > 0) {*/}
+                            {/*return "glyphicon glyphicon-triangle-top glyphiconPositive"*/}
+                          {/*}*/}
+                          {/*else if (this.props.competitor.piechart_data.tesco_share_data < 0) {*/}
+                            {/*return "glyphicon glyphicon-triangle-bottom glyphiconNegative"*/}
+                          {/*} else {*/}
+                            {/*return "glyphicon glyphicon-minus-sign glyphiconNeutral"*/}
+                          {/*}*/}
+                        {/*})()}>{this.props.competitor.piechart_data.tesco_share_data}*/}
 
-                      </span>
-                                      <h4> WoW </h4>
-                                    </div>
-                                  )
-                                }
-                              })()}
+                      {/*</span>*/}
+                                      {/*<h4> WoW </h4>*/}
+                                    {/*</div>*/}
+                                  {/*)*/}
+                                {/*}*/}
+                              {/*})()}*/}
 
                             </div>
                           </div>

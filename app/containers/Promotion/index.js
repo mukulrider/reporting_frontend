@@ -52,7 +52,7 @@ import {
   saveTrendChartTabParam, productsOnPromoTableFetch, trendChartDataFetch, pieChartDataFetch,
   saveMetricSelectionTabParam,
   trendChartSpinner, modalProductName, modalProductInfo, modalProductInfoSuccess, StoreFilterParam, defaultGreyScreen,
-  savePieChartType, saveLineChartType,
+  savePieChartType, saveLineChartType, saveModalLineChartType,
 } from './actions';
 
 function glyphiconFormatter(cell) {
@@ -1384,7 +1384,7 @@ export class Promotion extends React.PureComponent {
                               {/*Left---pie chart*/}
                               <div className="col-lg-3 col-md-4 col-sm-12 col-xs-12"
                                    style={{
-                                     minHeight: '450px',
+                                     minHeight: '540px',
                                      borderRadius: '1px',
                                      border: '1px solid rgb(204, 204, 204)',
                                      float: 'left',
@@ -1438,7 +1438,7 @@ export class Promotion extends React.PureComponent {
 
                               {/*Right--- line chart and tabs*/}
                               <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12" style={{
-                                minHeight: '450px',
+                                minHeight: '540px',
                                 borderRadius: '1px',
                                 border: '1px solid rgb(204, 204, 204)',
                                 marginTop: '2%',
@@ -1704,23 +1704,6 @@ export class Promotion extends React.PureComponent {
                                   if (this.props.promotion.kpi_param === 'kpi_type=value' || this.props.promotion.kpi_param === 'kpi_type=volume') {
                                     return (
                                       <div className="row text-center" style={{fontSize: '16px'}}>
-                                        {/*<div className="row text-center">*/}
-                                        {/*<Nav bsStyle="tabs" className="tabsCustomList2 secondaryTabs" justified activeKey={this.state.lineChartTypeTab} onSelect={() => {*/}
-                                        {/*}}>*/}
-                                        {/*<NavItem className="tabsCustomList2" eventKey={1} onClick={() => {*/}
-                                        {/*this.setState({lineChartTypeTab:1 })*/}
-                                        {/*this.props.trendChartSpinner(0);*/}
-                                        {/*this.props.onSaveLineChartType('absolute')*/}
-                                        {/*this.props.trendChartDataFetch()*/}
-                                        {/*}}><span  className="tab_label">Absolute</span></NavItem>*/}
-                                        {/*<NavItem className="tabsCustomList2" eventKey={2} onClick={() => {*/}
-                                        {/*this.setState({lineChartTypeTab: 2})*/}
-                                        {/*this.props.trendChartSpinner(0);*/}
-                                        {/*this.props.onSaveLineChartType('participation')*/}
-                                        {/*this.props.trendChartDataFetch()*/}
-                                        {/*}}><span  className="tab_label">Promotion</span></NavItem>*/}
-                                        {/*</Nav>*/}
-                                        {/*</div>*/}
                                         <div className="col-xs-4">{(() => {
                                           if (this.props.promotion.lineChartType === 'absolute') {
                                             return (
@@ -2370,6 +2353,52 @@ export class Promotion extends React.PureComponent {
                             </div>
 
                             {(() => {
+                              if (this.props.promotion.kpi_param === 'kpi_type=value' || this.props.promotion.kpi_param === 'kpi_type=volume') {
+                                return (
+                                  <div className="row text-center" style={{fontSize: '16px'}}>
+                                    <div className="col-xs-4">{(() => {
+                                      if (this.props.promotion.modalLineChartType === 'absolute') {
+                                        return (
+                                          <b style={{color: '#3a7fc0'}}>Absolute</b>
+                                        )
+                                      }
+                                      return (
+                                        <div>Absolute</div>
+                                      )
+                                    })()}</div>
+                                    <div className="col-xs-4">
+                                      <Toggle
+                                        label=""
+                                        style={{margin: '0 auto', display: 'block'}}
+                                        defaultToggled={this.props.promotion.modalLineChartType === 'participation'}
+                                        thumbStyle={styles.thumbOff}
+                                        trackStyle={styles.trackOff}
+                                        thumbSwitchedStyle={styles.thumbSwitched}
+                                        trackSwitchedStyle={styles.trackSwitched}
+                                        labelStyle={styles.labelStyle}
+                                        onToggle={() => {
+                                          this.props.trendChartSpinner(0);
+                                          this.props.onSaveModalLineChartType(this.props.promotion.modalLineChartType === 'absolute' ? 'participation' : 'absolute')
+                                          this.props.onModalProductInfo()
+                                        }}
+                                      />
+                                    </div>
+                                    <div className="col-xs-4">{(() => {
+                                      if (this.props.promotion.modalLineChartType === 'participation') {
+                                        return (
+                                          <b style={{color: '#3a7fc0'}}>Participation</b>
+                                        )
+                                      }
+                                      return (
+                                        <div>Participation</div>
+                                      )
+                                    })()}</div>
+                                  </div>
+                                )
+                              }
+                            })()}
+
+                            {(() => {
                               if (this.props.promotion.modalProductData.trendChartData.data_available == 'yes') {
                                 console.log("--------------------", this.props.promotion.modalProductData.trendChartData)
                                 let label_ty = this.props.promotion.modalProductData.trendChartData.metric + " TY";
@@ -2397,6 +2426,13 @@ export class Promotion extends React.PureComponent {
                         </div>
 
                       </div>
+                    </div>
+                  )
+                }else{
+                  return (
+                    <div className="text-center">
+                      <h3>Loading...</h3>
+                      <Spinner/>
                     </div>
                   )
                 }
@@ -2682,6 +2718,7 @@ function mapDispatchToProps(dispatch) {
 
     onSavePieChartType: (e) => dispatch(savePieChartType(e)),
     onSaveLineChartType: (e) => dispatch(saveLineChartType(e)),
+    onSaveModalLineChartType: (e) => dispatch(saveModalLineChartType(e)),
 
     dispatch,
   };

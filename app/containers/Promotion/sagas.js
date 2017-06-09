@@ -898,6 +898,7 @@ export function* generateModalInfo() {
   let modalProductName = urlName.get('modalProductName');
   let promo_type = urlName.get('modalTrendChartTabParam');
   let store_selection = urlName.get('store_filter_param');
+  let lineChartType = urlName.get('modalLineChartType');
 
 
   let urlAppends = "";
@@ -912,6 +913,13 @@ export function* generateModalInfo() {
  //  }
  //
   // Week selection
+
+  console.log('lineChartType',lineChartType);
+  if (lineChartType) {
+    urlAppends = urlAppends + '&line_chart_type=' + lineChartType;
+
+  }
+
   if (week_param !== "") {
     urlAppends = urlAppends + '&' + week_param;
   }
@@ -955,6 +963,7 @@ export function* generateModalInfo() {
     // console.log('urlAppends1 2', urlAppends);
   }
   urlAppends = urlAppends.replace('&', '');
+  yield put(modalProductInfoSuccess(''));
 
   // const data = yield call(request, host_url + `/api/reporting/check_trend?` + urlAppends);
   const data = yield call(request, host_url + `/api/reporting/promo_prdlevel?` + urlAppends);
