@@ -117,10 +117,10 @@ class DualLineChart2 extends React.PureComponent { // eslint-disable-line react/
       .attr('transform', `translate(0,${height})`)
       .call(xAxis)
       .selectAll('text')
-      .style('text-anchor', 'end')
-      .attr('dx', '-.8em')
-      .attr('dy', '.15em')
-      .attr('transform', 'rotate(-45)');
+      // .style('text-anchor', 'end')
+      // .attr('dx', '-.8em')
+      // .attr('dy', '.15em')
+      // .attr('transform', 'rotate(0)');
       // .selectAll('text')
       // .style('text-anchor', 'end')
       // .attr('dx', '-.8em')
@@ -157,14 +157,14 @@ class DualLineChart2 extends React.PureComponent { // eslint-disable-line react/
       .style('font', '12px sans-serif');
 
     legend.append('rect')
-      .attr('x', width / 3 + 2 * (margin.left))
+      .attr('x', width / 3 + 1.5 * (margin.left))
       .attr('y',  height+1.5*margin.top)
-      .attr('width', 25)
+      .attr('width', 30)
       .attr('height', 2.5)
       .attr('fill', z);
 
     legend.append('text')
-      .attr('x', width / 3 +3 * (margin.left))
+      .attr('x', width / 3 + 2.15 * (margin.left))
       .attr('y', height+1.5*margin.top)
       .attr('dy', '.35em')
       .attr('text-anchor', 'middle')

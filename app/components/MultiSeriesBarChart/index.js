@@ -154,10 +154,10 @@ class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line r
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x0))
       .selectAll('text')
-      .style('text-anchor', 'end')
-      .attr('dx', '-.8em')
-      .attr('dy', '.15em')
-      .attr('transform', 'rotate(-45)');
+      // .style('text-anchor', 'end')
+      // .attr('dx', '-.8em')
+      // .attr('dy', '.15em')
+      // .attr('transform', 'rotate(-45)');
       // .selectAll(".tick text");
       // .call(wrap, x0.bandwidth());
 
@@ -204,15 +204,15 @@ class MultiSeriesBarChart extends React.PureComponent { // eslint-disable-line r
       .style('font', '12px sans-serif');
 
     legend.append("rect")
-      .attr('x', width / 3 + 2 * (margin.left))
-      .attr('y',  height+1*margin.top)
+      .attr('x', width / 3 + 1.5 * (margin.left))
+      .attr('y',  height + margin.top)
       .attr("width", 18)
       .attr("height", 18)
       .attr("fill", z);
 
     legend.append("text")
-      .attr('x', width / 3 +2.5 * (margin.left))
-      .attr('y', height+1*margin.top)
+      .attr('x', width / 3 + 2.1 * (margin.left))
+      .attr('y', height+ margin.top)
       .attr('dy', '.95em')
       .attr('text-anchor', 'middle')
       .text(function (d) {
