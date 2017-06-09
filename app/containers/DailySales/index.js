@@ -694,19 +694,19 @@ export class DailySales extends React.PureComponent { // eslint-disable-line rea
                                             <div className="row">
                                               <div className="col-md-4 col-sm-4 col-xs-4">
                                                 <h4><span
-                                                  className={this.formatGlyphicon(b.vol_var_wow)}></span>&nbsp;{round(e.wow,1)}%
+                                                  className={this.formatGlyphicon(e.wow)}></span>&nbsp;{round(e.wow,1)}%
                                                 </h4>
                                                 <h5 className="kpiSubTitle"><b>WoW</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
                                                 <h4><span
-                                                  className={this.formatGlyphicon(b.vol_var_yoy)}></span>&nbsp;{round(e.yoy,1)}%
+                                                  className={this.formatGlyphicon(e.yoy)}></span>&nbsp;{round(e.yoy,1)}%
                                                 </h4>
                                                 <h5 className="kpiSubTitle"><b>YoY</b></h5>
                                               </div>
                                               <div className="col-md-4 col-sm-4 col-xs-4">
                                                 <h4><span
-                                                  className={this.formatGlyphicon(b.vol_var_lfl)}></span>&nbsp;{round(e.yoy_lfl,1)}%
+                                                  className={this.formatGlyphicon(e.yoy_lfl)}></span>&nbsp;{round(e.yoy_lfl,1)}%
                                                 </h4>
                                                 <h5 className="kpiSubTitle"><b>LFL</b></h5>
                                               </div>
